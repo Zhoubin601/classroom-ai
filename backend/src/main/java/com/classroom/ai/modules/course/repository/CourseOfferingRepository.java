@@ -25,6 +25,19 @@ public interface CourseOfferingRepository extends JpaRepository<CourseOffering, 
                                          @Param("teacher") String teacher, 
                                          @Param("courseKeyword") String courseKeyword);
 
+    @Query("SELECT o FROM CourseOffering o WHERE " +
+           "(:term IS NULL OR o.academicTerm = :term) AND " +
+           "(:teacher IS NULL OR o.teacherName LIKE %:teacher% OR o.teacherCode = :teacher) AND " +
+           "(:courseKeyword IS NULL OR o.course.courseName LIKE %:courseKeyword% OR o.course.courseCode LIKE %:courseKeyword%) AND " +
+           "(:majorCode IS NULL OR o.majorCode = :majorCode OR o.course.majorCode = :majorCode)")
+    List<CourseOffering> searchOfferingsWithMajor(
+            @Param("term") String term,
+            @Param("teacher") String teacher,
+            @Param("courseKeyword") String courseKeyword,
+            @Param("majorCode") String majorCode
+    );
+
+
     @Query("SELECT COALESCE(SUM(o.studentCount), 0) FROM CourseOffering o WHERE o.teacherName = :teacherName")
     Long sumTotalStudentsByTeacher(@Param("teacherName") String teacherName);
 }

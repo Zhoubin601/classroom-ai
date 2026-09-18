@@ -32,6 +32,9 @@ class CourseScheduleConflictTest {
     @Mock
     private CourseOfferingRepository offeringRepository;
 
+    @Mock
+    private com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository offeringTeacherRepository;
+
     @InjectMocks
     private CourseScheduleServiceImpl scheduleService;
 
@@ -42,6 +45,7 @@ class CourseScheduleConflictTest {
         Course course = Course.builder().id(1L).courseCode("CS3001").courseName("软件项目管理").build();
         mockOffering = CourseOffering.builder()
                 .id(100L)
+                .academicTerm("2024-2025-1")
                 .course(course)
                 .teacherName("郭军")
                 .className("软件工程2024级2班")
@@ -65,8 +69,9 @@ class CourseScheduleConflictTest {
                 .endPeriod(4)
                 .build();
 
-        when(scheduleRepository.findConflictingSchedules(
-                eq("文管 A447"), eq(3), eq(1), eq(16), eq(3), eq(4), isNull()
+        when(offeringRepository.findById(200L)).thenReturn(Optional.of(CourseOffering.builder().id(200L).academicTerm("2024-2025-1").build()));
+        when(scheduleRepository.findConflictingClassroomSchedules(
+                any(), eq("文管 A447"), eq(3), eq(1), eq(16), eq(3), eq(4), isNull()
         )).thenReturn(List.of(existing));
 
         CourseScheduleDTO newScheduleDTO = CourseScheduleDTO.builder()
@@ -91,8 +96,8 @@ class CourseScheduleConflictTest {
     @Test
     @DisplayName("无冲突排课：教室时段空闲时正常排课成功")
     void testScheduleSuccess_WhenNoConflict() {
-        when(scheduleRepository.findConflictingSchedules(
-                anyString(), anyInt(), anyInt(), anyInt(), anyInt(), anyInt(), any()
+        when(scheduleRepository.findConflictingClassroomSchedules(
+                any(), anyString(), anyInt(), anyInt(), anyInt(), anyInt(), anyInt(), any()
         )).thenReturn(Collections.emptyList());
 
         when(offeringRepository.findById(100L)).thenReturn(Optional.of(mockOffering));

@@ -14,8 +14,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ApiExceptionHandlerTest {
     @Test void invalidInputUsesJsonAndClientStatus() throws Exception {
         var service = mock(CourseService.class);
+        var offeringRepo = mock(com.classroom.ai.modules.course.repository.CourseOfferingRepository.class);
         when(service.getCourseById(99L)).thenThrow(new IllegalArgumentException("Invalid course"));
-        MockMvcBuilders.standaloneSetup(new CourseController(service)).setControllerAdvice(new ApiExceptionHandler()).build()
+        MockMvcBuilders.standaloneSetup(new CourseController(service, offeringRepo)).setControllerAdvice(new ApiExceptionHandler()).build()
                 .perform(get("/api/v1/courses/99"))
                 .andExpect(status().isBadRequest()).andExpect(jsonPath("$.code").value(400))
                 .andExpect(jsonPath("$.message").value("Invalid course"));
@@ -23,15 +24,17 @@ class ApiExceptionHandlerTest {
 
     @Test void databaseConstraintErrorsDoNotExposeSqlOrReturnServerError() throws Exception {
         var service = mock(CourseService.class);
+        var offeringRepo = mock(com.classroom.ai.modules.course.repository.CourseOfferingRepository.class);
         doThrow(new DataIntegrityViolationException("private SQL details")).when(service).deleteCourse(1L);
-        MockMvcBuilders.standaloneSetup(new CourseController(service)).setControllerAdvice(new ApiExceptionHandler()).build()
+        MockMvcBuilders.standaloneSetup(new CourseController(service, offeringRepo)).setControllerAdvice(new ApiExceptionHandler()).build()
                 .perform(delete("/api/v1/courses/1"))
                 .andExpect(status().isConflict()).andExpect(jsonPath("$.code").value(409))
                 .andExpect(jsonPath("$.message").value("数据缺少必填字段、重复或仍被其他记录引用"));
     }
 
     @Test void malformedJsonUsesResponseEnvelope() throws Exception {
-        MockMvcBuilders.standaloneSetup(new CourseController(mock(CourseService.class)))
+        var offeringRepo = mock(com.classroom.ai.modules.course.repository.CourseOfferingRepository.class);
+        MockMvcBuilders.standaloneSetup(new CourseController(mock(CourseService.class), offeringRepo))
                 .setControllerAdvice(new ApiExceptionHandler()).build()
                 .perform(post("/api/v1/courses").contentType(MediaType.APPLICATION_JSON).content("{"))
                 .andExpect(status().isBadRequest()).andExpect(jsonPath("$.code").value(400));

@@ -79,37 +79,19 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseOffering> getOfferingsByTerm(String term) {
-        List<CourseOffering> list = courseOfferingRepository.findByAcademicTerm(term);
-        syncOfferingStudentCounts(list);
-        return list;
+        return courseOfferingRepository.findByAcademicTerm(term);
     }
 
     @Override
     public List<CourseOffering> getOfferingsByTeacher(String teacher) {
-        List<CourseOffering> list = courseOfferingRepository.findByTeacherName(teacher);
-        syncOfferingStudentCounts(list);
-        return list;
+        return courseOfferingRepository.findByTeacherName(teacher);
     }
 
     @Override
     public List<CourseOffering> searchOfferings(String term, String teacher, String keyword) {
-        List<CourseOffering> list = courseOfferingRepository.searchOfferings(term, teacher, keyword);
-        syncOfferingStudentCounts(list);
-        return list;
+        return courseOfferingRepository.searchOfferings(term, teacher, keyword);
     }
 
-    private void syncOfferingStudentCounts(List<CourseOffering> list) {
-        if (list == null) return;
-        for (CourseOffering off : list) {
-            if (off.getClassName() != null) {
-                int realCount = (int) studentRepository.countByClassName(off.getClassName());
-                if (!Integer.valueOf(realCount).equals(off.getStudentCount())) {
-                    off.setStudentCount(realCount);
-                    courseOfferingRepository.save(off);
-                }
-            }
-        }
-    }
 
     @Override
     @Transactional

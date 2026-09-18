@@ -85,19 +85,21 @@ class RegressionTest {
 
     @Test void defaultWeeksHaveValidHumanReadableLabel() {
         var schedules = mock(CourseScheduleRepository.class);
+        var teacherRepo = mock(com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository.class);
         when(offerings.findById(1L)).thenReturn(Optional.of(CourseOffering.builder().id(1L).build()));
         when(schedules.save(any())).thenAnswer(call -> call.getArgument(0));
-        var saved = new CourseScheduleServiceImpl(schedules, offerings).saveSchedule(CourseScheduleDTO.builder()
+        var saved = new CourseScheduleServiceImpl(schedules, offerings, teacherRepo).saveSchedule(CourseScheduleDTO.builder()
                 .offeringId(1L).classroom("A").dayOfWeek(1).startPeriod(1).endPeriod(2).build());
         assertEquals("1-16周", saved.getWeekRange());
-        verify(schedules).findConflictingSchedules("A", 1, 1, 16, 1, 2, null);
+        verify(schedules).findConflictingClassroomSchedules(any(), eq("A"), eq(1), eq(1), eq(16), eq(1), eq(2), isNull());
     }
 
     @Test void reversedScheduleRangesAreRejected() {
-        var service = new CourseScheduleServiceImpl(mock(CourseScheduleRepository.class), offerings);
-        assertThrows(IllegalArgumentException.class, () -> service.checkConflict("A", 1, 16, 1, 1, 2, null));
-        assertThrows(IllegalArgumentException.class, () -> service.checkConflict("A", 8, 1, 16, 1, 2, null));
-        assertThrows(IllegalArgumentException.class, () -> service.checkConflict("A", 1, 1, 16, 3, 2, null));
+        var teacherRepo = mock(com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository.class);
+        var service = new CourseScheduleServiceImpl(mock(CourseScheduleRepository.class), offerings, teacherRepo);
+        assertThrows(IllegalArgumentException.class, () -> service.checkConflict(null, "A", 1, 16, 1, 1, 2, null));
+        assertThrows(IllegalArgumentException.class, () -> service.checkConflict(null, "A", 8, 1, 16, 1, 2, null));
+        assertThrows(IllegalArgumentException.class, () -> service.checkConflict(null, "A", 1, 1, 16, 3, 2, null));
     }
 
     @Test void teacherSeesPublishedAnonymousCopiesOnly() {

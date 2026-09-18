@@ -17,6 +17,7 @@ import java.util.List;
 public class CourseController {
 
     private final CourseService courseService;
+    private final com.classroom.ai.modules.course.repository.CourseOfferingRepository courseOfferingRepository;
 
     @GetMapping
     public ApiResponse<List<Course>> getAllCourses(@RequestParam(required = false) String keyword,
@@ -31,7 +32,21 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public ApiResponse<Course> getCourseById(@PathVariable Long id) {
-        return ApiResponse.success(courseService.getCourseById(id));
+        Course course = courseService.getCourseById(id);
+        // 督导越权防范
+        if (com.classroom.ai.modules.auth.context.AuthContext.isAuthenticated()) {
+            com.classroom.ai.modules.auth.vo.UserVO user = com.classroom.ai.modules.auth.context.AuthContext.getCurrentUser();
+            if (user.getRole() == com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR) {
+                if (user.getAuthorizedMajors() != null && course.getMajorCode() != null) {
+                    java.util.Set<String> authMajors = java.util.Arrays.stream(user.getAuthorizedMajors().split(";"))
+                            .map(String::trim).map(String::toUpperCase).collect(java.util.stream.Collectors.toSet());
+                    if (!authMajors.contains(course.getMajorCode().toUpperCase())) {
+                        throw new com.classroom.ai.common.exception.ForbiddenException("无权直接访问未授权专业课程档案 (ID: " + id + ")");
+                    }
+                }
+            }
+        }
+        return ApiResponse.success(course);
     }
 
     @PostMapping
@@ -48,9 +63,46 @@ public class CourseController {
     @GetMapping("/offerings")
     public ApiResponse<List<CourseOffering>> getOfferings(@RequestParam(required = false) String term,
                                                           @RequestParam(required = false) String teacher,
-                                                          @RequestParam(required = false) String keyword) {
-        return ApiResponse.success(courseService.searchOfferings(term, teacher, keyword));
+                                                          @RequestParam(required = false) String keyword,
+                                                          @RequestParam(required = false) String majorCode) {
+        String cleanTerm = (term != null && !term.trim().isEmpty()) ? term.trim() : null;
+        String cleanTeacher = (teacher != null && !teacher.trim().isEmpty()) ? teacher.trim() : null;
+        String cleanKeyword = (keyword != null && !keyword.trim().isEmpty()) ? keyword.trim() : null;
+        String cleanMajor = (majorCode != null && !majorCode.trim().isEmpty()) ? majorCode.trim().toUpperCase() : null;
+
+        // 督导权限校验：若传入 majorCode 但不在授权列表则抛出 403
+        if (com.classroom.ai.modules.auth.context.AuthContext.isAuthenticated()) {
+            com.classroom.ai.modules.auth.vo.UserVO user = com.classroom.ai.modules.auth.context.AuthContext.getCurrentUser();
+            if (user.getRole() == com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR) {
+                java.util.Set<String> authMajors = user.getAuthorizedMajors() != null
+                        ? java.util.Arrays.stream(user.getAuthorizedMajors().split(";"))
+                                .map(String::trim).map(String::toUpperCase).collect(java.util.stream.Collectors.toSet())
+                        : java.util.Collections.emptySet();
+
+                if (cleanMajor != null && !authMajors.contains(cleanMajor)) {
+                    throw new com.classroom.ai.common.exception.ForbiddenException("无权检索未授权专业 (" + cleanMajor + ") 的课程");
+                }
+            }
+        }
+
+        List<CourseOffering> list = courseOfferingRepository.searchOfferingsWithMajor(cleanTerm, cleanTeacher, cleanKeyword, cleanMajor);
+
+        // 督导未指定专业时，后端强制叠加仅返回已授权专业列表
+        if (com.classroom.ai.modules.auth.context.AuthContext.isAuthenticated()
+                && com.classroom.ai.modules.auth.context.AuthContext.getCurrentUser().getRole() == com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR) {
+            com.classroom.ai.modules.auth.vo.UserVO user = com.classroom.ai.modules.auth.context.AuthContext.getCurrentUser();
+            if (user.getAuthorizedMajors() != null) {
+                java.util.Set<String> authMajors = java.util.Arrays.stream(user.getAuthorizedMajors().split(";"))
+                        .map(String::trim).map(String::toUpperCase).collect(java.util.stream.Collectors.toSet());
+                list = list.stream()
+                        .filter(o -> o.getMajorCode() != null && authMajors.contains(o.getMajorCode().toUpperCase()))
+                        .collect(java.util.stream.Collectors.toList());
+            }
+        }
+
+        return ApiResponse.success(list);
     }
+
 
     @GetMapping("/offerings/{id}/students")
     public ApiResponse<java.util.Map<String, Object>> getOfferingStudents(@PathVariable Long id) {
