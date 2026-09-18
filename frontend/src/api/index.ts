@@ -484,3 +484,14 @@ export const teacherApi = {
   }
 }
 
+// ==================== 12. 历史开课与学生人次统计 API (US-04) ====================
+export const offeringHistoryApi = {
+  getHistory: async (term?: string): Promise<any> => {
+    const res = await client.get<ApiResponse<any>>('/api/v1/courses/offerings/history', {
+      params: term ? { term } : undefined
+    })
+    return res.data.data
+  }
+}
+
+
