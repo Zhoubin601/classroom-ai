@@ -39,9 +39,17 @@ public class TeachingDataInitializer implements ApplicationRunner {
     private final MicroTeachingSliceRepository sliceRepository;
     private final SupervisionEvaluationRepository evaluationRepository;
     private final StudentRepository studentRepository;
+    private final com.classroom.ai.modules.auth.repository.UserAccountRepository userAccountRepository;
+    private final com.classroom.ai.modules.course.repository.MajorRepository majorRepository;
+    private final com.classroom.ai.modules.course.repository.TeacherRepository teacherRepository;
+    private final com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository offeringTeacherRepository;
+    private final com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository;
 
     @Override
     public void run(ApplicationArguments args) {
+        // 0. 初始化权限账号、专业与教师基础数据
+        initAuthAndMasterData();
+
         // 1. 优先保证学生花名册完整 (以 MySQL 为唯一真值来源，软件工程2024级2班全员95人)
         if (studentRepository.count() < 95) {
             initStudents();
@@ -122,9 +130,28 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .teacherName("郭军")
                 .teacherCode("T2024001")
                 .className("软件工程2024级2班")
+                .majorCode("SE")
                 .studentCount(95)
                 .status("IN_PROGRESS")
                 .build());
+
+        // 联合授课：郭军主讲，姜琳颖助课 (US-03 多教师联合开课)
+        offeringTeacherRepository.save(com.classroom.ai.modules.course.entity.CourseOfferingTeacher.builder()
+                .offeringId(off1.getId()).teacherId(1L).teacherCode("T2024001").teacherName("郭军").roleInOffering("PRIMARY").build());
+        offeringTeacherRepository.save(com.classroom.ai.modules.course.entity.CourseOfferingTeacher.builder()
+                .offeringId(off1.getId()).teacherId(2L).teacherCode("T2024002").teacherName("姜琳颖").roleInOffering("ASSISTANT").build());
+
+        // 选课名单真值灌入 (95人全员选修软件项目管理)
+        List<Student> seStudents = studentRepository.findByClassName("软件工程2024级2班");
+        for (Student stu : seStudents) {
+            enrollmentRepository.save(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment.builder()
+                    .offeringId(off1.getId())
+                    .studentId(stu.getId())
+                    .studentNumber(stu.getStudentId())
+                    .studentName(stu.getName())
+                    .adminClassName(stu.getClassName())
+                    .build());
+        }
 
         CourseOffering off2 = offeringRepository.save(CourseOffering.builder()
                 .course(c2)
@@ -132,9 +159,12 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .teacherName("姜琳颖")
                 .teacherCode("T2024002")
                 .className("计算机科学与技术2024级1班")
+                .majorCode("CS")
                 .studentCount(120)
                 .status("IN_PROGRESS")
                 .build());
+        offeringTeacherRepository.save(com.classroom.ai.modules.course.entity.CourseOfferingTeacher.builder()
+                .offeringId(off2.getId()).teacherId(2L).teacherCode("T2024002").teacherName("姜琳颖").roleInOffering("PRIMARY").build());
 
         CourseOffering off3 = offeringRepository.save(CourseOffering.builder()
                 .course(c4)
@@ -142,9 +172,13 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .teacherName("赵广生")
                 .teacherCode("T2024003")
                 .className("软件工程2024级1班")
+                .majorCode("SE")
                 .studentCount(85)
                 .status("IN_PROGRESS")
                 .build());
+        offeringTeacherRepository.save(com.classroom.ai.modules.course.entity.CourseOfferingTeacher.builder()
+                .offeringId(off3.getId()).teacherId(3L).teacherCode("T2024003").teacherName("赵广生").roleInOffering("PRIMARY").build());
+
 
         // 4. 排课时段与教室 (CourseSchedule) - 文管 A447、信息馆 B201 等
         scheduleRepository.save(CourseSchedule.builder()
@@ -385,5 +419,56 @@ public class TeachingDataInitializer implements ApplicationRunner {
             studentRepository.saveAll(toSave);
         }
         log.info("【爱教学】MySQL 数据库已成功持久化学生档案！当前总人数: {}", studentRepository.count());
+    }
+
+    private void initAuthAndMasterData() {
+        if (majorRepository.count() == 0) {
+            majorRepository.save(com.classroom.ai.modules.course.entity.Major.builder().majorCode("SE").majorName("软件工程").department("软件工程教研室").build());
+            majorRepository.save(com.classroom.ai.modules.course.entity.Major.builder().majorCode("CS").majorName("计算机科学与技术").department("计算机科学教研室").build());
+            majorRepository.save(com.classroom.ai.modules.course.entity.Major.builder().majorCode("AI").majorName("人工智能").department("人工智能教研室").build());
+            log.info("【爱教学】专业独立字典已就绪 (SE, CS, AI)");
+        }
+
+        if (teacherRepository.count() == 0) {
+            teacherRepository.save(com.classroom.ai.modules.course.entity.Teacher.builder().teacherCode("T2024001").teacherName("郭军").department("软件工程教研室").title("教授").build());
+            teacherRepository.save(com.classroom.ai.modules.course.entity.Teacher.builder().teacherCode("T2024002").teacherName("姜琳颖").department("软件工程教研室").title("副教授").build());
+            teacherRepository.save(com.classroom.ai.modules.course.entity.Teacher.builder().teacherCode("T2024003").teacherName("赵广生").department("软件工程教研室").title("讲师").build());
+            log.info("【爱教学】教师主数据档案已就绪 (郭军, 姜琳颖, 赵广生)");
+        }
+
+        if (userAccountRepository.count() == 0) {
+            userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
+                    .username("director")
+                    .password("123456")
+                    .realName("李主任")
+                    .role(com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR)
+                    .department("软件工程教研室")
+                    .build());
+            userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
+                    .username("guojun")
+                    .password("123456")
+                    .realName("郭军")
+                    .role(com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER)
+                    .teacherCode("T2024001")
+                    .department("软件工程教研室")
+                    .build());
+            userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
+                    .username("jiangly")
+                    .password("123456")
+                    .realName("姜琳颖")
+                    .role(com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER)
+                    .teacherCode("T2024002")
+                    .department("软件工程教研室")
+                    .build());
+            userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
+                    .username("supervisor")
+                    .password("123456")
+                    .realName("张督导")
+                    .role(com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR)
+                    .department("校教学督导团")
+                    .authorizedMajors("SE;CS")
+                    .build());
+            log.info("【爱教学】内置三角色账号已就绪 (director, guojun, jiangly, supervisor)");
+        }
     }
 }

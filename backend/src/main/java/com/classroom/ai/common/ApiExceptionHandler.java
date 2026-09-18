@@ -22,4 +22,14 @@ public class ApiExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> conflict(IllegalStateException error) {
         return ResponseEntity.status(409).body(ApiResponse.error(409, error.getMessage()));
     }
+
+    @ExceptionHandler(com.classroom.ai.common.exception.UnauthorizedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleUnauthorized(com.classroom.ai.common.exception.UnauthorizedException error) {
+        return ResponseEntity.status(401).body(ApiResponse.error(401, error.getMessage()));
+    }
+
+    @ExceptionHandler(com.classroom.ai.common.exception.ForbiddenException.class)
+    public ResponseEntity<ApiResponse<Void>> handleForbidden(com.classroom.ai.common.exception.ForbiddenException error) {
+        return ResponseEntity.status(403).body(ApiResponse.error(403, error.getMessage()));
+    }
 }

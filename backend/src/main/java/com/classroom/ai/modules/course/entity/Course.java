@@ -40,6 +40,13 @@ public class Course {
     @Column(length = 64)
     private String department;
 
+    /** 关联专业ID */
+    private Long majorId;
+
+    /** 关联专业编码，如 SE, CS */
+    @Column(length = 32)
+    private String majorCode;
+
     /** 学分，如 3.0 */
     @Column(nullable = false)
     private Double credits;
