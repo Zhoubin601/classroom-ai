@@ -19,12 +19,12 @@ public class CourseScheduleController {
 
     @GetMapping
     public ApiResponse<List<CourseSchedule>> getAllSchedules(@RequestParam(required = false) Long offeringId,
-                                                             @RequestParam(required = false) String classroom) {
-        if (offeringId != null) {
-            return ApiResponse.success(scheduleService.getSchedulesByOfferingId(offeringId));
-        }
-        if (classroom != null) {
-            return ApiResponse.success(scheduleService.getSchedulesByClassroom(classroom));
+                                                             @RequestParam(required = false) String classroom,
+                                                             @RequestParam(required = false) String term,
+                                                             @RequestParam(required = false) String teacher,
+                                                             @RequestParam(required = false) Integer week) {
+        if (term != null || teacher != null || week != null || offeringId != null || classroom != null) {
+            return ApiResponse.success(scheduleService.getFilteredSchedules(term, teacher, week, classroom, offeringId));
         }
         return ApiResponse.success(scheduleService.getAllSchedules());
     }
@@ -51,8 +51,9 @@ public class CourseScheduleController {
                                                            @RequestParam(defaultValue = "16") Integer endWeek,
                                                            @RequestParam Integer startPeriod,
                                                            @RequestParam Integer endPeriod,
+                                                           @RequestParam(required = false) Long offeringId,
                                                            @RequestParam(required = false) Long excludeId) {
-        List<CourseSchedule> conflicts = scheduleService.checkConflict(classroom, dayOfWeek, startWeek, endWeek, startPeriod, endPeriod, excludeId);
+        List<CourseSchedule> conflicts = scheduleService.checkConflict(offeringId, classroom, dayOfWeek, startWeek, endWeek, startPeriod, endPeriod, excludeId);
         return ApiResponse.success(conflicts);
     }
 }
