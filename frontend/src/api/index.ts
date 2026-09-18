@@ -16,9 +16,18 @@ import type {
 const client = axios.create({
   baseURL: '',
   timeout: 15000,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }
+})
+
+client.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem('csrfToken')
+  if (token && config.headers) {
+    config.headers['X-CSRF-TOKEN'] = token
+  }
+  return config
 })
 
 // Some legacy endpoints return HTTP 200 with a business error code.
@@ -399,3 +408,79 @@ export const attendanceApi = {
     return res.data.data
   }
 }
+
+// ==================== 8. 身份认证与会话 API ====================
+export const authApi = {
+  login: async (dto: { username: string; password: string }): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>('/api/v1/auth/login', dto)
+    return res.data.data
+  },
+  logout: async (): Promise<void> => {
+    await client.post('/api/v1/auth/logout')
+    sessionStorage.removeItem('csrfToken')
+  },
+  getMe: async (): Promise<any> => {
+    const res = await client.get<ApiResponse<any>>('/api/v1/auth/me')
+    return res.data.data
+  },
+  getCsrf: async (): Promise<{ csrfToken: string }> => {
+    const res = await client.get<ApiResponse<{ csrfToken: string }>>('/api/v1/auth/csrf')
+    if (res.data.data?.csrfToken) {
+      sessionStorage.setItem('csrfToken', res.data.data.csrfToken)
+    }
+    return res.data.data
+  }
+}
+
+// ==================== 9. 课程内容草稿与发布 API (US-02) ====================
+export const courseContentApi = {
+  getDraft: async (courseId: number): Promise<any> => {
+    const res = await client.get<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/draft`)
+    return res.data.data
+  },
+  saveDraft: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number }): Promise<any> => {
+    const res = await client.put<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/draft`, dto)
+    return res.data.data
+  },
+  publish: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number }): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/publish`, dto)
+    return res.data.data
+  },
+  getPublished: async (courseId: number): Promise<any> => {
+    const res = await client.get<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/published`)
+    return res.data.data
+  }
+}
+
+// ==================== 10. 课程两阶段批量导入 API (US-01) ====================
+export const courseImportApi = {
+  getTemplateUrl: (): string => '/api/v1/courses/import/template',
+  preview: async (file: File): Promise<any> => {
+    const formData = new FormData()
+    formData.append('file', file)
+    const res = await client.post<ApiResponse<any>>('/api/v1/courses/import/preview', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+    return res.data.data
+  },
+  confirm: async (batchId: string): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>('/api/v1/courses/import/confirm', { batchId })
+    return res.data.data
+  }
+}
+
+// ==================== 11. 专业与教师字典 API ====================
+export const majorApi = {
+  getAll: async (): Promise<any[]> => {
+    const res = await client.get<ApiResponse<any[]>>('/api/v1/majors')
+    return res.data.data
+  }
+}
+
+export const teacherApi = {
+  getAll: async (): Promise<any[]> => {
+    const res = await client.get<ApiResponse<any[]>>('/api/v1/teachers')
+    return res.data.data
+  }
+}
+

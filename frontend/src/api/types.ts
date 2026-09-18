@@ -238,3 +238,73 @@ export interface AttendanceSession {
   endTime?: string
   absentStudentIds?: string
 }
+
+export interface UserVO {
+  id: number
+  username: string
+  realName: string
+  role: 'DIRECTOR' | 'TEACHER' | 'SUPERVISOR'
+  department?: string
+  teacherCode?: string
+  authorizedMajors?: string
+}
+
+export interface Major {
+  id: number
+  majorCode: string
+  majorName: string
+  department?: string
+}
+
+export interface Teacher {
+  id: number
+  teacherCode: string
+  teacherName: string
+  department?: string
+  title?: string
+}
+
+export interface ImportRowError {
+  rowNumber: number
+  field: string
+  reason: string
+}
+
+export interface CourseImportRowDTO {
+  rowNumber: number
+  courseCode: string
+  courseName: string
+  department: string
+  majorCode: string
+  credits: number
+  hours: number
+  theoryHours?: number
+  practiceHours?: number
+  courseType: string
+  prerequisites?: string
+  description?: string
+}
+
+export interface ImportPreviewVO {
+  batchId: string
+  totalCount: number
+  successCount: number
+  errorCount: number
+  errors: ImportRowError[]
+  validRows: CourseImportRowDTO[]
+}
+
+export interface CourseContentRevision {
+  id: number
+  courseId: number
+  description?: string
+  assessmentMethod?: string
+  objectives?: string
+  version: number
+  status: 'DRAFT' | 'PUBLISHED'
+  editorName?: string
+  publisherName?: string
+  publisherCode?: string
+  publishedAt?: string
+}
+
