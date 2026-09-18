@@ -1,0 +1,392 @@
+[
+  {
+    "Original": "backup/frontend_backup_20260917/index.html",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/index.html",
+    "SHA256": "35CEC4D3FFBD4A9A8C35185ACADDBC613CEF459F140881754AF99132F739DE6C"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/package.json",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/package.json",
+    "SHA256": "FC79E6E8852F5C3A900B0D1A2B2125A0DAAEDD01821733BE9617306C5C3E1F10"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/tailwind.config.js",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/tailwind.config.js",
+    "SHA256": "657EB7BF0617F7BA698EC68CB27A2EA96429059949062DEE4A38B2E473C20A22"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/vite.config.ts",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/vite.config.ts",
+    "SHA256": "FE7BB5899AAA819657AE68E2779043927588C68E30EDA4C2119718673A35005F"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/App.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/App.vue",
+    "SHA256": "8A8BB9B1B2D4560D385F9A987F311972E30FBDE3466F3A86160B2EB5B3B79639"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/main.ts",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/main.ts",
+    "SHA256": "8EB8CA58F90B3B0A78166D2EC203BABC9D8C13ACE3F5DDC92C134F8EC8180F69"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/style.css",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/style.css",
+    "SHA256": "D35E2B70691BA968FF87C415F23EB278268D4A26F34285521EC5B49EFCB90559"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/api/index.ts",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/api/index.ts",
+    "SHA256": "5959F029A1B778C01ECB63410249C91673F5C1878F187B74635F4B5F31B32748"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/api/metrics.mjs",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/api/metrics.mjs",
+    "SHA256": "340F4179F6D0F5A6B45DDD2B5ADDB1F0C84575A76F25306F37705517A0D73137"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/api/response.mjs",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/api/response.mjs",
+    "SHA256": "EC2D88E95B10613CF5DA915EAA0C34241216D2097BC6D99E62A64090CE8AB32A"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/api/types.ts",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/api/types.ts",
+    "SHA256": "C0FF51BD201D7E07B1E5600381E35D1BFA0EA947E5C761C57D9A80E952467770"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/components/FocusTrendChart.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/components/FocusTrendChart.vue",
+    "SHA256": "0E0C3088B68ED9287424BEB29609A6E928373197EB6C397BF0196AC34FB3EFC3"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/components/MetricCard.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/components/MetricCard.vue",
+    "SHA256": "02CDC8C8166CDCBD7F76A442B1F327B07C16B955F73A53E79D41784555F7AB2B"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/components/StudentStatusGrid.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/components/StudentStatusGrid.vue",
+    "SHA256": "51D87FE2B31FC257B84F1CAA505EE1F4B8075CE3BC6EEA260A3BAD8CC31172D5"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/views/AttendanceDashboardView.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/views/AttendanceDashboardView.vue",
+    "SHA256": "81DC2151BEF90ABEA26BAA17E1B58BB03063AAA9C9C9B5B0BC2954B84AA732B3"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/views/DashboardView.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/views/DashboardView.vue",
+    "SHA256": "5161B23EF72162E48E9524C34943F058680B55C9DB971A61FBC3C9F1EF79C170"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/views/DirectorDeskView.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/views/DirectorDeskView.vue",
+    "SHA256": "D9E22E16C59127929B676EC073695512EA2C94FAC6FE5100ADA4C74C67138765"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/views/StudentManageView.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/views/StudentManageView.vue",
+    "SHA256": "25FEF09856661A131CB54057FC4A432066C00AFD039601FBD53A44E9807AB860"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/views/SupervisorDeskView.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/views/SupervisorDeskView.vue",
+    "SHA256": "9F5B63C2E0D7BB644C0C4D49FA5E3D9CFA3FAC6639E6A343A021F86DF5AED831"
+  },
+  {
+    "Original": "backup/frontend_backup_20260917/src/views/TeacherDeskView.vue",
+    "Current": "docs/archive/previous-backups/frontend_backup_20260917/src/views/TeacherDeskView.vue",
+    "SHA256": "7ED583756BC2B6654C70A845344842C0EF9C843BD54EEF465497C3DF6C59A685"
+  },
+  {
+    "Original": "backup/structure_20260918/main.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/main.py",
+    "SHA256": "33A7FFC02C76ED295196AF3D80A67CAA39C46E8D566CC736E6FB3DAA3B4D9CAB"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/classroom_monitor.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/classroom_monitor.py",
+    "SHA256": "D6D72F0A361F5E0187521BA9D923837AF9D51C785094574A7210710AFF5C461F"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/face_recognition.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/face_recognition.py",
+    "SHA256": "C14FD592F091D2AF4F8DE5583973FD652BF1780B56B563553B65780F08F30F2E"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/face_register.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/face_register.py",
+    "SHA256": "AA70A61999FAFDF9F34AF160328CF299072BA0BFF3D5C936408A7F94C2E004CD"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/README.md",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/README.md",
+    "SHA256": "D64A8AEE014D7B800121BBF1B53A4DFFBC4AA25EDA509273D8030824318DEAAB"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/yolo_face_analysis.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/yolo_face_analysis.py",
+    "SHA256": "4B451E44B52A69D2DBEC13C07BAAD6AE313BCDD5B81B3F970D8CD63FD50770D3"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/models/face_db_STU2026001.npy",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/models/face_db_STU2026001.npy",
+    "SHA256": "7FDBF5D5DC10E392333154784744FEAF350CC4C89A8B78275EF0DE1D3FA4FDC8"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/models/face_db.npy",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/models/face_db.npy",
+    "SHA256": "7FDBF5D5DC10E392333154784744FEAF350CC4C89A8B78275EF0DE1D3FA4FDC8"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/models/face_landmarker.task",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/models/face_landmarker.task",
+    "SHA256": "64184E229B263107BC2B804C6625DB1341FF2BB731874B0BCC2FE6544E0BC9FF"
+  },
+  {
+    "Original": "backup/structure_20260918/edge-perception/models/yolo11n.pt",
+    "Current": "docs/archive/previous-backups/structure_20260918/edge-perception/models/yolo11n.pt",
+    "SHA256": "0EBBC80D4A7680D14987A577CD21342B65ECFD94632BD9A8DA63AE6417644EE1"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/classroom_monitor.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/classroom_monitor.py",
+    "SHA256": "FFDEADC64BEF3169A6D320A4133A4EB5022B8A4B19CCD4F76411DED054EA04D0"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/face_recognition.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/face_recognition.py",
+    "SHA256": "C14FD592F091D2AF4F8DE5583973FD652BF1780B56B563553B65780F08F30F2E"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/face_register.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/face_register.py",
+    "SHA256": "AA70A61999FAFDF9F34AF160328CF299072BA0BFF3D5C936408A7F94C2E004CD"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/face_verify.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/face_verify.py",
+    "SHA256": "1B493994CE9127F94C7E77AEE8A0352293B8F0750E2B6A0A7A559A1668918898"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/register_face.bat",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/register_face.bat",
+    "SHA256": "22E1DEF994870C683BF0767E2A3645F85DBCEF3988209A78233BC97190F72E7C"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/requirements.txt",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/requirements.txt",
+    "SHA256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/run_monitor.bat",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/run_monitor.bat",
+    "SHA256": "24DE2533EBBF95A4D435CB15CBF42D03FA629FD846EC34A9B58AB5523A500D1C"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/run_register.bat",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/run_register.bat",
+    "SHA256": "07250A561B39053DAA1BD4D128C82C65603647C3ED8C5089EABA8677CC4CDD89"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/start_frontend.ps1",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/start_frontend.ps1",
+    "SHA256": "B8C711B4A44109C2C4A735A7F3B043D2903C6219B710802E6580BC47DA19F9C5"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/start_project.ps1",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/start_project.ps1",
+    "SHA256": "7338C7F385A4BAF3E7A7FF0D881C03FF4B23C97A0CC2786DA26F6B0863D69685"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/start_services.ps1",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/start_services.ps1",
+    "SHA256": "AE188C22663AAA1B27927DFF4398E85C35C0919C6EE618C8EF52443811737DE7"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/yolo_face_analysis.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/yolo_face_analysis.py",
+    "SHA256": "4B451E44B52A69D2DBEC13C07BAAD6AE313BCDD5B81B3F970D8CD63FD50770D3"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/backend/src/main/java/com/classroom/ai/service/impl/FaceServiceImpl.java",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/backend/src/main/java/com/classroom/ai/service/impl/FaceServiceImpl.java",
+    "SHA256": "34A1FE7553000F9877A08C556067D8D93FD81416A45A800B079B2E912EBFA4B0"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/frontend/dev/camera-plugin.mjs",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/frontend/dev/camera-plugin.mjs",
+    "SHA256": "54E763EACDA249733EB68AC91C9982DEAFF864541AB7F962B0E4B59336321592"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/frontend/tests/camera-plugin.test.mjs",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/frontend/tests/camera-plugin.test.mjs",
+    "SHA256": "45D31AD73ECF5644A1679B3EA72491A3F8A9904CBF8541B17DF68DCDEE0DD6E0"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/scripts/run-tests.ps1",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/scripts/run-tests.ps1",
+    "SHA256": "FE2DB563F8E6695132EAE9AA8FD71852442D42A898C4A240462F9C975F530B22"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/tests/face_test.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/tests/face_test.py",
+    "SHA256": "B952832092EA9D5E9ED6DDC127EFC300173FE36084A5486835A097BD4A0350E8"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/tests/head_pose_test.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/tests/head_pose_test.py",
+    "SHA256": "03B6CC2EBB469958B2299DD08F06B1F41149867A71BC7E9F72C41FD072DC8496"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/tests/test_backend_api.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/tests/test_backend_api.py",
+    "SHA256": "977BAF7D58379AD966FA59B342438B457BF45D83240B7C34FB2CED838E60F03C"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/tests/test_edge_regressions.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/tests/test_edge_regressions.py",
+    "SHA256": "EABEADC256E06DCE0F9004CE8D7232356E1E7F197C573A34C997F5507B735F7A"
+  },
+  {
+    "Original": "backup/structure_20260918/originals/tests/yolo_test.py",
+    "Current": "docs/archive/previous-backups/structure_20260918/originals/tests/yolo_test.py",
+    "SHA256": "62834A93E55F5058C9B2DB997F213EDB3159204051DB6ED7E20928B6B8CCD757"
+  },
+  {
+    "Original": "__pycache__/classroom_monitor.cpython-311.pyc",
+    "Current": "docs/archive/root-cleanup-20260918/root-pycache/classroom_monitor.cpython-311.pyc",
+    "SHA256": "3A13097F02EB3D2E758504A813A073EDE04D18F6DEA0294FC83FD616108DAE5E"
+  },
+  {
+    "Original": "docker/mysql/generate_students.py",
+    "Current": "scripts/deploy/mysql/generate_students.py",
+    "SHA256": "111B4143A92C0A6662C43FC722B2E93B21AFB9402F9018AE46FB5E64190003A4"
+  },
+  {
+    "Original": "docker/mysql/init_95_students.sql",
+    "Current": "scripts/deploy/mysql/init_95_students.sql",
+    "SHA256": "A8AFA66E9A618593933CCFEA8CFD8F02C32B4A1BDE02B93969EF343D13FF09DF"
+  },
+  {
+    "Original": "docker/mysql/init/01_schema.sql",
+    "Current": "scripts/deploy/mysql/init/01_schema.sql",
+    "SHA256": "5B63F78391B15032D253BAE898D4E877F700C5CB32D233707561325793949971"
+  },
+  {
+    "Original": "docker-compose.yml",
+    "Current": "scripts/deploy/docker-compose.yml",
+    "SHA256": "3411627F260174C3F66A44ACBC899F4893E48DC94705E80D5E4B4A64BB201860"
+  },
+  {
+    "Original": ".env.example",
+    "Current": "scripts/deploy/.env.example",
+    "SHA256": "D93BD38326759E6FB5914E2ADE6F4E3CD19837342F627EE64420A7AD4892594B"
+  },
+  {
+    "Original": "tests/browser_smoke.cjs",
+    "Current": "scripts/tests/browser_smoke.cjs",
+    "SHA256": "2BA0CE853B628C3756622B4847C18D42D3B46F40350C338EF781A97E10923701"
+  },
+  {
+    "Original": "tests/README.md",
+    "Current": "scripts/tests/README.md",
+    "SHA256": "7CD097C36AA16D977A8C53330985AC7902A742B24F03AFD66455D3838413C074"
+  },
+  {
+    "Original": "tests/test_backend_api.py",
+    "Current": "scripts/tests/test_backend_api.py",
+    "SHA256": "92F1689BD4FAB46006ACF145D72F2954F9437DEAD36EDAB2FE155384C8B7C3EF"
+  },
+  {
+    "Original": "tests/test_http_smoke.py",
+    "Current": "scripts/tests/test_http_smoke.py",
+    "SHA256": "9CFC04EE463871CE1A6FCDE5A85B0B5689CC67B0271CC4EA89B770317F21C996"
+  },
+  {
+    "Original": "tests/__pycache__/test_edge_regressions.cpython-313.pyc",
+    "Current": "scripts/tests/__pycache__/test_edge_regressions.cpython-313.pyc",
+    "SHA256": "20C4368C7A50B73F5BA09DC6D2A834E35200A4396ED6C2CCDCB208B60CF2CE6A"
+  },
+  {
+    "Original": "uploads/faces/STU2026001_snapshot.jpg",
+    "Current": "runtime/uploads/faces/STU2026001_snapshot.jpg",
+    "SHA256": "58637CCA0A82184DB17354BD3ACE20066DB6D91D298D71A3C0C1B3AC768B5AC0"
+  },
+  {
+    "Original": "uploads/faces/STU20260092_snapshot.jpg",
+    "Current": "runtime/uploads/faces/STU20260092_snapshot.jpg",
+    "SHA256": "D0541E457AE5E2909E7172DCC85852F173320202F23F9546143CAA7F3B6B6111"
+  },
+  {
+    "Original": "uploads/temp/verify_28ad6bce49fc.jpg",
+    "Current": "runtime/uploads/temp/verify_28ad6bce49fc.jpg",
+    "SHA256": "844CE955C87BE258AFA7312308F827C9E1408D4CCB648CBED9F05727CCA8F406"
+  },
+  {
+    "Original": "uploads/temp/verify_60e6015b3a7e.jpg",
+    "Current": "runtime/uploads/temp/verify_60e6015b3a7e.jpg",
+    "SHA256": "94059EC2E8BB9E7C2E34B2EB96B2B77D84163F5EE12458019B50050209AC932B"
+  },
+  {
+    "Original": "uploads/temp/verify_d8a61038dcaf.jpg",
+    "Current": "runtime/uploads/temp/verify_d8a61038dcaf.jpg",
+    "SHA256": "844CE955C87BE258AFA7312308F827C9E1408D4CCB648CBED9F05727CCA8F406"
+  },
+  {
+    "Original": "monitor_debug.log",
+    "Current": "runtime/logs/history/monitor_debug.log",
+    "SHA256": "3FF65B83FE5BACFEF0841CABFE159D9BDF79E2FA260B7F79AD3BDA0C575D8C6F"
+  },
+  {
+    "Original": "python_stderr.log",
+    "Current": "runtime/logs/history/python_stderr.log",
+    "SHA256": "3FF65B83FE5BACFEF0841CABFE159D9BDF79E2FA260B7F79AD3BDA0C575D8C6F"
+  },
+  {
+    "Original": "python_stdout.log",
+    "Current": "runtime/logs/history/python_stdout.log",
+    "SHA256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "Original": "run_test.log",
+    "Current": "runtime/logs/history/run_test.log",
+    "SHA256": "D2E683E446E47A44FEA4190243E99FB9B34C1ADE6B42276770B961D0DCCAFB35"
+  },
+  {
+    "Original": "start_frontend.ps1",
+    "Current": "docs/archive/root-cleanup-20260918/old-entries/start_frontend.ps1",
+    "SHA256": "0CDDF242CB5943CFC5CABC321343E4D78FC3AD352549FC878179A8A86D681799"
+  },
+  {
+    "Original": "start_services.ps1",
+    "Current": "docs/archive/root-cleanup-20260918/old-entries/start_services.ps1",
+    "SHA256": "BD316F833E52F5AEA4A1DB5423407BFB129987BBCC94CEFEA4844081546CFF3C"
+  },
+  {
+    "Original": "run_monitor.bat",
+    "Current": "docs/archive/root-cleanup-20260918/old-entries/run_monitor.bat",
+    "SHA256": "B7F3FD2FA94BA99EF2C74DB775432A1869865EFC2EB557F809A1E510E593317F"
+  },
+  {
+    "Original": "run_register.bat",
+    "Current": "docs/archive/root-cleanup-20260918/old-entries/run_register.bat",
+    "SHA256": "DB4592779CD56F351C4B73DFAF03242933ED38E13C8D500DEEF242CE6E9F8915"
+  },
+  {
+    "Original": "register_face.bat",
+    "Current": "docs/archive/root-cleanup-20260918/old-entries/register_face.bat",
+    "SHA256": "6313D7223DC48EF9A1D76DE2F11C7690601B43F48E14FCC2BF9E7831154CB045"
+  },
+  {
+    "Original": "requirements.txt",
+    "Current": "docs/archive/root-cleanup-20260918/old-entries/requirements.txt",
+    "SHA256": "F9CDB29934F047224F7402794D6DE3363E88B5FC2E604B694035C9CC988897BB"
+  },
+  {
+    "Original": "raw/README.md",
+    "Current": "raw/README.md",
+    "SHA256": "48DC5482E175F75D27FA5E358C22E98A91797B937B1CDA264F79379C41939FD2"
+  }
+]

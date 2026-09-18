@@ -1,0 +1,102 @@
+[
+  {
+    "Original": "raw/README.md",
+    "Current": "raw/README.md",
+    "SHA256": "48DC5482E175F75D27FA5E358C22E98A91797B937B1CDA264F79379C41939FD2"
+  },
+  {
+    "Original": "models/face_db_STU2026001.npy",
+    "Current": "vision/models/face_db_STU2026001.npy",
+    "SHA256": "7FDBF5D5DC10E392333154784744FEAF350CC4C89A8B78275EF0DE1D3FA4FDC8"
+  },
+  {
+    "Original": "models/face_db_STU20260092.npy",
+    "Current": "vision/models/face_db_STU20260092.npy",
+    "SHA256": "FBF44E9CD0D79953BDBF7D88B6CB54A2B65262E7E39DFBB9EAD2A794D8C09F46"
+  },
+  {
+    "Original": "models/face_db.npy",
+    "Current": "vision/models/face_db.npy",
+    "SHA256": "FBF44E9CD0D79953BDBF7D88B6CB54A2B65262E7E39DFBB9EAD2A794D8C09F46"
+  },
+  {
+    "Original": "models/face_landmarker.task",
+    "Current": "vision/models/face_landmarker.task",
+    "SHA256": "64184E229B263107BC2B804C6625DB1341FF2BB731874B0BCC2FE6544E0BC9FF"
+  },
+  {
+    "Original": "models/yolo11n.pt",
+    "Current": "vision/models/yolo11n.pt",
+    "SHA256": "0EBBC80D4A7680D14987A577CD21342B65ECFD94632BD9A8DA63AE6417644EE1"
+  },
+  {
+    "Original": "uploads/faces/STU2026001_snapshot.jpg",
+    "Current": "uploads/faces/STU2026001_snapshot.jpg",
+    "SHA256": "58637CCA0A82184DB17354BD3ACE20066DB6D91D298D71A3C0C1B3AC768B5AC0"
+  },
+  {
+    "Original": "uploads/faces/STU20260092_snapshot.jpg",
+    "Current": "uploads/faces/STU20260092_snapshot.jpg",
+    "SHA256": "D0541E457AE5E2909E7172DCC85852F173320202F23F9546143CAA7F3B6B6111"
+  },
+  {
+    "Original": "uploads/temp/verify_28ad6bce49fc.jpg",
+    "Current": "uploads/temp/verify_28ad6bce49fc.jpg",
+    "SHA256": "844CE955C87BE258AFA7312308F827C9E1408D4CCB648CBED9F05727CCA8F406"
+  },
+  {
+    "Original": "uploads/temp/verify_60e6015b3a7e.jpg",
+    "Current": "uploads/temp/verify_60e6015b3a7e.jpg",
+    "SHA256": "94059EC2E8BB9E7C2E34B2EB96B2B77D84163F5EE12458019B50050209AC932B"
+  },
+  {
+    "Original": "uploads/temp/verify_d8a61038dcaf.jpg",
+    "Current": "uploads/temp/verify_d8a61038dcaf.jpg",
+    "SHA256": "844CE955C87BE258AFA7312308F827C9E1408D4CCB648CBED9F05727CCA8F406"
+  },
+  {
+    "Original": "services/edge-perception/classroom_monitor.py",
+    "Current": "backup/structure_20260918/edge-perception/classroom_monitor.py",
+    "SHA256": "D6D72F0A361F5E0187521BA9D923837AF9D51C785094574A7210710AFF5C461F"
+  },
+  {
+    "Original": "services/edge-perception/face_recognition.py",
+    "Current": "backup/structure_20260918/edge-perception/face_recognition.py",
+    "SHA256": "C14FD592F091D2AF4F8DE5583973FD652BF1780B56B563553B65780F08F30F2E"
+  },
+  {
+    "Original": "services/edge-perception/face_register.py",
+    "Current": "backup/structure_20260918/edge-perception/face_register.py",
+    "SHA256": "AA70A61999FAFDF9F34AF160328CF299072BA0BFF3D5C936408A7F94C2E004CD"
+  },
+  {
+    "Original": "services/edge-perception/README.md",
+    "Current": "backup/structure_20260918/edge-perception/README.md",
+    "SHA256": "D64A8AEE014D7B800121BBF1B53A4DFFBC4AA25EDA509273D8030824318DEAAB"
+  },
+  {
+    "Original": "services/edge-perception/yolo_face_analysis.py",
+    "Current": "backup/structure_20260918/edge-perception/yolo_face_analysis.py",
+    "SHA256": "4B451E44B52A69D2DBEC13C07BAAD6AE313BCDD5B81B3F970D8CD63FD50770D3"
+  },
+  {
+    "Original": "services/edge-perception/models/face_db_STU2026001.npy",
+    "Current": "backup/structure_20260918/edge-perception/models/face_db_STU2026001.npy",
+    "SHA256": "7FDBF5D5DC10E392333154784744FEAF350CC4C89A8B78275EF0DE1D3FA4FDC8"
+  },
+  {
+    "Original": "services/edge-perception/models/face_db.npy",
+    "Current": "backup/structure_20260918/edge-perception/models/face_db.npy",
+    "SHA256": "7FDBF5D5DC10E392333154784744FEAF350CC4C89A8B78275EF0DE1D3FA4FDC8"
+  },
+  {
+    "Original": "services/edge-perception/models/face_landmarker.task",
+    "Current": "backup/structure_20260918/edge-perception/models/face_landmarker.task",
+    "SHA256": "64184E229B263107BC2B804C6625DB1341FF2BB731874B0BCC2FE6544E0BC9FF"
+  },
+  {
+    "Original": "services/edge-perception/models/yolo11n.pt",
+    "Current": "backup/structure_20260918/edge-perception/models/yolo11n.pt",
+    "SHA256": "0EBBC80D4A7680D14987A577CD21342B65ECFD94632BD9A8DA63AE6417644EE1"
+  }
+]

@@ -1,0 +1,7 @@
+# Core camera, registration and verification tools (Python 3.10+).
+# Keep NumPy 1.x for InsightFace 0.7.3's compiled extension compatibility.
+numpy>=1.26,<2
+opencv-python>=4.8,<4.12
+insightface==0.7.3
+onnxruntime-gpu[cuda,cudnn]==1.21.1
+Pillow>=10

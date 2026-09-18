@@ -1,0 +1,4 @@
+# Optional YOLO / MediaPipe experiments, not needed for the main monitor.
+-r requirements.txt
+mediapipe
+ultralytics

@@ -1,0 +1,74 @@
+name: classroom-ai-demo
+services:
+  # 1. MySQL 8.0 关系型数据库 (持久化学生档案与特征)
+  mysql:
+    image: mysql:8.0
+    container_name: classroom-mysql
+    restart: always
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: classroom_ai
+      TZ: Asia/Shanghai
+    ports:
+      - "${MYSQL_PORT:-3308}:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  # 2. Redis 7.x 高速内存缓存 (人脸特征高速匹配与大屏时序流缓存)
+  redis:
+    image: redis:7.2-alpine
+    container_name: classroom-redis
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  # 3. Spring Boot 3.x 后端微服务
+  classroom-backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: classroom-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/classroom_ai?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      TZ: Asia/Shanghai
+      CLASSROOM_UPLOAD_DIR: /app/runtime/uploads/faces
+    volumes:
+      - ../../runtime/uploads:/app/runtime/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+    name: classroom_mysql_data
+  redis_data:
+    name: classroom_redis_data

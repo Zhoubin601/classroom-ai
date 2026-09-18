@@ -1,0 +1,25 @@
+package com.classroom.ai.common;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class ApiExceptionHandler {
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse<Void>> integrityConflict(Exception error) {
+        return ResponseEntity.status(409).body(ApiResponse.error(409, "数据缺少必填字段、重复或仍被其他记录引用"));
+    }
+
+    @ExceptionHandler({IllegalArgumentException.class, HttpMessageNotReadableException.class})
+    public ResponseEntity<ApiResponse<Void>> invalidRequest(Exception error) {
+        String message = error instanceof HttpMessageNotReadableException ? "请求格式不正确" : error.getMessage();
+        return ResponseEntity.badRequest().body(ApiResponse.error(400, message));
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiResponse<Void>> conflict(IllegalStateException error) {
+        return ResponseEntity.status(409).body(ApiResponse.error(409, error.getMessage()));
+    }
+}

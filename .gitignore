@@ -1,0 +1,33 @@
+# Local environments, tools and editor settings
+.venv*/
+.idea/
+.vscode/
+**/.tools/
+.env
+.env.*
+!.env.example
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Generated builds and caches
+**/node_modules/
+**/dist/
+**/target/
+__pycache__/
+*.py[cod]
+*.tsbuildinfo
+.pytest_cache/
+
+# Runtime data and local model caches
+runtime/
+vision/models/
+vision/register_config.json
+docs/runtime/
+*.log
+*.pid
+docs/archive/
+*.db
+*.sqlite
+*.sqlite3
+
