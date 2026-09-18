@@ -24,6 +24,16 @@ public class CorsConfig implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.classroom.ai.modules.auth.interceptor.AuthInterceptor authInterceptor;
+
+    @Override
+    public void addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry registry) {
+        if (authInterceptor != null) {
+            registry.addInterceptor(authInterceptor).addPathPatterns("/api/**");
+        }
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 映射本地上传的头像/人脸切片图片静态资源
