@@ -1,4 +1,4 @@
-param([switch]$SkipBuild)
+﻿param([switch]$SkipBuild)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $logDir = Join-Path $projectRoot 'runtime/logs'
@@ -10,8 +10,11 @@ function Test-ProjectUrl([string]$url) {
 
 Push-Location $projectRoot
 try {
+    Write-Host "[1/3] 正在检查并启动基础服务 (MySQL 8.0 & Redis 7.2)..." -ForegroundColor Cyan
     & "$PSScriptRoot/start_services.ps1"
     if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) {
+        & docker stop classroom-backend 2>$null | Out-Null
+        Write-Host "[2/3] 正在启动 Java 后端服务 (Spring Boot 3.3)..." -ForegroundColor Cyan
         $maven = Get-Command mvn.cmd -ErrorAction SilentlyContinue
         $mavenPath = if ($maven) { $maven.Source } else {
             Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
@@ -35,6 +38,7 @@ try {
         if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) { throw 'Backend readiness timed out; inspect runtime/logs.' }
     }
     if (-not (Test-ProjectUrl 'http://127.0.0.1:5173')) {
+        Write-Host "[3/3] 正在启动前端界面服务 (Vite / Vue 3)..." -ForegroundColor Cyan
         $frontendDir = Join-Path $projectRoot 'frontend'
         if (-not (Test-Path "$frontendDir/node_modules/vite/bin/vite.js")) {
             & npm.cmd --prefix $frontendDir install
@@ -52,6 +56,11 @@ try {
         }
         if (-not (Test-ProjectUrl 'http://127.0.0.1:5173')) { throw 'Frontend readiness timed out.' }
     }
-    Write-Host 'Project ready: http://127.0.0.1:5173' -ForegroundColor Green
+    Write-Host '==================================================' -ForegroundColor Green
+    Write-Host ' [SUCCESS] 项目所有服务已就绪！' -ForegroundColor Green
+    Write-Host ' 访问地址: http://127.0.0.1:5173' -ForegroundColor Green
+    Write-Host ' 正在自动打开浏览器...' -ForegroundColor Green
+    Write-Host '==================================================' -ForegroundColor Green
+    Start-Process 'http://127.0.0.1:5173'
 } finally { Pop-Location }
 
