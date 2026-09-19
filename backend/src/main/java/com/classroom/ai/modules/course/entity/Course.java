@@ -40,6 +40,10 @@ public class Course {
     @Column(length = 64)
     private String department;
 
+    /** 主讲/任课教师姓名，如 郭军 (教授) */
+    @Column(length = 64)
+    private String teacherName;
+
     /** 关联专业ID */
     private Long majorId;
 

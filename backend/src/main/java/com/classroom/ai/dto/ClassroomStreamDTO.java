@@ -18,6 +18,9 @@ public class ClassroomStreamDTO implements Serializable {
     // 课堂会话ID
     private String sessionId;
 
+    // 开课班次ID (CourseOffering ID)
+    private Long offeringId;
+
     // 课程名称
     private String courseName;
 

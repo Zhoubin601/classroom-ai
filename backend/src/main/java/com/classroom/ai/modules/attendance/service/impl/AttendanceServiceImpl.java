@@ -6,8 +6,10 @@ import com.classroom.ai.modules.attendance.entity.AttendanceSession;
 import com.classroom.ai.modules.attendance.repository.AttendanceSessionRepository;
 import com.classroom.ai.modules.attendance.service.AttendanceService;
 import com.classroom.ai.modules.course.entity.CourseOffering;
+import com.classroom.ai.modules.course.entity.CourseSchedule;
 import com.classroom.ai.modules.course.repository.CourseOfferingRepository;
-import lombok.RequiredArgsConstructor;
+import com.classroom.ai.modules.course.repository.CourseScheduleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +19,25 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class AttendanceServiceImpl implements AttendanceService {
 
     private final AttendanceSessionRepository sessionRepository;
     private final CourseOfferingRepository offeringRepository;
+    private final CourseScheduleRepository scheduleRepository;
+
+    @Autowired
+    public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
+                                 CourseOfferingRepository offeringRepository,
+                                 @Autowired(required = false) CourseScheduleRepository scheduleRepository) {
+        this.sessionRepository = sessionRepository;
+        this.offeringRepository = offeringRepository;
+        this.scheduleRepository = scheduleRepository;
+    }
+
+    public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
+                                 CourseOfferingRepository offeringRepository) {
+        this(sessionRepository, offeringRepository, null);
+    }
 
     @Override
     @Transactional
@@ -29,12 +45,70 @@ public class AttendanceServiceImpl implements AttendanceService {
         CourseOffering offering = offeringRepository.findById(dto.getOfferingId())
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次ID: " + dto.getOfferingId()));
 
+        // 智能解析真实上课教室：优先显式指定；若无则从排课中读取真实教室 (如文管 A447)；最后兜底文管 A447
+        String resolvedClassroom = dto.getClassroom();
+        if (resolvedClassroom == null || resolvedClassroom.isBlank()) {
+            if (scheduleRepository != null) {
+                List<CourseSchedule> schedules = scheduleRepository.findByOfferingId(offering.getId());
+                if (schedules != null && !schedules.isEmpty() && schedules.get(0).getClassroom() != null) {
+                    resolvedClassroom = schedules.get(0).getClassroom();
+                }
+            }
+        }
+        if (resolvedClassroom == null || resolvedClassroom.isBlank()) {
+            resolvedClassroom = "文管 A447";
+        }
+        final String finalClassroom = resolvedClassroom;
+
+        // 考勤操作人身份解析与绑定 (是谁考的勤：教学督导、教研室主任还是任课教师)
+        String opRole = dto.getOperatorRole();
+        String opName = dto.getOperatorName();
+        String opTitle = dto.getOperatorTitle();
+
+        if (opTitle == null || opTitle.isBlank()) {
+            if ("SUPERVISOR".equalsIgnoreCase(opRole)) {
+                opTitle = "教学督导";
+            } else if ("DIRECTOR".equalsIgnoreCase(opRole)) {
+                opTitle = "教研室主任";
+            } else {
+                opTitle = "任课教师";
+            }
+        }
+        if (opName == null || opName.isBlank()) {
+            if ("TEACHER".equalsIgnoreCase(opRole) || opRole == null) {
+                opName = offering.getTeacherName();
+            } else if ("SUPERVISOR".equalsIgnoreCase(opRole)) {
+                opName = "张督导";
+            } else if ("DIRECTOR".equalsIgnoreCase(opRole)) {
+                opName = "李主任";
+            } else {
+                opName = "考勤管理员";
+            }
+        }
+        if (opRole == null || opRole.isBlank()) {
+            opRole = "TEACHER";
+        }
+        final String finalOpName = opName;
+        final String finalOpRole = opRole;
+        final String finalOpTitle = opTitle;
+
         // 如果已有正在进行的考勤，则复用或先完成
         AttendanceSession session = sessionRepository.findFirstByOfferingIdAndStatusOrderByCreatedAtDesc(offering.getId(), "ACTIVE")
+                .map(existing -> {
+                    if (dto.getOperatorName() != null && !dto.getOperatorName().isBlank()) {
+                        existing.setOperatorName(finalOpName);
+                        existing.setOperatorRole(finalOpRole);
+                        existing.setOperatorTitle(finalOpTitle);
+                    }
+                    return existing;
+                })
                 .orElseGet(() -> AttendanceSession.builder()
                         .offering(offering)
                         .weekNumber(dto.getWeekNumber() != null ? dto.getWeekNumber() : 2)
-                        .classroom(dto.getClassroom() != null ? dto.getClassroom() : "智慧教室")
+                        .classroom(finalClassroom)
+                        .operatorName(finalOpName)
+                        .operatorRole(finalOpRole)
+                        .operatorTitle(finalOpTitle)
                         .expectedCount(offering.getStudentCount())
                         .actualCount(0)
                         .attendanceRate(0.0)
@@ -67,6 +141,22 @@ public class AttendanceServiceImpl implements AttendanceService {
         session.setEndTime(LocalDateTime.now());
         if (dto.getAbsentStudentIds() != null) {
             session.setAbsentStudentIds(String.join(",", dto.getAbsentStudentIds()));
+        }
+
+        // 归档时记录或补充操作人信息
+        if (dto.getOperatorName() != null && !dto.getOperatorName().isBlank()) {
+            session.setOperatorName(dto.getOperatorName());
+        }
+        if (dto.getOperatorRole() != null && !dto.getOperatorRole().isBlank()) {
+            session.setOperatorRole(dto.getOperatorRole());
+        }
+        if (dto.getOperatorTitle() != null && !dto.getOperatorTitle().isBlank()) {
+            session.setOperatorTitle(dto.getOperatorTitle());
+        }
+        if (session.getOperatorName() == null || session.getOperatorName().isBlank()) {
+            session.setOperatorName(session.getOffering() != null ? session.getOffering().getTeacherName() : "郭军");
+            session.setOperatorRole("TEACHER");
+            session.setOperatorTitle("任课教师");
         }
 
         return sessionRepository.save(session);

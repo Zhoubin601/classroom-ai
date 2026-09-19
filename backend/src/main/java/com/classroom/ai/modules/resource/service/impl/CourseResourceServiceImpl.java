@@ -82,9 +82,25 @@ public class CourseResourceServiceImpl implements CourseResourceService {
         return resourceRepository.save(resource);
     }
 
+    @org.springframework.beans.factory.annotation.Value("${classroom.upload-dir:}")
+    private String uploadDir;
+
     @Override
     @Transactional
     public void deleteResource(Long id) {
+        resourceRepository.findById(id).ifPresent(res -> {
+            if (res.getFileUrl() != null && res.getFileUrl().startsWith("/uploads/resources/")) {
+                try {
+                    String filename = res.getFileUrl().substring("/uploads/resources/".length());
+                    if (!filename.startsWith("ch1_") && !filename.startsWith("ch3_") && !filename.startsWith("ch5_")
+                            && !filename.startsWith("cs2002_") && !filename.startsWith("ai3001_")) {
+                        java.nio.file.Path path = com.classroom.ai.config.UploadPaths.resolveResources(uploadDir).resolve(filename);
+                        java.nio.file.Files.deleteIfExists(path);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        });
         resourceRepository.deleteById(id);
     }
 }

@@ -12,4 +12,8 @@ public interface SyllabusService {
     List<GraduationIndicator> getIndicatorsByCourseId(Long courseId);
     CourseSyllabus saveSyllabus(SyllabusDTO dto);
     CourseSyllabus lockSyllabus(Long syllabusId, String lockedBy);
+
+    GraduationIndicator addIndicator(Long courseId, com.classroom.ai.modules.course.dto.IndicatorDTO dto);
+    GraduationIndicator updateIndicator(Long id, com.classroom.ai.modules.course.dto.IndicatorDTO dto);
+    void deleteIndicator(Long id);
 }

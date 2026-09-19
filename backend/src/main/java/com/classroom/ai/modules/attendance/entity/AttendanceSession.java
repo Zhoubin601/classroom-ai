@@ -60,6 +60,18 @@ public class AttendanceSession {
     @Column(nullable = false, length = 32)
     private String status = "ACTIVE";
 
+    /** 考勤操作人姓名，如 郭军、李主任、张督导 */
+    @Column(length = 64)
+    private String operatorName;
+
+    /** 考勤操作人角色代码：TEACHER (任课教师) / DIRECTOR (教研室主任) / SUPERVISOR (教学督导) */
+    @Column(length = 32)
+    private String operatorRole;
+
+    /** 考勤操作人身份职称，如 任课教师、教研室主任、教学督导 */
+    @Column(length = 64)
+    private String operatorTitle;
+
     /** 考勤开始时间 */
     private LocalDateTime startTime;
 

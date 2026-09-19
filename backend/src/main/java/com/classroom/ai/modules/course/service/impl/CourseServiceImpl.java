@@ -53,6 +53,7 @@ public class CourseServiceImpl implements CourseService {
         course.setCourseCode(dto.getCourseCode());
         course.setCourseName(dto.getCourseName());
         course.setDepartment(dto.getDepartment());
+        course.setTeacherName(dto.getTeacherName());
         course.setCredits(dto.getCredits());
         course.setHours(dto.getHours());
         course.setTheoryHours(dto.getTheoryHours() != null ? dto.getTheoryHours() : dto.getHours());

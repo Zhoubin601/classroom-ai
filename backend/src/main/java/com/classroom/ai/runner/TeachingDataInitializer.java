@@ -50,13 +50,39 @@ public class TeachingDataInitializer implements ApplicationRunner {
         // 0. 初始化权限账号、专业与教师基础数据
         initAuthAndMasterData();
 
-        // 1. 优先保证学生花名册完整 (以 MySQL 为唯一真值来源，软件工程2024级2班全员95人)
-        if (studentRepository.count() < 95) {
+        // 1. 优先保证学生花名册完整 (以 MySQL 为唯一真值来源，8个班级共80人)
+        if (studentRepository.count() == 0) {
             initStudents();
         }
 
         if (courseRepository.count() > 0) {
-            log.info("【爱教学】教务数据已就绪，跳过课程初始化。");
+            courseRepository.findAll().forEach(course -> {
+                if (course.getTeacherName() == null || course.getTeacherName().isEmpty()) {
+                    if ("CS3001".equals(course.getCourseCode())) course.setTeacherName("郭军 (教授)");
+                    else if ("CS2002".equals(course.getCourseCode())) course.setTeacherName("姜琳颖 (副教授)");
+                    else if ("CS2001".equals(course.getCourseCode())) course.setTeacherName("赵广生 (讲师)");
+                    else if ("CS3002".equals(course.getCourseCode())) course.setTeacherName("王伟 (副教授)");
+                    else course.setTeacherName("主讲教师");
+                    courseRepository.save(course);
+                }
+            });
+
+            // 补全开课班次专业编码，保证督导权限能检索到全部班级
+            offeringRepository.findAll().forEach(off -> {
+                if (off.getMajorCode() == null || off.getMajorCode().isEmpty()) {
+                    String cls = off.getClassName();
+                    if (cls != null) {
+                        if (cls.contains("软件工程")) off.setMajorCode("SE");
+                        else if (cls.contains("计算机")) off.setMajorCode("CS");
+                        else if (cls.contains("人工智能")) off.setMajorCode("AI");
+                        else if (cls.contains("信息安全")) off.setMajorCode("SEC");
+                        else if (cls.contains("数据科学")) off.setMajorCode("DS");
+                        else off.setMajorCode("SE");
+                        offeringRepository.save(off);
+                    }
+                }
+            });
+            log.info("【爱教学】教务数据已就绪，已核对并补齐课程主讲教师档案与开课专业编码。");
             return;
         }
 
@@ -67,6 +93,7 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .courseCode("CS3001")
                 .courseName("软件项目管理")
                 .department("软件工程教研室")
+                .teacherName("郭军 (教授)")
                 .credits(3.0)
                 .hours(48)
                 .theoryHours(36)
@@ -82,6 +109,7 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .courseCode("CS2002")
                 .courseName("计算机组成原理")
                 .department("计算机系统结构教研室")
+                .teacherName("姜琳颖 (副教授)")
                 .credits(4.0)
                 .hours(64)
                 .theoryHours(48)
@@ -97,6 +125,7 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .courseCode("CS2001")
                 .courseName("数据结构与算法")
                 .department("基础软件教研室")
+                .teacherName("赵广生 (讲师)")
                 .credits(4.0)
                 .hours(64)
                 .theoryHours(48)
@@ -112,6 +141,7 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .courseCode("CS3002")
                 .courseName("操作系统原理")
                 .department("系统软件教研室")
+                .teacherName("王伟 (副教授)")
                 .credits(3.5)
                 .hours(56)
                 .theoryHours(44)
@@ -190,6 +220,17 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .dayOfWeek(3) // 周三
                 .startPeriod(3)
                 .endPeriod(4)
+                .build());
+
+        scheduleRepository.save(CourseSchedule.builder()
+                .offering(off1)
+                .classroom("文管 A447")
+                .weekRange("1-16周(全)")
+                .startWeek(1)
+                .endWeek(16)
+                .dayOfWeek(5) // 周五 (当前实训/实验授课时段)
+                .startPeriod(7)
+                .endPeriod(8)
                 .build());
 
         scheduleRepository.save(CourseSchedule.builder()

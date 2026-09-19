@@ -13,6 +13,8 @@ export interface DashboardOverviewVO {
   realtimeLookupRate: number
   lookdownCount: number
   focusLevel: string
+  auditingCount?: number
+  auditingStudentIds?: string[]
   lastUpdateTime: string
 }
 
@@ -29,6 +31,7 @@ export interface StudentRealtimeStatusVO {
   avatarUrl: string | null
   present: boolean
   poseState: 'UP' | 'DOWN' | 'ABSENT' | string
+  isAuditing?: boolean
   lastSeenTime: string
 }
 
@@ -69,6 +72,7 @@ export interface FaceMatchVO {
 
 export interface ClassroomStreamDTO {
   sessionId: string
+  offeringId?: number
   courseName?: string
   className?: string
   detectedPersonCount: number
@@ -85,7 +89,9 @@ export interface Course {
   id: number
   courseCode: string
   courseName: string
+  teacherName?: string
   department: string
+  majorCode?: string
   credits: number
   hours: number
   theoryHours?: number
@@ -104,6 +110,7 @@ export interface CourseOffering {
   teacherName: string
   teacherCode?: string
   className: string
+  majorCode?: string
   studentCount: number
   status: string
 }

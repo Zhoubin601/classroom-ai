@@ -12,7 +12,7 @@
               教研室主任工作台
               <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-medium">管理中心 (Director Portal)</span>
             </h1>
-            <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证 12 项指标点审查与年度质量分析报表导出</p>
+            <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证 12 项指标点动态维护与年度质量分析报表导出</p>
           </div>
         </div>
       </div>
@@ -20,7 +20,7 @@
         <a :href="supervisionApi.getExportReportUrl()" download class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
           <Download class="w-3.5 h-3.5" /> 导出年度质量报表 (CSV/Excel)
         </a>
-        <button @click="openAddCourseModal" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition">
+        <button @click="openAddCourseModal" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
           <Plus class="w-3.5 h-3.5" /> 新增专业课程档案
         </button>
       </div>
@@ -32,7 +32,7 @@
         v-for="tab in tabs" 
         :key="tab.key" 
         @click="activeTab = tab.key"
-        :class="['px-3.5 py-1.5 rounded-xl text-xs font-medium transition flex items-center gap-1.5', 
+        :class="['px-3.5 py-1.5 rounded-xl text-xs font-medium transition flex items-center gap-1.5 cursor-pointer', 
                  activeTab === tab.key ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold shadow-subtle' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100']"
       >
         <component :is="tab.iconComp" class="w-3.5 h-3.5" :class="activeTab === tab.key ? 'text-indigo-600' : 'text-slate-400'" />
@@ -48,24 +48,25 @@
             <div class="relative">
               <input 
                 v-model="courseFilter.keyword" 
-                @input="loadCourses" 
-                placeholder="搜索课程名称 / 代码 / 先修课程..." 
+                @input="handleFilterChange" 
+                placeholder="搜索课程名称 / 代码 / 教师 / 先修..." 
                 class="bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 w-64 shadow-subtle"
               />
               <Search class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
             </div>
             <select 
               v-model="courseFilter.courseType" 
-              @change="loadCourses"
+              @change="handleFilterChange"
               class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-subtle"
             >
               <option value="">全部课程性质</option>
               <option value="专业核心课">专业核心课</option>
               <option value="专业基础课">专业基础课</option>
               <option value="通识必修课">通识必修课</option>
+              <option value="专业选修课">专业选修课</option>
             </select>
           </div>
-          <span class="text-xs text-slate-500">共检索到 <b class="text-indigo-600 font-bold">{{ courseList.length }}</b> 门标准化课程档案</span>
+          <span class="text-xs text-slate-500">共检索到 <b class="text-indigo-600 font-bold">{{ courseList.length }}</b> 门标准化课程档案 (MySQL 实时数据)</span>
         </div>
 
         <!-- 课程表格 -->
@@ -75,6 +76,7 @@
               <tr>
                 <th class="py-3 px-4">课程代码</th>
                 <th class="py-3 px-4">课程名称</th>
+                <th class="py-3 px-4">主讲 / 任课教师</th>
                 <th class="py-3 px-4">院系教研室</th>
                 <th class="py-3 px-4">学分 / 学时</th>
                 <th class="py-3 px-4">课程性质</th>
@@ -83,10 +85,19 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
-              <tr v-for="c in courseList" :key="c.id" class="hover:bg-slate-50/80 transition-colors">
+              <tr v-if="pagedCourses.length === 0">
+                <td colspan="8" class="py-10 text-center text-slate-400">未找到符合条件的课程档案</td>
+              </tr>
+              <tr v-for="c in pagedCourses" :key="c.id" class="hover:bg-slate-50/80 transition-colors">
                 <td class="py-3 px-4 font-mono font-semibold text-indigo-600">{{ c.courseCode }}</td>
                 <td class="py-3 px-4 font-semibold text-slate-900">
                   {{ c.courseName }}
+                </td>
+                <td class="py-3 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 font-semibold text-xs">
+                    <User class="w-3.5 h-3.5 text-indigo-500" />
+                    {{ c.teacherName || '郭军 (教授)' }}
+                  </span>
                 </td>
                 <td class="py-3 px-4 text-slate-500">{{ c.department }}</td>
                 <td class="py-3 px-4 text-slate-600">{{ c.credits }} 学分 / {{ c.hours }}h (理论{{ c.theoryHours }} + 实验{{ c.practiceHours }})</td>
@@ -97,13 +108,66 @@
                 </td>
                 <td class="py-3 px-4 text-slate-500 truncate max-w-xs">{{ c.prerequisites || '无' }}</td>
                 <td class="py-3 px-4 text-right space-x-2">
-                  <button @click="viewCourseDetail(c)" class="text-indigo-600 hover:text-indigo-800 font-medium">大纲</button>
-                  <button @click="editCourse(c)" class="text-amber-600 hover:text-amber-800 font-medium">编辑</button>
-                  <button @click="removeCourse(c.id)" class="text-rose-600 hover:text-rose-800 font-medium">删除</button>
+                  <button @click="viewCourseDetail(c)" class="text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer">大纲</button>
+                  <button @click="editCourse(c)" class="text-amber-600 hover:text-amber-800 font-medium cursor-pointer">编辑</button>
+                  <button @click="removeCourse(c.id)" class="text-rose-600 hover:text-rose-800 font-medium cursor-pointer">删除</button>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- 分页控制栏 (P1 级要求) -->
+        <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <span>共 <b class="text-slate-800">{{ courseList.length }}</b> 门课程</span>
+            <span>·</span>
+            <span>第 <b class="text-indigo-600">{{ courseCurrentPage }}</b> / {{ totalCoursePages }} 页</span>
+            <div class="flex items-center gap-1 ml-2">
+              <span>每页显示</span>
+              <select 
+                v-model.number="coursePageSize" 
+                @change="courseCurrentPage = 1" 
+                class="bg-white border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
+              >
+                <option :value="5">5 条</option>
+                <option :value="10">10 条</option>
+                <option :value="20">20 条</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1.5">
+            <button
+              @click="courseCurrentPage = Math.max(1, courseCurrentPage - 1)"
+              :disabled="courseCurrentPage <= 1"
+              class="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium"
+            >
+              上一页
+            </button>
+            <div class="flex items-center gap-1">
+              <button
+                v-for="p in totalCoursePages"
+                :key="p"
+                @click="courseCurrentPage = p"
+                :class="[
+                  'w-7 h-7 rounded-lg text-xs font-semibold flex items-center justify-center transition cursor-pointer',
+                  courseCurrentPage === p
+                    ? 'bg-indigo-600 text-white shadow-xs'
+                    : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                ]"
+              >
+                {{ p }}
+              </button>
+            </div>
+            <button
+              @click="courseCurrentPage = Math.min(totalCoursePages, courseCurrentPage + 1)"
+              :disabled="courseCurrentPage >= totalCoursePages"
+              class="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium"
+            >
+              下一页
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -111,45 +175,124 @@
     <!-- Tab 2: 集中排课统筹与冲突检测看板 (US-03) -->
     <div v-if="activeTab === 'schedules'" class="space-y-4">
       <div class="minimal-card p-5">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div>
             <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
               <Calendar class="w-4 h-4 text-indigo-600" /> 开课排课统筹看板 (支持周次/教室/人次智能联动与防冲突检测)
             </h2>
             <p class="text-xs text-slate-500 mt-0.5">联动文管 A447、信息馆 B201 等教室与各教师班额，防冲突算法实时守护</p>
           </div>
-          <button @click="openAddScheduleModal" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1">
+          <button @click="openAddScheduleModal" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1 cursor-pointer">
             <Plus class="w-3.5 h-3.5" /> 新增排课调度
           </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div v-for="s in scheduleList" :key="s.id" class="bg-white border border-slate-200 rounded-xl p-4 hover:border-indigo-300 hover:shadow-card transition shadow-subtle">
-            <div class="flex items-start justify-between">
-              <div>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 font-mono">
-                  {{ s.offering?.course?.courseCode }}
-                </span>
-                <h3 class="text-sm font-bold text-slate-900 mt-1.5">{{ s.offering?.course?.courseName }}</h3>
-                <p class="text-xs text-slate-500 mt-0.5">任课教师：<b class="text-slate-800">{{ s.offering?.teacherName }}</b> ({{ s.offering?.className }})</p>
-              </div>
-              <span class="text-xs px-2 py-1 bg-slate-100 text-slate-600 border border-slate-200 rounded-lg font-mono">
-                {{ s.offering?.studentCount }} 人额
-              </span>
+        <!-- 排课看板多维快捷筛选工具栏 -->
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl mb-5 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="font-semibold text-slate-700 flex items-center gap-1">
+              <Filter class="w-3.5 h-3.5 text-indigo-600" /> 排课筛选：
+            </span>
+
+            <!-- 周几筛选 -->
+            <select v-model="scheduleFilter.dayOfWeek" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-xs">
+              <option value="">全部星期 (周一至周日)</option>
+              <option :value="1">星期一 (Mon)</option>
+              <option :value="2">星期二 (Tue)</option>
+              <option :value="3">星期三 (Wed)</option>
+              <option :value="4">星期四 (Thu)</option>
+              <option :value="5">星期五 (Fri)</option>
+              <option :value="6">星期六 (Sat)</option>
+              <option :value="7">星期日 (Sun)</option>
+            </select>
+
+            <!-- 节次区间筛选 -->
+            <select v-model="scheduleFilter.period" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-xs">
+              <option value="">全部节次时段</option>
+              <option value="1-2">第1-2节 (08:00 - 09:35)</option>
+              <option value="3-4">第3-4节 (10:05 - 11:40)</option>
+              <option value="5-6">第5-6节 (13:30 - 15:05)</option>
+              <option value="7-8">第7-8节 (15:35 - 17:10)</option>
+              <option value="9-10">第9-10节 (18:30 - 20:05)</option>
+            </select>
+
+            <!-- 课程性质筛选 -->
+            <select v-model="scheduleFilter.courseType" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-xs">
+              <option value="">全部课程性质</option>
+              <option value="专业核心课">专业核心课</option>
+              <option value="专业基础课">专业基础课</option>
+              <option value="通识必修课">通识必修课</option>
+              <option value="专业选修课">专业选修课</option>
+            </select>
+
+            <!-- 教师姓名筛选 -->
+            <div class="relative">
+              <input 
+                v-model="scheduleFilter.teacher" 
+                placeholder="按任课教师筛选 (如 郭军)..." 
+                class="bg-white border border-slate-200 rounded-lg pl-7 pr-2.5 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 w-44 shadow-xs"
+              />
+              <User class="w-3 h-3 text-slate-400 absolute left-2 top-2.5" />
             </div>
 
-            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
-              <div class="flex items-center gap-1.5">
-                <span class="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">{{ s.classroom }}</span>
+            <!-- 一键重置 -->
+            <button 
+              @click="resetScheduleFilter" 
+              class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-slate-600 text-xs font-medium transition cursor-pointer flex items-center gap-1"
+            >
+              <RotateCcw class="w-3 h-3 text-slate-500" /> 重置
+            </button>
+          </div>
+
+          <span class="text-xs text-slate-500 font-medium">
+            共匹配到 <b class="text-indigo-600 font-bold">{{ filteredSchedules.length }}</b> 节排课记录
+          </span>
+        </div>
+
+        <!-- 排课卡片列表 -->
+        <div v-if="filteredSchedules.length === 0" class="py-12 text-center text-slate-400 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
+          <Calendar class="w-8 h-8 text-slate-300 mx-auto mb-2" />
+          <span>没有找到符合所选筛选条件 (周几/节次/课程类型/教师) 的排课记录</span>
+        </div>
+        <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div v-for="s in filteredSchedules" :key="s.id" class="bg-white border border-slate-200 rounded-xl p-4 hover:border-indigo-300 hover:shadow-card transition shadow-subtle flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between">
+                <div>
+                  <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 font-mono">
+                    {{ s.offering?.course?.courseCode }}
+                  </span>
+                  <h3 class="text-sm font-bold text-slate-900 mt-1.5">{{ s.offering?.course?.courseName }}</h3>
+                  <div class="mt-1 flex items-center gap-2">
+                    <span class="inline-flex items-center gap-1 text-xs font-semibold text-slate-800">
+                      <User class="w-3 h-3 text-indigo-600" /> {{ s.offering?.teacherName }}
+                    </span>
+                    <span class="text-slate-400 text-xs">({{ s.offering?.className }})</span>
+                  </div>
+                </div>
+                <div class="flex flex-col items-end gap-1">
+                  <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200 rounded-lg font-mono">
+                    {{ s.offering?.studentCount }} 人额
+                  </span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200">
+                    {{ s.offering?.course?.courseType || '专业课' }}
+                  </span>
+                </div>
               </div>
-              <div class="text-right">
-                <span class="text-slate-600">周{{ s.dayOfWeek }} 第{{ s.startPeriod }}-{{ s.endPeriod }}节</span>
-                <div class="text-[10px] text-slate-400 font-mono">({{ s.weekRange }})</div>
+
+              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">{{ s.classroom }}</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-slate-700 font-semibold">周{{ s.dayOfWeek }} 第{{ s.startPeriod }}-{{ s.endPeriod }}节</span>
+                  <div class="text-[10px] text-slate-400 font-mono">({{ s.weekRange }})</div>
+                </div>
               </div>
             </div>
 
-            <div class="mt-3 text-right">
-              <button @click="removeSchedule(s.id)" class="text-rose-600 hover:text-rose-700 text-[11px] font-medium">取消排课</button>
+            <div class="mt-3 pt-2 border-t border-slate-50 text-right">
+              <button @click="removeSchedule(s.id)" class="text-rose-600 hover:text-rose-700 text-[11px] font-medium cursor-pointer">取消排课</button>
             </div>
           </div>
         </div>
@@ -164,9 +307,9 @@
             <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
               <Target class="w-4 h-4 text-indigo-600" /> 东北大学工程教育专业认证 12 项毕业要求指标点矩阵
             </h2>
-            <p class="text-xs text-slate-500 mt-0.5">审查并锁定专业培养方案 12 项通用标准指标点对课程大纲的支撑度 (H强/M中/L弱)</p>
+            <p class="text-xs text-slate-500 mt-0.5">指标点具体细化与分解已交由对应主讲教师在【任课教师工作台】填报；教研室主任在此统筹审查各门课程大纲并进行基线锁定 (US-05)</p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2.5">
             <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 shadow-subtle">
               <span class="text-xs text-slate-500">选择审查课程:</span>
               <select 
@@ -183,11 +326,18 @@
                   :value="c.id" 
                   class="text-slate-700 py-1.5"
                 >
-                  {{ c.courseCode }} - {{ c.courseName }}
+                  {{ c.courseCode }} - {{ c.courseName }} ({{ c.teacherName || '任课教师' }})
                 </option>
               </select>
             </div>
-            <button @click="lockCurrentSyllabus" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5">
+
+            <!-- 新增指标点按钮 -->
+            <button @click="openAddIndicatorModal" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer">
+              <Plus class="w-3.5 h-3.5" /> 新增认证指标点
+            </button>
+
+            <!-- 审查锁定按钮 -->
+            <button @click="lockCurrentSyllabus" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer">
               <Lock class="w-3.5 h-3.5" /> 审查锁定本版大纲
             </button>
           </div>
@@ -198,25 +348,26 @@
             <thead class="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
               <tr>
                 <th class="py-3 px-4">指标点编号</th>
-                <th class="py-3 px-4">毕业要求大项</th>
+                <th class="py-3 px-4">毕业要求大项 (12项认证标准)</th>
                 <th class="py-3 px-4">指标点分解表述</th>
                 <th class="py-3 px-4">支撑权重</th>
                 <th class="py-3 px-4">对应课程目标</th>
+                <th class="py-3 px-4 text-right">操作</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
               <tr v-if="indicatorList.length === 0">
-                <td colspan="5" class="py-12 text-center text-slate-400">
+                <td colspan="6" class="py-12 text-center text-slate-400">
                   <div class="flex flex-col items-center justify-center gap-2">
                     <FileText class="w-6 h-6 text-slate-300" />
-                    <span>该课程暂未录入毕业要求指标点矩阵（当前《软件项目管理》已配置完整认证指标点）</span>
+                    <span>该课程暂未录入毕业要求指标点，请点击右上角【新增认证指标点】进行录入</span>
                   </div>
                 </td>
               </tr>
-              <tr v-for="ind in indicatorList" :key="ind.id" class="hover:bg-slate-50/80">
+              <tr v-for="ind in indicatorList" :key="ind.id" class="hover:bg-slate-50/80 transition-colors">
                 <td class="py-3 px-4 font-mono font-semibold text-indigo-600">{{ ind.indicatorCode }}</td>
                 <td class="py-3 px-4 text-slate-900 font-medium">{{ ind.requirementCategory }}</td>
-                <td class="py-3 px-4 text-slate-600 leading-relaxed">{{ ind.indicatorDescription }}</td>
+                <td class="py-3 px-4 text-slate-600 leading-relaxed max-w-md">{{ ind.indicatorDescription }}</td>
                 <td class="py-3 px-4">
                   <span :class="['px-2.5 py-1 rounded-md text-[10px] font-bold font-mono', 
                                 ind.supportWeight === 'H' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 
@@ -225,6 +376,10 @@
                   </span>
                 </td>
                 <td class="py-3 px-4 text-slate-500 font-mono">{{ ind.targetGoal || '目标1' }}</td>
+                <td class="py-3 px-4 text-right space-x-2">
+                  <button @click="openEditIndicatorModal(ind)" class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer">编辑</button>
+                  <button @click="confirmDeleteIndicator(ind)" class="text-rose-600 hover:text-rose-800 font-semibold cursor-pointer">删除</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -248,6 +403,10 @@
             <input v-model="currentCourseForm.courseName" placeholder="如 软件项目管理" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
           <div>
+            <label class="text-slate-600 block mb-1">主讲 / 任课教师</label>
+            <input v-model="currentCourseForm.teacherName" placeholder="如 郭军 (教授)" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+          </div>
+          <div>
             <label class="text-slate-600 block mb-1">学分</label>
             <input v-model.number="currentCourseForm.credits" type="number" step="0.5" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
@@ -265,9 +424,10 @@
               <option value="专业核心课">专业核心课</option>
               <option value="专业基础课">专业基础课</option>
               <option value="专业选修课">专业选修课</option>
+              <option value="通识必修课">通识必修课</option>
             </select>
           </div>
-          <div class="col-span-2">
+          <div>
             <label class="text-slate-600 block mb-1">先修关系说明</label>
             <input v-model="currentCourseForm.prerequisites" placeholder="如 《软件工程导论》" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
@@ -278,8 +438,8 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-2">
-          <button @click="showCourseModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition">取消</button>
-          <button @click="handleSaveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition">保存并入库</button>
+          <button @click="showCourseModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleSaveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">保存并入库 (MySQL)</button>
         </div>
       </div>
     </div>
@@ -312,6 +472,8 @@
                 <option :value="3">周三</option>
                 <option :value="4">周四</option>
                 <option :value="5">周五</option>
+                <option :value="6">周六</option>
+                <option :value="7">周日</option>
               </select>
             </div>
             <div>
@@ -331,8 +493,82 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-2">
-          <button @click="showScheduleModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition">取消</button>
-          <button @click="handleSaveSchedule" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition">校验并排课</button>
+          <button @click="showScheduleModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleSaveSchedule" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">校验并排课</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：新增 / 编辑认证指标点 (写进 MySQL) -->
+    <div v-if="showIndicatorModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-6 shadow-modal space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <Target class="w-4 h-4 text-indigo-600" /> {{ indicatorForm.id ? '修改毕业要求指标点' : '新增毕业要求指标点' }}
+          </h3>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+            直接持久化至 MySQL
+          </span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-slate-600 block mb-1">指标点编号 (如 1-1, 11-1)</label>
+              <input 
+                v-model="indicatorForm.indicatorCode" 
+                placeholder="如 11-1" 
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+              />
+            </div>
+            <div>
+              <label class="text-slate-600 block mb-1">支撑权重 (H强/M中/L弱)</label>
+              <select 
+                v-model="indicatorForm.supportWeight" 
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle font-semibold"
+              >
+                <option value="H">H (强支撑)</option>
+                <option value="M">M (中等支撑)</option>
+                <option value="L">L (弱支撑)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">毕业要求大项 (通用认证12项)</label>
+            <select 
+              v-model="indicatorForm.requirementCategory" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle"
+            >
+              <option v-for="cat in standardIndicatorCategories" :key="cat" :value="cat">
+                {{ cat }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">对应课程目标 (如 目标1, 目标2)</label>
+            <input 
+              v-model="indicatorForm.targetGoal" 
+              placeholder="如 目标1" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            />
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">指标点分解内容表述</label>
+            <textarea 
+              v-model="indicatorForm.indicatorDescription" 
+              rows="3" 
+              placeholder="请输入该指标点在课程中的分解细化要求与能力观测点..." 
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+          <button @click="showIndicatorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">保存并写入 MySQL</button>
         </div>
       </div>
     </div>
@@ -340,7 +576,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import {
   Briefcase,
   Download,
@@ -351,7 +587,10 @@ import {
   Lock,
   BookOpen,
   FileText,
-  AlertCircle
+  AlertCircle,
+  User,
+  Filter,
+  RotateCcw
 } from 'lucide-vue-next'
 import { courseApi, scheduleApi, syllabusApi, supervisionApi } from '../api'
 import type { Course, CourseSchedule, GraduationIndicator, CourseOffering } from '../api/types'
@@ -363,7 +602,6 @@ const tabs = [
   { key: 'indicators', label: '12项毕业要求指标点矩阵 (US-05)', iconComp: Target }
 ]
 
-
 const courseList = ref<Course[]>([])
 const scheduleList = ref<CourseSchedule[]>([])
 const offeringList = ref<CourseOffering[]>([])
@@ -372,12 +610,105 @@ const indicatorList = ref<GraduationIndicator[]>([])
 const courseFilter = ref({ keyword: '', courseType: '' })
 const selectedCourseIdForIndicator = ref<number | ''>('')
 
+// 分页状态管理 (P1 级要求)
+const courseCurrentPage = ref(1)
+const coursePageSize = ref(5)
+
+const handleFilterChange = () => {
+  courseCurrentPage.value = 1
+  loadCourses()
+}
+
+const totalCoursePages = computed(() => {
+  return Math.ceil(courseList.value.length / coursePageSize.value) || 1
+})
+
+const pagedCourses = computed(() => {
+  const start = (courseCurrentPage.value - 1) * coursePageSize.value
+  return courseList.value.slice(start, start + coursePageSize.value)
+})
+
+// 排课看板组合快捷筛选 (周几、节次、课程性质、教师)
+const scheduleFilter = ref({
+  dayOfWeek: '',
+  period: '',
+  courseType: '',
+  teacher: ''
+})
+
+const resetScheduleFilter = () => {
+  scheduleFilter.value = {
+    dayOfWeek: '',
+    period: '',
+    courseType: '',
+    teacher: ''
+  }
+}
+
+const filteredSchedules = computed(() => {
+  return scheduleList.value.filter(s => {
+    // 星期筛选
+    if (scheduleFilter.value.dayOfWeek && String(s.dayOfWeek) !== String(scheduleFilter.value.dayOfWeek)) {
+      return false
+    }
+    // 节次筛选
+    if (scheduleFilter.value.period) {
+      const parts = scheduleFilter.value.period.split('-').map(Number)
+      if (parts.length === 2) {
+        const [pStart, pEnd] = parts
+        if (s.startPeriod > pEnd || s.endPeriod < pStart) {
+          return false
+        }
+      }
+    }
+    // 课程性质
+    if (scheduleFilter.value.courseType && s.offering?.course?.courseType !== scheduleFilter.value.courseType) {
+      return false
+    }
+    // 教师姓名
+    if (scheduleFilter.value.teacher && scheduleFilter.value.teacher.trim()) {
+      const q = scheduleFilter.value.teacher.trim().toLowerCase()
+      const t = (s.offering?.teacherName || '').toLowerCase()
+      if (!t.includes(q)) {
+        return false
+      }
+    }
+    return true
+  })
+})
+
 const showCourseModal = ref(false)
 const currentCourseForm = ref<any>({})
 
 const showScheduleModal = ref(false)
 const currentScheduleForm = ref<any>({ dayOfWeek: 3, startPeriod: 3, endPeriod: 4, startWeek: 1, endWeek: 16, classroom: '文管 A447' })
 const scheduleErrorMessage = ref('')
+
+// 指标点管理相关 (新增/修改/删除 MySQL 持久化)
+const showIndicatorModal = ref(false)
+const indicatorForm = ref<any>({
+  id: null,
+  indicatorCode: '',
+  requirementCategory: '1. 工程知识',
+  indicatorDescription: '',
+  supportWeight: 'H',
+  targetGoal: '目标1'
+})
+
+const standardIndicatorCategories = [
+  '1. 工程知识',
+  '2. 问题分析',
+  '3. 设计/开发解决方案',
+  '4. 研究',
+  '5. 使用现代工具',
+  '6. 工程与社会',
+  '7. 环境和可持续发展',
+  '8. 职业规范',
+  '9. 个人和团队',
+  '10. 沟通',
+  '11. 项目管理',
+  '12. 终身学习'
+]
 
 const loadCourses = async () => {
   try {
@@ -425,6 +756,7 @@ const openAddCourseModal = () => {
     courseCode: '',
     courseName: '',
     department: '软件工程教研室',
+    teacherName: '郭军 (教授)',
     credits: 3.0,
     hours: 48,
     theoryHours: 36,
@@ -492,6 +824,66 @@ const removeSchedule = async (id: number) => {
   }
 }
 
+// 指标点新增、编辑与删除方法
+const openAddIndicatorModal = () => {
+  if (!selectedCourseIdForIndicator.value) {
+    alert('请先选择一门课程！')
+    return
+  }
+  indicatorForm.value = {
+    id: null,
+    indicatorCode: '11-1',
+    requirementCategory: '11. 项目管理',
+    indicatorDescription: '',
+    supportWeight: 'H',
+    targetGoal: '目标1'
+  }
+  showIndicatorModal.value = true
+}
+
+const openEditIndicatorModal = (ind: GraduationIndicator) => {
+  indicatorForm.value = {
+    id: ind.id,
+    indicatorCode: ind.indicatorCode,
+    requirementCategory: ind.requirementCategory,
+    indicatorDescription: ind.indicatorDescription,
+    supportWeight: ind.supportWeight,
+    targetGoal: ind.targetGoal
+  }
+  showIndicatorModal.value = true
+}
+
+const handleSaveIndicator = async () => {
+  if (!indicatorForm.value.indicatorCode || !indicatorForm.value.indicatorDescription) {
+    alert('请填写指标点编号与分解表述！')
+    return
+  }
+  try {
+    if (indicatorForm.value.id) {
+      await syllabusApi.updateIndicator(indicatorForm.value.id, indicatorForm.value)
+    } else {
+      await syllabusApi.addIndicator(Number(selectedCourseIdForIndicator.value), indicatorForm.value)
+    }
+    showIndicatorModal.value = false
+    await loadIndicatorsForSelectedCourse()
+    alert('指标点已成功保存并实时写入 MySQL！')
+  } catch (e: any) {
+    alert(e.response?.data?.message || '指标点保存失败')
+  }
+}
+
+const confirmDeleteIndicator = async (ind: GraduationIndicator) => {
+  if (confirm(`确认删除指标点【${ind.indicatorCode}】？此操作将直接同步删除 MySQL 中的数据。`)) {
+    try {
+      await syllabusApi.deleteIndicator(ind.id)
+      await loadIndicatorsForSelectedCourse()
+      alert('指标点已成功从 MySQL 中删除！')
+    } catch (e: any) {
+      alert(e.response?.data?.message || '删除指标点失败')
+    }
+  }
+}
+
 const lockCurrentSyllabus = async () => {
   if (!selectedCourseIdForIndicator.value) {
     alert('请先选择需要锁定的课程！')
@@ -511,7 +903,7 @@ const lockCurrentSyllabus = async () => {
 }
 
 const viewCourseDetail = (c: Course) => {
-  alert(`【${c.courseName} (${c.courseCode})】\n\n教学目标：\n${c.objectives || '暂无'}\n\n考核方式：\n${c.assessmentMethod || '暂无'}`)
+  alert(`【${c.courseName} (${c.courseCode})】\n主讲教师：${c.teacherName || '未指定'}\n\n教学目标：\n${c.objectives || '暂无'}\n\n考核方式：\n${c.assessmentMethod || '暂无'}`)
 }
 
 onMounted(() => {

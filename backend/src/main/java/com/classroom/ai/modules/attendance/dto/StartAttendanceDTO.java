@@ -13,4 +13,7 @@ public class StartAttendanceDTO {
     private Long offeringId;
     private Integer weekNumber;
     private String classroom;
+    private String operatorName;
+    private String operatorRole;
+    private String operatorTitle;
 }

@@ -9,7 +9,8 @@ import type {
   FaceRegisterDTO,
   FaceSearchDTO,
   FaceMatchVO,
-  ClassroomStreamDTO
+  ClassroomStreamDTO,
+  CourseSchedule
 } from './types'
 
 // 在开发环境下通过 Vite 代理连接后端，也可直连 localhost:8080
@@ -23,6 +24,10 @@ const client = axios.create({
 })
 
 client.interceptors.request.use((config) => {
+  const jwtToken = localStorage.getItem('jwtToken')
+  if (jwtToken && config.headers) {
+    config.headers['Authorization'] = `Bearer ${jwtToken}`
+  }
   const token = sessionStorage.getItem('csrfToken')
   if (token && config.headers) {
     config.headers['X-CSRF-TOKEN'] = token
@@ -79,10 +84,18 @@ export const visualApi = {
     throw new Error('摄像头初始化超时')
   },
 
-  // 停止桌面端视觉督导推断流
+  // 停止桌面端视觉督导推断流并复位清理大屏缓存
   stopMonitor: async (): Promise<string> => {
     const res = await client.post<ApiResponse<any>>('/api/visual/stop-monitor')
+    try {
+      await client.post('/api/visual/reset')
+    } catch {}
     return res.data.message || '督导已停止'
+  },
+
+  // 主动重置清理大屏实时推断缓存
+  resetStream: async (offeringId?: number): Promise<void> => {
+    await client.post('/api/visual/reset', null, { params: { offeringId } })
   },
 
   // 获取视觉督导运行状态
@@ -251,11 +264,17 @@ export const courseApi = {
 
 export const scheduleApi = {
   // 获取所有排课
-  getAll: async (offeringId?: number, classroom?: string): Promise<any[]> => {
-    const params: Record<string, any> = {}
-    if (offeringId) params.offeringId = offeringId
-    if (classroom && classroom.trim()) params.classroom = classroom.trim()
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/schedules', { params })
+  getAll: async (arg1?: number | { offeringId?: number; classroom?: string; term?: string; teacher?: string; week?: number }, classroom?: string): Promise<CourseSchedule[]> => {
+    let params: Record<string, any> = {}
+    if (typeof arg1 === 'number') {
+      params.offeringId = arg1
+      if (classroom && classroom.trim()) params.classroom = classroom.trim()
+    } else if (arg1 && typeof arg1 === 'object') {
+      params = { ...arg1 }
+    } else if (classroom && classroom.trim()) {
+      params.classroom = classroom.trim()
+    }
+    const res = await client.get<ApiResponse<CourseSchedule[]>>('/api/v1/schedules', { params })
     return res.data.data
   },
 
@@ -302,6 +321,23 @@ export const syllabusApi = {
       params: { lockedBy }
     })
     return res.data.data
+  },
+
+  // 新增单个毕业要求指标点 (持久化到 MySQL)
+  addIndicator: async (courseId: number, data: any): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>(`/api/v1/syllabus/course/${courseId}/indicators`, data)
+    return res.data.data
+  },
+
+  // 修改毕业要求指标点 (更新到 MySQL)
+  updateIndicator: async (id: number, data: any): Promise<any> => {
+    const res = await client.put<ApiResponse<any>>(`/api/v1/syllabus/indicators/${id}`, data)
+    return res.data.data
+  },
+
+  // 删除毕业要求指标点 (从 MySQL 移除)
+  deleteIndicator: async (id: number): Promise<void> => {
+    await client.delete<ApiResponse<any>>(`/api/v1/syllabus/indicators/${id}`)
   }
 }
 
@@ -315,6 +351,28 @@ export const resourceApi = {
     if (params.isPublic !== undefined) cleanParams.isPublic = params.isPublic
     if (params.keyword && params.keyword.trim()) cleanParams.keyword = params.keyword.trim()
     const res = await client.get<ApiResponse<any[]>>('/api/v1/resources', { params: cleanParams })
+    return res.data.data
+  },
+
+  // 上传真实课件文件 (PPTX/DOCX/PDF)
+  uploadFile: async (file: File): Promise<{
+    fileUrl: string
+    fileName: string
+    fileType: string
+    fileSize: string
+    fileSizeBytes: number
+  }> => {
+    const formData = new FormData()
+    formData.append('file', file)
+    const res = await client.post<ApiResponse<{
+      fileUrl: string
+      fileName: string
+      fileType: string
+      fileSize: string
+      fileSizeBytes: number
+    }>>('/api/v1/resources/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
     return res.data.data
   },
 
@@ -385,13 +443,13 @@ export const supervisionApi = {
 // ==================== 7. 智能考勤与教务联动 API ====================
 export const attendanceApi = {
   // 启动考勤
-  start: async (data: { offeringId: number; weekNumber?: number; classroom?: string }): Promise<any> => {
+  start: async (data: { offeringId: number; weekNumber?: number; classroom?: string; operatorName?: string; operatorRole?: string; operatorTitle?: string }): Promise<any> => {
     const res = await client.post<ApiResponse<any>>('/api/v1/attendance/start', data)
     return res.data.data
   },
 
   // 结束下课并归档
-  finish: async (data: { sessionId: number; actualCount?: number; avgLookupRate?: number; absentStudentIds?: string[] }): Promise<any> => {
+  finish: async (data: { sessionId: number; actualCount?: number; avgLookupRate?: number; absentStudentIds?: string[]; operatorName?: string; operatorRole?: string; operatorTitle?: string }): Promise<any> => {
     const res = await client.post<ApiResponse<any>>('/api/v1/attendance/finish', data)
     return res.data.data
   },
@@ -413,10 +471,29 @@ export const attendanceApi = {
 export const authApi = {
   login: async (dto: { username: string; password: string }): Promise<any> => {
     const res = await client.post<ApiResponse<any>>('/api/v1/auth/login', dto)
+    if (res.data.data?.token) {
+      localStorage.setItem('jwtToken', res.data.data.token)
+    }
+    return res.data.data
+  },
+  registerSupervisor: async (dto: {
+    username: string
+    password: string
+    realName: string
+    department?: string
+    authorizedMajors?: string
+  }): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>('/api/v1/auth/register-supervisor', dto)
+    if (res.data.data?.token) {
+      localStorage.setItem('jwtToken', res.data.data.token)
+    }
     return res.data.data
   },
   logout: async (): Promise<void> => {
-    await client.post('/api/v1/auth/logout')
+    try {
+      await client.post('/api/v1/auth/logout')
+    } catch {}
+    localStorage.removeItem('jwtToken')
     sessionStorage.removeItem('csrfToken')
   },
   getMe: async (): Promise<any> => {

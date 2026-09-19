@@ -34,6 +34,12 @@ public class DashboardOverviewVO implements Serializable {
     // 专注度总体评级: "优秀", "良好", "一般", "需关注"
     private String focusLevel;
 
+    // 非本班学生听课/旁听人数（不计入出勤率）
+    private Integer auditingCount;
+
+    // 旁听学生学号列表
+    private java.util.List<String> auditingStudentIds;
+
     // 最近上报更新时间
     private String lastUpdateTime;
 }

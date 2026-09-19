@@ -19,6 +19,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     java.util.List<Student> findByClassName(String className);
 
+    java.util.List<Student> findByStudentIdIn(java.util.Collection<String> studentIds);
+
     @org.springframework.data.jpa.repository.Query("SELECT s FROM Student s WHERE s.className IS NULL OR s.className != :className")
     java.util.List<Student> findAvailableStudentsForClass(@org.springframework.data.repository.query.Param("className") String className);
 }

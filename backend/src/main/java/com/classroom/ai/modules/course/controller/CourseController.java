@@ -91,11 +91,24 @@ public class CourseController {
         if (com.classroom.ai.modules.auth.context.AuthContext.isAuthenticated()
                 && com.classroom.ai.modules.auth.context.AuthContext.getCurrentUser().getRole() == com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR) {
             com.classroom.ai.modules.auth.vo.UserVO user = com.classroom.ai.modules.auth.context.AuthContext.getCurrentUser();
-            if (user.getAuthorizedMajors() != null) {
+            if (user.getAuthorizedMajors() != null && !user.getAuthorizedMajors().trim().isEmpty()) {
                 java.util.Set<String> authMajors = java.util.Arrays.stream(user.getAuthorizedMajors().split(";"))
                         .map(String::trim).map(String::toUpperCase).collect(java.util.stream.Collectors.toSet());
                 list = list.stream()
-                        .filter(o -> o.getMajorCode() != null && authMajors.contains(o.getMajorCode().toUpperCase()))
+                        .filter(o -> {
+                            String mCode = o.getMajorCode();
+                            if ((mCode == null || mCode.trim().isEmpty()) && o.getCourse() != null) {
+                                mCode = o.getCourse().getMajorCode();
+                            }
+                            if ((mCode == null || mCode.trim().isEmpty()) && o.getClassName() != null) {
+                                if (o.getClassName().contains("软件工程")) mCode = "SE";
+                                else if (o.getClassName().contains("计算机")) mCode = "CS";
+                                else if (o.getClassName().contains("人工智能")) mCode = "AI";
+                                else if (o.getClassName().contains("信息安全")) mCode = "SEC";
+                                else if (o.getClassName().contains("数据科学")) mCode = "DS";
+                            }
+                            return mCode == null || authMajors.contains(mCode.toUpperCase());
+                        })
                         .collect(java.util.stream.Collectors.toList());
             }
         }

@@ -16,4 +16,7 @@ public class FinishAttendanceDTO {
     private Integer actualCount;
     private Double avgLookupRate;
     private List<String> absentStudentIds;
+    private String operatorName;
+    private String operatorRole;
+    private String operatorTitle;
 }

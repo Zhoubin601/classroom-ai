@@ -20,4 +20,6 @@ public class UserVO implements Serializable {
     private String department;
     private String teacherCode;
     private String authorizedMajors;
+    /** JWT 访问凭证 */
+    private String token;
 }

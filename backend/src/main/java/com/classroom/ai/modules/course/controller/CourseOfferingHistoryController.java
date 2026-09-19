@@ -64,11 +64,24 @@ public class CourseOfferingHistoryController {
                                 || (off.getTeacherName() != null && off.getTeacherName().equals(teacherName)))
                         .collect(Collectors.toList());
             } else if (user.getRole() == RoleEnum.SUPERVISOR) {
-                if (user.getAuthorizedMajors() != null) {
+                if (user.getAuthorizedMajors() != null && !user.getAuthorizedMajors().trim().isEmpty()) {
                     Set<String> authMajors = Arrays.stream(user.getAuthorizedMajors().split(";"))
                             .map(String::trim).map(String::toUpperCase).collect(Collectors.toSet());
                     offerings = offerings.stream()
-                            .filter(off -> off.getMajorCode() != null && authMajors.contains(off.getMajorCode().toUpperCase()))
+                            .filter(off -> {
+                                String mCode = off.getMajorCode();
+                                if ((mCode == null || mCode.trim().isEmpty()) && off.getCourse() != null) {
+                                    mCode = off.getCourse().getMajorCode();
+                                }
+                                if ((mCode == null || mCode.trim().isEmpty()) && off.getClassName() != null) {
+                                    if (off.getClassName().contains("软件工程")) mCode = "SE";
+                                    else if (off.getClassName().contains("计算机")) mCode = "CS";
+                                    else if (off.getClassName().contains("人工智能")) mCode = "AI";
+                                    else if (off.getClassName().contains("信息安全")) mCode = "SEC";
+                                    else if (off.getClassName().contains("数据科学")) mCode = "DS";
+                                }
+                                return mCode == null || authMajors.contains(mCode.toUpperCase());
+                            })
                             .collect(Collectors.toList());
                 }
             }

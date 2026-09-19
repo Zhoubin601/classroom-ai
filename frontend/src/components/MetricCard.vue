@@ -31,7 +31,7 @@ const props = withDefaults(
     value: string | number
     unit?: string
     subtitle?: string
-    variant?: 'cyan' | 'green' | 'blue' | 'warning' | 'danger'
+    variant?: 'cyan' | 'green' | 'blue' | 'warning' | 'danger' | 'purple'
   }>(),
   {
     variant: 'cyan'
@@ -40,6 +40,8 @@ const props = withDefaults(
 
 const iconBoxStyle = computed(() => {
   switch (props.variant) {
+    case 'purple':
+      return 'bg-purple-50 border border-purple-100 text-purple-600 group-hover:bg-purple-100/70'
     case 'green':
       return 'bg-emerald-50 border border-emerald-100 text-emerald-600 group-hover:bg-emerald-100/70'
     case 'blue':

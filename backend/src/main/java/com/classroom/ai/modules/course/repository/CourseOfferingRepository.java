@@ -17,6 +17,8 @@ public interface CourseOfferingRepository extends JpaRepository<CourseOffering, 
 
     List<CourseOffering> findByCourseId(Long courseId);
 
+    List<CourseOffering> findByClassName(String className);
+
     @Query("SELECT o FROM CourseOffering o WHERE " +
            "(:term IS NULL OR o.academicTerm = :term) AND " +
            "(:teacher IS NULL OR o.teacherName LIKE %:teacher%) AND " +

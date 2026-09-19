@@ -14,6 +14,7 @@ public class CourseDTO {
     private String courseCode;
     private String courseName;
     private String department;
+    private String teacherName;
     private Double credits;
     private Integer hours;
     private Integer theoryHours;

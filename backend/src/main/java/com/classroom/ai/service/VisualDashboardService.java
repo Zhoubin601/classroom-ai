@@ -30,4 +30,10 @@ public interface VisualDashboardService {
      */
     List<StudentRealtimeStatusVO> getStudentsRealtimeStatus();
     List<StudentRealtimeStatusVO> getStudentsRealtimeStatus(Long offeringId);
+
+    /**
+     * 主动清理实时推断流缓存（停止监控/切换班级/归档下课）
+     */
+    void clearRealtimeStreamData();
+    void clearRealtimeStreamData(Long offeringId);
 }

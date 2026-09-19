@@ -91,4 +91,55 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabus.setLockedBy(lockedBy);
         return syllabusRepository.save(syllabus);
     }
+
+    @Override
+    @Transactional
+    public GraduationIndicator addIndicator(Long courseId, com.classroom.ai.modules.course.dto.IndicatorDTO dto) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("未找到ID为 " + courseId + " 的课程档案"));
+        CourseSyllabus latestSyllabus = syllabusRepository.findFirstByCourseIdOrderByCreatedAtDesc(courseId).orElse(null);
+
+        GraduationIndicator indicator = GraduationIndicator.builder()
+                .course(course)
+                .syllabus(latestSyllabus)
+                .indicatorCode(dto.getIndicatorCode())
+                .requirementCategory(dto.getRequirementCategory())
+                .indicatorDescription(dto.getIndicatorDescription())
+                .supportWeight(dto.getSupportWeight() != null ? dto.getSupportWeight() : "M")
+                .targetGoal(dto.getTargetGoal())
+                .build();
+        return indicatorRepository.save(indicator);
+    }
+
+    @Override
+    @Transactional
+    public GraduationIndicator updateIndicator(Long id, com.classroom.ai.modules.course.dto.IndicatorDTO dto) {
+        GraduationIndicator indicator = indicatorRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("未找到ID为 " + id + " 的毕业要求指标点记录"));
+        if (dto.getIndicatorCode() != null) {
+            indicator.setIndicatorCode(dto.getIndicatorCode());
+        }
+        if (dto.getRequirementCategory() != null) {
+            indicator.setRequirementCategory(dto.getRequirementCategory());
+        }
+        if (dto.getIndicatorDescription() != null) {
+            indicator.setIndicatorDescription(dto.getIndicatorDescription());
+        }
+        if (dto.getSupportWeight() != null) {
+            indicator.setSupportWeight(dto.getSupportWeight());
+        }
+        if (dto.getTargetGoal() != null) {
+            indicator.setTargetGoal(dto.getTargetGoal());
+        }
+        return indicatorRepository.save(indicator);
+    }
+
+    @Override
+    @Transactional
+    public void deleteIndicator(Long id) {
+        if (!indicatorRepository.existsById(id)) {
+            throw new IllegalArgumentException("未找到ID为 " + id + " 的毕业要求指标点记录");
+        }
+        indicatorRepository.deleteById(id);
+    }
 }

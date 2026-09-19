@@ -55,4 +55,13 @@ public class VisualDashboardController {
         visualDashboardService.processClassroomStream(streamDTO);
         return ApiResponse.success("Stream metric processed successfully", "OK");
     }
+
+    /**
+     * 5. 主动清空推断大屏缓存数据（停止推流、下课或切换班级）
+     */
+    @PostMapping("/reset")
+    public ApiResponse<String> resetStream(@RequestParam(required = false) Long offeringId) {
+        visualDashboardService.clearRealtimeStreamData(offeringId);
+        return ApiResponse.success("Realtime stream cache reset successfully", "OK");
+    }
 }

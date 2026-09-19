@@ -23,4 +23,17 @@ public final class UploadPaths {
         }
         return root.resolve("runtime/uploads/faces");
     }
+
+    public static Path resolveResources(String configured) {
+        return resolveResources(Path.of(""), configured);
+    }
+
+    public static Path resolveResources(Path workingDirectory, String configured) {
+        Path root = workingDirectory.toAbsolutePath().normalize();
+        if (root.getFileName() != null && root.getFileName().toString().equals("backend")
+                && root.getParent() != null && Files.isDirectory(root.getParent().resolve("vision"))) {
+            root = root.getParent();
+        }
+        return root.resolve("runtime/uploads/resources");
+    }
 }

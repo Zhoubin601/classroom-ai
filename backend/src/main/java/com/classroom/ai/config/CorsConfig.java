@@ -24,22 +24,19 @@ public class CorsConfig implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 
-    @org.springframework.beans.factory.annotation.Autowired(required = false)
-    private com.classroom.ai.modules.auth.interceptor.AuthInterceptor authInterceptor;
-
-    @Override
-    public void addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry registry) {
-        if (authInterceptor != null) {
-            registry.addInterceptor(authInterceptor).addPathPatterns("/api/**");
-        }
-    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 映射本地上传的头像/人脸切片图片静态资源
-        String uploadPath = UploadPaths.resolve(uploadDir).toUri().toString();
-        if (!uploadPath.endsWith("/")) uploadPath += "/";
+        String facePath = UploadPaths.resolve(uploadDir).toUri().toString();
+        if (!facePath.endsWith("/")) facePath += "/";
         registry.addResourceHandler("/uploads/faces/**")
-                .addResourceLocations(uploadPath);
+                .addResourceLocations(facePath);
+
+        // 映射本地教学资源（真实 PPT/DOCX/PDF 课件教案）
+        String resourcePath = UploadPaths.resolveResources(uploadDir).toUri().toString();
+        if (!resourcePath.endsWith("/")) resourcePath += "/";
+        registry.addResourceHandler("/uploads/resources/**")
+                .addResourceLocations(resourcePath);
     }
 }
