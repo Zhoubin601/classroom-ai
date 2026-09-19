@@ -19,6 +19,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final CourseOfferingRepository courseOfferingRepository;
     private final com.classroom.ai.repository.StudentRepository studentRepository;
+    private final com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository;
 
     @Override
     public List<Course> getAllCourses() {
@@ -114,14 +115,27 @@ public class CourseServiceImpl implements CourseService {
     public List<com.classroom.ai.entity.Student> getOfferingStudents(Long offeringId) {
         CourseOffering offering = courseOfferingRepository.findById(offeringId)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
-        return studentRepository.findByClassName(offering.getClassName());
+        List<com.classroom.ai.modules.course.entity.OfferingStudentEnrollment> enrollments = enrollmentRepository.findByOfferingId(offeringId);
+        if (enrollments.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+        List<String> studentNumbers = enrollments.stream()
+                .map(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment::getStudentNumber)
+                .toList();
+        return studentRepository.findByStudentIdIn(studentNumbers);
     }
 
     @Override
     public List<com.classroom.ai.entity.Student> getAvailableStudentsForOffering(Long offeringId) {
         CourseOffering offering = courseOfferingRepository.findById(offeringId)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
-        return studentRepository.findAvailableStudentsForClass(offering.getClassName());
+        List<com.classroom.ai.modules.course.entity.OfferingStudentEnrollment> enrollments = enrollmentRepository.findByOfferingId(offeringId);
+        java.util.Set<String> enrolled = enrollments.stream()
+                .map(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment::getStudentNumber)
+                .collect(java.util.stream.Collectors.toSet());
+        return studentRepository.findAll().stream()
+                .filter(s -> !enrolled.contains(s.getStudentId()))
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
@@ -130,14 +144,26 @@ public class CourseServiceImpl implements CourseService {
         CourseOffering offering = courseOfferingRepository.findById(offeringId)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
         if (studentIds != null && !studentIds.isEmpty()) {
+            List<com.classroom.ai.modules.course.entity.OfferingStudentEnrollment> existingList = enrollmentRepository.findByOfferingId(offeringId);
+            java.util.Set<String> existingNumbers = existingList.stream()
+                    .map(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment::getStudentNumber)
+                    .collect(java.util.stream.Collectors.toSet());
             for (String sid : studentIds) {
-                studentRepository.findByStudentId(sid).ifPresent(s -> {
-                    s.setClassName(offering.getClassName());
-                    studentRepository.save(s);
-                });
+                if (!existingNumbers.contains(sid)) {
+                    studentRepository.findByStudentId(sid).ifPresent(s -> {
+                        enrollmentRepository.save(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment.builder()
+                                .offeringId(offeringId)
+                                .studentId(s.getId())
+                                .studentNumber(s.getStudentId())
+                                .studentName(s.getName())
+                                .adminClassName(s.getClassName())
+                                .build());
+                        existingNumbers.add(sid);
+                    });
+                }
             }
         }
-        int realCount = (int) studentRepository.countByClassName(offering.getClassName());
+        int realCount = (int) enrollmentRepository.countByOfferingId(offeringId);
         offering.setStudentCount(realCount);
         return courseOfferingRepository.save(offering);
     }
@@ -147,11 +173,8 @@ public class CourseServiceImpl implements CourseService {
     public CourseOffering removeStudentFromOffering(Long offeringId, String studentId) {
         CourseOffering offering = courseOfferingRepository.findById(offeringId)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
-        studentRepository.findByStudentId(studentId).ifPresent(s -> {
-            s.setClassName("未分配班级");
-            studentRepository.save(s);
-        });
-        int realCount = (int) studentRepository.countByClassName(offering.getClassName());
+        enrollmentRepository.deleteByOfferingIdAndStudentNumber(offeringId, studentId);
+        int realCount = (int) enrollmentRepository.countByOfferingId(offeringId);
         offering.setStudentCount(realCount);
         return courseOfferingRepository.save(offering);
     }

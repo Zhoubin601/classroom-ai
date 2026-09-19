@@ -24,19 +24,28 @@ public class AttendanceServiceImpl implements AttendanceService {
     private final AttendanceSessionRepository sessionRepository;
     private final CourseOfferingRepository offeringRepository;
     private final CourseScheduleRepository scheduleRepository;
+    private final com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository;
 
     @Autowired
     public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
                                  CourseOfferingRepository offeringRepository,
-                                 @Autowired(required = false) CourseScheduleRepository scheduleRepository) {
+                                 @Autowired(required = false) CourseScheduleRepository scheduleRepository,
+                                 @Autowired(required = false) com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository) {
         this.sessionRepository = sessionRepository;
         this.offeringRepository = offeringRepository;
         this.scheduleRepository = scheduleRepository;
+        this.enrollmentRepository = enrollmentRepository;
+    }
+
+    public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
+                                 CourseOfferingRepository offeringRepository,
+                                 CourseScheduleRepository scheduleRepository) {
+        this(sessionRepository, offeringRepository, scheduleRepository, null);
     }
 
     public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
                                  CourseOfferingRepository offeringRepository) {
-        this(sessionRepository, offeringRepository, null);
+        this(sessionRepository, offeringRepository, null, null);
     }
 
     @Override
@@ -109,7 +118,7 @@ public class AttendanceServiceImpl implements AttendanceService {
                         .operatorName(finalOpName)
                         .operatorRole(finalOpRole)
                         .operatorTitle(finalOpTitle)
-                        .expectedCount(offering.getStudentCount())
+                        .expectedCount(resolveExpectedCount(offering))
                         .actualCount(0)
                         .attendanceRate(0.0)
                         .avgLookupRate(0.0)
@@ -197,5 +206,15 @@ public class AttendanceServiceImpl implements AttendanceService {
                 && (!Double.isFinite(lookupRate) || lookupRate < 0 || lookupRate > 100))) {
             throw new IllegalArgumentException("实到人数必须非负，抬头率必须在0到100之间");
         }
+    }
+
+    private int resolveExpectedCount(CourseOffering offering) {
+        if (enrollmentRepository != null) {
+            long count = enrollmentRepository.countByOfferingId(offering.getId());
+            if (count > 0) {
+                return (int) count;
+            }
+        }
+        return offering.getStudentCount() != null ? offering.getStudentCount() : 0;
     }
 }

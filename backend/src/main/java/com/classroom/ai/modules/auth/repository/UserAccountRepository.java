@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
     Optional<UserAccount> findByUsername(String username);
     Optional<UserAccount> findByTeacherCode(String teacherCode);
+    java.util.List<UserAccount> findByRole(com.classroom.ai.modules.auth.entity.RoleEnum role);
 }

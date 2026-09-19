@@ -29,6 +29,7 @@ public class CourseResourceController {
     private String uploadDir;
 
     private final CourseResourceService resourceService;
+    private final com.classroom.ai.modules.course.service.CourseAuthorizationService authorizationService;
 
     @PostMapping("/upload")
     public ApiResponse<Map<String, Object>> uploadResourceFile(@RequestParam("file") MultipartFile file) {
@@ -93,6 +94,9 @@ public class CourseResourceController {
                                                              @RequestParam(required = false) String tag,
                                                              @RequestParam(required = false) Boolean isPublic,
                                                              @RequestParam(required = false) String keyword) {
+        if (courseId != null) {
+            authorizationService.validateCourseRead(courseId);
+        }
         String cleanTag = (tag != null && !tag.trim().isEmpty()) ? tag.trim() : null;
         String cleanKeyword = (keyword != null && !keyword.trim().isEmpty()) ? keyword.trim() : null;
         return ApiResponse.success(resourceService.searchResources(courseId, cleanTag, isPublic, cleanKeyword));
@@ -100,11 +104,18 @@ public class CourseResourceController {
 
     @GetMapping("/{id}")
     public ApiResponse<CourseResource> getResourceById(@PathVariable Long id) {
-        return ApiResponse.success(resourceService.getResourceById(id));
+        CourseResource res = resourceService.getResourceById(id);
+        if (res != null && res.getCourse() != null) {
+            authorizationService.validateCourseRead(res.getCourse());
+        }
+        return ApiResponse.success(res);
     }
 
     @PostMapping
     public ApiResponse<CourseResource> saveResource(@RequestBody CourseResourceDTO dto) {
+        if (dto != null && dto.getCourseId() != null) {
+            authorizationService.validateCourseWrite(dto.getCourseId());
+        }
         try {
             return ApiResponse.success("资源上传挂载成功", resourceService.saveResource(dto));
         } catch (IllegalArgumentException e) {

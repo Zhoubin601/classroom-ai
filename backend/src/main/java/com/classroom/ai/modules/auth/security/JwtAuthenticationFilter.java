@@ -1,6 +1,8 @@
 package com.classroom.ai.modules.auth.security;
 
 import com.classroom.ai.modules.auth.context.AuthContext;
+import com.classroom.ai.modules.auth.entity.UserAccount;
+import com.classroom.ai.modules.auth.repository.UserAccountRepository;
 import com.classroom.ai.modules.auth.vo.UserVO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,9 +21,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * JWT 请求认证拦截器：从 Authorization: Bearer <token> 提取令牌并注入 SecurityContext 与 AuthContext
+ * JWT 请求认证拦截器：从 Authorization: Bearer <token> 提取令牌并从数据库重载最新权限注入 SecurityContext 与 AuthContext
  */
 @Slf4j
 @Component
@@ -29,6 +32,7 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserAccountRepository userAccountRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -37,6 +41,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = resolveToken(request);
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
                 UserVO user = jwtTokenProvider.parseUserFromToken(jwt);
+                
+                // 关键点：以服务端当前授权为准，避免旧 JWT 长期保留已撤销权限
+                if (userAccountRepository != null) {
+                    Optional<UserAccount> latestAccountOpt = Optional.empty();
+                    if (user.getId() != null) {
+                        latestAccountOpt = userAccountRepository.findById(user.getId());
+                    }
+                    if (latestAccountOpt.isEmpty() && user.getUsername() != null) {
+                        latestAccountOpt = userAccountRepository.findByUsername(user.getUsername());
+                    }
+                    if (latestAccountOpt.isPresent()) {
+                        UserAccount acc = latestAccountOpt.get();
+                        user = UserVO.builder()
+                                .id(acc.getId())
+                                .username(acc.getUsername())
+                                .realName(acc.getRealName())
+                                .role(acc.getRole())
+                                .department(acc.getDepartment())
+                                .teacherCode(acc.getTeacherCode())
+                                .authorizedMajors(acc.getAuthorizedMajors()) // 最新授权专业
+                                .build();
+                    }
+                }
+
                 AuthContext.setCurrentUser(user);
 
                 List<SimpleGrantedAuthority> authorities = Collections.emptyList();

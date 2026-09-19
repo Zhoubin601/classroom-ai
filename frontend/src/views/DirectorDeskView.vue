@@ -182,9 +182,14 @@
             </h2>
             <p class="text-xs text-slate-500 mt-0.5">联动文管 A447、信息馆 B201 等教室与各教师班额，防冲突算法实时守护</p>
           </div>
-          <button @click="openAddScheduleModal" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1 cursor-pointer">
-            <Plus class="w-3.5 h-3.5" /> 新增排课调度
-          </button>
+          <div class="flex items-center gap-2">
+            <button @click="openAddOfferingModal" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1 cursor-pointer">
+              <Plus class="w-3.5 h-3.5" /> 新建开课班次
+            </button>
+            <button @click="openAddScheduleModal" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1 cursor-pointer">
+              <Plus class="w-3.5 h-3.5" /> 新增排课调度
+            </button>
+          </div>
         </div>
 
         <!-- 排课看板多维快捷筛选工具栏 -->
@@ -387,6 +392,115 @@
       </div>
     </div>
 
+    <!-- Tab 4: 督导账号建档与专业授权 (US-07) -->
+    <div v-if="activeTab === 'supervisors'" class="space-y-4">
+      <div class="minimal-card p-5">
+        <!-- 头部说明与安全边界政策提示 -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+              <ShieldCheck class="w-4 h-4 text-indigo-600" />
+              教学质量督导账号建档与专业授权管理
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">
+              教研室主任专属管理通道：仅允许为督导专家分配本教研室管辖的专业。严禁跨教研室授权，督导权限实时由数据库装载校验。
+            </p>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <button 
+              @click="openCreateSupervisorModal" 
+              class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer"
+            >
+              <Plus class="w-3.5 h-3.5" /> 新建督导专家账号
+            </button>
+          </div>
+        </div>
+
+        <!-- 主任管辖专业公示条 -->
+        <div class="p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl mb-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2 text-indigo-900">
+            <Users class="w-4 h-4 text-indigo-600 shrink-0" />
+            <span class="font-semibold">当前主任管辖范围：</span>
+            <span v-if="managedMajors.length === 0" class="text-slate-500">正在获取管辖专业...</span>
+            <div v-else class="flex flex-wrap gap-1.5">
+              <span 
+                v-for="m in managedMajors" 
+                :key="m.majorCode" 
+                class="px-2 py-0.5 rounded-md bg-white border border-indigo-200 text-indigo-700 font-mono font-medium shadow-2xs"
+              >
+                {{ m.majorName }} ({{ m.majorCode }})
+              </span>
+            </div>
+          </div>
+          <span class="text-[11px] text-indigo-700/80 font-medium">
+            防越权保护生效中 · 公开注册入口已关闭
+          </span>
+        </div>
+
+        <!-- 督导账号列表表格 -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-700">
+            <thead class="bg-slate-50 text-slate-600 uppercase font-semibold border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">专家姓名</th>
+                <th class="py-3 px-4">登录账号</th>
+                <th class="py-3 px-4">所属单位 / 督导团</th>
+                <th class="py-3 px-4">当前已授权专业</th>
+                <th class="py-3 px-4">角色权限</th>
+                <th class="py-3 px-4 text-right">操作</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr v-if="supervisorsList.length === 0">
+                <td colspan="6" class="py-10 text-center text-slate-400">暂无教学督导账号，请点击右上角新建</td>
+              </tr>
+              <tr v-for="sup in supervisorsList" :key="sup.id" class="hover:bg-slate-50/80 transition-colors">
+                <td class="py-3 px-4 font-semibold text-slate-900 flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-[10px] font-bold">
+                    {{ sup.realName ? sup.realName.slice(0, 1) : '督' }}
+                  </div>
+                  {{ sup.realName }}
+                </td>
+                <td class="py-3 px-4 font-mono font-medium text-slate-700">{{ sup.username }}</td>
+                <td class="py-3 px-4 text-slate-500">{{ sup.department || '校教学质量督导团' }}</td>
+                <td class="py-3 px-4">
+                  <div class="flex flex-wrap gap-1">
+                    <span 
+                      v-if="!sup.authorizedMajors" 
+                      class="px-2 py-0.5 rounded text-[11px] bg-slate-100 text-slate-400 border border-slate-200"
+                    >
+                      未授权专业
+                    </span>
+                    <span 
+                      v-else 
+                      v-for="code in sup.authorizedMajors.split(';').filter(Boolean)" 
+                      :key="code" 
+                      class="px-2 py-0.5 rounded text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-medium"
+                    >
+                      {{ code }}
+                    </span>
+                  </div>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] bg-amber-50 text-amber-700 border border-amber-200 font-medium">
+                    只读审查权限 (Deny-by-Default)
+                  </span>
+                </td>
+                <td class="py-3 px-4 text-right space-x-2">
+                  <button 
+                    @click="openEditMajorsModal(sup)" 
+                    class="text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer"
+                  >
+                    调整专业授权
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
     <!-- 弹窗：新增/编辑课程 -->
     <div v-if="showCourseModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
       <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-xl p-6 shadow-modal space-y-4">
@@ -572,6 +686,234 @@
         </div>
       </div>
     </div>
+
+    <!-- 弹窗：新建开课班次 (Offering) -->
+    <div v-if="showOfferingModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <Plus class="w-4 h-4 text-emerald-600" /> 新建开课班次 (Course Offering)
+          </h3>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+            班次底座支持
+          </span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="text-slate-600 block mb-1">关联课程档案 *</label>
+            <select 
+              v-model.number="currentOfferingForm.courseId" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle font-medium"
+            >
+              <option v-for="c in courseList" :key="c.id" :value="c.id">
+                {{ c.courseCode }} - {{ c.courseName }} ({{ c.teacherName || '任课教师' }})
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">教学班级名称 (如 软件工程2024级2班) *</label>
+            <input 
+              v-model="currentOfferingForm.className" 
+              placeholder="软件工程2024级2班" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-slate-600 block mb-1">学年学期 *</label>
+              <input 
+                v-model="currentOfferingForm.academicTerm" 
+                placeholder="2026-2027秋季" 
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+              />
+            </div>
+            <div>
+              <label class="text-slate-600 block mb-1">专业编码 (如 SE)</label>
+              <input 
+                v-model="currentOfferingForm.majorCode" 
+                placeholder="SE" 
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-slate-600 block mb-1">主讲教师姓名 *</label>
+              <input 
+                v-model="currentOfferingForm.teacherName" 
+                placeholder="郭军" 
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+              />
+            </div>
+            <div>
+              <label class="text-slate-600 block mb-1">教师工号/标识</label>
+              <input 
+                v-model="currentOfferingForm.teacherCode" 
+                placeholder="T2024001" 
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">班额/选课人数初始预设</label>
+            <input 
+              v-model.number="currentOfferingForm.studentCount" 
+              type="number" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            />
+          </div>
+        </div>
+
+        <div v-if="offeringErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+          <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
+          <span>{{ offeringErrorMessage }}</span>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+          <button @click="showOfferingModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleSaveOffering" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">确认创建开课班次</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：主任新建督导专家账号 -->
+    <div v-if="showCreateSupervisorModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <ShieldCheck class="w-4 h-4 text-indigo-600" /> 新建督导专家账号
+          </h3>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
+            主任权限分配
+          </span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="text-slate-600 block mb-1">登录账号 (Username) *</label>
+            <input 
+              v-model="createSupervisorForm.username" 
+              placeholder="如 supervisor.zhao" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+            />
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">初始密码 (Password) *</label>
+            <input 
+              v-model="createSupervisorForm.password" 
+              type="password" 
+              placeholder="请输入至少6位初始密码" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            />
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">专家真实姓名 *</label>
+            <input 
+              v-model="createSupervisorForm.realName" 
+              placeholder="如 赵督导 (教授)" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            />
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1">所属单位 / 督导部门</label>
+            <input 
+              v-model="createSupervisorForm.department" 
+              placeholder="校教学质量监控与督导评估中心" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            />
+          </div>
+
+          <div>
+            <label class="text-slate-600 block mb-1.5 font-semibold text-slate-800">授权管辖专业 (严格限定主任管辖范围)</label>
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+              <div v-if="managedMajors.length === 0" class="text-slate-400 text-xs">
+                未检索到当前管辖专业
+              </div>
+              <label 
+                v-for="m in managedMajors" 
+                :key="m.majorCode" 
+                class="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-900"
+              >
+                <input 
+                  type="checkbox" 
+                  :value="m.majorCode" 
+                  v-model="createSupervisorForm.selectedMajors" 
+                  class="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300"
+                />
+                <span class="font-medium">{{ m.majorName }} ({{ m.majorCode }})</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="supervisorErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+          <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
+          <span>{{ supervisorErrorMessage }}</span>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+          <button @click="showCreateSupervisorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleCreateSupervisor" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">创建并授权</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：主任更新已有督导的专业授权 -->
+    <div v-if="showEditMajorsModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <ShieldCheck class="w-4 h-4 text-indigo-600" /> 调整督导专业授权
+          </h3>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
+            {{ editingSupervisor?.realName }} ({{ editingSupervisor?.username }})
+          </span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <p class="text-slate-500">
+            勾选当前主任管辖范围内的专业以授予该督导只读审查权限；取消勾选将即刻撤销，服务端在当次请求中生效。
+          </p>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+            <div v-if="managedMajors.length === 0" class="text-slate-400 text-xs">
+              未检索到当前管辖专业
+            </div>
+            <label 
+              v-for="m in managedMajors" 
+              :key="m.majorCode" 
+              class="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-900"
+            >
+              <input 
+                type="checkbox" 
+                :value="m.majorCode" 
+                v-model="editSupervisorSelectedMajors" 
+                class="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300"
+              />
+              <span class="font-medium">{{ m.majorName }} ({{ m.majorCode }})</span>
+            </label>
+          </div>
+        </div>
+
+        <div v-if="supervisorErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+          <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
+          <span>{{ supervisorErrorMessage }}</span>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+          <button @click="showEditMajorsModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleUpdateSupervisorMajors" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">更新授权</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -590,16 +932,20 @@ import {
   AlertCircle,
   User,
   Filter,
-  RotateCcw
+  RotateCcw,
+  ShieldCheck,
+  Users,
+  Check
 } from 'lucide-vue-next'
-import { courseApi, scheduleApi, syllabusApi, supervisionApi } from '../api'
+import { courseApi, scheduleApi, syllabusApi, supervisionApi, directorApi } from '../api'
 import type { Course, CourseSchedule, GraduationIndicator, CourseOffering } from '../api/types'
 
 const activeTab = ref('courses')
 const tabs = [
   { key: 'courses', label: '专业全量课程档案 (US-01)', iconComp: BookOpen },
   { key: 'schedules', label: '开课排课统筹看板 (US-03)', iconComp: Calendar },
-  { key: 'indicators', label: '12项毕业要求指标点矩阵 (US-05)', iconComp: Target }
+  { key: 'indicators', label: '12项毕业要求指标点矩阵 (US-05)', iconComp: Target },
+  { key: 'supervisors', label: '督导建档与专业授权 (US-07)', iconComp: ShieldCheck }
 ]
 
 const courseList = ref<Course[]>([])
@@ -906,8 +1252,142 @@ const viewCourseDetail = (c: Course) => {
   alert(`【${c.courseName} (${c.courseCode})】\n主讲教师：${c.teacherName || '未指定'}\n\n教学目标：\n${c.objectives || '暂无'}\n\n考核方式：\n${c.assessmentMethod || '暂无'}`)
 }
 
+// ==================== 督导建档与专业授权 (US-07) ====================
+const supervisorsList = ref<any[]>([])
+const managedMajors = ref<any[]>([])
+const showCreateSupervisorModal = ref(false)
+const createSupervisorForm = ref({
+  username: '',
+  password: '',
+  realName: '',
+  department: '校教学质量督导团',
+  selectedMajors: [] as string[]
+})
+const showEditMajorsModal = ref(false)
+const editingSupervisor = ref<any>(null)
+const editSupervisorSelectedMajors = ref<string[]>([])
+const supervisorErrorMessage = ref('')
+
+const loadSupervisors = async () => {
+  try {
+    const list = await directorApi.getSupervisors()
+    supervisorsList.value = Array.isArray(list) ? list : []
+  } catch (e) {
+    console.error('加载督导专家列表失败', e)
+  }
+}
+
+const loadManagedMajors = async () => {
+  try {
+    const list = await directorApi.getManagedMajors()
+    managedMajors.value = Array.isArray(list) ? list : []
+  } catch (e) {
+    console.error('加载主任管辖专业失败', e)
+  }
+}
+
+const openCreateSupervisorModal = () => {
+  createSupervisorForm.value = {
+    username: '',
+    password: '',
+    realName: '',
+    department: '校教学质量督导团',
+    selectedMajors: managedMajors.value.length > 0 ? [managedMajors.value[0].majorCode] : []
+  }
+  supervisorErrorMessage.value = ''
+  showCreateSupervisorModal.value = true
+}
+
+const handleCreateSupervisor = async () => {
+  if (!createSupervisorForm.value.username || !createSupervisorForm.value.password || !createSupervisorForm.value.realName) {
+    supervisorErrorMessage.value = '请填写登录账号、初始密码和专家真实姓名'
+    return
+  }
+  try {
+    supervisorErrorMessage.value = ''
+    await directorApi.createSupervisor({
+      username: createSupervisorForm.value.username.trim(),
+      password: createSupervisorForm.value.password.trim(),
+      realName: createSupervisorForm.value.realName.trim(),
+      department: createSupervisorForm.value.department.trim(),
+      authorizedMajors: createSupervisorForm.value.selectedMajors.join(';')
+    })
+    showCreateSupervisorModal.value = false
+    await loadSupervisors()
+    alert('督导专家账号建档及专业授权成功！')
+  } catch (err: any) {
+    supervisorErrorMessage.value = err.response?.data?.message || err.message || '创建督导专家失败'
+  }
+}
+
+const openEditMajorsModal = (sup: any) => {
+  editingSupervisor.value = sup
+  const existing = sup.authorizedMajors ? sup.authorizedMajors.split(';').map((s: string) => s.trim()).filter(Boolean) : []
+  editSupervisorSelectedMajors.value = [...existing]
+  supervisorErrorMessage.value = ''
+  showEditMajorsModal.value = true
+}
+
+const handleUpdateSupervisorMajors = async () => {
+  if (!editingSupervisor.value) return
+  try {
+    supervisorErrorMessage.value = ''
+    await directorApi.updateSupervisorMajors(editingSupervisor.value.id, editSupervisorSelectedMajors.value.join(';'))
+    showEditMajorsModal.value = false
+    await loadSupervisors()
+    alert('督导专业授权已更新并实时生效！')
+  } catch (err: any) {
+    supervisorErrorMessage.value = err.response?.data?.message || err.message || '更新专业授权失败'
+  }
+}
+
+// ==================== 最小班次维护能力 (CourseOffering) ====================
+const showOfferingModal = ref(false)
+const currentOfferingForm = ref<any>({
+  courseId: null,
+  className: '',
+  academicTerm: '2026-2027秋季',
+  teacherName: '郭军',
+  teacherCode: 'T2024001',
+  studentCount: 35,
+  majorCode: 'SE'
+})
+const offeringErrorMessage = ref('')
+
+const openAddOfferingModal = () => {
+  currentOfferingForm.value = {
+    courseId: courseList.value.length > 0 ? courseList.value[0].id : null,
+    className: '软件工程2024级2班',
+    academicTerm: '2026-2027秋季',
+    teacherName: '郭军',
+    teacherCode: 'T2024001',
+    studentCount: 35,
+    majorCode: courseList.value.length > 0 ? (courseList.value[0].majorCode || 'SE') : 'SE'
+  }
+  offeringErrorMessage.value = ''
+  showOfferingModal.value = true
+}
+
+const handleSaveOffering = async () => {
+  if (!currentOfferingForm.value.courseId || !currentOfferingForm.value.className || !currentOfferingForm.value.teacherName) {
+    offeringErrorMessage.value = '请完善课程、班级名称与任课教师'
+    return
+  }
+  try {
+    offeringErrorMessage.value = ''
+    await courseApi.createOffering(currentOfferingForm.value)
+    showOfferingModal.value = false
+    await loadSchedules()
+    alert('开课班次创建成功！')
+  } catch (err: any) {
+    offeringErrorMessage.value = err.response?.data?.message || err.message || '开课班次创建失败'
+  }
+}
+
 onMounted(() => {
   loadCourses()
   loadSchedules()
+  loadSupervisors()
+  loadManagedMajors()
 })
 </script>

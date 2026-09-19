@@ -666,3 +666,48 @@ My code document has the following content:
      - **边缘视觉回归**：5 项 Python 测试 100% 通过（耗时 149ms）；
      - 最终顺利输出 `All automated checks passed.`。
 
+## 2026-09-19 实验二第 1 步：补齐公共身份、权限和数据关联全面落地
+- **任务目标与交付基准**：
+  1. 实验二教务业务接口统一要求登录：未登录返回 HTTP 401，无权限返回 HTTP 403；
+  2. 统一授权规则（Deny-by-Default）：主任管理所属教研室，教师访问本人关联课程，督导读取授权专业；无授权、专业缺失等情况默认不放行；
+  3. 列表、详情、历史、草稿、排课、大纲及相关资源入口使用同一套统一授权服务，避免绕过列表直接访问 ID 越权；
+  4. 主任工作台增加督导账号创建、专业授权入口；主任只能分配自己管辖的专业；关闭公开注册接口及入口；
+  5. 密码改为 BCrypt 哈希存储，既有账号平滑透明升级；课程访问以服务端当前数据库授权为准，杜绝旧 JWT 长期持有已撤销权限；
+  6. 选课以“班次—学生”关系 (`OfferingStudentEnrollment`) 为唯一真值依据，行政班保留为学生属性且不可被选课篡改，考勤与推流脱钩行政班并优先取班次选课名单；
+  7. 建立最小班次维护能力（CRUD），为后续教师发布课程提供底座支持；
+  8. 全量自动化检查脚本（`scripts/run-tests.ps1`）恢复并通过。
+- **架构重构与具体实施**：
+  1. **统一教务授权服务 (CourseAuthorizationService.java)**：
+     - 践行 Deny-by-Default：无登录上下文时直接抛出 `UnauthorizedException`（401）；角色越界、未授权专业或课程/班次专业缺失时抛出 `ForbiddenException`（403）；
+     - 主任隔离：`checkDirectorCourseAccess` 严格校验主任所属部门与课程 `department` 一致性；
+     - 教师绑定：`checkTeacherCourseAccess` / `checkTeacherOfferingAccess` 严格校验教师是否为主讲人或被关联到该开课班次；
+     - 督导只读与专业鉴权：督导仅能读取 `authorizedMajors` 包含的专业课程，专业缺失默认拒绝，写操作（`validateCourseWrite` / `validateOfferingWrite`）一律拦截；
+     - 控制器纳管：`CourseController`（详情、保存、删除、班次维护）、`CourseScheduleController`（排课调度）、`SyllabusController`（大纲目标与指标点）、`CourseResourceController`（课件资源）、`CourseOfferingHistoryController`（历史人次）全链路接入授权校验。
+  2. **主任专属督导账号开通与专业授权 (DirectorController.java & DirectorDeskView.vue)**：
+     - 后端暴露 `/api/v1/director/managed-majors`、`/api/v1/director/supervisors`、`POST /api/v1/director/supervisors`、`PUT /api/v1/director/supervisors/{id}/majors`；
+     - 严格校验 `validateMajorsInDirectorJurisdiction`，主任越权授权非管辖专业立即抛出 403；
+     - 关闭公开注册通道：`AuthController` 废弃公开注册端点，`LoginView.vue` 下线注册入口；
+     - 前端 `DirectorDeskView.vue` 增设 Tab 4【督导建档与专业授权 (US-07)】，展示主任管辖专业公示条、督导列表与专业授权徽章，并提供严格限定主任管辖范围的多选弹窗。
+  3. **密码 BCrypt 安全哈希与服务端实时授权**：
+     - `AuthController` 登录校验若检测到旧明文密码，使用 `passwordEncoder.matches` 比对并在验证通过后自动更新为 `$2a$10$...` 哈希；
+     - `JwtAuthenticationFilter` 在每次请求时通过 Token 中的用户名从 `UserAccountRepository` 重新装载最新的用户实体，确保主任调整督导专业授权后立即生效。
+  4. **选课名单真值唯一依据与行政班脱钩**：
+     - `OfferingStudentEnrollmentRepository` 补齐按班次与学号的选课删除及存在性校验；
+     - `CourseServiceImpl` 选课逻辑彻底从学生实体 `className` 脱钩，不篡改学生行政班；
+     - `AttendanceServiceImpl` 考勤应到人数优先取班次选课名单真实人数；
+     - `VisualDashboardServiceImpl` 推流解析与实时学生状态严格基于班次选课名单；
+     - `TeachingDataInitializer` 启动时自动升级迁移存量数据，保障种子数据一致性。
+  5. **开课班次最小维护能力 (CourseOffering CRUD)**：
+     - `CourseController` 完善 `POST /api/v1/courses/offerings`、`PUT /api/v1/courses/offerings/{id}`、`DELETE /api/v1/courses/offerings/{id}`；
+     - 前端 `api/index.ts` 补齐 `createOffering`、`updateOffering`、`deleteOffering`；
+     - `DirectorDeskView.vue` Tab 2 增加【新建开课班次】快捷弹窗，实现开课班次全生命周期管理。
+- **自动化测试验证与指标**：
+  - 新增 `CourseAuthorizationServiceTest`（4 个用例）：覆盖未登录 401、主任隔离 403、教师未关联 403、督导只读与专业越权 403；
+  - 新增 `DirectorSupervisorManagementTest`（4 个用例）：覆盖主任创建督导管辖专业成功、跨专业 403、更新督导专业成功与跨专业 403；
+  - 修复 `AuthControllerTest`、`CourseSupervisorRbacTest`、`CourseOfferingHistoryTest`；
+  - **后端单元测试**：63 项测试全部通过（0 失败，0 错误，BUILD SUCCESS）；
+  - **前端单元测试**：10 项测试全部通过；
+  - **前端生产构建**：Vite 构建 0 错误（产出生产 dist 包）；
+  - **边缘感知测试**：5 项 Python 测试全部通过；
+  - `powershell -ExecutionPolicy Bypass -File scripts/run-tests.ps1` 顺利输出 `All automated checks passed.`。
+

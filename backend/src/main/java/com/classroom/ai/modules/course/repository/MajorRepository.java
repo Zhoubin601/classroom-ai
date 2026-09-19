@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface MajorRepository extends JpaRepository<Major, Long> {
     Optional<Major> findByMajorCode(String majorCode);
+    java.util.List<Major> findByDepartment(String department);
 }

@@ -31,6 +31,7 @@ public class AuthController {
 
     private final UserAccountRepository userAccountRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ApiResponse<UserVO> login(@RequestBody LoginDTO dto, HttpServletRequest request) {
@@ -41,8 +42,16 @@ public class AuthController {
         UserAccount user = userAccountRepository.findByUsername(dto.getUsername().trim())
                 .orElseThrow(() -> new UnauthorizedException("用户名或密码错误"));
 
-        if (!user.getPassword().equals(dto.getPassword().trim())) {
+        // 基于 PasswordEncoder 校验（兼容 BCrypt 与旧明文）
+        if (!passwordEncoder.matches(dto.getPassword().trim(), user.getPassword())) {
             throw new UnauthorizedException("用户名或密码错误");
+        }
+
+        // 若历史密码仍为旧明文存储，在验证成功后自动无缝升级为 BCrypt 哈希持久化
+        if (!user.getPassword().startsWith("$2a$") && !user.getPassword().startsWith("$2b$") && !user.getPassword().startsWith("$2y$")) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword().trim()));
+            userAccountRepository.save(user);
+            log.info("【密码安全迁移】账号 [{}] 的明文密码已成功透明升级为 BCrypt 哈希", user.getUsername());
         }
 
         UserVO vo = UserVO.builder()
@@ -60,47 +69,6 @@ public class AuthController {
         vo.setToken(token);
 
         return ApiResponse.success("登录成功", vo);
-    }
-
-    /**
-     * 教学督导专家在线注册接口
-     */
-    @PostMapping("/register-supervisor")
-    public ApiResponse<UserVO> registerSupervisor(@RequestBody SupervisorRegisterDTO dto) {
-        if (!StringUtils.hasText(dto.getUsername()) || !StringUtils.hasText(dto.getPassword()) || !StringUtils.hasText(dto.getRealName())) {
-            return ApiResponse.error(400, "注册用户名、密码和督导专家姓名不能为空");
-        }
-
-        String username = dto.getUsername().trim();
-        if (userAccountRepository.findByUsername(username).isPresent()) {
-            return ApiResponse.error(400, "该用户名 [" + username + "] 已被注册，请更换用户名");
-        }
-
-        UserAccount newSupervisor = UserAccount.builder()
-                .username(username)
-                .password(dto.getPassword().trim())
-                .realName(dto.getRealName().trim())
-                .role(RoleEnum.SUPERVISOR)
-                .department(StringUtils.hasText(dto.getDepartment()) ? dto.getDepartment().trim() : "校教学质量督导团")
-                .authorizedMajors(StringUtils.hasText(dto.getAuthorizedMajors()) ? dto.getAuthorizedMajors().trim() : "SE;CS")
-                .build();
-
-        UserAccount saved = userAccountRepository.save(newSupervisor);
-        log.info("【督导注册成功】账号: {}, 姓名: {}, 角色: SUPERVISOR", saved.getUsername(), saved.getRealName());
-
-        UserVO vo = UserVO.builder()
-                .id(saved.getId())
-                .username(saved.getUsername())
-                .realName(saved.getRealName())
-                .role(saved.getRole())
-                .department(saved.getDepartment())
-                .authorizedMajors(saved.getAuthorizedMajors())
-                .build();
-
-        String token = jwtTokenProvider.generateToken(vo);
-        vo.setToken(token);
-
-        return ApiResponse.success("督导专家注册成功", vo);
     }
 
     @PostMapping("/logout")

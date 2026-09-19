@@ -11,6 +11,7 @@ import com.classroom.ai.modules.course.repository.CourseOfferingRepository;
 import com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository;
 import com.classroom.ai.modules.course.repository.CourseScheduleRepository;
 import com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository;
+import com.classroom.ai.modules.course.service.CourseAuthorizationService;
 import com.classroom.ai.modules.course.vo.OfferingHistoryItemVO;
 import com.classroom.ai.modules.course.vo.OfferingHistoryVO;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +30,14 @@ public class CourseOfferingHistoryController {
     private final CourseOfferingTeacherRepository offeringTeacherRepository;
     private final CourseScheduleRepository scheduleRepository;
     private final OfferingStudentEnrollmentRepository enrollmentRepository;
+    private final CourseAuthorizationService authorizationService;
 
     /**
      * US-04 历史开课与学生人数/累计人次统计
      * 口径：
      * - 单班次选课人数：在读由选课名单统计，已结课取固化快照
      * - 累计人次：筛选范围内各班次选课人数累加 (同一班次多教师不重复计算)
-     * - 教师角色强制后端限制为本人关联班次
+     * - 权限控制由 CourseAuthorizationService 统一纳管 (主任管辖教研室、教师本人关联、督导授权专业)
      */
     @GetMapping("/history")
     public ApiResponse<OfferingHistoryVO> getOfferingHistory(@RequestParam(required = false) String term) {
@@ -46,46 +48,8 @@ public class CourseOfferingHistoryController {
             offerings = offeringRepository.findAll();
         }
 
-        // 数据权限过滤
-        if (AuthContext.isAuthenticated()) {
-            UserVO user = AuthContext.getCurrentUser();
-            if (user.getRole() == RoleEnum.TEACHER) {
-                String teacherCode = user.getTeacherCode();
-                String teacherName = user.getRealName();
-                // 查找该教师担任主讲或助课的所有 offeringId
-                Set<Long> myOfferingIds = new HashSet<>();
-                if (teacherCode != null) {
-                    offeringTeacherRepository.findByTeacherCode(teacherCode)
-                            .forEach(ot -> myOfferingIds.add(ot.getOfferingId()));
-                }
-                offerings = offerings.stream()
-                        .filter(off -> myOfferingIds.contains(off.getId())
-                                || (off.getTeacherCode() != null && off.getTeacherCode().equals(teacherCode))
-                                || (off.getTeacherName() != null && off.getTeacherName().equals(teacherName)))
-                        .collect(Collectors.toList());
-            } else if (user.getRole() == RoleEnum.SUPERVISOR) {
-                if (user.getAuthorizedMajors() != null && !user.getAuthorizedMajors().trim().isEmpty()) {
-                    Set<String> authMajors = Arrays.stream(user.getAuthorizedMajors().split(";"))
-                            .map(String::trim).map(String::toUpperCase).collect(Collectors.toSet());
-                    offerings = offerings.stream()
-                            .filter(off -> {
-                                String mCode = off.getMajorCode();
-                                if ((mCode == null || mCode.trim().isEmpty()) && off.getCourse() != null) {
-                                    mCode = off.getCourse().getMajorCode();
-                                }
-                                if ((mCode == null || mCode.trim().isEmpty()) && off.getClassName() != null) {
-                                    if (off.getClassName().contains("软件工程")) mCode = "SE";
-                                    else if (off.getClassName().contains("计算机")) mCode = "CS";
-                                    else if (off.getClassName().contains("人工智能")) mCode = "AI";
-                                    else if (off.getClassName().contains("信息安全")) mCode = "SEC";
-                                    else if (off.getClassName().contains("数据科学")) mCode = "DS";
-                                }
-                                return mCode == null || authMajors.contains(mCode.toUpperCase());
-                            })
-                            .collect(Collectors.toList());
-                }
-            }
-        }
+        // 统一数据权限过滤 (未登录自动抛出 401，各角色统一授权口径)
+        offerings = authorizationService.filterOfferings(offerings);
 
         if (offerings.isEmpty()) {
             return ApiResponse.success(OfferingHistoryVO.builder()

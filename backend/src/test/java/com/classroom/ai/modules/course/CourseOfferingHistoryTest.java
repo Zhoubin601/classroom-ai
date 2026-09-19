@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
@@ -45,7 +46,11 @@ public class CourseOfferingHistoryTest {
     @Mock
     private OfferingStudentEnrollmentRepository enrollmentRepository;
 
-    @InjectMocks
+    @Mock
+    private com.classroom.ai.modules.course.repository.CourseRepository courseRepository;
+
+    private com.classroom.ai.modules.course.service.CourseAuthorizationService authorizationService;
+
     private CourseOfferingHistoryController historyController;
 
     private CourseOffering activeOffering;
@@ -53,6 +58,9 @@ public class CourseOfferingHistoryTest {
 
     @BeforeEach
     void setUp() {
+        authorizationService = new com.classroom.ai.modules.course.service.CourseAuthorizationService(courseRepository, offeringRepository, offeringTeacherRepository);
+        historyController = new CourseOfferingHistoryController(offeringRepository, offeringTeacherRepository, scheduleRepository, enrollmentRepository, authorizationService);
+
         Course course1 = Course.builder().id(1L).courseCode("CS3001").courseName("软件项目管理").build();
         Course course2 = Course.builder().id(2L).courseCode("CS3002").courseName("微服务工程").build();
 
@@ -142,9 +150,8 @@ public class CourseOfferingHistoryTest {
                 .build());
 
         when(offeringRepository.findAll()).thenReturn(List.of(activeOffering, frozenOffering));
-        when(offeringTeacherRepository.findByTeacherCode("T2024001")).thenReturn(Collections.emptyList());
         when(enrollmentRepository.countByOfferingId(101L)).thenReturn(95L);
-        when(offeringTeacherRepository.findByOfferingId(101L)).thenReturn(Collections.emptyList());
+        when(offeringTeacherRepository.findByOfferingId(any())).thenReturn(Collections.emptyList());
         when(scheduleRepository.findByOfferingId(101L)).thenReturn(Collections.emptyList());
 
         ApiResponse<OfferingHistoryVO> resp = historyController.getOfferingHistory(null);

@@ -44,10 +44,11 @@ public class TeachingDataInitializer implements ApplicationRunner {
     private final com.classroom.ai.modules.course.repository.TeacherRepository teacherRepository;
     private final com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository offeringTeacherRepository;
     private final com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @Override
     public void run(ApplicationArguments args) {
-        // 0. 初始化权限账号、专业与教师基础数据
+        // 0. 初始化权限账号、专业与教师基础数据（含密码 BCrypt 哈希安全升级）
         initAuthAndMasterData();
 
         // 1. 优先保证学生花名册完整 (以 MySQL 为唯一真值来源，8个班级共80人)
@@ -82,6 +83,25 @@ public class TeachingDataInitializer implements ApplicationRunner {
                     }
                 }
             });
+
+            if (enrollmentRepository.count() == 0) {
+                offeringRepository.findAll().forEach(off -> {
+                    if (off.getClassName() != null) {
+                        List<Student> stus = studentRepository.findByClassName(off.getClassName());
+                        for (Student s : stus) {
+                            enrollmentRepository.save(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment.builder()
+                                    .offeringId(off.getId())
+                                    .studentId(s.getId())
+                                    .studentNumber(s.getStudentId())
+                                    .studentName(s.getName())
+                                    .adminClassName(s.getClassName())
+                                    .build());
+                        }
+                    }
+                });
+                log.info("【爱教学】已对存量开课班次完成选课名单真值(OfferingStudentEnrollment)自动升级。");
+            }
+
             log.info("【爱教学】教务数据已就绪，已核对并补齐课程主讲教师档案与开课专业编码。");
             return;
         }
@@ -195,6 +215,15 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .build());
         offeringTeacherRepository.save(com.classroom.ai.modules.course.entity.CourseOfferingTeacher.builder()
                 .offeringId(off2.getId()).teacherId(2L).teacherCode("T2024002").teacherName("姜琳颖").roleInOffering("PRIMARY").build());
+        for (Student stu : studentRepository.findByClassName("计算机科学与技术2024级1班")) {
+            enrollmentRepository.save(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment.builder()
+                    .offeringId(off2.getId())
+                    .studentId(stu.getId())
+                    .studentNumber(stu.getStudentId())
+                    .studentName(stu.getName())
+                    .adminClassName(stu.getClassName())
+                    .build());
+        }
 
         CourseOffering off3 = offeringRepository.save(CourseOffering.builder()
                 .course(c4)
@@ -208,6 +237,15 @@ public class TeachingDataInitializer implements ApplicationRunner {
                 .build());
         offeringTeacherRepository.save(com.classroom.ai.modules.course.entity.CourseOfferingTeacher.builder()
                 .offeringId(off3.getId()).teacherId(3L).teacherCode("T2024003").teacherName("赵广生").roleInOffering("PRIMARY").build());
+        for (Student stu : studentRepository.findByClassName("软件工程2024级1班")) {
+            enrollmentRepository.save(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment.builder()
+                    .offeringId(off3.getId())
+                    .studentId(stu.getId())
+                    .studentNumber(stu.getStudentId())
+                    .studentName(stu.getName())
+                    .adminClassName(stu.getClassName())
+                    .build());
+        }
 
 
         // 4. 排课时段与教室 (CourseSchedule) - 文管 A447、信息馆 B201 等
@@ -478,16 +516,17 @@ public class TeachingDataInitializer implements ApplicationRunner {
         }
 
         if (userAccountRepository.count() == 0) {
+            String defaultHashedPwd = passwordEncoder.encode("123456");
             userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
                     .username("director")
-                    .password("123456")
+                    .password(defaultHashedPwd)
                     .realName("李主任")
                     .role(com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR)
                     .department("软件工程教研室")
                     .build());
             userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
                     .username("guojun")
-                    .password("123456")
+                    .password(defaultHashedPwd)
                     .realName("郭军")
                     .role(com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER)
                     .teacherCode("T2024001")
@@ -495,7 +534,7 @@ public class TeachingDataInitializer implements ApplicationRunner {
                     .build());
             userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
                     .username("jiangly")
-                    .password("123456")
+                    .password(defaultHashedPwd)
                     .realName("姜琳颖")
                     .role(com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER)
                     .teacherCode("T2024002")
@@ -503,13 +542,22 @@ public class TeachingDataInitializer implements ApplicationRunner {
                     .build());
             userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
                     .username("supervisor")
-                    .password("123456")
+                    .password(defaultHashedPwd)
                     .realName("张督导")
                     .role(com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR)
                     .department("校教学督导团")
                     .authorizedMajors("SE;CS")
                     .build());
-            log.info("【爱教学】内置三角色账号已就绪 (director, guojun, jiangly, supervisor)");
+            log.info("【爱教学】内置三角色账号已就绪，初始密码已通过 BCrypt 安全哈希持久化 (director, guojun, jiangly, supervisor)");
+        } else {
+            // 存量账号密码透明迁移升级
+            userAccountRepository.findAll().forEach(acc -> {
+                if (acc.getPassword() != null && !acc.getPassword().startsWith("$2a$") && !acc.getPassword().startsWith("$2b$") && !acc.getPassword().startsWith("$2y$")) {
+                    acc.setPassword(passwordEncoder.encode(acc.getPassword()));
+                    userAccountRepository.save(acc);
+                    log.info("【密码安全迁移】自动将已有账号 [{}] 的明文密码升级为 BCrypt 哈希密文", acc.getUsername());
+                }
+            });
         }
     }
 }

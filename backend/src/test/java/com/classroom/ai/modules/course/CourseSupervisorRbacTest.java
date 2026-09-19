@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -33,7 +34,14 @@ public class CourseSupervisorRbacTest {
     @Mock
     private CourseOfferingRepository courseOfferingRepository;
 
-    @InjectMocks
+    @Mock
+    private com.classroom.ai.modules.course.repository.CourseRepository courseRepository;
+
+    @Mock
+    private com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository offeringTeacherRepository;
+
+    private com.classroom.ai.modules.course.service.CourseAuthorizationService authorizationService;
+
     private CourseController courseController;
 
     private Course courseSE;
@@ -43,6 +51,9 @@ public class CourseSupervisorRbacTest {
 
     @BeforeEach
     void setUp() {
+        authorizationService = new com.classroom.ai.modules.course.service.CourseAuthorizationService(courseRepository, courseOfferingRepository, offeringTeacherRepository);
+        courseController = new CourseController(courseService, courseOfferingRepository, offeringTeacherRepository, authorizationService);
+
         courseSE = Course.builder().id(1L).courseCode("CS3001").courseName("软件项目管理").majorCode("SE").build();
         courseCS = Course.builder().id(2L).courseCode("CS1001").courseName("计算机体系结构").majorCode("CS").build();
 

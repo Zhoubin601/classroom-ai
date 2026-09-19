@@ -259,6 +259,40 @@ export const courseApi = {
   removeStudentFromOffering: async (offeringId: number, studentId: string): Promise<any> => {
     const res = await client.post<ApiResponse<any>>(`/api/v1/courses/offerings/${offeringId}/students/remove/${studentId}`)
     return res.data.data
+  },
+
+  // 建立最小班次维护能力：创建开课班次
+  createOffering: async (offering: {
+    courseId: number
+    className: string
+    academicTerm: string
+    teacherName: string
+    teacherCode?: string
+    studentCount?: number
+    majorCode?: string
+  }): Promise<any> => {
+    const payload = {
+      course: { id: offering.courseId },
+      className: offering.className,
+      academicTerm: offering.academicTerm,
+      teacherName: offering.teacherName,
+      teacherCode: offering.teacherCode,
+      studentCount: offering.studentCount || 0,
+      majorCode: offering.majorCode
+    }
+    const res = await client.post<ApiResponse<any>>('/api/v1/courses/offerings', payload)
+    return res.data.data
+  },
+
+  // 建立最小班次维护能力：更新开课班次
+  updateOffering: async (id: number, data: any): Promise<any> => {
+    const res = await client.put<ApiResponse<any>>(`/api/v1/courses/offerings/${id}`, data)
+    return res.data.data
+  },
+
+  // 建立最小班次维护能力：删除开课班次
+  deleteOffering: async (id: number): Promise<void> => {
+    await client.delete(`/api/v1/courses/offerings/${id}`)
   }
 }
 
@@ -566,6 +600,38 @@ export const offeringHistoryApi = {
   getHistory: async (term?: string): Promise<any> => {
     const res = await client.get<ApiResponse<any>>('/api/v1/courses/offerings/history', {
       params: term ? { term } : undefined
+    })
+    return res.data.data
+  }
+}
+
+// ==================== 13. 教研室主任督导管理 API (US-07) ====================
+export const directorApi = {
+  // 获取当前主任管辖专业列表
+  getManagedMajors: async (): Promise<any[]> => {
+    const res = await client.get<ApiResponse<any[]>>('/api/v1/director/managed-majors')
+    return res.data.data
+  },
+  // 获取所有督导专家列表
+  getSupervisors: async (): Promise<any[]> => {
+    const res = await client.get<ApiResponse<any[]>>('/api/v1/director/supervisors')
+    return res.data.data
+  },
+  // 主任创建督导专家账号并授权管辖专业 (限定管辖专业)
+  createSupervisor: async (dto: {
+    username: string
+    password: string
+    realName: string
+    department?: string
+    authorizedMajors?: string
+  }): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>('/api/v1/director/supervisors', dto)
+    return res.data.data
+  },
+  // 主任更新督导专业授权 (限定管辖专业)
+  updateSupervisorMajors: async (id: number, authorizedMajors: string): Promise<any> => {
+    const res = await client.put<ApiResponse<any>>(`/api/v1/director/supervisors/${id}/majors`, {
+      authorizedMajors
     })
     return res.data.data
   }

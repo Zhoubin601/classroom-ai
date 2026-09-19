@@ -11,4 +11,6 @@ public interface OfferingStudentEnrollmentRepository extends JpaRepository<Offer
     List<OfferingStudentEnrollment> findByOfferingId(Long offeringId);
     long countByOfferingId(Long offeringId);
     void deleteByOfferingId(Long offeringId);
+    void deleteByOfferingIdAndStudentNumber(Long offeringId, String studentNumber);
+    boolean existsByOfferingIdAndStudentNumber(Long offeringId, String studentNumber);
 }

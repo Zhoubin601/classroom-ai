@@ -124,7 +124,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
             }
         }
 
-        // 2. 获取本班正式选课学生学号集合 (唯一基准名单)
+        // 2. 获取本班正式选课学生学号集合 (以班次选课名单为唯一基准真值)
         Set<String> enrolledStudentIds = new LinkedHashSet<>();
         if (offeringId != null) {
             List<OfferingStudentEnrollment> enrollments = enrollmentRepository != null ? enrollmentRepository.findByOfferingId(offeringId) : Collections.emptyList();
@@ -132,17 +132,9 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                 for (OfferingStudentEnrollment en : enrollments) {
                     enrolledStudentIds.add(en.getStudentNumber());
                 }
-            } else {
-                var offOpt = courseOfferingRepository.findById(offeringId);
-                if (offOpt.isPresent() && offOpt.get().getClassName() != null) {
-                    List<Student> students = studentRepository.findByClassName(offOpt.get().getClassName());
-                    for (Student s : students) {
-                        enrolledStudentIds.add(s.getStudentId());
-                    }
-                }
             }
         }
-        if (enrolledStudentIds.isEmpty() && studentRepository != null) {
+        if (enrolledStudentIds.isEmpty() && offeringId == null && studentRepository != null) {
             for (Student s : studentRepository.findAll()) {
                 enrolledStudentIds.add(s.getStudentId());
             }
@@ -371,19 +363,12 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
     @Override
     public List<StudentRealtimeStatusVO> getStudentsRealtimeStatus(Long offeringId) {
-        List<Student> students;
+        List<Student> students = new ArrayList<>();
         if (offeringId != null) {
             List<OfferingStudentEnrollment> enrollments = enrollmentRepository != null ? enrollmentRepository.findByOfferingId(offeringId) : Collections.emptyList();
             if (enrollments != null && !enrollments.isEmpty()) {
                 List<String> studentNumbers = enrollments.stream().map(OfferingStudentEnrollment::getStudentNumber).toList();
                 students = studentRepository != null ? studentRepository.findByStudentIdIn(studentNumbers) : Collections.emptyList();
-            } else {
-                var offOpt = courseOfferingRepository.findById(offeringId);
-                if (offOpt.isPresent() && offOpt.get().getClassName() != null) {
-                    students = studentRepository != null ? studentRepository.findByClassName(offOpt.get().getClassName()) : Collections.emptyList();
-                } else {
-                    students = studentRepository != null ? studentRepository.findAll() : Collections.emptyList();
-                }
             }
         } else {
             students = studentRepository != null ? studentRepository.findAll() : Collections.emptyList();

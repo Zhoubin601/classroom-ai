@@ -33,16 +33,23 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // 平滑兼容现有内置与测试账号密码
+        org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder bcrypt =
+                new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence rawPassword) {
-                return rawPassword != null ? rawPassword.toString() : "";
+                if (rawPassword == null) return "";
+                return bcrypt.encode(rawPassword);
             }
 
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                 if (rawPassword == null || encodedPassword == null) return false;
+                // 若为标准 BCrypt 哈希
+                if (encodedPassword.startsWith("$2a$") || encodedPassword.startsWith("$2b$") || encodedPassword.startsWith("$2y$")) {
+                    return bcrypt.matches(rawPassword, encodedPassword);
+                }
+                // 兼容旧明文密码
                 return rawPassword.toString().equals(encodedPassword);
             }
         };
@@ -70,25 +77,27 @@ public class SecurityConfig {
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                     response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-                    ApiResponse<Void> apiResp = ApiResponse.error(403, "权限拒绝：当前角色无权执行此操作或访问该工作台");
+                    ApiResponse<Void> apiResp = ApiResponse.error(403, "权限拒绝：当前角色无权执行此操作或访问该资源");
                     response.getWriter().write(JSON.toJSONString(apiResp));
                 })
             )
-            // 请求路由鉴权规则
+            // 请求路由鉴权规则 (Deny by Default)
             .authorizeHttpRequests(authorize -> authorize
                 // 放行跨域预检
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 放行公开认证接口与基础静态资源
+                // 放行公开登录认证接口与基础静态资源 (关闭公开注册 register-supervisor)
                 .requestMatchers(
                     "/api/v1/auth/login",
-                    "/api/v1/auth/register-supervisor",
                     "/api/v1/auth/csrf",
                     "/uploads/**",
                     "/error",
                     "/v3/api-docs/**",
                     "/swagger-ui/**"
                 ).permitAll()
-                // 指标点维护写操作：严禁督导访问，仅任课教师和教研室主任可操作
+                // 主任专属管理路由：督导建档授权与学生底库管理
+                .requestMatchers("/api/v1/director/**").hasRole("DIRECTOR")
+                .requestMatchers("/api/student/**").hasRole("DIRECTOR")
+                // 指标点维护写操作：仅任课教师和教研室主任
                 .requestMatchers(HttpMethod.POST, "/api/v1/syllabus/course/*/indicators").hasAnyRole("TEACHER", "DIRECTOR")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/syllabus/indicators/*").hasAnyRole("TEACHER", "DIRECTOR")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/syllabus/indicators/*").hasAnyRole("TEACHER", "DIRECTOR")
@@ -99,10 +108,16 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/syllabus/*/lock").hasRole("DIRECTOR")
                 // 督导评课写操作：仅督导和主任
                 .requestMatchers(HttpMethod.POST, "/api/v1/supervision/evaluations").hasAnyRole("SUPERVISOR", "DIRECTOR")
-                // 学生人脸特征档案库管理：严禁督导或教师越权访问，仅教研室主任专属管辖
-                .requestMatchers("/api/student/**").hasRole("DIRECTOR")
-                // 其余接口放行或按方法注解管控
-                .anyRequest().permitAll()
+                // 实验二核心教务业务接口全量强制要求认证登录
+                .requestMatchers("/api/v1/courses/**").authenticated()
+                .requestMatchers("/api/v1/syllabus/**").authenticated()
+                .requestMatchers("/api/v1/schedules/**").authenticated()
+                .requestMatchers("/api/v1/supervision/**").authenticated()
+                .requestMatchers("/api/v1/resources/**").authenticated()
+                .requestMatchers("/api/v1/attendance/**").authenticated()
+                .requestMatchers("/api/visual/**").authenticated()
+                // 默认策略：其余任何请求均须登录认证通过
+                .anyRequest().authenticated()
             )
             // 挂载 JWT 认证拦截过滤器
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

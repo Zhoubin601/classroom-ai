@@ -42,6 +42,9 @@ class AuthControllerTest {
     @Mock
     private JwtTokenProvider jwtTokenProvider;
 
+    @Mock
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
     @InjectMocks
     private AuthController authController;
 
@@ -68,6 +71,7 @@ class AuthControllerTest {
                 .build();
 
         when(userAccountRepository.findByUsername(eq("guojun"))).thenReturn(Optional.of(account));
+        when(passwordEncoder.matches("123456", "123456")).thenReturn(true);
         when(jwtTokenProvider.generateToken(any(UserVO.class))).thenReturn("mock-jwt-token-12345");
 
         LoginDTO dto = LoginDTO.builder().username("guojun").password("123456").build();
@@ -95,6 +99,7 @@ class AuthControllerTest {
                 .build();
 
         when(userAccountRepository.findByUsername(eq("guojun"))).thenReturn(Optional.of(account));
+        when(passwordEncoder.matches("wrongpass", "123456")).thenReturn(false);
 
         LoginDTO dto = LoginDTO.builder().username("guojun").password("wrongpass").build();
 
@@ -137,37 +142,16 @@ class AuthControllerTest {
     }
 
     @Test
-    @DisplayName("督导注册测试：合法督导专家注册成功并返回 Token")
-    void testRegisterSupervisor_Success() throws Exception {
+    @DisplayName("安全规范：公开督导注册入口已下线，统一由主任工作台分配，返回 404")
+    void testRegisterSupervisor_PublicEndpointDisabled_Returns404() throws Exception {
         SupervisorRegisterDTO dto = SupervisorRegisterDTO.builder()
                 .username("supervisor_new")
                 .password("123456")
-                .realName("新督导")
-                .department("校教学质量督导团")
-                .authorizedMajors("SE;CS")
                 .build();
-
-        UserAccount savedAccount = UserAccount.builder()
-                .id(20L)
-                .username("supervisor_new")
-                .password("123456")
-                .realName("新督导")
-                .role(RoleEnum.SUPERVISOR)
-                .department("校教学质量督导团")
-                .authorizedMajors("SE;CS")
-                .build();
-
-        when(userAccountRepository.findByUsername("supervisor_new")).thenReturn(Optional.empty());
-        when(userAccountRepository.save(any(UserAccount.class))).thenReturn(savedAccount);
-        when(jwtTokenProvider.generateToken(any(UserVO.class))).thenReturn("mock-supervisor-token");
 
         mockMvc.perform(post("/api/v1/auth/register-supervisor")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(200))
-                .andExpect(jsonPath("$.data.username").value("supervisor_new"))
-                .andExpect(jsonPath("$.data.role").value("SUPERVISOR"))
-                .andExpect(jsonPath("$.data.token").value("mock-supervisor-token"));
+                .andExpect(status().isNotFound());
     }
 }

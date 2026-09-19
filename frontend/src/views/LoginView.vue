@@ -67,38 +67,14 @@
         
         <!-- 左侧 / 居中：登录 / 督导注册卡片 -->
         <div :class="[showQuickLogin ? 'lg:col-span-4' : 'w-full']" class="bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20 space-y-5 text-slate-800">
-          <!-- 顶部 Tab 切换：账号登录 VS 督导专家在线注册 -->
-          <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200">
-            <button
-              type="button"
-              @click="activeMode = 'login'; errorMessage = ''"
-              :class="[
-                'flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all text-center cursor-pointer',
-                activeMode === 'login' ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-800'
-              ]"
-            >
-              教务账号登录
-            </button>
-            <button
-              type="button"
-              @click="activeMode = 'register'; errorMessage = ''"
-              :class="[
-                'flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all text-center cursor-pointer flex items-center justify-center gap-1',
-                activeMode === 'register' ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-800'
-              ]"
-            >
-              <ShieldCheck class="w-3.5 h-3.5 text-indigo-600" />
-              督导专家注册
-            </button>
-          </div>
-
+          <!-- 单一身份认证模式标题头 (公开注册接口已关闭，督导账号由主任统一开通授权) -->
           <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
             <div>
               <h2 class="text-base font-bold text-slate-900">
-                {{ activeMode === 'login' ? '教务身份认证' : '督导专家线上建档注册' }}
+                教务统一身份认证
               </h2>
               <p class="text-xs text-slate-500 mt-0.5">
-                {{ activeMode === 'login' ? '支持教师、教研室主任及督导登录' : '自主注册后通过 JWT 授权直入督导工作台' }}
+                支持任课教师、教研室主任及教学督导登录（督导账号由主任统一分配授权）
               </p>
             </div>
             <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-medium">
@@ -168,92 +144,6 @@
               <span v-if="loading" class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
               <span v-else>立即验证并登录</span>
               <ArrowRight v-if="!loading" class="w-3.5 h-3.5" />
-            </button>
-          </form>
-
-          <!-- 2. 督导注册表单 -->
-          <form v-else @submit.prevent="handleSupervisorRegister" class="space-y-3.5 text-xs">
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">督导登录账号 (Username, 唯一)</label>
-              <div class="relative">
-                <input
-                  v-model="registerForm.username"
-                  type="text"
-                  required
-                  placeholder="如 supervisor_chen"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
-                />
-                <User class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
-              </div>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">督导专家真实姓名 (Real Name)</label>
-              <div class="relative">
-                <input
-                  v-model="registerForm.realName"
-                  type="text"
-                  required
-                  placeholder="如 陈建国 (督导专家)"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
-                />
-                <BadgeCheck class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2.5">
-              <div>
-                <label class="block font-semibold text-slate-700 mb-1">登录密码</label>
-                <input
-                  v-model="registerForm.password"
-                  type="password"
-                  required
-                  placeholder="至少6位密码"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
-                />
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-700 mb-1">确认密码</label>
-                <input
-                  v-model="registerForm.confirmPassword"
-                  type="password"
-                  required
-                  placeholder="重复输入密码"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">所属督导组 / 单位</label>
-              <input
-                v-model="registerForm.department"
-                placeholder="校教学质量监控与督导评估中心"
-                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
-              />
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">授权监督专业代码 (分号分隔)</label>
-              <input
-                v-model="registerForm.authorizedMajors"
-                placeholder="SE;CS (软件工程与计算机科学)"
-                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono"
-              />
-            </div>
-
-            <div class="p-2.5 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 text-[11px] leading-relaxed">
-              <b>权限隔离原则：</b> 注册后授予 <code>SUPERVISOR</code> 角色，直入督导工作台，具备全院总课表查阅与打分权，与任课教师大纲维护相互隔离。
-            </div>
-
-            <button
-              type="submit"
-              :disabled="loading"
-              class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-semibold text-xs shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              <span v-if="loading" class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-              <span v-else>立即完成注册并进入督导工作台</span>
-              <ShieldCheck v-if="!loading" class="w-3.5 h-3.5" />
             </button>
           </form>
 
