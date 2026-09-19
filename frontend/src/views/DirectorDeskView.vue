@@ -20,6 +20,9 @@
         <a :href="supervisionApi.getExportReportUrl()" download class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
           <Download class="w-3.5 h-3.5" /> 导出年度质量报表 (CSV/Excel)
         </a>
+        <button @click="openImportModal" class="px-3.5 py-2 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
+          <UploadCloud class="w-3.5 h-3.5 text-indigo-600" /> 批量导入课程 (CSV)
+        </button>
         <button @click="openAddCourseModal" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
           <Plus class="w-3.5 h-3.5" /> 新增专业课程档案
         </button>
@@ -509,31 +512,48 @@
         </h3>
         <div class="grid grid-cols-2 gap-3 text-xs">
           <div>
-            <label class="text-slate-600 block mb-1">课程代码 (唯一)</label>
-            <input v-model="currentCourseForm.courseCode" placeholder="如 CS3001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1">课程代码 (唯一) *</label>
+            <input v-model="currentCourseForm.courseCode" placeholder="如 CS3001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle uppercase" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">课程名称</label>
+            <label class="text-slate-600 block mb-1">课程名称 *</label>
             <input v-model="currentCourseForm.courseName" placeholder="如 软件项目管理" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+          </div>
+          <div>
+            <label class="text-slate-600 block mb-1">所属专业编码 *</label>
+            <select v-if="managedMajors.length > 0" v-model="currentCourseForm.majorCode" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
+              <option v-for="m in managedMajors" :key="m.majorCode" :value="m.majorCode">
+                {{ m.majorName }} ({{ m.majorCode }})
+              </option>
+            </select>
+            <input v-else v-model="currentCourseForm.majorCode" placeholder="如 SE, CS" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle uppercase" />
+          </div>
+          <div>
+            <label class="text-slate-600 block mb-1">教研室 *</label>
+            <input v-model="currentCourseForm.department" placeholder="如 软件工程教研室" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
           <div>
             <label class="text-slate-600 block mb-1">主讲 / 任课教师</label>
             <input v-model="currentCourseForm.teacherName" placeholder="如 郭军 (教授)" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">学分</label>
+            <label class="text-slate-600 block mb-1">学分 *</label>
             <input v-model.number="currentCourseForm.credits" type="number" step="0.5" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">总学时</label>
+            <label class="text-slate-600 block mb-1">总学时 * (需等于理论+实验)</label>
             <input v-model.number="currentCourseForm.hours" type="number" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">教研室</label>
-            <input v-model="currentCourseForm.department" placeholder="如 软件工程教研室" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1">理论学时</label>
+            <input v-model.number="currentCourseForm.theoryHours" @input="syncTotalHours" type="number" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">课程性质</label>
+            <label class="text-slate-600 block mb-1">实验 / 上机学时</label>
+            <input v-model.number="currentCourseForm.practiceHours" @input="syncTotalHours" type="number" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+          </div>
+          <div>
+            <label class="text-slate-600 block mb-1">课程性质 *</label>
             <select v-model="currentCourseForm.courseType" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
               <option value="专业核心课">专业核心课</option>
               <option value="专业基础课">专业基础课</option>
@@ -541,9 +561,9 @@
               <option value="通识必修课">通识必修课</option>
             </select>
           </div>
-          <div>
-            <label class="text-slate-600 block mb-1">先修关系说明</label>
-            <input v-model="currentCourseForm.prerequisites" placeholder="如 《软件工程导论》" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+          <div class="col-span-2">
+            <label class="text-slate-600 block mb-1">先修关系编码 (多个用分号隔开，如 CS1001;CS2001)</label>
+            <input v-model="currentCourseForm.prerequisites" placeholder="如 CS1001;CS2001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
           </div>
           <div class="col-span-2">
             <label class="text-slate-600 block mb-1">课程简介与教学目标 (US-02)</label>
@@ -551,9 +571,174 @@
           </div>
         </div>
 
+        <div v-if="courseErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+          <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
+          <span>{{ courseErrorMessage }}</span>
+        </div>
+
         <div class="flex items-center justify-end gap-2.5 pt-2">
           <button @click="showCourseModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
           <button @click="handleSaveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">保存并入库 (MySQL)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗：课程 CSV 批量规范导入 (US-01) -->
+    <div v-if="showImportModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl p-6 shadow-modal space-y-4 max-h-[90vh] flex flex-col">
+        <!-- 弹窗头部 -->
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <FileSpreadsheet class="w-4 h-4" />
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-900">课程 CSV 批量规范导入 (US-01)</h3>
+              <p class="text-xs text-slate-500">遵循两阶段校验与整批事务原子提交，支持批次内先修课程互相引用</p>
+            </div>
+          </div>
+          <button @click="showImportModal = false" class="text-slate-400 hover:text-slate-600 text-sm cursor-pointer">✕</button>
+        </div>
+
+        <!-- 内容区域 (滚动) -->
+        <div class="space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
+          <!-- 步骤 1：模板下载与说明 -->
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3">
+            <div>
+              <div class="font-semibold text-slate-800">标准 CSV 模板 (带 UTF-8 BOM)</div>
+              <div class="text-slate-500 text-[11px] mt-0.5">严格按照规范列填写：课程编码、名称、教研室、专业编码、学分、学时等</div>
+            </div>
+            <button 
+              @click="handleDownloadTemplate" 
+              class="px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-slate-700 font-semibold text-xs flex items-center gap-1.5 shadow-subtle cursor-pointer transition"
+            >
+              <Download class="w-3.5 h-3.5 text-indigo-600" /> 下载模板
+            </button>
+          </div>
+
+          <!-- 上传文件选择区 -->
+          <div class="border-2 border-dashed border-slate-200 hover:border-indigo-400 rounded-xl p-5 text-center transition bg-white cursor-pointer relative">
+            <input 
+              type="file" 
+              accept=".csv" 
+              @change="handleFileChange" 
+              class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+            />
+            <div class="flex flex-col items-center justify-center gap-2">
+              <UploadCloud class="w-8 h-8 text-indigo-500" />
+              <div>
+                <span class="font-semibold text-indigo-600">点击上传</span> 或拖拽 CSV 文件至此处
+              </div>
+              <div class="text-slate-400 text-[11px]">
+                {{ selectedFile ? `已选择: ${selectedFile.name} (${(selectedFile.size / 1024).toFixed(1)} KB)` : '仅支持 CSV 文件，每批次限 1,000 行、5MB 内，30分钟有效期' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- 正在解析 Spinner -->
+          <div v-if="isUploading" class="py-6 text-center text-slate-500 space-y-2">
+            <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+            <div>正在全维度校验数据 (学时守恒、专业有效性、先修引用、编码唯一)...</div>
+          </div>
+
+          <!-- 阶段 1 解析预览结果 -->
+          <div v-if="importPreview && !isUploading" class="space-y-3">
+            <!-- 统计指标 -->
+            <div class="grid grid-cols-3 gap-3">
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                <div class="text-slate-500 text-[11px]">总解析行数</div>
+                <div class="text-lg font-bold text-slate-900 mt-0.5">{{ importPreview.totalCount }}</div>
+              </div>
+              <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-center">
+                <div class="text-emerald-700 text-[11px] font-medium">有效课程数</div>
+                <div class="text-lg font-bold text-emerald-600 mt-0.5">{{ importPreview.successCount }}</div>
+              </div>
+              <div class="p-3 bg-rose-50 rounded-xl border border-rose-200 text-center">
+                <div class="text-rose-700 text-[11px] font-medium">校验错误数</div>
+                <div class="text-lg font-bold text-rose-600 mt-0.5">{{ importPreview.errorCount }}</div>
+              </div>
+            </div>
+
+            <!-- 存在错误时：展示错误清单并警示整批回滚 -->
+            <div v-if="importPreview.errorCount > 0" class="space-y-2">
+              <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-center gap-2">
+                <XCircle class="w-4 h-4 shrink-0 text-rose-600" />
+                <span>检测到 <b>{{ importPreview.errorCount }}</b> 处校验错误。系统实行整批回滚保护原则，禁止部分入库，请修正后重新上传：</span>
+              </div>
+              <div class="border border-rose-200 rounded-xl overflow-hidden max-h-48 overflow-y-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-rose-100/60 text-rose-800 uppercase font-semibold">
+                    <tr>
+                      <th class="py-2 px-3 w-16">行号</th>
+                      <th class="py-2 px-3 w-28">问题字段</th>
+                      <th class="py-2 px-3">错误原因</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-rose-100 bg-white">
+                    <tr v-for="(err, idx) in importPreview.errors" :key="idx" class="hover:bg-rose-50/50">
+                      <td class="py-2 px-3 font-mono font-semibold text-rose-600">第 {{ err.rowNumber }} 行</td>
+                      <td class="py-2 px-3 font-semibold text-slate-700">{{ err.field }}</td>
+                      <td class="py-2 px-3 text-rose-700">{{ err.reason }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 无错误且有有效行：展示数据预览并允许确认入库 -->
+            <div v-else-if="importPreview.successCount > 0" class="space-y-2">
+              <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-center gap-2">
+                <CheckCircle2 class="w-4 h-4 shrink-0 text-emerald-600" />
+                <span>全量数据校验通过！批次已就绪 (ID: <span class="font-mono">{{ importPreview.batchId?.slice(0, 8) }}...</span>)，可安全整批原子提交入库。</span>
+              </div>
+              <div class="border border-slate-200 rounded-xl overflow-hidden max-h-48 overflow-y-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
+                    <tr>
+                      <th class="py-2 px-3">课程编码</th>
+                      <th class="py-2 px-3">课程名称</th>
+                      <th class="py-2 px-3">专业</th>
+                      <th class="py-2 px-3">学分/学时</th>
+                      <th class="py-2 px-3">性质</th>
+                      <th class="py-2 px-3">先修课程</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 bg-white">
+                    <tr v-for="row in importPreview.validRows.slice(0, 5)" :key="row.courseCode" class="hover:bg-slate-50">
+                      <td class="py-2 px-3 font-mono font-semibold text-indigo-600">{{ row.courseCode }}</td>
+                      <td class="py-2 px-3 font-semibold text-slate-800">{{ row.courseName }}</td>
+                      <td class="py-2 px-3 text-slate-600">{{ row.majorCode }}</td>
+                      <td class="py-2 px-3 text-slate-600">{{ row.credits }}分 / {{ row.hours }}h (理{{ row.theoryHours }}+实{{ row.practiceHours }})</td>
+                      <td class="py-2 px-3 text-slate-600">{{ row.courseType }}</td>
+                      <td class="py-2 px-3 text-slate-500">{{ row.prerequisites || '无' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div v-if="importPreview.validRows.length > 5" class="text-slate-400 text-center text-[11px]">
+                ... 仅预览展示前 5 条，共计 {{ importPreview.validRows.length }} 门课程将被整批入库
+              </div>
+            </div>
+          </div>
+
+          <!-- 通用错误反馈 -->
+          <div v-if="importErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+            <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
+            <span>{{ importErrorMessage }}</span>
+          </div>
+        </div>
+
+        <!-- 弹窗底部操作 -->
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button @click="showImportModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">关闭</button>
+          <button 
+            @click="handleConfirmImport" 
+            :disabled="!canConfirmImport || isConfirming" 
+            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer flex items-center gap-1.5"
+          >
+            <span v-if="isConfirming" class="inline-block animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
+            <span>{{ isConfirming ? '正在整批事务入库...' : '确认导入并整批入库 (US-01)' }}</span>
+          </button>
         </div>
       </div>
     </div>
@@ -935,9 +1120,13 @@ import {
   RotateCcw,
   ShieldCheck,
   Users,
-  Check
+  Check,
+  UploadCloud,
+  FileSpreadsheet,
+  CheckCircle2,
+  XCircle
 } from 'lucide-vue-next'
-import { courseApi, scheduleApi, syllabusApi, supervisionApi, directorApi } from '../api'
+import { courseApi, scheduleApi, syllabusApi, supervisionApi, directorApi, courseImportApi } from '../api'
 import type { Course, CourseSchedule, GraduationIndicator, CourseOffering } from '../api/types'
 
 const activeTab = ref('courses')
@@ -1025,6 +1214,100 @@ const filteredSchedules = computed(() => {
 
 const showCourseModal = ref(false)
 const currentCourseForm = ref<any>({})
+const courseErrorMessage = ref('')
+
+const syncTotalHours = () => {
+  const th = Number(currentCourseForm.value.theoryHours) || 0
+  const ph = Number(currentCourseForm.value.practiceHours) || 0
+  currentCourseForm.value.hours = th + ph
+}
+
+// ==================== 课程批量导入相关 (US-01) ====================
+const showImportModal = ref(false)
+const selectedFile = ref<File | null>(null)
+const isUploading = ref(false)
+const isConfirming = ref(false)
+const importPreview = ref<any>(null)
+const importErrorMessage = ref('')
+
+const canConfirmImport = computed(() => {
+  return (
+    importPreview.value &&
+    importPreview.value.batchId &&
+    importPreview.value.errorCount === 0 &&
+    importPreview.value.successCount > 0
+  )
+})
+
+const openImportModal = () => {
+  selectedFile.value = null
+  importPreview.value = null
+  importErrorMessage.value = ''
+  isUploading.value = false
+  isConfirming.value = false
+  showImportModal.value = true
+}
+
+const handleDownloadTemplate = async () => {
+  try {
+    const blob = await courseImportApi.downloadTemplate()
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', 'course_import_template.csv')
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  } catch (e: any) {
+    alert('下载模板失败：' + (e.response?.data?.message || e.message))
+  }
+}
+
+const handleFileChange = async (e: Event) => {
+  const target = e.target as HTMLInputElement
+  if (!target.files || target.files.length === 0) return
+  const file = target.files[0]
+  if (!file.name.toLowerCase().endsWith('.csv')) {
+    importErrorMessage.value = '请上传标准 CSV 文件 (.csv)'
+    return
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    importErrorMessage.value = '文件超出 5MB 大小限制'
+    return
+  }
+
+  selectedFile.value = file
+  importErrorMessage.value = ''
+  importPreview.value = null
+  isUploading.value = true
+
+  try {
+    const previewData = await courseImportApi.preview(file)
+    importPreview.value = previewData
+  } catch (err: any) {
+    importErrorMessage.value = err.response?.data?.message || err.message || 'CSV 解析校验失败'
+  } finally {
+    isUploading.value = false
+    target.value = ''
+  }
+}
+
+const handleConfirmImport = async () => {
+  if (!canConfirmImport.value) return
+  isConfirming.value = true
+  importErrorMessage.value = ''
+  try {
+    const res = await courseImportApi.confirm(importPreview.value.batchId)
+    alert(res.message || `成功批量导入 ${res.importedCount} 门课程档案！`)
+    showImportModal.value = false
+    await loadCourses()
+  } catch (err: any) {
+    importErrorMessage.value = err.response?.data?.message || err.message || '确认导入失败，批次可能已失效或被消费'
+  } finally {
+    isConfirming.value = false
+  }
+}
 
 const showScheduleModal = ref(false)
 const currentScheduleForm = ref<any>({ dayOfWeek: 3, startPeriod: 3, endPeriod: 4, startWeek: 1, endWeek: 16, classroom: '文管 A447' })
@@ -1098,10 +1381,12 @@ const loadIndicatorsForSelectedCourse = async () => {
 }
 
 const openAddCourseModal = () => {
+  courseErrorMessage.value = ''
   currentCourseForm.value = {
     courseCode: '',
     courseName: '',
     department: '软件工程教研室',
+    majorCode: managedMajors.value.length > 0 ? managedMajors.value[0].majorCode : 'SE',
     teacherName: '郭军 (教授)',
     credits: 3.0,
     hours: 48,
@@ -1117,17 +1402,55 @@ const openAddCourseModal = () => {
 }
 
 const editCourse = (c: Course) => {
+  courseErrorMessage.value = ''
   currentCourseForm.value = { ...c }
+  if (currentCourseForm.value.theoryHours === undefined && currentCourseForm.value.practiceHours === undefined && currentCourseForm.value.hours) {
+    currentCourseForm.value.theoryHours = currentCourseForm.value.hours
+    currentCourseForm.value.practiceHours = 0
+  }
   showCourseModal.value = true
 }
 
 const handleSaveCourse = async () => {
+  courseErrorMessage.value = ''
+  const form = currentCourseForm.value
+  if (!form.courseCode || !form.courseCode.trim()) {
+    courseErrorMessage.value = '课程编码不能为空'
+    return
+  }
+  if (!form.courseName || !form.courseName.trim()) {
+    courseErrorMessage.value = '课程名称不能为空'
+    return
+  }
+  if (!form.majorCode || !form.majorCode.trim()) {
+    courseErrorMessage.value = '所属专业不能为空'
+    return
+  }
+  if (!form.department || !form.department.trim()) {
+    courseErrorMessage.value = '教研室不能为空'
+    return
+  }
+  if (!form.credits || form.credits <= 0) {
+    courseErrorMessage.value = '学分必须大于 0'
+    return
+  }
+  if (!form.hours || form.hours <= 0) {
+    courseErrorMessage.value = '总学时必须大于 0'
+    return
+  }
+  const th = Number(form.theoryHours) || 0
+  const ph = Number(form.practiceHours) || 0
+  if (th + ph !== Number(form.hours)) {
+    courseErrorMessage.value = `学时守恒校验失败：理论学时(${th}) + 实验学时(${ph}) 必须等于总学时(${form.hours})`
+    return
+  }
+
   try {
-    await courseApi.save(currentCourseForm.value)
+    await courseApi.save(form)
     showCourseModal.value = false
     loadCourses()
   } catch (e: any) {
-    alert(e.response?.data?.message || '保存失败')
+    courseErrorMessage.value = e.response?.data?.message || e.message || '保存课程档案失败'
   }
 }
 

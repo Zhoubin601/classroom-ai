@@ -20,6 +20,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseOfferingRepository courseOfferingRepository;
     private final com.classroom.ai.repository.StudentRepository studentRepository;
     private final com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository;
+    private final com.classroom.ai.modules.course.repository.MajorRepository majorRepository;
 
     @Override
     public List<Course> getAllCourses() {
@@ -41,29 +42,73 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public Course saveCourse(CourseDTO dto) {
+        if (dto.getCourseCode() == null || dto.getCourseCode().trim().isEmpty()) {
+            throw new IllegalArgumentException("课程编码不能为空");
+        }
+        if (dto.getCourseName() == null || dto.getCourseName().trim().isEmpty()) {
+            throw new IllegalArgumentException("课程名称不能为空");
+        }
+        if (dto.getDepartment() == null || dto.getDepartment().trim().isEmpty()) {
+            throw new IllegalArgumentException("开课教研室不能为空");
+        }
+        if (dto.getCourseType() == null || dto.getCourseType().trim().isEmpty()) {
+            throw new IllegalArgumentException("课程性质不能为空");
+        }
+        if (dto.getCredits() == null || dto.getCredits() <= 0) {
+            throw new IllegalArgumentException("学分必须为大于0的数值");
+        }
+        if (dto.getHours() == null || dto.getHours() <= 0) {
+            throw new IllegalArgumentException("总学时必须为大于0的整数");
+        }
+
+        int theory = dto.getTheoryHours() != null ? dto.getTheoryHours() : dto.getHours();
+        int practice = dto.getPracticeHours() != null ? dto.getPracticeHours() : 0;
+        if (theory + practice != dto.getHours()) {
+            throw new IllegalArgumentException("学时关系矛盾：理论学时(" + theory + ") + 实验学时(" + practice + ") 必须等于总学时(" + dto.getHours() + ")");
+        }
+
+        String cleanCode = dto.getCourseCode().trim();
         Course course;
         if (dto.getId() != null) {
             course = getCourseById(dto.getId());
+            courseRepository.findByCourseCode(cleanCode).ifPresent(other -> {
+                if (!other.getId().equals(dto.getId())) {
+                    throw new IllegalArgumentException("课程编码 " + cleanCode + " 已被其他课程占用，请勿重复使用");
+                }
+            });
         } else {
-            if (courseRepository.existsByCourseCode(dto.getCourseCode())) {
-                throw new IllegalArgumentException("课程编码 " + dto.getCourseCode() + " 已存在，请勿重复创建");
+            if (courseRepository.existsByCourseCode(cleanCode)) {
+                throw new IllegalArgumentException("课程编码 " + cleanCode + " 已存在，请勿重复创建");
             }
             course = new Course();
         }
 
-        course.setCourseCode(dto.getCourseCode());
-        course.setCourseName(dto.getCourseName());
-        course.setDepartment(dto.getDepartment());
-        course.setTeacherName(dto.getTeacherName());
+        course.setCourseCode(cleanCode);
+        course.setCourseName(dto.getCourseName().trim());
+        course.setDepartment(dto.getDepartment().trim());
+        course.setTeacherName(dto.getTeacherName() != null ? dto.getTeacherName().trim() : null);
         course.setCredits(dto.getCredits());
         course.setHours(dto.getHours());
-        course.setTheoryHours(dto.getTheoryHours() != null ? dto.getTheoryHours() : dto.getHours());
-        course.setPracticeHours(dto.getPracticeHours() != null ? dto.getPracticeHours() : 0);
-        course.setCourseType(dto.getCourseType());
+        course.setTheoryHours(theory);
+        course.setPracticeHours(practice);
+        course.setCourseType(dto.getCourseType().trim());
         course.setPrerequisites(dto.getPrerequisites());
         course.setDescription(dto.getDescription());
         course.setObjectives(dto.getObjectives());
         course.setAssessmentMethod(dto.getAssessmentMethod());
+
+        if (dto.getMajorCode() != null && !dto.getMajorCode().trim().isEmpty()) {
+            String mCode = dto.getMajorCode().trim().toUpperCase();
+            course.setMajorCode(mCode);
+            if (majorRepository != null) {
+                majorRepository.findByMajorCode(mCode).ifPresentOrElse(
+                        m -> course.setMajorId(m.getId()),
+                        () -> {
+                            // 若字典中未查到，但在已有列表允许或记录
+                        }
+                );
+            }
+        }
 
         return courseRepository.save(course);
     }

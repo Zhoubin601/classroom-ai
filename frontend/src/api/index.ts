@@ -566,6 +566,12 @@ export const courseContentApi = {
 // ==================== 10. 课程两阶段批量导入 API (US-01) ====================
 export const courseImportApi = {
   getTemplateUrl: (): string => '/api/v1/courses/import/template',
+  downloadTemplate: async (): Promise<Blob> => {
+    const res = await client.get('/api/v1/courses/import/template', {
+      responseType: 'blob'
+    })
+    return res.data
+  },
   preview: async (file: File): Promise<any> => {
     const formData = new FormData()
     formData.append('file', file)

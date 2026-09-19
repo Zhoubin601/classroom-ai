@@ -711,3 +711,40 @@ My code document has the following content:
   - **边缘感知测试**：5 项 Python 测试全部通过；
   - `powershell -ExecutionPolicy Bypass -File scripts/run-tests.ps1` 顺利输出 `All automated checks passed.`。
 
+## 2026-09-19 实验二第 2 步：完成 US-01 课程录入与 CSV 批量导入全面落地
+- **任务目标与通过条件**：
+  1. 主任课程页面补齐专业、必填字段和编码唯一校验；
+  2. 接通“下载模板 → 上传 → 预览 → 显示错误 → 确认导入 → 刷新列表”的前后端完整闭环；
+  3. 使用规范 CSV 解析（RFC 4180），支持 UTF-8 BOM、带引号字段和字段内逗号；
+  4. 校验缺项、数值、学时守恒（`theory + practice == hours`）、重复编码（批次内防重 + 数据库防重）、专业有效性及先修课程引用；**特别支持批次内先修课程互相引用**；
+  5. 保留每批 1,000 行、5 MB、30 分钟有效期；批次绑定操作者，确认时重新校验并保证一次性消费、整批事务原子提交；
+  6. 导入业务下沉到服务层（`CourseImportService`），记录操作者、时间和导入结果（`CourseImportLog`）；
+  7. 兑现通过条件：合法文件全部导入；错误文件预览显示行号、字段和原因且不入库；越权确认、重复确认、过期确认被拒绝；数据库异常不会留下半批数据。
+- **架构重构与具体实施**：
+  1. **规范 RFC 4180 CSV 解析器 (CsvParserUtil.java)**：
+     - 支持无依赖状态机流式解析：智能剥离 UTF-8 BOM（`0xEF, 0xBB, 0xBF`），正确处理双引号包裹字段、字段内包含逗号与换行符、成对转义双引号 `""` 以及跨平台 `\r\n` / `\n`；
+     - 新建 `CsvParserUtilTest.java`：覆盖普通 CSV、带 BOM 剔除、带逗号双引号字段、转义双引号、Windows 换行与空行跳过 5 项用例，100% 通过。
+  2. **单门课程录入与服务层深度强化 (CourseServiceImpl.java)**：
+     - `CourseDTO` 扩展 `majorCode` 与 `majorId`；
+     - `saveCourse` 补齐客户端与服务端双重校验：课程编码唯一性（新增与修改查重）、必填字段非空、学分与学时大于 0、理论学时加实验学时严格等于总学时（守恒校验），并自动绑定专业实体。
+  3. **课程导入下沉服务层与审计日志 (CourseImportServiceImpl.java & CourseImportLog)**：
+     - 两遍扫描算法（Two-pass scan）：第一遍快速提取当前批次中填写的全部课程编码 `batchCodes`，第二遍校验先修课程时同时核对 `existsInDb || batchCodes.contains(prereq)`，彻底解决批次内课程互相引用依赖问题；
+     - 批次安全管控：限制 `<= 1000 行`、`<= 5MB`，内存维护 30 分钟有效期，批次绑定当前登录操作者；
+     - 一次性消费与防越权：`confirmImport` 采用 `BATCH_CACHE.remove(batchId)` 原子消费，若为 null 抛出 400（防重确认）；核对 `cache.operator` 与当前登录上下文（非本人抛出 403 Forbidden）；
+     - 整批事务提交（`@Transactional`）：存在任何校验错误时拒绝入库，确认入库时若发生并发冲突或数据库异常，整批回滚不留半批脏数据；
+     - 审计入库：导入完成后将批次号、操作者、文件名、总行数、成功数与消息写入 `CourseImportLog`。
+  4. **主任工作台前端交互落地 (DirectorDeskView.vue & api/index.ts)**：
+     - 顶部操作栏新增【批量导入课程 (CSV)】按钮；
+     - 单门录入弹窗补充所属专业下拉选择、理论学时与实验学时输入及联动校验；
+     - 批量导入弹窗（`showImportModal`）：
+       - 步骤 1：一键下载带 UTF-8 BOM 标准 CSV 模板（`courseImportApi.downloadTemplate`）；
+       - 步骤 2：上传并实时预览：展示总行数、有效数、错误数卡片；若存在错误，展示错误清单表格（行号、字段、原因）并禁用确认按钮（整批回滚保护提示）；若无错误，展示前 5 条预览并启用【确认导入并整批入库】按钮；
+       - 步骤 3：点击确认导入，提交后端事务入库，成功提示后自动刷新列表。
+- **自动化测试验证与指标**：
+  - 更新 `CourseImportTest.java`（4 个用例）：覆盖模板下载、导入成功预览、错误清单解析、确认导入入库；
+  - 新增 `CourseImportServiceTest.java`（9 个用例）：覆盖模板 BOM 字节与内容、两遍扫描批次内先修引用成功、6 项组合校验失败、5MB/1000行限制拦截、确认导入成功及入库审计、防重消费拦截、越权操作者 403 拦截、30分钟过期拦截、有错误整批回滚保护拦截；
+  - **后端单元测试**：78 项测试 100% 通过（0 失败，0 错误，BUILD SUCCESS）；
+  - **前端单元测试**：10 项测试 100% 通过；
+  - **前端生产构建**：Vite 构建 0 错误（产出生产 dist 包）；
+  - **边缘视觉回归**：5 项 Python 测试全部通过；
+  - `powershell -ExecutionPolicy Bypass -File scripts/run-tests.ps1` 顺利输出 `All automated checks passed.`。

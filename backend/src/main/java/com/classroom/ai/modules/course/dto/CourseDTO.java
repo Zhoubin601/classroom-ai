@@ -15,6 +15,8 @@ public class CourseDTO {
     private String courseName;
     private String department;
     private String teacherName;
+    private Long majorId;
+    private String majorCode;
     private Double credits;
     private Integer hours;
     private Integer theoryHours;
