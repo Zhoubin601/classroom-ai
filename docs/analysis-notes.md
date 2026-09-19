@@ -645,3 +645,24 @@ My code document has the following content:
      - `GET /api/v1/attendance/offering/1` 验证返回全量会话（#1 至 #8）均为“教学督导 (张督导)”，中文展示清晰工整。
   3. **初始化脚本同步**：
      - `initialize.sql` 与 `scripts/deploy/mysql/init/initialize.sql` 第 15 节种子数据同步更新为 `张督导`、`SUPERVISOR`、`教学督导`。
+
+## 2026-09-19 实验二补齐分支（feat/exp2-supplement-auth-fix）与登录测试 JwtTokenProvider 注入修复
+- **分支创建背景**：
+  - 新建专用分支 `feat/exp2-supplement-auth-fix`，规范承接实验二自动化回归体系补齐与登录鉴权测试修复。
+- **问题根因分析**：
+  - 在引入 Spring Security 与无状态 JJWT 认证机制后，`AuthController` 构造器新增了 `JwtTokenProvider` 依赖注入；
+  - 既有单元测试 `AuthControllerTest` 仅通过 Mockito 模拟了 `UserAccountRepository`，未对 `JwtTokenProvider` 进行 Mock 注入；
+  - 导致在执行 `testLogin_Success` 时调用 `jwtTokenProvider.generateToken(vo)` 抛出 `NullPointerException`，阻断了 `scripts/run-tests.ps1` 自动化流水线。
+- **修复措施与验证落地**：
+  1. **单元测试完善 (AuthControllerTest.java)**：
+     - 使用 `@Mock private JwtTokenProvider jwtTokenProvider;` 补齐模拟对象；
+     - 在 `testLogin_Success` 中注入 `when(jwtTokenProvider.generateToken(any(UserVO.class))).thenReturn("mock-jwt-token-12345");`，并验证响应体包含 Token；
+     - 扩展增设 `testGetMe_WithValidBearerToken_ReturnsUser`（验证 Bearer Token 头部解析）与 `testRegisterSupervisor_Success`（验证督导专家在线注册签发 Token）测试用例；
+  2. **全栈自动化检查全绿达成**：
+     - 运行 `powershell -ExecutionPolicy Bypass -File scripts/run-tests.ps1`；
+     - **后端测试**：55 项单元测试 100% 通过（0 失败，0 错误，耗时 5.995s）；
+     - **前端测试**：10 项单元测试 100% 通过（耗时 235ms）；
+     - **前端生产构建**：Vite 构建 0 错误（耗时 7.72s，成功产出 dist 包）；
+     - **边缘视觉回归**：5 项 Python 测试 100% 通过（耗时 149ms）；
+     - 最终顺利输出 `All automated checks passed.`。
+
