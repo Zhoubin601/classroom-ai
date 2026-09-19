@@ -93,9 +93,11 @@ public class CourseServiceImpl implements CourseService {
         course.setPracticeHours(practice);
         course.setCourseType(dto.getCourseType().trim());
         course.setPrerequisites(dto.getPrerequisites());
-        course.setDescription(dto.getDescription());
-        course.setObjectives(dto.getObjectives());
-        course.setAssessmentMethod(dto.getAssessmentMethod());
+        if (dto.getId() == null) {
+            course.setDescription(dto.getDescription());
+            course.setObjectives(dto.getObjectives());
+            course.setAssessmentMethod(dto.getAssessmentMethod());
+        }
 
         if (dto.getMajorCode() != null && !dto.getMajorCode().trim().isEmpty()) {
             String mCode = dto.getMajorCode().trim().toUpperCase();

@@ -148,23 +148,113 @@
           </div>
         </div>
 
-        <!-- 在线课程大纲与目标发布 (US-02) -->
-        <div class="minimal-card p-5 space-y-3">
-          <div class="flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <BookOpen class="w-4 h-4 text-indigo-600" /> 课程大纲、目标与考核方式在线发布 (US-02)
-            </h2>
-            <button @click="saveSyllabusText" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-subtle transition cursor-pointer">
-              发布保存
+        <!-- 在线课程简介、考核方式与教学目标发布 (US-02) -->
+        <div class="minimal-card p-5 space-y-4 border-l-4 border-indigo-500">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <h2 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                  <BookOpen class="w-4 h-4 text-indigo-600" /> 课程简介、考核方式与教学目标 (US-02)
+                </h2>
+                <!-- 已发布状态徽章 -->
+                <span 
+                  v-if="publishedRevision?.publishVersion" 
+                  class="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1"
+                >
+                  <ShieldCheck class="w-3 h-3 text-emerald-600" /> 已发布 v{{ publishedRevision.publishVersion }}
+                </span>
+                <span 
+                  v-else 
+                  class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-slate-100 text-slate-600 border border-slate-200"
+                >
+                  未发布正式版本
+                </span>
+                <!-- 草稿并发锁版本徽章 -->
+                <span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                  并发锁 lock-v{{ contentForm.lockVersion }}
+                </span>
+              </div>
+              <div class="text-[11px] text-slate-500 flex items-center gap-3">
+                <span v-if="publishedRevision?.publisherName">发布人：{{ publishedRevision.publisherName }}</span>
+                <span v-if="publishedRevision?.publishedAt">发布时间：{{ formatDateTime(publishedRevision.publishedAt) }}</span>
+                <span v-if="draftRevision?.editorName">草稿最后保存人：{{ draftRevision.editorName }}</span>
+              </div>
+            </div>
+
+            <!-- 操作按钮组 -->
+            <div class="flex items-center gap-2">
+              <button 
+                @click="handleSaveDraft" 
+                :disabled="isSavingDraft || isPublishingContent"
+                class="px-3 py-1.5 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50"
+              >
+                {{ isSavingDraft ? '正在暂存...' : '暂存草稿' }}
+              </button>
+              <button 
+                @click="handlePublishContent" 
+                :disabled="isSavingDraft || isPublishingContent"
+                class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-subtle transition cursor-pointer disabled:opacity-50 flex items-center gap-1"
+              >
+                <Sparkles class="w-3.5 h-3.5" /> {{ isPublishingContent ? '正在发布...' : '正式发布' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 409 并发冲突告警条 -->
+          <div v-if="contentConflictMsg" class="p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-center justify-between gap-3 text-xs text-rose-700">
+            <div class="flex items-center gap-2">
+              <AlertCircle class="w-4 h-4 text-rose-600 flex-shrink-0" />
+              <span>{{ contentConflictMsg }}</span>
+            </div>
+            <button 
+              @click="loadCourseContent" 
+              class="px-2.5 py-1 bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0"
+            >
+              拉取最新草稿
             </button>
           </div>
+
+          <!-- 1. 课程简介 -->
           <div>
-            <label class="text-xs text-slate-600 font-medium block mb-1">教学目标说明 (支持工程认证要求关联)</label>
-            <textarea v-model="syllabusForm.objectives" rows="3" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" placeholder="描述课程知识与能力目标..."></textarea>
+            <label class="text-xs text-slate-700 font-semibold block mb-1">
+              课程简介 <span class="text-rose-500 font-normal">*正式发布必填</span>
+            </label>
+            <textarea 
+              v-model="contentForm.description" 
+              rows="3" 
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+              placeholder="请输入课程背景、学科定位、主要授课内容概括..."
+            ></textarea>
           </div>
+
+          <!-- 2. 考核与成绩评定方式 -->
           <div>
-            <label class="text-xs text-slate-600 font-medium block mb-1">考核与成绩评定方式</label>
-            <input v-model="syllabusForm.assessmentMethod" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" placeholder="平时实验 30% + 答辩 30% + 期末 40%" />
+            <label class="text-xs text-slate-700 font-semibold block mb-1">
+              考核与成绩评定方式 <span class="text-rose-500 font-normal">*正式发布必填</span>
+            </label>
+            <input 
+              v-model="contentForm.assessmentMethod" 
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+              placeholder="例如：平时作业与实验 30% + 课程答辩与大作业 30% + 期末闭卷考试 40%" 
+            />
+          </div>
+
+          <!-- 3. 教学目标说明 -->
+          <div>
+            <label class="text-xs text-slate-700 font-semibold block mb-1">
+              教学目标说明 <span class="text-rose-500 font-normal">*正式发布必填 (支撑毕业要求指标点)</span>
+            </label>
+            <textarea 
+              v-model="contentForm.objectives" 
+              rows="3" 
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+              placeholder="明确说明本门课程培养的知识目标、工程能力目标以及价值素质目标..."
+            ></textarea>
+          </div>
+
+          <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1 border-t border-slate-100">
+            <span>规则：草稿可不完整；正式发布三项必填且仅限关联主讲教师操作；旧窗口并发提交将触发 409 拦截并保护数据。</span>
+            <span class="font-mono text-indigo-500">US-02 规格验证就绪</span>
           </div>
         </div>
       </div>
@@ -640,12 +730,31 @@ import {
   Download
 } from 'lucide-vue-next'
 import * as echarts from 'echarts'
-import { resourceApi, supervisionApi, courseApi, syllabusApi, scheduleApi } from '../api'
-import type { CourseResource, CourseOffering, CourseSchedule, TeacherQualityRadarVO, GraduationIndicator } from '../api/types'
+import { resourceApi, supervisionApi, courseApi, syllabusApi, scheduleApi, courseContentApi } from '../api'
+import type { CourseResource, CourseOffering, CourseSchedule, TeacherQualityRadarVO, GraduationIndicator, CourseContentRevision } from '../api/types'
 
 const props = defineProps<{
   loggedInUser?: any
 }>()
+
+// US-02 课程简介草稿与发布 (与工程认证大纲 US-05 解耦)
+const draftRevision = ref<CourseContentRevision | null>(null)
+const publishedRevision = ref<CourseContentRevision | null>(null)
+const contentForm = ref({
+  description: '',
+  assessmentMethod: '',
+  objectives: '',
+  lockVersion: 0,
+  publishVersion: undefined as number | undefined
+})
+const contentConflictMsg = ref('')
+const isSavingDraft = ref(false)
+const isPublishingContent = ref(false)
+
+const formatDateTime = (val?: string) => {
+  if (!val) return ''
+  return val.replace('T', ' ').substring(0, 19)
+}
 
 const teacherList = ref<{ name: string; courseName: string }[]>([])
 const currentTeacher = ref('郭军')
@@ -760,7 +869,7 @@ const loadTeacherList = async () => {
 const onTeacherChange = async () => {
   selectedOfferingId.value = null
   await loadCourse()
-  await Promise.all([loadMyResources(), loadRadar(), loadIndicators()])
+  await Promise.all([loadMyResources(), loadRadar(), loadIndicators(), loadCourseContent()])
 }
 
 const onOfferingSelectChange = async () => {
@@ -775,18 +884,7 @@ const onOfferingSelectChange = async () => {
     } catch (err) {
       console.warn('获取排课信息失败', err)
     }
-    await Promise.all([loadMyResources(), loadRadar(), loadIndicators()])
-    if (currentCourse.value) {
-      try {
-        currentSyllabus.value = await syllabusApi.getLatest(currentCourse.value.id)
-        syllabusForm.value = {
-          objectives: currentSyllabus.value?.courseGoals ?? currentCourse.value.objectives ?? '',
-          assessmentMethod: currentCourse.value.assessmentMethod ?? ''
-        }
-      } catch (e) {
-        console.warn('获取大纲失败', e)
-      }
-    }
+    await Promise.all([loadMyResources(), loadRadar(), loadIndicators(), loadCourseContent()])
   }
 }
 
@@ -826,15 +924,7 @@ const loadCourse = async () => {
 
   if (!currentCourse.value) return
 
-  try {
-    currentSyllabus.value = await syllabusApi.getLatest(currentCourse.value.id)
-    syllabusForm.value = {
-      objectives: currentSyllabus.value?.courseGoals ?? currentCourse.value.objectives ?? '',
-      assessmentMethod: currentCourse.value.assessmentMethod ?? ''
-    }
-  } catch (e) {
-    console.warn('获取大纲失败', e)
-  }
+  await loadCourseContent()
 }
 
 const loadIndicators = async () => {
@@ -1140,17 +1230,138 @@ const handleSaveResource = async () => {
   }
 }
 
-const saveSyllabusText = async () => {
+const loadCourseContent = async () => {
+  if (!currentCourse.value?.id) {
+    draftRevision.value = null
+    publishedRevision.value = null
+    contentForm.value = {
+      description: '',
+      assessmentMethod: '',
+      objectives: '',
+      lockVersion: 0,
+      publishVersion: undefined
+    }
+    contentConflictMsg.value = ''
+    return
+  }
+
+  contentConflictMsg.value = ''
   try {
-    if (!currentCourse.value) throw new Error('该教师暂无开课记录')
-    currentSyllabus.value = await syllabusApi.save({
-      ...currentSyllabus.value, courseId: currentCourse.value.id,
-      courseGoals: syllabusForm.value.objectives, authorTeacher: currentTeacher.value
+    const courseId = currentCourse.value.id
+    const [draft, pub] = await Promise.all([
+      courseContentApi.getDraft(courseId).catch(err => {
+        console.warn('获取草稿失败或尚未建立草稿', err)
+        return null
+      }),
+      courseContentApi.getPublished(courseId).catch(err => {
+        console.warn('获取已发布版本失败', err)
+        return null
+      })
+    ])
+
+    draftRevision.value = draft
+    publishedRevision.value = pub
+
+    if (draft) {
+      contentForm.value = {
+        description: draft.description || '',
+        assessmentMethod: draft.assessmentMethod || '',
+        objectives: draft.objectives || '',
+        lockVersion: draft.lockVersion ?? draft.version ?? 0,
+        publishVersion: draft.publishVersion
+      }
+    } else if (pub) {
+      contentForm.value = {
+        description: pub.description || '',
+        assessmentMethod: pub.assessmentMethod || '',
+        objectives: pub.objectives || '',
+        lockVersion: 0,
+        publishVersion: pub.publishVersion
+      }
+    } else {
+      contentForm.value = {
+        description: currentCourse.value.description || '',
+        assessmentMethod: currentCourse.value.assessmentMethod || '',
+        objectives: currentCourse.value.objectives || '',
+        lockVersion: 0,
+        publishVersion: undefined
+      }
+    }
+  } catch (e) {
+    console.error('加载课程简介与草稿失败', e)
+  }
+}
+
+const handleSaveDraft = async () => {
+  if (!currentCourse.value?.id) {
+    alert('请先选择有效课程')
+    return
+  }
+  isSavingDraft.value = true
+  contentConflictMsg.value = ''
+  try {
+    const updated = await courseContentApi.saveDraft(currentCourse.value.id, {
+      description: contentForm.value.description,
+      assessmentMethod: contentForm.value.assessmentMethod,
+      objectives: contentForm.value.objectives,
+      lockVersion: contentForm.value.lockVersion
     })
-    currentCourse.value = await courseApi.save({ ...currentCourse.value,
-      objectives: syllabusForm.value.objectives, assessmentMethod: syllabusForm.value.assessmentMethod })
-    alert('课程大纲与教学目标已保存')
-  } catch (error: any) { alert(error.message || '保存失败') }
+    draftRevision.value = updated
+    contentForm.value.lockVersion = updated.lockVersion ?? updated.version ?? 0
+    alert('草稿暂存成功！并发锁版本已同步为: ' + contentForm.value.lockVersion)
+  } catch (err: any) {
+    if (err.response?.status === 409 || err.status === 409) {
+      contentConflictMsg.value = err.response?.data?.message || err.message || '检测到并发修改冲突(版本不一致)，请重新拉取最新草稿'
+    } else {
+      alert(err.response?.data?.message || err.message || '草稿暂存失败')
+    }
+  } finally {
+    isSavingDraft.value = false
+  }
+}
+
+const handlePublishContent = async () => {
+  if (!currentCourse.value?.id) {
+    alert('请先选择有效课程')
+    return
+  }
+
+  const desc = contentForm.value.description?.trim()
+  const assess = contentForm.value.assessmentMethod?.trim()
+  const objs = contentForm.value.objectives?.trim()
+
+  if (!desc || !assess || !objs) {
+    alert('正式发布失败：课程简介、考核方式和教学目标三项必须全部填写齐全！')
+    return
+  }
+
+  isPublishingContent.value = true
+  contentConflictMsg.value = ''
+  try {
+    const published = await courseContentApi.publish(currentCourse.value.id, {
+      description: desc,
+      assessmentMethod: assess,
+      objectives: objs,
+      lockVersion: contentForm.value.lockVersion
+    })
+    publishedRevision.value = published
+    draftRevision.value = null
+    currentCourse.value.description = published.description
+    currentCourse.value.assessmentMethod = published.assessmentMethod
+    currentCourse.value.objectives = published.objectives
+    alert(`课程简介、考核方式与教学目标发布成功！正式版本: v${published.publishVersion || 1}`)
+    await loadCourseContent()
+  } catch (err: any) {
+    if (err.response?.status === 409 || err.status === 409) {
+      contentConflictMsg.value = err.response?.data?.message || err.message || '检测到并发发布冲突(版本不一致)，请重新拉取最新草稿'
+    } else if (err.response?.status === 403 || err.status === 403) {
+      alert(err.response?.data?.message || '越权拦截：只有该课程关联任课教师才能发布')
+    } else {
+      alert(err.response?.data?.message || err.message || '发布失败')
+    }
+  } finally {
+    isPublishingContent.value = false
+  }
 }
 
 onMounted(async () => {

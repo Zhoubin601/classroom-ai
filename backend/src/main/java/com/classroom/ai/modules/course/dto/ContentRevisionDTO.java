@@ -14,5 +14,14 @@ public class ContentRevisionDTO {
     private String description;
     private String assessmentMethod;
     private String objectives;
+    /** 历史/通用版本字段 */
     private Integer version;
+    /** 并发锁版本 (客户端提交比对) */
+    private Integer lockVersion;
+    /** 内容发布版本 */
+    private Integer publishVersion;
+
+    public Integer getEffectiveLockVersion() {
+        return lockVersion != null ? lockVersion : version;
+    }
 }

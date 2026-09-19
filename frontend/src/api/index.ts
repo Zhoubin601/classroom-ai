@@ -10,7 +10,8 @@ import type {
   FaceSearchDTO,
   FaceMatchVO,
   ClassroomStreamDTO,
-  CourseSchedule
+  CourseSchedule,
+  CourseContentRevision
 } from './types'
 
 // 在开发环境下通过 Vite 代理连接后端，也可直连 localhost:8080
@@ -545,20 +546,20 @@ export const authApi = {
 
 // ==================== 9. 课程内容草稿与发布 API (US-02) ====================
 export const courseContentApi = {
-  getDraft: async (courseId: number): Promise<any> => {
-    const res = await client.get<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/draft`)
+  getDraft: async (courseId: number): Promise<CourseContentRevision> => {
+    const res = await client.get<ApiResponse<CourseContentRevision>>(`/api/v1/courses/${courseId}/content/draft`)
     return res.data.data
   },
-  saveDraft: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number }): Promise<any> => {
-    const res = await client.put<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/draft`, dto)
+  saveDraft: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number; lockVersion?: number }): Promise<CourseContentRevision> => {
+    const res = await client.put<ApiResponse<CourseContentRevision>>(`/api/v1/courses/${courseId}/content/draft`, dto)
     return res.data.data
   },
-  publish: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number }): Promise<any> => {
-    const res = await client.post<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/publish`, dto)
+  publish: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number; lockVersion?: number }): Promise<CourseContentRevision> => {
+    const res = await client.post<ApiResponse<CourseContentRevision>>(`/api/v1/courses/${courseId}/content/publish`, dto)
     return res.data.data
   },
-  getPublished: async (courseId: number): Promise<any> => {
-    const res = await client.get<ApiResponse<any>>(`/api/v1/courses/${courseId}/content/published`)
+  getPublished: async (courseId: number): Promise<CourseContentRevision | null> => {
+    const res = await client.get<ApiResponse<CourseContentRevision | null>>(`/api/v1/courses/${courseId}/content/published`)
     return res.data.data
   }
 }

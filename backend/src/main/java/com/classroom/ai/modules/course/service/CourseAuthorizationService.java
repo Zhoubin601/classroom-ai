@@ -90,6 +90,21 @@ public class CourseAuthorizationService {
         validateCourseWrite(course);
     }
 
+    /**
+     * US-02 专用权限校验：课程简介、考核方式与教学目标仅允许关联任课教师操作发布
+     */
+    public void validateTeacherCoursePublish(Long courseId) {
+        UserVO user = requireCurrentUser();
+        if (user.getRole() != RoleEnum.TEACHER) {
+            throw new ForbiddenException("越权拦截：仅关联任课教师有权发布课程大纲与简介");
+        }
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("未找到指定课程 (ID: " + courseId + ")"));
+        if (!isTeacherAssociatedWithCourse(user, course)) {
+            throw new ForbiddenException("越权拦截：您不是课程《" + course.getCourseName() + "》的关联任课教师，无权执行发布");
+        }
+    }
+
     public void validateOfferingRead(CourseOffering offering) {
         if (offering == null) {
             throw new IllegalArgumentException("待校验开课班次不能为空");

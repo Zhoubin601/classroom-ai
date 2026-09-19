@@ -307,11 +307,15 @@ export interface CourseContentRevision {
   description?: string
   assessmentMethod?: string
   objectives?: string
-  version: number
+  publishVersion?: number
+  lockVersion?: number
+  version?: number
   status: 'DRAFT' | 'PUBLISHED'
   editorName?: string
   publisherName?: string
   publisherCode?: string
   publishedAt?: string
+  createdAt?: string
+  updatedAt?: string
 }
 

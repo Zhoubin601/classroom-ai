@@ -18,9 +18,10 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(ApiResponse.error(400, message));
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<ApiResponse<Void>> conflict(IllegalStateException error) {
-        return ResponseEntity.status(409).body(ApiResponse.error(409, error.getMessage()));
+    @ExceptionHandler({IllegalStateException.class, org.springframework.dao.OptimisticLockingFailureException.class})
+    public ResponseEntity<ApiResponse<Void>> conflict(Exception error) {
+        String message = error.getMessage() != null ? error.getMessage() : "检测到并发修改冲突，请刷新重试";
+        return ResponseEntity.status(409).body(ApiResponse.error(409, message));
     }
 
     @ExceptionHandler(com.classroom.ai.common.exception.UnauthorizedException.class)

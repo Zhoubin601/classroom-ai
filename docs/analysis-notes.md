@@ -748,3 +748,49 @@ My code document has the following content:
   - **前端生产构建**：Vite 构建 0 错误（产出生产 dist 包）；
   - **边缘视觉回归**：5 项 Python 测试全部通过；
   - `powershell -ExecutionPolicy Bypass -File scripts/run-tests.ps1` 顺利输出 `All automated checks passed.`。
+
+## 2026-09-19 实验二第 3 步：完成 US-02 课程简介草稿与发布全面落地
+- **任务目标与通过条件**：
+  1. 教师页面增加独立“课程简介”区域，包含简介（description）、考核方式（assessmentMethod）、教学目标（objectives），以及暂存、发布、状态和时间；
+  2. 接入内容版本接口，与工程认证大纲（US-05 指标点矩阵）编辑区明确区分；
+  3. 草稿可不完整；发布时三项必填且非空，只允许关联任课教师操作（未登录 401，非关联任课教师 403）；
+  4. 区分内容发布版本（`publishVersion`，业务版本自增）和并发锁版本（`lockVersion`，数据库乐观锁）；旧页面并发提交返回 HTTP 409；
+  5. 编辑已发布内容生成草稿，读者继续看到上一发布版本（`GET /published`）；未发布内容不伪装成已发布（未发布时返回未发布状态，不造假）；
+  6. 禁止课程普通编辑（`CourseServiceImpl.saveCourse`）或旧大纲接口绕过发布流程覆盖这三项正式内容；
+  7. 兑现通过条件：草稿保存、发布、再次编辑、再次发布完整演示通过；发布人和时间可追溯；两个浏览器同时修改时不会静默覆盖（返回 409）。
+- **架构重构与具体实施**：
+  1. **实体与 DTO 严格区分发布版本与并发乐观锁 (CourseContentRevision.java & ContentRevisionDTO.java)**：
+     - 在 `CourseContentRevision` 增加业务发布版本 `publishVersion`（仅正式发布时递增）和 `@Version private Integer lockVersion`（JPA 乐观并发锁，从 0 开始递增）；
+     - 提供 `@PrePersist` / `@PreUpdate` 的 `syncVersion()` 生命周期回调，确保历史 `version` 兼容字段与新版本模型平滑过渡；
+     - `ContentRevisionDTO` 增加 `lockVersion`，并提供 `getEffectiveLockVersion()` 兼容处理。
+  2. **统一鉴权服务严防越权发布 (CourseAuthorizationService.java)**：
+     - 增加 `validateTeacherCoursePublish(Long courseId)` 专用发布授权：未登录拦截抛 401；仅限 TEACHER 角色；校验教师工号与姓名是否在课程或班次（主讲/助教）中，非关联教师抛出 403 Forbidden。
+  3. **服务层彻底切断普通编辑绕过通道 (CourseServiceImpl.java)**：
+     - 在 `saveCourse` 中对已有课程编辑（`dto.getId() != null`）保留原 `Course` 的 `description`、`objectives`、`assessmentMethod`，切断教研室主任或普通编辑接口篡改已发布正式简介大纲的绕过途径。
+  4. **控制器业务逻辑重构 (CourseContentController.java)**：
+     - `getDraft`：优先返回当前 `DRAFT` 草稿；无草稿时基于最新已发布版本或基础档案创建初始草稿，`publishVersion` 保持与上一版本一致，`lockVersion = 0`；
+     - `saveDraft`：允许内容不完整，提交版本与当前草稿 `lockVersion` 不一致时抛出 `IllegalStateException`（HTTP 409 并发冲突）；暂存草稿不污染已发布版本；
+     - `publishContent`：执行 `validateTeacherCoursePublish` 权限校验；校验三项必须非空填齐（缺项返回 400）；并发锁校验（冲突返回 409）；将草稿转为 `PUBLISHED` 并将业务版本 `publishVersion` 自增 1；记录发布人姓名与时间；同步原子更新 `Course` 表上的相应字段；
+     - `getPublishedContent`：读者只读端点，严格查询最高 `publishVersion` 的 `PUBLISHED` 记录；若从未发布过，直接返回未发布状态，绝不伪造基线发布数据；教师再次编辑新草稿时，读者访问该端点仍稳健看到上一发布版本。
+  5. **全局异常与乐观锁映射 (ApiExceptionHandler.java)**：
+     - 将 `IllegalStateException` 与 Spring `OptimisticLockingFailureException` 统一映射为 HTTP 409 冲突响应，携带清晰的冲突提示信息。
+  6. **教师工作台前端交互深度重构 (TeacherDeskView.vue & api/index.ts)**：
+     - 在左栏重构独立的【课程简介、考核方式与教学目标 (US-02)】卡片，与下方【12项毕业要求指标点矩阵 (US-05)】彻底解耦；
+     - 醒目展示已发布版本号（`v1, v2...`）、发布人、发布时间、草稿并发锁版本（`lock-v...`）；
+     - 支持【暂存草稿】（可未填全）与【正式发布】（三项非空校验）；
+     - 遭遇 409 冲突时渲染醒目的红色报警条，并提供一键【拉取最新草稿】恢复操作；
+     - 彻底废弃旧代码中直接调用 `courseApi.save` 覆盖简介大纲的 `saveSyllabusText` 逻辑。
+- **自动化测试验证与指标**：
+  - 更新并扩展 `CourseContentRevisionTest.java`（7 个用例）：
+    - `testSaveDraft_IncompleteAllowed`：允许内容不完整，暂存草稿成功；
+    - `testSaveDraft_VersionConflict_Returns409`：并发锁冲突返回 409；
+    - `testPublish_MissingFields_Returns400`：三项缺项拦截返回 400；
+    - `testPublish_ForbiddenForNonRelatedTeacher`：非关联任课教师发布拦截返回 403；
+    - `testPublish_Success_IncrementsPublishVersion`：发布成功版本自增，记录发布人时间并同步更新 Course；
+    - `testGetPublished_UnpublishedReturnsNull`：未发布时不伪装，返回未发布状态；
+    - `testGetPublished_DraftEditingDoesNotPollutePublished`：编辑新草稿时读者仍稳定访问上一发布版本；
+  - **后端单元测试**：82 项测试 100% 通过（0 失败，0 错误，BUILD SUCCESS）；
+  - **前端单元测试**：12 项测试 100% 通过；
+  - **前端生产构建**：`vue-tsc --noEmit` 与 Vite 构建 0 错误（生产包产出成功）；
+  - **边缘视觉回归**：5 项 Python 测试全部通过；
+  - `powershell -ExecutionPolicy Bypass -File scripts/run-tests.ps1` 顺利输出 `All automated checks passed.`。

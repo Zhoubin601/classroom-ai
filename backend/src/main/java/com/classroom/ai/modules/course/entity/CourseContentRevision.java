@@ -45,7 +45,16 @@ public class CourseContentRevision {
     @Column(columnDefinition = "TEXT")
     private String objectives;
 
-    /** 版本号 (递增整型，支持乐观锁检测) */
+    /** 业务发布版本号 (US-02: 正式发布版本 v1, v2, v3...；未发布时为 null) */
+    @Column
+    private Integer publishVersion;
+
+    /** 并发锁版本号 (采用 JPA 乐观锁 @Version，每次编辑/保存/发布自动递增，用于并发修改冲突检测) */
+    @Version
+    @Column(nullable = false)
+    private Integer lockVersion;
+
+    /** 兼容历史版本字段 (优先取 publishVersion，若为空则取 lockVersion) */
     @Column(nullable = false)
     private Integer version;
 
@@ -73,4 +82,15 @@ public class CourseContentRevision {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    @PreUpdate
+    public void syncVersion() {
+        if (this.lockVersion == null) {
+            this.lockVersion = 0;
+        }
+        if (this.version == null) {
+            this.version = this.publishVersion != null ? this.publishVersion : this.lockVersion;
+        }
+    }
 }
