@@ -21,6 +21,7 @@ public class CourseController {
     private final com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository offeringTeacherRepository;
     private final CourseAuthorizationService authorizationService;
 
+    @org.springframework.beans.factory.annotation.Autowired
     public CourseController(CourseService courseService,
                             com.classroom.ai.modules.course.repository.CourseOfferingRepository courseOfferingRepository,
                             com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository offeringTeacherRepository,
