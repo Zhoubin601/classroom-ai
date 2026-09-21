@@ -21,15 +21,23 @@
 
 **详细迁移清单、整理理由及后续存放规则：[目录整理说明](docs/目录整理说明.md)。**
 
-## 启动与测试
+## 启动与停止
 
-以下命令均在项目根目录 PowerShell 执行：
+### 推荐方式（Windows 用户双击启动）
+- **启动服务**：直接双击根目录的 `start_project.bat`（会自动检查 Docker、启动 MySQL/Redis、启动后端与前端并打开浏览器，窗口保留进度与提示）。
+- **停止服务**：双击根目录的 `stop_project.bat`（一键停止运行中的前后端后台进程）。
+
+### 命令行（PowerShell）执行
 
 ```powershell
-# 唯一的一键启动入口（需要 Docker、Java 21、Maven、Node.js）
+# 一键启动（如果已有 jar 则直接使用，秒级启动）
 .\start_project.ps1
-# 后端已有最新 jar 时跳过构建
-.\start_project.ps1 -SkipBuild
+
+# 强制重新编译后端 jar 后启动
+.\start_project.ps1 -Rebuild
+
+# 停止前后端服务
+.\stop_project.ps1
 
 # 单独启动
 .\scripts\start_frontend.ps1
