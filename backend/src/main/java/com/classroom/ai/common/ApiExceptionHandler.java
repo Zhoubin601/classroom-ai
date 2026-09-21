@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+    @ExceptionHandler(com.classroom.ai.modules.course.service.ScheduleConflictException.class)
+    public ResponseEntity<ApiResponse<java.util.Map<String, Object>>> scheduleConflict(com.classroom.ai.modules.course.service.ScheduleConflictException error) {
+        return ResponseEntity.status(409).body(new ApiResponse<>(409, error.getMessage(), java.util.Map.of("conflicts", error.getConflicts()), System.currentTimeMillis()));
+    }
+
     @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
     public ResponseEntity<ApiResponse<Void>> integrityConflict(Exception error) {
         return ResponseEntity.status(409).body(ApiResponse.error(409, "数据缺少必填字段、重复或仍被其他记录引用"));

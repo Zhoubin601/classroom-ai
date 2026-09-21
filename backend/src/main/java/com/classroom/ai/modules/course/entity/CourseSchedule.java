@@ -24,6 +24,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CourseSchedule {
 
+    @Transient
+    private java.util.List<String> conflictReasons;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

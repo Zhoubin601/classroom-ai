@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+import com.classroom.ai.modules.course.service.CourseArchiveRules;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +44,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public Course saveCourse(CourseDTO dto) {
+        var operator = CourseArchiveRules.requireDirector();
         if (dto.getCourseCode() == null || dto.getCourseCode().trim().isEmpty()) {
             throw new IllegalArgumentException("课程编码不能为空");
         }
@@ -54,23 +57,22 @@ public class CourseServiceImpl implements CourseService {
         if (dto.getCourseType() == null || dto.getCourseType().trim().isEmpty()) {
             throw new IllegalArgumentException("课程性质不能为空");
         }
-        if (dto.getCredits() == null || dto.getCredits() <= 0) {
-            throw new IllegalArgumentException("学分必须为大于0的数值");
-        }
-        if (dto.getHours() == null || dto.getHours() <= 0) {
-            throw new IllegalArgumentException("总学时必须为大于0的整数");
-        }
-
-        int theory = dto.getTheoryHours() != null ? dto.getTheoryHours() : dto.getHours();
-        int practice = dto.getPracticeHours() != null ? dto.getPracticeHours() : 0;
-        if (theory + practice != dto.getHours()) {
-            throw new IllegalArgumentException("学时关系矛盾：理论学时(" + theory + ") + 实验学时(" + practice + ") 必须等于总学时(" + dto.getHours() + ")");
-        }
+        CourseArchiveRules.validateDepartment(dto.getDepartment());
+        CourseArchiveRules.validateCredits(dto.getCredits());
+        int[] normalizedHours = CourseArchiveRules.normalizeHours(dto.getHours(), dto.getTheoryHours(), dto.getPracticeHours());
+        int theory = normalizedHours[0];
+        int practice = normalizedHours[1];
+        var major = CourseArchiveRules.requireMajor(dto.getMajorCode(), majorRepository);
+        CourseArchiveRules.validatePrerequisites(dto.getPrerequisites(), Set.of(), courseRepository);
 
         String cleanCode = dto.getCourseCode().trim();
         Course course;
         if (dto.getId() != null) {
-            course = getCourseById(dto.getId());
+            course = courseRepository.findForUpdate(dto.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("未找到课程"));
+            CourseArchiveRules.validateDepartment(course.getDepartment());
+            // 编码是外部引用键，已有档案不允许原地改码，避免字符串引用悬空。
+            if (!cleanCode.equals(course.getCourseCode())) throw new IllegalArgumentException("已有课程编码不可修改，请保留原编码");
             courseRepository.findByCourseCode(cleanCode).ifPresent(other -> {
                 if (!other.getId().equals(dto.getId())) {
                     throw new IllegalArgumentException("课程编码 " + cleanCode + " 已被其他课程占用，请勿重复使用");
@@ -99,18 +101,11 @@ public class CourseServiceImpl implements CourseService {
             course.setAssessmentMethod(dto.getAssessmentMethod());
         }
 
-        if (dto.getMajorCode() != null && !dto.getMajorCode().trim().isEmpty()) {
-            String mCode = dto.getMajorCode().trim().toUpperCase();
-            course.setMajorCode(mCode);
-            if (majorRepository != null) {
-                majorRepository.findByMajorCode(mCode).ifPresentOrElse(
-                        m -> course.setMajorId(m.getId()),
-                        () -> {
-                            // 若字典中未查到，但在已有列表允许或记录
-                        }
-                );
-            }
-        }
+        course.setMajorCode(major.getMajorCode());
+        course.setMajorId(major.getId());
+        // 旧档案创建者未知时保持为空，不能把本次编辑人伪记为历史创建人。
+        if (dto.getId() == null) course.setCreatedBy(operator.getUsername());
+        course.setUpdatedBy(operator.getUsername());
 
         return courseRepository.save(course);
     }
@@ -118,6 +113,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public void deleteCourse(Long id) {
+        CourseArchiveRules.validateDepartment(getCourseById(id).getDepartment());
         courseRepository.deleteById(id);
     }
 
@@ -145,17 +141,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public CourseOffering saveOffering(Long courseId, String term, String teacher, String className, Integer studentCount) {
-        Course course = getCourseById(courseId);
-        int realCount = studentCount != null ? studentCount : (int) studentRepository.countByClassName(className);
-        CourseOffering offering = CourseOffering.builder()
-                .course(course)
-                .academicTerm(term)
-                .teacherName(teacher)
-                .className(className)
-                .studentCount(realCount)
-                .status("IN_PROGRESS")
-                .build();
-        return courseOfferingRepository.save(offering);
+        throw new IllegalArgumentException("请使用包含教师和选课名单的班次维护接口");
     }
 
     @Override
@@ -188,8 +174,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public CourseOffering addStudentsToOffering(Long offeringId, List<String> studentIds) {
-        CourseOffering offering = courseOfferingRepository.findById(offeringId)
+        CourseArchiveRules.requireDirector();
+        CourseOffering offering = courseOfferingRepository.findForUpdate(offeringId)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
+        CourseArchiveRules.validateDepartment(offering.getCourse().getDepartment());
+        if (Boolean.TRUE.equals(offering.getIsSnapshotFrozen())) throw new IllegalStateException("历史班次已冻结");
         if (studentIds != null && !studentIds.isEmpty()) {
             List<com.classroom.ai.modules.course.entity.OfferingStudentEnrollment> existingList = enrollmentRepository.findByOfferingId(offeringId);
             java.util.Set<String> existingNumbers = existingList.stream()
@@ -218,8 +207,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public CourseOffering removeStudentFromOffering(Long offeringId, String studentId) {
-        CourseOffering offering = courseOfferingRepository.findById(offeringId)
+        CourseArchiveRules.requireDirector();
+        CourseOffering offering = courseOfferingRepository.findForUpdate(offeringId)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
+        CourseArchiveRules.validateDepartment(offering.getCourse().getDepartment());
+        if (Boolean.TRUE.equals(offering.getIsSnapshotFrozen())) throw new IllegalStateException("历史班次已冻结");
         enrollmentRepository.deleteByOfferingIdAndStudentNumber(offeringId, studentId);
         int realCount = (int) enrollmentRepository.countByOfferingId(offeringId);
         offering.setStudentCount(realCount);

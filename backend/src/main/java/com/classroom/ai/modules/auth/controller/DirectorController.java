@@ -76,12 +76,12 @@ public class DirectorController {
     public ApiResponse<UserVO> createSupervisor(@RequestBody SupervisorRegisterDTO dto) {
         UserVO director = getCurrentDirector();
         if (!StringUtils.hasText(dto.getUsername()) || !StringUtils.hasText(dto.getPassword()) || !StringUtils.hasText(dto.getRealName())) {
-            return ApiResponse.error(400, "督导账号、密码和专家姓名不能为空");
+            throw new IllegalArgumentException("督导账号、密码和专家姓名不能为空");
         }
 
         String username = dto.getUsername().trim();
         if (userAccountRepository.findByUsername(username).isPresent()) {
-            return ApiResponse.error(400, "该用户名 [" + username + "] 已存在");
+            throw new IllegalArgumentException("该用户名 [" + username + "] 已存在");
         }
 
         // 校验分配的专业是否在主任管辖范围内
@@ -116,9 +116,10 @@ public class DirectorController {
      * 主任调整已有督导的专业授权 (仅能调整主任自己管辖的专业)
      */
     @PutMapping("/supervisors/{id}/majors")
+    @org.springframework.transaction.annotation.Transactional
     public ApiResponse<UserVO> updateSupervisorMajors(@PathVariable Long id, @RequestBody Map<String, String> body) {
         UserVO director = getCurrentDirector();
-        UserAccount supervisor = userAccountRepository.findById(id)
+        UserAccount supervisor = userAccountRepository.findForUpdate(id)
                 .orElseThrow(() -> new IllegalArgumentException("未找到督导账号 (ID: " + id + ")"));
         if (supervisor.getRole() != RoleEnum.SUPERVISOR) {
             throw new IllegalArgumentException("指定账号非督导专家角色");
@@ -127,7 +128,17 @@ public class DirectorController {
         String newMajors = body.get("authorizedMajors");
         validateMajorsInDirectorJurisdiction(director, newMajors);
 
-        supervisor.setAuthorizedMajors(newMajors != null ? newMajors.trim() : "");
+        Set<String> managed = getMajorsForDirector(director).stream()
+                .map(m -> m.getMajorCode().trim().toUpperCase(Locale.ROOT)).collect(Collectors.toSet());
+        Set<String> merged = new TreeSet<>();
+        for (String code : Optional.ofNullable(supervisor.getAuthorizedMajors()).orElse("").split(";")) {
+            String normalized = code.trim().toUpperCase(Locale.ROOT);
+            if (!normalized.isEmpty() && !managed.contains(normalized)) merged.add(normalized);
+        }
+        for (String code : Optional.ofNullable(newMajors).orElse("").split(";")) {
+            if (!code.isBlank()) merged.add(code.trim().toUpperCase(Locale.ROOT));
+        }
+        supervisor.setAuthorizedMajors(String.join(";", merged));
         UserAccount saved = userAccountRepository.save(supervisor);
         log.info("【主任更新督导专业授权】主任: {}, 督导: {}, 最新授权: {}", director.getRealName(), saved.getUsername(), saved.getAuthorizedMajors());
 
@@ -154,19 +165,9 @@ public class DirectorController {
     }
 
     private List<Major> getMajorsForDirector(UserVO director) {
-        String dept = director.getDepartment();
-        if (dept != null && !dept.isBlank()) {
-            List<Major> byDept = majorRepository.findByDepartment(dept.trim());
-            if (!byDept.isEmpty()) return byDept;
-        }
-        // 若部门完全一致未查到，尝试按名称模糊或默认所属
-        List<Major> all = majorRepository.findAll();
-        if (dept != null) {
-            List<Major> matched = all.stream().filter(m -> m.getDepartment() != null && m.getDepartment().contains(dept)).toList();
-            if (!matched.isEmpty()) return matched;
-        }
-        // 李主任 (软件工程教研室) 兜底 SE
-        return all.stream().filter(m -> "SE".equalsIgnoreCase(m.getMajorCode())).toList();
+        // 与课程建档使用同一明确归属，不根据专业名/教研室关键字猜测权限。
+        if (director.getDepartment() == null || director.getDepartment().isBlank()) return List.of();
+        return majorRepository.findByDepartment(director.getDepartment().trim());
     }
 
     private void validateMajorsInDirectorJurisdiction(UserVO director, String requestedMajorsStr) {
@@ -175,10 +176,6 @@ public class DirectorController {
         }
         List<Major> managed = getMajorsForDirector(director);
         Set<String> managedCodes = managed.stream().map(m -> m.getMajorCode().toUpperCase()).collect(Collectors.toSet());
-        // 如果李主任管辖软件工程教研室，无论如何包含 SE
-        if (director.getDepartment() != null && director.getDepartment().contains("软件")) {
-            managedCodes.add("SE");
-        }
 
         String[] parts = requestedMajorsStr.split(";");
         for (String p : parts) {

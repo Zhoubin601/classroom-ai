@@ -60,6 +60,7 @@ class CourseContentRevisionTest {
                 .setControllerAdvice(new ApiExceptionHandler())
                 .build();
 
+        AuthContext.setCurrentUser(UserVO.builder().username("test_teacher").realName("教师").teacherCode("T001").role(RoleEnum.TEACHER).build());
         sampleCourse = Course.builder()
                 .id(1L)
                 .courseCode("CS3001")
@@ -78,7 +79,7 @@ class CourseContentRevisionTest {
     @Test
     @DisplayName("US-02 暂存草稿：允许内容不完整，成功保存并返回当前草稿")
     void testSaveDraft_IncompleteAllowed() throws Exception {
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(sampleCourse));
+        when(courseRepository.findForUpdate(1L)).thenReturn(Optional.of(sampleCourse));
 
         CourseContentRevision existingDraft = CourseContentRevision.builder()
                 .id(10L)
@@ -89,11 +90,11 @@ class CourseContentRevisionTest {
                 .description("部分更新简介")
                 .build();
 
-        when(revisionRepository.findFirstByCourseIdAndStatusOrderByVersionDesc(1L, "DRAFT"))
+        when(revisionRepository.findFirstByCourseIdAndStatusOrderByIdDesc(1L, "DRAFT"))
                 .thenReturn(Optional.of(existingDraft));
-        when(revisionRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(revisionRepository.saveAndFlush(any())).thenAnswer(inv -> inv.getArgument(0));
 
-        ContentRevisionDTO dto = ContentRevisionDTO.builder()
+        ContentRevisionDTO dto = ContentRevisionDTO.builder().draftId(10L).publishVersion(0)
                 .description("新修改的简介")
                 .lockVersion(1)
                 .build();
@@ -109,7 +110,7 @@ class CourseContentRevisionTest {
     @Test
     @DisplayName("US-02 乐观锁冲突：提交版本与草稿版本不匹配时抛出 409 冲突")
     void testSaveDraft_VersionConflict_Returns409() throws Exception {
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(sampleCourse));
+        when(courseRepository.findForUpdate(1L)).thenReturn(Optional.of(sampleCourse));
 
         CourseContentRevision existingDraft = CourseContentRevision.builder()
                 .id(10L)
@@ -119,10 +120,10 @@ class CourseContentRevisionTest {
                 .status("DRAFT")
                 .build();
 
-        when(revisionRepository.findFirstByCourseIdAndStatusOrderByVersionDesc(1L, "DRAFT"))
+        when(revisionRepository.findFirstByCourseIdAndStatusOrderByIdDesc(1L, "DRAFT"))
                 .thenReturn(Optional.of(existingDraft));
 
-        ContentRevisionDTO dto = ContentRevisionDTO.builder()
+        ContentRevisionDTO dto = ContentRevisionDTO.builder().draftId(10L).publishVersion(0)
                 .description("冲突修改")
                 .lockVersion(1) // 故意提供过期的版本 1
                 .build();
@@ -138,10 +139,10 @@ class CourseContentRevisionTest {
     @Test
     @DisplayName("US-02 正式发布校验：三项必填不齐全时拦截并返回 400")
     void testPublish_MissingFields_Returns400() throws Exception {
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(sampleCourse));
+        when(courseRepository.findForUpdate(1L)).thenReturn(Optional.of(sampleCourse));
 
         // 仅提供 description，缺少考核方式和教学目标
-        ContentRevisionDTO dto = ContentRevisionDTO.builder()
+        ContentRevisionDTO dto = ContentRevisionDTO.builder().draftId(10L).publishVersion(0)
                 .description("只有简介")
                 .build();
 
@@ -156,11 +157,11 @@ class CourseContentRevisionTest {
     @Test
     @DisplayName("US-02 正式发布权限：非关联任课教师操作时返回 403 禁止")
     void testPublish_ForbiddenForNonRelatedTeacher() throws Exception {
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(sampleCourse));
+        when(courseRepository.findForUpdate(1L)).thenReturn(Optional.of(sampleCourse));
         doThrow(new ForbiddenException("只有该课程关联任课教师才能发布课程大纲"))
                 .when(authService).validateTeacherCoursePublish(1L);
 
-        ContentRevisionDTO dto = ContentRevisionDTO.builder()
+        ContentRevisionDTO dto = ContentRevisionDTO.builder().draftId(10L).publishVersion(0)
                 .description("完整简介")
                 .assessmentMethod("平时 40% + 期末 60%")
                 .objectives("完整教学目标")
@@ -178,7 +179,7 @@ class CourseContentRevisionTest {
     @Test
     @DisplayName("US-02 正式发布成功：自增发布版本号并记录发布人信息与时间")
     void testPublish_Success_IncrementsPublishVersion() throws Exception {
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(sampleCourse));
+        when(courseRepository.findForUpdate(1L)).thenReturn(Optional.of(sampleCourse));
 
         UserVO teacherUser = UserVO.builder()
                 .username("t_guojun")
@@ -193,9 +194,9 @@ class CourseContentRevisionTest {
                 .courseId(1L)
                 .lockVersion(1)
                 .version(1)
-                .status("DRAFT")
+                .status("DRAFT").publishVersion(1)
                 .build();
-        when(revisionRepository.findFirstByCourseIdAndStatusOrderByVersionDesc(1L, "DRAFT"))
+        when(revisionRepository.findFirstByCourseIdAndStatusOrderByIdDesc(1L, "DRAFT"))
                 .thenReturn(Optional.of(draft));
 
         // 之前已有 v1 发布版本
@@ -208,10 +209,10 @@ class CourseContentRevisionTest {
         when(revisionRepository.findFirstByCourseIdAndStatusOrderByPublishVersionDesc(1L, "PUBLISHED"))
                 .thenReturn(Optional.of(prevPub));
 
-        when(revisionRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(revisionRepository.saveAndFlush(any())).thenAnswer(inv -> inv.getArgument(0));
 
-        ContentRevisionDTO dto = ContentRevisionDTO.builder()
-                .description("新发布的详细课程简介")
+        ContentRevisionDTO dto = ContentRevisionDTO.builder().draftId(10L).publishVersion(0)
+                .publishVersion(1).description("新发布的详细课程简介")
                 .assessmentMethod("过程化考核 50% + 期末答辩 50%")
                 .objectives("掌握软件工程生命周期与大模型应用")
                 .lockVersion(1)
@@ -238,7 +239,6 @@ class CourseContentRevisionTest {
     @Test
     @DisplayName("US-02 读者只读：未发布时不伪装已发布，返回未发布提示且数据为空")
     void testGetPublished_UnpublishedReturnsNull() throws Exception {
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(sampleCourse));
         when(revisionRepository.findFirstByCourseIdAndStatusOrderByPublishVersionDesc(1L, "PUBLISHED"))
                 .thenReturn(Optional.empty());
 
@@ -251,7 +251,6 @@ class CourseContentRevisionTest {
     @Test
     @DisplayName("US-02 读者隔离：教师正在编辑新草稿时，读者访问 /published 仍看到上一已发布版本")
     void testGetPublished_DraftEditingDoesNotPollutePublished() throws Exception {
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(sampleCourse));
 
         // 数据库中已有 v1 发布记录
         CourseContentRevision publishedV1 = CourseContentRevision.builder()

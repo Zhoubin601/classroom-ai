@@ -1,20 +1,28 @@
-﻿param([switch]$SkipBuild)
+param([switch]$SkipBuild)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $logDir = Join-Path $projectRoot 'runtime/logs'
 New-Item -ItemType Directory -Path $logDir -Force | Out-Null
 
 function Test-ProjectUrl([string]$url) {
-    try { return (Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 3).StatusCode -eq 200 } catch { return $false }
+    try {
+        $resp = Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 3
+        return $resp.StatusCode -eq 200
+    } catch {
+        if ($_.Exception.Response -and ($_.Exception.Response.StatusCode.value__ -in @(200, 401, 403))) {
+            return $true
+        }
+        return $false
+    }
 }
 
 Push-Location $projectRoot
 try {
-    Write-Host "[1/3] 正在检查并启动基础服务 (MySQL 8.0 & Redis 7.2)..." -ForegroundColor Cyan
+    Write-Host "[1/3] Checking and starting base services (MySQL 8.0 & Redis 7.2)..." -ForegroundColor Cyan
     & "$PSScriptRoot/start_services.ps1"
     if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) {
         & docker stop classroom-backend 2>$null | Out-Null
-        Write-Host "[2/3] 正在启动 Java 后端服务 (Spring Boot 3.3)..." -ForegroundColor Cyan
+        Write-Host "[2/3] Starting Java backend (Spring Boot 3.3)..." -ForegroundColor Cyan
         $maven = Get-Command mvn.cmd -ErrorAction SilentlyContinue
         $mavenPath = if ($maven) { $maven.Source } else {
             Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
@@ -38,29 +46,30 @@ try {
         if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) { throw 'Backend readiness timed out; inspect runtime/logs.' }
     }
     if (-not (Test-ProjectUrl 'http://127.0.0.1:5173')) {
-        Write-Host "[3/3] 正在启动前端界面服务 (Vite / Vue 3)..." -ForegroundColor Cyan
+        Write-Host "[3/3] Starting frontend (Vite / Vue 3)..." -ForegroundColor Cyan
         $frontendDir = Join-Path $projectRoot 'frontend'
         if (-not (Test-Path "$frontendDir/node_modules/vite/bin/vite.js")) {
             & npm.cmd --prefix $frontendDir install
             if ($LASTEXITCODE -ne 0) { throw 'Frontend dependency installation failed' }
         }
-        $viteBin = Join-Path $frontendDir 'node_modules/vite/bin/vite.js'
-        $frontend = Start-Process node -ArgumentList @(('"{0}"' -f $viteBin), '--config', 'vite.config.ts') `
+        $frontend = Start-Process npm.cmd -ArgumentList @('run', 'dev') `
             -WorkingDirectory $frontendDir -WindowStyle Hidden -PassThru `
             -RedirectStandardOutput "$logDir/frontend.stdout.log" -RedirectStandardError "$logDir/frontend.stderr.log"
         $frontend.Id | Set-Content "$logDir/frontend.pid"
-        for ($attempt = 0; $attempt -lt 20; $attempt++) {
+        for ($attempt = 0; $attempt -lt 25; $attempt++) {
             if (Test-ProjectUrl 'http://127.0.0.1:5173') { break }
             if ($frontend.HasExited) { throw 'Frontend exited; inspect runtime/logs.' }
             Start-Sleep -Seconds 1
         }
         if (-not (Test-ProjectUrl 'http://127.0.0.1:5173')) { throw 'Frontend readiness timed out.' }
     }
-    Write-Host '==================================================' -ForegroundColor Green
-    Write-Host ' [SUCCESS] 项目所有服务已就绪！' -ForegroundColor Green
-    Write-Host ' 访问地址: http://127.0.0.1:5173' -ForegroundColor Green
-    Write-Host ' 正在自动打开浏览器...' -ForegroundColor Green
-    Write-Host '==================================================' -ForegroundColor Green
-    Start-Process 'http://127.0.0.1:5173'
-} finally { Pop-Location }
+    Write-Host "==================================================" -ForegroundColor Green
+    Write-Host " [SUCCESS] All services ready!" -ForegroundColor Green
+    Write-Host " URL: http://127.0.0.1:5173" -ForegroundColor Green
+    Write-Host " Opening browser..." -ForegroundColor Green
+    Write-Host "==================================================" -ForegroundColor Green
+    Start-Process "http://127.0.0.1:5173"
+} finally {
+    Pop-Location
+}
 

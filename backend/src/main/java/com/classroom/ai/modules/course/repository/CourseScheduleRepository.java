@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface CourseScheduleRepository extends JpaRepository<CourseSchedule, Long> {
 
+    @Query("SELECT s.offering.id FROM CourseSchedule s WHERE s.id = :id")
+    java.util.Optional<Long> findOfferingId(@Param("id") Long id);
+
     List<CourseSchedule> findByOfferingId(Long offeringId);
 
     List<CourseSchedule> findByClassroom(String classroom);

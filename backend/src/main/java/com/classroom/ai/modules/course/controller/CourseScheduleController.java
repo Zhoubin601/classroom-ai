@@ -40,16 +40,7 @@ public class CourseScheduleController {
 
     @PostMapping
     public ApiResponse<CourseSchedule> saveSchedule(@RequestBody CourseScheduleDTO dto) {
-        if (dto.getOfferingId() != null) {
-            com.classroom.ai.modules.course.entity.CourseOffering offering = offeringRepository.findById(dto.getOfferingId())
-                    .orElseThrow(() -> new IllegalArgumentException("未找到开课班次 (ID: " + dto.getOfferingId() + ")"));
-            authorizationService.validateOfferingWrite(offering);
-        }
-        try {
-            return ApiResponse.success("排课成功", scheduleService.saveSchedule(dto));
-        } catch (IllegalStateException e) {
-            return ApiResponse.error(400, e.getMessage());
-        }
+        return ApiResponse.success("排课成功", scheduleService.saveSchedule(dto));
     }
 
     @DeleteMapping("/{id}")

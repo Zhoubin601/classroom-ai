@@ -113,9 +113,8 @@ public class CourseAuthorizationService {
         RoleEnum role = user.getRole();
 
         if (role == RoleEnum.DIRECTOR) {
-            if (offering.getCourse() != null) {
-                checkDirectorCourseAccess(user, offering.getCourse());
-            }
+            if (offering.getCourse() == null) throw new ForbiddenException("班次课程归属缺失");
+            checkDirectorCourseAccess(user, offering.getCourse());
         } else if (role == RoleEnum.TEACHER) {
             checkTeacherOfferingAccess(user, offering);
         } else if (role == RoleEnum.SUPERVISOR) {
@@ -135,9 +134,8 @@ public class CourseAuthorizationService {
         if (role == RoleEnum.SUPERVISOR) {
             throw new ForbiddenException("教学督导无权对开课班次进行编辑或排课操作");
         } else if (role == RoleEnum.DIRECTOR) {
-            if (offering.getCourse() != null) {
-                checkDirectorCourseAccess(user, offering.getCourse());
-            }
+            if (offering.getCourse() == null) throw new ForbiddenException("班次课程归属缺失");
+            checkDirectorCourseAccess(user, offering.getCourse());
         } else if (role == RoleEnum.TEACHER) {
             checkTeacherOfferingAccess(user, offering);
         } else {
@@ -146,8 +144,8 @@ public class CourseAuthorizationService {
     }
 
     public List<Course> filterCourses(List<Course> list) {
-        if (list == null || list.isEmpty()) return Collections.emptyList();
         UserVO user = requireCurrentUser();
+        if (list == null || list.isEmpty()) return Collections.emptyList();
         RoleEnum role = user.getRole();
 
         if (role == RoleEnum.DIRECTOR) {
@@ -170,14 +168,14 @@ public class CourseAuthorizationService {
     }
 
     public List<CourseOffering> filterOfferings(List<CourseOffering> list) {
-        if (list == null || list.isEmpty()) return Collections.emptyList();
         UserVO user = requireCurrentUser();
+        if (list == null || list.isEmpty()) return Collections.emptyList();
         RoleEnum role = user.getRole();
 
         if (role == RoleEnum.DIRECTOR) {
             String dirDept = user.getDepartment() != null ? user.getDepartment().trim() : "";
             return list.stream()
-                    .filter(o -> dirDept.isEmpty() || (o.getCourse() != null && dirDept.equalsIgnoreCase(o.getCourse().getDepartment())))
+                    .filter(o -> !dirDept.isEmpty() && (o.getCourse() != null && dirDept.equals(o.getCourse().getDepartment())))
                     .collect(Collectors.toList());
         } else if (role == RoleEnum.TEACHER) {
             return list.stream()
@@ -247,11 +245,7 @@ public class CourseAuthorizationService {
     }
 
     private boolean isTeacherAssociatedWithCourse(UserVO teacher, Course course) {
-        String tCode = teacher.getTeacherCode();
-        String tName = teacher.getRealName();
-        if (tName != null && course.getTeacherName() != null && course.getTeacherName().contains(tName)) {
-            return true;
-        }
+        if (teacher.getTeacherCode() == null || teacher.getTeacherCode().isBlank()) return false;
         if (course.getId() != null) {
             List<CourseOffering> offerings = offeringRepository.findByCourseId(course.getId());
             for (CourseOffering off : offerings) {
@@ -265,21 +259,10 @@ public class CourseAuthorizationService {
 
     private boolean isTeacherAssociatedWithOffering(UserVO teacher, CourseOffering offering) {
         String tCode = teacher.getTeacherCode();
-        String tName = teacher.getRealName();
-
-        if (tCode != null && tCode.equalsIgnoreCase(offering.getTeacherCode())) {
-            return true;
-        }
-        if (tName != null && offering.getTeacherName() != null && offering.getTeacherName().contains(tName)) {
-            return true;
-        }
-        if (offering.getId() != null && tCode != null) {
-            List<CourseOfferingTeacher> assistants = offeringTeacherRepository.findByOfferingId(offering.getId());
-            for (CourseOfferingTeacher cot : assistants) {
-                if (tCode.equalsIgnoreCase(cot.getTeacherCode())
-                        || (tName != null && tName.equalsIgnoreCase(cot.getTeacherName()))) {
-                    return true;
-                }
+        if (tCode == null || tCode.isBlank()) return false;
+        if (offering.getId() != null) {
+            for (CourseOfferingTeacher relation : offeringTeacherRepository.findByOfferingId(offering.getId())) {
+                if (relation.getTeacherId() != null && relation.getTeacherCode() != null && tCode.trim().equalsIgnoreCase(relation.getTeacherCode().trim())) return true;
             }
         }
         return false;

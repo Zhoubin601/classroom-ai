@@ -12,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfferingHistoryItemVO {
+    private java.time.LocalDateTime archivedAt;
+    private String archivedBy;
     private Long offeringId;
     private String courseCode;
     private String courseName;

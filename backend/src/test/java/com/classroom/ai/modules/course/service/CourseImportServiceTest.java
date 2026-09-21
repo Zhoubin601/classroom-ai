@@ -55,7 +55,7 @@ class CourseImportServiceTest {
         CourseImportServiceImpl.clearBatchCache();
         AuthContext.setCurrentUser(UserVO.builder()
                 .id(1L)
-                .username("director_test")
+                .username("director_test").department("软件工程教研室")
                 .role(RoleEnum.DIRECTOR)
                 .build());
     }
@@ -85,10 +85,94 @@ class CourseImportServiceTest {
     }
 
     @Test
+    @DisplayName("导出课程档案：输出 UTF-8 BOM 以及格式规范的课程数据")
+    void testExportCourses() throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        List<Course> list = List.of(
+                Course.builder()
+                        .courseCode("CS3001")
+                        .courseName("软件项目管理")
+                        .department("软件工程教研室")
+                        .majorCode("SE")
+                        .credits(3.0)
+                        .hours(48)
+                        .theoryHours(36)
+                        .practiceHours(12)
+                        .courseType("专业核心课")
+                        .prerequisites("CS1001;CS2001")
+                        .description("核心课程简介，包含逗号与\"引号\"")
+                        .build()
+        );
+
+        courseImportService.exportCourses(list, out);
+
+        byte[] bytes = out.toByteArray();
+        assertThat(bytes[0]).isEqualTo((byte) 0xEF);
+        assertThat(bytes[1]).isEqualTo((byte) 0xBB);
+        assertThat(bytes[2]).isEqualTo((byte) 0xBF);
+
+        String text = new String(bytes, StandardCharsets.UTF_8);
+        assertThat(text).contains("课程编码,课程名称,教研室,专业编码,学分,总学时,理论学时,实验学时,课程性质,先修课程编码,课程简介");
+        assertThat(text).contains("CS3001,软件项目管理,软件工程教研室,SE,3.0,48,36,12,专业核心课,CS1001;CS2001,\"核心课程简介，包含逗号与\"\"引号\"\"\"");
+    }
+
+    @Test
+    @DisplayName("文件类型智能校验：误上传年度教学质量分析报表时友好拦截并给出明确指引")
+    void testPreviewImport_RejectTeachingQualityReport() {
+        String reportCsv = "序号,课程代码,课程名称,任课教师,学分,学时,选课班级,班额人次,督导听课次数,综合均分,教学态度均分,教学内容均分,教学方法均分,教学效果均分,质量达成评价\n" +
+                "1,CS3001,软件项目管理,王伟,3.0,48,软工2201班,45,2,88.5,89.0,88.0,88.5,88.5,优秀\n";
+
+        MockMultipartFile file = new MockMultipartFile(
+                "file", "2026-Northeastern-University-Teaching-Quality-Report.csv", "text/csv", reportCsv.getBytes(StandardCharsets.UTF_8)
+        );
+
+        assertThatThrownBy(() -> courseImportService.previewImport(file))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("上传文件类型不匹配")
+                .hasMessageContaining("年度教学质量分析报表")
+                .hasMessageContaining("导出课程档案 (CSV)");
+    }
+
+    @Test
+    @DisplayName("自适应表头映射：列顺序调换且采用同义词表头依然精准解析无列错位")
+    void testPreviewImport_FlexibleHeadersAndReorderedColumns() throws IOException {
+        when(majorRepository.findByMajorCode("SE")).thenReturn(Optional.of(
+                Major.builder().id(101L).department("软件工程教研室").majorCode("SE").majorName("软件工程").build()));
+        when(majorRepository.findAll()).thenReturn(List.of(
+                Major.builder().id(101L).department("软件工程教研室").majorCode("SE").majorName("软件工程").build()
+        ));
+        when(courseRepository.findByCourseCode(any())).thenReturn(Optional.empty());
+
+        // 调整列顺序，并使用“课程代码”、“所属专业”、“学时”等别名表头
+        String csv = "课程代码,课程名称,所属专业,所属教研室,课程性质,学分,总学时,理论学时,实验学时,先修课程,简介\n" +
+                "CS5001,算法设计与分析,SE,软件工程教研室,专业核心课,3.5,56,40,16,,高级算法\n";
+
+        MockMultipartFile file = new MockMultipartFile(
+                "file", "reordered.csv", "text/csv", csv.getBytes(StandardCharsets.UTF_8)
+        );
+
+        ImportPreviewVO vo = courseImportService.previewImport(file);
+
+        assertThat(vo.getErrorCount()).isEqualTo(0);
+        assertThat(vo.getSuccessCount()).isEqualTo(1);
+        CourseImportRowDTO row = vo.getValidRows().get(0);
+        assertThat(row.getCourseCode()).isEqualTo("CS5001");
+        assertThat(row.getCourseName()).isEqualTo("算法设计与分析");
+        assertThat(row.getMajorCode()).isEqualTo("SE");
+        assertThat(row.getDepartment()).isEqualTo("软件工程教研室");
+        assertThat(row.getCredits()).isEqualTo(3.5);
+        assertThat(row.getHours()).isEqualTo(56);
+        assertThat(row.getTheoryHours()).isEqualTo(40);
+        assertThat(row.getPracticeHours()).isEqualTo(16);
+    }
+
+    @Test
     @DisplayName("预览导入成功：两遍扫描支持批次内先修课程互相引用且学时守恒校验通过")
     void testPreviewImport_Success_WithBatchInternalPrerequisite() throws IOException {
+        when(majorRepository.findByMajorCode("SE")).thenReturn(Optional.of(
+                Major.builder().id(101L).department("软件工程教研室").majorCode("SE").majorName("软件工程").build()));
         when(majorRepository.findAll()).thenReturn(List.of(
-                Major.builder().id(101L).majorCode("SE").majorName("软件工程").build()
+                Major.builder().id(101L).department("软件工程教研室").majorCode("SE").majorName("软件工程").build()
         ));
         when(courseRepository.findByCourseCode(any())).thenReturn(Optional.empty());
 
@@ -120,8 +204,10 @@ class CourseImportServiceTest {
     @Test
     @DisplayName("预览导入校验失败：缺项、学时矛盾、未知专业、批内重复、库内重复、先修不存在")
     void testPreviewImport_VariousValidationFailures() throws IOException {
+        when(majorRepository.findByMajorCode("SE")).thenReturn(Optional.of(
+                Major.builder().id(101L).department("软件工程教研室").majorCode("SE").majorName("软件工程").build()));
         when(majorRepository.findAll()).thenReturn(List.of(
-                Major.builder().id(101L).majorCode("SE").majorName("软件工程").build()
+                Major.builder().id(101L).department("软件工程教研室").majorCode("SE").majorName("软件工程").build()
         ));
         // 模拟库中已存在 CS9999，其余课程不存在
         when(courseRepository.findByCourseCode(any())).thenAnswer(inv -> {
@@ -189,7 +275,7 @@ class CourseImportServiceTest {
     @DisplayName("确认导入成功：原子整批保存并记录导入日志")
     void testConfirmImport_Success() {
         when(majorRepository.findByMajorCode("SE")).thenReturn(Optional.of(
-                Major.builder().id(101L).majorCode("SE").build()
+                Major.builder().id(101L).department("软件工程教研室").majorCode("SE").build()
         ));
         when(courseRepository.findByCourseCode(any())).thenReturn(Optional.empty());
 

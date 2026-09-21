@@ -61,8 +61,8 @@ public class CourseOfferingHistoryTest {
         authorizationService = new com.classroom.ai.modules.course.service.CourseAuthorizationService(courseRepository, offeringRepository, offeringTeacherRepository);
         historyController = new CourseOfferingHistoryController(offeringRepository, offeringTeacherRepository, scheduleRepository, enrollmentRepository, authorizationService);
 
-        Course course1 = Course.builder().id(1L).courseCode("CS3001").courseName("软件项目管理").build();
-        Course course2 = Course.builder().id(2L).courseCode("CS3002").courseName("微服务工程").build();
+        Course course1 = Course.builder().id(1L).courseCode("CS3001").courseName("软件项目管理").department("测试教研室").build();
+        Course course2 = Course.builder().id(2L).courseCode("CS3002").courseName("微服务工程").department("测试教研室").build();
 
         // 在读班次：学生人数通过 enrollmentRepository 统计（95人）
         activeOffering = CourseOffering.builder()
@@ -105,7 +105,7 @@ public class CourseOfferingHistoryTest {
         // 模拟教学主任登录（无专业限制、无教师限制）
         AuthContext.setCurrentUser(UserVO.builder()
                 .username("director")
-                .role(RoleEnum.DIRECTOR)
+                .role(RoleEnum.DIRECTOR).department("测试教研室")
                 .realName("张教学")
                 .build());
 
@@ -151,7 +151,7 @@ public class CourseOfferingHistoryTest {
 
         when(offeringRepository.findAll()).thenReturn(List.of(activeOffering, frozenOffering));
         when(enrollmentRepository.countByOfferingId(101L)).thenReturn(95L);
-        when(offeringTeacherRepository.findByOfferingId(any())).thenReturn(Collections.emptyList());
+        when(offeringTeacherRepository.findByOfferingId(101L)).thenReturn(List.of(CourseOfferingTeacher.builder().teacherId(1L).teacherCode("T2024001").teacherName("郭军").build()));
         when(scheduleRepository.findByOfferingId(101L)).thenReturn(Collections.emptyList());
 
         ApiResponse<OfferingHistoryVO> resp = historyController.getOfferingHistory(null);

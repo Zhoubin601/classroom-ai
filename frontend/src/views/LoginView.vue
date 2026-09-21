@@ -34,11 +34,11 @@
             <div class="flex items-center gap-2">
               <span class="text-xs font-bold text-white tracking-wide">全系教师与督导快捷体验通道</span>
               <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">
-                8位专任教师 + 2位管理专家
+                8位专任教师 + 7位教研室主任 + 1位督导专家
               </span>
             </div>
             <p class="text-[11px] text-slate-400 mt-0.5 hidden sm:block">
-              显式呈现全系8位主讲教师多课程与同一时段并行排课，支持一键免密直登工作台或回填表单
+              显式呈现全系8位专任教师、7大教研室主任及督导专家，支持一键免密直登工作台或回填表单
             </p>
           </div>
         </div>
@@ -526,7 +526,73 @@ const quickAccounts: QuickAccount[] = [
     role: 'DIRECTOR',
     avatarStyle: 'bg-amber-100 text-amber-800 border border-amber-300',
     tagStyle: 'bg-amber-100 text-amber-800 border-amber-300',
-    desc: '统管全系培养方案审核、排课防冲突统筹、工程教育认证12项指标点达成度矩阵监管。'
+    desc: '管辖软件工程专业 (SE)，包含《软件项目管理》、《软件工程导论》等5门课程与认证矩阵。'
+  },
+  {
+    username: 'director_arch',
+    password: '123456',
+    name: '周主任',
+    title: '教研室主任',
+    department: '计算机系统结构教研室',
+    role: 'DIRECTOR',
+    avatarStyle: 'bg-indigo-100 text-indigo-800 border border-indigo-300',
+    tagStyle: 'bg-indigo-100 text-indigo-800 border-indigo-300',
+    desc: '管辖计算机科学与技术专业 (CS)，包含《计算机组成原理》、《数字逻辑与系统设计》等课程。'
+  },
+  {
+    username: 'director_base',
+    password: '123456',
+    name: '赵主任',
+    title: '教研室主任',
+    department: '基础软件教研室',
+    role: 'DIRECTOR',
+    avatarStyle: 'bg-blue-100 text-blue-800 border border-blue-300',
+    tagStyle: 'bg-blue-100 text-blue-800 border-blue-300',
+    desc: '管辖计算机科学与技术专业 (CS)，包含《数据结构与算法》、《C++高级程序设计》等课程。'
+  },
+  {
+    username: 'director_sys',
+    password: '123456',
+    name: '王主任',
+    title: '教研室主任',
+    department: '系统软件教研室',
+    role: 'DIRECTOR',
+    avatarStyle: 'bg-purple-100 text-purple-800 border border-purple-300',
+    tagStyle: 'bg-purple-100 text-purple-800 border-purple-300',
+    desc: '管辖计算机科学与技术专业 (CS)，包含《操作系统原理》、《嵌入式Linux系统》等课程。'
+  },
+  {
+    username: 'director_ai',
+    password: '123456',
+    name: '董主任',
+    title: '教研室主任',
+    department: '人工智能教研室',
+    role: 'DIRECTOR',
+    avatarStyle: 'bg-rose-100 text-rose-800 border border-rose-300',
+    tagStyle: 'bg-rose-100 text-rose-800 border-rose-300',
+    desc: '管辖人工智能专业 (AI)，包含《人工智能导论》、《机器学习与模式识别》等课程。'
+  },
+  {
+    username: 'director_sec',
+    password: '123456',
+    name: '陈主任',
+    title: '教研室主任',
+    department: '网络空间安全教研室',
+    role: 'DIRECTOR',
+    avatarStyle: 'bg-red-100 text-red-800 border border-red-300',
+    tagStyle: 'bg-red-100 text-red-800 border-red-300',
+    desc: '管辖信息安全专业 (SEC)，包含《计算机网络与安全》、《信息安全攻防实践》等课程。'
+  },
+  {
+    username: 'director_ds',
+    password: '123456',
+    name: '孙主任',
+    title: '教研室主任',
+    department: '数据科学教研室',
+    role: 'DIRECTOR',
+    avatarStyle: 'bg-teal-100 text-teal-800 border border-teal-300',
+    tagStyle: 'bg-teal-100 text-teal-800 border-teal-300',
+    desc: '管辖数据科学与大数据技术专业 (DS)，包含《数据库系统实现》、《分布式大数据计算》等课程。'
   },
   {
     username: 'supervisor',

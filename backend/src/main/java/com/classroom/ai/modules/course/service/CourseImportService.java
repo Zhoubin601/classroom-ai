@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 public interface CourseImportService {
@@ -14,6 +15,8 @@ public interface CourseImportService {
      * 生成并写入带 UTF-8 BOM 的标准课程导入模板
      */
     void downloadTemplate(OutputStream out) throws IOException;
+
+    void exportCourses(List<com.classroom.ai.modules.course.entity.Course> courses, OutputStream out) throws IOException;
 
     /**
      * 上传 CSV 文件并执行第一阶段解析与全维度校验预览 (不入库)

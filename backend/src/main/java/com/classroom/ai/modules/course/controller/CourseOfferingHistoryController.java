@@ -39,8 +39,10 @@ public class CourseOfferingHistoryController {
      * - 累计人次：筛选范围内各班次选课人数累加 (同一班次多教师不重复计算)
      * - 权限控制由 CourseAuthorizationService 统一纳管 (主任管辖教研室、教师本人关联、督导授权专业)
      */
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     @GetMapping("/history")
     public ApiResponse<OfferingHistoryVO> getOfferingHistory(@RequestParam(required = false) String term) {
+        authorizationService.requireCurrentUser();
         List<CourseOffering> offerings;
         if (term != null && !term.trim().isEmpty()) {
             offerings = offeringRepository.findByAcademicTerm(term.trim());
@@ -64,41 +66,18 @@ public class CourseOfferingHistoryController {
         int cumulativePersonTimes = 0;
 
         for (CourseOffering off : offerings) {
-            // 人数计算：已冻结快照优先取快照，否则查选课名单
-            int studentCount;
-            if (Boolean.TRUE.equals(off.getIsSnapshotFrozen()) && off.getSnapshotStudentCount() != null) {
-                studentCount = off.getSnapshotStudentCount();
+            boolean frozen = Boolean.TRUE.equals(off.getIsSnapshotFrozen());
+            if (frozen && off.getSnapshotStudentCount() == null) throw new IllegalStateException("归档班次缺少人数快照，请核对历史迁移数据");
+            int count = frozen ? off.getSnapshotStudentCount() : Math.toIntExact(enrollmentRepository.countByOfferingId(off.getId()));
+            cumulativePersonTimes += count;
+            OfferingHistoryItemVO item;
+            if (frozen && off.getHistorySnapshot() != null) {
+                item = com.alibaba.fastjson2.JSON.parseObject(off.getHistorySnapshot(), OfferingHistoryItemVO.class);
             } else {
-                long enrolled = enrollmentRepository.countByOfferingId(off.getId());
-                studentCount = enrolled > 0 ? (int) enrolled : (off.getStudentCount() != null ? off.getStudentCount() : 0);
+                item = com.classroom.ai.modules.course.service.OfferingHistorySnapshot.build(off,
+                    offeringTeacherRepository.findByOfferingId(off.getId()), scheduleRepository.findByOfferingId(off.getId()), count);
             }
-
-            cumulativePersonTimes += studentCount;
-
-            // 查询所有授课教师列表
-            List<CourseOfferingTeacher> otList = offeringTeacherRepository.findByOfferingId(off.getId());
-            List<String> teacherNames = otList.stream().map(CourseOfferingTeacher::getTeacherName).distinct().collect(Collectors.toList());
-            if (teacherNames.isEmpty() && off.getTeacherName() != null) {
-                teacherNames = List.of(off.getTeacherName());
-            }
-
-            // 查询教室信息
-            List<CourseSchedule> schedules = scheduleRepository.findByOfferingId(off.getId());
-            String classrooms = schedules.stream().map(CourseSchedule::getClassroom).distinct().collect(Collectors.joining(", "));
-
-            items.add(OfferingHistoryItemVO.builder()
-                    .offeringId(off.getId())
-                    .courseCode(off.getCourse() != null ? off.getCourse().getCourseCode() : "")
-                    .courseName(off.getCourse() != null ? off.getCourse().getCourseName() : "")
-                    .academicTerm(off.getAcademicTerm())
-                    .primaryTeacher(off.getTeacherName())
-                    .teachers(teacherNames)
-                    .className(off.getClassName())
-                    .classroom(classrooms.isEmpty() ? "未排定" : classrooms)
-                    .studentCount(studentCount)
-                    .status(off.getStatus())
-                    .isSnapshotFrozen(Boolean.TRUE.equals(off.getIsSnapshotFrozen()))
-                    .build());
+            items.add(item);
         }
 
         OfferingHistoryVO vo = OfferingHistoryVO.builder()

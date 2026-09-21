@@ -16,7 +16,7 @@
       </div>
       <div class="flex items-center gap-2 text-xs">
         <span class="text-slate-500">当前督导身份：</span>
-        <span class="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-semibold shadow-subtle">张督导 (校级教学督导 · 授权 SE;CS)</span>
+        <span class="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-semibold shadow-subtle">{{ loggedUser?.realName || '身份加载中' }}（授权 {{ authorizedMajors.map(m => m.majorCode).join('；') || '暂无' }}）</span>
       </div>
     </div>
 
@@ -422,17 +422,8 @@
         <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
           <!-- 复合检索条件 (US-06) - 突显教师检索优先 -->
           <div class="flex flex-wrap items-center gap-2.5">
-            <!-- 督导核心关注：按授课教师检索 -->
-            <div class="relative">
-              <input 
-                v-model="filterParams.teacher" 
-                @input="handleFilterChange" 
-                placeholder="按授课教师检索 (如 郭军)..." 
-                class="bg-white border border-indigo-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 w-48 shadow-subtle font-semibold"
-              />
-              <User class="w-3.5 h-3.5 text-indigo-600 absolute left-2.5 top-2.5" />
-            </div>
-
+            <label class="text-xs">授权专业<select aria-label="授权专业" v-model="filterParams.majorId" @change="handleFilterChange" class="border rounded p-2"><option value="">全部授权专业</option><option v-for="m in authorizedMajors" :key="m.id" :value="m.id">{{ m.majorName }}</option></select></label>
+            <label class="text-xs">任课教师<select aria-label="任课教师" v-model="filterParams.teacherId" @change="handleFilterChange" class="border rounded p-2"><option value="">全部教师</option><option v-for="t in searchTeachers" :key="t.id" :value="t.id">{{ t.teacherName }} · {{ t.teacherCode }}</option></select></label>
             <!-- 课程名 / 代码 -->
             <div class="relative">
               <input 
@@ -445,7 +436,7 @@
             </div>
 
             <!-- 学期选择 -->
-            <select v-model="filterParams.term" @change="handleFilterChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-subtle">
+            <select aria-label="检索学期" v-model="filterParams.term" @change="handleFilterChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-subtle">
               <option value="">全部学期</option>
               <option v-for="t in availableTerms" :key="t" :value="t">{{ t }}</option>
             </select>
@@ -456,6 +447,8 @@
               <option v-for="c in availableClasses" :key="c" :value="c">{{ c }}</option>
             </select>
           </div>
+          <button class="border rounded p-2 text-xs" @click="resetSearch">清空检索条件</button>
+          <p v-if="searchError" role="alert" class="text-red-700">{{ searchError }}</p>
           <span class="text-xs text-slate-500">共检索到 <b class="text-indigo-600 font-bold">{{ filteredOfferings.length }}</b> 门待督导开课</span>
         </div>
 
@@ -795,14 +788,15 @@ import {
   MapPin,
   Lock
 } from 'lucide-vue-next'
-import { courseApi, supervisionApi, resourceApi, scheduleApi } from '../api'
-import type { CourseOffering, SupervisionDashboardVO, SupervisionAlertVO, CourseResource, CourseSchedule } from '../api/types'
+import { courseApi, supervisionApi, resourceApi, scheduleApi, majorApi, teacherApi, authApi } from '../api'
+import type { CourseOffering, SupervisionDashboardVO, SupervisionAlertVO, CourseResource, CourseSchedule, Major, Teacher, UserVO } from '../api/types'
 import { isScheduleInSession } from '../utils/scheduleTime'
 
 const emit = defineEmits<{
   (e: 'jump-to-attendance', offeringId: number): void
 }>()
 
+const loggedUser = ref<UserVO | null>(null)
 const activeTab = ref('timetable')
 const tabs = [
   { key: 'timetable', label: '全院开课总课表 / 听课日程看板 (US-03/06)', iconComp: Calendar },
@@ -927,7 +921,11 @@ const loadSchedules = async () => {
 }
 
 const offeringList = ref<CourseOffering[]>([])
-const filterParams = ref({ keyword: '', teacher: '', term: '', className: '' })
+const filterParams = ref<{keyword:string; teacher:string; term:string; className:string; majorId:number|''; teacherId:number|''}>({ keyword: '', teacher: '', term: '', className: '', majorId: '', teacherId: '' })
+const authorizedMajors=ref<Major[]>([]), searchTeachers=ref<Teacher[]>([]), searchError=ref('')
+function resetSearch(){filterParams.value={keyword:'',teacher:'',term:'',className:'',majorId:'',teacherId:''};handleFilterChange()}
+let searchRequest=0
+onMounted(async()=>{try{[authorizedMajors.value,searchTeachers.value,loggedUser.value]=await Promise.all([majorApi.getAll(),teacherApi.getAll(),authApi.getMe()])}catch(e){searchError.value=e instanceof Error?e.message:'字典加载失败'}})
 const availableTerms = ref<string[]>([])
 
 // 督导开课分页 (P1 级要求)
@@ -1014,18 +1012,21 @@ const showPreviewModal = ref(false)
 const courseResources = ref<CourseResource[]>([])
 
 const loadOfferings = async () => {
+  const request=++searchRequest; searchError.value=''
   try {
     const list = await courseApi.getOfferings(
       filterParams.value.term || undefined,
       filterParams.value.teacher || undefined,
-      filterParams.value.keyword || undefined
+      filterParams.value.keyword || undefined,
+      {majorId:filterParams.value.majorId || undefined, teacherId:filterParams.value.teacherId || undefined}
     )
+    if(request !== searchRequest) return
     offeringList.value = list
     if (availableTerms.value.length === 0 && list.length > 0) {
       availableTerms.value = Array.from(new Set(list.map(o => o.academicTerm).filter(Boolean)))
     }
   } catch (e) {
-    console.error('加载开课列表失败', e)
+    if(request===searchRequest){offeringList.value=[];searchError.value=e instanceof Error?e.message:'检索失败'}
   }
 }
 
@@ -1066,7 +1067,7 @@ const handleSaveEvaluation = async (isDraft: boolean) => {
   try {
     const payload = {
       offeringId: currentOfferingForEval.value?.id,
-      supervisorName: '张督导 (校级教学督导)',
+      supervisorName: loggedUser.value?.realName || '',
       evaluateDate: evalForm.value.evaluateDate,
       listenTopic: evalForm.value.listenTopic,
       scoreAttitude: evalForm.value.scoreAttitude,

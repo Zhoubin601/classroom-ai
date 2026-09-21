@@ -17,9 +17,22 @@
         </div>
       </div>
       <div class="flex items-center gap-2.5">
-        <a :href="supervisionApi.getExportReportUrl()" download class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
-          <Download class="w-3.5 h-3.5" /> 导出年度质量报表 (CSV/Excel)
-        </a>
+        <button
+          @click="handleExportCourses"
+          :disabled="isExportingCourses"
+          class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer disabled:opacity-50"
+          title="导出当前教研室全部课程档案（支持编辑后重新导入或留底）"
+        >
+          <Download class="w-3.5 h-3.5" /> {{ isExportingCourses ? '正在导出课程...' : '导出课程档案 (CSV)' }}
+        </button>
+        <button
+          @click="handleExportReport"
+          :disabled="isExporting"
+          class="px-3.5 py-2 bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer disabled:opacity-50"
+          title="导出含督导打分和班额统计的年度质量分析报表"
+        >
+          <FileText class="w-3.5 h-3.5 text-emerald-600" /> {{ isExporting ? '正在导出报表...' : '导出年度质量报表 (CSV)' }}
+        </button>
         <button @click="openImportModal" class="px-3.5 py-2 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
           <UploadCloud class="w-3.5 h-3.5 text-indigo-600" /> 批量导入课程 (CSV)
         </button>
@@ -31,11 +44,11 @@
 
     <!-- 子导航标签 -->
     <div class="flex items-center gap-1.5 border-b border-slate-200 pb-3">
-      <button 
-        v-for="tab in tabs" 
-        :key="tab.key" 
+      <button
+        v-for="tab in tabs"
+        :key="tab.key"
         @click="activeTab = tab.key"
-        :class="['px-3.5 py-1.5 rounded-xl text-xs font-medium transition flex items-center gap-1.5 cursor-pointer', 
+        :class="['px-3.5 py-1.5 rounded-xl text-xs font-medium transition flex items-center gap-1.5 cursor-pointer',
                  activeTab === tab.key ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold shadow-subtle' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100']"
       >
         <component :is="tab.iconComp" class="w-3.5 h-3.5" :class="activeTab === tab.key ? 'text-indigo-600' : 'text-slate-400'" />
@@ -49,16 +62,16 @@
         <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div class="flex items-center gap-3">
             <div class="relative">
-              <input 
-                v-model="courseFilter.keyword" 
-                @input="handleFilterChange" 
-                placeholder="搜索课程名称 / 代码 / 教师 / 先修..." 
+              <input
+                v-model="courseFilter.keyword"
+                @input="handleFilterChange"
+                placeholder="搜索课程名称 / 代码 / 教师 / 先修..."
                 class="bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 w-64 shadow-subtle"
               />
               <Search class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
             </div>
-            <select 
-              v-model="courseFilter.courseType" 
+            <select
+              v-model="courseFilter.courseType"
               @change="handleFilterChange"
               class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-subtle"
             >
@@ -79,6 +92,7 @@
               <tr>
                 <th class="py-3 px-4">课程代码</th>
                 <th class="py-3 px-4">课程名称</th>
+                <th class="py-3 px-4">所属专业 (编码)</th>
                 <th class="py-3 px-4">主讲 / 任课教师</th>
                 <th class="py-3 px-4">院系教研室</th>
                 <th class="py-3 px-4">学分 / 学时</th>
@@ -89,12 +103,18 @@
             </thead>
             <tbody class="divide-y divide-slate-100">
               <tr v-if="pagedCourses.length === 0">
-                <td colspan="8" class="py-10 text-center text-slate-400">未找到符合条件的课程档案</td>
+                <td colspan="9" class="py-10 text-center text-slate-400">未找到符合条件的课程档案</td>
               </tr>
               <tr v-for="c in pagedCourses" :key="c.id" class="hover:bg-slate-50/80 transition-colors">
                 <td class="py-3 px-4 font-mono font-semibold text-indigo-600">{{ c.courseCode }}</td>
                 <td class="py-3 px-4 font-semibold text-slate-900">
                   {{ c.courseName }}
+                </td>
+                <td class="py-3 px-4">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] bg-indigo-50 border border-indigo-200 text-indigo-700 font-mono font-bold">
+                    {{ c.majorCode || '待补全' }}
+                  </span>
+                  <span class="ml-1 text-[11px] text-slate-500">{{ getMajorNameByCode(c.majorCode) }}</span>
                 </td>
                 <td class="py-3 px-4">
                   <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 font-semibold text-xs">
@@ -128,9 +148,9 @@
             <span>第 <b class="text-indigo-600">{{ courseCurrentPage }}</b> / {{ totalCoursePages }} 页</span>
             <div class="flex items-center gap-1 ml-2">
               <span>每页显示</span>
-              <select 
-                v-model.number="coursePageSize" 
-                @change="courseCurrentPage = 1" 
+              <select
+                v-model.number="coursePageSize"
+                @change="courseCurrentPage = 1"
                 class="bg-white border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
               >
                 <option :value="5">5 条</option>
@@ -176,136 +196,7 @@
     </div>
 
     <!-- Tab 2: 集中排课统筹与冲突检测看板 (US-03) -->
-    <div v-if="activeTab === 'schedules'" class="space-y-4">
-      <div class="minimal-card p-5">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-          <div>
-            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <Calendar class="w-4 h-4 text-indigo-600" /> 开课排课统筹看板 (支持周次/教室/人次智能联动与防冲突检测)
-            </h2>
-            <p class="text-xs text-slate-500 mt-0.5">联动文管 A447、信息馆 B201 等教室与各教师班额，防冲突算法实时守护</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button @click="openAddOfferingModal" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1 cursor-pointer">
-              <Plus class="w-3.5 h-3.5" /> 新建开课班次
-            </button>
-            <button @click="openAddScheduleModal" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1 cursor-pointer">
-              <Plus class="w-3.5 h-3.5" /> 新增排课调度
-            </button>
-          </div>
-        </div>
-
-        <!-- 排课看板多维快捷筛选工具栏 -->
-        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl mb-5 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div class="flex flex-wrap items-center gap-2.5">
-            <span class="font-semibold text-slate-700 flex items-center gap-1">
-              <Filter class="w-3.5 h-3.5 text-indigo-600" /> 排课筛选：
-            </span>
-
-            <!-- 周几筛选 -->
-            <select v-model="scheduleFilter.dayOfWeek" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-xs">
-              <option value="">全部星期 (周一至周日)</option>
-              <option :value="1">星期一 (Mon)</option>
-              <option :value="2">星期二 (Tue)</option>
-              <option :value="3">星期三 (Wed)</option>
-              <option :value="4">星期四 (Thu)</option>
-              <option :value="5">星期五 (Fri)</option>
-              <option :value="6">星期六 (Sat)</option>
-              <option :value="7">星期日 (Sun)</option>
-            </select>
-
-            <!-- 节次区间筛选 -->
-            <select v-model="scheduleFilter.period" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-xs">
-              <option value="">全部节次时段</option>
-              <option value="1-2">第1-2节 (08:00 - 09:35)</option>
-              <option value="3-4">第3-4节 (10:05 - 11:40)</option>
-              <option value="5-6">第5-6节 (13:30 - 15:05)</option>
-              <option value="7-8">第7-8节 (15:35 - 17:10)</option>
-              <option value="9-10">第9-10节 (18:30 - 20:05)</option>
-            </select>
-
-            <!-- 课程性质筛选 -->
-            <select v-model="scheduleFilter.courseType" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-xs">
-              <option value="">全部课程性质</option>
-              <option value="专业核心课">专业核心课</option>
-              <option value="专业基础课">专业基础课</option>
-              <option value="通识必修课">通识必修课</option>
-              <option value="专业选修课">专业选修课</option>
-            </select>
-
-            <!-- 教师姓名筛选 -->
-            <div class="relative">
-              <input 
-                v-model="scheduleFilter.teacher" 
-                placeholder="按任课教师筛选 (如 郭军)..." 
-                class="bg-white border border-slate-200 rounded-lg pl-7 pr-2.5 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 w-44 shadow-xs"
-              />
-              <User class="w-3 h-3 text-slate-400 absolute left-2 top-2.5" />
-            </div>
-
-            <!-- 一键重置 -->
-            <button 
-              @click="resetScheduleFilter" 
-              class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-slate-600 text-xs font-medium transition cursor-pointer flex items-center gap-1"
-            >
-              <RotateCcw class="w-3 h-3 text-slate-500" /> 重置
-            </button>
-          </div>
-
-          <span class="text-xs text-slate-500 font-medium">
-            共匹配到 <b class="text-indigo-600 font-bold">{{ filteredSchedules.length }}</b> 节排课记录
-          </span>
-        </div>
-
-        <!-- 排课卡片列表 -->
-        <div v-if="filteredSchedules.length === 0" class="py-12 text-center text-slate-400 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
-          <Calendar class="w-8 h-8 text-slate-300 mx-auto mb-2" />
-          <span>没有找到符合所选筛选条件 (周几/节次/课程类型/教师) 的排课记录</span>
-        </div>
-        <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div v-for="s in filteredSchedules" :key="s.id" class="bg-white border border-slate-200 rounded-xl p-4 hover:border-indigo-300 hover:shadow-card transition shadow-subtle flex flex-col justify-between">
-            <div>
-              <div class="flex items-start justify-between">
-                <div>
-                  <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 font-mono">
-                    {{ s.offering?.course?.courseCode }}
-                  </span>
-                  <h3 class="text-sm font-bold text-slate-900 mt-1.5">{{ s.offering?.course?.courseName }}</h3>
-                  <div class="mt-1 flex items-center gap-2">
-                    <span class="inline-flex items-center gap-1 text-xs font-semibold text-slate-800">
-                      <User class="w-3 h-3 text-indigo-600" /> {{ s.offering?.teacherName }}
-                    </span>
-                    <span class="text-slate-400 text-xs">({{ s.offering?.className }})</span>
-                  </div>
-                </div>
-                <div class="flex flex-col items-end gap-1">
-                  <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200 rounded-lg font-mono">
-                    {{ s.offering?.studentCount }} 人额
-                  </span>
-                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200">
-                    {{ s.offering?.course?.courseType || '专业课' }}
-                  </span>
-                </div>
-              </div>
-
-              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
-                <div class="flex items-center gap-1.5">
-                  <span class="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">{{ s.classroom }}</span>
-                </div>
-                <div class="text-right">
-                  <span class="text-slate-700 font-semibold">周{{ s.dayOfWeek }} 第{{ s.startPeriod }}-{{ s.endPeriod }}节</span>
-                  <div class="text-[10px] text-slate-400 font-mono">({{ s.weekRange }})</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-3 pt-2 border-t border-slate-50 text-right">
-              <button @click="removeSchedule(s.id)" class="text-rose-600 hover:text-rose-700 text-[11px] font-medium cursor-pointer">取消排课</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <OfferingScheduleBoard v-if="activeTab === 'schedules'" />
 
     <!-- Tab 3: 工程教育认证 12 条毕业要求指标点矩阵 (US-05) -->
     <div v-if="activeTab === 'indicators'" class="space-y-4">
@@ -320,18 +211,18 @@
           <div class="flex flex-wrap items-center gap-2.5">
             <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 shadow-subtle">
               <span class="text-xs text-slate-500">选择审查课程:</span>
-              <select 
-                v-model="selectedCourseIdForIndicator" 
-                @change="loadIndicatorsForSelectedCourse" 
+              <select
+                v-model="selectedCourseIdForIndicator"
+                @change="loadIndicatorsForSelectedCourse"
                 class="bg-transparent text-xs text-indigo-700 font-semibold focus:outline-none min-w-[200px] cursor-pointer"
               >
                 <option v-if="courseList.length === 0" value="" disabled class="text-slate-400">
                   加载课程中...
                 </option>
-                <option 
-                  v-for="c in courseList" 
-                  :key="c.id" 
-                  :value="c.id" 
+                <option
+                  v-for="c in courseList"
+                  :key="c.id"
+                  :value="c.id"
                   class="text-slate-700 py-1.5"
                 >
                   {{ c.courseCode }} - {{ c.courseName }} ({{ c.teacherName || '任课教师' }})
@@ -377,8 +268,8 @@
                 <td class="py-3 px-4 text-slate-900 font-medium">{{ ind.requirementCategory }}</td>
                 <td class="py-3 px-4 text-slate-600 leading-relaxed max-w-md">{{ ind.indicatorDescription }}</td>
                 <td class="py-3 px-4">
-                  <span :class="['px-2.5 py-1 rounded-md text-[10px] font-bold font-mono', 
-                                ind.supportWeight === 'H' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 
+                  <span :class="['px-2.5 py-1 rounded-md text-[10px] font-bold font-mono',
+                                ind.supportWeight === 'H' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
                                 (ind.supportWeight === 'M' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-slate-100 text-slate-600 border border-slate-200')]">
                     {{ ind.supportWeight }} ({{ ind.supportWeight === 'H' ? '强支撑' : (ind.supportWeight === 'M' ? '中等' : '弱支撑') }})
                   </span>
@@ -410,8 +301,8 @@
             </p>
           </div>
           <div class="flex items-center gap-2.5">
-            <button 
-              @click="openCreateSupervisorModal" 
+            <button
+              @click="openCreateSupervisorModal"
               class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer"
             >
               <Plus class="w-3.5 h-3.5" /> 新建督导专家账号
@@ -426,9 +317,9 @@
             <span class="font-semibold">当前主任管辖范围：</span>
             <span v-if="managedMajors.length === 0" class="text-slate-500">正在获取管辖专业...</span>
             <div v-else class="flex flex-wrap gap-1.5">
-              <span 
-                v-for="m in managedMajors" 
-                :key="m.majorCode" 
+              <span
+                v-for="m in managedMajors"
+                :key="m.majorCode"
                 class="px-2 py-0.5 rounded-md bg-white border border-indigo-200 text-indigo-700 font-mono font-medium shadow-2xs"
               >
                 {{ m.majorName }} ({{ m.majorCode }})
@@ -468,16 +359,16 @@
                 <td class="py-3 px-4 text-slate-500">{{ sup.department || '校教学质量督导团' }}</td>
                 <td class="py-3 px-4">
                   <div class="flex flex-wrap gap-1">
-                    <span 
-                      v-if="!sup.authorizedMajors" 
+                    <span
+                      v-if="!sup.authorizedMajors"
                       class="px-2 py-0.5 rounded text-[11px] bg-slate-100 text-slate-400 border border-slate-200"
                     >
                       未授权专业
                     </span>
-                    <span 
-                      v-else 
-                      v-for="code in sup.authorizedMajors.split(';').filter(Boolean)" 
-                      :key="code" 
+                    <span
+                      v-else
+                      v-for="code in sup.authorizedMajors.split(';').filter(Boolean)"
+                      :key="code"
                       class="px-2 py-0.5 rounded text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-medium"
                     >
                       {{ code }}
@@ -490,8 +381,8 @@
                   </span>
                 </td>
                 <td class="py-3 px-4 text-right space-x-2">
-                  <button 
-                    @click="openEditMajorsModal(sup)" 
+                  <button
+                    @click="openEditMajorsModal(sup)"
                     class="text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer"
                   >
                     调整专业授权
@@ -513,7 +404,7 @@
         <div class="grid grid-cols-2 gap-3 text-xs">
           <div>
             <label class="text-slate-600 block mb-1">课程代码 (唯一) *</label>
-            <input v-model="currentCourseForm.courseCode" placeholder="如 CS3001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle uppercase" />
+            <input v-model="currentCourseForm.courseCode" :readonly="!!currentCourseForm.id" placeholder="如 CS3001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle uppercase" />
           </div>
           <div>
             <label class="text-slate-600 block mb-1">课程名称 *</label>
@@ -602,26 +493,71 @@
 
         <!-- 内容区域 (滚动) -->
         <div class="space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
-          <!-- 步骤 1：模板下载与说明 -->
-          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3">
+          <!-- 步骤 1：模板下载与课程导出说明 -->
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-wrap items-center justify-between gap-3">
             <div>
-              <div class="font-semibold text-slate-800">标准 CSV 模板 (带 UTF-8 BOM)</div>
-              <div class="text-slate-500 text-[11px] mt-0.5">严格按照规范列填写：课程编码、名称、教研室、专业编码、学分、学时等</div>
+              <div class="font-semibold text-slate-800 flex items-center gap-1.5">
+                <span>标准课程档案 CSV (带 UTF-8 BOM)</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">双向闭环</span>
+              </div>
+              <div class="text-slate-500 text-[11px] mt-0.5">支持导出当前教研室已有课程作为参照，或下载空白模板规范录入新课程</div>
             </div>
-            <button 
-              @click="handleDownloadTemplate" 
-              class="px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-slate-700 font-semibold text-xs flex items-center gap-1.5 shadow-subtle cursor-pointer transition"
-            >
-              <Download class="w-3.5 h-3.5 text-indigo-600" /> 下载模板
-            </button>
+            <div class="flex items-center gap-2">
+              <button
+                @click="handleExportCourses"
+                :disabled="isExportingCourses"
+                class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 rounded-lg font-semibold text-xs flex items-center gap-1.5 shadow-subtle cursor-pointer transition disabled:opacity-50"
+              >
+                <Download class="w-3.5 h-3.5 text-emerald-600" /> {{ isExportingCourses ? '导出中...' : '导出已有课程 (CSV)' }}
+              </button>
+              <button
+                @click="handleDownloadTemplate"
+                class="px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-slate-700 font-semibold text-xs flex items-center gap-1.5 shadow-subtle cursor-pointer transition"
+              >
+                <Download class="w-3.5 h-3.5 text-indigo-600" /> 下载空白模板
+              </button>
+            </div>
+          </div>
+
+          <!-- 核心指引：专业编码速查字典与说明 -->
+          <div class="p-3.5 bg-indigo-50/70 border border-indigo-200 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-indigo-900 flex items-center gap-1.5">
+                <BookOpen class="w-3.5 h-3.5 text-indigo-600" /> 专业编码速查字典 (CSV必填字段)
+              </span>
+              <span class="text-[11px] text-indigo-600 font-medium">CSV 第4列【专业编码】需填写对应英文代码</span>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-0.5">
+              <span
+                v-for="m in (allMajors.length > 0 ? allMajors : managedMajors)"
+                :key="m.majorCode"
+                class="px-2.5 py-1 rounded-lg bg-white border border-indigo-200 text-slate-800 text-xs shadow-xs flex items-center gap-1.5"
+              >
+                <b class="font-mono text-indigo-700 font-bold">{{ m.majorCode }}</b>
+                <span class="text-slate-700 font-medium">{{ m.majorName }}</span>
+                <span v-if="m.department" class="text-[10px] text-slate-400">({{ m.department }})</span>
+              </span>
+            </div>
+            <div class="text-[11px] text-indigo-700 leading-relaxed pt-1">
+              💡 <b>专业编码是什么？</b> 专业编码是学校开设各专业的官方英文字符代号。例如数据科学教研室对应 <b>DS</b>（数据科学与大数据技术），软件工程对应 <b>SE</b>，计算机对应 <b>CS</b>，人工智能对应 <b>AI</b>，网络安全对应 <b>SEC</b>。
+            </div>
+          </div>
+
+          <!-- 提示条：区分课程档案与质量报表，以及防重规则说明 -->
+          <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 flex items-start gap-2">
+            <AlertCircle class="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
+            <div class="space-y-0.5">
+              <div><b>新课程录入防重规则</b>：本功能用于批量录入未入库的新课程档案。若使用【导出已有课程】的 CSV，请修改课程编码为新编码（如 DS9001）；若保持已有编码（如 DS2001），系统将按防重保护机制提示错误。</div>
+              <div class="text-slate-600">先修课程支持填写课程代码（如 CS2001）或中文课程名（如 数据结构与算法）。请勿上传包含督导打分和班额的【年度质量分析报表】。</div>
+            </div>
           </div>
 
           <!-- 上传文件选择区 -->
           <div class="border-2 border-dashed border-slate-200 hover:border-indigo-400 rounded-xl p-5 text-center transition bg-white cursor-pointer relative">
-            <input 
-              type="file" 
-              accept=".csv" 
-              @change="handleFileChange" 
+            <input
+              type="file"
+              accept=".csv"
+              @change="handleFileChange"
               class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
             />
             <div class="flex flex-col items-center justify-center gap-2">
@@ -731,69 +667,14 @@
         <!-- 弹窗底部操作 -->
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
           <button @click="showImportModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">关闭</button>
-          <button 
-            @click="handleConfirmImport" 
-            :disabled="!canConfirmImport || isConfirming" 
+          <button
+            @click="handleConfirmImport"
+            :disabled="!canConfirmImport || isConfirming"
             class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer flex items-center gap-1.5"
           >
             <span v-if="isConfirming" class="inline-block animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
             <span>{{ isConfirming ? '正在整批事务入库...' : '确认导入并整批入库 (US-01)' }}</span>
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗：新增排课调度 (含冲突拦截) -->
-    <div v-if="showScheduleModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-6 shadow-modal space-y-4">
-        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-          <Calendar class="w-4 h-4 text-indigo-600" /> 新增排课调度 (US-03)
-        </h3>
-        <div class="space-y-3 text-xs">
-          <div>
-            <label class="text-slate-600 block mb-1">选择开课班次</label>
-            <select v-model="currentScheduleForm.offeringId" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
-              <option v-for="off in offeringList" :key="off.id" :value="off.id">
-                {{ off.course.courseName }} - {{ off.teacherName }} ({{ off.className }}, {{ off.studentCount }}人)
-              </option>
-            </select>
-          </div>
-          <div>
-            <label class="text-slate-600 block mb-1">上课教室 (如 文管 A447, 信息馆 B201)</label>
-            <input v-model="currentScheduleForm.classroom" placeholder="文管 A447" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
-          </div>
-          <div class="grid grid-cols-3 gap-2">
-            <div>
-              <label class="text-slate-600 block mb-1">星期几</label>
-              <select v-model.number="currentScheduleForm.dayOfWeek" class="w-full bg-white border border-slate-200 rounded-xl px-2 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
-                <option :value="1">周一</option>
-                <option :value="2">周二</option>
-                <option :value="3">周三</option>
-                <option :value="4">周四</option>
-                <option :value="5">周五</option>
-                <option :value="6">周六</option>
-                <option :value="7">周日</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-slate-600 block mb-1">起始节次</label>
-              <input v-model.number="currentScheduleForm.startPeriod" type="number" min="1" max="12" class="w-full bg-white border border-slate-200 rounded-xl px-2 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
-            </div>
-            <div>
-              <label class="text-slate-600 block mb-1">结束节次</label>
-              <input v-model.number="currentScheduleForm.endPeriod" type="number" min="1" max="12" class="w-full bg-white border border-slate-200 rounded-xl px-2 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
-            </div>
-          </div>
-        </div>
-
-        <div v-if="scheduleErrorMessage" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
-          <AlertCircle class="w-4 h-4 text-rose-600 flex-shrink-0" />
-          <span>{{ scheduleErrorMessage }}</span>
-        </div>
-
-        <div class="flex items-center justify-end gap-2.5 pt-2">
-          <button @click="showScheduleModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleSaveSchedule" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">校验并排课</button>
         </div>
       </div>
     </div>
@@ -814,16 +695,16 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-slate-600 block mb-1">指标点编号 (如 1-1, 11-1)</label>
-              <input 
-                v-model="indicatorForm.indicatorCode" 
-                placeholder="如 11-1" 
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+              <input
+                v-model="indicatorForm.indicatorCode"
+                placeholder="如 11-1"
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono"
               />
             </div>
             <div>
               <label class="text-slate-600 block mb-1">支撑权重 (H强/M中/L弱)</label>
-              <select 
-                v-model="indicatorForm.supportWeight" 
+              <select
+                v-model="indicatorForm.supportWeight"
                 class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle font-semibold"
               >
                 <option value="H">H (强支撑)</option>
@@ -835,8 +716,8 @@
 
           <div>
             <label class="text-slate-600 block mb-1">毕业要求大项 (通用认证12项)</label>
-            <select 
-              v-model="indicatorForm.requirementCategory" 
+            <select
+              v-model="indicatorForm.requirementCategory"
               class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle"
             >
               <option v-for="cat in standardIndicatorCategories" :key="cat" :value="cat">
@@ -847,19 +728,19 @@
 
           <div>
             <label class="text-slate-600 block mb-1">对应课程目标 (如 目标1, 目标2)</label>
-            <input 
-              v-model="indicatorForm.targetGoal" 
-              placeholder="如 目标1" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            <input
+              v-model="indicatorForm.targetGoal"
+              placeholder="如 目标1"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
             />
           </div>
 
           <div>
             <label class="text-slate-600 block mb-1">指标点分解内容表述</label>
-            <textarea 
-              v-model="indicatorForm.indicatorDescription" 
-              rows="3" 
-              placeholder="请输入该指标点在课程中的分解细化要求与能力观测点..." 
+            <textarea
+              v-model="indicatorForm.indicatorDescription"
+              rows="3"
+              placeholder="请输入该指标点在课程中的分解细化要求与能力观测点..."
               class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
             ></textarea>
           </div>
@@ -868,100 +749,6 @@
         <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
           <button @click="showIndicatorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
           <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">保存并写入 MySQL</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗：新建开课班次 (Offering) -->
-    <div v-if="showOfferingModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-            <Plus class="w-4 h-4 text-emerald-600" /> 新建开课班次 (Course Offering)
-          </h3>
-          <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
-            班次底座支持
-          </span>
-        </div>
-
-        <div class="space-y-3 text-xs">
-          <div>
-            <label class="text-slate-600 block mb-1">关联课程档案 *</label>
-            <select 
-              v-model.number="currentOfferingForm.courseId" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle font-medium"
-            >
-              <option v-for="c in courseList" :key="c.id" :value="c.id">
-                {{ c.courseCode }} - {{ c.courseName }} ({{ c.teacherName || '任课教师' }})
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label class="text-slate-600 block mb-1">教学班级名称 (如 软件工程2024级2班) *</label>
-            <input 
-              v-model="currentOfferingForm.className" 
-              placeholder="软件工程2024级2班" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
-            />
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="text-slate-600 block mb-1">学年学期 *</label>
-              <input 
-                v-model="currentOfferingForm.academicTerm" 
-                placeholder="2026-2027秋季" 
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
-              />
-            </div>
-            <div>
-              <label class="text-slate-600 block mb-1">专业编码 (如 SE)</label>
-              <input 
-                v-model="currentOfferingForm.majorCode" 
-                placeholder="SE" 
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
-              />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="text-slate-600 block mb-1">主讲教师姓名 *</label>
-              <input 
-                v-model="currentOfferingForm.teacherName" 
-                placeholder="郭军" 
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
-              />
-            </div>
-            <div>
-              <label class="text-slate-600 block mb-1">教师工号/标识</label>
-              <input 
-                v-model="currentOfferingForm.teacherCode" 
-                placeholder="T2024001" 
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
-              />
-            </div>
-          </div>
-
-          <div>
-            <label class="text-slate-600 block mb-1">班额/选课人数初始预设</label>
-            <input 
-              v-model.number="currentOfferingForm.studentCount" 
-              type="number" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" 
-            />
-          </div>
-        </div>
-
-        <div v-if="offeringErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
-          <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
-          <span>{{ offeringErrorMessage }}</span>
-        </div>
-
-        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
-          <button @click="showOfferingModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleSaveOffering" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">确认创建开课班次</button>
         </div>
       </div>
     </div>
@@ -981,38 +768,38 @@
         <div class="space-y-3 text-xs">
           <div>
             <label class="text-slate-600 block mb-1">登录账号 (Username) *</label>
-            <input 
-              v-model="createSupervisorForm.username" 
-              placeholder="如 supervisor.zhao" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+            <input
+              v-model="createSupervisorForm.username"
+              placeholder="如 supervisor.zhao"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono"
             />
           </div>
 
           <div>
             <label class="text-slate-600 block mb-1">初始密码 (Password) *</label>
-            <input 
-              v-model="createSupervisorForm.password" 
-              type="password" 
-              placeholder="请输入至少6位初始密码" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            <input
+              v-model="createSupervisorForm.password"
+              type="password"
+              placeholder="请输入至少6位初始密码"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
             />
           </div>
 
           <div>
             <label class="text-slate-600 block mb-1">专家真实姓名 *</label>
-            <input 
-              v-model="createSupervisorForm.realName" 
-              placeholder="如 赵督导 (教授)" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            <input
+              v-model="createSupervisorForm.realName"
+              placeholder="如 赵督导 (教授)"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
             />
           </div>
 
           <div>
             <label class="text-slate-600 block mb-1">所属单位 / 督导部门</label>
-            <input 
-              v-model="createSupervisorForm.department" 
-              placeholder="校教学质量监控与督导评估中心" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            <input
+              v-model="createSupervisorForm.department"
+              placeholder="校教学质量监控与督导评估中心"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
             />
           </div>
 
@@ -1022,15 +809,15 @@
               <div v-if="managedMajors.length === 0" class="text-slate-400 text-xs">
                 未检索到当前管辖专业
               </div>
-              <label 
-                v-for="m in managedMajors" 
-                :key="m.majorCode" 
+              <label
+                v-for="m in managedMajors"
+                :key="m.majorCode"
                 class="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-900"
               >
-                <input 
-                  type="checkbox" 
-                  :value="m.majorCode" 
-                  v-model="createSupervisorForm.selectedMajors" 
+                <input
+                  type="checkbox"
+                  :value="m.majorCode"
+                  v-model="createSupervisorForm.selectedMajors"
                   class="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300"
                 />
                 <span class="font-medium">{{ m.majorName }} ({{ m.majorCode }})</span>
@@ -1072,15 +859,15 @@
             <div v-if="managedMajors.length === 0" class="text-slate-400 text-xs">
               未检索到当前管辖专业
             </div>
-            <label 
-              v-for="m in managedMajors" 
-              :key="m.majorCode" 
+            <label
+              v-for="m in managedMajors"
+              :key="m.majorCode"
               class="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-900"
             >
-              <input 
-                type="checkbox" 
-                :value="m.majorCode" 
-                v-model="editSupervisorSelectedMajors" 
+              <input
+                type="checkbox"
+                :value="m.majorCode"
+                v-model="editSupervisorSelectedMajors"
                 class="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300"
               />
               <span class="font-medium">{{ m.majorName }} ({{ m.majorCode }})</span>
@@ -1104,6 +891,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import OfferingScheduleBoard from '../components/OfferingScheduleBoard.vue'
 import {
   Briefcase,
   Download,
@@ -1126,8 +914,24 @@ import {
   CheckCircle2,
   XCircle
 } from 'lucide-vue-next'
-import { courseApi, scheduleApi, syllabusApi, supervisionApi, directorApi, courseImportApi } from '../api'
-import type { Course, CourseSchedule, GraduationIndicator, CourseOffering } from '../api/types'
+import { courseApi, syllabusApi, supervisionApi, directorApi, courseImportApi, majorApi } from '../api'
+import type { Course, GraduationIndicator, Major, UserVO, ImportPreviewVO } from '../api/types'
+
+const allMajors = ref<Major[]>([])
+const loadAllMajors = async () => {
+  try {
+    const list = await majorApi.getAll()
+    allMajors.value = Array.isArray(list) ? list : []
+  } catch (e) {
+    console.error('加载专业字典失败', e)
+  }
+}
+
+const getMajorNameByCode = (code?: string) => {
+  if (!code) return ''
+  const m = allMajors.value.find(item => item.majorCode?.toUpperCase() === code.toUpperCase())
+  return m ? m.majorName : ''
+}
 
 const activeTab = ref('courses')
 const tabs = [
@@ -1138,8 +942,6 @@ const tabs = [
 ]
 
 const courseList = ref<Course[]>([])
-const scheduleList = ref<CourseSchedule[]>([])
-const offeringList = ref<CourseOffering[]>([])
 const indicatorList = ref<GraduationIndicator[]>([])
 
 const courseFilter = ref({ keyword: '', courseType: '' })
@@ -1163,55 +965,6 @@ const pagedCourses = computed(() => {
   return courseList.value.slice(start, start + coursePageSize.value)
 })
 
-// 排课看板组合快捷筛选 (周几、节次、课程性质、教师)
-const scheduleFilter = ref({
-  dayOfWeek: '',
-  period: '',
-  courseType: '',
-  teacher: ''
-})
-
-const resetScheduleFilter = () => {
-  scheduleFilter.value = {
-    dayOfWeek: '',
-    period: '',
-    courseType: '',
-    teacher: ''
-  }
-}
-
-const filteredSchedules = computed(() => {
-  return scheduleList.value.filter(s => {
-    // 星期筛选
-    if (scheduleFilter.value.dayOfWeek && String(s.dayOfWeek) !== String(scheduleFilter.value.dayOfWeek)) {
-      return false
-    }
-    // 节次筛选
-    if (scheduleFilter.value.period) {
-      const parts = scheduleFilter.value.period.split('-').map(Number)
-      if (parts.length === 2) {
-        const [pStart, pEnd] = parts
-        if (s.startPeriod > pEnd || s.endPeriod < pStart) {
-          return false
-        }
-      }
-    }
-    // 课程性质
-    if (scheduleFilter.value.courseType && s.offering?.course?.courseType !== scheduleFilter.value.courseType) {
-      return false
-    }
-    // 教师姓名
-    if (scheduleFilter.value.teacher && scheduleFilter.value.teacher.trim()) {
-      const q = scheduleFilter.value.teacher.trim().toLowerCase()
-      const t = (s.offering?.teacherName || '').toLowerCase()
-      if (!t.includes(q)) {
-        return false
-      }
-    }
-    return true
-  })
-})
-
 const showCourseModal = ref(false)
 const currentCourseForm = ref<any>({})
 const courseErrorMessage = ref('')
@@ -1227,7 +980,7 @@ const showImportModal = ref(false)
 const selectedFile = ref<File | null>(null)
 const isUploading = ref(false)
 const isConfirming = ref(false)
-const importPreview = ref<any>(null)
+const importPreview = ref<ImportPreviewVO | null>(null)
 const importErrorMessage = ref('')
 
 const canConfirmImport = computed(() => {
@@ -1246,6 +999,48 @@ const openImportModal = () => {
   isUploading.value = false
   isConfirming.value = false
   showImportModal.value = true
+}
+
+const isExportingCourses = ref(false)
+const handleExportCourses = async () => {
+  if (isExportingCourses.value) return
+  isExportingCourses.value = true
+  try {
+    const blob = await courseApi.exportCourses()
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', 'courses_export.csv')
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  } catch (e: any) {
+    alert('导出课程档案失败：' + (e.response?.data?.message || e.message))
+  } finally {
+    isExportingCourses.value = false
+  }
+}
+
+const isExporting = ref(false)
+const handleExportReport = async () => {
+  if (isExporting.value) return
+  isExporting.value = true
+  try {
+    const blob = await supervisionApi.exportReport()
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', '2026-Northeastern-University-Teaching-Quality-Report.csv')
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  } catch (e: any) {
+    alert('导出年度质量报表失败：' + (e.response?.data?.message || e.message))
+  } finally {
+    isExporting.value = false
+  }
 }
 
 const handleDownloadTemplate = async () => {
@@ -1309,9 +1104,6 @@ const handleConfirmImport = async () => {
   }
 }
 
-const showScheduleModal = ref(false)
-const currentScheduleForm = ref<any>({ dayOfWeek: 3, startPeriod: 3, endPeriod: 4, startWeek: 1, endWeek: 16, classroom: '文管 A447' })
-const scheduleErrorMessage = ref('')
 
 // 指标点管理相关 (新增/修改/删除 MySQL 持久化)
 const showIndicatorModal = ref(false)
@@ -1357,15 +1149,6 @@ const loadCourses = async () => {
   }
 }
 
-const loadSchedules = async () => {
-  try {
-    scheduleList.value = await scheduleApi.getAll()
-    offeringList.value = await courseApi.getOfferings()
-  } catch (e) {
-    console.error('加载排课看板失败', e)
-  }
-}
-
 const loadIndicatorsForSelectedCourse = async () => {
   if (!selectedCourseIdForIndicator.value) {
     indicatorList.value = []
@@ -1382,12 +1165,17 @@ const loadIndicatorsForSelectedCourse = async () => {
 
 const openAddCourseModal = () => {
   courseErrorMessage.value = ''
+  const defaultDept = managedMajors.value.length > 0 && managedMajors.value[0].department
+    ? managedMajors.value[0].department
+    : '软件工程教研室'
+  const defaultMajor = managedMajors.value.length > 0 ? managedMajors.value[0].majorCode : 'SE'
+
   currentCourseForm.value = {
     courseCode: '',
     courseName: '',
-    department: '软件工程教研室',
-    majorCode: managedMajors.value.length > 0 ? managedMajors.value[0].majorCode : 'SE',
-    teacherName: '郭军 (教授)',
+    department: defaultDept,
+    majorCode: defaultMajor,
+    teacherName: '',
     credits: 3.0,
     hours: 48,
     theoryHours: 36,
@@ -1438,15 +1226,18 @@ const handleSaveCourse = async () => {
     courseErrorMessage.value = '总学时必须大于 0'
     return
   }
-  const th = Number(form.theoryHours) || 0
-  const ph = Number(form.practiceHours) || 0
-  if (th + ph !== Number(form.hours)) {
+  const total = Number(form.hours)
+  const missingTheory = form.theoryHours == null || form.theoryHours === ''
+  const missingPractice = form.practiceHours == null || form.practiceHours === ''
+  const th = missingTheory ? (missingPractice ? total : total - Number(form.practiceHours)) : Number(form.theoryHours)
+  const ph = missingPractice ? total - th : Number(form.practiceHours)
+  if (!Number.isInteger(th) || !Number.isInteger(ph) || th < 0 || ph < 0 || th + ph !== Number(form.hours)) {
     courseErrorMessage.value = `学时守恒校验失败：理论学时(${th}) + 实验学时(${ph}) 必须等于总学时(${form.hours})`
     return
   }
 
   try {
-    await courseApi.save(form)
+    await courseApi.save({ ...form, theoryHours: th, practiceHours: ph })
     showCourseModal.value = false
     loadCourses()
   } catch (e: any) {
@@ -1458,38 +1249,6 @@ const removeCourse = async (id: number) => {
   if (confirm('确认删除该课程档案？')) {
     await courseApi.delete(id)
     loadCourses()
-  }
-}
-
-const openAddScheduleModal = () => {
-  scheduleErrorMessage.value = ''
-  currentScheduleForm.value = {
-    offeringId: offeringList.value[0]?.id || 1,
-    classroom: '文管 A447',
-    dayOfWeek: 3,
-    startPeriod: 3,
-    endPeriod: 4,
-    startWeek: 1,
-    endWeek: 16
-  }
-  showScheduleModal.value = true
-}
-
-const handleSaveSchedule = async () => {
-  scheduleErrorMessage.value = ''
-  try {
-    await scheduleApi.save(currentScheduleForm.value)
-    showScheduleModal.value = false
-    loadSchedules()
-  } catch (e: any) {
-    scheduleErrorMessage.value = e.response?.data?.message || '排课失败，可能存在教室冲突！'
-  }
-}
-
-const removeSchedule = async (id: number) => {
-  if (confirm('确认取消该项排课？')) {
-    await scheduleApi.delete(id)
-    loadSchedules()
   }
 }
 
@@ -1576,8 +1335,8 @@ const viewCourseDetail = (c: Course) => {
 }
 
 // ==================== 督导建档与专业授权 (US-07) ====================
-const supervisorsList = ref<any[]>([])
-const managedMajors = ref<any[]>([])
+const supervisorsList = ref<UserVO[]>([])
+const managedMajors = ref<Major[]>([])
 const showCreateSupervisorModal = ref(false)
 const createSupervisorForm = ref({
   username: '',
@@ -1587,7 +1346,7 @@ const createSupervisorForm = ref({
   selectedMajors: [] as string[]
 })
 const showEditMajorsModal = ref(false)
-const editingSupervisor = ref<any>(null)
+const editingSupervisor = ref<UserVO | null>(null)
 const editSupervisorSelectedMajors = ref<string[]>([])
 const supervisorErrorMessage = ref('')
 
@@ -1643,10 +1402,10 @@ const handleCreateSupervisor = async () => {
   }
 }
 
-const openEditMajorsModal = (sup: any) => {
+const openEditMajorsModal = (sup: UserVO) => {
   editingSupervisor.value = sup
   const existing = sup.authorizedMajors ? sup.authorizedMajors.split(';').map((s: string) => s.trim()).filter(Boolean) : []
-  editSupervisorSelectedMajors.value = [...existing]
+  editSupervisorSelectedMajors.value = existing.filter(code => managedMajors.value.some(m => m.majorCode === code))
   supervisorErrorMessage.value = ''
   showEditMajorsModal.value = true
 }
@@ -1665,52 +1424,10 @@ const handleUpdateSupervisorMajors = async () => {
 }
 
 // ==================== 最小班次维护能力 (CourseOffering) ====================
-const showOfferingModal = ref(false)
-const currentOfferingForm = ref<any>({
-  courseId: null,
-  className: '',
-  academicTerm: '2026-2027秋季',
-  teacherName: '郭军',
-  teacherCode: 'T2024001',
-  studentCount: 35,
-  majorCode: 'SE'
-})
-const offeringErrorMessage = ref('')
-
-const openAddOfferingModal = () => {
-  currentOfferingForm.value = {
-    courseId: courseList.value.length > 0 ? courseList.value[0].id : null,
-    className: '软件工程2024级2班',
-    academicTerm: '2026-2027秋季',
-    teacherName: '郭军',
-    teacherCode: 'T2024001',
-    studentCount: 35,
-    majorCode: courseList.value.length > 0 ? (courseList.value[0].majorCode || 'SE') : 'SE'
-  }
-  offeringErrorMessage.value = ''
-  showOfferingModal.value = true
-}
-
-const handleSaveOffering = async () => {
-  if (!currentOfferingForm.value.courseId || !currentOfferingForm.value.className || !currentOfferingForm.value.teacherName) {
-    offeringErrorMessage.value = '请完善课程、班级名称与任课教师'
-    return
-  }
-  try {
-    offeringErrorMessage.value = ''
-    await courseApi.createOffering(currentOfferingForm.value)
-    showOfferingModal.value = false
-    await loadSchedules()
-    alert('开课班次创建成功！')
-  } catch (err: any) {
-    offeringErrorMessage.value = err.response?.data?.message || err.message || '开课班次创建失败'
-  }
-}
-
 onMounted(() => {
   loadCourses()
-  loadSchedules()
   loadSupervisors()
   loadManagedMajors()
+  loadAllMajors()
 })
 </script>

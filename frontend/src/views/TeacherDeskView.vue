@@ -1,5 +1,6 @@
 <template>
   <div class="space-y-6">
+    <OfferingHistoryPanel />
     <!-- 顶部任课教师身份卡 -->
     <div class="minimal-card p-6 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-4">
@@ -92,9 +93,9 @@
           <!-- 环节标签过滤 (US-08) -->
           <div class="flex items-center gap-2 mb-3">
             <span class="text-xs text-slate-500 font-medium">环节标签过滤：</span>
-            <button 
-              v-for="tag in ['全部', '理论', '实验', '研讨']" 
-              :key="tag" 
+            <button
+              v-for="tag in ['全部', '理论', '实验', '研讨']"
+              :key="tag"
               @click="selectedTag = tag === '全部' ? '' : tag; loadMyResources()"
               :class="['px-2.5 py-1 rounded-lg text-xs font-medium transition cursor-pointer', (selectedTag === tag || (!selectedTag && tag === '全部')) ? 'bg-indigo-600 text-white shadow-subtle' : 'bg-slate-100 text-slate-600 hover:bg-slate-200']"
             >
@@ -109,7 +110,7 @@
             </div>
             <div v-for="res in myResources" :key="res.id" class="p-3 bg-white border border-slate-200 rounded-xl flex items-center justify-between hover:border-indigo-300 hover:shadow-subtle transition shadow-subtle">
               <div class="flex items-center gap-3">
-                <div 
+                <div
                   class="w-9 h-9 rounded-lg border flex items-center justify-center flex-shrink-0"
                   :class="res.fileType === 'PPTX' ? 'bg-amber-50 border-amber-200 text-amber-600' : (res.fileType === 'DOCX' ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-indigo-50 border-indigo-200 text-indigo-600')"
                 >
@@ -118,7 +119,7 @@
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="text-xs font-bold text-slate-900">{{ res.resourceName }}</span>
-                    <span 
+                    <span
                       class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold"
                       :class="res.fileType === 'PPTX' ? 'bg-amber-50 text-amber-700 border border-amber-200' : (res.fileType === 'DOCX' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-indigo-50 text-indigo-700 border border-indigo-200')"
                     >
@@ -157,14 +158,14 @@
                   <BookOpen class="w-4 h-4 text-indigo-600" /> 课程简介、考核方式与教学目标 (US-02)
                 </h2>
                 <!-- 已发布状态徽章 -->
-                <span 
-                  v-if="publishedRevision?.publishVersion" 
+                <span
+                  v-if="publishedRevision?.publishVersion"
                   class="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1"
                 >
                   <ShieldCheck class="w-3 h-3 text-emerald-600" /> 已发布 v{{ publishedRevision.publishVersion }}
                 </span>
-                <span 
-                  v-else 
+                <span
+                  v-else
                   class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-slate-100 text-slate-600 border border-slate-200"
                 >
                   未发布正式版本
@@ -178,21 +179,22 @@
                 <span v-if="publishedRevision?.publisherName">发布人：{{ publishedRevision.publisherName }}</span>
                 <span v-if="publishedRevision?.publishedAt">发布时间：{{ formatDateTime(publishedRevision.publishedAt) }}</span>
                 <span v-if="draftRevision?.editorName">草稿最后保存人：{{ draftRevision.editorName }}</span>
+                <span v-if="draftRevision?.updatedAt">草稿更新时间：{{ formatDateTime(draftRevision.updatedAt) }}</span>
               </div>
             </div>
 
             <!-- 操作按钮组 -->
             <div class="flex items-center gap-2">
-              <button 
-                @click="handleSaveDraft" 
-                :disabled="isSavingDraft || isPublishingContent"
+              <button
+                @click="handleSaveDraft"
+                :disabled="isSavingDraft || isPublishingContent || !draftRevision || !!contentConflictMsg"
                 class="px-3 py-1.5 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50"
               >
                 {{ isSavingDraft ? '正在暂存...' : '暂存草稿' }}
               </button>
-              <button 
-                @click="handlePublishContent" 
-                :disabled="isSavingDraft || isPublishingContent"
+              <button
+                @click="handlePublishContent"
+                :disabled="isSavingDraft || isPublishingContent || !draftRevision || !!contentConflictMsg"
                 class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-subtle transition cursor-pointer disabled:opacity-50 flex items-center gap-1"
               >
                 <Sparkles class="w-3.5 h-3.5" /> {{ isPublishingContent ? '正在发布...' : '正式发布' }}
@@ -206,8 +208,8 @@
               <AlertCircle class="w-4 h-4 text-rose-600 flex-shrink-0" />
               <span>{{ contentConflictMsg }}</span>
             </div>
-            <button 
-              @click="loadCourseContent" 
+            <button
+              @click="loadCourseContent"
               class="px-2.5 py-1 bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0"
             >
               拉取最新草稿
@@ -219,10 +221,11 @@
             <label class="text-xs text-slate-700 font-semibold block mb-1">
               课程简介 <span class="text-rose-500 font-normal">*正式发布必填</span>
             </label>
-            <textarea 
-              v-model="contentForm.description" 
-              rows="3" 
-              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            <textarea
+              v-model="contentForm.description"
+              :disabled="!draftRevision || isSavingDraft || isPublishingContent"
+              rows="3"
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
               placeholder="请输入课程背景、学科定位、主要授课内容概括..."
             ></textarea>
           </div>
@@ -232,10 +235,11 @@
             <label class="text-xs text-slate-700 font-semibold block mb-1">
               考核与成绩评定方式 <span class="text-rose-500 font-normal">*正式发布必填</span>
             </label>
-            <input 
-              v-model="contentForm.assessmentMethod" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
-              placeholder="例如：平时作业与实验 30% + 课程答辩与大作业 30% + 期末闭卷考试 40%" 
+            <input
+              v-model="contentForm.assessmentMethod"
+              :disabled="!draftRevision || isSavingDraft || isPublishingContent"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              placeholder="例如：平时作业与实验 30% + 课程答辩与大作业 30% + 期末闭卷考试 40%"
             />
           </div>
 
@@ -244,17 +248,18 @@
             <label class="text-xs text-slate-700 font-semibold block mb-1">
               教学目标说明 <span class="text-rose-500 font-normal">*正式发布必填 (支撑毕业要求指标点)</span>
             </label>
-            <textarea 
-              v-model="contentForm.objectives" 
-              rows="3" 
-              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            <textarea
+              v-model="contentForm.objectives"
+              :disabled="!draftRevision || isSavingDraft || isPublishingContent"
+              rows="3"
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
               placeholder="明确说明本门课程培养的知识目标、工程能力目标以及价值素质目标..."
             ></textarea>
           </div>
 
           <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1 border-t border-slate-100">
-            <span>规则：草稿可不完整；正式发布三项必填且仅限关联主讲教师操作；旧窗口并发提交将触发 409 拦截并保护数据。</span>
-            <span class="font-mono text-indigo-500">US-02 规格验证就绪</span>
+            <span>规则：草稿可不完整；正式发布三项必填且仅限关联任课教师操作；旧窗口提交冲突时请拉取最新草稿。</span>
+            <span class="font-mono text-indigo-500">草稿仅任课教师可见</span>
           </div>
         </div>
       </div>
@@ -400,8 +405,8 @@
               <td class="py-3 px-4 text-slate-600 leading-relaxed max-w-md">{{ ind.indicatorDescription }}</td>
               <td class="py-3 px-4">
                 <span :class="[
-                  'px-2.5 py-1 rounded-md text-[10px] font-bold font-mono', 
-                  ind.supportWeight === 'H' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 
+                  'px-2.5 py-1 rounded-md text-[10px] font-bold font-mono',
+                  ind.supportWeight === 'H' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
                   (ind.supportWeight === 'M' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-slate-100 text-slate-600 border border-slate-200')
                 ]">
                   {{ ind.supportWeight }} ({{ ind.supportWeight === 'H' ? '强支撑' : (ind.supportWeight === 'M' ? '中等' : '弱支撑') }})
@@ -434,16 +439,16 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-slate-600 block mb-1">指标点编号 (如 1-1, 11-1, 12-1)</label>
-              <input 
-                v-model="indicatorForm.indicatorCode" 
-                placeholder="如 12-1" 
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono" 
+              <input
+                v-model="indicatorForm.indicatorCode"
+                placeholder="如 12-1"
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono"
               />
             </div>
             <div>
               <label class="text-slate-600 block mb-1">支撑权重 (H强/M中/L弱)</label>
-              <select 
-                v-model="indicatorForm.supportWeight" 
+              <select
+                v-model="indicatorForm.supportWeight"
                 class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle font-semibold cursor-pointer"
               >
                 <option value="H">H (强支撑)</option>
@@ -455,8 +460,8 @@
 
           <div>
             <label class="text-slate-600 block mb-1">毕业要求大项 (通用认证12项)</label>
-            <select 
-              v-model="indicatorForm.requirementCategory" 
+            <select
+              v-model="indicatorForm.requirementCategory"
               class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle cursor-pointer"
             >
               <option v-for="cat in standardIndicatorCategories" :key="cat" :value="cat">
@@ -467,19 +472,19 @@
 
           <div>
             <label class="text-slate-600 block mb-1">对应课程目标 (如 目标1, 目标2, 目标3)</label>
-            <input 
-              v-model="indicatorForm.targetGoal" 
-              placeholder="如 目标1" 
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" 
+            <input
+              v-model="indicatorForm.targetGoal"
+              placeholder="如 目标1"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
             />
           </div>
 
           <div>
             <label class="text-slate-600 block mb-1">指标点分解内容表述</label>
-            <textarea 
-              v-model="indicatorForm.indicatorDescription" 
-              rows="3" 
-              placeholder="请输入该指标点在课程中的分解细化要求与能力观测点..." 
+            <textarea
+              v-model="indicatorForm.indicatorDescription"
+              rows="3"
+              placeholder="请输入该指标点在课程中的分解细化要求与能力观测点..."
               class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
             ></textarea>
           </div>
@@ -502,14 +507,14 @@
           <!-- 真实课件文件选择与拖拽区 -->
           <div>
             <label class="text-slate-700 font-semibold block mb-1">选择真实课件文件 (.pptx / .docx / .pdf)</label>
-            <input 
-              type="file" 
-              ref="resourceFileInputRef" 
-              @change="onResourceFileSelected" 
-              accept=".pptx,.ppt,.docx,.doc,.pdf" 
-              class="hidden" 
+            <input
+              type="file"
+              ref="resourceFileInputRef"
+              @change="onResourceFileSelected"
+              accept=".pptx,.ppt,.docx,.doc,.pdf"
+              class="hidden"
             />
-            <div 
+            <div
               @click="triggerResourceFileInput"
               @dragover.prevent
               @drop.prevent="onResourceFileDrop"
@@ -523,7 +528,7 @@
               </div>
               <div v-else class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5 text-left">
-                  <div 
+                  <div
                     class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs"
                     :class="uploadForm.fileType === 'PPTX' ? 'bg-amber-100 text-amber-700' : (uploadForm.fileType === 'DOCX' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700')"
                   >
@@ -534,9 +539,9 @@
                     <div class="text-[10px] text-slate-500">{{ uploadForm.fileSize }} · 真实文件就绪</div>
                   </div>
                 </div>
-                <button 
-                  type="button" 
-                  @click.stop="clearSelectedResourceFile" 
+                <button
+                  type="button"
+                  @click.stop="clearSelectedResourceFile"
                   class="text-rose-500 hover:text-rose-700 text-xs px-2 py-1 rounded hover:bg-rose-50 cursor-pointer"
                 >
                   更换文件
@@ -581,8 +586,8 @@
 
         <div class="flex items-center justify-end gap-2.5 pt-2">
           <button @click="showUploadModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button 
-            @click="handleSaveResource" 
+          <button
+            @click="handleSaveResource"
             :disabled="isUploadingResource"
             class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer flex items-center gap-1.5"
           >
@@ -598,7 +603,7 @@
       <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-3xl p-6 shadow-modal space-y-4">
         <div class="flex items-center justify-between border-b border-slate-200 pb-3">
           <div class="flex items-center gap-2.5">
-            <div 
+            <div
               class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs"
               :class="currentPreviewRes?.fileType === 'PPTX' ? 'bg-amber-100 text-amber-700' : (currentPreviewRes?.fileType === 'DOCX' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700')"
             >
@@ -626,7 +631,7 @@
               <div class="space-y-1">
                 <div class="flex items-center gap-2">
                   <span class="text-xs font-bold text-slate-800">真实文件格式：</span>
-                  <span 
+                  <span
                     class="text-xs px-2 py-0.5 rounded font-mono font-semibold"
                     :class="currentPreviewRes?.fileType === 'PPTX' ? 'bg-amber-50 text-amber-700 border border-amber-200' : (currentPreviewRes?.fileType === 'DOCX' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-indigo-50 text-indigo-700 border border-indigo-200')"
                   >
@@ -696,8 +701,8 @@
             支持下载真实文件后使用本地 Microsoft Office / WPS 打开查验
           </div>
           <div class="flex items-center gap-2">
-            <button 
-              @click="downloadResourceFile(currentPreviewRes)" 
+            <button
+              @click="downloadResourceFile(currentPreviewRes)"
               class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer"
             >
               <Download class="w-3.5 h-3.5" /> 下载课件原件 ({{ currentPreviewRes?.fileType || '文件' }})
@@ -713,6 +718,7 @@
 </template>
 
 <script setup lang="ts">
+import OfferingHistoryPanel from '../components/OfferingHistoryPanel.vue'
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import {
   BookOpen,
@@ -854,7 +860,7 @@ const loadTeacherList = async () => {
       }
     })
     teacherList.value = Array.from(teachersMap.entries()).map(([name, courseName]) => ({ name, courseName }))
-    
+
     // 如果外部传入了已登录任课教师姓名，优先锁定该教师
     if (props.loggedInUser?.realName) {
       currentTeacher.value = props.loggedInUser.realName
@@ -877,6 +883,8 @@ const onOfferingSelectChange = async () => {
   if (off) {
     currentOffering.value = off
     currentCourse.value = off.course ?? null
+    draftRevision.value = null
+    contentConflictMsg.value = ''
     uploadForm.value.chapter = currentCourse.value ? `第一章 ${currentCourse.value.courseName}概论` : '第一章 概论'
     try {
       const schedules = await scheduleApi.getAll(off.id)
@@ -889,6 +897,8 @@ const onOfferingSelectChange = async () => {
 }
 
 const loadCourse = async () => {
+  draftRevision.value = null
+  contentConflictMsg.value = ''
   currentCourse.value = null
   currentOffering.value = null
   currentSchedule.value = null
@@ -896,7 +906,7 @@ const loadCourse = async () => {
   syllabusForm.value = { objectives: '', assessmentMethod: '' }
 
   try {
-    const offerings = await courseApi.getOfferings(undefined, currentTeacher.value)
+    const offerings = await courseApi.getOfferings()
     myOfferings.value = offerings
     if (offerings.length > 0) {
       let off = offerings.find(o => o.id === selectedOfferingId.value)
@@ -922,9 +932,6 @@ const loadCourse = async () => {
     console.error('获取教师开课记录失败', e)
   }
 
-  if (!currentCourse.value) return
-
-  await loadCourseContent()
 }
 
 const loadIndicators = async () => {
@@ -1230,65 +1237,30 @@ const handleSaveResource = async () => {
   }
 }
 
+let contentLoadSequence = 0
 const loadCourseContent = async () => {
-  if (!currentCourse.value?.id) {
-    draftRevision.value = null
-    publishedRevision.value = null
-    contentForm.value = {
-      description: '',
-      assessmentMethod: '',
-      objectives: '',
-      lockVersion: 0,
-      publishVersion: undefined
-    }
-    contentConflictMsg.value = ''
-    return
-  }
-
+  const requestSequence = ++contentLoadSequence
+  const courseId = currentCourse.value?.id
+  draftRevision.value = null
+  publishedRevision.value = null
   contentConflictMsg.value = ''
+  contentForm.value = { description: '', assessmentMethod: '', objectives: '', lockVersion: 0, publishVersion: undefined }
+  if (!courseId) return
   try {
-    const courseId = currentCourse.value.id
-    const [draft, pub] = await Promise.all([
-      courseContentApi.getDraft(courseId).catch(err => {
-        console.warn('获取草稿失败或尚未建立草稿', err)
-        return null
-      }),
-      courseContentApi.getPublished(courseId).catch(err => {
-        console.warn('获取已发布版本失败', err)
-        return null
-      })
+    const [draft, published] = await Promise.all([
+      courseContentApi.getDraft(courseId), courseContentApi.getPublished(courseId)
     ])
-
+    if (requestSequence !== contentLoadSequence || currentCourse.value?.id !== courseId) return
     draftRevision.value = draft
-    publishedRevision.value = pub
-
-    if (draft) {
-      contentForm.value = {
-        description: draft.description || '',
-        assessmentMethod: draft.assessmentMethod || '',
-        objectives: draft.objectives || '',
-        lockVersion: draft.lockVersion ?? draft.version ?? 0,
-        publishVersion: draft.publishVersion
-      }
-    } else if (pub) {
-      contentForm.value = {
-        description: pub.description || '',
-        assessmentMethod: pub.assessmentMethod || '',
-        objectives: pub.objectives || '',
-        lockVersion: 0,
-        publishVersion: pub.publishVersion
-      }
-    } else {
-      contentForm.value = {
-        description: currentCourse.value.description || '',
-        assessmentMethod: currentCourse.value.assessmentMethod || '',
-        objectives: currentCourse.value.objectives || '',
-        lockVersion: 0,
-        publishVersion: undefined
-      }
+    publishedRevision.value = published
+    contentForm.value = {
+      description: draft.description || '', assessmentMethod: draft.assessmentMethod || '',
+      objectives: draft.objectives || '', lockVersion: draft.lockVersion ?? 0,
+      publishVersion: draft.publishVersion ?? 0
     }
-  } catch (e) {
-    console.error('加载课程简介与草稿失败', e)
+  } catch (error: any) {
+    if (requestSequence !== contentLoadSequence) return
+    contentConflictMsg.value = error.response?.data?.message || error.message || '草稿加载失败，请重新拉取'
   }
 }
 
@@ -1297,19 +1269,25 @@ const handleSaveDraft = async () => {
     alert('请先选择有效课程')
     return
   }
+  if (!draftRevision.value || draftRevision.value.courseId !== currentCourse.value.id || contentConflictMsg.value) return
+  const courseId = currentCourse.value.id
   isSavingDraft.value = true
   contentConflictMsg.value = ''
   try {
-    const updated = await courseContentApi.saveDraft(currentCourse.value.id, {
+    const updated = await courseContentApi.saveDraft(courseId, {
       description: contentForm.value.description,
       assessmentMethod: contentForm.value.assessmentMethod,
       objectives: contentForm.value.objectives,
-      lockVersion: contentForm.value.lockVersion
+      lockVersion: contentForm.value.lockVersion,
+      draftId: draftRevision.value!.id,
+      publishVersion: contentForm.value.publishVersion ?? 0
     })
+    if (currentCourse.value?.id !== courseId) return
     draftRevision.value = updated
     contentForm.value.lockVersion = updated.lockVersion ?? updated.version ?? 0
     alert('草稿暂存成功！并发锁版本已同步为: ' + contentForm.value.lockVersion)
   } catch (err: any) {
+    if (currentCourse.value?.id !== courseId) return
     if (err.response?.status === 409 || err.status === 409) {
       contentConflictMsg.value = err.response?.data?.message || err.message || '检测到并发修改冲突(版本不一致)，请重新拉取最新草稿'
     } else {
@@ -1335,15 +1313,20 @@ const handlePublishContent = async () => {
     return
   }
 
+  if (!draftRevision.value || draftRevision.value.courseId !== currentCourse.value.id || contentConflictMsg.value) return
+  const courseId = currentCourse.value.id
   isPublishingContent.value = true
   contentConflictMsg.value = ''
   try {
-    const published = await courseContentApi.publish(currentCourse.value.id, {
+    const published = await courseContentApi.publish(courseId, {
       description: desc,
       assessmentMethod: assess,
       objectives: objs,
-      lockVersion: contentForm.value.lockVersion
+      lockVersion: contentForm.value.lockVersion,
+      draftId: draftRevision.value!.id,
+      publishVersion: contentForm.value.publishVersion ?? 0
     })
+    if (currentCourse.value?.id !== courseId) return
     publishedRevision.value = published
     draftRevision.value = null
     currentCourse.value.description = published.description
@@ -1352,6 +1335,7 @@ const handlePublishContent = async () => {
     alert(`课程简介、考核方式与教学目标发布成功！正式版本: v${published.publishVersion || 1}`)
     await loadCourseContent()
   } catch (err: any) {
+    if (currentCourse.value?.id !== courseId) return
     if (err.response?.status === 409 || err.status === 409) {
       contentConflictMsg.value = err.response?.data?.message || err.message || '检测到并发发布冲突(版本不一致)，请重新拉取最新草稿'
     } else if (err.response?.status === 403 || err.status === 403) {

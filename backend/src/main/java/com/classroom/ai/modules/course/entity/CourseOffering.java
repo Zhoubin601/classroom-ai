@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CourseOffering {
 
+    @Transient
+    private java.util.List<CourseOfferingTeacher> teachers;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -68,6 +71,13 @@ public class CourseOffering {
     @Builder.Default
     @Column(length = 32)
     private String status = "IN_PROGRESS";
+
+    private LocalDateTime archivedAt;
+    @Column(length = 64)
+    private String archivedBy;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String historySnapshot;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

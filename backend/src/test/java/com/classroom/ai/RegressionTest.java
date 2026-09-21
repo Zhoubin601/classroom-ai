@@ -9,6 +9,7 @@ import com.classroom.ai.modules.course.dto.*;
 import com.classroom.ai.modules.course.entity.*;
 import com.classroom.ai.modules.course.repository.*;
 import com.classroom.ai.modules.course.service.impl.*;
+import com.classroom.ai.modules.course.service.*;
 import com.classroom.ai.modules.supervision.dto.*;
 import com.classroom.ai.modules.supervision.entity.*;
 import com.classroom.ai.modules.supervision.repository.*;
@@ -86,17 +87,19 @@ class RegressionTest {
     @Test void defaultWeeksHaveValidHumanReadableLabel() {
         var schedules = mock(CourseScheduleRepository.class);
         var teacherRepo = mock(com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository.class);
-        when(offerings.findById(1L)).thenReturn(Optional.of(CourseOffering.builder().id(1L).build()));
-        when(schedules.save(any())).thenAnswer(call -> call.getArgument(0));
-        var saved = new CourseScheduleServiceImpl(schedules, offerings, teacherRepo).saveSchedule(CourseScheduleDTO.builder()
+        when(offerings.findForUpdate(1L)).thenReturn(Optional.of(CourseOffering.builder().id(1L).academicTerm("T").course(Course.builder().department("Dept").build()).build()));
+        when(schedules.saveAndFlush(any())).thenAnswer(call -> call.getArgument(0));
+        com.classroom.ai.modules.auth.context.AuthContext.setCurrentUser(com.classroom.ai.modules.auth.vo.UserVO.builder().role(com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR).department("Dept").build());
+        var saved = new CourseScheduleServiceImpl(schedules, offerings, new ScheduleConflictService(schedules, teacherRepo), mock(AcademicTermLockService.class), mock(CourseAuthorizationService.class)).saveSchedule(CourseScheduleDTO.builder()
                 .offeringId(1L).classroom("A").dayOfWeek(1).startPeriod(1).endPeriod(2).build());
         assertEquals("1-16周", saved.getWeekRange());
-        verify(schedules).findConflictingClassroomSchedules(any(), eq("A"), eq(1), eq(1), eq(16), eq(1), eq(2), isNull());
+        com.classroom.ai.modules.auth.context.AuthContext.clear();
+        verify(schedules).findAll();
     }
 
     @Test void reversedScheduleRangesAreRejected() {
         var teacherRepo = mock(com.classroom.ai.modules.course.repository.CourseOfferingTeacherRepository.class);
-        var service = new CourseScheduleServiceImpl(mock(CourseScheduleRepository.class), offerings, teacherRepo);
+        var service = new CourseScheduleServiceImpl(mock(CourseScheduleRepository.class), offerings, mock(ScheduleConflictService.class), mock(AcademicTermLockService.class), mock(CourseAuthorizationService.class));
         assertThrows(IllegalArgumentException.class, () -> service.checkConflict(null, "A", 1, 16, 1, 1, 2, null));
         assertThrows(IllegalArgumentException.class, () -> service.checkConflict(null, "A", 8, 1, 16, 1, 2, null));
         assertThrows(IllegalArgumentException.class, () -> service.checkConflict(null, "A", 1, 1, 16, 3, 2, null));

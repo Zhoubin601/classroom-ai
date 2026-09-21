@@ -36,7 +36,7 @@ public class AuthController {
     @PostMapping("/login")
     public ApiResponse<UserVO> login(@RequestBody LoginDTO dto, HttpServletRequest request) {
         if (dto.getUsername() == null || dto.getPassword() == null) {
-            return ApiResponse.error(400, "用户名和密码均不能为空");
+            throw new IllegalArgumentException("用户名和密码均不能为空");
         }
 
         UserAccount user = userAccountRepository.findByUsername(dto.getUsername().trim())

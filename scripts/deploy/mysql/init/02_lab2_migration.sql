@@ -71,3 +71,66 @@ CREATE TABLE IF NOT EXISTS `t_offering_student_enrollment` (
     UNIQUE KEY `uk_offering_student` (`offering_id`, `student_number`),
     KEY `idx_offering_id` (`offering_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='班次学生选课名单表';
+
+-- 6. 课程档案表 (US-01 规范底座)
+CREATE TABLE IF NOT EXISTS `t_course` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '课程主键ID',
+    `course_code` VARCHAR(64) NOT NULL COMMENT '课程代码(唯一标识)',
+    `course_name` VARCHAR(128) NOT NULL COMMENT '课程名称',
+    `department` VARCHAR(64) DEFAULT NULL COMMENT '开课院系/教研室',
+    `teacher_name` VARCHAR(64) DEFAULT NULL COMMENT '主讲/任课教师姓名',
+    `major_id` BIGINT DEFAULT NULL COMMENT '所属专业ID',
+    `major_code` VARCHAR(32) DEFAULT NULL COMMENT '所属专业编码(如 SE, CS, AI, DS, SEC)',
+    `credits` DOUBLE NOT NULL COMMENT '学分',
+    `hours` INT NOT NULL COMMENT '总学时',
+    `theory_hours` INT DEFAULT NULL COMMENT '理论学时',
+    `practice_hours` INT DEFAULT NULL COMMENT '实验/实践学时',
+    `course_type` VARCHAR(32) DEFAULT NULL COMMENT '课程性质',
+    `prerequisites` VARCHAR(255) DEFAULT NULL COMMENT '先修课程关系',
+    `description` TEXT DEFAULT NULL COMMENT '课程简介 (US-02)',
+    `objectives` TEXT DEFAULT NULL COMMENT '教学目标 (US-02)',
+    `assessment_method` TEXT DEFAULT NULL COMMENT '考核方式 (US-02)',
+    `created_at` DATETIME(6) DEFAULT NULL COMMENT '创建时间',
+    `updated_at` DATETIME(6) DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_course_code` (`course_code`),
+    KEY `idx_course_major_code` (`major_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程全量档案底座表';
+
+-- 7. 课程内容大纲与简介版本控制表 (US-02 多版本追溯与乐观锁控制)
+CREATE TABLE IF NOT EXISTS `t_course_content_revision` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '版本主键ID',
+    `course_id` BIGINT NOT NULL COMMENT '关联课程ID',
+    `description` TEXT DEFAULT NULL COMMENT '课程简介',
+    `objectives` TEXT DEFAULT NULL COMMENT '教学目标',
+    `assessment_method` TEXT DEFAULT NULL COMMENT '考核方式',
+    `version` INT NOT NULL COMMENT '兼容版本号',
+    `publish_version` INT DEFAULT NULL COMMENT '正式发布版本号(v1, v2...)',
+    `lock_version` INT NOT NULL DEFAULT 0 COMMENT '乐观锁版本号',
+    `status` VARCHAR(32) NOT NULL COMMENT '状态: DRAFT, PUBLISHED, ARCHIVED',
+    `editor_name` VARCHAR(64) DEFAULT NULL COMMENT '最后编辑人',
+    `publisher_code` VARCHAR(32) DEFAULT NULL COMMENT '发布教师工号',
+    `publisher_name` VARCHAR(64) DEFAULT NULL COMMENT '发布教师姓名',
+    `published_at` DATETIME(6) DEFAULT NULL COMMENT '发布时间',
+    `created_at` DATETIME(6) DEFAULT NULL COMMENT '创建时间',
+    `updated_at` DATETIME(6) DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    KEY `idx_course_version` (`course_id`, `version`),
+    KEY `idx_course_status` (`course_id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程简介与大纲版本控制表';
+
+-- 8. 课程批量导入审计记录表 (US-01 规范导入日志)
+CREATE TABLE IF NOT EXISTS `t_course_import_log` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '日志主键ID',
+    `batch_id` VARCHAR(64) NOT NULL COMMENT '导入批次号UUID',
+    `operator` VARCHAR(64) NOT NULL COMMENT '操作人用户名',
+    `file_name` VARCHAR(255) DEFAULT NULL COMMENT '上传原始文件名',
+    `total_rows` INT DEFAULT NULL COMMENT '总解析行数',
+    `success_count` INT DEFAULT NULL COMMENT '成功导入行数',
+    `error_count` INT DEFAULT NULL COMMENT '校验失败行数',
+    `status` VARCHAR(32) NOT NULL COMMENT '导入状态: PREVIEW, COMMITTED, REJECTED, EXPIRED',
+    `message` VARCHAR(512) DEFAULT NULL COMMENT '执行摘要说明',
+    `created_at` DATETIME(6) DEFAULT NULL COMMENT '操作时间',
+    PRIMARY KEY (`id`),
+    KEY `idx_import_batch_id` (`batch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程CSV批量导入审计记录表';

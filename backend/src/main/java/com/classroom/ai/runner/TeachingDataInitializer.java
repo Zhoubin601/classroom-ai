@@ -25,6 +25,7 @@ import java.util.*;
  * 自动注入真实课程、排课、工程认证12项指标点、课件、微格切片与督导评教数据 (PoC 实测)
  */
 @Component
+@org.springframework.boot.autoconfigure.condition.ConditionalOnProperty(name = "app.seed-demo", havingValue = "true")
 @Order(10)
 @RequiredArgsConstructor
 @Slf4j
@@ -57,52 +58,7 @@ public class TeachingDataInitializer implements ApplicationRunner {
         }
 
         if (courseRepository.count() > 0) {
-            courseRepository.findAll().forEach(course -> {
-                if (course.getTeacherName() == null || course.getTeacherName().isEmpty()) {
-                    if ("CS3001".equals(course.getCourseCode())) course.setTeacherName("郭军 (教授)");
-                    else if ("CS2002".equals(course.getCourseCode())) course.setTeacherName("姜琳颖 (副教授)");
-                    else if ("CS2001".equals(course.getCourseCode())) course.setTeacherName("赵广生 (讲师)");
-                    else if ("CS3002".equals(course.getCourseCode())) course.setTeacherName("王伟 (副教授)");
-                    else course.setTeacherName("主讲教师");
-                    courseRepository.save(course);
-                }
-            });
-
-            // 补全开课班次专业编码，保证督导权限能检索到全部班级
-            offeringRepository.findAll().forEach(off -> {
-                if (off.getMajorCode() == null || off.getMajorCode().isEmpty()) {
-                    String cls = off.getClassName();
-                    if (cls != null) {
-                        if (cls.contains("软件工程")) off.setMajorCode("SE");
-                        else if (cls.contains("计算机")) off.setMajorCode("CS");
-                        else if (cls.contains("人工智能")) off.setMajorCode("AI");
-                        else if (cls.contains("信息安全")) off.setMajorCode("SEC");
-                        else if (cls.contains("数据科学")) off.setMajorCode("DS");
-                        else off.setMajorCode("SE");
-                        offeringRepository.save(off);
-                    }
-                }
-            });
-
-            if (enrollmentRepository.count() == 0) {
-                offeringRepository.findAll().forEach(off -> {
-                    if (off.getClassName() != null) {
-                        List<Student> stus = studentRepository.findByClassName(off.getClassName());
-                        for (Student s : stus) {
-                            enrollmentRepository.save(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment.builder()
-                                    .offeringId(off.getId())
-                                    .studentId(s.getId())
-                                    .studentNumber(s.getStudentId())
-                                    .studentName(s.getName())
-                                    .adminClassName(s.getClassName())
-                                    .build());
-                        }
-                    }
-                });
-                log.info("【爱教学】已对存量开课班次完成选课名单真值(OfferingStudentEnrollment)自动升级。");
-            }
-
-            log.info("【爱教学】教务数据已就绪，已核对并补齐课程主讲教师档案与开课专业编码。");
+            log.info("已有课程数据，跳过样例初始化；未知归属请通过迁移核对清单处理。");
             return;
         }
 
@@ -558,6 +514,33 @@ public class TeachingDataInitializer implements ApplicationRunner {
                     log.info("【密码安全迁移】自动将已有账号 [{}] 的明文密码升级为 BCrypt 哈希密文", acc.getUsername());
                 }
             });
+        }
+
+        // 确保全量课程教研室主任账号就绪 (覆盖现有所有17门课程对应的教研室)
+        initDirectorAccountsIfMissing();
+    }
+
+    private void initDirectorAccountsIfMissing() {
+        String defaultHashedPwd = passwordEncoder.encode("123456");
+        ensureDirectorAccount("director", "李主任", "软件工程教研室", defaultHashedPwd);
+        ensureDirectorAccount("director_arch", "周主任", "计算机系统结构教研室", defaultHashedPwd);
+        ensureDirectorAccount("director_base", "赵主任", "基础软件教研室", defaultHashedPwd);
+        ensureDirectorAccount("director_sys", "王主任", "系统软件教研室", defaultHashedPwd);
+        ensureDirectorAccount("director_ai", "董主任", "人工智能教研室", defaultHashedPwd);
+        ensureDirectorAccount("director_sec", "陈主任", "网络空间安全教研室", defaultHashedPwd);
+        ensureDirectorAccount("director_ds", "孙主任", "数据科学教研室", defaultHashedPwd);
+    }
+
+    private void ensureDirectorAccount(String username, String realName, String department, String encodedPwd) {
+        if (userAccountRepository.findByUsername(username).isEmpty()) {
+            userAccountRepository.save(com.classroom.ai.modules.auth.entity.UserAccount.builder()
+                    .username(username)
+                    .password(encodedPwd)
+                    .realName(realName)
+                    .role(com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR)
+                    .department(department)
+                    .build());
+            log.info("【爱教学】自动预置教研室主任账号: {} ({} - {})", username, realName, department);
         }
     }
 }

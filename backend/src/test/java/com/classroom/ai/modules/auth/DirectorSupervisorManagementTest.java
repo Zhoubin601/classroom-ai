@@ -109,7 +109,7 @@ class DirectorSupervisorManagementTest {
                 .username("sup.test")
                 .role(RoleEnum.SUPERVISOR)
                 .build();
-        when(userAccountRepository.findById(20L)).thenReturn(Optional.of(supervisor));
+        when(userAccountRepository.findForUpdate(20L)).thenReturn(Optional.of(supervisor));
 
         ForbiddenException ex = assertThrows(ForbiddenException.class, () -> {
             directorController.updateSupervisorMajors(20L, java.util.Map.of("authorizedMajors", "CS"));
@@ -124,14 +124,14 @@ class DirectorSupervisorManagementTest {
                 .id(20L)
                 .username("sup.test")
                 .role(RoleEnum.SUPERVISOR)
-                .authorizedMajors("NONE")
+                .authorizedMajors("CS")
                 .build();
-        when(userAccountRepository.findById(20L)).thenReturn(Optional.of(supervisor));
+        when(userAccountRepository.findForUpdate(20L)).thenReturn(Optional.of(supervisor));
         when(userAccountRepository.save(any(UserAccount.class))).thenAnswer(inv -> inv.getArgument(0));
 
         ApiResponse<UserVO> resp = directorController.updateSupervisorMajors(20L, java.util.Map.of("authorizedMajors", "SE"));
         assertNotNull(resp);
         assertEquals(200, resp.getCode());
-        assertEquals("SE", resp.getData().getAuthorizedMajors());
+        assertEquals("CS;SE", resp.getData().getAuthorizedMajors());
     }
 }

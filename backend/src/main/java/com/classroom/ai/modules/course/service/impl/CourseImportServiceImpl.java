@@ -12,6 +12,7 @@ import com.classroom.ai.modules.course.repository.CourseImportLogRepository;
 import com.classroom.ai.modules.course.repository.CourseRepository;
 import com.classroom.ai.modules.course.repository.MajorRepository;
 import com.classroom.ai.modules.course.service.CourseImportService;
+import com.classroom.ai.modules.course.service.CourseArchiveRules;
 import com.classroom.ai.modules.course.util.CsvParserUtil;
 import com.classroom.ai.modules.course.vo.ImportPreviewVO;
 import com.classroom.ai.modules.course.vo.ImportRowError;
@@ -57,6 +58,7 @@ public class CourseImportServiceImpl implements CourseImportService {
     }
 
     public static void putBatchCache(String batchId, ImportBatchCache cache) {
+        BATCH_CACHE.entrySet().removeIf(entry -> System.currentTimeMillis() - entry.getValue().createTime > BATCH_EXPIRE_MS);
         BATCH_CACHE.put(batchId, cache);
     }
 
@@ -79,7 +81,114 @@ public class CourseImportServiceImpl implements CourseImportService {
     }
 
     @Override
+    public void exportCourses(List<Course> courses, OutputStream out) throws IOException {
+        byte[] bom = new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
+        out.write(bom);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("课程编码,课程名称,教研室,专业编码,学分,总学时,理论学时,实验学时,课程性质,先修课程编码,课程简介\n");
+
+        if (courses != null) {
+            for (Course c : courses) {
+                String mCode = c.getMajorCode();
+                sb.append(escapeCsv(c.getCourseCode())).append(",");
+                sb.append(escapeCsv(c.getCourseName())).append(",");
+                sb.append(escapeCsv(c.getDepartment())).append(",");
+                sb.append(escapeCsv(mCode)).append(",");
+                sb.append(c.getCredits() != null ? c.getCredits() : "").append(",");
+                sb.append(c.getHours() != null ? c.getHours() : "").append(",");
+                sb.append(c.getTheoryHours() != null ? c.getTheoryHours() : (c.getHours() != null ? c.getHours() : "")).append(",");
+                sb.append(c.getPracticeHours() != null ? c.getPracticeHours() : 0).append(",");
+                sb.append(escapeCsv(c.getCourseType())).append(",");
+                sb.append(escapeCsv(c.getPrerequisites())).append(",");
+                sb.append(escapeCsv(c.getDescription())).append("\n");
+            }
+        }
+
+        out.write(sb.toString().getBytes(StandardCharsets.UTF_8));
+        out.flush();
+    }
+
+    private String escapeCsv(String value) {
+        if (value == null) return "";
+        if (value.matches("^[=+@-].*")) {
+            value = "'" + value;
+        }
+        if (value.contains(",") || value.contains("\"") || value.contains("\n") || value.contains("\r")) {
+            return "\"" + value.replace("\"", "\"\"") + "\"";
+        }
+        return value;
+    }
+
+    private boolean isTeachingQualityReport(List<String> headerRow) {
+        if (headerRow == null) return false;
+        Set<String> cleanHeaders = headerRow.stream()
+                .filter(Objects::nonNull)
+                .map(h -> h.replace("\uFEFF", "").trim())
+                .collect(Collectors.toSet());
+        return cleanHeaders.contains("质量达成评价")
+                || cleanHeaders.contains("督导听课次数")
+                || cleanHeaders.contains("综合均分")
+                || cleanHeaders.contains("教学态度均分")
+                || cleanHeaders.contains("教学效果均分")
+                || (cleanHeaders.contains("任课教师") && cleanHeaders.contains("选课班级"));
+    }
+
+    private Map<String, Integer> buildHeaderMap(List<String> headerRow) {
+        Map<String, Integer> map = new HashMap<>();
+        if (headerRow == null) return map;
+
+        for (int i = 0; i < headerRow.size(); i++) {
+            String colName = headerRow.get(i);
+            if (colName == null) continue;
+            String clean = colName.replace("\uFEFF", "").trim().toLowerCase();
+
+            if (clean.equals("课程编码") || clean.equals("课程代码") || clean.equals("coursecode") || clean.equals("course_code")) {
+                map.putIfAbsent("courseCode", i);
+            } else if (clean.equals("课程名称") || clean.equals("coursename") || clean.equals("course_name")) {
+                map.putIfAbsent("courseName", i);
+            } else if (clean.equals("教研室") || clean.equals("所属教研室") || clean.equals("开课教研室") || clean.equals("院系教研室") || clean.equals("department")) {
+                map.putIfAbsent("department", i);
+            } else if (clean.equals("专业编码") || clean.equals("专业代码") || clean.equals("所属专业编码") || clean.equals("所属专业") || clean.equals("majorcode") || clean.equals("major_code")) {
+                map.putIfAbsent("majorCode", i);
+            } else if (clean.equals("学分") || clean.equals("credits") || clean.equals("credit")) {
+                map.putIfAbsent("credits", i);
+            } else if (clean.equals("总学时") || clean.equals("学时") || clean.equals("hours") || clean.equals("totalhours") || clean.equals("total_hours")) {
+                map.putIfAbsent("hours", i);
+            } else if (clean.equals("理论学时") || clean.equals("theoryhours") || clean.equals("theory_hours")) {
+                map.putIfAbsent("theoryHours", i);
+            } else if (clean.equals("实验学时") || clean.equals("实践学时") || clean.equals("上机学时") || clean.equals("practicehours") || clean.equals("practice_hours")) {
+                map.putIfAbsent("practiceHours", i);
+            } else if (clean.equals("课程性质") || clean.equals("课程类别") || clean.equals("coursetype") || clean.equals("course_type")) {
+                map.putIfAbsent("courseType", i);
+            } else if (clean.equals("先修课程编码") || clean.equals("先修课程代码") || clean.equals("先修课程") || clean.equals("先修课") || clean.equals("先修关系") || clean.equals("prerequisites")) {
+                map.putIfAbsent("prerequisites", i);
+            } else if (clean.equals("课程简介") || clean.equals("简介") || clean.equals("课程描述") || clean.equals("description")) {
+                map.putIfAbsent("description", i);
+            }
+        }
+        return map;
+    }
+
+    private String getFieldValue(List<String> cols, Map<String, Integer> headerMap, String fieldKey, int fallbackIndex) {
+        if (headerMap != null && headerMap.containsKey(fieldKey)) {
+            int idx = headerMap.get(fieldKey);
+            if (idx >= 0 && idx < cols.size()) {
+                String val = cols.get(idx);
+                return val != null ? val.trim() : "";
+            }
+            return "";
+        }
+        if (headerMap == null && fallbackIndex >= 0 && fallbackIndex < cols.size()) {
+            String val = cols.get(fallbackIndex);
+            return val != null ? val.trim() : "";
+        }
+        return "";
+    }
+
+    @Override
     public ImportPreviewVO previewImport(MultipartFile file) throws IOException {
+        CourseArchiveRules.requireDirector();
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("上传文件不能为空");
         }
@@ -92,25 +201,45 @@ public class CourseImportServiceImpl implements CourseImportService {
             throw new IllegalArgumentException("上传文件为空或无有效数据行");
         }
 
+        // 获取并检查表头
+        List<String> headerRow = records.get(0);
+        if (isTeachingQualityReport(headerRow)) {
+            throw new IllegalArgumentException("上传文件类型不匹配：检测到您上传的是【年度教学质量分析报表】（含督导评分与听课统计数据），并非标准化【课程档案导入文件】。请在工作台顶部点击【导出课程档案 (CSV)】获取可编辑导入的课程档案，或点击【下载模板】规范填写后导入。");
+        }
+
         // 去掉表头行
         List<List<String>> dataRows = new ArrayList<>(records);
-        if (!dataRows.isEmpty()) {
-            dataRows.remove(0); // 第一行为表头
-        }
+        dataRows.remove(0); // 第一行为表头
 
         if (dataRows.size() > 1000) {
             throw new IllegalArgumentException("单批次导入不得超过 1000 行");
         }
 
+        // 构建自适应表头字段映射
+        Map<String, Integer> headerMap = buildHeaderMap(headerRow);
+        for (String required : List.of("courseCode", "courseName", "department", "majorCode", "credits", "hours", "courseType")) {
+            if (!headerMap.containsKey(required)) throw new IllegalArgumentException("缺少必填表头: " + required);
+        }
+        if (dataRows.isEmpty()) throw new IllegalArgumentException("上传文件无有效数据行");
+
         List<CourseImportRowDTO> validRows = new ArrayList<>();
         List<ImportRowError> errors = new ArrayList<>();
         Set<String> seenCodesInBatch = new HashSet<>();
 
-        // 第一遍扫描：收集当前批次中填写的全部课程编码 (用于支持批次内先修课程互相引用)
+        // 第一遍扫描：收集当前批次中填写的全部课程编码与名称 (用于支持批次内先修课程互相引用)
         Set<String> batchCodes = new HashSet<>();
         for (List<String> row : dataRows) {
-            if (row != null && !row.isEmpty() && row.get(0) != null && !row.get(0).trim().isEmpty()) {
-                batchCodes.add(row.get(0).trim());
+            if (row != null && !row.isEmpty()) {
+                String code = getFieldValue(row, headerMap, "courseCode", 0);
+                if (!code.isEmpty()) {
+                    batchCodes.add(CourseArchiveRules.referenceKey(code));
+                    batchCodes.add(code.replace("《", "").replace("》", "").trim());
+                }
+                String name = getFieldValue(row, headerMap, "courseName", 1);
+                if (!name.isEmpty()) {
+                    batchCodes.add(CourseArchiveRules.referenceKey(name));
+                    batchCodes.add(name.replace("《", "").replace("》", "").trim());
+                }
             }
         }
 
@@ -122,11 +251,12 @@ public class CourseImportServiceImpl implements CourseImportService {
         // 第二遍扫描：逐行全维度校验
         int rowNumber = 2; // 标题行为第 1 行，数据行自第 2 行开始
         for (List<String> cols : dataRows) {
-            validateAndParseRow(cols, rowNumber, validMajorCodes, seenCodesInBatch, batchCodes, validRows, errors);
+            validateAndParseRow(cols, rowNumber, headerMap, validMajorCodes, seenCodesInBatch, batchCodes, validRows, errors);
             rowNumber++;
         }
 
-        int totalCount = validRows.size() + errors.size();
+        int totalCount = dataRows.size();
+        int errorRows = (int) errors.stream().map(ImportRowError::getRowNumber).distinct().count();
         String batchId = UUID.randomUUID().toString();
         String operator = AuthContext.isAuthenticated() && AuthContext.getCurrentUser() != null
                 ? AuthContext.getCurrentUser().getUsername() : "ANONYMOUS";
@@ -140,40 +270,42 @@ public class CourseImportServiceImpl implements CourseImportService {
         cache.hasErrors = !errors.isEmpty();
         cache.batchCodes = batchCodes;
 
+        BATCH_CACHE.entrySet().removeIf(entry -> System.currentTimeMillis() - entry.getValue().createTime > BATCH_EXPIRE_MS);
         BATCH_CACHE.put(batchId, cache);
 
         log.info("【课程导入预览】操作人: {}, 批次: {}, 总行数: {}, 有效行: {}, 错误行: {}",
-                operator, batchId, totalCount, validRows.size(), errors.size());
+                operator, batchId, totalCount, validRows.size(), errorRows);
 
         return ImportPreviewVO.builder()
                 .batchId(batchId)
                 .totalCount(totalCount)
                 .successCount(validRows.size())
-                .errorCount(errors.size())
+                .errorCount(errorRows)
                 .errors(errors)
                 .validRows(validRows)
                 .build();
     }
 
-    private void validateAndParseRow(List<String> cols, int rowNumber, Set<String> validMajorCodes,
-                                     Set<String> seenCodesInBatch, Set<String> batchCodes,
+    private void validateAndParseRow(List<String> cols, int rowNumber, Map<String, Integer> headerMap,
+                                     Set<String> validMajorCodes, Set<String> seenCodesInBatch, Set<String> batchCodes,
                                      List<CourseImportRowDTO> validRows, List<ImportRowError> errors) {
-        if (cols.size() < 7) {
+        if (cols.size() < 7 && (headerMap == null || headerMap.size() < 4)) {
             errors.add(new ImportRowError(rowNumber, "格式错误", "列数不足，至少需提供前7项必填列"));
             return;
         }
 
-        String courseCode = cols.get(0).trim();
-        String courseName = cols.get(1).trim();
-        String department = cols.get(2).trim();
-        String majorCode = cols.get(3).trim();
-        String creditsStr = cols.get(4).trim();
-        String hoursStr = cols.get(5).trim();
-        String theoryHoursStr = cols.size() > 6 ? cols.get(6).trim() : "";
-        String practiceHoursStr = cols.size() > 7 ? cols.get(7).trim() : "";
-        String courseType = cols.size() > 8 ? cols.get(8).trim() : "";
-        String prerequisites = cols.size() > 9 ? cols.get(9).trim() : "";
-        String description = cols.size() > 10 ? cols.get(10).trim() : "";
+        String courseCode = getFieldValue(cols, headerMap, "courseCode", 0);
+        String courseName = getFieldValue(cols, headerMap, "courseName", 1);
+        String department = getFieldValue(cols, headerMap, "department", 2);
+        String majorCode = getFieldValue(cols, headerMap, "majorCode", 3);
+        if (!department.isEmpty()) CourseArchiveRules.validateDepartment(department);
+        String creditsStr = getFieldValue(cols, headerMap, "credits", 4);
+        String hoursStr = getFieldValue(cols, headerMap, "hours", 5);
+        String theoryHoursStr = getFieldValue(cols, headerMap, "theoryHours", 6);
+        String practiceHoursStr = getFieldValue(cols, headerMap, "practiceHours", 7);
+        String courseType = getFieldValue(cols, headerMap, "courseType", 8);
+        String prerequisites = getFieldValue(cols, headerMap, "prerequisites", 9);
+        String description = getFieldValue(cols, headerMap, "description", 10);
 
         // 1. 必填缺项校验
         if (courseCode.isEmpty()) errors.add(new ImportRowError(rowNumber, "课程编码", "课程编码不能为空"));
@@ -208,7 +340,7 @@ public class CourseImportServiceImpl implements CourseImportService {
 
         try {
             credits = Double.parseDouble(creditsStr);
-            if (credits <= 0) errors.add(new ImportRowError(rowNumber, "学分", "学分必须大于 0"));
+            if (!Double.isFinite(credits) || credits <= 0) errors.add(new ImportRowError(rowNumber, "学分", "学分必须大于 0 且为有限数值"));
         } catch (Exception e) {
             errors.add(new ImportRowError(rowNumber, "学分", "学分格式无效，必须为有效数值"));
         }
@@ -237,29 +369,18 @@ public class CourseImportServiceImpl implements CourseImportService {
             }
         }
 
-        if (theory == null && practice == null && hours != null) {
-            theory = hours;
-            practice = 0;
-        } else if (hours != null && theory != null && practice != null) {
-            if (theory + practice != hours) {
-                errors.add(new ImportRowError(rowNumber, "学时关系", "理论学时(" + theory + ") + 实验学时(" + practice + ") 必须等于总学时(" + hours + ")"));
-            }
+        if (hours != null && hours > 0) {
+            try {
+                int[] normalized = CourseArchiveRules.normalizeHours(hours, theory, practice);
+                theory = normalized[0]; practice = normalized[1];
+            } catch (IllegalArgumentException e) { errors.add(new ImportRowError(rowNumber, "学时关系", e.getMessage())); }
         }
-
-        // 5. 先修课程引用校验 (支持数据库中已有课程 OR 当前批次内课程)
-        if (!prerequisites.isEmpty()) {
-            String[] prereqParts = prerequisites.split("[,;]");
-            for (String p : prereqParts) {
-                String cleanP = p.trim();
-                if (cleanP.isEmpty()) continue;
-                // 校验先修课程是否存在于数据库 或 存在于当前批次
-                boolean existsInDb = courseRepository.findByCourseCode(cleanP).isPresent();
-                boolean existsInBatch = batchCodes.contains(cleanP);
-                if (!existsInDb && !existsInBatch) {
-                    errors.add(new ImportRowError(rowNumber, "先修课程", "引用的先修课程编码 [" + cleanP + "] 在数据库及当前导入批次中均不存在"));
-                }
-            }
+        if (!majorCode.isEmpty() && validMajorCodes.contains(majorCode.toUpperCase(Locale.ROOT))) {
+            try { CourseArchiveRules.requireMajor(majorCode, majorRepository); }
+            catch (IllegalArgumentException e) { errors.add(new ImportRowError(rowNumber, "专业编码", e.getMessage())); }
         }
+        try { CourseArchiveRules.validatePrerequisites(prerequisites, batchCodes, courseRepository); }
+        catch (IllegalArgumentException e) { errors.add(new ImportRowError(rowNumber, "先修课程", e.getMessage())); }
 
         // 若本行无错误，加入有效数据行
         if (errors.stream().noneMatch(e -> e.getRowNumber() == rowNumber)) {
@@ -283,86 +404,62 @@ public class CourseImportServiceImpl implements CourseImportService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> confirmImport(ImportConfirmDTO dto) {
-        if (dto == null || dto.getBatchId() == null || dto.getBatchId().trim().isEmpty()) {
+        String currentOperator = CourseArchiveRules.requireDirector().getUsername();
+        if (dto == null || dto.getBatchId() == null || dto.getBatchId().isBlank())
             throw new IllegalArgumentException("批次 ID 不能为空");
-        }
-
-        // 原子移除批次，确保一次性消费，防止重复确认
-        ImportBatchCache cache = BATCH_CACHE.remove(dto.getBatchId().trim());
-        if (cache == null) {
-            throw new IllegalArgumentException("导入批次不存在或已被消费确认，请重新上传文件预览");
-        }
-
-        // 校验批次 30 分钟有效期
+        String batchId = dto.getBatchId().trim();
+        ImportBatchCache cache = BATCH_CACHE.get(batchId);
+        if (cache == null) throw new IllegalArgumentException("导入批次不存在或已被消费确认，请重新上传文件预览");
+        // 授权先于任何缓存变更，不能让别人的请求消耗批次。
+        if (!Objects.equals(cache.operator, currentOperator)) throw new ForbiddenException("越权拦截：仅批次创建者可确认导入");
         if (System.currentTimeMillis() - cache.createTime > BATCH_EXPIRE_MS) {
-            throw new IllegalArgumentException("导入批次已超过30分钟有效期限，已失效，请重新上传预览");
+            BATCH_CACHE.remove(batchId, cache);
+            throw new IllegalArgumentException("导入批次已超过30分钟有效期限，请重新上传预览");
         }
-
-        // 校验批次是否存在错误 (整批回滚保护原则)
-        if (cache.hasErrors) {
-            throw new IllegalArgumentException("当前批次存在校验错误行，系统实行整批回滚保护，禁止部分入库");
+        if (cache.hasErrors) throw new IllegalArgumentException("当前批次存在错误，整批回滚保护禁止部分入库");
+        if (cache.validRows == null || cache.validRows.isEmpty()) throw new IllegalArgumentException("批次无有效数据行");
+        Set<String> batchKeys = new HashSet<>();
+        for (CourseImportRowDTO row : cache.validRows) {
+            batchKeys.add(CourseArchiveRules.referenceKey(row.getCourseCode()));
+            batchKeys.add(CourseArchiveRules.referenceKey(row.getCourseName()));
         }
-
-        // 批次与操作者绑定校验 (防越权确认)
-        String currentOperator = AuthContext.isAuthenticated() && AuthContext.getCurrentUser() != null
-                ? AuthContext.getCurrentUser().getUsername() : "ANONYMOUS";
-        if (!"ANONYMOUS".equals(cache.operator) && !cache.operator.equals(currentOperator)) {
-            throw new ForbiddenException("越权拦截：仅当前批次的创建者 [" + cache.operator + "] 可确认导入，当前登录操作人: [" + currentOperator + "]");
-        }
-
-        // 重新核对数据库防并发插入与先修课程再验证
         List<Course> toSave = new ArrayList<>();
-        for (CourseImportRowDTO r : cache.validRows) {
-            if (courseRepository.findByCourseCode(r.getCourseCode()).isPresent()) {
-                throw new IllegalStateException("并发冲突：课程编码 " + r.getCourseCode() + " 已被其他操作者写入，批次中止");
-            }
-
-            Major major = majorRepository.findByMajorCode(r.getMajorCode()).orElse(null);
-
-            Course c = Course.builder()
-                    .courseCode(r.getCourseCode())
-                    .courseName(r.getCourseName())
-                    .department(r.getDepartment())
-                    .majorCode(r.getMajorCode())
-                    .majorId(major != null ? major.getId() : null)
-                    .credits(r.getCredits())
-                    .hours(r.getHours())
-                    .theoryHours(r.getTheoryHours())
-                    .practiceHours(r.getPracticeHours())
-                    .courseType(r.getCourseType())
-                    .prerequisites(r.getPrerequisites())
-                    .description(r.getDescription())
-                    .build();
-            toSave.add(c);
+        for (CourseImportRowDTO row : cache.validRows) {
+            CourseArchiveRules.validateDepartment(row.getDepartment());
+            Major major = CourseArchiveRules.requireMajor(row.getMajorCode(), majorRepository);
+            CourseArchiveRules.validatePrerequisites(row.getPrerequisites(), batchKeys, courseRepository);
+            CourseArchiveRules.validateCredits(row.getCredits());
+            int[] hours = CourseArchiveRules.normalizeHours(row.getHours(), row.getTheoryHours(), row.getPracticeHours());
+            if (courseRepository.findByCourseCode(row.getCourseCode()).isPresent())
+                throw new IllegalStateException("并发冲突：课程编码 " + row.getCourseCode() + " 已被写入，批次中止");
+            toSave.add(Course.builder().courseCode(row.getCourseCode()).courseName(row.getCourseName())
+                .department(row.getDepartment()).majorCode(major.getMajorCode()).majorId(major.getId())
+                .credits(row.getCredits()).hours(row.getHours()).theoryHours(hours[0]).practiceHours(hours[1])
+                .courseType(row.getCourseType()).prerequisites(row.getPrerequisites()).description(row.getDescription())
+                .createdBy(currentOperator).updatedBy(currentOperator).build());
         }
-
-        // 整批保存 (Transactional 保证异常时整批回滚，不会留下半批数据)
-        courseRepository.saveAll(toSave);
-
-        // 写入审计记录
+        // 验证完成后原子占用，只有一个请求能进入写入阶段。
+        if (!BATCH_CACHE.remove(batchId, cache)) throw new IllegalStateException("批次正在确认或已被消费");
+        boolean transactionActive = org.springframework.transaction.support.TransactionSynchronizationManager.isSynchronizationActive();
+        if (transactionActive) {
+            org.springframework.transaction.support.TransactionSynchronizationManager.registerSynchronization(
+                new org.springframework.transaction.support.TransactionSynchronization() {
+                    @Override public void afterCompletion(int status) {
+                        if (status == STATUS_ROLLED_BACK) BATCH_CACHE.putIfAbsent(batchId, cache);
+                    }
+                });
+        }
         try {
-            CourseImportLog logRecord = CourseImportLog.builder()
-                    .batchId(dto.getBatchId())
-                    .operator(cache.operator)
-                    .fileName(cache.fileName)
-                    .totalRows(cache.validRows.size())
-                    .successCount(toSave.size())
-                    .errorCount(0)
-                    .status("SUCCESS")
-                    .message("成功批量导入 " + toSave.size() + " 门课程档案")
-                    .build();
-            importLogRepository.save(logRecord);
-        } catch (Exception e) {
-            log.warn("保存导入审计日志异常: {}", e.getMessage());
+            courseRepository.saveAll(toSave);
+            // 审计与课程同一事务，不吞异常，避免出现有课程却无操作记录的成功响应。
+            importLogRepository.save(CourseImportLog.builder().batchId(batchId).operator(currentOperator)
+                .fileName(cache.fileName).totalRows(toSave.size()).successCount(toSave.size()).errorCount(0)
+                .status("SUCCESS").message("成功批量导入 " + toSave.size() + " 门课程档案").build());
+            courseRepository.flush();
+        } catch (RuntimeException failure) {
+            if (!transactionActive) BATCH_CACHE.putIfAbsent(batchId, cache);
+            throw failure;
         }
-
-        log.info("【US-01 课程导入完成】批次: {}, 成功入库: {} 门, 操作者: {}",
-                dto.getBatchId(), toSave.size(), cache.operator);
-
-        Map<String, Object> res = new HashMap<>();
-        res.put("importedCount", toSave.size());
-        res.put("batchId", dto.getBatchId());
-        res.put("message", "成功批量导入 " + toSave.size() + " 门课程档案");
-        return res;
+        return Map.of("importedCount", toSave.size(), "batchId", batchId, "message", "成功批量导入 " + toSave.size() + " 门课程档案");
     }
 }

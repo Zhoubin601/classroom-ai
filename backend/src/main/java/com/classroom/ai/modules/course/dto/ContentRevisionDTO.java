@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContentRevisionDTO {
+    /** 当前草稿身份，防止不同草稿恰好使用同一锁版本。 */
+    private Long draftId;
     private Long courseId;
     private String description;
     private String assessmentMethod;

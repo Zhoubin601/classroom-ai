@@ -1,3 +1,4 @@
+import type { Course, UserVO, CourseOffering, OfferingDetails, OfferingInput, OfferingQuery, OfferingHistory, ScheduleInput, ContentRevisionInput, Major, Teacher, ImportPreviewVO } from './types'
 import axios from 'axios'
 import { checkApiResponse, rejectApiError } from './response.mjs'
 import type {
@@ -209,23 +210,23 @@ export const studentApi = {
 // ==================== 4. 查课程与排课 API (courseApi & scheduleApi) ====================
 export const courseApi = {
   // 获取所有课程或检索
-  getAll: async (keyword?: string, courseType?: string): Promise<any[]> => {
+  getAll: async (keyword?: string, courseType?: string): Promise<Course[]> => {
     const params: Record<string, string> = {}
     if (keyword && keyword.trim()) params.keyword = keyword.trim()
     if (courseType && courseType.trim()) params.courseType = courseType.trim()
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/courses', { params })
+    const res = await client.get<ApiResponse<Course[]>>('/api/v1/courses', { params })
     return res.data.data
   },
 
   // 获取课程详情
-  getById: async (id: number): Promise<any> => {
-    const res = await client.get<ApiResponse<any>>(`/api/v1/courses/${id}`)
+  getById: async (id: number): Promise<Course> => {
+    const res = await client.get<ApiResponse<Course>>(`/api/v1/courses/${id}`)
     return res.data.data
   },
 
   // 保存课程
-  save: async (data: any): Promise<any> => {
-    const res = await client.post<ApiResponse<any>>('/api/v1/courses', data)
+  save: async (data: Partial<Course>): Promise<Course> => {
+    const res = await client.post<ApiResponse<Course>>('/api/v1/courses', data)
     return res.data.data
   },
 
@@ -234,13 +235,22 @@ export const courseApi = {
     await client.delete(`/api/v1/courses/${id}`)
   },
 
+  // 导出标准化课程档案 CSV (带 UTF-8 BOM，支持当前角色管辖范围过滤)
+  exportCourses: async (): Promise<Blob> => {
+    const res = await client.get('/api/v1/courses/export', {
+      responseType: 'blob'
+    })
+    return res.data
+  },
+
   // 查询开课班次 (支持学期/教师/关键字筛选)
-  getOfferings: async (term?: string, teacher?: string, keyword?: string): Promise<any[]> => {
-    const params: Record<string, string> = {}
-    if (term && term.trim()) params.term = term.trim()
-    if (teacher && teacher.trim()) params.teacher = teacher.trim()
-    if (keyword && keyword.trim()) params.keyword = keyword.trim()
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/courses/offerings', { params })
+  getOfferings: async (term?: string, teacher?: string, keyword?: string, query: OfferingQuery = {}): Promise<CourseOffering[]> => {
+    const params = { term, teacher, keyword, ...query }
+    const res = await client.get<ApiResponse<CourseOffering[]>>('/api/v1/courses/offerings', { params })
+    return res.data.data
+  },
+  archiveOffering: async (id: number): Promise<CourseOffering> => {
+    const res = await client.post<ApiResponse<CourseOffering>>(`/api/v1/courses/offerings/${id}/archive`)
     return res.data.data
   },
 
@@ -251,43 +261,30 @@ export const courseApi = {
   },
 
   // 批量选人加入班级
-  addStudentsToOffering: async (offeringId: number, studentIds: string[]): Promise<any> => {
-    const res = await client.post<ApiResponse<any>>(`/api/v1/courses/offerings/${offeringId}/students/add`, studentIds)
+  addStudentsToOffering: async (offeringId: number, studentIds: string[]): Promise<CourseOffering> => {
+    const res = await client.post<ApiResponse<CourseOffering>>(`/api/v1/courses/offerings/${offeringId}/students/add`, studentIds)
     return res.data.data
   },
 
   // 从开课班级移出学生
-  removeStudentFromOffering: async (offeringId: number, studentId: string): Promise<any> => {
-    const res = await client.post<ApiResponse<any>>(`/api/v1/courses/offerings/${offeringId}/students/remove/${studentId}`)
+  removeStudentFromOffering: async (offeringId: number, studentId: string): Promise<CourseOffering> => {
+    const res = await client.post<ApiResponse<CourseOffering>>(`/api/v1/courses/offerings/${offeringId}/students/remove/${studentId}`)
     return res.data.data
   },
 
   // 建立最小班次维护能力：创建开课班次
-  createOffering: async (offering: {
-    courseId: number
-    className: string
-    academicTerm: string
-    teacherName: string
-    teacherCode?: string
-    studentCount?: number
-    majorCode?: string
-  }): Promise<any> => {
-    const payload = {
-      course: { id: offering.courseId },
-      className: offering.className,
-      academicTerm: offering.academicTerm,
-      teacherName: offering.teacherName,
-      teacherCode: offering.teacherCode,
-      studentCount: offering.studentCount || 0,
-      majorCode: offering.majorCode
-    }
-    const res = await client.post<ApiResponse<any>>('/api/v1/courses/offerings', payload)
+  getOfferingDetails: async (id: number): Promise<OfferingDetails> => {
+    const res = await client.get(`/api/v1/courses/offerings/${id}`)
+    return res.data.data
+  },
+  createOffering: async (offering: OfferingInput): Promise<CourseOffering> => {
+    const res = await client.post('/api/v1/courses/offerings', offering)
     return res.data.data
   },
 
   // 建立最小班次维护能力：更新开课班次
-  updateOffering: async (id: number, data: any): Promise<any> => {
-    const res = await client.put<ApiResponse<any>>(`/api/v1/courses/offerings/${id}`, data)
+  updateOffering: async (id: number, data: OfferingInput): Promise<CourseOffering> => {
+    const res = await client.put<ApiResponse<CourseOffering>>(`/api/v1/courses/offerings/${id}`, data)
     return res.data.data
   },
 
@@ -314,8 +311,8 @@ export const scheduleApi = {
   },
 
   // 保存排课并执行冲突检测
-  save: async (data: any): Promise<any> => {
-    const res = await client.post<ApiResponse<any>>('/api/v1/schedules', data)
+  save: async (data: ScheduleInput): Promise<CourseSchedule> => {
+    const res = await client.post<ApiResponse<CourseSchedule>>('/api/v1/schedules', data)
     return res.data.data
   },
 
@@ -325,8 +322,8 @@ export const scheduleApi = {
   },
 
   // 手动探测排课冲突
-  checkConflict: async (params: { classroom: string; dayOfWeek: number; startWeek?: number; endWeek?: number; startPeriod: number; endPeriod: number; excludeId?: number }): Promise<any[]> => {
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/schedules/check-conflict', { params })
+  checkConflict: async (params: { classroom: string; dayOfWeek: number; startWeek?: number; endWeek?: number; startPeriod: number; endPeriod: number; excludeId?: number }): Promise<CourseSchedule[]> => {
+    const res = await client.get<ApiResponse<CourseSchedule[]>>('/api/v1/schedules/check-conflict', { params })
     return res.data.data
   }
 }
@@ -472,6 +469,14 @@ export const supervisionApi = {
   // 导出年度质量分析 CSV 报表下载链接
   getExportReportUrl: (): string => {
     return '/api/v1/supervisions/analytics/export-report'
+  },
+
+  // 导出年度质量分析 CSV 报表（携带 JWT 鉴权头并下载 Blob）
+  exportReport: async (): Promise<Blob> => {
+    const res = await client.get('/api/v1/supervisions/analytics/export-report', {
+      responseType: 'blob'
+    })
+    return res.data
   }
 }
 
@@ -531,8 +536,8 @@ export const authApi = {
     localStorage.removeItem('jwtToken')
     sessionStorage.removeItem('csrfToken')
   },
-  getMe: async (): Promise<any> => {
-    const res = await client.get<ApiResponse<any>>('/api/v1/auth/me')
+  getMe: async (): Promise<UserVO> => {
+    const res = await client.get<ApiResponse<UserVO>>('/api/v1/auth/me')
     return res.data.data
   },
   getCsrf: async (): Promise<{ csrfToken: string }> => {
@@ -550,11 +555,11 @@ export const courseContentApi = {
     const res = await client.get<ApiResponse<CourseContentRevision>>(`/api/v1/courses/${courseId}/content/draft`)
     return res.data.data
   },
-  saveDraft: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number; lockVersion?: number }): Promise<CourseContentRevision> => {
+  saveDraft: async (courseId: number, dto: ContentRevisionInput): Promise<CourseContentRevision> => {
     const res = await client.put<ApiResponse<CourseContentRevision>>(`/api/v1/courses/${courseId}/content/draft`, dto)
     return res.data.data
   },
-  publish: async (courseId: number, dto: { description?: string; assessmentMethod?: string; objectives?: string; version?: number; lockVersion?: number }): Promise<CourseContentRevision> => {
+  publish: async (courseId: number, dto: ContentRevisionInput): Promise<CourseContentRevision> => {
     const res = await client.post<ApiResponse<CourseContentRevision>>(`/api/v1/courses/${courseId}/content/publish`, dto)
     return res.data.data
   },
@@ -566,46 +571,45 @@ export const courseContentApi = {
 
 // ==================== 10. 课程两阶段批量导入 API (US-01) ====================
 export const courseImportApi = {
-  getTemplateUrl: (): string => '/api/v1/courses/import/template',
   downloadTemplate: async (): Promise<Blob> => {
     const res = await client.get('/api/v1/courses/import/template', {
       responseType: 'blob'
     })
     return res.data
   },
-  preview: async (file: File): Promise<any> => {
+  preview: async (file: File): Promise<ImportPreviewVO> => {
     const formData = new FormData()
     formData.append('file', file)
-    const res = await client.post<ApiResponse<any>>('/api/v1/courses/import/preview', formData, {
+    const res = await client.post<ApiResponse<ImportPreviewVO>>('/api/v1/courses/import/preview', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
     return res.data.data
   },
-  confirm: async (batchId: string): Promise<any> => {
-    const res = await client.post<ApiResponse<any>>('/api/v1/courses/import/confirm', { batchId })
+  confirm: async (batchId: string): Promise<{ importedCount: number; message?: string }> => {
+    const res = await client.post<ApiResponse<{ importedCount: number; message?: string }>>('/api/v1/courses/import/confirm', { batchId })
     return res.data.data
   }
 }
 
 // ==================== 11. 专业与教师字典 API ====================
 export const majorApi = {
-  getAll: async (): Promise<any[]> => {
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/majors')
+  getAll: async (): Promise<Major[]> => {
+    const res = await client.get<ApiResponse<Major[]>>('/api/v1/majors')
     return res.data.data
   }
 }
 
 export const teacherApi = {
-  getAll: async (): Promise<any[]> => {
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/teachers')
+  getAll: async (): Promise<Teacher[]> => {
+    const res = await client.get<ApiResponse<Teacher[]>>('/api/v1/teachers')
     return res.data.data
   }
 }
 
 // ==================== 12. 历史开课与学生人次统计 API (US-04) ====================
 export const offeringHistoryApi = {
-  getHistory: async (term?: string): Promise<any> => {
-    const res = await client.get<ApiResponse<any>>('/api/v1/courses/offerings/history', {
+  getHistory: async (term?: string): Promise<OfferingHistory> => {
+    const res = await client.get<ApiResponse<OfferingHistory>>('/api/v1/courses/offerings/history', {
       params: term ? { term } : undefined
     })
     return res.data.data
@@ -615,13 +619,13 @@ export const offeringHistoryApi = {
 // ==================== 13. 教研室主任督导管理 API (US-07) ====================
 export const directorApi = {
   // 获取当前主任管辖专业列表
-  getManagedMajors: async (): Promise<any[]> => {
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/director/managed-majors')
+  getManagedMajors: async (): Promise<Major[]> => {
+    const res = await client.get<ApiResponse<Major[]>>('/api/v1/director/managed-majors')
     return res.data.data
   },
   // 获取所有督导专家列表
-  getSupervisors: async (): Promise<any[]> => {
-    const res = await client.get<ApiResponse<any[]>>('/api/v1/director/supervisors')
+  getSupervisors: async (): Promise<UserVO[]> => {
+    const res = await client.get<ApiResponse<UserVO[]>>('/api/v1/director/supervisors')
     return res.data.data
   },
   // 主任创建督导专家账号并授权管辖专业 (限定管辖专业)
@@ -631,13 +635,13 @@ export const directorApi = {
     realName: string
     department?: string
     authorizedMajors?: string
-  }): Promise<any> => {
-    const res = await client.post<ApiResponse<any>>('/api/v1/director/supervisors', dto)
+  }): Promise<UserVO> => {
+    const res = await client.post<ApiResponse<UserVO>>('/api/v1/director/supervisors', dto)
     return res.data.data
   },
   // 主任更新督导专业授权 (限定管辖专业)
-  updateSupervisorMajors: async (id: number, authorizedMajors: string): Promise<any> => {
-    const res = await client.put<ApiResponse<any>>(`/api/v1/director/supervisors/${id}/majors`, {
+  updateSupervisorMajors: async (id: number, authorizedMajors: string): Promise<UserVO> => {
+    const res = await client.put<ApiResponse<UserVO>>(`/api/v1/director/supervisors/${id}/majors`, {
       authorizedMajors
     })
     return res.data.data

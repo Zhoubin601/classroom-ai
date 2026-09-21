@@ -102,12 +102,21 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/api/v1/syllabus/indicators/*").hasAnyRole("TEACHER", "DIRECTOR")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/syllabus/indicators/*").hasAnyRole("TEACHER", "DIRECTOR")
                 // 大纲草稿与发布写操作：仅任课教师和教研室主任
-                .requestMatchers(HttpMethod.PUT, "/api/v1/courses/*/content/draft").hasAnyRole("TEACHER", "DIRECTOR")
-                .requestMatchers(HttpMethod.POST, "/api/v1/courses/*/content/publish").hasAnyRole("TEACHER", "DIRECTOR")
+                .requestMatchers(HttpMethod.GET, "/api/v1/courses/*/content/draft").hasRole("TEACHER")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/courses/*/content/draft").hasRole("TEACHER")
+                .requestMatchers(HttpMethod.POST, "/api/v1/courses/*/content/publish").hasRole("TEACHER")
                 // 大纲审查锁定：仅教研室主任
                 .requestMatchers(HttpMethod.POST, "/api/v1/syllabus/*/lock").hasRole("DIRECTOR")
                 // 督导评课写操作：仅督导和主任
                 .requestMatchers(HttpMethod.POST, "/api/v1/supervision/evaluations").hasAnyRole("SUPERVISOR", "DIRECTOR")
+                // 课程档案只能由主任维护；资源范围仍由服务端业务规则检查。
+                .requestMatchers("/api/v1/courses/import/**").hasRole("DIRECTOR")
+                .requestMatchers(HttpMethod.POST, "/api/v1/courses").hasRole("DIRECTOR")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/courses/*").hasRole("DIRECTOR")
+                .requestMatchers(HttpMethod.POST, "/api/v1/courses/offerings", "/api/v1/courses/offerings/*/students/**", "/api/v1/courses/offerings/*/archive", "/api/v1/schedules").hasRole("DIRECTOR")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/courses/offerings/*").hasRole("DIRECTOR")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/courses/offerings/*", "/api/v1/schedules/*").hasRole("DIRECTOR")
+                .requestMatchers("/api/v1/schedules/check-conflict").hasRole("DIRECTOR")
                 // 实验二核心教务业务接口全量强制要求认证登录
                 .requestMatchers("/api/v1/courses/**").authenticated()
                 .requestMatchers("/api/v1/syllabus/**").authenticated()

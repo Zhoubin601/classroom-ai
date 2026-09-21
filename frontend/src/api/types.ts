@@ -104,6 +104,12 @@ export interface Course {
 }
 
 export interface CourseOffering {
+  teachers?: OfferingTeacher[]
+  majorId?: number
+  isSnapshotFrozen?: boolean
+  snapshotStudentCount?: number
+  archivedAt?: string
+  archivedBy?: string
   id: number
   course: Course
   academicTerm: string
@@ -116,6 +122,7 @@ export interface CourseOffering {
 }
 
 export interface CourseSchedule {
+  conflictReasons?: string[]
   id: number
   offering: CourseOffering
   classroom: string
@@ -319,3 +326,12 @@ export interface CourseContentRevision {
   updatedAt?: string
 }
 
+
+export interface OfferingTeacher { id?: number; offeringId?: number; teacherId: number; teacherCode: string; teacherName: string; roleInOffering: 'PRIMARY' | 'ASSISTANT' }
+export interface OfferingInput { courseId: number; academicTerm: string; className: string; primaryTeacherId: number; teacherIds: number[]; studentIds: number[] }
+export interface OfferingDetails { offering: CourseOffering; studentIds: number[]; studentNumbers: string[] }
+export interface OfferingQuery { term?: string; teacher?: string; keyword?: string; majorCode?: string; majorId?: number; teacherId?: number }
+export interface OfferingHistoryItem { offeringId: number; courseCode: string; courseName: string; academicTerm: string; primaryTeacher: string; teachers: string[]; className: string; classroom: string; studentCount: number; status: string; isSnapshotFrozen: boolean; archivedAt?: string; archivedBy?: string }
+export interface OfferingHistory { term?: string; totalOfferings: number; cumulativePersonTimes: number; items: OfferingHistoryItem[] }
+export interface ScheduleInput { id?: number; offeringId: number; classroom: string; dayOfWeek: number; startWeek: number; endWeek: number; startPeriod: number; endPeriod: number }
+export interface ContentRevisionInput { draftId: number; lockVersion: number; publishVersion: number; description?: string; assessmentMethod?: string; objectives?: string }

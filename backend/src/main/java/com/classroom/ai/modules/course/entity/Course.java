@@ -85,6 +85,13 @@ public class Course {
     @Column(columnDefinition = "TEXT")
     private String assessmentMethod;
 
+    /** 账号标识用于追溯，不能由客户端指定。历史数据保持为空。 */
+    @Column(length = 128)
+    private String createdBy;
+
+    @Column(length = 128)
+    private String updatedBy;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
