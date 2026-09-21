@@ -1,0 +1,17 @@
+The bundle contains these 13 refs:
+25fd7850e652b3cc31a92aa41bc40dfc4def372b refs/heads/feat/exp2-supplement-auth-fix
+4e9ce00db193ca7f7793971fc83067af737f2317 refs/heads/feat/foundation-auth
+6e9642f7ee3ef6092964b346fa6b6acd37ff0a54 refs/heads/feat/us01-us02-course-content
+b315ee4637b010e585040a5f830aa30d50aa125b refs/heads/feat/us03-us04-us06-schedule-query
+75410a6e7c6e7ded89b36bd408e1acc6e8df5ef3 refs/heads/main
+75410a6e7c6e7ded89b36bd408e1acc6e8df5ef3 refs/remotes/origin/HEAD
+a211b177b04bd12b5b70ef7acfade152d0bcf335 refs/remotes/origin/feat/exp2-supplement-auth-fix
+4e9ce00db193ca7f7793971fc83067af737f2317 refs/remotes/origin/feat/foundation-auth
+6e9642f7ee3ef6092964b346fa6b6acd37ff0a54 refs/remotes/origin/feat/us01-us02-course-content
+75410a6e7c6e7ded89b36bd408e1acc6e8df5ef3 refs/remotes/origin/main
+22a209a7412ccc991e350ad372de3fd4d7586257 refs/tags/baseline-20260918
+7a7c582c976d7a87dc721d306df1e0e38cb0aa9b refs/tags/v0.1.0-sprint1
+25fd7850e652b3cc31a92aa41bc40dfc4def372b HEAD
+D:/2026Autumn Semester File/软管/实验二/docs/recovery-20260921-v1/candidate-history.bundle is okay
+The bundle records a complete history.
+The bundle uses this hash algorithm: sha1

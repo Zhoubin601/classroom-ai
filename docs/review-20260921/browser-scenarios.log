@@ -1,0 +1,11 @@
+PASS US02 two independent browser contexts: incomplete draft saved, stale write HTTP 409, no silent overwrite
+PASS US02 publish -> edit draft -> reader retains v1 -> republish v2, publisher/time traceable
+PASS US01 director login, JWT template download, CSV preview and confirm in full UI
+PASS US03 edit team, retain 95 selected students and display both teachers
+PASS US03 文管 A447 / 95 students / both teachers / week and period ranges displayed
+PASS US03 same offering across rooms blocked HTTP 409; UI displays reasons, course, teachers, room and ranges
+PASS US03 combined semester/collaborator/week/room filter, edit excludes its own record
+PASS US03 new offering with dictionary teacher and selected 95-student roster
+PASS US06 supervisor real login, authorized major options, collaborator + term + keyword AND, clear/empty and forbidden query
+PASS US04 director archive, frozen UI and API, teacher semester history and empty table/zero
+SUMMARY: three real-login roles and all five stories passed; measured query timings saved.

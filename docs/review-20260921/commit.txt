@@ -1,0 +1,7 @@
+commit 25fd7850e652b3cc31a92aa41bc40dfc4def372b
+Author:     Zhou_bibi <3185130953@qq.com>
+AuthorDate: Mon Sep 21 15:38:27 2026 +0800
+Commit:     Zhou_bibi <3185130953@qq.com>
+CommitDate: Mon Sep 21 15:38:27 2026 +0800
+
+    fix(course): complete five-story workflows and add real MySQL acceptance

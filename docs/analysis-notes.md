@@ -794,3 +794,14 @@ My code document has the following content:
   - **前端生产构建**：`vue-tsc --noEmit` 与 Vite 构建 0 错误（生产包产出成功）；
   - **边缘视觉回归**：5 项 Python 测试全部通过；
   - `powershell -ExecutionPolicy Bypass -File scripts/run-tests.ps1` 顺利输出 `All automated checks passed.`。
+
+## 2026-09-19 US-01/US-02 缺陷修复复核
+详见 docs/20260919-US01-US02修复记录-v1.md。当前普通回归104项执行通过；11项隔离MySQL测试此前实跑通过；前端10项、Python5项、最新类型检查/构建与6项浏览器交互检查通过。现有业务库、raw原始资料和旧交付包未修改。
+
+最终复核更新：Docker恢复后，scripts/run-us0102-mysql-tests.ps1对最新代码实际执行11项数据库用例全部通过、无跳过，自动清理临时容器。结合104项普通回归，后端共115项实跑通过。证据：docs/us0102-fix-mysql-final.log。
+
+## 2026-09-20 US-02 / US-03 最终验收
+实现与验收详见 D:/2026Autumn Semester File/classroom-ai-demo/docs/20260920-US02-US03验收记录-v1.md。数据库学期锁替换 JVM 同步；多教师、名单维护、筛选、完整冲突载荷及修改班次重验已接入。107 项普通后端测试、22 项 MySQL 测试、1 个包含 7 场景的真实浏览器集成套件全部通过；前端 10 项、Python 5 项及最新类型检查/构建通过。样例截图人工查看通过。业务库与原始资料未修改，部署前需复核教师工号/名单并应用迁移。
+
+## 2026-09-21 收尾判断
+US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT 浏览器和增量迁移验证通过；发现的 ID 列表空值检查、归档时间精度、跨教研室授权保留和写死督导身份已修复。AI 审查与自动化证据不能替代用户要求的人工 diff 审查、真实会议记录和最终验收；故完整 DoD 及正式新版本发布暂不标记完成。清单与运行指南另存本日过程文档。

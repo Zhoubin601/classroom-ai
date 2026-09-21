@@ -1,0 +1,264 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.classroom.ai:classroom-backend >-----------------
+[INFO] Building classroom-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ classroom-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ classroom-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 139 source files with javac [debug parameters release 21] to target\classes
+[INFO] 由于在类路径中发现了一个或多个处理程序，因此启用了
+  批注处理。未来发行版的 javac 可能会禁用批注处理，
+  除非至少按名称指定了一个处理程序 (-processor)，
+  或指定了搜索路径 (--processor-path, --processor-module-path)，
+  或显式启用了批注处理 (-proc:only, -proc:full)。
+  可使用 -Xlint:-options 隐藏此消息。
+  可使用 -proc:none 禁用批注处理。
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ classroom-backend ---
+[INFO] skip non existing resourceDirectory D:\2026Autumn Semester File\软管\实验二\docs\recovery-20260921-v1\source\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ classroom-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 23 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] 由于在类路径中发现了一个或多个处理程序，因此启用了
+  批注处理。未来发行版的 javac 可能会禁用批注处理，
+  除非至少按名称指定了一个处理程序 (-processor)，
+  或指定了搜索路径 (--processor-path, --processor-module-path)，
+  或显式启用了批注处理 (-proc:only, -proc:full)。
+  可使用 -Xlint:-options 隐藏此消息。
+  可使用 -proc:none 禁用批注处理。
+[INFO] /D:/2026Autumn Semester File/软管/实验二/docs/recovery-20260921-v1/source/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: D:\2026Autumn Semester File\软管\实验二\docs\recovery-20260921-v1\source\backend\src\test\java\com\classroom\ai\modules\course\CourseSupervisorRbacTest.java使用或覆盖了已过时的 API。
+[INFO] /D:/2026Autumn Semester File/软管/实验二/docs/recovery-20260921-v1/source/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+[INFO] /D:/2026Autumn Semester File/软管/实验二/docs/recovery-20260921-v1/source/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: D:\2026Autumn Semester File\软管\实验二\docs\recovery-20260921-v1\source\backend\src\test\java\com\classroom\ai\modules\course\service\CourseImportServiceTest.java使用了未经检查或不安全的操作。
+[INFO] /D:/2026Autumn Semester File/软管/实验二/docs/recovery-20260921-v1/source/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ classroom-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.classroom.ai.ApiExceptionHandlerTest
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\a3185\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.19\byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+15:39:36.645 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:36.647 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:36.650 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 2 ms
+15:39:36.797 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:36.797 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:36.798 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:36.819 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:36.819 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:36.819 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.652 s -- in com.classroom.ai.ApiExceptionHandlerTest
+[INFO] Running com.classroom.ai.modules.attendance.AttendanceServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.217 s -- in com.classroom.ai.modules.attendance.AttendanceServiceTest
+[INFO] Running com.classroom.ai.modules.auth.AuthControllerTest
+15:39:37.257 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:37.258 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:37.258 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:37.274 [main] WARN org.springframework.web.servlet.PageNotFound -- No mapping for POST /api/v1/auth/register-supervisor
+15:39:37.281 [main] WARN org.springframework.web.servlet.PageNotFound -- No endpoint POST /api/v1/auth/register-supervisor.
+15:39:37.292 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:37.292 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:37.292 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:37.315 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:37.315 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:37.315 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:37.375 [main] INFO com.classroom.ai.modules.auth.controller.AuthController -- 【密码安全迁移】账号 [guojun] 的明文密码已成功透明升级为 BCrypt 哈希
+15:39:37.416 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:37.416 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:37.416 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:37.425 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:37.425 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:37.425 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.307 s -- in com.classroom.ai.modules.auth.AuthControllerTest
+[INFO] Running com.classroom.ai.modules.auth.DirectorSupervisorManagementTest
+15:39:37.510 [main] INFO com.classroom.ai.modules.auth.controller.DirectorController -- 【主任创建督导成功】主任: 李主任, 新督导: new_sup, 授权专业: SE
+15:39:37.516 [main] INFO com.classroom.ai.modules.auth.controller.DirectorController -- 【主任更新督导专业授权】主任: 李主任, 督导: sup.test, 最新授权: CS;SE
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.069 s -- in com.classroom.ai.modules.auth.DirectorSupervisorManagementTest
+[INFO] Running com.classroom.ai.modules.course.CourseAcceptanceRegressionTest
+15:39:37.720 [main] INFO com.classroom.ai.modules.course.service.impl.CourseImportServiceImpl -- 【课程导入预览】操作人: review_director, 批次: eb707665-636b-4718-ba4b-6e6f792d6378, 总行数: 1, 有效行: 1, 错误行: 0
+15:39:37.745 [main] INFO com.classroom.ai.modules.course.service.impl.CourseImportServiceImpl -- 【课程导入预览】操作人: review_director, 批次: ebedea92-77df-4b90-910f-2b887b36a7d7, 总行数: 1, 有效行: 0, 错误行: 1
+15:39:37.752 [main] INFO com.classroom.ai.modules.course.service.impl.CourseImportServiceImpl -- 【课程导入预览】操作人: review_director, 批次: 0c2b78fd-02d5-4b39-8dff-4e1117ca4845, 总行数: 1, 有效行: 1, 错误行: 0
+15:39:37.765 [main] INFO com.classroom.ai.modules.course.service.impl.CourseImportServiceImpl -- 【课程导入预览】操作人: review_director, 批次: d2eab402-4ade-481f-8c79-c4c1d52f9969, 总行数: 1, 有效行: 1, 错误行: 0
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.473 s -- in com.classroom.ai.modules.course.CourseAcceptanceRegressionTest
+[INFO] Running com.classroom.ai.modules.course.CourseAuthorizationServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in com.classroom.ai.modules.course.CourseAuthorizationServiceTest
+[INFO] Running com.classroom.ai.modules.course.CourseBrowserMysqlTest
+[WARNING] Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0 s -- in com.classroom.ai.modules.course.CourseBrowserMysqlTest
+[INFO] Running com.classroom.ai.modules.course.CourseContentRevisionTest
+15:39:38.077 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:38.077 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:38.078 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+15:39:38.116 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:38.116 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:38.116 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:38.125 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:38.125 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:38.125 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:38.167 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:38.167 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:38.167 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:38.176 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:38.176 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:38.176 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:38.182 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:38.183 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:38.183 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+15:39:38.210 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+15:39:38.210 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+15:39:38.210 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.174 s -- in com.classroom.ai.modules.course.CourseContentRevisionTest
+[INFO] Running com.classroom.ai.modules.course.CourseHttpAuthorizationTest
+15:39:38.308 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.classroom.ai.modules.course.CourseHttpAuthorizationTest]: CourseHttpAuthorizationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:39:38.722 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.course.CourseHttpAuthorizationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-09-21T15:39:39.093+08:00  INFO 12724 --- [classroom-backend] [           main] c.c.a.m.c.CourseHttpAuthorizationTest    : Starting CourseHttpAuthorizationTest using Java 21.0.11 with PID 12724 (started by a3185 in D:\2026Autumn Semester File\软管\实验二\docs\recovery-20260921-v1\source\backend)
+2026-09-21T15:39:39.096+08:00  INFO 12724 --- [classroom-backend] [           main] c.c.a.m.c.CourseHttpAuthorizationTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-21T15:39:40.992+08:00  WARN 12724 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: [REDACTED: temporary test credential]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-09-21T15:39:41.009+08:00  INFO 12724 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-09-21T15:39:41.706+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-21T15:39:41.706+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-21T15:39:41.707+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-21T15:39:41.740+08:00  INFO 12724 --- [classroom-backend] [           main] c.c.a.m.c.CourseHttpAuthorizationTest    : Started CourseHttpAuthorizationTest in 2.983 seconds (process running for 7.145)
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.876 s -- in com.classroom.ai.modules.course.CourseHttpAuthorizationTest
+[INFO] Running com.classroom.ai.modules.course.CourseImportTest
+2026-09-21T15:39:42.099+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-09-21T15:39:42.099+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-21T15:39:42.100+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-21T15:39:42.115+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-09-21T15:39:42.115+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-21T15:39:42.115+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-21T15:39:42.132+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-09-21T15:39:42.132+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-21T15:39:42.132+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-21T15:39:42.141+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-09-21T15:39:42.141+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-21T15:39:42.141+08:00  INFO 12724 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.052 s -- in com.classroom.ai.modules.course.CourseImportTest
+[INFO] Running com.classroom.ai.modules.course.CourseOfferingHistoryTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in com.classroom.ai.modules.course.CourseOfferingHistoryTest
+[INFO] Running com.classroom.ai.modules.course.CourseScheduleConflictTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.classroom.ai.modules.course.CourseScheduleConflictTest
+[INFO] Running com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest
+[INFO] Running com.classroom.ai.modules.course.CourseSchedulingMysqlTest
+[WARNING] Tests run: 20, Failures: 0, Errors: 0, Skipped: 20, Time elapsed: 0.002 s -- in com.classroom.ai.modules.course.CourseSchedulingMysqlTest
+[INFO] Running com.classroom.ai.modules.course.CourseSupervisorRbacTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.classroom.ai.modules.course.CourseSupervisorRbacTest
+[INFO] Running com.classroom.ai.modules.course.CourseWorkflowMysqlTest
+[WARNING] Tests run: 11, Failures: 0, Errors: 0, Skipped: 11, Time elapsed: 0 s -- in com.classroom.ai.modules.course.CourseWorkflowMysqlTest
+[INFO] Running com.classroom.ai.modules.course.service.CourseImportServiceTest
+2026-09-21T15:39:42.230+08:00  INFO 12724 --- [classroom-backend] [           main] c.c.a.m.c.s.i.CourseImportServiceImpl    : 【课程导入预览】操作人: director_test, 批次: 730b4dd3-bfa6-42d4-9bf2-d9385cecb9f3, 总行数: 7, 有效行: 1, 错误行: 6
+2026-09-21T15:39:42.242+08:00  INFO 12724 --- [classroom-backend] [           main] c.c.a.m.c.s.i.CourseImportServiceImpl    : 【课程导入预览】操作人: director_test, 批次: 1ddcfdb1-b32d-4576-8981-b3ce508baf26, 总行数: 1, 有效行: 1, 错误行: 0
+2026-09-21T15:39:42.245+08:00  INFO 12724 --- [classroom-backend] [           main] c.c.a.m.c.s.i.CourseImportServiceImpl    : 【课程导入预览】操作人: director_test, 批次: 6dec31f1-c962-4224-85d3-3fc648d913f3, 总行数: 2, 有效行: 2, 错误行: 0
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in com.classroom.ai.modules.course.service.CourseImportServiceTest
+[INFO] Running com.classroom.ai.modules.course.util.CsvParserUtilTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.classroom.ai.modules.course.util.CsvParserUtilTest
+[INFO] Running com.classroom.ai.modules.resource.CourseResourceServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s -- in com.classroom.ai.modules.resource.CourseResourceServiceTest
+[INFO] Running com.classroom.ai.modules.supervision.SupervisionAnalyticsTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.060 s -- in com.classroom.ai.modules.supervision.SupervisionAnalyticsTest
+[INFO] Running com.classroom.ai.modules.supervision.SupervisionServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in com.classroom.ai.modules.supervision.SupervisionServiceTest
+[INFO] Running com.classroom.ai.RegressionTest
+2026-09-21T15:39:42.807+08:00  INFO 12724 --- [classroom-backend] [           main] c.c.ai.service.impl.FaceServiceImpl      : Cache miss or empty, loading face features from MySQL...
+[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.610 s -- in com.classroom.ai.RegressionTest
+[INFO] Running com.classroom.ai.UploadPathsTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 s -- in com.classroom.ai.UploadPathsTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[WARNING] Tests run: 139, Failures: 0, Errors: 0, Skipped: 32
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18.665 s
+[INFO] Finished at: 2026-09-21T15:39:43+08:00
+[INFO] ------------------------------------------------------------------------
+
+> classroom-ai-frontend@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ student id must not escape file directories (0.7514ms)
+✔ upload route prevents traversal and non-image reads (0.3038ms)
+✔ missing executable rejects without crashing the dev server (11.1787ms)
+✔ nonzero extraction exit is failure, zero is success (111.5063ms)
+✔ webcam verification launches vision script and cleans its shared upload (63.7903ms)
+✔ lookup stream uses a fraction, including empty classrooms (0.4622ms)
+✔ selected offering recalculates absence and attendance together (0.1089ms)
+✔ HTTP 200 business failures reject and preserve backend details (0.626ms)
+✔ successful empty responses remain valid (0.0918ms)
+✔ HTTP errors preserve response metadata and readable business message (0.1667ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 257.0756
+
+> classroom-ai-frontend@1.0.0 build
+> vue-tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json && vite build --config vite.config.ts
+
+vite v5.4.21 building for production...
+transforming...
+✓ 2101 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.92 kB │ gzip:   0.60 kB
+dist/assets/index-BCL4i176.css     48.23 kB │ gzip:   8.50 kB
+dist/assets/index-6JtRsfBY.js   1,448.50 kB │ gzip: 472.61 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 8.23s
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.200s
+
+OK
+
+���ڶ�ȡͼƬ: test.jpg
+
+���ڶ�ȡͼƬ: test.jpg
+
+[SUCCESS] ѧ�� [Test (TEST)] ����ע����ɣ�����ά��: 512
+
+���ڶ�ȡͼƬ: test.jpg
+[ERROR] �ļ�������: test.jpg
+
+���ڶ�ȡͼƬ: test.jpg
+[ERROR] �޷�����ͼƬ
+
+���ڶ�ȡͼƬ: test.jpg
+[ERROR] δ��ͼƬ�м�⵽��Ч������
+All automated checks passed.

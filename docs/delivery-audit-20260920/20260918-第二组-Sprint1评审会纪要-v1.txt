@@ -1,0 +1,65 @@
+/body (body)
+/body/p[1] (paragraph) "东北大学软件学院《软件项目管理》实验报告交付物" style=Normal align=center spaceBefore=0pt spaceAfter=2pt lineSpacing=1.15x lineRule=auto font.latin=Times New Roman size=10.5pt bold=false italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/p[1]/r[1] (run) "东北大学软件学院《软件项目管理》实验报告交付物" font.latin=Times New Roman size=10.5pt bold=false italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/p[2] (paragraph) "交付物二：Sprint 1 评审会会议纪要" style=Normal align=center spaceBefore=6pt spaceAfter=12pt lineSpacing=1.2x lineRule=auto font.latin=Times New Roman size=18pt bold=true italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/p[2]/r[1] (run) "交付物二：Sprint 1 评审会会议纪要" font.latin=Times New Roman size=18pt bold=true italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/tbl[1] (table) cols=2 rows=6 _gridCols=2 border.top=single border.top.sz=8 border.top.color=#000000 border.top.space=0 border.bottom=single border.bottom.sz=8 border.bottom.color=#000000 border.bottom.space=0 border.insideH=single border.insideH.sz=4 border.insideH.color=#000000 border.insideH.space=0 border.insideV=nil border.left=nil border.right=nil width=auto align=center layout=fixed tblLook=04A0 firstRow=true firstCol=true bandedRows=true colWidths=4649dxa,4649dxa
+/body/tbl[1]/tr[1] (row)
+/body/tbl[1]/tr[1]/tc[1] (cell) "项目" children=1 width=1814dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=true italic=false color=#000000
+/body/tbl[1]/tr[1]/tc[2] (cell) "内容" children=1 width=7483dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=true italic=false color=#000000
+/body/tbl[1]/tr[2] (row)
+/body/tbl[1]/tr[2]/tc[1] (cell) "课程 / 实验" children=1 width=1814dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[2]/tc[2] (cell) "软件项目管理 / 实验二 Sprint 1 迭代研发与敏捷管理（4学时，代号蜂鸟）" children=1 width=7483dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[3] (row)
+/body/tbl[1]/tr[3]/tc[1] (cell) "团队 / 项目" children=1 width=1814dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[3]/tc[2] (cell) "第二组 / 背景B“爱教学”教学质量数字化管理平台" children=1 width=7483dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[4] (row)
+/body/tbl[1]/tr[4]/tc[1] (cell) "本轮DRI" children=1 width=1814dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[4]/tc[2] (cell) "郭振顺（20246074）" children=1 width=7483dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[5] (row)
+/body/tbl[1]/tr[5]/tc[1] (cell) "团队成员" children=1 width=1814dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[5]/tc[2] (cell) "郭振顺（20246074）、周宇斌（20246085）、王嘉伦（20245727）、沈越（20245796）" children=1 width=7483dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[6] (row)
+/body/tbl[1]/tr[6]/tc[1] (cell) "指导教师" children=1 width=1814dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/tbl[1]/tr[6]/tc[2] (cell) "郭军" children=1 width=7483dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=10pt bold=false italic=false color=#000000
+/body/p[3] (paragraph) "" style=Normal spaceBefore=0pt spaceAfter=6pt effective.size=11pt effective.size.src=/docDefaults
+/body/p[4] (paragraph) "一、 Sprint 评审会议纪要（指导书 表6）" style=Normal spaceBefore=10pt spaceAfter=4pt keepNext=true font.latin=Times New Roman size=14pt bold=true italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/p[4]/r[1] (run) "一、 Sprint 评审会议纪要（指导书 表6）" font.latin=Times New Roman size=14pt bold=true italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/p[5] (paragraph) "表6　Sprint评审会议纪要" style=Normal spaceBefore=6pt spaceAfter=2pt keepNext=true font.latin=Times New Roman size=10.5pt bold=true italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/p[5]/r[1] (run) "表6　Sprint评审会议纪要" font.latin=Times New Roman size=10.5pt bold=true italic=false color=#000000 effective.font.ascii=Times New Roman effective.font.hAnsi=Times New Roman
+/body/tbl[2] (table) cols=2 rows=11 _gridCols=2 border.top=single border.top.sz=8 border.top.color=#000000 border.top.space=0 border.bottom=single border.bottom.sz=8 border.bottom.color=#000000 border.bottom.space=0 border.insideH=single border.insideH.sz=4 border.insideH.color=#000000 border.insideH.space=0 border.insideV=nil border.left=nil border.right=nil width=auto align=center layout=fixed tblLook=04A0 firstRow=true firstCol=true bandedRows=true colWidths=4649dxa,4649dxa
+/body/tbl[2]/tr[1] (row)
+/body/tbl[2]/tr[1]/tc[1] (cell) "要素" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=center font=Times New Roman size=9.5pt bold=true italic=false color=#000000
+/body/tbl[2]/tr[1]/tc[2] (cell) "内容" children=1 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=center font=Times New Roman size=9.5pt bold=true italic=false color=#000000
+/body/tbl[2]/tr[2] (row)
+/body/tbl[2]/tr[2]/tc[1] (cell) "会议时间/地点" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[2]/tc[2] (cell) "2026年9月18日 15:30 - 17:30 | 文管学馆 A447 交互研讨室 / 敏捷实训台" children=1 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[3] (row)
+/body/tbl[2]/tr[3]/tc[1] (cell) "参会人员（含列席教师/干系人）" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[3]/tc[2] (cell) "郭振顺（主持）、周宇斌、王嘉伦、沈越，列席干系人：郭军 教授（课程主讲教师/学院教研室主任业务代表）" children=1 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[4] (row)
+/body/tbl[2]/tr[4]/tc[1] (cell) "主持人（DRI/PO）" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[4]/tc[2] (cell) "郭振顺（20246074，第二组 Sprint 1 轮值 DRI 兼 PO）" children=1 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[5] (row)
+/body/tbl[2]/tr[5]/tc[1] (cell) "Sprint目标回顾" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[5]/tc[2] (cell) "回顾目标：打通标准化课程档案与排课底座，实现免硬件依赖的课程导入、大纲修订、防冲突排课与督导多维检索全链路。目标达成度：100%。" children=1 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[6] (row)
+/body/tbl[2]/tr[6]/tc[1] (cell) "已演示的用户故事（编号、标题、是否达到DoD）" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[6]/tc[2] (cell) "1. US-01 课程档案录入与批量导入 (4pt) —— 【已达到 DoD】2. US-02 课程简介与大纲目标发布 (3pt) —— 【已达到 DoD】3. US-03 开课统筹与多教师排课防冲突 (4pt) —— 【已达到 DoD】4. US-04 历史开课与学生人次查询 (2pt) —— 【已达到 DoD】5. US-06 多维大纲检索与权限控制 (3pt) —— 【已达到 DoD】全部 5 条故事共计 16 故事点均通过活体验收，符合 DoD。" children=6 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[7] (row)
+/body/tbl[2]/tr[7]/tc[1] (cell) "未完成的用户故事（编号、标题、未完成原因）" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[7]/tc[2] (cell) "无。本轮计划的 5 条用户故事全部高标准按期交付，未完成故事数量为 0。" children=1 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[8] (row)
+/body/tbl[2]/tr[8]/tc[1] (cell) "增量演示情况摘要（功能截图/录屏路径）" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[8]/tc[2] (cell) "1. 运行模式演示：启动前端直接处于【实验二·敏捷无硬件模式】，顶部展示一键切换身份条（主任、郭军老师、王督导）；2. US-01 演示：下载带 BOM 的 CSV 模板，上传含错误数据行，系统逐行标红并拦截，确认后整批原子入库；3. US-02 演示：郭军老师保存大纲草稿成功，发布时因缺失考核方式被拦截；模拟并发修改触发乐观锁返回 409 冲突；4. US-03 演示：在文管 A447 星期2 第1-2节排入新课，系统触发教室冲突；在另一教室将郭军排入同时段，触发教师冲突拦截；5. US-04 演示：查看《软件工程2024级1班》在读选课名单为 95 人，结课班级读取快照 88 人，全学期累计人次 183 人次；6. US-06 演示：王督导登录后仅能检索 SE 专业课程，检索未授权专业 CS 立即返回 403 Forbidden。源码与演示环境归档于：output/20260918-第二组-Sprint1源代码-v1.zip。" children=7 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[9] (row)
+/body/tbl[2]/tr[9]/tc[1] (cell) "干系人反馈要点" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[9]/tc[2] (cell) "郭军 教授（指导教师/业务代表）：“第二组在 Sprint 1 中展现了扎实的工程素质。不仅保质保量完成了预定的 16 个故事点，而且排课防冲突考虑了同一位老师跨教室的排课冲突，督导检索加入了严密的 RBAC 权限隔离。特别赞赏团队主动实现了'免硬件敏捷模式'，使系统在没有外设摄像头的单机环境下也能流畅跑通全部教务主流程。全票准予通过验收！”" children=1 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[10] (row)
+/body/tbl[2]/tr[10]/tc[1] (cell) "产品待办列表可能的调整方向" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[10]/tc[2] (cell) "结合干系人反馈，Sprint 2 将聚焦“善督导与优课堂”：1. 督导听评课支持 BOPPPS 六步法指标实时打分，并引入评价 24 小时延迟脱敏机制（US-13, US-17）；2. 课堂考勤分析接入物理隔离的本地人脸特征底座，实现抬头率与出勤率时序分析（US-18, US-20）。" children=3 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[11] (row)
+/body/tbl[2]/tr[11]/tc[1] (cell) "行动项（事项＋责任人＋完成时限）" children=1 width=2381dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/tbl[2]/tr[11]/tc[2] (cell) "1. 将不可变标签 v0.1.0-sprint1 正式推送至 GitHub 远端开源仓库（周宇斌，09-18 18:00）；2. 整理 Sprint 1 完整工程资产与接口交接手册给下一轮 DRI 王嘉伦（郭振顺，09-18 19:00）；3. 立即召开 Sprint 回顾会，复盘人机协同得失（全员，09-18 17:45）。" children=3 width=6917dxa valign=center padding.top=50 padding.bottom=50 padding.left=100 padding.right=100 align=left font=Times New Roman size=9pt bold=false italic=false color=#000000
+/body/p[6] (paragraph) "" style=Normal spaceBefore=0pt spaceAfter=4pt effective.size=11pt effective.size.src=/docDefaults
+/body/sectPr[1] (section) pageWidth=21cm pageHeight=29.7cm marginTop=2.2cm marginBottom=2cm marginLeft=2.3cm marginRight=2.3cm marginHeader=1.27cm marginFooter=1.27cm marginGutter=0cm headerRef.default=/header[1] headerRef=/header[1] footerRef.default=/footer[1] footerRef=/footer[1] columns=1 columnSpace=1.27cm docGrid.linePitch=360
