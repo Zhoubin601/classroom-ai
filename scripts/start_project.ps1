@@ -89,18 +89,18 @@ try {
 
     if (-not $NonInteractive) {
         Write-Host ""
-        Write-Host "服务已在后台运行。按回车键关闭本窗口（不影响后台服务）..." -ForegroundColor Gray
+        Write-Host "Services are running in background. Press Enter to close this window..." -ForegroundColor Gray
         Read-Host
     }
 } catch {
     Write-Host ""
     Write-Host "==================================================" -ForegroundColor Red
-    Write-Host " [ERROR] 启动失败: $($_.Exception.Message)" -ForegroundColor Red
-    Write-Host " 详细日志请查看: runtime/logs/" -ForegroundColor Yellow
+    Write-Host " [ERROR] Startup failed: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host " Log files are located in: runtime/logs/" -ForegroundColor Yellow
     Write-Host "==================================================" -ForegroundColor Red
     Write-Host ""
     if (-not $NonInteractive) {
-        Read-Host "按回车键退出..."
+        Read-Host "Press Enter to exit..."
     }
     exit 1
 } finally {
