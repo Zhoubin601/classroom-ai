@@ -29,8 +29,11 @@ try {
         $maven = Get-Command mvn -ErrorAction SilentlyContinue
         if (-not $maven) { $maven = Get-Command mvn.cmd -ErrorAction SilentlyContinue }
         $mavenPath = if ($maven) { $maven.Source } else {
-            Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
-                Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
+            $localMvn = Join-Path $projectRoot 'backend/.tools/apache-maven-3.9.6/bin/mvn.cmd'
+            if (Test-Path $localMvn) { $localMvn } else {
+                Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
+                    Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
+            }
         }
 
         $jarRel = 'backend/target/classroom-backend-0.0.1-SNAPSHOT.jar'

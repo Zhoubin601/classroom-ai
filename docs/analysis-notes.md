@@ -805,3 +805,24 @@ My code document has the following content:
 
 ## 2026-09-21 收尾判断
 US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT 浏览器和增量迁移验证通过；发现的 ID 列表空值检查、归档时间精度、跨教研室授权保留和写死督导身份已修复。AI 审查与自动化证据不能替代用户要求的人工 diff 审查、真实会议记录和最终验收；故完整 DoD 及正式新版本发布暂不标记完成。清单与运行指南另存本日过程文档。
+
+## 2026-09-22 v3源码包在新电脑启动失败分析与v4源码包重构
+### 1. 故障根因深度分析
+- 现象：在新电脑（`C:/Users/夏末/Desktop/test`）首次运行 `start_project.bat` 时，Docker 容器就绪，但在编译打包后端时抛出 100 个编译期“找不到符号”错误，构建失败退出。
+- 根因：
+  1. `v3.zip` 遵循了传统源码包不含 `target/` 产物的惯例，因此新电脑首次启动必须触发 Maven 编译打包。
+  2. `backend/pom.xml` 中配置了 `maven-compiler-plugin:3.13.0`，但未配置 `<annotationProcessorPaths>`。在 Java 21 环境下，JDK 21 对类路径注解处理器隐式扫描进行了限制，导致 Lombok 的 `@Data`, `@Builder`, `@Slf4j`, `@AllArgsConstructor` 注解未被处理，生成的代码中缺失所有 getter/setter/builder/log，直接造成 100 处编译失败。
+  3. `scripts/start_project.ps1` 原先仅从 PATH 和 `~/.m2/` 寻找 Maven，未利用项目内置的 `backend/.tools/apache-maven-3.9.6`。
+
+### 2. 解决方案与交付物设计
+1. **代码与配置修复**：
+   - 在 `backend/pom.xml` 的 `maven-compiler-plugin` 节点中显式添加 Lombok 注解处理器路径；
+   - 增强 `scripts/start_project.ps1`，当系统无 Maven 时自动 fallback 到 `backend/.tools/apache-maven-3.9.6/bin/mvn.cmd`。
+2. **双重保险打包（免编译秒启 + 支持源码编译）**：
+   - 执行 `mvn clean package -DskipTests` 生成 63MB 的 Spring Boot 最终可运行包 `backend/target/classroom-backend-0.0.1-SNAPSHOT.jar`；
+   - 将该预编译 jar 包直接纳入源码包。新环境解压后，`start_project.bat` 命中 `$jarExists = $true`，免去 Maven 编译及网络下载依赖步骤，秒级直启；
+   - 同时保留完整源码、Maven 工具与修复后的 `pom.xml`，即使用户执行 `-Rebuild` 也能 100% 编译成功。
+3. **打包命名与存放**：
+   - `output/20260922-第二组-Sprint1源代码-v4.zip`
+   - 同步提供至实验二 output 目录结构。
+
