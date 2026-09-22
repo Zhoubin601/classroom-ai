@@ -826,3 +826,14 @@ US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT
    - `output/20260922-第二组-Sprint1源代码-v4.zip`
    - 同步提供至实验二 output 目录结构。
 
+### 3. MySQL 数据库未初始化数据根因与三重保底修复
+- **根因剖析**：
+  1. Docker 官方 MySQL 镜像的 `/docker-entrypoint-initdb.d/` 机制仅在持久化数据卷（`/var/lib/mysql`）为空时执行一次。新电脑若在之前失败的启动中创建了卷，后续再启动将跳过执行。
+  2. 原 `initialize.sql` 仅包含 `DELETE FROM` 与 `INSERT INTO`，缺少全部 18 张表的 `CREATE TABLE IF NOT EXISTS` DDL；而 JPA 实体表（如 `t_course_offering`, `t_course_schedule`）原设计依赖 Hibernate `ddl-auto: update` 在 Spring Boot 启动后才建立，导致纯 SQL 方式预注入时报表不存在。
+  3. Spring Boot 的数据自动装载器 `TeachingDataInitializer` 原先被限定为 `@ConditionalOnProperty(name = "app.seed-demo", havingValue = "true")`，而 `application.yml` 默认未开启该属性。
+- **三重保底修复**：
+  - **第一重（自包含完整 DDL）**：在 `initialize.sql` 中补充全量 18 张数据表的 `CREATE TABLE IF NOT EXISTS` DDL 与 `USE classroom_ai`，彻底脱离对 Hibernate 运行顺序的依赖，保证任何纯 SQL 执行均 100% 成功。
+  - **第二重（启动脚本自动检测与管道注入）**：在 `scripts/start_project.ps1` 启动服务后增加自动探测（`SELECT count(*) FROM t_user_account`），一旦检测到数据为空，立即通过 `docker exec -i classroom-mysql mysql -uroot -proot classroom_ai < initialize.sql` 自动秒级灌入。
+  - **第三重（后端启动自愈保底）**：在 `application.yml` 中默认激活 `app.seed-demo: true`，并在启动参数中显式传递 `--app.seed-demo=true`，Spring Boot 启动时只要发现无数据会自动通过 JPA 初始化全部账号、教师、专业、学生档案与课程数据。
+
+
