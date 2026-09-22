@@ -8,6 +8,301 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
+
+CREATE DATABASE IF NOT EXISTS `classroom_ai` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `classroom_ai`;
+
+CREATE TABLE IF NOT EXISTS `t_major` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `major_code` VARCHAR(32) NOT NULL,
+    `major_name` VARCHAR(64) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_major_code` (`major_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_teacher` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `teacher_code` VARCHAR(32) NOT NULL,
+    `teacher_name` VARCHAR(64) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `title` VARCHAR(32) DEFAULT NULL,
+    `user_id` BIGINT DEFAULT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_teacher_code` (`teacher_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_user_account` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(64) NOT NULL,
+    `password` VARCHAR(128) NOT NULL,
+    `real_name` VARCHAR(64) NOT NULL,
+    `role` VARCHAR(32) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `teacher_code` VARCHAR(32) DEFAULT NULL,
+    `authorized_majors` VARCHAR(255) DEFAULT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_user_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_code` VARCHAR(64) NOT NULL,
+    `course_name` VARCHAR(128) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `teacher_name` VARCHAR(64) DEFAULT NULL,
+    `major_id` BIGINT DEFAULT NULL,
+    `major_code` VARCHAR(32) DEFAULT NULL,
+    `credits` DOUBLE NOT NULL,
+    `hours` INT NOT NULL,
+    `theory_hours` INT DEFAULT NULL,
+    `practice_hours` INT DEFAULT NULL,
+    `course_type` VARCHAR(32) DEFAULT NULL,
+    `prerequisites` VARCHAR(255) DEFAULT NULL,
+    `description` TEXT DEFAULT NULL,
+    `objectives` TEXT DEFAULT NULL,
+    `assessment_method` TEXT DEFAULT NULL,
+    `created_by` VARCHAR(128) DEFAULT NULL,
+    `updated_by` VARCHAR(128) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_course_code` (`course_code`),
+    KEY `idx_course_major_code` (`major_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `student` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `student_id` VARCHAR(64) NOT NULL,
+    `name` VARCHAR(64) NOT NULL,
+    `gender` VARCHAR(16) DEFAULT 'UNKNOWN',
+    `class_name` VARCHAR(64) DEFAULT NULL,
+    `avatar_url` VARCHAR(255) DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_student_id` (`student_id`),
+    KEY `idx_class_name` (`class_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `face_feature` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `student_id` VARCHAR(64) NOT NULL,
+    `feature_dim` INT NOT NULL DEFAULT 512,
+    `feature_vector` MEDIUMTEXT NOT NULL,
+    `image_path` VARCHAR(255) DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `idx_student_id` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_offering` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `academic_term` VARCHAR(32) NOT NULL,
+    `teacher_name` VARCHAR(64) NOT NULL,
+    `teacher_code` VARCHAR(32) DEFAULT NULL,
+    `class_name` VARCHAR(64) NOT NULL,
+    `major_id` BIGINT DEFAULT NULL,
+    `major_code` VARCHAR(32) DEFAULT NULL,
+    `student_count` INT NOT NULL,
+    `snapshot_student_count` INT DEFAULT NULL,
+    `is_snapshot_frozen` BIT(1) DEFAULT b'0',
+    `status` VARCHAR(32) DEFAULT 'IN_PROGRESS',
+    `archived_at` DATETIME(6) DEFAULT NULL,
+    `archived_by` VARCHAR(64) DEFAULT NULL,
+    `history_snapshot` LONGTEXT DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_offering_course` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_schedule` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `classroom` VARCHAR(64) NOT NULL,
+    `week_range` VARCHAR(64) NOT NULL,
+    `start_week` INT DEFAULT 1,
+    `end_week` INT DEFAULT 16,
+    `day_of_week` INT NOT NULL,
+    `start_period` INT NOT NULL,
+    `end_period` INT NOT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_classroom_time` (`classroom`, `day_of_week`, `start_period`, `end_period`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_offering_teacher` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `teacher_id` BIGINT NOT NULL,
+    `teacher_code` VARCHAR(32) DEFAULT NULL,
+    `teacher_name` VARCHAR(64) NOT NULL,
+    `role_in_offering` VARCHAR(32) DEFAULT 'PRIMARY',
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `idx_offering_teacher` (`offering_id`, `teacher_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_offering_student_enrollment` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `student_id` BIGINT DEFAULT NULL,
+    `student_number` VARCHAR(64) NOT NULL,
+    `student_name` VARCHAR(64) NOT NULL,
+    `admin_class_name` VARCHAR(64) DEFAULT NULL,
+    `enrolled_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_offering_student` (`offering_id`, `student_number`),
+    KEY `idx_offering_id` (`offering_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_syllabus` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `version` VARCHAR(32) NOT NULL,
+    `status` VARCHAR(32) NOT NULL DEFAULT 'APPROVED',
+    `author_teacher` VARCHAR(64) DEFAULT NULL,
+    `locked_by` VARCHAR(64) DEFAULT NULL,
+    `course_goals` TEXT DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_syllabus_course` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_graduation_indicator` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `syllabus_id` BIGINT DEFAULT NULL,
+    `indicator_code` VARCHAR(32) NOT NULL,
+    `requirement_category` VARCHAR(64) NOT NULL,
+    `indicator_description` TEXT DEFAULT NULL,
+    `support_weight` VARCHAR(8) NOT NULL,
+    `target_goal` VARCHAR(64) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_course_indicator` (`course_id`, `indicator_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_resource` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `chapter` VARCHAR(128) NOT NULL,
+    `resource_name` VARCHAR(255) NOT NULL,
+    `file_type` VARCHAR(32) NOT NULL,
+    `file_url` VARCHAR(512) NOT NULL,
+    `file_size` VARCHAR(32) DEFAULT NULL,
+    `file_size_bytes` BIGINT DEFAULT NULL,
+    `tag` VARCHAR(32) NOT NULL,
+    `uploader_teacher` VARCHAR(64) DEFAULT NULL,
+    `version` VARCHAR(32) DEFAULT 'v1.0',
+    `is_public` BIT(1) DEFAULT b'1',
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_resource_course` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_supervision_evaluation` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `supervisor_name` VARCHAR(64) NOT NULL,
+    `evaluate_date` VARCHAR(32) NOT NULL,
+    `listen_topic` VARCHAR(128) NOT NULL,
+    `score_attitude` DOUBLE NOT NULL,
+    `score_content` DOUBLE NOT NULL,
+    `score_method` DOUBLE NOT NULL,
+    `score_effect` DOUBLE NOT NULL,
+    `total_score` DOUBLE NOT NULL,
+    `highlights` TEXT DEFAULT NULL,
+    `suggestions` TEXT DEFAULT NULL,
+    `status` VARCHAR(32) DEFAULT 'PUBLISHED',
+    `submit_time` DATETIME(6) DEFAULT NULL,
+    `publish_time` DATETIME(6) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_eval_offering` (`offering_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_attendance_session` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `week_number` INT NOT NULL,
+    `day_of_week` INT NOT NULL,
+    `period` INT NOT NULL,
+    `classroom` VARCHAR(64) NOT NULL,
+    `expected_count` INT NOT NULL,
+    `actual_count` INT NOT NULL DEFAULT 0,
+    `attendance_rate` DOUBLE DEFAULT 0.0,
+    `avg_lookup_rate` DOUBLE DEFAULT 0.0,
+    `status` VARCHAR(32) DEFAULT 'IN_PROGRESS',
+    `start_time` DATETIME(6) DEFAULT NULL,
+    `end_time` DATETIME(6) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    `operator_name` VARCHAR(64) DEFAULT NULL,
+    `operator_role` VARCHAR(32) DEFAULT NULL,
+    `operator_title` VARCHAR(32) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_session_offering` (`offering_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_term_schedule_lock` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `academic_term` VARCHAR(32) NOT NULL,
+    `locked_by` VARCHAR(64) NOT NULL,
+    `locked_at` DATETIME(6) NOT NULL,
+    `token` VARCHAR(64) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_term_lock` (`academic_term`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_content_revision` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `description` TEXT DEFAULT NULL,
+    `objectives` TEXT DEFAULT NULL,
+    `assessment_method` TEXT DEFAULT NULL,
+    `version` INT NOT NULL,
+    `publish_version` INT DEFAULT NULL,
+    `lock_version` INT NOT NULL DEFAULT 0,
+    `status` VARCHAR(32) NOT NULL,
+    `editor_name` VARCHAR(64) DEFAULT NULL,
+    `publisher_code` VARCHAR(32) DEFAULT NULL,
+    `publisher_name` VARCHAR(64) DEFAULT NULL,
+    `published_at` DATETIME(6) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_course_version` (`course_id`, `version`),
+    KEY `idx_course_status` (`course_id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_import_log` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `batch_id` VARCHAR(64) NOT NULL,
+    `operator` VARCHAR(64) NOT NULL,
+    `file_name` VARCHAR(255) DEFAULT NULL,
+    `total_rows` INT DEFAULT NULL,
+    `success_count` INT DEFAULT NULL,
+    `error_count` INT DEFAULT NULL,
+    `status` VARCHAR(32) NOT NULL,
+    `message` VARCHAR(512) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_import_batch_id` (`batch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- 1. 专业独立字典表 (t_major)
 DELETE FROM `t_major`;
 INSERT INTO `t_major` (`id`, `major_code`, `major_name`, `department`) VALUES
@@ -41,34 +336,28 @@ INSERT INTO `t_user_account` (`id`, `username`, `password`, `real_name`, `role`,
 (7, 'dongxm', '123456', '董晓梅', 'TEACHER', '人工智能教研室', 'T2024005', NULL),
 (8, 'liubo', '123456', '刘博', 'TEACHER', '软件工程教研室', 'T2024006', NULL),
 (9, 'chenlx', '123456', '陈立新', 'TEACHER', '网络空间安全教研室', 'T2024007', NULL),
-(10, 'sunzg', '123456', '孙志刚', 'TEACHER', '数据科学教研室', 'T2024008', NULL),
-(11, 'director_arch', '123456', '周主任', 'DIRECTOR', '计算机系统结构教研室', NULL, NULL),
-(12, 'director_base', '123456', '赵主任', 'DIRECTOR', '基础软件教研室', NULL, NULL),
-(13, 'director_sys', '123456', '王主任', 'DIRECTOR', '系统软件教研室', NULL, NULL),
-(14, 'director_ai', '123456', '董主任', 'DIRECTOR', '人工智能教研室', NULL, NULL),
-(15, 'director_sec', '123456', '陈主任', 'DIRECTOR', '网络空间安全教研室', NULL, NULL),
-(16, 'director_ds', '123456', '孙主任', 'DIRECTOR', '数据科学教研室', NULL, NULL);
+(10, 'sunzg', '123456', '孙志刚', 'TEACHER', '数据科学教研室', 'T2024008', NULL);
 
 -- 4. 课程档案表 (t_course)
 DELETE FROM `t_course`;
-INSERT INTO `t_course` (`id`, `course_code`, `course_name`, `department`, `teacher_name`, `major_id`, `major_code`, `credits`, `hours`, `theory_hours`, `practice_hours`, `course_type`, `prerequisites`, `description`) VALUES
-(1, 'CS3001', '软件项目管理', '软件工程教研室', '郭军 (教授)', 1, 'SE', 3.0, 48, 36, 12, '专业核心课', '《软件工程导论》', '面向软件工程核心培养要求，讲授敏捷与传统项目管理体系、团队组织、WBS分解与人机协同。'),
-(2, 'CS1001', '软件工程导论', '软件工程教研室', '郭军 (教授)', 1, 'SE', 2.5, 40, 32, 8, '专业基础课', '《程序设计基础》', '介绍软件生命周期、软件工程方法学与工程规范。'),
-(3, 'CS4002', '敏捷软件工程实训', '软件工程教研室', '郭军 (教授)', 1, 'SE', 2.0, 32, 8, 24, '专业选修课', '《软件工程导论》、《面向对象程序设计》', '实战Scrum敏捷迭代演练与现代DevOps工具链实操。'),
-(4, 'CS2002', '计算机组成原理', '计算机系统结构教研室', '姜琳颖 (副教授)', 2, 'CS', 4.0, 64, 48, 16, '专业核心课', '《数字逻辑与数字系统》', '讲授单处理器计算机硬件组成与微架构指令系统。'),
-(5, 'CS2003', '数字逻辑与系统设计', '计算机系统结构教研室', '姜琳颖 (副教授)', 2, 'CS', 3.0, 48, 36, 12, '专业基础课', '《大学计算机基础》', '讲授逻辑代数基础、组合逻辑电路与时序逻辑电路设计。'),
-(6, 'CS2001', '数据结构与算法', '基础软件教研室', '赵广生 (讲师)', 2, 'CS', 4.0, 64, 48, 16, '专业基础课', '《C++程序设计》', '系统讲授线性表、树、图等核心数据结构与经典算法。'),
-(7, 'CS1002', 'C++高级程序设计', '基础软件教研室', '赵广生 (讲师)', 2, 'CS', 3.5, 56, 40, 16, '专业基础课', '无', '面向对象编程思维、类模板与现代C++ STL标准库实战。'),
-(8, 'CS3002', '操作系统原理', '系统软件教研室', '王伟 (副教授)', 2, 'CS', 3.5, 56, 44, 12, '专业核心课', '《计算机组成原理》', '进程线程管理、虚存管理与文件系统底层调度核心原理。'),
-(9, 'CS3008', '嵌入式Linux系统', '系统软件教研室', '王伟 (副教授)', 2, 'CS', 3.0, 48, 32, 16, '专业核心课', '《操作系统原理》、《计算机系统结构》', 'ARM架构下的Linux内核裁剪、交叉编译与设备驱动开发。'),
-(10, 'AI3001', '人工智能导论', '人工智能教研室', '董晓梅 (副教授)', 3, 'AI', 3.0, 48, 36, 12, '专业核心课', '《高等数学》、《离散数学》', '启发式搜索、知识图谱、专家系统及现代深度学习基础。'),
-(11, 'AI3002', '机器学习与模式识别', '人工智能教研室', '董晓梅 (副教授)', 3, 'AI', 3.5, 56, 40, 16, '专业核心课', '《线性代数》、《概率论与数理统计》', '分类聚类算法、支持向量机、集成学习与模型评估。'),
-(12, 'SE3002', '敏捷开发与人机协同', '软件工程教研室', '刘博 (副教授)', 1, 'SE', 2.5, 40, 24, 16, '专业选修课', '《软件项目管理》', '生成式AI辅助编程、代码审查协同与敏捷迭代。'),
-(13, 'SE3003', 'DevOps与持续交付', '软件工程教研室', '刘博 (副教授)', 1, 'SE', 3.0, 48, 32, 16, '专业核心课', '《操作系统原理》、《软件工程导论》', '容器化编排、CI/CD流水线构建与可观测性工程实践。'),
-(14, 'CS3003', '计算机网络与安全', '网络空间安全教研室', '陈立新 (教授)', 5, 'SEC', 3.5, 56, 42, 14, '专业核心课', '《计算机网络与安全》', 'OSI七层模型、TCP/IP协议族、密码学与网络攻击防御。'),
-(15, 'SEC3001', '信息安全攻防实践', '网络空间安全教研室', '陈立新 (教授)', 5, 'SEC', 3.0, 48, 20, 28, '专业核心课', '《计算机网络与安全》', '漏洞扫描分析、逆向工程、Web渗透测试与攻防演练。'),
-(16, 'DS2001', '数据库系统实现', '数据科学教研室', '孙志刚 (讲师)', 4, 'DS', 3.0, 48, 36, 12, '专业核心课', '《数据结构与算法》', '关系代数、B+树索引机制、事务ACID特性与查询优化器。'),
-(17, 'DS3001', '分布式大数据计算', '数据科学教研室', '孙志刚 (讲师)', 4, 'DS', 3.5, 56, 38, 18, '专业核心课', '《数据库系统实现》、《操作系统原理》', 'Hadoop与Spark计算引擎、流批一体处理与大规模数据分析。');
+INSERT INTO `t_course` (`id`, `course_code`, `course_name`, `department`, `teacher_name`, `credits`, `hours`, `theory_hours`, `practice_hours`, `course_type`, `prerequisites`, `description`) VALUES
+(1, 'CS3001', '软件项目管理', '软件工程教研室', '郭军 (教授)', 3.0, 48, 36, 12, '专业核心课', '《软件工程导论》', '面向软件工程核心培养要求，讲授敏捷与传统项目管理体系、团队组织、WBS分解与人机协同。'),
+(2, 'CS1001', '软件工程导论', '软件工程教研室', '郭军 (教授)', 2.5, 40, 32, 8, '专业基础课', '《程序设计基础》', '介绍软件生命周期、软件工程方法学与工程规范。'),
+(3, 'CS4002', '敏捷软件工程实训', '软件工程教研室', '郭军 (教授)', 2.0, 32, 8, 24, '专业选修课', '《软件工程导论》、《面向对象程序设计》', '实战Scrum敏捷迭代演练与现代DevOps工具链实操。'),
+(4, 'CS2002', '计算机组成原理', '计算机系统结构教研室', '姜琳颖 (副教授)', 4.0, 64, 48, 16, '专业核心课', '《数字逻辑与数字系统》', '讲授单处理器计算机硬件组成与微架构指令系统。'),
+(5, 'CS2003', '数字逻辑与系统设计', '计算机系统结构教研室', '姜琳颖 (副教授)', 3.0, 48, 36, 12, '专业基础课', '《大学计算机基础》', '讲授逻辑代数基础、组合逻辑电路与时序逻辑电路设计。'),
+(6, 'CS2001', '数据结构与算法', '基础软件教研室', '赵广生 (讲师)', 4.0, 64, 48, 16, '专业基础课', '《C++程序设计》', '系统讲授线性表、树、图等核心数据结构与经典算法。'),
+(7, 'CS1002', 'C++高级程序设计', '基础软件教研室', '赵广生 (讲师)', 3.5, 56, 40, 16, '专业基础课', '无', '面向对象编程思维、类模板与现代C++ STL标准库实战。'),
+(8, 'CS3002', '操作系统原理', '系统软件教研室', '王伟 (副教授)', 3.5, 56, 44, 12, '专业核心课', '《计算机组成原理》', '进程线程管理、虚存管理与文件系统底层调度核心原理。'),
+(9, 'CS3008', '嵌入式Linux系统', '系统软件教研室', '王伟 (副教授)', 3.0, 48, 32, 16, '专业核心课', '《操作系统原理》、《计算机系统结构》', 'ARM架构下的Linux内核裁剪、交叉编译与设备驱动开发。'),
+(10, 'AI3001', '人工智能导论', '人工智能教研室', '董晓梅 (副教授)', 3.0, 48, 36, 12, '专业核心课', '《高等数学》、《离散数学》', '启发式搜索、知识图谱、专家系统及现代深度学习基础。'),
+(11, 'AI3002', '机器学习与模式识别', '人工智能教研室', '董晓梅 (副教授)', 3.5, 56, 40, 16, '专业核心课', '《线性代数》、《概率论与数理统计》', '分类聚类算法、支持向量机、集成学习与模型评估。'),
+(12, 'SE3002', '敏捷开发与人机协同', '软件工程教研室', '刘博 (副教授)', 2.5, 40, 24, 16, '专业选修课', '《软件项目管理》', '生成式AI辅助编程、代码审查协同与敏捷迭代。'),
+(13, 'SE3003', 'DevOps与持续交付', '软件工程教研室', '刘博 (副教授)', 3.0, 48, 32, 16, '专业核心课', '《操作系统原理》、《软件工程导论》', '容器化编排、CI/CD流水线构建与可观测性工程实践。'),
+(14, 'CS3003', '计算机网络与安全', '网络空间安全教研室', '陈立新 (教授)', 3.5, 56, 42, 14, '专业核心课', '《计算机组成原理》', 'OSI七层模型、TCP/IP协议族、密码学与网络攻击防御。'),
+(15, 'SEC3001', '信息安全攻防实践', '网络空间安全教研室', '陈立新 (教授)', 3.0, 48, 20, 28, '专业核心课', '《计算机网络与安全》', '漏洞扫描分析、逆向工程、Web渗透测试与攻防演练。'),
+(16, 'DS2001', '数据库系统实现', '数据科学教研室', '孙志刚 (讲师)', 3.0, 48, 36, 12, '专业核心课', '《数据结构与算法》', '关系代数、B+树索引机制、事务ACID特性与查询优化器。'),
+(17, 'DS3001', '分布式大数据计算', '数据科学教研室', '孙志刚 (讲师)', 3.5, 56, 38, 18, '专业核心课', '《数据库系统实现》、《操作系统原理》', 'Hadoop与Spark计算引擎、流批一体处理与大规模数据分析。');
 
 -- 5. 学生档案表 (student) - 8个班级，每班严格恰好10人 (共80人)
 DELETE FROM `student`;
@@ -502,35 +791,7 @@ INSERT INTO `t_supervision_evaluation` (`id`, `offering_id`, `supervisor_name`, 
 (2, 4, '张督导 (校级督导)', '2026-09-12', '第2讲：数据表示与运算器微架构', 24.0, 23.5, 23.0, 23.5, 94.0, '姜老师备课充分，板书推导逻辑极其严密，典型易错点辨析透彻。', '建议结合动画微格切片辅助学生具象化理解进位链。', 'PUBLISHED', NOW() - INTERVAL 3 DAY, NOW() - INTERVAL 2 DAY),
 (3, 8, '李督导 (院级督导)', '2026-09-08', '第1讲：操作系统概念与系统调用', 19.0, 18.0, 17.0, 18.0, 72.0, '知识点覆盖全面。', '讲授照本宣科，与学生互动较少，课堂多名学生低头走神，建议教研室组织名师帮扶重构 BOPPPS 教学设计。', 'PUBLISHED', NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 1 DAY);
 
--- 15. 课堂智能考勤历史会话归档表 (t_attendance_session)
-CREATE TABLE IF NOT EXISTS `t_attendance_session` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `offering_id` bigint NOT NULL,
-  `week_number` int NOT NULL,
-  `classroom` varchar(64) NOT NULL,
-  `expected_count` int NOT NULL,
-  `actual_count` int DEFAULT 0,
-  `attendance_rate` double DEFAULT 0,
-  `avg_lookup_rate` double DEFAULT 0,
-  `status` varchar(32) NOT NULL,
-  `operator_name` varchar(64) DEFAULT NULL,
-  `operator_role` varchar(32) DEFAULT NULL,
-  `operator_title` varchar(64) DEFAULT NULL,
-  `absent_student_ids` text DEFAULT NULL,
-  `start_time` datetime(6) DEFAULT NULL,
-  `end_time` datetime(6) DEFAULT NULL,
-  `created_at` datetime(6) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_attendance_session_offering` (`offering_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-DELETE FROM `t_attendance_session`;
-INSERT INTO `t_attendance_session` (`id`, `offering_id`, `week_number`, `classroom`, `expected_count`, `actual_count`, `attendance_rate`, `avg_lookup_rate`, `status`, `operator_name`, `operator_role`, `operator_title`, `start_time`, `end_time`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '文管 A447', 10, 10, 100.0, 92.5, 'FINISHED', '张督导', 'SUPERVISOR', '教学督导', '2026-09-15 15:38:51.000000', '2026-09-16 16:52:13.000000', '2026-09-15 15:38:51.000000', '2026-09-16 16:52:13.000000');
-
 SET FOREIGN_KEY_CHECKS = 1;
 -- ==========================================================
 -- 初始化脚本执行完毕
 -- ==========================================================
-

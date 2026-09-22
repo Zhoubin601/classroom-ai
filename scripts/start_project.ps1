@@ -20,6 +20,22 @@ Push-Location $projectRoot
 try {
     Write-Host "[1/3] Checking and starting base services (MySQL 8.0 & Redis 7.2)..." -ForegroundColor Cyan
     & "$PSScriptRoot/start_services.ps1"
+
+    # Ensure MySQL has initialized schema and base educational data
+    try {
+        $hasData = & docker exec classroom-mysql mysql -uroot -proot classroom_ai -N -e "SELECT count(*) FROM t_user_account;" 2>$null
+        if (-not $hasData -or [int]$hasData -eq 0) {
+            Write-Host "Initializing MySQL database with base educational data..." -ForegroundColor Yellow
+            $initSql = Join-Path $projectRoot 'initialize.sql'
+            if (Test-Path $initSql) {
+                Get-Content -LiteralPath $initSql -Encoding UTF8 | & docker exec -i classroom-mysql mysql -uroot -proot --default-character-set=utf8mb4 classroom_ai
+                Write-Host "Database initialization completed successfully." -ForegroundColor Green
+            }
+        }
+    } catch {
+        # Fallback: Spring Boot (app.seed-demo=true) will seed data upon startup
+    }
+
     if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) {
         $backendContainer = docker ps -a -q -f name=^classroom-backend$
         if ($backendContainer) {
@@ -49,7 +65,7 @@ try {
         }
         if (-not $jarExists) { throw 'Backend jar missing; please build backend first or run with -Rebuild.' }
 
-        $backend = Start-Process java -ArgumentList @('-jar', $jarRel) -WorkingDirectory $projectRoot -WindowStyle Hidden -PassThru `
+        $backend = Start-Process java -ArgumentList @('-jar', $jarRel, '--app.seed-demo=true') -WorkingDirectory $projectRoot -WindowStyle Hidden -PassThru `
             -RedirectStandardOutput "$logDir/backend.stdout.log" -RedirectStandardError "$logDir/backend.stderr.log"
         $backend.Id | Set-Content "$logDir/backend.pid"
         for ($attempt = 0; $attempt -lt 60; $attempt++) {

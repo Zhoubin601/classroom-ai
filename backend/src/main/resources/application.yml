@@ -56,3 +56,7 @@ classroom:
   face:
     similarity-threshold: 0.45
     default-dimension: 512
+
+app:
+  seed-demo: ${APP_SEED_DEMO:true}
+

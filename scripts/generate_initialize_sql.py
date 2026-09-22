@@ -19,6 +19,301 @@ sql_lines.append("-- 规格: 8位教师 (每人多门课程多时段排课)、8�
 sql_lines.append("-- ==========================================================\n")
 sql_lines.append("SET NAMES utf8mb4;")
 sql_lines.append("SET FOREIGN_KEY_CHECKS = 0;\n")
+sql_lines.append("""
+CREATE DATABASE IF NOT EXISTS `classroom_ai` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `classroom_ai`;
+
+CREATE TABLE IF NOT EXISTS `t_major` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `major_code` VARCHAR(32) NOT NULL,
+    `major_name` VARCHAR(64) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_major_code` (`major_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_teacher` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `teacher_code` VARCHAR(32) NOT NULL,
+    `teacher_name` VARCHAR(64) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `title` VARCHAR(32) DEFAULT NULL,
+    `user_id` BIGINT DEFAULT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_teacher_code` (`teacher_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_user_account` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(64) NOT NULL,
+    `password` VARCHAR(128) NOT NULL,
+    `real_name` VARCHAR(64) NOT NULL,
+    `role` VARCHAR(32) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `teacher_code` VARCHAR(32) DEFAULT NULL,
+    `authorized_majors` VARCHAR(255) DEFAULT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_user_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_code` VARCHAR(64) NOT NULL,
+    `course_name` VARCHAR(128) NOT NULL,
+    `department` VARCHAR(64) DEFAULT NULL,
+    `teacher_name` VARCHAR(64) DEFAULT NULL,
+    `major_id` BIGINT DEFAULT NULL,
+    `major_code` VARCHAR(32) DEFAULT NULL,
+    `credits` DOUBLE NOT NULL,
+    `hours` INT NOT NULL,
+    `theory_hours` INT DEFAULT NULL,
+    `practice_hours` INT DEFAULT NULL,
+    `course_type` VARCHAR(32) DEFAULT NULL,
+    `prerequisites` VARCHAR(255) DEFAULT NULL,
+    `description` TEXT DEFAULT NULL,
+    `objectives` TEXT DEFAULT NULL,
+    `assessment_method` TEXT DEFAULT NULL,
+    `created_by` VARCHAR(128) DEFAULT NULL,
+    `updated_by` VARCHAR(128) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_course_code` (`course_code`),
+    KEY `idx_course_major_code` (`major_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `student` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `student_id` VARCHAR(64) NOT NULL,
+    `name` VARCHAR(64) NOT NULL,
+    `gender` VARCHAR(16) DEFAULT 'UNKNOWN',
+    `class_name` VARCHAR(64) DEFAULT NULL,
+    `avatar_url` VARCHAR(255) DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_student_id` (`student_id`),
+    KEY `idx_class_name` (`class_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `face_feature` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `student_id` VARCHAR(64) NOT NULL,
+    `feature_dim` INT NOT NULL DEFAULT 512,
+    `feature_vector` MEDIUMTEXT NOT NULL,
+    `image_path` VARCHAR(255) DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `idx_student_id` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_offering` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `academic_term` VARCHAR(32) NOT NULL,
+    `teacher_name` VARCHAR(64) NOT NULL,
+    `teacher_code` VARCHAR(32) DEFAULT NULL,
+    `class_name` VARCHAR(64) NOT NULL,
+    `major_id` BIGINT DEFAULT NULL,
+    `major_code` VARCHAR(32) DEFAULT NULL,
+    `student_count` INT NOT NULL,
+    `snapshot_student_count` INT DEFAULT NULL,
+    `is_snapshot_frozen` BIT(1) DEFAULT b'0',
+    `status` VARCHAR(32) DEFAULT 'IN_PROGRESS',
+    `archived_at` DATETIME(6) DEFAULT NULL,
+    `archived_by` VARCHAR(64) DEFAULT NULL,
+    `history_snapshot` LONGTEXT DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_offering_course` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_schedule` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `classroom` VARCHAR(64) NOT NULL,
+    `week_range` VARCHAR(64) NOT NULL,
+    `start_week` INT DEFAULT 1,
+    `end_week` INT DEFAULT 16,
+    `day_of_week` INT NOT NULL,
+    `start_period` INT NOT NULL,
+    `end_period` INT NOT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_classroom_time` (`classroom`, `day_of_week`, `start_period`, `end_period`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_offering_teacher` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `teacher_id` BIGINT NOT NULL,
+    `teacher_code` VARCHAR(32) DEFAULT NULL,
+    `teacher_name` VARCHAR(64) NOT NULL,
+    `role_in_offering` VARCHAR(32) DEFAULT 'PRIMARY',
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `idx_offering_teacher` (`offering_id`, `teacher_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_offering_student_enrollment` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `student_id` BIGINT DEFAULT NULL,
+    `student_number` VARCHAR(64) NOT NULL,
+    `student_name` VARCHAR(64) NOT NULL,
+    `admin_class_name` VARCHAR(64) DEFAULT NULL,
+    `enrolled_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_offering_student` (`offering_id`, `student_number`),
+    KEY `idx_offering_id` (`offering_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_syllabus` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `version` VARCHAR(32) NOT NULL,
+    `status` VARCHAR(32) NOT NULL DEFAULT 'APPROVED',
+    `author_teacher` VARCHAR(64) DEFAULT NULL,
+    `locked_by` VARCHAR(64) DEFAULT NULL,
+    `course_goals` TEXT DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_syllabus_course` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_graduation_indicator` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `syllabus_id` BIGINT DEFAULT NULL,
+    `indicator_code` VARCHAR(32) NOT NULL,
+    `requirement_category` VARCHAR(64) NOT NULL,
+    `indicator_description` TEXT DEFAULT NULL,
+    `support_weight` VARCHAR(8) NOT NULL,
+    `target_goal` VARCHAR(64) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_course_indicator` (`course_id`, `indicator_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_resource` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `chapter` VARCHAR(128) NOT NULL,
+    `resource_name` VARCHAR(255) NOT NULL,
+    `file_type` VARCHAR(32) NOT NULL,
+    `file_url` VARCHAR(512) NOT NULL,
+    `file_size` VARCHAR(32) DEFAULT NULL,
+    `file_size_bytes` BIGINT DEFAULT NULL,
+    `tag` VARCHAR(32) NOT NULL,
+    `uploader_teacher` VARCHAR(64) DEFAULT NULL,
+    `version` VARCHAR(32) DEFAULT 'v1.0',
+    `is_public` BIT(1) DEFAULT b'1',
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_resource_course` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_supervision_evaluation` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `supervisor_name` VARCHAR(64) NOT NULL,
+    `evaluate_date` VARCHAR(32) NOT NULL,
+    `listen_topic` VARCHAR(128) NOT NULL,
+    `score_attitude` DOUBLE NOT NULL,
+    `score_content` DOUBLE NOT NULL,
+    `score_method` DOUBLE NOT NULL,
+    `score_effect` DOUBLE NOT NULL,
+    `total_score` DOUBLE NOT NULL,
+    `highlights` TEXT DEFAULT NULL,
+    `suggestions` TEXT DEFAULT NULL,
+    `status` VARCHAR(32) DEFAULT 'PUBLISHED',
+    `submit_time` DATETIME(6) DEFAULT NULL,
+    `publish_time` DATETIME(6) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_eval_offering` (`offering_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_attendance_session` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `offering_id` BIGINT NOT NULL,
+    `week_number` INT NOT NULL,
+    `day_of_week` INT NOT NULL,
+    `period` INT NOT NULL,
+    `classroom` VARCHAR(64) NOT NULL,
+    `expected_count` INT NOT NULL,
+    `actual_count` INT NOT NULL DEFAULT 0,
+    `attendance_rate` DOUBLE DEFAULT 0.0,
+    `avg_lookup_rate` DOUBLE DEFAULT 0.0,
+    `status` VARCHAR(32) DEFAULT 'IN_PROGRESS',
+    `start_time` DATETIME(6) DEFAULT NULL,
+    `end_time` DATETIME(6) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    `operator_name` VARCHAR(64) DEFAULT NULL,
+    `operator_role` VARCHAR(32) DEFAULT NULL,
+    `operator_title` VARCHAR(32) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_session_offering` (`offering_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_term_schedule_lock` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `academic_term` VARCHAR(32) NOT NULL,
+    `locked_by` VARCHAR(64) NOT NULL,
+    `locked_at` DATETIME(6) NOT NULL,
+    `token` VARCHAR(64) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_term_lock` (`academic_term`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_content_revision` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `course_id` BIGINT NOT NULL,
+    `description` TEXT DEFAULT NULL,
+    `objectives` TEXT DEFAULT NULL,
+    `assessment_method` TEXT DEFAULT NULL,
+    `version` INT NOT NULL,
+    `publish_version` INT DEFAULT NULL,
+    `lock_version` INT NOT NULL DEFAULT 0,
+    `status` VARCHAR(32) NOT NULL,
+    `editor_name` VARCHAR(64) DEFAULT NULL,
+    `publisher_code` VARCHAR(32) DEFAULT NULL,
+    `publisher_name` VARCHAR(64) DEFAULT NULL,
+    `published_at` DATETIME(6) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    `updated_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_course_version` (`course_id`, `version`),
+    KEY `idx_course_status` (`course_id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `t_course_import_log` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `batch_id` VARCHAR(64) NOT NULL,
+    `operator` VARCHAR(64) NOT NULL,
+    `file_name` VARCHAR(255) DEFAULT NULL,
+    `total_rows` INT DEFAULT NULL,
+    `success_count` INT DEFAULT NULL,
+    `error_count` INT DEFAULT NULL,
+    `status` VARCHAR(32) NOT NULL,
+    `message` VARCHAR(512) DEFAULT NULL,
+    `created_at` DATETIME(6) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_import_batch_id` (`batch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+""")
 
 # 1. Majors
 sql_lines.append("-- 1. 专业独立字典表 (t_major)")
