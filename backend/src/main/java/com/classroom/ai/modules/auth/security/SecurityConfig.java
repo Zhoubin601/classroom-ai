@@ -89,11 +89,13 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/api/v1/auth/login",
                     "/api/v1/auth/csrf",
-                    "/uploads/**",
+                    "/api/v1/resources/preview/**",
+                    "/uploads/faces/**",
                     "/error",
                     "/v3/api-docs/**",
                     "/swagger-ui/**"
                 ).permitAll()
+                .requestMatchers("/uploads/resources/**").denyAll()
                 // 主任专属管理路由：督导建档授权与学生底库管理
                 .requestMatchers("/api/v1/director/**").hasRole("DIRECTOR")
                 .requestMatchers("/api/student/**").hasRole("DIRECTOR")
@@ -108,7 +110,9 @@ public class SecurityConfig {
                 // 大纲审查锁定：仅教研室主任
                 .requestMatchers(HttpMethod.POST, "/api/v1/syllabus/*/lock").hasRole("DIRECTOR")
                 // 督导评课写操作：仅督导和主任
-                .requestMatchers(HttpMethod.POST, "/api/v1/supervision/evaluations").hasAnyRole("SUPERVISOR", "DIRECTOR")
+                .requestMatchers(HttpMethod.POST, "/api/v1/supervisions/*/review").hasRole("DIRECTOR")
+                .requestMatchers(HttpMethod.POST, "/api/v1/supervisions").hasRole("SUPERVISOR")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/supervisions/*").hasRole("SUPERVISOR")
                 // 课程档案只能由主任维护；资源范围仍由服务端业务规则检查。
                 .requestMatchers("/api/v1/courses/import/**").hasRole("DIRECTOR")
                 .requestMatchers(HttpMethod.POST, "/api/v1/courses").hasRole("DIRECTOR")

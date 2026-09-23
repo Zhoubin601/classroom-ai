@@ -129,4 +129,10 @@
   - `scripts/deploy/docker-compose.yml` 调整为单文件挂载 `./mysql/init/initialize.sql:/docker-entrypoint-initdb.d/initialize.sql:ro`；
   - `scripts/start_project.ps1` 采用 `docker cp` + `source` 执行双层自动灌入。
 
+## 2026-09-23 实验三 Sprint 2 实施来源
+- 用户在当前任务中给出的实施计划：US05、US07–US10、US13–US15；默认反馈延迟 24 小时、预览链接 5 分钟、文件上限 100 MB；要求当前项目直接开发、运行、测试，不制作提交物文档。
+- 原始资料目录 `raw/` 本轮只有 `README.md`，未提供新的培养方案指标正文；实际目录须由有权限的教研室主任导入，不在代码中编造指标内容。
+- 代码与数据基线：本仓库原有源码、`initialize.sql` 和运行中的 `classroom_ai`。迁移前 SQL 备份位于 `runtime/backups/pre-exp3-20260923-classroom_ai.sql`；代码基线已推送至 `backup/pre-exp3-20260923`。
+- 本轮未使用外部资料；浏览器与 MySQL 验收使用独立临时数据库。
+
 

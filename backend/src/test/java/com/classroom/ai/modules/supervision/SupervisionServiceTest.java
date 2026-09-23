@@ -66,16 +66,17 @@ class SupervisionServiceTest {
             supervisionService.submitEvaluation(dto);
         });
 
-        assertTrue(ex.getMessage().contains("0 ~ 25 分之间"));
+        assertTrue(ex.getMessage().contains("配置权重范围内"));
         verify(evaluationRepository, never()).save(any());
     }
 
     @Test
-    @DisplayName("正式提交评教：自动进入 24 小时延迟脱敏流转期 (PENDING_DESENSITIZE)")
+    @DisplayName("正式提交评教：进入主任审核，不提前开始反馈延迟")
     void testEvaluationSubmit_ShouldEnterDesensitizationPeriod() {
         EvaluationSubmitDTO dto = EvaluationSubmitDTO.builder()
                 .offeringId(10L)
                 .supervisorName("沈越 (校督导)")
+                .listenTopic("随堂听评")
                 .scoreAttitude(24.5)
                 .scoreContent(24.0)
                 .scoreMethod(23.5)
@@ -92,11 +93,9 @@ class SupervisionServiceTest {
 
         assertNotNull(saved);
         assertEquals(96.0, saved.getTotalScore());
-        assertEquals("PENDING_DESENSITIZE", saved.getStatus());
+        assertEquals("PENDING_REVIEW", saved.getStatus());
         assertNotNull(saved.getSubmitTime());
-        assertNotNull(saved.getPublishTime());
-        // 验证发布时间比提交时间晚 24 小时左右
-        assertTrue(saved.getPublishTime().isAfter(saved.getSubmitTime().plusHours(23)));
+        assertNull(saved.getPublishTime());
     }
 
     @Test

@@ -1,0 +1,7 @@
+src
+.git
+.idea
+.tools
+.mvn
+target/*
+!target/classroom-backend-0.0.1-SNAPSHOT.jar

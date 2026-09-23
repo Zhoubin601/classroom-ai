@@ -894,7 +894,14 @@ US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT
      - 压缩包体积：由 124.35 MB 骤降至 **72.79 MB**（缩减 41.5%）；
      - 产出同步覆盖：
        - `D:\2026Autumn Semester File\软管\实验二\output\v3\第二组_Sprint 1源代码.zip`
-       - `D:\2026Autumn Semester File\classroom-ai-demo\output\20260922-第二组-Sprint1源代码-v4.zip`
+      - `D:\2026Autumn Semester File\classroom-ai-demo\output\20260922-第二组-Sprint1源代码-v4.zip`
+
+## 2026-09-23 实验三 Sprint 2 代码与验收记录
+- 在 `feat/exp3-sprint2` 上实现培养方案目录及大纲版本映射、资源服务端权限与多标签、安全预览、督导审核与延迟反馈、按学期有效开课去重的覆盖率。新增 `06_exp3_sprint2.sql` 幂等迁移，启动不重灌现有数据库。
+- `scripts/run-tests.ps1 -Offline` 通过后端单测、前端测试与构建、Python 回归；`scripts/run-exp3-mysql-tests.ps1` 在隔离 MySQL 中重复执行迁移并通过 3 个集成测试；`scripts/run-exp3-browser-tests.ps1` 用三个身份在隔离库中完成页面流程，并检查无效格式、转换失败与过期链接。
+- 当前容器按 `start_project.ps1 -Rebuild -NonInteractive` 成功启动。容器 LibreOffice 已将现有 PPTX 转为带查看者和时间水印的 PDF，预览响应为 `%PDF-`，4 页。
+- 迁移将没有主任审核记录的历史已发布评价保留为待审核，避免它们绕过新规则向教师披露；现有库有 3 条此类记录，需要主任逐条复核。
+- 用户复核：培养方案指标正文未提供；请使用真实培养方案由主任导入对应专业与版本后再核对实际指标映射。
 
 
 

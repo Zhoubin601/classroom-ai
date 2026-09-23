@@ -7,6 +7,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+    @ExceptionHandler(java.io.IOException.class)
+    public ResponseEntity<ApiResponse<Void>> ioFailure(java.io.IOException error) {
+        return ResponseEntity.status(422).body(ApiResponse.error(422,
+                error.getMessage() == null ? "文件处理失败" : error.getMessage()));
+    }
+
+    @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiResponse<Void>> uploadTooLarge(Exception error) {
+        return ResponseEntity.status(413).body(ApiResponse.error(413, "文件超过上传大小限制"));
+    }
     @ExceptionHandler(com.classroom.ai.modules.course.service.ScheduleConflictException.class)
     public ResponseEntity<ApiResponse<java.util.Map<String, Object>>> scheduleConflict(com.classroom.ai.modules.course.service.ScheduleConflictException error) {
         return ResponseEntity.status(409).body(new ApiResponse<>(409, error.getMessage(), java.util.Map.of("conflicts", error.getConflicts()), System.currentTimeMillis()));

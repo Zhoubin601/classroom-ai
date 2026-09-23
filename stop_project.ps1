@@ -35,13 +35,7 @@ if (Test-Path $frontendPidFile) {
     Remove-Item $frontendPidFile -Force -ErrorAction SilentlyContinue
 }
 
-# 3. Clean up any remaining processes on ports 8080 and 5173
-Get-NetTCPConnection -LocalPort 8080 -ErrorAction SilentlyContinue | ForEach-Object {
-    Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue
-}
-Get-NetTCPConnection -LocalPort 5173 -ErrorAction SilentlyContinue | ForEach-Object {
-    Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue
-}
+& (Join-Path $projectRoot 'scripts/compose.ps1') stop classroom-backend
 
 if ($StopDocker) {
     Write-Host "Stopping Docker containers (MySQL & Redis)..." -ForegroundColor Cyan

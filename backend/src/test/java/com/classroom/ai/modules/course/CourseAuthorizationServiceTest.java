@@ -111,7 +111,6 @@ class CourseAuthorizationServiceTest {
                 .build());
 
         org.mockito.Mockito.when(offeringRepository.findByCourseId(1L)).thenReturn(java.util.List.of(seOffering));
-        org.mockito.Mockito.when(offeringTeacherRepository.findByOfferingId(101L)).thenReturn(java.util.List.of(com.classroom.ai.modules.course.entity.CourseOfferingTeacher.builder().teacherId(1L).teacherCode("T2024001").build()));
         assertDoesNotThrow(() -> authService.validateCourseRead(seCourse));
         assertDoesNotThrow(() -> authService.validateOfferingRead(seOffering));
 

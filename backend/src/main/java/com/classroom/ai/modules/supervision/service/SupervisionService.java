@@ -13,4 +13,5 @@ public interface SupervisionService {
     SupervisionEvaluation submitEvaluation(EvaluationSubmitDTO dto);
     void deleteEvaluation(Long id);
     void refreshDesensitizeStatus();
+    SupervisionEvaluation reviewEvaluation(Long id, boolean approved, String note);
 }

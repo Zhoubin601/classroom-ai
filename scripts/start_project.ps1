@@ -21,65 +21,50 @@ try {
     Write-Host "[1/3] Checking and starting base services (MySQL 8.0 & Redis 7.2)..." -ForegroundColor Cyan
     & "$PSScriptRoot/start_services.ps1"
 
-    # Ensure MySQL has initialized schema and base educational data
-    try {
-        $hasData = & docker exec classroom-mysql mysql -uroot -proot classroom_ai -N -e "SELECT count(*) FROM t_user_account;" 2>$null
-        if (-not $hasData -or [int]$hasData -eq 0) {
-            Write-Host "Initializing MySQL database with base educational data..." -ForegroundColor Yellow
-            $initSql = Join-Path $projectRoot 'initialize.sql'
-            if (Test-Path $initSql) {
-                & docker cp "$initSql" "classroom-mysql:/tmp/initialize.sql"
-                & docker exec classroom-mysql mysql -uroot -proot --default-character-set=utf8mb4 -e "source /tmp/initialize.sql"
-                & docker exec classroom-mysql rm -f /tmp/initialize.sql
-                Write-Host "Database initialization completed successfully." -ForegroundColor Green
-            }
+    # Fresh Docker volumes are initialized by docker-entrypoint-initdb.d once.
+    # Existing volumes receive only the additive, repeatable Sprint 2 migration.
+    $tableCount = & docker exec classroom-mysql mysql -uroot -proot classroom_ai -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='classroom_ai' AND table_name='t_user_account';" 2>$null
+    if ($LASTEXITCODE -ne 0 -or [int]$tableCount -ne 1) { throw 'MySQL schema is unavailable; initialization was not repeated to protect existing data.' }
+    $migration = Join-Path $projectRoot 'scripts/deploy/mysql/init/06_exp3_sprint2.sql'
+    & docker cp $migration 'classroom-mysql:/tmp/06_exp3_sprint2.sql'
+    if ($LASTEXITCODE -ne 0) { throw 'Could not copy Sprint 2 migration' }
+    & docker exec classroom-mysql mysql -uroot -proot --default-character-set=utf8mb4 classroom_ai -e 'source /tmp/06_exp3_sprint2.sql'
+    if ($LASTEXITCODE -ne 0) { throw 'Sprint 2 migration failed; see MySQL output' }
+    & docker exec classroom-mysql rm -f /tmp/06_exp3_sprint2.sql | Out-Null
+
+    $pidFile = Join-Path $logDir 'backend.pid'
+    if (Test-Path $pidFile) {
+        $oldPid = [int](Get-Content $pidFile -ErrorAction SilentlyContinue)
+        $oldProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$oldPid" -ErrorAction SilentlyContinue
+        if ($oldProcess -and $oldProcess.CommandLine -match 'classroom-backend-.*\.jar') {
+            Stop-Process -Id $oldPid -Force -ErrorAction Stop
         }
-    } catch {
-        # Fallback: Spring Boot (app.seed-demo=true) will seed data upon startup
+        Remove-Item $pidFile -Force
     }
-
-    if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) {
-        $backendContainer = docker ps -a -q -f name=^classroom-backend$
-        if ($backendContainer) {
-            try { & docker stop classroom-backend *>$null } catch {}
+    $jar = Join-Path $projectRoot 'backend/target/classroom-backend-0.0.1-SNAPSHOT.jar'
+    if (-not $SkipBuild) {
+        $maven = Get-Command mvn.cmd -ErrorAction SilentlyContinue
+        $bundledMaven = Join-Path $projectRoot 'backend/.tools/apache-maven-3.9.6/bin/mvn.cmd'
+        $mavenPath = if ($maven) { $maven.Source } elseif (Test-Path $bundledMaven) { $bundledMaven } else {
+            Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
+                Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
         }
-        Write-Host "[2/3] Starting Java backend (Spring Boot 3.3)..." -ForegroundColor Cyan
-        $maven = Get-Command mvn -ErrorAction SilentlyContinue
-        if (-not $maven) { $maven = Get-Command mvn.cmd -ErrorAction SilentlyContinue }
-        $mavenPath = if ($maven) { $maven.Source } else {
-            $localMvn = Join-Path $projectRoot 'backend/.tools/apache-maven-3.9.6/bin/mvn.cmd'
-            if (Test-Path $localMvn) { $localMvn } else {
-                Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
-                    Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
-            }
-        }
-
-        $jarRel = 'backend/target/classroom-backend-0.0.1-SNAPSHOT.jar'
-        $jar = Join-Path $projectRoot $jarRel
-        $jarExists = Test-Path -LiteralPath $jar
-
-        if ($Rebuild -or (-not $jarExists -and -not $SkipBuild)) {
-            Write-Host "Building Java backend jar..." -ForegroundColor Cyan
-            if (-not $mavenPath) { throw 'Maven not found. Add mvn to PATH.' }
-            & $mavenPath -f "$projectRoot/backend/pom.xml" "-Dmaven.repo.local=$env:USERPROFILE/.m2/repository" -DskipTests package
-            if ($LASTEXITCODE -ne 0) { throw 'Backend build failed' }
-            $jarExists = Test-Path -LiteralPath $jar
-        }
-        if (-not $jarExists) { throw 'Backend jar missing; please build backend first or run with -Rebuild.' }
-
-        $backend = Start-Process java -ArgumentList @('-jar', $jarRel, '--app.seed-demo=true') -WorkingDirectory $projectRoot -WindowStyle Hidden -PassThru `
-            -RedirectStandardOutput "$logDir/backend.stdout.log" -RedirectStandardError "$logDir/backend.stderr.log"
-        $backend.Id | Set-Content "$logDir/backend.pid"
-        for ($attempt = 0; $attempt -lt 60; $attempt++) {
-            if (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses') { break }
-            if ($backend.HasExited) {
-                $errContent = if (Test-Path "$logDir/backend.stderr.log") { Get-Content "$logDir/backend.stderr.log" -Tail 10 } else { '' }
-                throw "Backend exited unexpectedly.`n$errContent`nSee $logDir/backend.stderr.log"
-            }
-            Start-Sleep -Seconds 1
-        }
-        if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) { throw 'Backend readiness timed out; inspect runtime/logs.' }
+        if (-not $mavenPath) { throw 'Maven not found' }
+        & $mavenPath -f (Join-Path $projectRoot 'backend/pom.xml') '-DskipTests' package
+        if ($LASTEXITCODE -ne 0) { throw 'Backend JAR build failed' }
     }
+    if (-not (Test-Path $jar)) { throw 'Backend JAR missing; run without -SkipBuild' }
+    Write-Host "[2/3] Starting backend container with LibreOffice..." -ForegroundColor Cyan
+    $composeArgs = @('up', '-d', '--wait', '--wait-timeout', '180')
+    if (-not $SkipBuild) { $composeArgs += '--build' }
+    if ($SkipBuild) { $composeArgs += '--no-build' }
+    $composeArgs += 'classroom-backend'
+    & "$PSScriptRoot/compose.ps1" @composeArgs
+    for ($attempt = 0; $attempt -lt 60; $attempt++) {
+        if (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses') { break }
+        Start-Sleep -Seconds 1
+    }
+    if (-not (Test-ProjectUrl 'http://127.0.0.1:8080/api/v1/courses')) { throw 'Backend readiness timed out; inspect docker logs classroom-backend.' }
     if (-not (Test-ProjectUrl 'http://127.0.0.1:5173')) {
         Write-Host "[3/3] Starting frontend (Vite / Vue 3)..." -ForegroundColor Cyan
         $frontendDir = Join-Path $projectRoot 'frontend'
@@ -106,7 +91,7 @@ try {
     Write-Host " URL: http://127.0.0.1:5173" -ForegroundColor Green
     Write-Host " Opening browser..." -ForegroundColor Green
     Write-Host "==================================================" -ForegroundColor Green
-    Start-Process "http://127.0.0.1:5173"
+    if (-not $NonInteractive) { Start-Process "http://127.0.0.1:5173" }
 
     if (-not $NonInteractive) {
         Write-Host ""

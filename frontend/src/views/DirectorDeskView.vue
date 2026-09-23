@@ -12,7 +12,7 @@
               教研室主任工作台
               <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-medium">管理中心 (Director Portal)</span>
             </h1>
-            <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证 12 项指标点动态维护与年度质量分析报表导出</p>
+            <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证指标点动态维护与年度质量分析报表导出</p>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
       <button
         v-for="tab in tabs"
         :key="tab.key"
-        @click="activeTab = tab.key"
+        @click="activeTab = tab.key; if (tab.key === 'reviews') loadPendingEvaluations()"
         :class="['px-3.5 py-1.5 rounded-xl text-xs font-medium transition flex items-center gap-1.5 cursor-pointer',
                  activeTab === tab.key ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold shadow-subtle' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100']"
       >
@@ -198,13 +198,13 @@
     <!-- Tab 2: 集中排课统筹与冲突检测看板 (US-03) -->
     <OfferingScheduleBoard v-if="activeTab === 'schedules'" />
 
-    <!-- Tab 3: 工程教育认证 12 条毕业要求指标点矩阵 (US-05) -->
+    <!-- Tab 3: 按专业与版本管理的毕业要求指标点矩阵 (US-05) -->
     <div v-if="activeTab === 'indicators'" class="space-y-4">
       <div class="minimal-card p-5">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div>
             <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <Target class="w-4 h-4 text-indigo-600" /> 东北大学工程教育专业认证 12 项毕业要求指标点矩阵
+              <Target class="w-4 h-4 text-indigo-600" /> 东北大学工程教育专业认证毕业要求指标点矩阵
             </h2>
             <p class="text-xs text-slate-500 mt-0.5">指标点具体细化与分解已交由对应主讲教师在【任课教师工作台】填报；教研室主任在此统筹审查各门课程大纲并进行基线锁定 (US-05)</p>
           </div>
@@ -242,12 +242,22 @@
           </div>
         </div>
 
+        <div class="border border-indigo-100 rounded-xl p-3 mb-4 space-y-2 text-xs">
+          <div class="font-semibold">导入培养方案指标目录（每行：编号 | 类别 | 描述）</div>
+          <div class="flex gap-2">
+            <select v-model="planMajorCode" aria-label="培养方案专业" class="border rounded p-1"><option value="">选择专业</option><option v-for="m in managedMajors" :key="m.majorCode" :value="m.majorCode">{{ m.majorName }}</option></select>
+            <input v-model="planImportVersion" aria-label="培养方案版本" placeholder="如 2026版" class="border rounded p-1" />
+          </div>
+          <textarea v-model="planImportText" aria-label="培养方案指标目录" rows="4" class="w-full border rounded p-2" placeholder="1-1 | 工程知识 | 指标描述"></textarea>
+          <button @click="savePlanCatalog" class="px-3 py-1.5 bg-indigo-600 text-white rounded">导入目录</button>
+          <span class="text-slate-500 ml-2">以实际培养方案为准；不会清除旧版本</span>
+        </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs text-slate-700">
             <thead class="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
               <tr>
                 <th class="py-3 px-4">指标点编号</th>
-                <th class="py-3 px-4">毕业要求大项 (12项认证标准)</th>
+                <th class="py-3 px-4">毕业要求大项</th>
                 <th class="py-3 px-4">指标点分解表述</th>
                 <th class="py-3 px-4">支撑权重</th>
                 <th class="py-3 px-4">对应课程目标</th>
@@ -695,11 +705,10 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-slate-600 block mb-1">指标点编号 (如 1-1, 11-1)</label>
-              <input
-                v-model="indicatorForm.indicatorCode"
-                placeholder="如 11-1"
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono"
-              />
+              <select v-model="indicatorForm.indicatorCode" @change="selectPlanIndicator" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2">
+                <option value="">请选择</option>
+                <option v-for="item in planCatalog" :key="item.indicatorCode" :value="item.indicatorCode">{{ item.indicatorCode }}</option>
+              </select>
             </div>
             <div>
               <label class="text-slate-600 block mb-1">支撑权重 (H强/M中/L弱)</label>
@@ -715,7 +724,7 @@
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">毕业要求大项 (通用认证12项)</label>
+            <label class="text-slate-600 block mb-1">毕业要求大项</label>
             <select
               v-model="indicatorForm.requirementCategory"
               class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle"
@@ -886,6 +895,15 @@
         </div>
       </div>
     </div>
+    <div v-if="activeTab === 'reviews'" class="minimal-card p-5 space-y-3">
+      <div class="flex justify-between"><h2 class="font-semibold">待审核督导评价</h2><button @click="loadPendingEvaluations" class="text-indigo-600 text-xs">刷新</button></div>
+      <p v-if="pendingEvaluations.length === 0" class="text-xs text-slate-500">暂无待审核评价</p>
+      <div v-for="item in pendingEvaluations" :key="item.id" class="border rounded-xl p-3 text-xs space-y-2">
+        <div class="font-semibold">{{ item.offering?.course?.courseName }} · {{ item.offering?.teacherName }} · {{ item.totalScore }} 分</div>
+        <div>听课主题：{{ item.listenTopic }}</div><div>亮点：{{ item.highlights }}</div><div>建议：{{ item.suggestions }}</div>
+        <div class="flex gap-2"><button @click="reviewEvaluation(item.id, true)" class="px-3 py-1 bg-emerald-600 text-white rounded">通过</button><button @click="reviewEvaluation(item.id, false)" class="px-3 py-1 bg-rose-600 text-white rounded">退回</button></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -937,9 +955,40 @@ const activeTab = ref('courses')
 const tabs = [
   { key: 'courses', label: '专业全量课程档案 (US-01)', iconComp: BookOpen },
   { key: 'schedules', label: '开课排课统筹看板 (US-03)', iconComp: Calendar },
-  { key: 'indicators', label: '12项毕业要求指标点矩阵 (US-05)', iconComp: Target },
-  { key: 'supervisors', label: '督导建档与专业授权 (US-07)', iconComp: ShieldCheck }
+  { key: 'indicators', label: '毕业要求指标点矩阵 (US-05)', iconComp: Target },
+  { key: 'supervisors', label: '督导建档与专业授权 (US-07)', iconComp: ShieldCheck },
+  { key: 'reviews', label: '督导评价审核 (US-13)', iconComp: CheckCircle2 }
 ]
+
+const planMajorCode = ref('')
+const planImportVersion = ref('')
+const planImportText = ref('')
+const pendingEvaluations = ref<any[]>([])
+
+const savePlanCatalog = async () => {
+  try {
+    if (!planMajorCode.value || !planImportVersion.value.trim()) throw new Error('请选择专业并输入培养方案版本')
+    const rows = planImportText.value.split(/\r?\n/).map(line => line.trim()).filter(Boolean).map(line => {
+      const parts = line.split('|').map(v => v.trim())
+      if (parts.length < 3 || !parts[0] || !parts[1] || !parts[2]) throw new Error('每行需包含编号、类别、描述')
+      return { indicatorCode: parts[0], requirementCategory: parts[1], indicatorDescription: parts.slice(2).join('|') }
+    })
+    if (!rows.length) throw new Error('请填写指标目录')
+    await syllabusApi.importPlanIndicators(planMajorCode.value, planImportVersion.value, rows)
+    alert(`已导入 ${rows.length} 条培养方案指标`)
+  } catch (e: any) { alert(e.response?.data?.message || e.message || '导入失败') }
+}
+
+const loadPendingEvaluations = async () => {
+  try { pendingEvaluations.value = (await supervisionApi.getAll()).filter(e => e.status === 'PENDING_REVIEW') }
+  catch (e) { console.error('加载待审核评价失败', e) }
+}
+const reviewEvaluation = async (id: number, approved: boolean) => {
+  try {
+    await supervisionApi.review(id, approved)
+    await loadPendingEvaluations()
+  } catch (e: any) { alert(e.response?.data?.message || '审核失败') }
+}
 
 const courseList = ref<Course[]>([])
 const indicatorList = ref<GraduationIndicator[]>([])
@@ -1116,20 +1165,8 @@ const indicatorForm = ref<any>({
   targetGoal: '目标1'
 })
 
-const standardIndicatorCategories = [
-  '1. 工程知识',
-  '2. 问题分析',
-  '3. 设计/开发解决方案',
-  '4. 研究',
-  '5. 使用现代工具',
-  '6. 工程与社会',
-  '7. 环境和可持续发展',
-  '8. 职业规范',
-  '9. 个人和团队',
-  '10. 沟通',
-  '11. 项目管理',
-  '12. 终身学习'
-]
+const planCatalog = ref<GraduationIndicator[]>([])
+const standardIndicatorCategories = computed(() => Array.from(new Set(planCatalog.value.map(i => i.requirementCategory))))
 
 const loadCourses = async () => {
   try {
@@ -1157,9 +1194,14 @@ const loadIndicatorsForSelectedCourse = async () => {
   try {
     const res = await syllabusApi.getIndicators(Number(selectedCourseIdForIndicator.value))
     indicatorList.value = Array.isArray(res) ? res : []
+    const course = courseList.value.find(c => c.id === selectedCourseIdForIndicator.value)
+    const latest = await syllabusApi.getLatest(Number(selectedCourseIdForIndicator.value))
+    planCatalog.value = course?.majorCode && latest?.planVersion
+      ? await syllabusApi.getPlanIndicators(course.majorCode, latest.planVersion) : []
   } catch (e) {
     console.error('加载指标点失败', e)
     indicatorList.value = []
+    planCatalog.value = []
   }
 }
 
@@ -1260,13 +1302,21 @@ const openAddIndicatorModal = () => {
   }
   indicatorForm.value = {
     id: null,
-    indicatorCode: '11-1',
-    requirementCategory: '11. 项目管理',
+    indicatorCode: planCatalog.value[0]?.indicatorCode || '',
+    requirementCategory: planCatalog.value[0]?.requirementCategory || '',
     indicatorDescription: '',
     supportWeight: 'H',
     targetGoal: '目标1'
   }
   showIndicatorModal.value = true
+}
+
+const selectPlanIndicator = () => {
+  const found = planCatalog.value.find(i => i.indicatorCode === indicatorForm.value.indicatorCode)
+  if (found) {
+    indicatorForm.value.requirementCategory = found.requirementCategory
+    indicatorForm.value.indicatorDescription = found.indicatorDescription
+  }
 }
 
 const openEditIndicatorModal = (ind: GraduationIndicator) => {
@@ -1320,7 +1370,7 @@ const lockCurrentSyllabus = async () => {
   try {
     const latest = await syllabusApi.getLatest(Number(selectedCourseIdForIndicator.value))
     if (latest) {
-      await syllabusApi.lock(latest.id, '教研室主任 (周宇斌)')
+      await syllabusApi.lock(latest.id, '')
       alert(`《${latest.course?.courseName || '该课程'}》大纲版本审查完成并成功锁定！`)
     } else {
       alert('该课程暂未发布教学大纲，无法进行审查锁定')
@@ -1429,5 +1479,6 @@ onMounted(() => {
   loadSupervisors()
   loadManagedMajors()
   loadAllMajors()
+  loadPendingEvaluations()
 })
 </script>

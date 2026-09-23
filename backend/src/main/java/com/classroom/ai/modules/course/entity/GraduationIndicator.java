@@ -11,8 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 /**
- * 工程教育专业认证 12 项毕业要求指标点与大纲映射表 (GraduationIndicator)
- * 对应 US-05: 12 条毕业要求指标点对应关系及支撑权重
+ * 工程教育专业认证毕业要求指标点与大纲映射表 (GraduationIndicator)
+ * 对应 US-05: 培养方案指标点对应关系及支撑权重
  */
 @Entity
 @Table(name = "t_graduation_indicator", indexes = {
@@ -38,7 +38,7 @@ public class GraduationIndicator {
     @JoinColumn(name = "syllabus_id")
     private CourseSyllabus syllabus;
 
-    /** 指标点编号，如 1-1, 2-3, 11-1 (对应12项毕业要求) */
+    /** 指标点编号，如 1-1, 2-3, 11-1 */
     @Column(nullable = false, length = 32)
     private String indicatorCode;
 

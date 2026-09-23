@@ -11,7 +11,7 @@
             <h1 class="text-xl font-bold text-slate-900">教学督导工作台</h1>
             <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-medium">校/院两级督导专家专属</span>
           </div>
-          <p class="text-xs text-slate-500 mt-1">负责待督导课程复合检索、课件教案免密预审、BOPPPS随堂打分、全院覆盖率巡检与红黄质量预警</p>
+          <p class="text-xs text-slate-500 mt-1">负责待督导课程复合检索、课件教案授权预审、BOPPPS随堂打分、全院覆盖率巡检与红黄质量预警</p>
         </div>
       </div>
       <div class="flex items-center gap-2 text-xs">
@@ -23,9 +23,9 @@
     <!-- 全院督导覆盖率动态大屏指标卡片 (US-15) -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="minimal-card p-5">
-        <span class="text-xs text-slate-500 font-medium">全院开设课程总数</span>
+        <span class="text-xs text-slate-500 font-medium">所选学期有效课程总数</span>
         <div class="text-2xl font-bold text-slate-900 font-mono mt-1">{{ dashboardMetrics?.totalCourses ?? 0 }} 门</div>
-        <span class="text-[11px] text-slate-500 mt-1 block">覆盖计算机/软件工程全专业</span>
+        <span class="text-[11px] text-slate-500 mt-1 block">按授权专业与有效开课去重</span>
       </div>
       <div class="minimal-card p-5">
         <span class="text-xs text-slate-500 font-medium">已督导听课覆盖门数</span>
@@ -46,6 +46,13 @@
       </div>
     </div>
 
+    <details class="minimal-card p-4 text-xs">
+      <summary class="cursor-pointer font-semibold">覆盖率明细 · {{ dashboardMetrics?.academicTerm || '暂无学期' }}</summary>
+      <div v-for="item in coverageDetails" :key="item.courseId" class="flex justify-between border-b py-2">
+        <span>{{ item.courseCode }} {{ item.courseName }}</span>
+        <span>{{ item.covered ? `已审核评价 ${item.evaluationIds.join('、')}` : '未覆盖' }}</span>
+      </div>
+    </details>
     <!-- 子导航标签 -->
     <div class="flex items-center gap-1.5 border-b border-slate-200 pb-3">
       <button 
@@ -436,7 +443,7 @@
             </div>
 
             <!-- 学期选择 -->
-            <select aria-label="检索学期" v-model="filterParams.term" @change="handleFilterChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-subtle">
+            <select aria-label="检索学期" v-model="filterParams.term" @change="handleFilterChange(); loadAnalytics()" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-subtle">
               <option value="">全部学期</option>
               <option v-for="t in availableTerms" :key="t" :value="t">{{ t }}</option>
             </select>
@@ -457,7 +464,7 @@
           未检索到符合条件的待督导开课信息
         </div>
         <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div v-for="off in pagedOfferings" :key="off.id" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-card transition shadow-subtle space-y-3 flex flex-col justify-between">
+          <div v-for="off in pagedOfferings" :key="off.id" :data-testid="`offering-${off.id}`" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-card transition shadow-subtle space-y-3 flex flex-col justify-between">
             <div>
               <!-- 顶部核心高亮：主讲/任课教师标识 -->
               <div class="flex items-center justify-between pb-2 border-b border-slate-100">
@@ -672,38 +679,38 @@
         <!-- BOPPPS 四维 100 分打分项 (每项 0-25 分) -->
         <div class="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
           <h4 class="text-xs font-bold text-indigo-700 flex items-center justify-between">
-            <span>BOPPPS 四维打分项 (每项 25 分，合计 100 分满分)</span>
+            <span>BOPPPS 四维打分项（配置权重合计 100 分）</span>
             <span class="text-sm font-bold text-slate-900 font-mono">当前总计：{{ calcTotalScore }} / 100 分</span>
           </h4>
 
           <div class="grid grid-cols-2 gap-3 text-xs">
             <div>
               <div class="flex justify-between text-slate-600 mb-1">
-                <span>1. 教学态度 (0-25分)</span>
+                <span>1. 教学态度 (0-{{ scoreWeights.attitude }}分)</span>
                 <b class="text-indigo-600 font-mono">{{ evalForm.scoreAttitude }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreAttitude" type="range" min="0" max="25" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreAttitude" type="range" min="0" :max="scoreWeights.attitude" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
             </div>
             <div>
               <div class="flex justify-between text-slate-600 mb-1">
-                <span>2. 教学内容 (0-25分)</span>
+                <span>2. 教学内容 (0-{{ scoreWeights.content }}分)</span>
                 <b class="text-indigo-600 font-mono">{{ evalForm.scoreContent }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreContent" type="range" min="0" max="25" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreContent" type="range" min="0" :max="scoreWeights.content" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
             </div>
             <div>
               <div class="flex justify-between text-slate-600 mb-1">
-                <span>3. 教学方法 (0-25分)</span>
+                <span>3. 教学方法 (0-{{ scoreWeights.method }}分)</span>
                 <b class="text-indigo-600 font-mono">{{ evalForm.scoreMethod }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreMethod" type="range" min="0" max="25" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreMethod" type="range" min="0" :max="scoreWeights.method" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
             </div>
             <div>
               <div class="flex justify-between text-slate-600 mb-1">
-                <span>4. 教学效果 (0-25分)</span>
+                <span>4. 教学效果 (0-{{ scoreWeights.effect }}分)</span>
                 <b class="text-indigo-600 font-mono">{{ evalForm.scoreEffect }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreEffect" type="range" min="0" max="25" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreEffect" type="range" min="0" :max="scoreWeights.effect" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
             </div>
           </div>
         </div>
@@ -723,14 +730,14 @@
         <!-- 24 小时脱敏流转规则提醒 (US-14) -->
         <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] flex items-center gap-2">
           <ShieldCheck class="w-4 h-4 text-amber-600 flex-shrink-0" />
-          <span>依据项目规范，正式提交后将进入 <b>24小时延迟脱敏流转期</b>，脱敏归档后对任课教师公开，防止激化师生矛盾。</span>
+          <span>正式提交后先由教研室主任审核；审核通过后进入可配置的反馈延迟期，届时教师可查看匿名反馈。</span>
         </div>
 
         <!-- 按钮操作组 -->
         <div class="flex items-center justify-end gap-2.5 pt-2">
           <button @click="showEvaluateModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
           <button @click="handleSaveEvaluation(true)" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-semibold transition cursor-pointer">暂存草稿 (US-13)</button>
-          <button @click="handleSaveEvaluation(false)" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">正式提交 (开启24h脱敏)</button>
+          <button @click="handleSaveEvaluation(false)" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">正式提交（待审核）</button>
         </div>
       </div>
     </div>
@@ -754,12 +761,13 @@
               <span class="font-semibold text-slate-900">{{ r.resourceName }}</span>
               <div class="text-[11px] text-slate-500 mt-0.5">章节：{{ r.chapter }} · 环节：{{ r.tag }} · 大小：{{ r.fileSize }}</div>
             </div>
-            <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-medium rounded-lg border border-emerald-200">
-              免密已授权 · 动态水印
-            </span>
+            <button @click="previewResource(r)" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-medium rounded-lg border border-emerald-200">
+              打开限时水印预览
+            </button>
           </div>
         </div>
 
+        <iframe v-if="previewUrl" :src="previewUrl" title="课件 PDF 预览" class="w-full h-96 border rounded-lg"></iframe>
         <div class="text-right pt-2">
           <button @click="showPreviewModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">关闭</button>
         </div>
@@ -988,6 +996,8 @@ const enterLiveSupervision = (offeringId: number, schedule?: CourseSchedule) => 
 }
 
 const dashboardMetrics = ref<SupervisionDashboardVO | null>(null)
+const coverageDetails = ref<any[]>([])
+const scoreWeights = ref({attitude: 25, content: 25, method: 25, effect: 25})
 const alertList = ref<SupervisionAlertVO[]>([])
 
 const showEvaluateModal = ref(false)
@@ -995,10 +1005,10 @@ const currentOfferingForEval = ref<CourseOffering | null>(null)
 const evalForm = ref({
   listenTopic: '',
   evaluateDate: new Date().toISOString().split('T')[0],
-  scoreAttitude: 24.0,
-  scoreContent: 23.5,
-  scoreMethod: 23.0,
-  scoreEffect: 23.5,
+  scoreAttitude: 0,
+  scoreContent: 0,
+  scoreMethod: 0,
+  scoreEffect: 0,
   highlights: '',
   suggestions: ''
 })
@@ -1010,6 +1020,7 @@ const calcTotalScore = computed(() => {
 
 const showPreviewModal = ref(false)
 const courseResources = ref<CourseResource[]>([])
+const previewUrl = ref('')
 
 const loadOfferings = async () => {
   const request=++searchRequest; searchError.value=''
@@ -1032,7 +1043,8 @@ const loadOfferings = async () => {
 
 const loadAnalytics = async () => {
   try {
-    dashboardMetrics.value = await supervisionApi.getDashboard()
+    dashboardMetrics.value = await supervisionApi.getDashboard(filterParams.value.term || undefined)
+    coverageDetails.value = await supervisionApi.getCoverage(filterParams.value.term || undefined)
     alertList.value = await supervisionApi.getAlerts()
   } catch (e) {
     console.error('加载督导分析失败', e)
@@ -1042,23 +1054,29 @@ const loadAnalytics = async () => {
 const openPreviewResources = async (courseId: number) => {
   try {
     courseResources.value = await resourceApi.search({ courseId })
+    previewUrl.value = ''
     showPreviewModal.value = true
   } catch (e) {
     alert('获取课件资源失败')
   }
 }
 
+const previewResource = async (resource: CourseResource) => {
+  try { previewUrl.value = await resourceApi.getPreviewUrl(resource.id) }
+  catch (e: any) { alert(e.response?.data?.message || '预览失败') }
+}
+
 const openEvaluateForm = (off: CourseOffering) => {
   currentOfferingForEval.value = off
   evalForm.value = {
-    listenTopic: '随堂听评课',
+    listenTopic: '',
     evaluateDate: new Date().toISOString().split('T')[0],
-    scoreAttitude: 24.0,
-    scoreContent: 23.5,
-    scoreMethod: 23.0,
-    scoreEffect: 23.5,
-    highlights: '教师思路清晰，学生课堂抬头率高，互动热烈。',
-    suggestions: '建议在关键节点继续深化启发式提问。'
+    scoreAttitude: 0,
+    scoreContent: 0,
+    scoreMethod: 0,
+    scoreEffect: 0,
+    highlights: '',
+    suggestions: ''
   }
   showEvaluateModal.value = true
 }
@@ -1067,7 +1085,6 @@ const handleSaveEvaluation = async (isDraft: boolean) => {
   try {
     const payload = {
       offeringId: currentOfferingForEval.value?.id,
-      supervisorName: loggedUser.value?.realName || '',
       evaluateDate: evalForm.value.evaluateDate,
       listenTopic: evalForm.value.listenTopic,
       scoreAttitude: evalForm.value.scoreAttitude,
@@ -1092,5 +1109,6 @@ onMounted(() => {
   loadSchedules()
   loadOfferings()
   loadAnalytics()
+  supervisionApi.getWeights().then(v => { scoreWeights.value = v }).catch(() => {})
 })
 </script>

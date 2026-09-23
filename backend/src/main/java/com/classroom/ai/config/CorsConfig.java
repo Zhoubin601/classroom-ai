@@ -33,10 +33,6 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/uploads/faces/**")
                 .addResourceLocations(facePath);
 
-        // 映射本地教学资源（真实 PPT/DOCX/PDF 课件教案）
-        String resourcePath = UploadPaths.resolveResources(uploadDir).toUri().toString();
-        if (!resourcePath.endsWith("/")) resourcePath += "/";
-        registry.addResourceHandler("/uploads/resources/**")
-                .addResourceLocations(resourcePath);
+        // Course resources are served only by the authorized download/preview API.
     }
 }

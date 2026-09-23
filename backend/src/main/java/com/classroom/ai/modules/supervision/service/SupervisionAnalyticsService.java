@@ -9,6 +9,8 @@ import java.util.List;
 public interface SupervisionAnalyticsService {
     /** 全院督导覆盖率动态监控指标 (US-15) */
     SupervisionDashboardVO getDashboardMetrics();
+    SupervisionDashboardVO getDashboardMetrics(String term);
+    List<com.classroom.ai.modules.supervision.vo.CoverageDetailVO> getCoverageDetails(String term);
 
     /** 预警引擎：低覆盖率(<30%)黄色预警与低均分(<75分)红色预警清单 (US-16) */
     List<SupervisionAlertVO> getAlertList();

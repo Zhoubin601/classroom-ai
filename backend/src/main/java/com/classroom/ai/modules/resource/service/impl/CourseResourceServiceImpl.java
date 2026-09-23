@@ -16,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseResourceServiceImpl implements CourseResourceService {
 
-    private static final long MAX_FILE_SIZE_BYTES = 100L * 1024 * 1024; // US-07: 单文件上限 100MB
+    @org.springframework.beans.factory.annotation.Value("${classroom.resource.max-file-bytes:104857600}")
+    private long maxFileSizeBytes = 100L * 1024 * 1024;
 
     private final CourseResourceRepository resourceRepository;
     private final CourseRepository courseRepository;
@@ -43,9 +44,9 @@ public class CourseResourceServiceImpl implements CourseResourceService {
         if (dto.getFileSizeBytes() != null && dto.getFileSizeBytes() < 0) {
             throw new IllegalArgumentException("文件大小不能为负数");
         }
-        // 1. 严格检查单文件大小上限 100MB (US-07)
-        if (dto.getFileSizeBytes() != null && dto.getFileSizeBytes() > MAX_FILE_SIZE_BYTES) {
-            throw new IllegalArgumentException("上传失败：单文件大小不能超过 100MB 限制！当前文件大小: " +
+        // 按配置检查单文件大小上限 (US-07)
+        if (dto.getFileSizeBytes() != null && dto.getFileSizeBytes() > maxFileSizeBytes) {
+            throw new IllegalArgumentException("上传失败：单文件大小不能超过 " + (maxFileSizeBytes / 1024 / 1024) + "MB 限制！当前文件大小: " +
                     (dto.getFileSizeBytes() / 1024 / 1024) + "MB");
         }
 
@@ -66,7 +67,9 @@ public class CourseResourceServiceImpl implements CourseResourceService {
         resource.setFileUrl(dto.getFileUrl());
         resource.setFileSize(dto.getFileSize());
         resource.setFileSizeBytes(dto.getFileSizeBytes());
-        resource.setTag(dto.getTag() != null ? dto.getTag() : "理论");
+        resource.setTags(dto.getTags() != null ? dto.getTags() :
+                (dto.getTag() == null || dto.getTag().isBlank() ? List.of() : List.of(dto.getTag())));
+        resource.setTag(resource.getTags().isEmpty() ? "未标注" : resource.getTags().get(0));
         resource.setVersion(dto.getVersion() != null ? dto.getVersion() : "v1.0");
         resource.setIsPublic(dto.getIsPublic() != null ? dto.getIsPublic() : true);
         resource.setUploaderTeacher(dto.getUploaderTeacher());
@@ -92,10 +95,12 @@ public class CourseResourceServiceImpl implements CourseResourceService {
             if (res.getFileUrl() != null && res.getFileUrl().startsWith("/uploads/resources/")) {
                 try {
                     String filename = res.getFileUrl().substring("/uploads/resources/".length());
-                    if (!filename.startsWith("ch1_") && !filename.startsWith("ch3_") && !filename.startsWith("ch5_")
+                    if (!filename.contains("/") && !filename.contains("\\") && !filename.equals(".") && !filename.equals("..")
+                            && !filename.startsWith("ch1_") && !filename.startsWith("ch3_") && !filename.startsWith("ch5_")
                             && !filename.startsWith("cs2002_") && !filename.startsWith("ai3001_")) {
-                        java.nio.file.Path path = com.classroom.ai.config.UploadPaths.resolveResources(uploadDir).resolve(filename);
-                        java.nio.file.Files.deleteIfExists(path);
+                        java.nio.file.Path root = com.classroom.ai.config.UploadPaths.resolveResources(uploadDir).toAbsolutePath().normalize();
+                        java.nio.file.Path path = root.resolve(filename).normalize();
+                        if (path.startsWith(root)) java.nio.file.Files.deleteIfExists(path);
                     }
                 } catch (Exception ignored) {
                 }

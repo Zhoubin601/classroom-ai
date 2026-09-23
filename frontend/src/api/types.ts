@@ -153,7 +153,7 @@ export interface CourseSyllabus {
   courseGoals?: string
 }
 
-export interface CourseResource {
+  export interface CourseResource {
   id: number
   course: Course
   chapter: string
@@ -162,7 +162,8 @@ export interface CourseResource {
   fileUrl: string
   fileSize?: string
   fileSizeBytes?: number
-  tag: string
+    tag: string
+    tags?: string[]
   version: string
   isPublic: boolean
   dynamicWatermark?: string
@@ -201,7 +202,8 @@ export interface SupervisionEvaluation {
   publishTime?: string
 }
 
-export interface SupervisionDashboardVO {
+  export interface SupervisionDashboardVO {
+    academicTerm?: string
   totalCourses: number
   supervisedCourses: number
   coverageRate: number
