@@ -115,3 +115,18 @@
   3. 执行 `clean package` 并在源码包中打包预编译的 `backend/target/classroom-backend-0.0.1-SNAPSHOT.jar`，实现开箱即用免编译直接启动；
   4. 产出 `20260922-第二组-Sprint1源代码-v4.zip`。
 
+## 2026-09-22 live业务库数据固化为基准初始化数据来源
+- 资料来源：用户当前开发机 Docker 运行容器 `classroom-mysql` 内实际运行库 `classroom_ai`。
+- 提取工具与命令：
+  - 容器内无损 UTF-8 导出：`docker exec classroom-mysql mysqldump -uroot -proot --default-character-set=utf8mb4 --single-transaction --hex-blob -r /tmp/dump.sql classroom_ai`；
+  - 完整二进制传输：`docker cp classroom-mysql:/tmp/dump.sql ...`。
+- 固化目标文件：
+  - `initialize.sql`（仓库根目录基准初始化脚本，646,817 字节）
+  - `scripts/deploy/mysql/init/initialize.sql`（部署挂载同步副本，646,817 字节）
+- 关键业务数据规模：
+  - 20 张业务表结构与全部数据，包括 `classroom_record`（1131 条）、`face_feature`（80 条）、`student`（80 条）、`t_user_account`（16 条，涵盖主任/督导/教师及 BCrypt 加密凭据）、`t_course`（18 条）、`t_course_offering`（17 条）、`t_course_schedule`（17 条）、`t_offering_student_enrollment`（170 条）。
+- 部署与启动加固：
+  - `scripts/deploy/docker-compose.yml` 调整为单文件挂载 `./mysql/init/initialize.sql:/docker-entrypoint-initdb.d/initialize.sql:ro`；
+  - `scripts/start_project.ps1` 采用 `docker cp` + `source` 执行双层自动灌入。
+
+

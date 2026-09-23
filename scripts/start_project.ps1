@@ -28,7 +28,9 @@ try {
             Write-Host "Initializing MySQL database with base educational data..." -ForegroundColor Yellow
             $initSql = Join-Path $projectRoot 'initialize.sql'
             if (Test-Path $initSql) {
-                Get-Content -LiteralPath $initSql -Encoding UTF8 | & docker exec -i classroom-mysql mysql -uroot -proot --default-character-set=utf8mb4 classroom_ai
+                & docker cp "$initSql" "classroom-mysql:/tmp/initialize.sql"
+                & docker exec classroom-mysql mysql -uroot -proot --default-character-set=utf8mb4 -e "source /tmp/initialize.sql"
+                & docker exec classroom-mysql rm -f /tmp/initialize.sql
                 Write-Host "Database initialization completed successfully." -ForegroundColor Green
             }
         }

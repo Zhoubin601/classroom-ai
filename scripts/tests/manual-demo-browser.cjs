@@ -449,7 +449,13 @@ async function logout(page) {
 
     // 查询不存在的学期验证人次清零
     console.log('  [操作] 查询不存在的历史学期，验证人次清零与空表提示...');
-    await historySection.getByLabel('历史学期').fill('2099未知学期');
+    const termControl = historySection.getByLabel('历史学期');
+    const isSelect = await termControl.evaluate(el => el.tagName.toLowerCase() === 'select').catch(() => false);
+    if (isSelect) {
+      await termControl.selectOption('2024-2025春季');
+    } else {
+      await termControl.fill('2099未知学期');
+    }
     await historySection.getByRole('button', { name: '查询历史' }).click();
     await historySection.getByText('暂无历史开课记录', { exact: true }).waitFor();
     const zeroHistoryText = await historySection.innerText();

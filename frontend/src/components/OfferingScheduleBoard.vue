@@ -49,7 +49,7 @@
             <label>教室<input v-model="scheduleForm.classroom" required maxlength="64" placeholder="文管 A447" /></label>
             <label>星期<select aria-label="星期" v-model="scheduleForm.dayOfWeek"><option v-for="d in 7" :key="d" :value="d">星期{{ d }}</option></select></label>
             <label>起始周<input v-model.number="scheduleForm.startWeek" required type="number" min="1" max="53" /></label><label>结束周<input v-model.number="scheduleForm.endWeek" required type="number" :min="scheduleForm.startWeek" max="53" /></label>
-            <label>起始节<input v-model.number="scheduleForm.startPeriod" required type="number" min="1" max="24" /></label><label>结束节<input v-model.number="scheduleForm.endPeriod" required type="number" :min="scheduleForm.startPeriod" max="24" /></label>
+            <label>起始节<input v-model.number="scheduleForm.startPeriod" required type="number" min="1" max="10" /></label><label>结束节<input v-model.number="scheduleForm.endPeriod" required type="number" :min="scheduleForm.startPeriod" max="10" /></label>
           </div>
         </fieldset>
         <p v-if="message" role="alert" class="text-red-700">{{ message }}</p>

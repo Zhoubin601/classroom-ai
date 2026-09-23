@@ -836,4 +836,66 @@ US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT
   - **第二重（启动脚本自动检测与管道注入）**：在 `scripts/start_project.ps1` 启动服务后增加自动探测（`SELECT count(*) FROM t_user_account`），一旦检测到数据为空，立即通过 `docker exec -i classroom-mysql mysql -uroot -proot classroom_ai < initialize.sql` 自动秒级灌入。
   - **第三重（后端启动自愈保底）**：在 `application.yml` 中默认激活 `app.seed-demo: true`，并在启动参数中显式传递 `--app.seed-demo=true`，Spring Boot 启动时只要发现无数据会自动通过 JPA 初始化全部账号、教师、专业、学生档案与课程数据。
 
+### 4. 真实业务库全量导出并固化为项目基准初始化数据
+- **用户诉求**：
+  - 用户明确要求“把现在的我的classroomai的mysql的数据作为以后的初始化数据”，即不再使用之前合成的模拟样例数据，而是直接将用户当前开发机中实际运行的 `classroom_ai` 数据库（包含 1131 条真实课堂时序记录、80 位学生档案、80 条 512 维人脸特征向量、18 门课程、17 个排课班次、16 个用户账号、选课名单等）固化为以后的系统基准初始化数据。
+- **提取与清洗落地**：
+  1. **无损字符集提取**：
+     - 启动并连接 Docker `classroom-mysql` 容器中的 `classroom_ai` 真实业务库；
+     - 使用 `mysqldump --default-character-set=utf8mb4 --single-transaction --hex-blob -r /tmp/dump.sql` 直接在 Linux 容器内生成无 Windows 终端代码页（GBK/UTF-16）二次转码影响的纯净 UTF-8 导出文件；
+     - 通过 `docker cp` 完整提取 645KB 的全量数据脚本。
+  2. **覆盖全量 20 张业务表及全量记录**：
+     - `classroom_record`: 1131 条（具身机器人与真实课堂时序分析宏观记录）
+     - `face_feature`: 80 条（InsightFace 512 维高精度人脸特征底库）
+     - `student`: 80 条（计算机/软件等专业真实学生花名册）
+     - `t_academic_term_lock`: 1 条（学期锁状态记录）
+     - `t_attendance_session`: 1 条（课堂考勤真实会话）
+     - `t_course`: 18 条（软件工程、操作系统等全量课程主数据）
+     - `t_course_content_revision`: 3 条（课程大纲与简介版本控制）
+     - `t_course_import_log`: 7 条（批量导入审计记录）
+     - `t_course_offering`: 17 条（2026秋季等学期开课班次）
+     - `t_course_offering_teacher`: 4 条（多教师联合开课分工关联）
+     - `t_course_resource`: 5 条（课程资源/课件索引）
+     - `t_course_schedule`: 17 条（文管 A447 等多时段排课与冲突记录）
+     - `t_course_syllabus`: 1 条（课程教学目标矩阵）
+     - `t_graduation_indicator`: 12 条（工程教育认证 12 项毕业要求指标点）
+     - `t_major`: 5 条（SE, CS, AI, DS, SEC 专业字典）
+     - `t_micro_teaching_slice`: 2 条（AI 微格切片标注数据）
+     - `t_offering_student_enrollment`: 170 条（班次与学生选课真值映射）
+     - `t_supervision_evaluation`: 3 条（校级/院级督导评教记录）
+     - `t_teacher`: 8 条（8 位教师主数据档案）
+     - `t_user_account`: 16 条（主任、督导、教师全量加密账号与授权）
+  3. **引导机制与多重保底彻底修复**：
+     - **脚本固化**：同步覆盖更新根目录 `initialize.sql` 与 `scripts/deploy/mysql/init/initialize.sql`；
+     - **修复 Compose 挂载防死锁**：在 `scripts/deploy/docker-compose.yml` 中，将原 `./mysql/init:/docker-entrypoint-initdb.d:ro` 目录挂载调整为精确文件挂载 `./mysql/init/initialize.sql:/docker-entrypoint-initdb.d/initialize.sql:ro`。由于原目录内含有 `05_us04_archive.sql` 等增量迁移脚本，当空数据卷首次启动时，MySQL 官方容器会按字母排序先执行 `05_`，因表尚未建立引发 SQL 报错进而阻断容器初始化。改为挂载单文件后，容器初始化只执行 `initialize.sql`，彻底保证新环境冷启动 100% 成功。
+     - **启动脚本管道脱敏**：在 `scripts/start_project.ps1` 中，优化数据自动灌入逻辑：改用 `docker cp "$initSql" "classroom-mysql:/tmp/initialize.sql"` 配合 `docker exec ... -e "source /tmp/initialize.sql"`，彻底避免 PowerShell 5.1 在跨编码管道传流时的截断与乱码。
+  4. **全量数据导入实测验证**：
+     - 在容器内完整运行 `source /tmp/verify_init.sql`，20 张数据表全部建立，20 张表记录数全部精确就绪，0 报错。
+
+### 5. 源码包纯净精简瘦身（剥离审计文档、Git 历史与过程冗余）
+- **用户要求**：
+  - 用户已将交付包更新至 `v3` 目录，并明确指示：“把源码包的审计文档之类的东西全部删掉，只保留需要跑代码起来的源代码即可，git也不要保留”。
+- **剥离策略与落地**：
+  1. **彻底移除全部非运行期文件**：
+     - 排除 `.git/`（去除全部本地提交历史与 Git 数据库，节省 32.39 MB）；
+     - 排除 `docs/`（去除全部审计记录、验收文档、回归日志、patch 补丁文件等过程文档，节省 15.08 MB）；
+     - 排除 `memory-bank/`、`raw/`、`output/`（去除背景记录、原始资料与历史生成包）；
+     - 排除 `__pycache__/`、`.tsbuildinfo`、`frontend/dist/`、所有临时 `.log` 与 `.pid` 文件。
+  2. **严格保留全部代码运行必要核心资产**：
+     - 根目录启动/停止双击脚本：`start_project.bat`、`start_project.ps1`、`stop_project.bat`、`stop_project.ps1`、`README.md`、`LICENSE`、`.gitignore`；
+     - 核心基准数据库：`initialize.sql`（包含 20 张表及 1131 条真实时序记录的最新固化库）；
+     - 后端资产：`backend/pom.xml`、全部 Java 源代码及资源、免编译秒启产物 `backend/target/classroom-backend-0.0.1-SNAPSHOT.jar`（63MB）、内置离线 Maven 工具链 `backend/.tools/apache-maven-3.9.6`；
+     - 前端资产：`frontend/package.json`、`package-lock.json`、`vite.config.ts`、`src/`、`public/`、`dev/`；
+     - 部署与管理脚本：`scripts/deploy/docker-compose.yml`、`scripts/deploy/mysql/init/initialize.sql`、`start_services.ps1` 等；
+     - 视觉分析模块：`vision/` Python 脚本、依赖定义与 YOLO/InsightFace 模型权重；
+     - 运行时资源：`runtime/uploads/` 课程配套课件。
+  3. **成果指标**：
+     - 文件总数：由 585 个精简至 **376 个**（减少 35.7%）；
+     - 压缩包体积：由 124.35 MB 骤降至 **72.79 MB**（缩减 41.5%）；
+     - 产出同步覆盖：
+       - `D:\2026Autumn Semester File\软管\实验二\output\v3\第二组_Sprint 1源代码.zip`
+       - `D:\2026Autumn Semester File\classroom-ai-demo\output\20260922-第二组-Sprint1源代码-v4.zip`
+
+
+
 

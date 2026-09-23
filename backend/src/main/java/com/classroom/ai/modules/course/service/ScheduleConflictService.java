@@ -31,8 +31,8 @@ public class ScheduleConflictService {
     public static void validate(String room, Integer day, Integer sw, Integer ew, Integer sp, Integer ep) {
         if (room == null || room.isBlank() || room.trim().length() > 64 || day == null || day < 1 || day > 7
                 || sw == null || ew == null || sw < 1 || ew < sw || ew > 53
-                || sp == null || ep == null || sp < 1 || ep < sp || ep > 24)
-            throw new IllegalArgumentException("教室、星期、周次(1–53)和节次(1–24)范围必须有效");
+                || sp == null || ep == null || sp < 1 || ep < sp || ep > 10)
+            throw new IllegalArgumentException("教室、星期、周次(1–53)和节次(1–10)范围必须有效");
     }
 
     /** Called after acquiring the semester lock, in READ_COMMITTED transactions. */

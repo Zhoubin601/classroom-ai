@@ -260,6 +260,9 @@ public class CourseAuthorizationService {
     private boolean isTeacherAssociatedWithOffering(UserVO teacher, CourseOffering offering) {
         String tCode = teacher.getTeacherCode();
         if (tCode == null || tCode.isBlank()) return false;
+        // The offering row stores the primary teacher. Honor that canonical
+        // assignment even when an existing database is missing relation rows.
+        if (offering.getTeacherCode() != null && tCode.trim().equalsIgnoreCase(offering.getTeacherCode().trim())) return true;
         if (offering.getId() != null) {
             for (CourseOfferingTeacher relation : offeringTeacherRepository.findByOfferingId(offering.getId())) {
                 if (relation.getTeacherId() != null && relation.getTeacherCode() != null && tCode.trim().equalsIgnoreCase(relation.getTeacherCode().trim())) return true;
