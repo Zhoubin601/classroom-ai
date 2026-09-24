@@ -604,7 +604,7 @@
       <div class="bg-white rounded-2xl w-full max-w-5xl p-5 space-y-3">
         <div class="flex justify-between items-center">
           <h3 class="font-semibold text-slate-900">{{ currentPreviewRes?.resourceName }} · 限时水印预览</h3>
-          <button @click="previewModalVisible = false" class="text-slate-600">关闭</button>
+          <button @click="closePreview" class="text-slate-600">关闭</button>
         </div>
         <iframe v-if="previewUrl" :src="previewUrl" title="课件 PDF 预览" class="w-full h-[70vh] border rounded-lg"></iframe>
         <p v-else class="text-sm text-slate-500">正在准备预览...</p>
@@ -721,6 +721,13 @@ const uploadForm = ref({
 const previewModalVisible = ref(false)
 const currentPreviewRes = ref<CourseResource | null>(null)
 const previewUrl = ref('')
+let previewRequest = 0
+const closePreview = () => {
+  previewRequest++
+  if (previewUrl.value.startsWith('blob:')) URL.revokeObjectURL(previewUrl.value)
+  previewUrl.value = ''
+  previewModalVisible.value = false
+}
 
 const loadTeacherList = async () => {
   try {
@@ -1075,14 +1082,18 @@ const downloadResourceFile = async (res: CourseResource | null) => {
 }
 
 const previewResource = async (res: CourseResource) => {
+  closePreview()
+  const request = previewRequest
   currentPreviewRes.value = res
-  previewUrl.value = ''
   previewModalVisible.value = true
   try {
-    previewUrl.value = await resourceApi.getPreviewUrl(res.id)
+    const pdf = await resourceApi.getPreviewPdf(res.id)
+    if (request !== previewRequest || !previewModalVisible.value) return
+    previewUrl.value = URL.createObjectURL(pdf)
   } catch (e: any) {
-    previewModalVisible.value = false
-    alert(e.response?.data?.message || '预览失败')
+    if (request !== previewRequest) return
+    closePreview()
+    alert(e.message || '预览失败')
   }
 }
 
@@ -1244,5 +1255,5 @@ watch(() => props.loggedInUser, (newUser) => {
   }
 })
 
-onUnmounted(() => { radarChart?.dispose(); radarChart = null })
+onUnmounted(() => { closePreview(); radarChart?.dispose(); radarChart = null })
 </script>

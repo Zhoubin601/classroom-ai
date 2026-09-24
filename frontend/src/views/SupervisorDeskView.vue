@@ -749,7 +749,7 @@
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <FileText class="w-4 h-4 text-indigo-600" /> 听课前课件大纲免密预审
           </h3>
-          <button @click="showPreviewModal = false" class="text-slate-400 hover:text-slate-600 text-lg cursor-pointer">✕</button>
+          <button @click="closePreview" class="text-slate-400 hover:text-slate-600 text-lg cursor-pointer">✕</button>
         </div>
 
         <div v-if="courseResources.length === 0" class="p-8 text-center text-xs text-slate-400">
@@ -769,7 +769,7 @@
 
         <iframe v-if="previewUrl" :src="previewUrl" title="课件 PDF 预览" class="w-full h-96 border rounded-lg"></iframe>
         <div class="text-right pt-2">
-          <button @click="showPreviewModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">关闭</button>
+          <button @click="closePreview" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">关闭</button>
         </div>
       </div>
     </div>
@@ -777,7 +777,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import {
   ShieldCheck,
   Search,
@@ -1021,6 +1021,17 @@ const calcTotalScore = computed(() => {
 const showPreviewModal = ref(false)
 const courseResources = ref<CourseResource[]>([])
 const previewUrl = ref('')
+let previewRequest = 0
+const clearPreviewPdf = () => {
+  previewRequest++
+  if (previewUrl.value.startsWith('blob:')) URL.revokeObjectURL(previewUrl.value)
+  previewUrl.value = ''
+}
+const closePreview = () => {
+  clearPreviewPdf()
+  showPreviewModal.value = false
+}
+onUnmounted(closePreview)
 
 const loadOfferings = async () => {
   const request=++searchRequest; searchError.value=''
@@ -1053,8 +1064,8 @@ const loadAnalytics = async () => {
 
 const openPreviewResources = async (courseId: number) => {
   try {
+    closePreview()
     courseResources.value = await resourceApi.search({ courseId })
-    previewUrl.value = ''
     showPreviewModal.value = true
   } catch (e) {
     alert('获取课件资源失败')
@@ -1062,8 +1073,15 @@ const openPreviewResources = async (courseId: number) => {
 }
 
 const previewResource = async (resource: CourseResource) => {
-  try { previewUrl.value = await resourceApi.getPreviewUrl(resource.id) }
-  catch (e: any) { alert(e.response?.data?.message || '预览失败') }
+  clearPreviewPdf()
+  const request = previewRequest
+  try {
+    const pdf = await resourceApi.getPreviewPdf(resource.id)
+    if (request !== previewRequest || !showPreviewModal.value) return
+    previewUrl.value = URL.createObjectURL(pdf)
+  } catch (e: any) {
+    if (request === previewRequest) alert(e.message || '预览失败')
+  }
 }
 
 const openEvaluateForm = (off: CourseOffering) => {

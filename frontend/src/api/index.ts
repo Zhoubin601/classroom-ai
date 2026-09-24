@@ -412,9 +412,26 @@ export const resourceApi = {
     })
     return res.data.data
   },
-  getPreviewUrl: async (id: number): Promise<string> => {
+  getPreviewPdf: async (id: number): Promise<Blob> => {
     const res = await client.post<ApiResponse<{url: string}>>(`/api/v1/resources/${id}/preview-ticket`)
-    return res.data.data.url
+    try {
+      const pdf = await client.get<Blob>(res.data.data.url, { responseType: 'blob', timeout: 120000 })
+      if (!String(pdf.headers['content-type'] || '').includes('application/pdf')) {
+        throw new Error('预览服务未返回 PDF 文件')
+      }
+      return pdf.data
+    } catch (error: any) {
+      if (error.response?.data instanceof Blob && String(error.response.headers?.['content-type'] || '').includes('application/json')) {
+        try {
+          const body = JSON.parse(await error.response.data.text())
+          throw new Error(body.message || '预览失败')
+        } catch (parseError) {
+          if (parseError instanceof SyntaxError) throw error
+          throw parseError
+        }
+      }
+      throw error
+    }
   },
   download: async (id: number): Promise<Blob> => {
     const res = await client.get(`/api/v1/resources/${id}/download`, { responseType: 'blob' })

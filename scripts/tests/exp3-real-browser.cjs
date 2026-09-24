@@ -98,12 +98,15 @@ async function main() {
     await teacher.getByRole('button', { name: '全部', exact: true }).click();
     await teacher.getByText(name, { exact: true }).first().waitFor();
     const resourceCard = teacher.locator('div').filter({ hasText: name }).filter({ has: teacher.getByRole('button', { name: '授权预览' }) }).last();
-    const [previewTicketUi] = await Promise.all([
+    const [previewTicketUi, previewPdfUi] = await Promise.all([
       teacher.waitForResponse(response => response.url().includes(`/api/v1/resources/${resource.id}/preview-ticket`)),
+      teacher.waitForResponse(response => response.url().includes('/api/v1/resources/preview/') && response.status() === 200),
       resourceCard.getByRole('button', { name: '授权预览' }).click()
     ]);
     assert.equal((await previewTicketUi.json()).code, 200);
+    assert.equal((await previewPdfUi.body()).subarray(0, 5).toString(), '%PDF-');
     await teacher.getByTitle('课件 PDF 预览').waitFor();
+    assert.match(await teacher.getByTitle('课件 PDF 预览').getAttribute('src'), /^blob:/);
     await teacher.getByRole('button', { name: '关闭', exact: true }).click();
     const unauthed = await teacher.request.get(backend + resource.fileUrl);
     assert.ok(unauthed.status() === 401 || unauthed.status() === 403);
@@ -145,6 +148,17 @@ async function main() {
     await supervisor.getByRole('combobox', { name: '检索学期' }).selectOption(shared.academicTerm);
     await supervisor.locator('select:has(option[value="' + shared.className + '"])').selectOption(shared.className);
     const offeringCard = supervisor.getByTestId(`offering-${shared.id}`);
+    await offeringCard.getByRole('button', { name: '课件免密预审' }).click();
+    const supervisorResource = supervisor.locator('div.p-3.bg-slate-50.border.rounded-xl').filter({ hasText: name });
+    await supervisorResource.waitFor();
+    const [supervisorPdf] = await Promise.all([
+      supervisor.waitForResponse(response => response.url().includes('/api/v1/resources/preview/') && response.status() === 200),
+      supervisorResource.getByRole('button', { name: '打开限时水印预览' }).click()
+    ]);
+    assert.equal((await supervisorPdf.body()).subarray(0, 5).toString(), '%PDF-');
+    await supervisor.getByTitle('课件 PDF 预览').waitFor();
+    assert.match(await supervisor.getByTitle('课件 PDF 预览').getAttribute('src'), /^blob:/);
+    await supervisor.getByRole('button', { name: '关闭', exact: true }).click();
     await offeringCard.getByRole('button', { name: /随堂评价/ }).click();
     await supervisor.getByPlaceholder('如 第三讲：需求估算与WBS分解').fill('浏览器测试');
     const sliders = supervisor.locator('input[type="range"]');
