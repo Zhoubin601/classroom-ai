@@ -89,7 +89,6 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/api/v1/auth/login",
                     "/api/v1/auth/csrf",
-                    "/api/v1/resources/preview/**",
                     "/uploads/faces/**",
                     "/error",
                     "/v3/api-docs/**",

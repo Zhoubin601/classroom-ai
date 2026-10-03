@@ -104,7 +104,7 @@
           </div>
 
           <!-- 资源列表 -->
-          <div class="space-y-2">
+          <div class="space-y-2" data-testid="my-resource-list">
             <div v-if="myResources.length === 0" class="py-8 text-center text-slate-400 text-xs bg-slate-50 border border-dashed border-slate-200 rounded-xl">
               该环节暂无课件教案资源，请点击右上角上传挂载
             </div>
@@ -137,7 +137,8 @@
                   </div>
                 </div>
               </div>
-              <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2">
+                <button @click="openResourceEdit(res)" class="px-2.5 py-1 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg text-xs font-medium transition cursor-pointer">编辑标签与共享</button>
                 <button @click="previewResource(res)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-indigo-700 border border-slate-200 rounded-lg text-xs font-medium transition flex items-center gap-1 cursor-pointer">
                   <Eye class="w-3 h-3" /> 授权预览
                 </button>
@@ -145,6 +146,33 @@
                   <Trash2 class="w-3 h-3" /> 删除
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- US-10：跨课程、跨教师的教研室共享备课库 -->
+        <div class="minimal-card p-5" data-testid="shared-resource-library">
+          <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-sm font-semibold text-slate-900">教研室共享备课库</h2>
+              <p class="text-xs text-slate-500 mt-1">检索本教研室教师允许共享的资源；预览仍需服务端授权。</p>
+            </div>
+            <div class="flex gap-2">
+              <input v-model="sharedKeyword" @keyup.enter="loadSharedResources" aria-label="共享资源关键词" placeholder="搜索课程、章节或资源名" class="w-44 bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs" />
+              <button @click="loadSharedResources" class="px-3 py-2 bg-indigo-600 text-white rounded-lg text-xs">检索共享资源</button>
+            </div>
+          </div>
+          <p v-if="sharedError" role="alert" class="text-xs text-rose-600 mb-3">{{ sharedError }}</p>
+          <p v-if="sharedLoading" class="text-xs text-slate-500">正在加载共享资源...</p>
+          <p v-else-if="sharedResources.length === 0" class="text-xs text-slate-500 py-5 text-center bg-slate-50 rounded-lg">暂无符合条件的共享资源</p>
+          <div v-else class="space-y-2">
+            <div v-for="res in sharedResources" :key="res.id" class="flex items-center justify-between gap-3 p-3 bg-white border border-slate-200 rounded-lg" :data-testid="`shared-resource-${res.id}`">
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-slate-900 truncate">{{ res.resourceName }}</p>
+                <p class="text-[11px] text-slate-500 mt-1">{{ res.course?.courseName }} · {{ res.chapter }} · 上传者：{{ res.uploaderTeacher || '未记录' }}</p>
+                <p class="text-[11px] text-slate-500 mt-1">环节：{{ res.tags?.join('、') || '未标注' }}</p>
+              </div>
+              <button @click="previewResource(res)" class="shrink-0 px-3 py-1.5 bg-slate-100 text-indigo-700 rounded-lg text-xs">授权预览</button>
             </div>
           </div>
         </div>
@@ -498,6 +526,21 @@
       </div>
     </div>
 
+    <div v-if="editingResource" class="fixed inset-0 bg-slate-900/40 z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl w-full max-w-md p-6 space-y-4">
+        <h3 class="font-semibold text-slate-900">编辑资源标签与共享范围</h3>
+        <p class="text-xs text-slate-600">{{ editingResource.resourceName }}</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <label v-for="tag in ['理论', '实验', '讨论', '研讨']" :key="tag" class="flex items-center gap-1"><input v-model="editResourceTags" type="checkbox" :value="tag" />{{ tag }}</label>
+        </div>
+        <label class="flex items-center gap-2 text-xs"><input v-model="editResourcePublic" type="checkbox" />教研室共享</label>
+        <div class="flex justify-end gap-2">
+          <button @click="editingResource = null" class="px-3 py-2 bg-slate-100 rounded-lg text-xs">取消</button>
+          <button @click="saveResourceMetadata" :disabled="savingResourceMetadata" class="px-3 py-2 bg-indigo-600 disabled:opacity-50 text-white rounded-lg text-xs">保存修改</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 弹窗：上传教学资源 -->
     <div v-if="showUploadModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
       <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-6 shadow-modal space-y-4">
@@ -669,6 +712,14 @@ const currentSchedule = ref<CourseSchedule | null>(null)
 const currentSyllabus = ref<any>(null)
 const selectedTag = ref('')
 const myResources = ref<CourseResource[]>([])
+const sharedResources = ref<CourseResource[]>([])
+const sharedKeyword = ref('')
+const sharedLoading = ref(false)
+const sharedError = ref('')
+const editingResource = ref<CourseResource | null>(null)
+const editResourceTags = ref<string[]>([])
+const editResourcePublic = ref(false)
+const savingResourceMetadata = ref(false)
 const radarData = ref<TeacherQualityRadarVO | null>(null)
 const radarChartRef = ref<HTMLDivElement | null>(null)
 let radarChart: echarts.ECharts | null = null
@@ -754,7 +805,7 @@ const loadTeacherList = async () => {
 const onTeacherChange = async () => {
   selectedOfferingId.value = null
   await loadCourse()
-  await Promise.all([loadMyResources(), loadRadar(), loadIndicators(), loadCourseContent()])
+  await Promise.all([loadMyResources(), loadSharedResources(), loadRadar(), loadIndicators(), loadCourseContent()])
 }
 
 const onOfferingSelectChange = async () => {
@@ -771,7 +822,7 @@ const onOfferingSelectChange = async () => {
     } catch (err) {
       console.warn('获取排课信息失败', err)
     }
-    await Promise.all([loadMyResources(), loadRadar(), loadIndicators(), loadCourseContent()])
+    await Promise.all([loadMyResources(), loadSharedResources(), loadRadar(), loadIndicators(), loadCourseContent()])
   }
 }
 
@@ -1097,6 +1148,41 @@ const previewResource = async (res: CourseResource) => {
   }
 }
 
+const loadSharedResources = async () => {
+  sharedLoading.value = true
+  sharedError.value = ''
+  try {
+    sharedResources.value = await resourceApi.search({ isPublic: true, keyword: sharedKeyword.value.trim() })
+  } catch (e: any) {
+    sharedResources.value = []
+    sharedError.value = e.response?.data?.message || e.message || '共享资源加载失败'
+  } finally {
+    sharedLoading.value = false
+  }
+}
+
+const openResourceEdit = (res: CourseResource) => {
+  editingResource.value = res
+  editResourceTags.value = [...(res.tags || [])]
+  editResourcePublic.value = res.isPublic
+}
+
+const saveResourceMetadata = async () => {
+  const resource = editingResource.value
+  if (!resource) return
+  savingResourceMetadata.value = true
+  try {
+    await resourceApi.save({ id: resource.id, courseId: resource.course.id, chapter: resource.chapter,
+      resourceName: resource.resourceName, tags: editResourceTags.value, isPublic: editResourcePublic.value })
+    editingResource.value = null
+    await Promise.all([loadMyResources(), loadSharedResources()])
+  } catch (e: any) {
+    alert(e.response?.data?.message || e.message || '资源信息保存失败')
+  } finally {
+    savingResourceMetadata.value = false
+  }
+}
+
 const handleSaveResource = async () => {
   try {
     if (!currentCourse.value) throw new Error('该教师暂无开课记录')
@@ -1118,6 +1204,7 @@ const handleSaveResource = async () => {
     showUploadModal.value = false
     clearSelectedResourceFile()
     await loadMyResources()
+    await loadSharedResources()
     alert(`课件《${uploadForm.value.resourceName}》上传成功，可通过授权预览查看水印`)
   } catch (e: any) {
     alert(e.response?.data?.message || e.message || '上传挂载失败')

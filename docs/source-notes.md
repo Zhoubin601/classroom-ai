@@ -135,4 +135,9 @@
 - 代码与数据基线：本仓库原有源码、`initialize.sql` 和运行中的 `classroom_ai`。迁移前 SQL 备份位于 `runtime/backups/pre-exp3-20260923-classroom_ai.sql`；代码基线已推送至 `backup/pre-exp3-20260923`。
 - 本轮未使用外部资料；浏览器与 MySQL 验收使用独立临时数据库。
 
+## 2026-09-26 Sprint 2 补齐与验收来源
+- `D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/实验指导书_实验1_项目启动与规划_4学时.docx`：指导书要求至少三个 Sprint 发布切片，并将“看课堂”列为后续产品进阶方向。
+- `D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx`：表 6 明确 Sprint 2 为 US-05、US-07～10、US-13～15；表 11 列集成、安全验证与中期评审。
+- 当前仓库源码、隔离 MySQL 和本机 Google Chrome 是本次代码与页面验收依据。真实培养方案指标正文仍未提供，浏览器用例采用明确标为合成的隔离测试指标。
+
 

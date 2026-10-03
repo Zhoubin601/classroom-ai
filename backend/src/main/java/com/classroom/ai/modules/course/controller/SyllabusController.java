@@ -100,19 +100,29 @@ public class SyllabusController {
             @RequestBody List<com.classroom.ai.modules.course.dto.IndicatorDTO> items) {
         checkMajorDepartment(majorCode);
         if (items == null || items.isEmpty()) throw new IllegalArgumentException("培养方案指标目录不能为空");
+        var codes = new java.util.HashSet<String>();
         for (var item : items) {
-            if (item.getIndicatorCode() == null || item.getIndicatorCode().isBlank()
-                    || item.getRequirementCategory() == null || item.getRequirementCategory().isBlank())
-                throw new IllegalArgumentException("指标编号和类别不能为空");
-            var record = trainingRepository.findByMajorCodeAndPlanVersionAndIndicatorCode(majorCode, version, item.getIndicatorCode())
-                    .orElseGet(com.classroom.ai.modules.course.entity.TrainingIndicator::new);
+            if (item == null || item.getIndicatorCode() == null || item.getIndicatorCode().isBlank()
+                    || item.getRequirementCategory() == null || item.getRequirementCategory().isBlank()
+                    || item.getIndicatorDescription() == null || item.getIndicatorDescription().isBlank())
+                throw new IllegalArgumentException("指标编号、类别和描述不能为空");
+            String code = item.getIndicatorCode().trim();
+            if (!codes.add(code)) throw new IllegalArgumentException("指标编号重复：" + code);
+        }
+        var existing = trainingRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(majorCode, version);
+        var byCode = existing.stream().collect(java.util.stream.Collectors.toMap(
+                com.classroom.ai.modules.course.entity.TrainingIndicator::getIndicatorCode, item -> item));
+        for (var item : items) {
+            String code = item.getIndicatorCode().trim();
+            var record = byCode.getOrDefault(code, new com.classroom.ai.modules.course.entity.TrainingIndicator());
             record.setMajorCode(majorCode);
             record.setPlanVersion(version);
-            record.setIndicatorCode(item.getIndicatorCode());
-            record.setRequirementCategory(item.getRequirementCategory());
-            record.setIndicatorDescription(item.getIndicatorDescription());
+            record.setIndicatorCode(code);
+            record.setRequirementCategory(item.getRequirementCategory().trim());
+            record.setIndicatorDescription(item.getIndicatorDescription().trim());
             trainingRepository.save(record);
         }
+        trainingRepository.deleteAll(existing.stream().filter(item -> !codes.contains(item.getIndicatorCode())).toList());
         return getPlanIndicators(majorCode, version);
     }
 

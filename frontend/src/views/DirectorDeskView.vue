@@ -250,7 +250,7 @@
           </div>
           <textarea v-model="planImportText" aria-label="培养方案指标目录" rows="4" class="w-full border rounded p-2" placeholder="1-1 | 工程知识 | 指标描述"></textarea>
           <button @click="savePlanCatalog" class="px-3 py-1.5 bg-indigo-600 text-white rounded">导入目录</button>
-          <span class="text-slate-500 ml-2">以实际培养方案为准；不会清除旧版本</span>
+          <span class="text-slate-500 ml-2">以实际培养方案为准；重导同版本会同步该版目录，旧版本保留</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs text-slate-700">

@@ -142,11 +142,21 @@ public class CourseResourceController {
         CourseResource existing = resourceService.getResourceById(dto.getId());
         accessService.requireWrite(existing);
         if (!existing.getCourse().getId().equals(dto.getCourseId())) return ApiResponse.error(400, "不可更改资源所属课程");
+        if (dto.getChapter() == null || dto.getChapter().isBlank()
+                || dto.getResourceName() == null || dto.getResourceName().isBlank())
+            return ApiResponse.error(400, "资源名称和所属章节不能为空");
+        if (dto.getTags() != null && dto.getTags().stream()
+                .anyMatch(t -> t == null || !List.of("理论", "实验", "讨论", "研讨").contains(t.trim())))
+            return ApiResponse.error(400, "环节标签仅支持理论、实验、讨论、研讨");
         dto.setFileUrl(existing.getFileUrl());
         dto.setFileSize(existing.getFileSize());
         dto.setFileSizeBytes(existing.getFileSizeBytes());
         dto.setFileType(existing.getFileType());
         dto.setUploaderTeacher(existing.getUploaderTeacher());
+        dto.setVersion(existing.getVersion());
+        dto.setDynamicWatermark(existing.getDynamicWatermark());
+        if (dto.getTags() == null) dto.setTags(existing.getTags());
+        if (dto.getIsPublic() == null) dto.setIsPublic(existing.getIsPublic());
         try {
             return ApiResponse.success("资源上传挂载成功", resourceService.saveResource(dto));
         } catch (IllegalArgumentException e) {

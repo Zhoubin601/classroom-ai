@@ -2,6 +2,8 @@ package com.classroom.ai.modules.resource.service;
 
 import com.classroom.ai.config.UploadPaths;
 import com.classroom.ai.modules.auth.vo.UserVO;
+import com.classroom.ai.modules.auth.context.AuthContext;
+import com.classroom.ai.common.exception.ForbiddenException;
 import com.classroom.ai.modules.resource.entity.CourseResource;
 import com.classroom.ai.modules.resource.entity.ResourceAccessLog;
 import com.classroom.ai.modules.resource.repository.ResourceAccessLogRepository;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +54,11 @@ public class ResourceFileService {
             tickets.remove(token);
             throw new IllegalArgumentException("预览链接已过期，请重新申请");
         }
+        UserVO viewer = AuthContext.getCurrentUser();
+        if (viewer == null || !Objects.equals(viewer.getId(), ticket.viewerId()))
+            throw new ForbiddenException("预览链接仅限申请人使用");
         CourseResource resource = resources.findById(ticket.resourceId()).orElseThrow(() -> new IllegalArgumentException("资源不存在"));
+        access.requireRead(resource);
         Path file = resolveStored(resource);
         Path temp = Files.createTempDirectory("classroom-preview-");
         try {

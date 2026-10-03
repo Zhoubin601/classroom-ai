@@ -903,6 +903,38 @@ US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT
 - 迁移将没有主任审核记录的历史已发布评价保留为待审核，避免它们绕过新规则向教师披露；现有库有 3 条此类记录，需要主任逐条复核。
 - 用户复核：培养方案指标正文未提供；请使用真实培养方案由主任导入对应专业与版本后再核对实际指标映射。
 
+## 2026-09-24 Playwright 全功能端到端自动化测试验收记录
+- 测试套件脚本：`scripts/tests/all-features-playwright.cjs`，启动脚本：`scripts/run-all-features-playwright.ps1`。
+- 测试范围覆盖系统全量 6 大业务模块：
+  1. 统一认证鉴权与多角色 RBAC 隔离（主任、教师、督导角色隔离与 401 凭证拦截）；
+  2. 教研室主任工作台（US-01 导入与导出、US-03/04 排课统筹与冲突、US-05 培养方案与指标矩阵、US-06 督导授权、US-14 督导评价审核）；
+  3. 任课教师工作台（US-02 简介草稿暂存、US-07/10 课件上传与多环节标签、US-08 标签精准筛选、US-09 在线限时水印预览、US-14 匿名评价复盘与 US-17 BOPPPS 4 维雷达图）；
+  4. 教学督导工作台（US-03/06 高校周历总课表、US-06 复合检索、US-09 听课前课件大纲免密预审、US-13 BOPPPS 随堂打分与暂存、US-15 全院覆盖率统计与明细追溯、US-16 红黄质量预警中心）；
+  5. 课堂智能考勤大屏（关联开课、出勤/缺勤统计、抬头率与专注度态势波形图）；
+  6. 学生人脸档案库（MySQL 学生花名册、InsightFace 512 维特征向量列表展示与 1:N 云端测试入口）。
+- 测试结果：23 个端到端测试用例全部通过（100% PASS），0 失败。
+- 存证文件：在 `docs/playwright-all-features-evidence/` 生成 21 张全流程存证截图，在 `docs/playwright-e2e-report.md` 记录详细验收报告。
+
+## 2026-09-26 生产投入使用就绪度审查 (Production Readiness Review & Ship Gate Audit)
+- **审查结论**：不可直接投入实际生产使用 (Do NOT Ship to Production Yet)。该项目为高完成度敏捷工程原型与演示系统，在生产安全性、高可用部署、运维监控及真实教务对接层面存在 6 大类共 15 项优化点。
+- **阻断级问题 (Critical Blockers)**：
+  1. 默认明文密码与全量弱口令：`initialize.sql` 中大量账号存储明文 `'123456'`，`SecurityConfig` 允许明文比对，且所有初始账号均为弱口令。
+  2. JWT Secret 硬编码公开：`JwtTokenProvider` 默认硬编码公开密钥，若无环境变量注入将面临伪造任意角色 Token 风险。
+  3. CORS 过于宽松：`CorsConfig` 采用 `allowedOriginPatterns("*")` + `allowCredentials(true)`，存在跨域凭据劫持风险。
+  4. 数据库 DDL 自动变更隐患：`application.yml` 开启 `ddl-auto: update`，生产环境可能引发死锁与结构破坏，必须迁移为 `validate`。
+  5. 数据库与 Redis 默认弱口令暴露：root/root 且 Redis 无密码保护。
+  6. 前端以 Vite Dev Server 模式运行：缺乏 Nginx 静态文件分发、Gzip 压缩、SSL/TLS 证书终止与反向代理。
+- **架构级优化项 (High Priority)**：
+  1. 课件预览 Ticket 内存存储问题：`ResourceFileService` 单机 Map 改用 Redis 缓存与分布式 TTL。
+  2. LibreOffice 同步转码阻塞：大课件转码耗时达 90 秒，易拉崩主线程，需重构为上传异步预转码或独立微服务。
+  3. 视觉服务缺乏鉴权与守护保活：`/stop` 接口裸露且默认开启桌面窗口显示，需增加鉴权、支持 RTSP 流及 Headless 容器化守护。
+  4. 全局异常未捕获兜底：缺少 `@ExceptionHandler(Exception.class)` 500 统一脱敏与 TraceID 追踪。
+  5. 登录接口缺乏暴力破解防御与频控限流。
+- **体验与业务落地项 (Medium Priority)**：
+  1. 前端 Monolithic Bundle (1.45MB) 需做路由懒加载与 manualChunks 拆包。
+  2. 真实教务数据导入与同步接口打通。
+  3. 文件本地存储向对象存储 (MinIO/S3) 抽象演进。
+
 
 
 

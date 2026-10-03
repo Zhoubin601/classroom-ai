@@ -137,9 +137,19 @@ class Sprint2MysqlTest {
             String token = files.createTicket(sharedB.getId(), user(RoleEnum.TEACHER, 11));
             assertTrue(files.preview(token).length > 100);
             assertEquals(1, accessLogs.count());
+            String boundTicket = files.createTicket(sharedB.getId(), user(RoleEnum.TEACHER, 11));
+            AuthContext.setCurrentUser(user(RoleEnum.TEACHER, 12));
+            assertThrows(com.classroom.ai.common.exception.ForbiddenException.class, () -> files.preview(boundTicket));
+            AuthContext.setCurrentUser(user(RoleEnum.TEACHER, 11));
             ReflectionTestUtils.setField(files, "previewMinutes", -1L);
             String expired = files.createTicket(sharedB.getId(), user(RoleEnum.TEACHER, 11));
             assertThrows(IllegalArgumentException.class, () -> files.preview(expired));
+            ReflectionTestUtils.setField(files, "previewMinutes", 5L);
+            String revokedTicket = files.createTicket(sharedB.getId(), user(RoleEnum.TEACHER, 11));
+            sharedB.setIsPublic(false);
+            resources.saveAndFlush(sharedB);
+            assertThrows(com.classroom.ai.common.exception.ForbiddenException.class, () -> files.preview(revokedTicket));
+            assertEquals(1, accessLogs.count());
         } finally { Files.deleteIfExists(path); }
     }
 
