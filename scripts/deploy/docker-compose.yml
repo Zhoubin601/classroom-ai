@@ -16,7 +16,9 @@ services:
     ports:
       - "${MYSQL_PORT:-3308}:3306"
     volumes:
-      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+      # The baseline creates all tables before loading data. Incremental migrations
+      # stay available for existing databases and must not run ahead of the schema.
+      - ./mysql/init/initialize.sql:/docker-entrypoint-initdb.d/initialize.sql:ro
       - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
