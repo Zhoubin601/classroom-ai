@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import path from 'node:path'
 import cameraLauncherPlugin from './dev/camera-plugin.mjs'
 
+const backendTarget = process.env.CLASSROOM_API_PROXY || 'http://127.0.0.1:8080'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), cameraLauncherPlugin(path.resolve(__dirname, '..'))],
@@ -22,11 +24,11 @@ export default defineConfig({
         rewrite: () => '/video_feed'
       },
       '/api': {
-        target: 'http://127.0.0.1:8080',
+        target: backendTarget,
         changeOrigin: true
       },
       '/uploads': {
-        target: 'http://127.0.0.1:8080',
+        target: backendTarget,
         changeOrigin: true
       }
     }

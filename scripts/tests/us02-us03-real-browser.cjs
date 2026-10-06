@@ -134,11 +134,18 @@ const objectives = '明确说明本门课程培养的知识目标、工程能力
     const archiveRow=d.locator('tr').filter({hasText:'样例教学班'});
     await archiveRow.getByRole('button',{name:'结课归档'}).click();await archiveRow.getByText('已归档',{exact:true}).waitFor();
     assert.equal(await archiveRow.getByRole('button',{name:'编辑班次'}).count(),0);
-    await a.reload();const hist=a.getByRole('region',{name:'历史开课与人次'});await hist.getByRole('cell').filter({hasText:'已归档'}).waitFor();
+    await a.reload();const hist=a.getByRole('region',{name:'历史开课与人次'});await hist.getByText('已归档',{exact:true}).waitFor();
     assert.match(await hist.innerText(),/累计人次 95/);
-    await hist.getByLabel('历史学期').fill('不存在');await hist.getByRole('button',{name:'查询历史'}).click();
+    const historyTerm=hist.getByLabel('历史学期');
+    if (await historyTerm.evaluate(el=>el.tagName)==='SELECT') {
+      // The select offers an existing term with no records in this fixture.
+      await historyTerm.selectOption('2024-2025春季');
+    } else {
+      await historyTerm.fill('不存在');
+    }
+    await hist.getByRole('button',{name:'查询历史'}).click();
     await hist.getByText('暂无历史开课记录',{exact:true}).waitFor();assert.match(await hist.innerText(),/累计人次 0/);
-    await hist.getByRole('button',{name:'清空条件'}).click();await hist.getByRole('cell').filter({hasText:'已归档'}).waitFor();
+    await hist.getByRole('button',{name:'清空条件'}).click();await hist.getByText('已归档',{exact:true}).waitFor();
     assert.equal((await api(d,'/api/v1/courses/offerings/1/students/add','POST',[])).status(),409);
     console.log('PASS US04 director archive, frozen UI and API, teacher semester history and empty table/zero');
     const timings=[];

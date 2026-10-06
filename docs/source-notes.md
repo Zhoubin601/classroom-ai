@@ -141,3 +141,62 @@
 - 当前仓库源码、隔离 MySQL 和本机 Google Chrome 是本次代码与页面验收依据。真实培养方案指标正文仍未提供，浏览器用例采用明确标为合成的隔离测试指标。
 
 
+
+## 2026-10-03 UI/UX Pro Max 资源与设计规范依据
+- 设计工具与技能：ui-ux-pro-max (C:\Users\a3185\.gemini\config\skills\ui-ux-pro-max\SKILL.md)
+- 生成的设计系统 Master 资产：design-system/classroomai/MASTER.md
+- 视觉参考体系：Modern Academic SaaS / Precision Intelligence Platform / Swiss Modernism 2.0
+- 图标库规范：统一遵循 Lucide 矢量图标，杜绝 Emoji 作为系统交互图标。
+- 业务契约依据：scripts/tests/all-features-playwright.cjs 与已有各 Vue 单文件组件中的接口协议。
+
+## 2026-10-06 远端结构与分支分析来源
+- 用户当前要求：分析当前远端项目结构和分支。
+- 原始资料：raw/README.md，仅目录规则说明；新增业务原始资料未提供。
+- 来源名称：classroom-ai Git 远端；链接：https://github.com/Zhoubin601/classroom-ai；引用日期：2026-10-06。
+- 本轮执行 git fetch origin 和 git ls-remote，以实时远端分支、标签及 Git 文件树为依据；读取 AGENTS.md、现有 docs 笔记和 memory-bank/project-context.md 作背景。
+- 代码依据：远端 frontend/package.json、backend/pom.xml、vision/requirements*.txt、README.md、.gitignore 及源码路径；没有引入额外网络资料。
+- 详细结果：docs/20261006-remote-structure-and-branches-v1.md。未改动 raw，未将历史测试结果认定为本轮通过。
+
+## 2026-10-06 实验阶段口径来源
+- 来源：用户当前消息“我们现在的实验还处于 exp2 的状态，exp3 是提前做的”。
+- 已确认：正式实验阶段为 exp2；exp3 是提前开发。此口径优先于根据分支名和代码功能作出的阶段推断。
+
+## 2026-10-06 实验二分支收尾来源
+- 用户当前要求：将 feat/exp2-supplement-auth-fix 合入 main，完成实验二收尾并清理其他历史分支。
+- 来源名称：classroom-ai Git 远端；链接：https://github.com/Zhoubin601/classroom-ai；引用日期：2026-10-06。
+- 来源命令：fetch、ls-remote、merge-base、merge-tree、write-tree；本轮没有新增业务原始资料。
+- 合并前 main 为 7b1a589、补充分支为 64a88f2；预检及独立工作区暂存合并 tree 与原 main 相同。
+- 详细过程：docs/20261006-exp2-branch-closeout-v1.md；raw 不改写。
+
+## 2026-10-06 实验二分支收尾结果依据
+- 合并提交：a4da3d8de421bca9549d8ce302537dd084752fca；父提交：7b1a589、64a88f2。
+- 合并前后 tree 均为 758eb9645a8474e603f461cf30511e09ff755e05，git diff --quiet 返回 0。
+- 原子推送成功后 ls-remote 再次核对：main=a4da3d8、feat/exp3-sprint2=347a51a、backup/pre-exp3-20260923=36605fb，仅保留这三个远端分支。
+- 18 个受保护文件合并前后 SHA256 一致；raw 无差异。过程记录：docs/20261006-exp2-branch-closeout-v1.md。
+
+## 2026-10-06 main 启动核验来源
+- 用户当前要求、main 提交 a4da3d8、主线启动/测试脚本及 docs/questions.md 中既有验收边界；没有新增原始业务资料。
+- 来源名称：classroom-ai Git 远端；链接：https://github.com/Zhoubin601/classroom-ai；引用日期：2026-10-06。
+- 使用隔离 main 工作区，不读取 exp3 未提交代码作为主线验证依据，不修改 raw。
+
+## 2026-10-06 main 启动核验实测依据
+- 原 main a4da3d8 的整目录 MySQL 初始化在 05_us04_archive.sql 第 4 行复现 ERROR 1146，缺少 t_course_offering；隔离容器退出码 1。
+- 本地修复 a962506 将 Compose 改为只读挂载完整 initialize.sql，配置校验、全新数据库和生产 jar 启动通过；远端 main 未改变。
+- 后端报告分轮汇总 139 项、0 失败、0 错误、0 跳过；前端 10 项与构建通过；Python 5 项通过。
+- 数据完整性依据为隔离冷启动库的 SQL 计数：17 门课程与 17 条开课均缺少专业 ID/编码，默认督导可见课程为 0。没有查询或修正真实业务库。
+- 记录与证据：docs/20261006-main-startup-verification-v1.md、docs/main-startup-evidence-20261006-v1/；浏览器使用合成名单和真实 API，不保存登录凭据或令牌。
+# 2026-10-06 实验三就绪核验来源
+
+- 来源名称：用户当前实验阶段与本次核验要求；文件名：当前会话；引用日期：2026-10-06。正式阶段仍为 exp2，exp3 为提前开发。
+- 来源名称：项目原始资料目录；文件名：raw/README.md；引用日期：2026-10-06。未提供新增的真实培养方案指标正文，本轮不据此判断指标内容准确性。
+- 来源名称：既有实验三范围与历史验收；文件名：docs/20260926-实验三-Sprint2-Chrome验收记录.md；引用日期：2026-10-06。范围为 US-05、US-07～10、US-13～15，共 8 条；历史通过不代替本轮执行。
+- 来源名称：classroom-ai 远端代码；链接：https://github.com/Zhoubin601/classroom-ai；引用日期：2026-10-06。已 fetch、ls-remote 核对 feat/exp3-sprint2 为 347a51a0fe05838a1391b3127b97a66319a37989。
+- 来源名称：当前实现与本轮独立验证；文件名：backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java、scripts/deploy/mysql/init/initialize.sql、scripts/deploy/mysql/init/06_exp3_sprint2.sql、scripts/tests/exp3-real-browser.cjs、docs/20261006-exp3-readiness-verification-v1.md；引用日期：2026-10-06。使用新建隔离数据库及合成输入，保留已提交版本和本地未提交界面的差别。
+
+## 2026-10-06 exp3 完善并提交 main 的来源
+
+- 来源名称：用户明确授权；文件名：当前会话；引用日期：2026-10-06。要求完善 exp3、提交 main，并以真实 Playwright 打通既有与 Sprint 2 功能。
+- 来源名称：原始资料与当前核验；文件名：raw/README.md、docs/20261006-exp3-readiness-verification-v1.md、项目源码；引用日期：2026-10-06。真实培养方案和会议材料仍未提供。
+- 来源名称：Vite 本地实现与配置；文件名：frontend/vite.config.ts、frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js；引用日期：2026-10-06。确认 preview 默认继承 server.proxy，以环境指定测试后端，实现真实文件从浏览器到后端转发。
+- 来源名称：本轮软件验证；文件名：docs/20261006-exp3-main-integration-v1.md、docs/exp3-main-evidence-20261006-v1/；引用日期：2026-10-06。合并候选构建、隔离 MySQL、角色页面与匿名发布、DOCX 转 PDF 为实测；时间推进及合成输入明确标注。
+

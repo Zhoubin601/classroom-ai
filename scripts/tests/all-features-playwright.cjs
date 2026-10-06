@@ -14,14 +14,12 @@ const path = require('node:path');
 const fs = require('node:fs');
 
 // 优先采用环境配置或本地已就绪的 Playwright
-const playwrightPath = process.env.PLAYWRIGHT_MODULE ||
-  'C:/Users/a3185/.vscode/extensions/vscjava.migrate-java-to-azure-1.24.0-win32-x64/node_modules/playwright';
+const playwrightPath = process.env.PLAYWRIGHT_MODULE || 'playwright';
 const { chromium } = require(playwrightPath);
 
 const baseURL = process.env.BASE_URL || 'http://127.0.0.1:5173';
 const backendURL = process.env.BACKEND_URL || 'http://127.0.0.1:8080';
-const chromiumPath = process.env.EXP3_CHROMIUM_PATH ||
-  'C:/Users/a3185/AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe';
+const chromiumPath = process.env.EXP3_CHROMIUM_PATH;
 const headless = process.env.HEADLESS !== 'false';
 const slowMo = process.env.SLOWMO ? parseInt(process.env.SLOWMO, 10) : 100;
 const evidenceDir = path.resolve(__dirname, '../../docs/playwright-all-features-evidence');
@@ -69,6 +67,7 @@ async function login(page, username, password, expectedRole) {
   await page.getByPlaceholder('请输入登录密码 (默认 123456)').fill(password);
   await page.getByRole('button', { name: '立即验证并登录', exact: true }).click();
   await page.getByRole('button', { name: '退出登录', exact: true }).waitFor({ timeout: 15000 });
+  await page.getByText('教务中枢在线', { exact: true }).waitFor({ timeout: 15000 });
   console.log(`  [登录成功] 用户: ${username} (期望角色: ${expectedRole})`);
 }
 
@@ -89,11 +88,24 @@ async function logout(page) {
   const browser = await chromium.launch({
     headless,
     slowMo,
-    executablePath: chromiumPath,
+    ...(chromiumPath ? { executablePath: chromiumPath } : {}),
     args: ['--start-maximized', '--window-size=1440,900']
   });
 
   const testReport = [];
+  // Forward requests to the explicitly selected real backend, including when
+  // the frontend preview has no proxy. Never substitute fixture responses.
+  async function newContext() {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    if (process.env.FORWARD_BACKEND !== 'false') {
+      await context.route('**/api/**', async route => {
+        const url = new URL(route.request().url());
+        const response = await route.fetch({ url: backendURL + url.pathname + url.search });
+        await route.fulfill({ response });
+      });
+    }
+    return context;
+  }
   function recordPass(module, name, details) {
     testReport.push({ module, name, status: 'PASS', details });
     console.log(`  [PASS] 【${module}】${name} - ${details}`);
@@ -107,7 +119,7 @@ async function logout(page) {
     console.log('>>> 【模块 1：统一认证鉴权与多角色 RBAC 隔离】');
     console.log('>>> ------------------------------------------------------------');
     {
-      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const context = await newContext();
       const page = await context.newPage();
       page.on('dialog', async d => {
         console.log(`    [拦截弹窗] [${d.type()}] ${d.message()}`);
@@ -169,7 +181,7 @@ async function logout(page) {
     console.log('>>> 【模块 2：教研室主任工作台全功能 (US-01 / 03 / 05 / 06 / 14)】');
     console.log('>>> ------------------------------------------------------------');
     {
-      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const context = await newContext();
       const page = await context.newPage();
       page.on('dialog', async d => {
         console.log(`    [主任弹窗] [${d.type()}] ${d.message()}`);
@@ -265,7 +277,7 @@ async function logout(page) {
     console.log('>>> 【模块 3：任课教师工作台全功能 (US-02 / 05 / 07 / 08 / 09 / 10 / 17)】');
     console.log('>>> ------------------------------------------------------------');
     {
-      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const context = await newContext();
       const page = await context.newPage();
       page.on('dialog', async d => {
         console.log(`    [教师弹窗] [${d.type()}] ${d.message()}`);
@@ -311,17 +323,18 @@ async function logout(page) {
 
       // 标签精准筛选
       console.log('  [测试] 3.3 标签精准筛选 (US-08)...');
+      const myResourceList = page.getByTestId('my-resource-list');
       await page.getByRole('button', { name: '实验', exact: true }).click();
-      await page.getByText(resourceName, { exact: true }).first().waitFor();
+      await myResourceList.getByText(resourceName, { exact: true }).waitFor();
       await page.getByRole('button', { name: '未标注', exact: true }).click();
-      await page.getByText(resourceName, { exact: true }).first().waitFor({ state: 'detached' });
+      await myResourceList.getByText(resourceName, { exact: true }).waitFor({ state: 'detached' });
       await page.getByRole('button', { name: '全部', exact: true }).click();
-      await page.getByText(resourceName, { exact: true }).first().waitFor();
+      await myResourceList.getByText(resourceName, { exact: true }).waitFor();
       recordPass('教师工作台', 'US-08 环节标签筛选', '点击实验/未标注/全部药丸筛选，列表精准过滤');
 
       // 3.4 课件在线受控限时水印预览 (US-09)
       console.log('  [测试] 3.4 课件限时水印预览 (US-09)...');
-      const resCard = page.locator('div').filter({ hasText: resourceName }).filter({ has: page.getByRole('button', { name: '授权预览' }) }).last();
+      const resCard = myResourceList.locator(':scope > div').filter({ hasText: resourceName });
       const [ticketResp, pdfResp] = await Promise.all([
         page.waitForResponse(r => r.url().includes('/preview-ticket')),
         page.waitForResponse(r => r.url().includes('/api/v1/resources/preview/') && r.status() === 200),
@@ -334,6 +347,35 @@ async function logout(page) {
       await capture(page, '12_teacher_watermark_preview.png', '限时水印 PDF 预览弹窗');
       await page.getByRole('button', { name: '关闭', exact: true }).click();
       recordPass('教师工作台', 'US-09 在线限时水印预览', '成功通过动态票据获取带水印 PDF 并在 iframe 安全预览');
+
+      // Optional synthetic Office fixture for a backend with LibreOffice.
+      if (process.env.OFFICE_PREVIEW_FIXTURE) {
+        const fixture = process.env.OFFICE_PREVIEW_FIXTURE;
+        const officeName = path.basename(fixture);
+        await page.getByRole('button', { name: /上传新课件\/教案/ }).click();
+        await page.locator('input[type="file"]').last().setInputFiles(fixture);
+        await page.getByPlaceholder('如 第一章 软件项目管理概论').fill('Sprint 2 Office conversion fixture');
+        const [officeUpload] = await Promise.all([
+          page.waitForResponse(r => r.url().includes('/api/v1/resources/upload') && r.request().method() === 'POST'),
+          page.getByRole('button', { name: '立即挂载' }).click()
+        ]);
+        assert.equal(officeUpload.status(), 200);
+        assert.equal((await officeUpload.json()).code, 200);
+        await myResourceList.getByText(officeName, { exact: true }).waitFor();
+        const officeCard = myResourceList.locator(':scope > div').filter({ hasText: officeName });
+        const [officePdf] = await Promise.all([
+          page.waitForResponse(r => r.url().includes('/api/v1/resources/preview/') && r.status() === 200),
+          officeCard.getByRole('button', { name: '授权预览' }).click()
+        ]);
+        const converted = await officePdf.body();
+        assert.equal(converted.subarray(0, 5).toString(), '%PDF-');
+        assert.ok(converted.length > 500);
+        await page.getByTitle('课件 PDF 预览').waitFor();
+        assert.match(await page.getByTitle('课件 PDF 预览').getAttribute('src'), /^blob:/);
+        await capture(page, '22_teacher_office_pdf_preview.png', '真实 Office 转 PDF 与水印授权预览');
+        await page.getByRole('button', { name: '关闭', exact: true }).click();
+        recordPass('教师工作台', 'US-07/09 Office 转换闭环', `合成 ${path.extname(fixture)} 上传、LibreOffice 转 PDF、授权水印预览通过，PDF ${converted.length} 字节`);
+      }
 
       // 3.5 督导评价与复盘雷达图 (US-14 / US-17)
       console.log('  [测试] 3.5 督导评价脱敏与复盘雷达图 (US-14/17)...');
@@ -352,7 +394,7 @@ async function logout(page) {
     console.log('>>> 【模块 4：教学督导工作台全功能 (US-06 / 09 / 13 / 15 / 16)】');
     console.log('>>> ------------------------------------------------------------');
     {
-      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const context = await newContext();
       const page = await context.newPage();
       page.on('dialog', async d => {
         console.log(`    [督导弹窗] [${d.type()}] ${d.message()}`);
@@ -441,7 +483,7 @@ async function logout(page) {
     console.log('>>> 【模块 5：课堂智能考勤与态势监控大屏】');
     console.log('>>> ------------------------------------------------------------');
     {
-      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const context = await newContext();
       const page = await context.newPage();
       await login(page, 'director', '123456', '教研室主任');
 
@@ -449,7 +491,7 @@ async function logout(page) {
       await page.getByRole('heading', { name: /课堂智能考勤与态势监控大屏/ }).waitFor();
       await page.getByText('当前授课班级：').waitFor();
       await capture(page, '20_attendance_dashboard.png', '课堂智能考勤大屏');
-      recordPass('考勤大屏', '实时考勤大屏看板', '开课关联、出勤/缺勤统计、抬头率与专注度波形图就绪');
+      recordPass('考勤大屏', '考勤大屏页面', '页面与班级选择展示正常；摄像头识别未包含在本用例');
 
       await logout(page);
       await context.close();
@@ -462,7 +504,7 @@ async function logout(page) {
     console.log('>>> 【模块 6：学生档案与人脸特征底库管理】');
     console.log('>>> ------------------------------------------------------------');
     {
-      const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const context = await newContext();
       const page = await context.newPage();
       await login(page, 'director', '123456', '教研室主任');
 
@@ -470,7 +512,7 @@ async function logout(page) {
       await page.getByRole('heading', { name: /学生档案与人脸特征底库管理/ }).waitFor();
       await page.getByText(/学生档案列表 \(共/).waitFor();
       await capture(page, '21_student_face_database.png', '学生档案与人脸特征库');
-      recordPass('学生底库', '人脸特征档案列表', 'MySQL 与 InsightFace 512 维特征向量列表展示正常');
+      recordPass('学生底库', '学生档案列表', '数据库档案列表展示正常；现场人脸采集和识别未包含在本用例');
 
       await logout(page);
       await context.close();
@@ -478,13 +520,17 @@ async function logout(page) {
 
     console.log('\n================================================================');
     console.log('       【Playwright 全功能自动化测试全部圆满通过！】');
-    console.log(`       总用例数: ${testReport.length} | 失败: 0 | 存证截图: 21 张`);
+    console.log(`       总用例数: ${testReport.length} | 失败: 0 | 存证截图: ${fs.readdirSync(evidenceDir).filter(name => name.endsWith('.png')).length} 张`);
     console.log('================================================================');
 
   } catch (error) {
     console.error('\n❌ 测试执行异常中止:', error);
     process.exitCode = 1;
   } finally {
+    fs.writeFileSync(path.join(evidenceDir, 'results.json'), JSON.stringify({
+      baseURL, backendURL, forwarded: process.env.FORWARD_BACKEND !== 'false', results: testReport, completed: process.exitCode !== 1,
+      screenshots: fs.readdirSync(evidenceDir).filter(name => name.endsWith('.png')).length
+    }, null, 2));
     await browser.close();
   }
 })();

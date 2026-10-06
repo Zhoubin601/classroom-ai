@@ -272,7 +272,7 @@ async function main() {
     assert.ok(!teacherBefore.some(item => item.id === evaluationData.id));
     await director.getByRole('button', { name: /督导评价审核/ }).click();
     await director.getByText('浏览器测试', { exact: false }).first().waitFor();
-    const reviewCard = director.locator('div.border.rounded-xl.p-3').filter({ hasText: '听课主题：浏览器测试' });
+    const reviewCard = director.getByTestId(`evaluation-review-${evaluationData.id}`);
     const [reviewResponse] = await Promise.all([
       director.waitForResponse(response => response.url().includes(`/api/v1/supervisions/${evaluationData.id}/review`)),
       reviewCard.getByRole('button', { name: '通过', exact: true }).click()
@@ -286,6 +286,28 @@ async function main() {
     const coverage = (await (await api(supervisor, `/api/v1/supervisions/analytics/coverage?term=${encodeURIComponent(shared.academicTerm)}`)).json()).data;
     assert.ok(coverage.some(item => item.courseId === shared.course.id && item.evaluationIds.includes(evaluationData.id)));
     console.log('PASS supervisor/director/teacher browser: submission, identity, review, delay, term coverage');
+    // Advance only this runner's disposable fixture past the publication time.
+    // The application still uses its normal 24-hour rule; no API is mocked.
+    if (process.env.EXP3_TEST_MYSQL_CONTAINER) {
+      const { execFileSync } = require('node:child_process');
+      const container = process.env.EXP3_TEST_MYSQL_CONTAINER;
+      const containerName = execFileSync('docker', ['inspect', '--format', '{{.Name}}', container], { encoding: 'utf8' }).trim();
+      assert.match(containerName, /^\/classroom-exp3-browser-[a-f0-9]{10}$/);
+      assert.ok(Number.isSafeInteger(evaluationData.id) && evaluationData.id > 0);
+      assert.ok(new Date(reviewed.publishTime).getTime() > Date.now() + 23 * 60 * 60 * 1000);
+      execFileSync('docker', ['exec', '-e', 'MYSQL_PWD=root', container, 'mysql', '-uroot', 'classroom_ai', '-e',
+        `UPDATE t_supervision_evaluation SET publish_time=DATE_SUB(NOW(), INTERVAL 1 SECOND) WHERE id=${evaluationData.id}`]);
+      const published = (await (await api(teacher, `/api/v1/supervisions?offeringId=${shared.id}`)).json()).data;
+      const anonymous = published.find(item => item.id === evaluationData.id);
+      assert.ok(anonymous, 'approved feedback must become visible after publication time');
+      assert.equal(anonymous.supervisorName, '匿名督导');
+      assert.equal(anonymous.supervisorUserId, null);
+      await teacher.reload();
+      await teacher.getByText('教学组织清晰', { exact: true }).first().waitFor();
+      await teacher.getByText('增加练习', { exact: true }).first().waitFor();
+      await teacher.screenshot({ path: path.join(evidenceDir, '03-teacher-published-feedback.png'), fullPage: true });
+      console.log('PASS US-14 Chrome: isolated publication clock advanced, anonymous feedback API and teacher feedback UI visible');
+    }
   } finally {
     for (const page of pages) {
       await page.unrouteAll({ behavior: 'ignoreErrors' });

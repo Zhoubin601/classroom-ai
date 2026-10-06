@@ -30,11 +30,14 @@
 ### 命令行（PowerShell）执行
 
 ```powershell
-# 一键启动（如果已有 jar 则直接使用，秒级启动）
+# 一键构建当前后端 jar 和 Docker 镜像，再启动全部服务
 .\start_project.ps1
 
-# 强制重新编译后端 jar 后启动
+# 显式要求重新构建（同时指定 SkipBuild 时以 Rebuild 为准）
 .\start_project.ps1 -Rebuild
+
+# 复用已经构建好的当前版本 jar 和 Docker 镜像
+.\start_project.ps1 -SkipBuild
 
 # 停止前后端服务
 .\stop_project.ps1
@@ -56,6 +59,33 @@
 ```
 
 前端：`http://127.0.0.1:5173`；后端：`http://127.0.0.1:8080`；视觉流端口：`8088`。
+
+## 实验二与 Sprint 2 功能
+
+main 集成了实验二 US-01～04、US-06，以及实验三 Sprint 2 的 US-05、US-07～10、US-13～15：课程导入、草稿发布、开课排课及历史归档、专业权限检索、培养方案目录与大纲映射、课件标签和共享、水印授权预览、督导提交与主任审核、延迟匿名反馈、学期覆盖率追溯。
+
+正常启动通过 Docker 提供 LibreOffice，支持 DOC/DOCX/PPT/PPTX 转水印 PDF。直接在 Windows 上运行 jar 时，需要本机安装 LibreOffice 或配置 `CLASSROOM_SOFFICE`。全新 MySQL 只执行完整基线；已有数据卷只应用可重复执行的 Sprint 2 迁移，不重导入基线。
+
+### 真实浏览器验收
+
+先构建后端并启动前端，再执行以下命令。Playwright 可通过 `PLAYWRIGHT_MODULE` 指定，浏览器通过 `EXP3_CHROMIUM_PATH` 指定；未指定时 runner 会尝试发现本机可用安装。
+
+```powershell
+.\scripts\run-tests.ps1 -Offline
+.\scripts\run-exp3-mysql-tests.ps1
+.\scripts\run-exp3-browser-tests.ps1
+
+# 实验二：一次性 MySQL + 三角色五故事真实浏览器
+$env:US0203_BROWSER = 'true'
+$env:US0102_PREVIEW_URL = 'http://127.0.0.1:5173'
+.\scripts\run-us0102-mysql-tests.ps1 -Tests 'CourseWorkflowMysqlTest,CourseSchedulingMysqlTest,CourseBrowserMysqlTest'
+```
+
+Sprint 2 浏览器 runner 使用独立 MySQL/Redis 和两个后端进程，结束自动清理；`EXP3_FRONTEND_URL` 可指定前端地址。匿名反馈仍使用正常 24 小时规则，测试仅推进自身临时容器中的发布时间来验证发布后的页面与身份脱敏。
+
+全功能页面验收可运行 `scripts/run-all-features-playwright.ps1`。若使用独立后端，启动前端时设定 `CLASSROOM_API_PROXY`，同时设置测试的 `BASE_URL`、`BACKEND_URL`、`FORWARD_BACKEND=false`，即可直接走真实 Vite 代理。设置 `OFFICE_PREVIEW_FIXTURE` 为测试 DOCX/PPTX 路径时，会额外验证 Office 上传与水印预览；使用测试数据库，不向正式数据导入测试内容。
+
+真实培养方案指标正文和团队评审、回顾记录仍需按原始资料核对；合成测试输入不代替正式材料。验收与集成记录见 [实验三 main 集成记录](docs/20261006-exp3-main-integration-v1.md)。
 
 Python 独立入口：
 

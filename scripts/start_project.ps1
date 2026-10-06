@@ -1,5 +1,6 @@
 param([switch]$SkipBuild, [switch]$Rebuild, [switch]$NonInteractive)
 $ErrorActionPreference = 'Stop'
+if ($Rebuild) { $SkipBuild = $false }
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $logDir = Join-Path $projectRoot 'runtime/logs'
 New-Item -ItemType Directory -Path $logDir -Force | Out-Null
@@ -23,12 +24,12 @@ try {
 
     # Fresh Docker volumes are initialized by docker-entrypoint-initdb.d once.
     # Existing volumes receive only the additive, repeatable Sprint 2 migration.
-    $tableCount = & docker exec classroom-mysql mysql -uroot -proot classroom_ai -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='classroom_ai' AND table_name='t_user_account';" 2>$null
+    $tableCount = & docker exec -e MYSQL_PWD=root classroom-mysql mysql -uroot classroom_ai -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='classroom_ai' AND table_name='t_user_account';" 2>$null
     if ($LASTEXITCODE -ne 0 -or [int]$tableCount -ne 1) { throw 'MySQL schema is unavailable; initialization was not repeated to protect existing data.' }
     $migration = Join-Path $projectRoot 'scripts/deploy/mysql/init/06_exp3_sprint2.sql'
     & docker cp $migration 'classroom-mysql:/tmp/06_exp3_sprint2.sql'
     if ($LASTEXITCODE -ne 0) { throw 'Could not copy Sprint 2 migration' }
-    & docker exec classroom-mysql mysql -uroot -proot --default-character-set=utf8mb4 classroom_ai -e 'source /tmp/06_exp3_sprint2.sql'
+    & docker exec -e MYSQL_PWD=root classroom-mysql mysql -uroot --default-character-set=utf8mb4 classroom_ai -e 'source /tmp/06_exp3_sprint2.sql'
     if ($LASTEXITCODE -ne 0) { throw 'Sprint 2 migration failed; see MySQL output' }
     & docker exec classroom-mysql rm -f /tmp/06_exp3_sprint2.sql | Out-Null
 

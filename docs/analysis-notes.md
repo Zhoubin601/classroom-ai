@@ -938,3 +938,72 @@ US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT
 
 
 
+
+## 2026-10-03 UI/UX Pro Max 全量页面现代化重构设计方案
+- 依据用户要求结合 ui-ux-pro-max 技能，重构系统全量 6 大视图与核心组件，全面提升 UI/UX 视觉品质与交互体验。
+- 核心准则：保留既有全部业务逻辑、API 接口调用、数据模型、事件机制与自动化测试选择器（包括按钮文案、placeholder、表单交互等契约），确保 Playwright 端到端回归测试 100% 保持通过。
+- 设计语言定位：Modern Academic SaaS & Precision Intelligence Platform（现代学术教务与智能质量管控中枢）。
+- 规范落地：
+  1. 配色：Primary 采用深邃学术科技蓝 (#1E3A5F / #4338CA / #4F46E5)，Success/出勤采用翡翠绿 (#059669)，Warning/冲突采用琥珀橙 (#D97706)，Danger/缺勤采用玫瑰红 (#E11D48)，背景采用柔和微光灰白 (#F8FAFC)。
+  2. 表面与阴影：卡片升级为统一规范的现代高质感白底卡片，圆角提升至 rounded-2xl，搭配细腻的 1px 浅灰色外边框与 subtle 阴影，hover 时具备 150-200ms 的平滑景深微动效。
+  3. 排版与排布：全面清理 Emoji 结构图标，全部采用 Lucide 矢量图标；采用严谨的 4/8dp 间距节奏与清晰的字阶体系；数据指标卡片强化数字可读性（font-mono, tabular-nums）。
+  4. 无障碍与微交互：保障表单元素对比度 >= 4.5:1，按钮具备 cursor-pointer、加载 spinner 动画、交互反馈环与清晰禁用态；模态框与抽屉具备优雅的高斯模糊背景遮罩。
+
+
+## 2026-10-03 服务启动脚本 start_project.ps1 MySQL 密码告警中断缺陷排查与修复
+- **现象描述**：执行 `start_project.ps1` 在第一步检查基础服务（MySQL/Redis）并执行增量迁移时报错：
+  `[ERROR] Startup failed: mysql: [Warning] Using a password on the command line interface can be insecure.`
+- **根本原因 (Root Cause)**：
+  1. MySQL 客户端在使用 `-proot` 命令行明文传参时，默认向标准错误流 (stderr) 输出安全告警信息：`mysql: [Warning] Using a password on the command line interface can be insecure.`。
+  2. PowerShell 脚本头部设置了 `$ErrorActionPreference = 'Stop'`。在 Windows PowerShell 环境下，原生外部命令的标准错误输出会被截获并升级为终止性异常。
+  3. `scripts/start_project.ps1` 中执行 `06_exp3_sprint2.sql` 迁移时未做 stderr 静默或安全环境变量传参，导致正常的 Warning 被误识别为 Fatal Error 中断。
+- **解决方案与修复验证**：
+  1. 将脚本中 `docker exec classroom-mysql mysql -uroot -proot ...` 改为官方推荐的密码环境变量传参：`docker exec -e MYSQL_PWD=root classroom-mysql mysql -uroot ...`。
+  2. 此改动消除 MySQL 命令行明文告警，彻底避免 stderr 误报警；同时同步加固 `scripts/run-exp3-browser-tests.ps1`。
+  3. 执行 `.\scripts\start_project.ps1 -NonInteractive -SkipBuild` 验证，服务正常启动（MySQL 8.0, Redis 7.2, Backend 8080, Vite 5173 全部就绪并通过健康检查）。
+
+## 2026-10-06 远端结构与分支分析
+- 远端默认 main（7b1a589），共 6 个分支；当前开发分支 feat/exp3-sprint2（347a51a）与远端同提交，本地已有 UI、脚本和过程文档未提交改动。
+- main 与 Sprint 2 独有提交数为 2 / 4，共同祖先 40b9c3a；main 与共同祖先的文件树相同，分叉主要体现在历史关系。Sprint 2 相对 main 改动 101 个文件，增加 4700 行、删除 2101 行。
+- foundation-auth 与 us01-us02 全部提交已包含于 main；backup/pre-exp3 是 Sprint 2 的祖先。实验二补充分支与 main 的指定核心业务源码路径一致，配置和脚本等仍有差异。
+- 远端 Sprint 2 跟踪 376 个文件，结构为 Vue 前端 / Spring Boot 后端 / Python 视觉 / scripts 部署验收，加项目规定五个资料目录。
+- 待确认：本地 v0.1.0-sprint1 指向 3d93ad7，远端同名标签指向 688a47d；v0.1.0-sprint1-v3 仅本地存在。
+- 完整分析：docs/20261006-remote-structure-and-branches-v1.md。本轮只核对结构和 Git 关系，没有运行应用测试或执行合并、提交、推送。
+
+## 2026-10-06 用户确认正式阶段与分支建议修正
+- 来源：用户当前明确“实验还处于 exp2 的状态，exp3 是提前做的”。
+- 当前正式阶段为实验二；实验三代码属于提前开发成果，不能据此认为实验阶段已切换。
+- 建议 main 维持实验二维护和交付候选基线；feat/exp3-sprint2 保留提前开发，暂不合入 main。实验二补充分支与实验三前备份在当前收尾期间继续保留。
+- 本地 UI 和脚本未提交改动需按阶段核对；共用修复应独立审查后回移，不将实验三数据库迁移和新增流程直接混入实验二交付。
+- 已据此更新远端分析记录和长期背景；仅修改说明，未变更 Git 分支或代码。
+
+## 2026-10-06 实验二分支收尾完成
+- 按用户要求将 feat/exp2-supplement-auth-fix 合入 main；已推送 a4da3d8，合并前后 Git 文件树完全相同，没有撤销原主线修复或纳入实验三成果。
+- 已删除远端和本地的补充分支、foundation-auth、us01-us02，以及仅本地存在的 us03-us04-us06；提交历史全部保留在 main。
+- 当前远端和本地均保留 main、feat/exp3-sprint2、backup/pre-exp3-20260923；原工作区仍在 exp3，未提交代码和脚本保持原样。
+- 本轮以 Git 文件树、祖先、远端 SHA 和原工作区文件哈希验证；没有新增应用改动，不宣称重新通过应用验收。
+- 发布标签和此前人工复核事项未在本轮处理。详见 docs/20261006-exp2-branch-closeout-v1.md。
+
+## 2026-10-06 main 启动与实验二完善程度核验
+- main a4da3d8 可编译打包，普通后端 107 项、真实 MySQL 31 项、浏览器专项 1 项分轮共 139 项通过；前端 10 项和构建、Python 5 项通过。
+- 真实浏览器验收覆盖实验二三角色五故事，但合成数据通过不等同于自带基线完整或新环境可启动。
+- 冷启动实测：MySQL 整目录挂载让归档迁移早于完整基线执行，报开课表不存在并退出。已在独立本地分支 a962506 修正为单文件完整基线挂载，冷启动与生产服务、三角色登录复测通过。
+- 主线自带初始化数据另缺课程和开课的专业归属，默认督导列表为 0；不按名称/部门推断填充，需明确映射后修复。
+- 结论：实验二核心业务实现通过本轮自动验证，但远端 main 仍有启动和数据完善缺口；修复尚未推送，硬件、真实数据、人工验收和标签事项仍需后续复核。
+- 完整记录和证据：docs/20261006-main-startup-verification-v1.md、docs/main-startup-evidence-20261006-v1/。原工作区及 raw 未改写。
+# 2026-10-06 实验三就绪判断
+
+- 本轮核对远端 exp3 347a51a 与本地未提交 UI，已提交后端业务代码未修改。当前 8 条实验三故事及实验二五故事兼容浏览器验收通过；真实 Office 转 PDF 和冷启动隔离运行通过。
+- 后端分轮去重汇总 144 项通过（含校正后的排课测试与新增 1 项授权回归）；前端 10 项、Python 5 项通过。原版排课断言与既有主讲编号授权规则矛盾，不能写成原版 143 项全通过。
+- 本地补齐排课输入名称、审核卡片稳定定位及历史脚本加载等待；没有改变业务权限或覆盖用户原界面修改。
+- 判断：功能代码具备收尾条件，正式完成仍需真实培养方案内容核对、评审/回顾事实记录及整理提交本地启动与验收修正。正式实验阶段保持 exp2，不合 exp3 到 main。
+- 详细证据与边界：docs/20261006-exp3-readiness-verification-v1.md、docs/exp3-readiness-evidence-20261006-v1/。
+
+## 2026-10-06 exp3 完善与 main 集成结论
+
+- 用户已要求本轮完成并推送 main，前次“尚未合并”的描述是历史阶段状态，不再作为本轮合并阻塞。
+- 合并候选的后端分轮去重 144 项、前端 10 项、Python 5 项通过；实验二五故事、Sprint 2 八故事和生产 Docker 上全功能 24 项真实操作通过。
+- 全功能验收通过 Vite 真实代理上传磁盘 DOCX，确认 Office 转换与水印显示；保持空文件校验，没有绕过授权或伪造 API 响应。
+- 完善测试隔离、MySQL/PowerShell 兼容、Maven 发现、前端连接状态与代理配置，收拢现有 UI。正式资料缺口继续记录，不阻止用户已授权的代码集成。
+- 完整结果：docs/20261006-exp3-main-integration-v1.md；证据：docs/exp3-main-evidence-20261006-v1/。
+

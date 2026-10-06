@@ -1,37 +1,37 @@
 <template>
   <div class="space-y-6">
     <!-- 顶部状态栏与视觉督导控制器 -->
-    <div class="flex flex-wrap items-center justify-between gap-4 p-5 bg-white border border-slate-200/80 rounded-2xl shadow-card">
+    <div class="pro-card p-6 bg-gradient-to-r from-white via-slate-50/60 to-indigo-50/20 border border-slate-200/80 shadow-card-hover rounded-2xl flex flex-wrap items-center justify-between gap-5">
       <div class="flex items-center gap-4">
-        <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
-          <Video class="w-5 h-5" />
+        <div class="w-13 h-13 rounded-2xl bg-gradient-to-br from-indigo-500 to-navy-700 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 ring-4 ring-indigo-50">
+          <Video class="w-6 h-6" />
         </div>
         <div>
           <div class="flex items-center gap-3">
-            <span class="text-lg font-bold text-slate-900 tracking-tight">课堂实时感知与视觉督导推断流</span>
+            <span class="text-xl font-bold tracking-tight text-slate-900">课堂实时感知与视觉督导推断流</span>
             <span
               v-if="isMonitoring"
-              class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs"
             >
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               摄像头实时督导中
             </span>
             <span
               v-else-if="isSimulating"
-              class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/80 shadow-2xs"
             >
               <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
               演示模拟流
             </span>
             <span
               v-else
-              class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600 border border-slate-200"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200"
             >
               <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
               待机就绪
             </span>
           </div>
-          <p class="text-xs text-slate-500 font-sans mt-0.5">
+          <p class="text-xs text-slate-500 font-sans mt-1">
             推断引擎: InsightFace + MediaPipe (solvePnP) | 目标硬件: RTX 4060 / Jetson | 最近上报: {{ overview.lastUpdateTime || '等待数据' }}
           </p>
         </div>
@@ -44,10 +44,10 @@
           @click="toggleMonitor"
           :disabled="isMonitorStarting"
           :class="[
-            'px-4 py-2 rounded-xl text-xs font-medium flex items-center gap-2 transition shadow-xs',
+            'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition shadow-xs cursor-pointer',
             isMonitoring
               ? 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
-              : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+              : 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-indigo-500/20'
           ]"
         >
           <span v-if="isMonitorStarting" class="w-3.5 h-3.5 rounded-full border-2 border-current border-t-transparent animate-spin"></span>
@@ -61,10 +61,10 @@
           @click="toggleSimulation"
           :disabled="isMonitoring"
           :class="[
-            'px-3.5 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 transition border',
+            'px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition border shadow-2xs cursor-pointer',
             isSimulating
-              ? 'bg-amber-50 text-amber-700 border-amber-200'
-              : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200 disabled:opacity-40'
+              ? 'bg-amber-50 text-amber-800 border-amber-200'
+              : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 disabled:opacity-40'
           ]"
           title="脱离摄像头时自动模拟班级学生姿态流动"
         >
@@ -74,7 +74,7 @@
 
         <button
           @click="fetchDashboardData"
-          class="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 flex items-center gap-1.5 transition shadow-xs"
+          class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 flex items-center gap-1.5 transition shadow-2xs cursor-pointer"
         >
           <RefreshCw class="w-3.5 h-3.5 text-slate-500" />
           刷新
@@ -83,12 +83,12 @@
     </div>
 
     <!-- 督导启动/停止状态提示条 -->
-    <div v-if="monitorToastMsg" class="p-3.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-900 text-xs flex items-center justify-between shadow-xs">
-      <div class="flex items-center gap-2">
-        <Sparkles class="w-4 h-4 text-indigo-600" />
-        <span class="font-medium">{{ monitorToastMsg }}</span>
+    <div v-if="monitorToastMsg" class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200 text-indigo-950 text-xs flex items-center justify-between shadow-2xs">
+      <div class="flex items-center gap-2.5">
+        <Sparkles class="w-4 h-4 text-indigo-600 flex-shrink-0" />
+        <span class="font-bold">{{ monitorToastMsg }}</span>
       </div>
-      <span class="text-[10px] text-indigo-600 font-medium">大屏数据每 1.2 秒实时自动更新</span>
+      <span class="text-[11px] text-indigo-700 font-semibold font-mono">大屏数据每 1.2 秒实时自动更新</span>
     </div>
 
     <!-- 1. 核心大盘指标卡片 -->
@@ -139,16 +139,18 @@
     <!-- 2. 机器人实时视觉推断感知流 + ECharts 抬头率与注意力流动波形图 -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
       <!-- 左侧：实时摄像头 AI 感知推断视窗 (占 5 列) -->
-      <div class="lg:col-span-5 bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between h-[380px] relative overflow-hidden shadow-card">
-        <div class="flex items-center justify-between mb-2">
+      <div class="lg:col-span-5 pro-card p-5 flex flex-col justify-between h-[390px] relative overflow-hidden">
+        <div class="flex items-center justify-between mb-3">
           <div class="flex items-center gap-2">
-            <Bot class="w-4 h-4 text-indigo-600" />
-            <h3 class="text-xs font-semibold text-slate-900 tracking-wide">具身智能机器人·摄像头感知视窗</h3>
+            <div class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Bot class="w-3.5 h-3.5" />
+            </div>
+            <h3 class="text-xs font-bold text-slate-900 tracking-wide">具身智能机器人·摄像头感知视窗</h3>
           </div>
-          <span v-if="isMonitoring" class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-medium">
+          <span v-if="isMonitoring" class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-bold shadow-2xs">
             LIVE 实时推断
           </span>
-          <span v-else class="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 font-medium">
+          <span v-else class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 font-medium">
             待机中
           </span>
         </div>
@@ -164,33 +166,33 @@
           />
           <!-- 待机或加载占位 -->
           <div v-else class="flex flex-col items-center justify-center p-6 text-center space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 shadow-inner">
-              <Camera class="w-6 h-6 text-slate-400" />
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 shadow-inner ring-4 ring-slate-900/50">
+              <Camera class="w-7 h-7 text-slate-400" />
             </div>
             <div>
-              <p class="text-xs font-semibold text-slate-200">视觉督导引擎未连接</p>
-              <p class="text-[11px] text-slate-400 mt-1 max-w-xs">
+              <p class="text-xs font-bold text-slate-200">视觉督导引擎未连接</p>
+              <p class="text-[11px] text-slate-400 mt-1.5 max-w-xs leading-relaxed">
                 点击上方【开始智能视觉督导】按钮，系统将自动唤醒摄像头，在此呈现 512维人脸比对与 3D 姿态角 HUD 画面
               </p>
             </div>
             <button
               @click="toggleMonitor"
               :disabled="isMonitorStarting"
-              class="px-4 py-1.5 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition shadow-sm"
+              class="px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition shadow-sm cursor-pointer"
             >
               立即调起摄像头督导
             </button>
           </div>
         </div>
 
-        <div class="flex items-center justify-between text-[10px] text-slate-500 mt-2 px-1 pt-2 border-t border-slate-100 font-mono">
+        <div class="flex items-center justify-between text-[10px] text-slate-500 mt-2.5 px-1 pt-2.5 border-t border-slate-100 font-mono">
           <span>AI 算法: InsightFace (buffalo_l)</span>
-          <span>姿态标准: Pitch ≥ -10° 抬头</span>
+          <span class="text-indigo-600 font-bold">姿态标准: Pitch ≥ -10° 抬头</span>
         </div>
       </div>
 
       <!-- 右侧：ECharts 抬头率与注意力流动波形图 (占 7 列) -->
-      <div class="lg:col-span-7 bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between h-[380px] shadow-card">
+      <div class="lg:col-span-7 pro-card p-5 flex flex-col justify-between h-[390px]">
         <FocusTrendChart :data="trendData" />
       </div>
     </div>

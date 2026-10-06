@@ -3,8 +3,10 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $maven = Get-Command mvn.cmd -ErrorAction SilentlyContinue
 if ($maven) { $mavenPath = $maven.Source } else {
-    $mavenPath = Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
+    $bundledMaven = Join-Path $projectRoot 'backend/.tools/apache-maven-3.9.6/bin/mvn.cmd'
+    $mavenPath = if (Test-Path $bundledMaven) { $bundledMaven } else { Get-ChildItem (Join-Path $env:USERPROFILE '.m2/wrapper/dists') -Filter mvn.cmd -Recurse -ErrorAction SilentlyContinue |
         Sort-Object FullName -Descending | Select-Object -First 1 -ExpandProperty FullName
+    }
 }
 if (-not $mavenPath) { throw 'Maven not found. Install Maven or add mvn.cmd to PATH.' }
 Push-Location (Join-Path $projectRoot 'backend')

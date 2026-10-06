@@ -59,3 +59,72 @@
 
 本次根目录整理已完成：33 → 16 项，后端35/前端10/Python5项通过，构建和 Compose 配置校验通过。详细迁移和检查结果见 [目录整理说明](目录整理说明.md)。
 
+
+## 2026-10-03 UI/UX Pro Max 全页面现代化重构执行计划
+- 阶段 1：全局样式与配置升级 (frontend/src/style.css, frontend/tailwind.config.js)
+  - 引入现代设计系统变量（阴影、边框、过渡色阶、精致表格与表单基准类）。
+- 阶段 2：通用组件与导航外壳现代化重构
+  - frontend/src/App.vue: 头部微磨砂 Header、品牌渐变徽章、现代胶囊式 Tab 控制器、系统状态与用户信息卡。
+  - frontend/src/components/MetricCard.vue: 现代精致白底指标卡，带微妙阴影与渐变图标底色。
+  - frontend/src/components/FocusTrendChart.vue: ECharts 现代化配色（平滑柔和渐变与精致 tooltip）。
+  - frontend/src/components/OfferingScheduleBoard.vue & OfferingHistoryPanel.vue: 排课日程与开课历史面板视觉重塑。
+  - frontend/src/components/StudentStatusGrid.vue: 学生状态网格芯片重构。
+- 阶段 3：多角色工作台与大屏全量重构
+  - frontend/src/views/LoginView.vue: 极具视觉冲击力的科技教务登录界面，Bento Grid 快捷直登面板。
+  - frontend/src/views/DirectorDeskView.vue: 主任工作台（指标卡、课程档案表、排课统筹矩阵、培养方案导入、督导授权与审核流）。
+  - frontend/src/views/TeacherDeskView.vue: 教师工作台（大纲简介草稿/发布、课件教案上传与多标签筛选、安全水印预览、BOPPPS雷达图与匿名评价）。
+  - frontend/src/views/SupervisorDeskView.vue: 督导工作台（全院总课表日历矩阵、免密预审、BOPPPS滑块量化表单、覆盖率巡检大屏、红黄预警中心）。
+  - frontend/src/views/AttendanceDashboardView.vue: 课堂智能考勤态势大屏（科技感大屏、波形图、学生状态网格）。
+  - frontend/src/views/StudentManageView.vue: 学生档案与人脸库中心（指标看板、学生花名册、特征向量可视化、人脸采集模态框）。
+- 阶段 4：编译检查与自动化测试验证
+  - 执行 `npm run test` 与 `npm run build`，确保 0 报错。
+  - 验证端到端测试契约完整无损。
+
+
+## 2026-10-06 远端结构与分支分析执行记录
+1. 已读取 raw、docs、memory-bank，确认现有规则及历史背景。
+2. 已 fetch origin 并实时核对远端分支、默认分支和标签。
+3. 已按远端 Git 文件树分析模块、部署、测试目录和提交关系，区分本地未提交内容。
+4. 已写入 docs/20261006-remote-structure-and-branches-v1.md，追加来源、判断和待复核事项。
+5. 本次范围为分析；后续分支整合与标签处理等待用户明确任务，不生成未经确认的正式交付文件。
+
+## 2026-10-06 实验二分支收尾执行计划
+- 用户已要求把实验二补充分支合入 main，并清理历史分支；exp3 仍为提前开发。
+- 已完成远端更新、共同祖先与合并树预检；独立 main 工作区的合并结果与原 main 文件树相同，无冲突。
+- 后续依次创建合并提交、验证阶段边界、同步远端、按祖先关系清理已合入的实验二分支、核对原工作区文件哈希。
+- 保留 feat/exp3-sprint2 和 backup/pre-exp3-20260923，不处理标签或用户文件。
+
+## 2026-10-06 实验二分支收尾完成状态
+- 合并、远端同步、已合入历史分支清理和原工作区保护核对均已完成。
+- main 与 origin/main 同为 a4da3d8；exp3 和实验三前备份保持原提交。
+- 文件树不变，未重新打包或调整标签；既有发布前人工复核事项沿用 docs/questions.md。
+
+## 2026-10-06 main 启动核验计划
+- 用户要求核对 main 能否启动和实验二完善情况；已创建独立 main 工作区。
+- 分别执行后端测试/打包、前端测试/构建、Python 无硬件回归，再验证隔离数据库及实际运行链路。
+- 当前 Docker 原先未运行，已通过 docker desktop start 启动；不操作既有 MySQL 数据库。详细记录：docs/20261006-main-startup-verification-v1.md。
+
+## 2026-10-06 main 启动核验完成状态
+- 已完成源码检查、构建、普通回归、31 项真实 MySQL 测试和三角色五故事浏览器验收，以及生产 jar/前端实际启动核验。
+- 原 main 冷启动阻塞已复现；本地修复分支 codex/main-startup-fix-20261006（a962506）已验证，尚未推送到 main。
+- 自带课程/开课专业归属缺失已记录于 questions.md，未猜填。测试进程和隔离容器已清理，修复工作区保持干净并保留供审阅。
+# 2026-10-06 实验三就绪核验计划
+
+1. 按既有 Sprint 2 的 8 条故事核对，不改变用户确认的正式 exp2 阶段。
+2. 在独立工作区核对远端已提交源码，执行构建、普通回归、真实 MySQL 和浏览器验收。
+3. 单独验证本地未提交界面，修复验收发现的标签或定位问题，保留用户已有样式修改。
+4. 使用冷启动隔离库与生产 Docker 的 LibreOffice 检查启动、权限和真实 Office 转换；不写入既有业务库。
+5. 区分功能验证、真实资料核对、团队评审及正式发布状态，留过程记录并清理本次自建测试环境。
+
+# 2026-10-06 实验三就绪核验执行结果
+
+- 远端/本地版本区分、构建、8 条实验三故事、5 条实验二兼容故事、隔离 MySQL 与生产 Docker Office 转换核验完成。
+- 校正既有规则下的旧权限测试、补齐排课输入名称、稳定审核卡片及历史脚本定位，本地复测通过。
+- 证据保存至 docs/exp3-readiness-evidence-20261006-v1/；详细说明及正式完成缺口见 docs/20261006-exp3-readiness-verification-v1.md。
+- 临时预览与隔离容器已清理，正式阶段仍为 exp2；本轮未提交、未推送、未改分支/标签。
+
+## 2026-10-06 用户授权完善 exp3 并合入 main
+
+- 用户已确认方向并要求真实 Playwright 验收；完成源码与本地 UI 收拢、独立合并候选测试、提交并推送 main，不再等待本轮代码合并确认。
+- 保留真实资料缺口；不生成虚构的培养方案、会议或正式实验交付文件。详细过程：docs/20261006-exp3-main-integration-v1.md。
+
