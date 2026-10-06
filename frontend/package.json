@@ -13,6 +13,7 @@
     "axios": "^1.6.8",
     "echarts": "^5.5.0",
     "lucide-vue-next": "^0.359.0",
+    "pdfjs-dist": "4.10.38",
     "vue": "^3.4.21"
   },
   "devDependencies": {

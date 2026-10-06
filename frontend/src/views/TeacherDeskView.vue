@@ -444,6 +444,9 @@
             <Sparkles class="w-3.5 h-3.5 text-indigo-600" /> 从培养方案创建大纲
           </button>
 
+          <button @click="applyRecommendedTemplate" :disabled="loadingIndicators" class="px-3 py-2 rounded-xl border text-xs text-indigo-700 disabled:opacity-50">
+            一键套用12项国标推荐模板
+          </button>
           <!-- 新增指标点按钮 -->
           <button
             @click="openAddIndicatorModal"
@@ -454,6 +457,7 @@
         </div>
       </div>
 
+      <p v-if="planVersion === 'RECOMMENDED-12'" class="text-xs text-amber-700" role="status">当前为12项推荐草案，须按课程实际内容修订；真实培养方案请由主任导入后另建大纲版本。</p>
       <!-- 指标点矩阵表格 -->
       <div class="overflow-x-auto border border-slate-200/80 rounded-xl">
         <table class="w-full text-left text-xs text-slate-700">
@@ -695,8 +699,9 @@
     </div>
 
     <!-- 授权后展示后端转换、加水印的真实 PDF -->
-    <div v-if="previewModalVisible" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-5xl p-6 space-y-4 shadow-modal">
+    <Teleport to="body">
+    <div v-if="previewModalVisible" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[100] flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl max-h-[90vh] overflow-auto w-full max-w-5xl p-6 space-y-4 shadow-modal">
         <div class="flex justify-between items-center border-b border-slate-100 pb-3">
           <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
             <Eye class="w-4 h-4 text-indigo-600" />
@@ -704,19 +709,17 @@
           </h3>
           <button @click="closePreview" class="text-slate-500 hover:text-slate-700 px-3 py-1 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold transition cursor-pointer">关闭</button>
         </div>
-        <iframe v-if="previewUrl" :src="previewUrl" title="课件 PDF 预览" class="w-full h-[70vh] border border-slate-200 rounded-xl bg-slate-50"></iframe>
+        <ProtectedPdfPreview v-if="previewUrl" :src="previewUrl" />
         <p v-else class="text-sm text-slate-500 py-12 text-center">正在准备预览...</p>
-        <div class="flex justify-end pt-2">
-          <button @click="downloadResourceFile(currentPreviewRes)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer flex items-center gap-1.5">
-            <Download class="w-3.5 h-3.5" /> 鉴权下载原件
-          </button>
-        </div>
+
       </div>
     </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
+import ProtectedPdfPreview from '../components/ProtectedPdfPreview.vue'
 import OfferingHistoryPanel from '../components/OfferingHistoryPanel.vue'
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import {
@@ -1010,6 +1013,19 @@ const confirmDeleteIndicator = async (ind: GraduationIndicator) => {
   }
 }
 
+const applyRecommendedTemplate = async () => {
+  if (!currentCourse.value?.id || !syllabusVersion.value.trim()) {
+    alert('请选择课程并填写新大纲版本'); return
+  }
+  loadingIndicators.value = true
+  try {
+    await syllabusApi.createFromPlan(currentCourse.value.id, syllabusVersion.value.trim(), 'RECOMMENDED-12')
+    await loadIndicators()
+    alert('已创建12项推荐草案，请按课程实际情况修订并交主任审核')
+  } catch (err: any) { alert(err.response?.data?.message || err.message || '套用模板失败') }
+  finally { loadingIndicators.value = false }
+}
+
 const applyDefaultIndicators = async () => {
   if (!currentCourse.value?.id || !currentCourse.value.majorCode || !planVersion.value || !syllabusVersion.value) {
     alert('请选择课程并填写培养方案版本和新大纲版本')
@@ -1175,21 +1191,6 @@ const confirmDeleteResource = async (res: CourseResource) => {
     await loadMyResources()
   } catch (err: any) {
     alert(err.response?.data?.message || err.message || '删除课件失败')
-  }
-}
-
-const downloadResourceFile = async (res: CourseResource | null) => {
-  if (!res) return
-  try {
-    const blob = await resourceApi.download(res.id)
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = res.resourceName
-    link.click()
-    setTimeout(() => URL.revokeObjectURL(url), 30000)
-  } catch (e: any) {
-    alert(e.response?.data?.message || '下载失败')
   }
 }
 

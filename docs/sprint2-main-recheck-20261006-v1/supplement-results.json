@@ -1,0 +1,56 @@
+[
+  {
+    "check": "Office browser conversion",
+    "format": "docx",
+    "result": "PASS",
+    "pdfBytes": 10823,
+    "metadata": {
+      "version": "v1.0",
+      "fileSizeBytes": 36608,
+      "createdAt": "2026-10-06T16:09:07.366858"
+    },
+    "previewText": "Sprint2 DOCX synthetic conversion verification.\n\nPREVIEW guojun 2026-10-06T16:09:09.602499299",
+    "contextMenuPrevented": false
+  },
+  {
+    "check": "Office browser conversion",
+    "format": "pptx",
+    "result": "PASS",
+    "pdfBytes": 23509,
+    "metadata": {
+      "version": "v1.0",
+      "fileSizeBytes": 28277,
+      "createdAt": "2026-10-06T16:09:11.501418"
+    },
+    "previewText": "Sprint2 PPTX synthetic verification\n• Teaching resource conversion verification.\n\nPREVIEW guojun 2026-10-06T16:09:12.791573253",
+    "contextMenuPrevented": false
+  },
+  {
+    "check": "100MB file limit",
+    "result": "PASS",
+    "bytes": 104857601,
+    "businessCode": 400
+  },
+  {
+    "check": "US05 add/edit/delete, H/L goal mapping and director locking",
+    "result": "PASS",
+    "lockedEditCode": 409
+  },
+  {
+    "check": "Older specification: built-in 12-item template",
+    "templateButtons": 0,
+    "currentBehavior": "Create syllabus from director-imported versioned training plan"
+  },
+  {
+    "check": "US13 evaluation draft -> formal submission, score sum and score bound",
+    "result": "PASS",
+    "totalScore": 80,
+    "outOfRangeCode": 400
+  },
+  {
+    "check": "Older specification: >=3 highlights",
+    "inputHighlights": "仅一条亮点",
+    "businessCode": 200,
+    "status": "PENDING_REVIEW"
+  }
+]

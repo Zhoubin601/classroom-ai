@@ -200,3 +200,26 @@
 - 来源名称：Vite 本地实现与配置；文件名：frontend/vite.config.ts、frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js；引用日期：2026-10-06。确认 preview 默认继承 server.proxy，以环境指定测试后端，实现真实文件从浏览器到后端转发。
 - 来源名称：本轮软件验证；文件名：docs/20261006-exp3-main-integration-v1.md、docs/exp3-main-evidence-20261006-v1/；引用日期：2026-10-06。合并候选构建、隔离 MySQL、角色页面与匿名发布、DOCX 转 PDF 为实测；时间推进及合成输入明确标注。
 
+## 2026-10-06 当前 main Sprint 2 复验来源
+
+- 用户当前要求：运行现在 main 的代码，核对是否符合 Sprint 2 要求。
+- 代码来源：https://github.com/Zhoubin601/classroom-ai；引用日期：2026-10-06。git fetch origin main 后，工作区 HEAD 与 origin/main 均为 9432ed1946be9cd2abee215e8f9b60d76b234267。
+- 范围依据：本文件的 2026-09-23、2026-09-26 Sprint 2 来源记录，以及 docs/20260926-实验三-Sprint2-Chrome验收记录.md；八条故事为 US-05、US-07～10、US-13～15。
+- 补充逐项对照依据：docs/爱教学平台全量需求与功能规格文档.md。该文档的实现状态含历史信息，不作为当前通过证据；其中更严格的细节与最新实施口径分别说明。
+- 原始资料：raw/README.md；原始培养方案正文、实验一规划 DOCX 及真实会议资料在当前云端 raw 中未提供。历史来源路径不代表本轮已读取原文件。
+- 本轮执行证据另存 docs/sprint2-main-recheck-20261006-v1/；不覆盖既有截图，不修改业务源码，不写正式交付物。
+
+## 2026-10-06 fix-exp3 修复依据
+
+- 用户要求：新建 fix-exp3 分支，修复复验发现的问题，使 Sprint 2 的代码验收要求满足。
+- 分支起点：fetch 后的 origin/main 9432ed1。原有本轮复验过程文件保留。
+- 需求来源：docs/爱教学平台全量需求与功能规格文档.md 的 US-05、US-07～10、US-13～15，及 docs/20261006-main-sprint2-recheck-v1.md 的运行缺口。
+- 模板仅使用需求中给出的12个大项，生成明确标注为推荐草案的映射，不编造某专业的真实培养方案。
+- 真实培养方案正文、团队评审/回顾资料仍未提供；本轮保证代码验收及自动化机制，不宣称缺失的业务资料已核实。
+
+## 2026-10-06 fix-exp3 验收来源补充
+
+- 仓库 docs/爱教学平台全量需求与功能规格文档.md 的US-05列出12类名称与模板条款，US-09列出倾斜透明单位/身份/只读凭证和禁右键复制，US-13/14列出草稿、至少3条亮点及BOPPPS建议。
+- scripts/tests/fixtures/sprint2.docx、sprint2.pptx为本轮生成的合成测试文件，不是原始教学资料；仅验证格式转换与翻页。
+- docs/fix-exp3-evidence-20261006-v1/为本轮实际构建、隔离MySQL/Redis、Chromium/LibreOffice运行证据；最终记录见 docs/20261006-fix-exp3-sprint2-verification-v1.md。
+- raw未新增资料，培养方案正文和会议记录仍为“资料未提供”。

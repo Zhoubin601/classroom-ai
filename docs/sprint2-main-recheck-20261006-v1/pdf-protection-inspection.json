@@ -1,0 +1,50 @@
+[
+  {
+    "file": "converted-docx.pdf",
+    "encrypted": false,
+    "hasEncrypt": false,
+    "hasExtGState": false,
+    "text": "Sprint2 DOCX synthetic conversion verification.\nPREVIEW guojun 2026-10-06T16:09:09.602499299",
+    "streamLastLines": [
+      "q 0 0 0 rg",
+      "BT",
+      "90.1 709.55 Td /F1 11 Tf[<01>1<02>1<0304>1<0506>2<0708>-2<09>3<0A>-1<0B>-1<0C>3<08>-2<0D>3<0E0506>2<0F>-2<10>2<06>2<04>1<1108>-2<111205>3<1310>-2<030D>3<04>-3<12>4<0508>-2<13>4<10>-2<0304>1<14>-1<04>1<1115>2<06>-2<04>1<1205>3<16>]TJ",
+      "ET",
+      "Q",
+      "EMC",
+      "Q ",
+      "Q",
+      "0.7451 0.7451 0.7451 rg",
+      "BT",
+      "/F2 17 Tf",
+      "36 396 Td",
+      "(PREVIEW guojun 2026-10-06T16:09:09.602499299) Tj",
+      "ET",
+      ""
+    ]
+  },
+  {
+    "file": "converted-pptx.pdf",
+    "encrypted": false,
+    "hasEncrypt": false,
+    "hasExtGState": false,
+    "text": "Sprint2 PPTX synthetic verification\n• Teaching resource conversion verification.\nPREVIEW guojun 2026-10-06T16:09:12.791573253",
+    "streamLastLines": [
+      "q 0 0 0 rg",
+      "BT",
+      "70.214 378.397 Td /F3 32.003 Tf[<01>88<02030405060708090A>12<02>-1<0B0C0D0A>14<0402>-1<0904>7<0C07>16<0E>9<02>-1<0A>17<0B060C07090E>8<020A060F04>7<03>10<100C0711>]TJ",
+      "ET",
+      "Q",
+      "EMC",
+      "Q ",
+      "Q",
+      "0.7451 0.7451 0.7451 rg",
+      "BT",
+      "/F4 17 Tf",
+      "36 270 Td",
+      "(PREVIEW guojun 2026-10-06T16:09:12.791573253) Tj",
+      "ET",
+      ""
+    ]
+  }
+]

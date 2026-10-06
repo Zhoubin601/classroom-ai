@@ -1,0 +1,44 @@
+{
+  "codeCommit": "9432ed1946be9cd2abee215e8f9b60d76b234267",
+  "time": "2026-10-06T16:04:08.370906+08:00",
+  "files": {
+    "backend/target/classroom-backend-0.0.1-SNAPSHOT.jar": "177ada7712cc0a8cc20a330e0d53b6f9538805e08559c6a655b47b5759a42e87",
+    "scripts/tests/exp3-real-browser.cjs": "0359a98af15dd10f05078667c0c69232a25528a20d3eac99a630a6790cd261fc",
+    "frontend/dist/index.html": "5554bf72cdd57cdd9dc92c8935d7b4fa77b3e32e4023ec6da6acf61f62db0674",
+    "initialize.sql": "e4d94c45f1ed9021b11fc1167b645fb7d9c5a7fad850911af1b7977bf6a6521c",
+    "scripts/deploy/mysql/init/06_exp3_sprint2.sql": "07abedf4d23405e9725a3ad8ec77d8c5d7208ca71bc48c92a6d60a5ea9678482"
+  },
+  "browser": "Chromium 151.0.7922.173 built on Debian GNU/Linux 13 (trixie)",
+  "migrationRuns": 2,
+  "remainingLegacyPending": 0,
+  "unreviewedPublished": 0,
+  "environment": "Linux cloud, JDK21, real MySQL 8.0.36, Redis 7.2, LibreOffice; Windows launchers not run",
+  "scope": "US05, US07-10, US13-15",
+  "notes": "Browser runner snapshot changes only screenshot output path. No fake API responses. Anonymous publication time advanced only in disposable database.",
+  "cleanup": {
+    "testServiceProcessesStopped": true,
+    "testContainersStopped": true
+  },
+  "rawReadmeSha256": "48dc5482e175f75d27fa5e358c22e98a91797b937b1cda264f79379c41939fd2",
+  "businessTrackedDiff": [],
+  "result": {
+    "backendExecuted": 111,
+    "backendPassed": 111,
+    "backendExp2NotRun": 33,
+    "frontendPassed": 10,
+    "pythonPassed": 5,
+    "officeFormats": [
+      "DOCX",
+      "PPTX"
+    ],
+    "strictSpecificationFullySatisfied": false,
+    "sprint2BrowserScriptPassed": true,
+    "sprint2StoriesCovered": 8
+  },
+  "validationLimits": [
+    "native PDF visual rendering/page turning not confirmed",
+    "corrupt DOCX rejection not rerun after correct converter path was configured",
+    "real training-plan and meeting materials not provided",
+    "Windows launchers and camera/GPU not exercised"
+  ]
+}

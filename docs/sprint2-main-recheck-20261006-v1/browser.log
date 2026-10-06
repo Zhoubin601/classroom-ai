@@ -1,0 +1,6 @@
+PASS US-05 Chrome: synthetic plan import, same-version replacement, duplicate rejection, course mapping
+PASS US-10 Chrome: same-department teacher finds and previews shared resource; foreign department cannot discover it
+PASS US-08/10 Chrome: tags editable, sharing revocation immediate, old ticket denied, protected metadata preserved, invalid tag rejected
+PASS teacher browser: upload, multiple tags, shared visibility, secure preview, invalid format, conversion failure, expired link
+PASS supervisor/director/teacher browser: submission, identity, review, delay, term coverage
+PASS US-14 Chrome: isolated publication clock advanced, anonymous feedback API and teacher feedback UI visible

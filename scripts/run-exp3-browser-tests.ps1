@@ -5,6 +5,9 @@ $containerId = $null
 $redisContainerId = $null
 $backendProcess = $null
 $expiredBackendProcess = $null
+$frontendProcess = $null
+$previousFrontendUrl = $env:EXP3_FRONTEND_URL
+$previousApiProxy = $env:CLASSROOM_API_PROXY
 $previousDatasource = $env:SPRING_DATASOURCE_URL
 $previousRedis = $env:SPRING_DATA_REDIS_HOST
 $previousRedisPort = $env:SPRING_DATA_REDIS_PORT
@@ -18,12 +21,9 @@ $previousModule = $env:PLAYWRIGHT_MODULE
 $previousChromium = $env:EXP3_CHROMIUM_PATH
 $previousTestMysql = $env:EXP3_TEST_MYSQL_CONTAINER
 try {
-    if (Get-NetTCPConnection -LocalPort 13318,18081,18082 -State Listen -ErrorAction SilentlyContinue) {
-        throw 'Temporary ports 13318, 18081 and 18082 must be free'
+    if (Get-NetTCPConnection -LocalPort 13318,18081,18082,15173 -State Listen -ErrorAction SilentlyContinue) {
+        throw 'Temporary ports 13318, 18081, 18082 and 15173 must be free'
     }
-    $frontendUrl = if ($env:EXP3_FRONTEND_URL) { $env:EXP3_FRONTEND_URL } else { 'http://127.0.0.1:5173' }
-    $frontend = Invoke-WebRequest -Uri $frontendUrl -UseBasicParsing -TimeoutSec 5
-    if ($frontend.StatusCode -ne 200) { throw 'Start the project frontend first' }
     $name = 'classroom-exp3-browser-' + [Guid]::NewGuid().ToString('N').Substring(0, 10)
     $containerId = & docker run --detach --rm --pull=never --name $name --publish 127.0.0.1:13318:3306 `
         --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=classroom_ai mysql:8.0.36
@@ -98,12 +98,35 @@ try {
         $candidate = Join-Path $env:LOCALAPPDATA 'ms-playwright/chromium-1228/chrome-win64/chrome.exe'
         if (Test-Path $candidate) { $env:EXP3_CHROMIUM_PATH = $candidate }
     }
+    $frontendDir = Join-Path $projectRoot 'frontend'
+    if (-not (Test-Path (Join-Path $frontendDir 'dist/index.html'))) { throw 'Build the frontend first (npm run build)' }
+    $env:CLASSROOM_API_PROXY = 'http://127.0.0.1:18081'
+    $frontendProcess = Start-Process node -ArgumentList @('node_modules/vite/bin/vite.js', 'preview', '--config', 'vite.config.ts', '--host', '127.0.0.1', '--port', '15173', '--strictPort') `
+        -WorkingDirectory $frontendDir -WindowStyle Hidden -PassThru `
+        -RedirectStandardOutput (Join-Path $runDir 'frontend.stdout.log') `
+        -RedirectStandardError (Join-Path $runDir 'frontend.stderr.log')
+    $frontendReady = $false
+    for ($attempt = 0; $attempt -lt 30; $attempt++) {
+        try {
+            $response = Invoke-WebRequest -Uri 'http://127.0.0.1:15173' -UseBasicParsing -TimeoutSec 2
+            if ($response.StatusCode -eq 200) { $frontendReady = $true; break }
+        } catch { }
+        if ($frontendProcess.HasExited) { break }
+        Start-Sleep -Seconds 1
+    }
+    if (-not $frontendReady) { throw "Isolated frontend did not start; inspect $runDir" }
+    $env:EXP3_FRONTEND_URL = 'http://127.0.0.1:15173'
     $env:EXP3_BACKEND_URL = 'http://127.0.0.1:18081'
     $env:EXP3_EXPIRED_BACKEND_URL = 'http://127.0.0.1:18082'
     $env:EXP3_TEST_MYSQL_CONTAINER = $containerId
     & node (Join-Path $projectRoot 'scripts/tests/exp3-real-browser.cjs')
     if ($LASTEXITCODE -ne 0) { throw 'Sprint 2 real-browser acceptance failed' }
+    & node (Join-Path $projectRoot 'scripts/tests/fix-exp3-acceptance.cjs')
+    if ($LASTEXITCODE -ne 0) { throw 'Sprint 2 strict acceptance additions failed' }
 } finally {
+    $env:EXP3_FRONTEND_URL = $previousFrontendUrl
+    $env:CLASSROOM_API_PROXY = $previousApiProxy
+    if ($frontendProcess -and -not $frontendProcess.HasExited) { Stop-Process -Id $frontendProcess.Id -Force }
     $env:SPRING_DATASOURCE_URL = $previousDatasource
     $env:SPRING_DATASOURCE_USERNAME = $previousDatasourceUsername
     $env:SPRING_DATASOURCE_PASSWORD = $previousDatasourcePassword

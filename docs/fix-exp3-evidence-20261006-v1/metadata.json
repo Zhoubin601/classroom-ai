@@ -1,0 +1,47 @@
+{
+  "testedAtUTC": "2026-10-06T09:26:55.234206+00:00",
+  "branch": "fix-exp3",
+  "baseMain": "9432ed1946be9cd2abee215e8f9b60d76b234267",
+  "environment": {
+    "os": "Linux cloud container",
+    "database": "Docker MySQL 8.0.36",
+    "redis": "Docker Redis 7.2",
+    "backend": "Java 21 JAR in cloud workspace",
+    "frontend": "Vite built preview on port 15173, real API proxy",
+    "office": "LibreOffice",
+    "browser": "Chromium / Playwright"
+  },
+  "counts": {
+    "backendRegularPassed": 113,
+    "backendSprint2MysqlPassed": 4,
+    "backendUniquePassed": 117,
+    "backendOtherEnvironmentSkipped": 33,
+    "frontendPassed": 10,
+    "pythonPassed": 5
+  },
+  "browserStories": [
+    "US05",
+    "US07",
+    "US08",
+    "US09",
+    "US10",
+    "US13",
+    "US14",
+    "US15"
+  ],
+  "strictAcceptance": "PASS",
+  "jarSha256": "e3ed51cfc45dfe77b5c4313e1da40421d5a87e060b9e22e058f96cf47a0b8019",
+  "browserSnapshotOnlyChangesOutputDirectory": true,
+  "isolatedContainers": [
+    "classroom-fix-exp3-mysql",
+    "classroom-fix-exp3-redis",
+    "classroom-exp3-browser-a610060002"
+  ],
+  "validationLimits": [
+    "Real professional training-plan text and team meeting records not provided",
+    "No actual 24-hour wall-clock wait; isolated publication clock advanced",
+    "Windows launcher and backend Docker image not executed",
+    "No live camera/GPU or production load test"
+  ],
+  "cleanup": "PASS: owned Java/Vite services and disposable Docker containers stopped and removed"
+}

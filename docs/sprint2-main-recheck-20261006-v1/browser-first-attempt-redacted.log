@@ -1,0 +1,170 @@
+ROUTE ERROR jiangly route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR jiangly route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR jiangly route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → POST http://127.0.0.1:18081/api/v1/auth/login[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - content-type: application/json[22m
+[2m    - origin: http://127.0.0.1:15173[22m
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+[2m    - content-length: 42[22m
+
+ROUTE ERROR guojun route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR supervisor route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR director route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR liubo route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR jiangly route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR guojun route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR supervisor route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR director route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR liubo route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - authorization: Bearer [REDACTED]
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - x-csrf-token: [REDACTED]
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+ROUTE ERROR jiangly route.fetch: connect ECONNREFUSED 127.0.0.1:18081
+Call log:
+[2m  - → GET http://127.0.0.1:18081/api/v1/auth/csrf[22m
+[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36[22m
+[2m    - accept: application/json, text/plain, */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - referer: http://127.0.0.1:15173/[22m
+[2m    - sec-ch-ua: "Chromium";v="151", "Not=A?Brand";v="99"[22m
+[2m    - sec-ch-ua-mobile: ?0[22m
+[2m    - sec-ch-ua-platform: "Linux"[22m
+
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('heading', { name: /老师工作台/ }) to be visible[22m
+
+    at login (/workspace/classroom-ai/docs/sprint2-main-recheck-20261006-v1/exp3-real-browser.snapshot.cjs:57:56)
+    at async main (/workspace/classroom-ai/docs/sprint2-main-recheck-20261006-v1/exp3-real-browser.snapshot.cjs:71:28) {
+  name: 'TimeoutError'
+}
