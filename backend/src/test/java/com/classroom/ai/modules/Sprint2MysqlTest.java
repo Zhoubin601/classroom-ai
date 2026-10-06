@@ -125,6 +125,8 @@ class Sprint2MysqlTest {
         assertFalse(resourceAccess.canRead(foreignShared));
         assertEquals(List.of("理论", "实验"), resources.findById(sharedB.getId()).orElseThrow().getTags());
         assertTrue(privateB.getTags().isEmpty());
+        assertThrows(com.classroom.ai.common.exception.ForbiddenException.class,
+                () -> files.download(sharedB.getId(), user(RoleEnum.TEACHER, 11)));
 
         String filename = "exp3-" + UUID.randomUUID() + ".pdf";
         Path root = com.classroom.ai.config.UploadPaths.resolveResources("");
@@ -135,7 +137,17 @@ class Sprint2MysqlTest {
             sharedB.setFileUrl("/uploads/resources/" + filename);
             resources.saveAndFlush(sharedB);
             String token = files.createTicket(sharedB.getId(), user(RoleEnum.TEACHER, 11));
-            assertTrue(files.preview(token).length > 100);
+            byte[] preview = files.preview(token);
+            assertTrue(preview.length > 100);
+            try (PDDocument rendered = PDDocument.load(preview)) {
+                assertTrue(rendered.isEncrypted());
+                assertFalse(rendered.getCurrentAccessPermission().canExtractContent());
+                assertFalse(rendered.getCurrentAccessPermission().canPrint());
+                assertEquals("东北大学软件学院", rendered.getDocumentInformation().getCustomMetadataValue("PreviewOrganization"));
+                assertEquals(12, rendered.getDocumentInformation().getCustomMetadataValue("PreviewReference").length());
+                assertTrue(rendered.getPage(0).getResources().getExtGStateNames().iterator().hasNext());
+                assertTrue(rendered.getPage(0).getResources().getXObjectNames().iterator().hasNext());
+            }
             assertEquals(1, accessLogs.count());
             String boundTicket = files.createTicket(sharedB.getId(), user(RoleEnum.TEACHER, 11));
             AuthContext.setCurrentUser(user(RoleEnum.TEACHER, 12));
@@ -151,6 +163,40 @@ class Sprint2MysqlTest {
             assertThrows(com.classroom.ai.common.exception.ForbiddenException.class, () -> files.preview(revokedTicket));
             assertEquals(1, accessLogs.count());
         } finally { Files.deleteIfExists(path); }
+    }
+
+    @Test void recommendedTemplateKeepsRealPlansSeparateAndSupportsMaintenance() {
+        Course c = course("EXP3-TEMPLATE");
+        offering(c, "2026秋", "IN_PROGRESS");
+        AuthContext.setCurrentUser(user(RoleEnum.TEACHER, 11));
+        long planItemsBefore = catalog.count();
+        var template = com.classroom.ai.modules.course.service.RecommendedIndicatorTemplate.items("SE");
+        var items = template.stream().map(item -> SyllabusDTO.IndicatorDTO.builder()
+                .indicatorCode(item.getIndicatorCode()).requirementCategory(item.getRequirementCategory())
+                .indicatorDescription(item.getIndicatorDescription()).supportWeight("M").build()).toList();
+        var created = syllabusService.saveSyllabus(SyllabusDTO.builder().courseId(c.getId()).version("template-v1")
+                .planVersion("RECOMMENDED-12").status("DRAFT").indicators(items).build());
+        assertEquals(12, mappings.findBySyllabusId(created.getId()).size());
+        assertEquals(planItemsBefore, catalog.count());
+        var first = mappings.findBySyllabusId(created.getId()).get(0);
+        var edit = com.classroom.ai.modules.course.dto.IndicatorDTO.builder()
+                .supportWeight("H").targetGoal("目标1").build();
+        assertEquals("H", syllabusService.updateIndicator(first.getId(), edit).getSupportWeight());
+        assertThrows(IllegalArgumentException.class, () -> syllabusService.updateIndicator(first.getId(),
+                com.classroom.ai.modules.course.dto.IndicatorDTO.builder().supportWeight("X").build()));
+        syllabusService.deleteIndicator(first.getId());
+        assertEquals(11, mappings.findBySyllabusId(created.getId()).size());
+        syllabusService.addIndicator(c.getId(), com.classroom.ai.modules.course.dto.IndicatorDTO.builder()
+                .indicatorCode("11-2").requirementCategory("项目管理")
+                .indicatorDescription("已按实际课程修订").supportWeight("L").targetGoal("目标2").build());
+        assertEquals(12, mappings.findBySyllabusId(created.getId()).size());
+        assertTrue(mappings.findBySyllabusId(created.getId()).stream().anyMatch(item -> "11-2".equals(item.getIndicatorCode())));
+        assertThrows(IllegalArgumentException.class, () -> syllabusService.addIndicator(c.getId(),
+                com.classroom.ai.modules.course.dto.IndicatorDTO.builder().indicatorCode("13-1").build()));
+        syllabusService.lockSyllabus(created.getId(), "主任");
+        assertThrows(IllegalStateException.class, () -> syllabusService.addIndicator(c.getId(),
+                com.classroom.ai.modules.course.dto.IndicatorDTO.builder().indicatorCode("1-1").build()));
+        assertEquals(planItemsBefore, catalog.count());
     }
 
     private CourseResource resource(Course course, boolean shared, List<String> tags) {
@@ -169,7 +215,7 @@ class Sprint2MysqlTest {
         AuthContext.setCurrentUser(user(RoleEnum.SUPERVISOR, 22));
         EvaluationSubmitDTO input = EvaluationSubmitDTO.builder().offeringId(oa.getId()).listenTopic("章节讲解")
                 .scoreAttitude(20.0).scoreContent(20.0).scoreMethod(20.0).scoreEffect(20.0)
-                .highlights("讲解清晰").suggestions("增加练习").build();
+                .highlights("讲解清晰\n组织有序\n互动充分").suggestions("增加练习").build();
         SupervisionEvaluation submitted = evaluations.submitEvaluation(input);
         assertEquals("PENDING_REVIEW", submitted.getStatus());
         assertNull(submitted.getPublishTime());

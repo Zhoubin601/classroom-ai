@@ -1,0 +1,27 @@
+
+> classroom-ai-frontend@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ student id must not escape file directories (9.572167ms)
+✔ upload route prevents traversal and non-image reads (1.950967ms)
+✔ missing executable rejects without crashing the dev server (20.41775ms)
+✔ nonzero extraction exit is failure, zero is success (167.186093ms)
+✔ webcam verification launches vision script and cleans its shared upload (115.414841ms)
+✔ lookup stream uses a fraction, including empty classrooms (0.750063ms)
+✔ selected offering recalculates absence and attendance together (0.187931ms)
+✔ HTTP 200 business failures reject and preserve backend details (1.166615ms)
+✔ successful empty responses remain valid (0.155117ms)
+✔ HTTP errors preserve response metadata and readable business message (0.259113ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 770.753821
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

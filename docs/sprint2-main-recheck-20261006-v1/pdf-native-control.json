@@ -1,0 +1,5 @@
+{
+  "environment": "headless Chromium151 Linux",
+  "control": "known-valid PDF opened directly",
+  "error": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/classroom-ai/docs/sprint2-main-recheck-20261006-v1/converted-docx.pdf"
+}

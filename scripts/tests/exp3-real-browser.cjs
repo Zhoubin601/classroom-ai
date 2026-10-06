@@ -1,4 +1,18 @@
 const assert = require('node:assert/strict');
+
+async function assertRenderedPdf(page) {
+  await page.waitForFunction(() => {
+    const canvas = document.querySelector('[data-testid="pdf-page-canvas"]');
+    if (!canvas || canvas.width < 10 || canvas.height < 10) return false;
+    const pixels = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+    let count = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i + 3] && pixels[i] < 230 && pixels[i + 1] < 230 && pixels[i + 2] < 230 && ++count > 200) return true;
+    }
+    return false;
+  });
+}
+
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -171,8 +185,8 @@ async function main() {
     ]);
     assert.equal((await previewTicketUi.json()).code, 200);
     assert.equal((await previewPdfUi.body()).subarray(0, 5).toString(), '%PDF-');
-    await teacher.getByTitle('课件 PDF 预览').waitFor();
-    assert.match(await teacher.getByTitle('课件 PDF 预览').getAttribute('src'), /^blob:/);
+    await teacher.getByTestId('protected-pdf-preview').waitFor();
+    await assertRenderedPdf(teacher);
     await teacher.getByRole('button', { name: '关闭', exact: true }).click();
     await resourceCard.getByRole('button', { name: '编辑标签与共享' }).click();
     const editModal = teacher.locator('div.fixed.inset-0').filter({ has: teacher.getByRole('heading', { name: '编辑资源标签与共享范围' }) });
@@ -251,14 +265,14 @@ async function main() {
       supervisorResource.getByRole('button', { name: '打开限时水印预览' }).click()
     ]);
     assert.equal((await supervisorPdf.body()).subarray(0, 5).toString(), '%PDF-');
-    await supervisor.getByTitle('课件 PDF 预览').waitFor();
-    assert.match(await supervisor.getByTitle('课件 PDF 预览').getAttribute('src'), /^blob:/);
+    await supervisor.getByTestId('protected-pdf-preview').waitFor();
+    await assertRenderedPdf(supervisor);
     await supervisor.getByRole('button', { name: '关闭', exact: true }).click();
     await offeringCard.getByRole('button', { name: /随堂评价/ }).click();
     await supervisor.getByPlaceholder('如 第三讲：需求估算与WBS分解').fill('浏览器测试');
     const sliders = supervisor.locator('input[type="range"]');
     for (let i = 0; i < 4; i++) await sliders.nth(i).fill('20');
-    await supervisor.getByPlaceholder('例如：教学组织严密，能够结合实际敏捷项目案例启发学生...').fill('教学组织清晰');
+    await supervisor.getByPlaceholder('例如：教学组织严密，能够结合实际敏捷项目案例启发学生...').fill('教学组织清晰\n案例讲解充分\n互动反馈及时');
     await supervisor.getByPlaceholder('例如：建议在课后作业中进一步增加甘特图与工期缓冲池实训演练...').fill('增加练习');
     const [evaluation] = await Promise.all([
       supervisor.waitForResponse(response => response.url().endsWith('/api/v1/supervisions') && response.request().method() === 'POST'),
@@ -303,7 +317,7 @@ async function main() {
       assert.equal(anonymous.supervisorName, '匿名督导');
       assert.equal(anonymous.supervisorUserId, null);
       await teacher.reload();
-      await teacher.getByText('教学组织清晰', { exact: true }).first().waitFor();
+      await teacher.getByText(/教学组织清晰/).first().waitFor();
       await teacher.getByText('增加练习', { exact: true }).first().waitFor();
       await teacher.screenshot({ path: path.join(evidenceDir, '03-teacher-published-feedback.png'), fullPage: true });
       console.log('PASS US-14 Chrome: isolated publication clock advanced, anonymous feedback API and teacher feedback UI visible');

@@ -12,6 +12,18 @@ import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
+import org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
+import org.apache.pdfbox.util.Matrix;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +48,8 @@ public class ResourceFileService {
     @Value("${classroom.upload-dir:}") private String uploadDir;
     @Value("${classroom.resource.preview-minutes:5}") private long previewMinutes;
     @Value("${classroom.resource.soffice:soffice}") private String soffice;
+
+    @Value("${classroom.resource.watermark-organization:东北大学软件学院}") private String organization = "东北大学软件学院";
 
     private record Ticket(Long resourceId, Long viewerId, String username, LocalDateTime expiresAt) {}
 
@@ -82,18 +96,49 @@ public class ResourceFileService {
                 if (process.exitValue() != 0 || !Files.isRegularFile(pdf)) throw new IOException("文件转换失败，请检查文件是否损坏");
             }
             try (PDDocument document = PDDocument.load(pdf.toFile()); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-                String mark = "PREVIEW " + ticket.username().replaceAll("[^A-Za-z0-9_.-]", "_") + " " + LocalDateTime.now();
+                String reference = reference(token);
+                String mark = "PREVIEW " + ticket.username().replaceAll("[^A-Za-z0-9_.-]", "_")
+                        + " " + LocalDateTime.now().withNano(0) + " READ ONLY " + reference;
+                var image = LosslessFactory.createFromImage(document, watermarkImage(viewer));
+                document.getDocumentInformation().setCustomMetadataValue("PreviewOrganization", organization);
+                document.getDocumentInformation().setCustomMetadataValue("PreviewReference", reference);
                 for (var page : document.getPages()) {
+                    var box = page.getCropBox();
+                    float width = Math.min(box.getWidth() * .75f, 480);
                     try (PDPageContentStream stream = new PDPageContentStream(document, page,
                             PDPageContentStream.AppendMode.APPEND, true, true)) {
-                        stream.setNonStrokingColor(190, 190, 190);
-                        stream.beginText();
-                        stream.setFont(PDType1Font.HELVETICA_BOLD, 17);
-                        stream.newLineAtOffset(36, page.getMediaBox().getHeight() / 2);
-                        stream.showText(mark);
-                        stream.endText();
+                        for (float fraction : new float[] { .25f, .55f, .85f }) {
+                            stream.saveGraphicsState();
+                            var state = new PDExtendedGraphicsState();
+                            state.setNonStrokingAlphaConstant(.22f);
+                            stream.setGraphicsStateParameters(state);
+                            stream.transform(Matrix.getRotateInstance(Math.toRadians(30),
+                                    box.getLowerLeftX() + box.getWidth() / 2,
+                                    box.getLowerLeftY() + box.getHeight() * fraction));
+                            stream.drawImage(image, -width / 2, 0, width, width / 10);
+                            stream.setNonStrokingColor(80, 80, 80);
+                            stream.beginText();
+                            stream.setFont(PDType1Font.HELVETICA, Math.max(5, width / 65));
+                            stream.newLineAtOffset(-width / 2, -10);
+                            stream.showText(mark);
+                            stream.endText();
+                            stream.restoreGraphicsState();
+                        }
                     }
                 }
+                // No password prompt: an empty user password permits rendering, while
+                // conforming PDF readers reject copy/print/edit operations.
+                var permission = new AccessPermission();
+                permission.setCanExtractContent(false);
+                permission.setCanPrint(false);
+                permission.setCanPrintDegraded(false);
+                permission.setCanModify(false);
+                permission.setCanModifyAnnotations(false);
+                permission.setCanAssembleDocument(false);
+                permission.setCanFillInForm(false);
+                var protection = new StandardProtectionPolicy(UUID.randomUUID().toString(), "", permission);
+                protection.setEncryptionKeyLength(256);
+                document.protect(protection);
                 document.save(out);
                 audit(resource.getId(), ticket.viewerId(), ticket.username(), "PREVIEW");
                 return out.toByteArray();
@@ -105,9 +150,33 @@ public class ResourceFileService {
         }
     }
 
+    private BufferedImage watermarkImage(UserVO viewer) {
+        var image = new BufferedImage(1800, 180, BufferedImage.TYPE_INT_ARGB);
+        var graphics = image.createGraphics();
+        try {
+            graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            graphics.setColor(new Color(65, 65, 65));
+            graphics.setFont(new Font("SansSerif", Font.BOLD, 48));
+            String identity = viewer.getRealName() == null ? viewer.getUsername() : viewer.getRealName();
+            String text = organization + " · " + identity + " (" + viewer.getUsername() + ") · 只读预览";
+            // Fit long organization/account names without dropping watermark fields.
+            int measured = graphics.getFontMetrics().stringWidth(text);
+            if (measured > 1740) graphics.setFont(graphics.getFont().deriveFont(Math.max(12f, 48f * 1740 / measured)));
+            graphics.drawString(text, 30, 110);
+        } finally { graphics.dispose(); }
+        return image;
+    }
+
+    private String reference(String token) {
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256").digest(token.getBytes(StandardCharsets.UTF_8));
+            return java.util.HexFormat.of().formatHex(digest).substring(0, 12);
+        } catch (NoSuchAlgorithmException e) { throw new IllegalStateException(e); }
+    }
+
     public Path download(Long id, UserVO viewer) {
         CourseResource resource = resources.findById(id).orElseThrow(() -> new IllegalArgumentException("资源不存在"));
-        access.requireRead(resource);
+        access.requireCourseWrite(resource.getCourse().getId());
         Path path = resolveStored(resource);
         audit(id, viewer.getId(), viewer.getUsername(), "DOWNLOAD");
         return path;

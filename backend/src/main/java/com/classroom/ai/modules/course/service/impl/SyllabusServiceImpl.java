@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import com.classroom.ai.modules.course.service.RecommendedIndicatorTemplate;
 
 @Service
 @RequiredArgsConstructor
@@ -89,12 +90,17 @@ public class SyllabusServiceImpl implements SyllabusService {
         // 处理指标点映射
         if (dto.getIndicators() != null) {
             if (trainingIndicatorRepository != null) {
-                List<TrainingIndicator> catalog = trainingIndicatorRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(
-                        course.getMajorCode(), planVersion);
+                List<TrainingIndicator> catalog = RecommendedIndicatorTemplate.VERSION.equals(planVersion)
+                        ? RecommendedIndicatorTemplate.items(course.getMajorCode())
+                        : trainingIndicatorRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(course.getMajorCode(), planVersion);
                 if (catalog.isEmpty() && !dto.getIndicators().isEmpty())
                     throw new IllegalArgumentException("请先导入该专业及版本的培养方案指标目录");
                 for (SyllabusDTO.IndicatorDTO item : dto.getIndicators()) {
-                    if (catalog.stream().noneMatch(c -> c.getIndicatorCode().equals(item.getIndicatorCode())))
+                    validateWeight(item.getSupportWeight());
+                    boolean validCode = RecommendedIndicatorTemplate.VERSION.equals(planVersion)
+                            ? RecommendedIndicatorTemplate.contains(item.getIndicatorCode())
+                            : catalog.stream().anyMatch(c -> c.getIndicatorCode().equals(item.getIndicatorCode()));
+                    if (!validCode)
                         throw new IllegalArgumentException("指标点不属于当前培养方案: " + item.getIndicatorCode());
                 }
             }
@@ -135,7 +141,12 @@ public class SyllabusServiceImpl implements SyllabusService {
         if (latestSyllabus == null) throw new IllegalStateException("请先从培养方案创建课程大纲版本");
         if (latestSyllabus != null && "LOCKED".equals(latestSyllabus.getStatus()))
             throw new IllegalStateException("已锁定的大纲不能修改，请创建新版本");
-        if (trainingIndicatorRepository != null && latestSyllabus != null &&
+        validateWeight(dto.getSupportWeight());
+        if (RecommendedIndicatorTemplate.VERSION.equals(latestSyllabus.getPlanVersion())
+                && !RecommendedIndicatorTemplate.contains(dto.getIndicatorCode()))
+            throw new IllegalArgumentException("指标点不属于推荐模板");
+        if (trainingIndicatorRepository != null && latestSyllabus != null
+                && !RecommendedIndicatorTemplate.VERSION.equals(latestSyllabus.getPlanVersion()) &&
                 trainingIndicatorRepository.findByMajorCodeAndPlanVersionAndIndicatorCode(
                         course.getMajorCode(), latestSyllabus.getPlanVersion(), dto.getIndicatorCode()).isEmpty())
             throw new IllegalArgumentException("指标点不属于当前培养方案");
@@ -158,8 +169,13 @@ public class SyllabusServiceImpl implements SyllabusService {
         GraduationIndicator indicator = indicatorRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("未找到ID为 " + id + " 的毕业要求指标点记录"));
         assertEditable(indicator);
+        validateWeight(dto.getSupportWeight());
         if (dto.getIndicatorCode() != null) {
-            if (trainingIndicatorRepository != null && trainingIndicatorRepository.findByMajorCodeAndPlanVersionAndIndicatorCode(
+            if (RecommendedIndicatorTemplate.VERSION.equals(indicator.getSyllabus().getPlanVersion())
+                    && !RecommendedIndicatorTemplate.contains(dto.getIndicatorCode()))
+                throw new IllegalArgumentException("指标点不属于推荐模板");
+            if (trainingIndicatorRepository != null
+                    && !RecommendedIndicatorTemplate.VERSION.equals(indicator.getSyllabus().getPlanVersion()) && trainingIndicatorRepository.findByMajorCodeAndPlanVersionAndIndicatorCode(
                     indicator.getCourse().getMajorCode(), indicator.getSyllabus().getPlanVersion(), dto.getIndicatorCode()).isEmpty())
                 throw new IllegalArgumentException("指标点不属于当前培养方案");
             indicator.setIndicatorCode(dto.getIndicatorCode());
@@ -186,6 +202,11 @@ public class SyllabusServiceImpl implements SyllabusService {
                 .orElseThrow(() -> new IllegalArgumentException("未找到ID为 " + id + " 的毕业要求指标点记录"));
         assertEditable(indicator);
         indicatorRepository.deleteById(id);
+    }
+
+    private void validateWeight(String weight) {
+        if (weight != null && !List.of("H", "M", "L").contains(weight))
+            throw new IllegalArgumentException("支撑权重仅支持H、M、L");
     }
 
     private void assertEditable(GraduationIndicator indicator) {

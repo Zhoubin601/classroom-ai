@@ -1,0 +1,39 @@
+[
+  {
+    "file": "protected-docx.pdf",
+    "encrypted": true,
+    "pages": 2,
+    "organization": "东北大学软件学院",
+    "referenceLength": 12,
+    "copyAllowed": false,
+    "printAllowed": false,
+    "modifyAllowed": false,
+    "nonStrokingAlpha": [
+      0.22,
+      0.22,
+      0.22,
+      0.22,
+      0.22,
+      0.22
+    ],
+    "rotation30Degrees": true,
+    "asciiIdentityAndReadOnlyMark": true
+  },
+  {
+    "file": "protected-pptx.pdf",
+    "encrypted": true,
+    "pages": 1,
+    "organization": "东北大学软件学院",
+    "referenceLength": 12,
+    "copyAllowed": false,
+    "printAllowed": false,
+    "modifyAllowed": false,
+    "nonStrokingAlpha": [
+      0.22,
+      0.22,
+      0.22
+    ],
+    "rotation30Degrees": true,
+    "asciiIdentityAndReadOnlyMark": true
+  }
+]

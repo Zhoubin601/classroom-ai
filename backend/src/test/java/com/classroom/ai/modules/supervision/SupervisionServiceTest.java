@@ -81,7 +81,7 @@ class SupervisionServiceTest {
                 .scoreContent(24.0)
                 .scoreMethod(23.5)
                 .scoreEffect(24.0)
-                .highlights("教学组织严密，BOPPPS实践好")
+                .highlights("教学组织严密\n案例讲解清晰\n课堂互动充分")
                 .suggestions("保持良好势头")
                 .isDraft(false)
                 .build();
@@ -96,6 +96,17 @@ class SupervisionServiceTest {
         assertEquals("PENDING_REVIEW", saved.getStatus());
         assertNotNull(saved.getSubmitTime());
         assertNull(saved.getPublishTime());
+    }
+
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(strings = {"一条亮点", "一条\n二条", "1. 相同内容\n2. 相同内容\n3. 相同内容", "1. \n2. \n3. ", "相同内容;相同内容;相同内容"})
+    void formalSubmissionRequiresThreeDistinctNonemptyHighlights(String highlights) {
+        when(offeringRepository.findById(10L)).thenReturn(Optional.of(mockOffering));
+        var dto = EvaluationSubmitDTO.builder().offeringId(10L).listenTopic("主题")
+                .highlights(highlights).suggestions("BOPPPS互动改进").isDraft(false).build();
+        var ex = assertThrows(IllegalArgumentException.class, () -> supervisionService.submitEvaluation(dto));
+        assertTrue(ex.getMessage().contains("至少3条"));
+        verify(evaluationRepository, never()).save(any());
     }
 
     @Test

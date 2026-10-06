@@ -1,0 +1,18 @@
+
+> classroom-ai-frontend@1.0.0 build
+> vue-tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json && vite build --config vite.config.ts
+
+vite v5.4.21 building for production...
+transforming...
+✓ 2099 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.90 kB │ gzip:   0.60 kB
+dist/assets/index-C6trUJ3b.css     59.85 kB │ gzip:   9.95 kB
+dist/assets/index-DD_Zzw8d.js   1,490.78 kB │ gzip: 479.31 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 9.90s

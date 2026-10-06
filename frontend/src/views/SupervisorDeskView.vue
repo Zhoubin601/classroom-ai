@@ -705,7 +705,8 @@
     </div>
 
     <!-- 弹窗：随堂听评课打分 (US-13) -->
-    <div v-if="showEvaluateModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <Teleport to="body">
+    <div v-if="showEvaluateModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[100] flex items-center justify-center p-4">
       <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-xl p-6 shadow-modal space-y-4 max-h-[90vh] overflow-y-auto">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
@@ -718,6 +719,8 @@
           <p class="text-slate-900 font-bold">{{ currentOfferingForEval?.course.courseName }} - {{ currentOfferingForEval?.teacherName }} 老师</p>
           <p class="text-slate-500">听课班级：{{ currentOfferingForEval?.className }} · 班额：{{ currentOfferingForEval?.studentCount }} 人</p>
         </div>
+
+        <p v-if="evaluationDraftId" class="text-xs text-amber-700">已恢复暂存评价，可继续编辑后提交。</p>
 
         <!-- 基本信息输入 -->
         <div class="grid grid-cols-2 gap-3 text-xs">
@@ -773,11 +776,12 @@
         <!-- 质性评语 (US-14) -->
         <div class="space-y-3 text-xs">
           <div>
-            <label class="text-slate-700 font-semibold block mb-1">课堂教学亮点 (限 500 字)</label>
+            <label class="text-slate-700 font-semibold block mb-1">课堂教学亮点 (至少3条，每条一行，合计限500字)</label>
             <textarea v-model="evalForm.highlights" rows="2" maxlength="500" placeholder="例如：教学组织严密，能够结合实际敏捷项目案例启发学生..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs"></textarea>
           </div>
           <div>
-            <label class="text-slate-700 font-semibold block mb-1">针对性改进建议 (限 500 字)</label>
+            <label class="text-slate-700 font-semibold block mb-1">BOPPPS 针对性改进建议 (限 500 字)</label>
+            <p class="text-[11px] text-slate-500 mb-1">可针对导入、目标、前测、参与式学习、后测、总结中的具体环节提出建议。</p>
             <textarea v-model="evalForm.suggestions" rows="2" maxlength="500" placeholder="例如：建议在课后作业中进一步增加甘特图与工期缓冲池实训演练..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs"></textarea>
           </div>
         </div>
@@ -797,9 +801,12 @@
       </div>
     </div>
 
+    </Teleport>
+
     <!-- 弹窗：听课前课件在线免密预览 (US-09) -->
-    <div v-if="showPreviewModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl p-6 shadow-modal space-y-4">
+    <Teleport to="body">
+    <div v-if="showPreviewModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[100] flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl max-h-[90vh] overflow-auto w-full max-w-2xl p-6 shadow-modal space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <FileText class="w-4 h-4 text-indigo-600" /> 听课前课件大纲免密预审
@@ -822,16 +829,18 @@
           </div>
         </div>
 
-        <iframe v-if="previewUrl" :src="previewUrl" title="课件 PDF 预览" class="w-full h-96 border border-slate-200 rounded-xl bg-slate-50"></iframe>
+        <ProtectedPdfPreview v-if="previewUrl" :src="previewUrl" />
         <div class="text-right pt-2">
           <button @click="closePreview" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">关闭</button>
         </div>
       </div>
     </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
+import ProtectedPdfPreview from '../components/ProtectedPdfPreview.vue'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import {
   ShieldCheck,
@@ -1139,7 +1148,12 @@ const previewResource = async (resource: CourseResource) => {
   }
 }
 
-const openEvaluateForm = (off: CourseOffering) => {
+const evaluationDraftId = ref<number | undefined>()
+let evaluationRequest = 0
+const openEvaluateForm = async (off: CourseOffering) => {
+  const request = ++evaluationRequest
+  showEvaluateModal.value = false
+  evaluationDraftId.value = undefined
   currentOfferingForEval.value = off
   evalForm.value = {
     listenTopic: '',
@@ -1151,12 +1165,38 @@ const openEvaluateForm = (off: CourseOffering) => {
     highlights: '',
     suggestions: ''
   }
-  showEvaluateModal.value = true
+  try {
+    const evaluations = await supervisionApi.getAll({offeringId: off.id})
+    if (request !== evaluationRequest) return
+    const draft = evaluations.sort((a, b) => b.id - a.id)
+      .find(item => item.status === 'DRAFT' || item.status === 'REJECTED')
+    if (draft) {
+      evaluationDraftId.value = draft.id
+      evalForm.value = {
+        listenTopic: draft.listenTopic || '',
+        evaluateDate: draft.evaluateDate || evalForm.value.evaluateDate,
+        scoreAttitude: draft.scoreAttitude ?? 0,
+        scoreContent: draft.scoreContent ?? 0,
+        scoreMethod: draft.scoreMethod ?? 0,
+        scoreEffect: draft.scoreEffect ?? 0,
+        highlights: draft.highlights || '',
+        suggestions: draft.suggestions || ''
+      }
+    }
+    showEvaluateModal.value = true
+  } catch (e: any) {
+    if (request === evaluationRequest) alert(e.message || '评价草稿读取失败，请重试')
+  }
 }
 
 const handleSaveEvaluation = async (isDraft: boolean) => {
+  if (!isDraft && new Set(evalForm.value.highlights.split(/[\r\n；;]+/)
+      .map(line => line.replace(/^\s*(?:[0-9０-９]+[.、)）．:]|[-•])\s*/, '').trim()).filter(Boolean)).size < 3) {
+    alert('正式提交须填写至少3条不同的教学亮点，每条单独一行'); return
+  }
   try {
     const payload = {
+      id: evaluationDraftId.value,
       offeringId: currentOfferingForEval.value?.id,
       evaluateDate: evalForm.value.evaluateDate,
       listenTopic: evalForm.value.listenTopic,

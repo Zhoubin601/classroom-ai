@@ -1,0 +1,177 @@
+[
+  {
+    "name": "com.classroom.ai.ApiExceptionHandlerTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.RegressionTest",
+    "tests": "18",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.UploadPathsTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.Sprint2MysqlTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "3"
+  },
+  {
+    "name": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.auth.AuthControllerTest",
+    "tests": "5",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "tests": "13",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest",
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseBrowserMysqlTest",
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "1"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "tests": "7",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "tests": "7",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseImportTest",
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseOfferingHistoryTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "tests": "21",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "21"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "tests": "11",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "11"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "tests": "12",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+    "tests": "5",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  }
+]

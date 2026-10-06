@@ -68,7 +68,7 @@ main 集成了实验二 US-01～04、US-06，以及实验三 Sprint 2 的 US-05�
 
 ### 真实浏览器验收
 
-先构建后端并启动前端，再执行以下命令。Playwright 可通过 `PLAYWRIGHT_MODULE` 指定，浏览器通过 `EXP3_CHROMIUM_PATH` 指定；未指定时 runner 会尝试发现本机可用安装。
+先构建后端和前端（`cd frontend; npm run build`），再执行以下命令。Playwright 可通过 `PLAYWRIGHT_MODULE` 指定，浏览器通过 `EXP3_CHROMIUM_PATH` 指定；未指定时 runner 会尝试发现本机可用安装。
 
 ```powershell
 .\scripts\run-tests.ps1 -Offline
@@ -81,7 +81,7 @@ $env:US0102_PREVIEW_URL = 'http://127.0.0.1:5173'
 .\scripts\run-us0102-mysql-tests.ps1 -Tests 'CourseWorkflowMysqlTest,CourseSchedulingMysqlTest,CourseBrowserMysqlTest'
 ```
 
-Sprint 2 浏览器 runner 使用独立 MySQL/Redis 和两个后端进程，结束自动清理；`EXP3_FRONTEND_URL` 可指定前端地址。匿名反馈仍使用正常 24 小时规则，测试仅推进自身临时容器中的发布时间来验证发布后的页面与身份脱敏。
+Sprint 2 浏览器 runner 使用独立 MySQL/Redis、两个后端进程及 15173 端口的前端预览，真实代理上传，结束自动清理。除八故事流程外，还检查两页 DOCX/PPTX 实际渲染、12项推荐草案、PDF保护及草稿恢复。匿名反馈仍使用正常 24 小时规则，测试仅推进自身临时容器中的发布时间来验证发布后的页面与身份脱敏。
 
 全功能页面验收可运行 `scripts/run-all-features-playwright.ps1`。若使用独立后端，启动前端时设定 `CLASSROOM_API_PROXY`，同时设置测试的 `BASE_URL`、`BACKEND_URL`、`FORWARD_BACKEND=false`，即可直接走真实 Vite 代理。设置 `OFFICE_PREVIEW_FIXTURE` 为测试 DOCX/PPTX 路径时，会额外验证 Office 上传与水印预览；使用测试数据库，不向正式数据导入测试内容。
 

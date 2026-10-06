@@ -115,6 +115,11 @@ public class SupervisionServiceImpl implements SupervisionService {
                 || dto.getSuggestions() == null || dto.getSuggestions().isBlank()))
             throw new IllegalArgumentException("正式提交须填写听课主题、教学亮点和改进建议");
 
+        if (!isDraft && java.util.Arrays.stream(dto.getHighlights().split("[\r\n；;]+"))
+                .map(line -> line.replaceFirst("^\s*(?:[0-9０-９]+[.、)）．:]|[-•])\s*", "").trim())
+                .filter(line -> !line.isBlank()).distinct().count() < 3)
+            throw new IllegalArgumentException("正式提交须填写至少3条不同的教学亮点，每条单独一行");
+
         double totalScore = attitude + content + method + effect;
 
         SupervisionEvaluation evaluation;

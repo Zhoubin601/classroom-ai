@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.classroom.ai.modules.course.service.RecommendedIndicatorTemplate;
 
 @RestController
 @RequestMapping("/api/v1/syllabus")
@@ -89,6 +90,8 @@ public class SyllabusController {
     public ApiResponse<List<com.classroom.ai.modules.course.entity.TrainingIndicator>> getPlanIndicators(
             @PathVariable String majorCode, @PathVariable String version) {
         checkMajorDepartment(majorCode);
+        if (RecommendedIndicatorTemplate.VERSION.equals(version))
+            return ApiResponse.success(RecommendedIndicatorTemplate.items(majorCode));
         return ApiResponse.success(trainingRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(majorCode, version));
     }
 
@@ -99,6 +102,8 @@ public class SyllabusController {
             @PathVariable String majorCode, @PathVariable String version,
             @RequestBody List<com.classroom.ai.modules.course.dto.IndicatorDTO> items) {
         checkMajorDepartment(majorCode);
+        if (RecommendedIndicatorTemplate.VERSION.equals(version))
+            throw new IllegalArgumentException("推荐模板版本不能用作真实培养方案版本");
         if (items == null || items.isEmpty()) throw new IllegalArgumentException("培养方案指标目录不能为空");
         var codes = new java.util.HashSet<String>();
         for (var item : items) {
@@ -136,7 +141,9 @@ public class SyllabusController {
                 || request.syllabusVersion() == null || request.syllabusVersion().isBlank())
             throw new IllegalArgumentException("培养方案版本和大纲版本不能为空");
         var course = courseRepository.findById(courseId).orElseThrow();
-        var catalog = trainingRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(course.getMajorCode(), request.planVersion());
+        var catalog = RecommendedIndicatorTemplate.VERSION.equals(request.planVersion())
+                ? RecommendedIndicatorTemplate.items(course.getMajorCode())
+                : trainingRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(course.getMajorCode(), request.planVersion());
         if (catalog.isEmpty()) throw new IllegalArgumentException("该专业培养方案版本尚未导入指标目录");
         if (syllabusRepository.findByCourseIdAndVersion(courseId, request.syllabusVersion()).isPresent())
             throw new IllegalArgumentException("大纲版本已存在，请输入新版本号");

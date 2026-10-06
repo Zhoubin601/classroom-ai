@@ -10,6 +10,20 @@
  */
 
 const assert = require('node:assert/strict');
+
+async function assertRenderedPdf(page) {
+  await page.waitForFunction(() => {
+    const canvas = document.querySelector('[data-testid="pdf-page-canvas"]');
+    if (!canvas || canvas.width < 10 || canvas.height < 10) return false;
+    const pixels = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+    let count = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i + 3] && pixels[i] < 230 && pixels[i + 1] < 230 && pixels[i + 2] < 230 && ++count > 200) return true;
+    }
+    return false;
+  });
+}
+
 const path = require('node:path');
 const fs = require('node:fs');
 
@@ -342,11 +356,11 @@ async function logout(page) {
       ]);
       assert.equal(ticketResp.status(), 200, '票据申请成功');
       assert.equal((await pdfResp.body()).subarray(0, 5).toString(), '%PDF-', '响应应为合法 PDF');
-      await page.getByTitle('课件 PDF 预览').waitFor();
-      assert.match(await page.getByTitle('课件 PDF 预览').getAttribute('src'), /^blob:/, 'iframe 采用安全 blob: 地址');
+      await page.getByTestId('protected-pdf-preview').waitFor();
+      await assertRenderedPdf(page);
       await capture(page, '12_teacher_watermark_preview.png', '限时水印 PDF 预览弹窗');
       await page.getByRole('button', { name: '关闭', exact: true }).click();
-      recordPass('教师工作台', 'US-09 在线限时水印预览', '成功通过动态票据获取带水印 PDF 并在 iframe 安全预览');
+      recordPass('教师工作台', 'US-09 在线限时水印预览', '成功通过动态票据获取带水印 PDF 并在受保护画布中实际渲染预览');
 
       // Optional synthetic Office fixture for a backend with LibreOffice.
       if (process.env.OFFICE_PREVIEW_FIXTURE) {
@@ -370,8 +384,8 @@ async function logout(page) {
         const converted = await officePdf.body();
         assert.equal(converted.subarray(0, 5).toString(), '%PDF-');
         assert.ok(converted.length > 500);
-        await page.getByTitle('课件 PDF 预览').waitFor();
-        assert.match(await page.getByTitle('课件 PDF 预览').getAttribute('src'), /^blob:/);
+        await page.getByTestId('protected-pdf-preview').waitFor();
+        await assertRenderedPdf(page);
         await capture(page, '22_teacher_office_pdf_preview.png', '真实 Office 转 PDF 与水印授权预览');
         await page.getByRole('button', { name: '关闭', exact: true }).click();
         recordPass('教师工作台', 'US-07/09 Office 转换闭环', `合成 ${path.extname(fixture)} 上传、LibreOffice 转 PDF、授权水印预览通过，PDF ${converted.length} 字节`);
