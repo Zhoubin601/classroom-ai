@@ -35,6 +35,9 @@ public class SupervisionEvaluation {
     @Column(nullable = false, length = 64)
     private String supervisorName;
 
+    /** Server authenticated identity; legacy records may be null. */
+    private Long supervisorUserId;
+
     /** 听课日期，如 "2026-09-12" */
     @Column(nullable = false, length = 32)
     private String evaluateDate;
@@ -76,18 +79,24 @@ public class SupervisionEvaluation {
     /**
      * 评价状态 (US-14 业务规则)：
      * DRAFT: 暂存草稿
-     * PENDING_DESENSITIZE: 已提交，正在经历 24 小时延迟脱敏期（防激化师生矛盾）
-     * PUBLISHED: 已脱敏归档并对任课教师公开
+     * PENDING_REVIEW: 等待教研室主任审核
+     * APPROVED_PENDING: 已审核，等待反馈延迟结束
+     * PUBLISHED: 已脱敏并对任课教师公开
      */
     @Builder.Default
     @Column(nullable = false, length = 32)
-    private String status = "PENDING_DESENSITIZE";
+    private String status = "DRAFT";
 
     /** 提交时间 */
     private LocalDateTime submitTime;
 
     /** 脱敏归档与对教师正式开放时间 (提交时间 + 24小时) */
     private LocalDateTime publishTime;
+
+    private Long reviewedBy;
+    private LocalDateTime reviewedAt;
+    @Column(length = 500)
+    private String reviewNote;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

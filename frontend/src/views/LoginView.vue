@@ -1,33 +1,34 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden font-sans select-none">
-    <!-- 背景光效装饰 -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
-    <div class="absolute top-10 right-10 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden font-sans select-none">
+    <!-- 背景流光与微网格装饰 -->
+    <div class="absolute inset-0 bg-[radial-gradient(#312e81_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-10 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div :class="['w-full relative z-10 space-y-5 transition-all duration-300', showQuickLogin ? 'max-w-7xl' : 'max-w-md']">
+    <div :class="['w-full relative z-10 space-y-6 transition-all duration-300', showQuickLogin ? 'max-w-7xl' : 'max-w-md']">
       <!-- 平台品牌徽标与主标题 -->
-      <div class="text-center space-y-2">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-600 text-white shadow-xl shadow-indigo-600/30 border border-indigo-400/30 mb-1">
+      <div class="text-center space-y-2.5">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white shadow-xl shadow-indigo-600/30 border border-indigo-400/30 mb-1 transition-transform hover:scale-105">
           <GraduationCap class="w-8 h-8" />
         </div>
-        <h1 class="text-2xl font-bold tracking-tight text-white flex items-center justify-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center justify-center gap-2">
           <span>爱教学 · 数字化教学质量管理平台</span>
         </h1>
-        <div class="flex items-center justify-center gap-2">
-          <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-medium">
+        <div class="flex items-center justify-center gap-2.5">
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold tracking-wide">
             东北大学软件学院
           </span>
-          <span class="text-xs text-indigo-200/70">
-            JWT + Spring Security 敏捷鉴权系统
+          <span class="text-xs text-indigo-200/70 font-medium">
+            JWT + Spring Security 敏捷鉴权体系
           </span>
         </div>
       </div>
 
       <!-- 快捷登录通道开关栏 -->
-      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-800/80 backdrop-blur-md border border-slate-700/70 px-5 py-3 rounded-2xl shadow-xl">
-        <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 px-5 py-3 rounded-2xl shadow-xl">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-xs">
             <Sparkles class="w-4 h-4" />
           </div>
           <div>
@@ -44,7 +45,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-xs font-medium" :class="showQuickLogin ? 'text-indigo-400' : 'text-slate-400'">
+          <span class="text-xs font-medium" :class="showQuickLogin ? 'text-indigo-400 font-semibold' : 'text-slate-400'">
             {{ showQuickLogin ? '快捷面板：已开启' : '快捷面板：已折叠' }}
           </span>
           <button
@@ -52,7 +53,7 @@
             @click="toggleQuickLogin"
             :title="showQuickLogin ? '点击隐藏快捷卡片面板' : '点击展开全量教师快捷登录面板'"
             class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none"
-            :class="showQuickLogin ? 'bg-indigo-600' : 'bg-slate-600'"
+            :class="showQuickLogin ? 'bg-indigo-600' : 'bg-slate-700'"
           >
             <span
               class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out"
@@ -65,36 +66,36 @@
       <!-- 主区域：双栏 (开启快捷通道时) 或 单栏居中 (折叠时) -->
       <div :class="['transition-all duration-300', showQuickLogin ? 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-start' : 'max-w-md mx-auto']">
         
-        <!-- 左侧 / 居中：登录 / 督导注册卡片 -->
-        <div :class="[showQuickLogin ? 'lg:col-span-4' : 'w-full']" class="bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20 space-y-5 text-slate-800">
-          <!-- 单一身份认证模式标题头 (公开注册接口已关闭，督导账号由主任统一开通授权) -->
+        <!-- 左侧 / 居中：登录卡片 -->
+        <div :class="[showQuickLogin ? 'lg:col-span-4' : 'w-full']" class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 sm:p-7 shadow-2xl border border-white/40 space-y-5 text-slate-800">
+          <!-- 单一身份认证模式标题头 -->
           <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
             <div>
-              <h2 class="text-base font-bold text-slate-900">
+              <h2 class="text-base font-bold text-slate-900 tracking-tight">
                 教务统一身份认证
               </h2>
               <p class="text-xs text-slate-500 mt-0.5">
                 支持任课教师、教研室主任及教学督导登录（督导账号由主任统一分配授权）
               </p>
             </div>
-            <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-medium">
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-semibold">
               JWT + Security
             </span>
           </div>
 
           <!-- 快速填入成功提示气泡 -->
-          <div v-if="fillNotice" class="p-2.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs flex items-center justify-between animate-pulse">
-            <div class="flex items-center gap-1.5">
-              <Check class="w-3.5 h-3.5 text-indigo-600 shrink-0" />
-              <span>{{ fillNotice }}</span>
+          <div v-if="fillNotice" class="p-3 rounded-2xl bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-xs flex items-center justify-between animate-fade-in shadow-xs">
+            <div class="flex items-center gap-2">
+              <Check class="w-4 h-4 text-indigo-600 shrink-0" />
+              <span class="font-medium">{{ fillNotice }}</span>
             </div>
-            <button @click="fillNotice = ''" class="text-indigo-400 hover:text-indigo-600 text-xs">✕</button>
+            <button @click="fillNotice = ''" class="text-indigo-400 hover:text-indigo-600 text-xs cursor-pointer">✕</button>
           </div>
 
           <!-- 错误提示 -->
-          <div v-if="errorMessage" class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 animate-shake">
+          <div v-if="errorMessage" class="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 animate-fade-in shadow-xs">
             <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
-            <span>{{ errorMessage }}</span>
+            <span class="font-medium">{{ errorMessage }}</span>
           </div>
 
           <!-- 1. 登录表单 -->
@@ -108,9 +109,9 @@
                   required
                   autocomplete="username"
                   placeholder="如 guojun, director, supervisor 等"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-inner"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition shadow-inner"
                 />
-                <User class="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <User class="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
               </div>
             </div>
 
@@ -123,13 +124,13 @@
                   required
                   autocomplete="current-password"
                   placeholder="请输入登录密码 (默认 123456)"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-10 py-2.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-inner"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-12 py-2.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition shadow-inner"
                 />
-                <Lock class="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <Lock class="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
                 <button
                   type="button"
                   @click="showPassword = !showPassword"
-                  class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs cursor-pointer"
+                  class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs cursor-pointer font-medium"
                 >
                   {{ showPassword ? '隐藏' : '显示' }}
                 </button>
@@ -139,7 +140,7 @@
             <button
               type="submit"
               :disabled="loading"
-              class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 active:scale-[0.99] text-white font-semibold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <span v-if="loading" class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
               <span v-else>立即验证并登录</span>
@@ -152,7 +153,7 @@
             <button
               type="button"
               @click="toggleQuickLogin"
-              class="text-xs text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 cursor-pointer"
+              class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold inline-flex items-center gap-1.5 cursor-pointer"
             >
               <Sparkles class="w-3.5 h-3.5 text-amber-500" />
               展开 8 位教师与督导一键快捷登录面板 ➔
@@ -161,14 +162,14 @@
         </div>
 
         <!-- 右侧：全系专任教师与督导一键直登矩阵面板 (开启时展示) -->
-        <div v-if="showQuickLogin" class="lg:col-span-8 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20 space-y-4 text-slate-800">
+        <div v-if="showQuickLogin" class="lg:col-span-8 bg-white/95 backdrop-blur-xl rounded-3xl p-6 sm:p-7 shadow-2xl border border-white/40 space-y-4 text-slate-800">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
             <div>
-              <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shadow-2xs">
                   <Building2 class="w-4 h-4" />
                 </div>
-                <h3 class="text-base font-bold text-slate-900">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight">
                   全系专任教师 & 教学管理快捷登录矩阵
                 </h3>
               </div>
@@ -178,15 +179,15 @@
             </div>
 
             <!-- 分类过滤 Tab -->
-            <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs">
+            <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200/80 text-xs shadow-inner">
               <button
                 v-for="cat in categoryTabs"
                 :key="cat.key"
                 type="button"
                 @click="selectedCategory = cat.key"
                 :class="[
-                  'px-2.5 py-1 rounded-lg font-medium transition cursor-pointer',
-                  selectedCategory === cat.key ? 'bg-white text-indigo-700 shadow-xs font-semibold' : 'text-slate-600 hover:text-slate-900'
+                  'px-3 py-1 rounded-lg font-medium transition cursor-pointer select-none',
+                  selectedCategory === cat.key ? 'bg-white text-indigo-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900'
                 ]"
               >
                 {{ cat.label }} ({{ cat.count }})
@@ -195,48 +196,48 @@
           </div>
 
           <!-- 教师与管理人员卡片网格 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[580px] overflow-y-auto pr-1">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[580px] overflow-y-auto pr-1.5">
             <div
               v-for="acc in filteredAccounts"
               :key="acc.username"
-              class="rounded-xl border p-3.5 transition-all hover:shadow-md flex flex-col justify-between space-y-3"
+              class="rounded-2xl border p-4 transition-all duration-200 hover:shadow-card hover:-translate-y-0.5 flex flex-col justify-between space-y-3"
               :class="[
                 acc.role === 'DIRECTOR'
-                  ? 'bg-amber-50/60 border-amber-200 hover:border-amber-300'
+                  ? 'bg-amber-50/40 border-amber-200/80 hover:border-amber-300'
                   : acc.role === 'SUPERVISOR'
-                  ? 'bg-emerald-50/60 border-emerald-200 hover:border-emerald-300'
-                  : 'bg-slate-50/80 border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/30'
+                  ? 'bg-emerald-50/40 border-emerald-200/80 hover:border-emerald-300'
+                  : 'bg-slate-50/70 border-slate-200/80 hover:border-indigo-300 hover:bg-indigo-50/20'
               ]"
             >
               <!-- 顶部身份信息 -->
               <div>
                 <div class="flex items-start justify-between gap-2">
-                  <div class="flex items-center gap-2.5">
+                  <div class="flex items-center gap-3">
                     <div
-                      class="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm shadow-xs"
+                      class="w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-sm shadow-xs"
                       :class="acc.avatarStyle"
                     >
                       {{ acc.name.substring(0, 1) }}
                     </div>
                     <div>
                       <div class="flex items-center gap-1.5">
-                        <span class="font-bold text-sm text-slate-900">{{ acc.name }}</span>
-                        <span class="text-[10px] px-1.5 py-0.2 rounded font-medium border" :class="acc.tagStyle">
+                        <span class="font-bold text-sm text-slate-900 tracking-tight">{{ acc.name }}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold border" :class="acc.tagStyle">
                           {{ acc.title }}
                         </span>
                       </div>
-                      <span class="text-[11px] text-slate-500 block">{{ acc.department }}</span>
+                      <span class="text-[11px] text-slate-500 block mt-0.5">{{ acc.department }}</span>
                     </div>
                   </div>
 
                   <!-- 账号凭证微标 -->
-                  <div class="text-right font-mono text-[11px] text-slate-400 bg-white/80 border border-slate-200 px-2 py-0.5 rounded-lg">
-                    <span>账号: <b class="text-slate-700">{{ acc.username }}</b></span>
+                  <div class="text-right font-mono text-[11px] text-slate-400 bg-white border border-slate-200/80 px-2 py-0.5 rounded-lg shadow-2xs">
+                    <span>账号: <b class="text-slate-800">{{ acc.username }}</b></span>
                   </div>
                 </div>
 
                 <!-- 并行排课高亮标注 -->
-                <div v-if="acc.parallelNote" class="mt-2 text-[10px] px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-1 font-medium">
+                <div v-if="acc.parallelNote" class="mt-2 text-[10px] px-2.5 py-1 rounded-xl bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-1.5 font-medium">
                   <Clock class="w-3 h-3 text-purple-600 shrink-0" />
                   <span>{{ acc.parallelNote }}</span>
                 </div>
@@ -248,30 +249,23 @@
                     主讲课程与排课时段 ({{ acc.courses.length }}门)：
                   </div>
                   <div
-                    v-for="(c, cIdx) in acc.courses"
-                    :key="cIdx"
-                    class="bg-white/90 border border-slate-200/80 rounded-lg p-1.5 text-[11px] space-y-0.5 shadow-2xs"
+                    v-for="c in acc.courses"
+                    :key="c.code"
+                    class="p-2 rounded-xl bg-white border border-slate-200/70 text-[11px] space-y-1 shadow-2xs"
                   >
                     <div class="flex items-center justify-between font-semibold text-slate-800">
-                      <span>{{ c.name }}</span>
-                      <span class="font-mono text-[10px] text-indigo-600 bg-indigo-50 px-1 rounded">{{ c.code }}</span>
+                      <span>{{ c.name }} <span class="text-slate-400 font-mono font-normal">({{ c.code }})</span></span>
+                      <span class="text-indigo-600 font-mono text-[10px] bg-indigo-50 px-1.5 py-0.2 rounded">{{ c.classroom }}</span>
                     </div>
-                    <div class="text-[10px] text-slate-500 flex items-center justify-between">
-                      <span class="flex items-center gap-1 text-slate-600">
-                        <Clock class="w-2.5 h-2.5 text-slate-400" /> {{ c.time }}
-                      </span>
-                      <span class="flex items-center gap-1 text-slate-600">
-                        <MapPin class="w-2.5 h-2.5 text-slate-400" /> {{ c.classroom }}
-                      </span>
-                    </div>
-                    <div class="text-[10px] text-slate-400 flex items-center gap-1">
-                      <Users class="w-2.5 h-2.5 text-slate-400" /> {{ c.className }}
+                    <div class="flex items-center justify-between text-[10px] text-slate-500">
+                      <span>{{ c.className }}</span>
+                      <span class="font-mono text-slate-400">{{ c.time }}</span>
                     </div>
                   </div>
                 </div>
 
-                <!-- 管理人员职责描述 -->
-                <div v-if="acc.desc" class="mt-2 text-[11px] text-slate-600 leading-relaxed bg-white/70 p-2 rounded-lg border border-slate-200/60">
+                <!-- 管理人员职责简述 -->
+                <div v-else-if="acc.desc" class="mt-2.5 p-2 rounded-xl bg-white border border-slate-200/70 text-[11px] text-slate-600 leading-relaxed shadow-2xs">
                   {{ acc.desc }}
                 </div>
               </div>
@@ -281,25 +275,17 @@
                 <button
                   type="button"
                   @click="quickLogin(acc.username, acc.password)"
-                  :disabled="loading && loggingInUser === acc.username"
-                  class="flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold text-white shadow-xs transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-60"
-                  :class="[
-                    acc.role === 'DIRECTOR'
-                      ? 'bg-amber-600 hover:bg-amber-700'
-                      : acc.role === 'SUPERVISOR'
-                      ? 'bg-emerald-600 hover:bg-emerald-700'
-                      : 'bg-indigo-600 hover:bg-indigo-700'
-                  ]"
+                  :disabled="loading"
+                  class="flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs disabled:opacity-50"
+                  title="以此身份一键直登进入工作台"
                 >
-                  <span v-if="loading && loggingInUser === acc.username" class="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                  <Zap v-else class="w-3.5 h-3.5" />
+                  <Zap class="w-3 h-3" />
                   <span>一键直登</span>
                 </button>
-
                 <button
                   type="button"
                   @click="fillAccount(acc.username, acc.password, acc.name)"
-                  class="py-1.5 px-3 rounded-lg text-xs font-medium text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition cursor-pointer"
+                  class="py-1.5 px-3 rounded-xl text-xs font-medium text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition cursor-pointer shadow-2xs"
                   title="回填此账号至左侧登录框"
                 >
                   填入
@@ -329,14 +315,10 @@ import {
   ArrowRight,
   AlertCircle,
   Sparkles,
-  ShieldCheck,
-  BadgeCheck,
   Zap,
   BookOpen,
   Clock,
   Building2,
-  MapPin,
-  Users,
   Check
 } from 'lucide-vue-next'
 import { authApi } from '../api'
@@ -397,7 +379,7 @@ interface QuickAccount {
   desc?: string
 }
 
-// 8 位任课教师 + 2 位管理人员 (李主任、张督导)
+// 8 位任课教师 + 7 位主任 + 1 位督导
 const quickAccounts: QuickAccount[] = [
   {
     username: 'guojun',

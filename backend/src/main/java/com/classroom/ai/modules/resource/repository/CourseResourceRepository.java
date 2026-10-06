@@ -19,7 +19,8 @@ public interface CourseResourceRepository extends JpaRepository<CourseResource, 
            "(:courseId IS NULL OR r.course.id = :courseId) AND " +
            "(:tag IS NULL OR :tag = '' OR r.tag = :tag) AND " +
            "(:isPublic IS NULL OR r.isPublic = :isPublic) AND " +
-           "(:keyword IS NULL OR :keyword = '' OR r.resourceName LIKE %:keyword% OR r.chapter LIKE %:keyword%)")
+           "(:keyword IS NULL OR :keyword = '' OR r.resourceName LIKE %:keyword% OR r.chapter LIKE %:keyword% " +
+           "OR r.course.courseName LIKE %:keyword% OR r.uploaderTeacher LIKE %:keyword%)")
     List<CourseResource> searchResources(@Param("courseId") Long courseId,
                                          @Param("tag") String tag,
                                          @Param("isPublic") Boolean isPublic,

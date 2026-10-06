@@ -5,6 +5,8 @@
 @layer base {
   :root {
     color-scheme: light;
+    --brand-primary: #4f46e5;
+    --brand-primary-hover: #4338ca;
   }
 
   body {
@@ -23,20 +25,47 @@
   select, input, textarea {
     color-scheme: light;
   }
+
+  /* 统一输入框与交互焦点 */
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  }
 }
 
-/* 简约高质感白底卡片 (包含向前兼容的 glass-card 映射) */
-.glass-card, .minimal-card {
+/* 现代化高质感白底卡片 */
+.glass-card, .minimal-card, .pro-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card:hover, .minimal-card:hover {
+.glass-card:hover, .minimal-card:hover, .pro-card:hover {
   border-color: #cbd5e1;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 16px -4px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+}
+
+/* 玻璃质感遮罩与浮层 */
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* 现代精致徽章 */
+.badge-soft {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1rem;
 }
 
 /* 浅色简约柔和滚动条 */
@@ -46,15 +75,19 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 3px;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
+/* 平滑过渡基础 */
+.smooth-all {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}

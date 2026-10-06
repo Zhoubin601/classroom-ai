@@ -1,26 +1,27 @@
 <template>
   <div class="space-y-6">
-    <!-- 顶部状态栏 -->
-    <div class="minimal-card p-6 flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shadow-subtle">
-            <Briefcase class="w-5 h-5" />
-          </div>
-          <div>
-            <h1 class="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
-              教研室主任工作台
-              <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-medium">管理中心 (Director Portal)</span>
-            </h1>
-            <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证 12 项指标点动态维护与年度质量分析报表导出</p>
-          </div>
+    <!-- 顶部指挥中心卡片 (升级为现代高质感白底卡片) -->
+    <div class="pro-card p-6 flex flex-wrap items-center justify-between gap-5 relative overflow-hidden">
+      <div class="flex items-center gap-4 relative z-10">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white flex items-center justify-center shadow-md shadow-indigo-600/20 border border-indigo-400/30 shrink-0">
+          <Briefcase class="w-6 h-6" />
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
+            教研室主任工作台
+            <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/80 font-semibold tracking-wide">
+              管理中心 (Director Portal)
+            </span>
+          </h1>
+          <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证指标点动态维护与年度质量分析报表导出</p>
         </div>
       </div>
-      <div class="flex items-center gap-2.5">
+
+      <div class="flex flex-wrap items-center gap-2.5 relative z-10">
         <button
           @click="handleExportCourses"
           :disabled="isExportingCourses"
-          class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer disabled:opacity-50"
+          class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm shadow-emerald-600/20 transition cursor-pointer disabled:opacity-50"
           title="导出当前教研室全部课程档案（支持编辑后重新导入或留底）"
         >
           <Download class="w-3.5 h-3.5" /> {{ isExportingCourses ? '正在导出课程...' : '导出课程档案 (CSV)' }}
@@ -28,52 +29,62 @@
         <button
           @click="handleExportReport"
           :disabled="isExporting"
-          class="px-3.5 py-2 bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer disabled:opacity-50"
+          class="px-3.5 py-2 bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition cursor-pointer disabled:opacity-50"
           title="导出含督导打分和班额统计的年度质量分析报表"
         >
           <FileText class="w-3.5 h-3.5 text-emerald-600" /> {{ isExporting ? '正在导出报表...' : '导出年度质量报表 (CSV)' }}
         </button>
-        <button @click="openImportModal" class="px-3.5 py-2 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
+        <button
+          @click="openImportModal"
+          class="px-3.5 py-2 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition cursor-pointer"
+        >
           <UploadCloud class="w-3.5 h-3.5 text-indigo-600" /> 批量导入课程 (CSV)
         </button>
-        <button @click="openAddCourseModal" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-subtle transition cursor-pointer">
+        <button
+          @click="openAddCourseModal"
+          class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm shadow-indigo-600/20 transition cursor-pointer"
+        >
           <Plus class="w-3.5 h-3.5" /> 新增专业课程档案
         </button>
       </div>
     </div>
 
-    <!-- 子导航标签 -->
-    <div class="flex items-center gap-1.5 border-b border-slate-200 pb-3">
+    <!-- 子导航标签 (现代悬浮胶囊控制器) -->
+    <div class="flex items-center gap-1.5 p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/80 shadow-inner overflow-x-auto">
       <button
         v-for="tab in tabs"
         :key="tab.key"
-        @click="activeTab = tab.key"
-        :class="['px-3.5 py-1.5 rounded-xl text-xs font-medium transition flex items-center gap-1.5 cursor-pointer',
-                 activeTab === tab.key ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold shadow-subtle' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100']"
+        @click="activeTab = tab.key; if (tab.key === 'reviews') loadPendingEvaluations()"
+        :class="[
+          'px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-2 cursor-pointer select-none whitespace-nowrap',
+          activeTab === tab.key
+            ? 'bg-white text-indigo-900 shadow-sm font-bold scale-[1.01]'
+            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+        ]"
       >
-        <component :is="tab.iconComp" class="w-3.5 h-3.5" :class="activeTab === tab.key ? 'text-indigo-600' : 'text-slate-400'" />
+        <component :is="tab.iconComp" class="w-4 h-4" :class="activeTab === tab.key ? 'text-indigo-600' : 'text-slate-400'" />
         {{ tab.label }}
       </button>
     </div>
 
     <!-- Tab 1: 全量课程档案管理 (US-01 / US-02) -->
     <div v-if="activeTab === 'courses'" class="space-y-4">
-      <div class="minimal-card p-5">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+      <div class="pro-card p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
           <div class="flex items-center gap-3">
             <div class="relative">
               <input
                 v-model="courseFilter.keyword"
                 @input="handleFilterChange"
                 placeholder="搜索课程名称 / 代码 / 教师 / 先修..."
-                class="bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 w-64 shadow-subtle"
+                class="bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 w-72 shadow-inner transition"
               />
-              <Search class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
+              <Search class="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
             </div>
             <select
               v-model="courseFilter.courseType"
               @change="handleFilterChange"
-              class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-700 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner cursor-pointer"
             >
               <option value="">全部课程性质</option>
               <option value="专业核心课">专业核心课</option>
@@ -82,13 +93,13 @@
               <option value="专业选修课">专业选修课</option>
             </select>
           </div>
-          <span class="text-xs text-slate-500">共检索到 <b class="text-indigo-600 font-bold">{{ courseList.length }}</b> 门标准化课程档案 (MySQL 实时数据)</span>
+          <span class="text-xs text-slate-500">共检索到 <b class="text-indigo-600 font-bold font-mono">{{ courseList.length }}</b> 门标准化课程档案 (MySQL 实时数据)</span>
         </div>
 
         <!-- 课程表格 -->
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-2xl border border-slate-200/80">
           <table class="w-full text-left text-xs text-slate-700">
-            <thead class="bg-slate-50 text-slate-600 uppercase font-semibold border-b border-slate-200">
+            <thead class="bg-slate-50/90 text-slate-600 uppercase font-semibold border-b border-slate-200/80">
               <tr>
                 <th class="py-3 px-4">课程代码</th>
                 <th class="py-3 px-4">课程名称</th>
@@ -103,37 +114,37 @@
             </thead>
             <tbody class="divide-y divide-slate-100">
               <tr v-if="pagedCourses.length === 0">
-                <td colspan="9" class="py-10 text-center text-slate-400">未找到符合条件的课程档案</td>
+                <td colspan="9" class="py-12 text-center text-slate-400">未找到符合条件的课程档案</td>
               </tr>
-              <tr v-for="c in pagedCourses" :key="c.id" class="hover:bg-slate-50/80 transition-colors">
-                <td class="py-3 px-4 font-mono font-semibold text-indigo-600">{{ c.courseCode }}</td>
-                <td class="py-3 px-4 font-semibold text-slate-900">
+              <tr v-for="c in pagedCourses" :key="c.id" class="hover:bg-slate-50/70 transition-colors">
+                <td class="py-3.5 px-4 font-mono font-bold text-indigo-600">{{ c.courseCode }}</td>
+                <td class="py-3.5 px-4 font-bold text-slate-900">
                   {{ c.courseName }}
                 </td>
-                <td class="py-3 px-4">
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] bg-indigo-50 border border-indigo-200 text-indigo-700 font-mono font-bold">
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] bg-indigo-50 border border-indigo-200/80 text-indigo-700 font-mono font-bold">
                     {{ c.majorCode || '待补全' }}
                   </span>
                   <span class="ml-1 text-[11px] text-slate-500">{{ getMajorNameByCode(c.majorCode) }}</span>
                 </td>
-                <td class="py-3 px-4">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 font-semibold text-xs">
+                <td class="py-3.5 px-4">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 border border-slate-200/80 text-slate-800 font-semibold text-xs">
                     <User class="w-3.5 h-3.5 text-indigo-500" />
                     {{ c.teacherName || '郭军 (教授)' }}
                   </span>
                 </td>
-                <td class="py-3 px-4 text-slate-500">{{ c.department }}</td>
-                <td class="py-3 px-4 text-slate-600">{{ c.credits }} 学分 / {{ c.hours }}h (理论{{ c.theoryHours }} + 实验{{ c.practiceHours }})</td>
-                <td class="py-3 px-4">
-                  <span class="px-2 py-0.5 rounded-full text-[10px] bg-slate-100 text-slate-600 border border-slate-200">
+                <td class="py-3.5 px-4 text-slate-500">{{ c.department }}</td>
+                <td class="py-3.5 px-4 text-slate-600 font-mono">{{ c.credits }} 学分 / {{ c.hours }}h (理{{ c.theoryHours }} + 实{{ c.practiceHours }})</td>
+                <td class="py-3.5 px-4">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
                     {{ c.courseType }}
                   </span>
                 </td>
-                <td class="py-3 px-4 text-slate-500 truncate max-w-xs">{{ c.prerequisites || '无' }}</td>
-                <td class="py-3 px-4 text-right space-x-2">
-                  <button @click="viewCourseDetail(c)" class="text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer">大纲</button>
-                  <button @click="editCourse(c)" class="text-amber-600 hover:text-amber-800 font-medium cursor-pointer">编辑</button>
-                  <button @click="removeCourse(c.id)" class="text-rose-600 hover:text-rose-800 font-medium cursor-pointer">删除</button>
+                <td class="py-3.5 px-4 text-slate-500 truncate max-w-xs font-mono">{{ c.prerequisites || '无' }}</td>
+                <td class="py-3.5 px-4 text-right space-x-2">
+                  <button @click="viewCourseDetail(c)" class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer">大纲</button>
+                  <button @click="editCourse(c)" class="text-amber-600 hover:text-amber-800 font-semibold cursor-pointer">编辑</button>
+                  <button @click="removeCourse(c.id)" class="text-rose-600 hover:text-rose-800 font-semibold cursor-pointer">删除</button>
                 </td>
               </tr>
             </tbody>
@@ -145,13 +156,13 @@
           <div class="flex items-center gap-2">
             <span>共 <b class="text-slate-800">{{ courseList.length }}</b> 门课程</span>
             <span>·</span>
-            <span>第 <b class="text-indigo-600">{{ courseCurrentPage }}</b> / {{ totalCoursePages }} 页</span>
-            <div class="flex items-center gap-1 ml-2">
+            <span>第 <b class="text-indigo-600 font-bold">{{ courseCurrentPage }}</b> / {{ totalCoursePages }} 页</span>
+            <div class="flex items-center gap-1.5 ml-2">
               <span>每页显示</span>
               <select
                 v-model.number="coursePageSize"
                 @change="courseCurrentPage = 1"
-                class="bg-white border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
+                class="bg-white border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-2xs"
               >
                 <option :value="5">5 条</option>
                 <option :value="10">10 条</option>
@@ -164,7 +175,7 @@
             <button
               @click="courseCurrentPage = Math.max(1, courseCurrentPage - 1)"
               :disabled="courseCurrentPage <= 1"
-              class="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium"
+              class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium cursor-pointer shadow-2xs"
             >
               上一页
             </button>
@@ -174,9 +185,9 @@
                 :key="p"
                 @click="courseCurrentPage = p"
                 :class="[
-                  'w-7 h-7 rounded-lg text-xs font-semibold flex items-center justify-center transition cursor-pointer',
+                  'w-7 h-7 rounded-xl text-xs font-semibold flex items-center justify-center transition cursor-pointer',
                   courseCurrentPage === p
-                    ? 'bg-indigo-600 text-white shadow-xs'
+                    ? 'bg-indigo-600 text-white shadow-xs font-bold'
                     : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                 ]"
               >
@@ -186,7 +197,7 @@
             <button
               @click="courseCurrentPage = Math.min(totalCoursePages, courseCurrentPage + 1)"
               :disabled="courseCurrentPage >= totalCoursePages"
-              class="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium"
+              class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition font-medium cursor-pointer shadow-2xs"
             >
               下一页
             </button>
@@ -198,23 +209,23 @@
     <!-- Tab 2: 集中排课统筹与冲突检测看板 (US-03) -->
     <OfferingScheduleBoard v-if="activeTab === 'schedules'" />
 
-    <!-- Tab 3: 工程教育认证 12 条毕业要求指标点矩阵 (US-05) -->
+    <!-- Tab 3: 按专业与版本管理的毕业要求指标点矩阵 (US-05) -->
     <div v-if="activeTab === 'indicators'" class="space-y-4">
-      <div class="minimal-card p-5">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+      <div class="pro-card p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
           <div>
-            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <Target class="w-4 h-4 text-indigo-600" /> 东北大学工程教育专业认证 12 项毕业要求指标点矩阵
+            <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Target class="w-4 h-4 text-indigo-600" /> 东北大学工程教育专业认证毕业要求指标点矩阵
             </h2>
             <p class="text-xs text-slate-500 mt-0.5">指标点具体细化与分解已交由对应主讲教师在【任课教师工作台】填报；教研室主任在此统筹审查各门课程大纲并进行基线锁定 (US-05)</p>
           </div>
           <div class="flex flex-wrap items-center gap-2.5">
-            <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 shadow-subtle">
-              <span class="text-xs text-slate-500">选择审查课程:</span>
+            <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-inner">
+              <span class="text-xs text-slate-500 font-medium">选择审查课程:</span>
               <select
                 v-model="selectedCourseIdForIndicator"
                 @change="loadIndicatorsForSelectedCourse"
-                class="bg-transparent text-xs text-indigo-700 font-semibold focus:outline-none min-w-[200px] cursor-pointer"
+                class="bg-transparent text-xs text-indigo-700 font-bold focus:outline-none min-w-[200px] cursor-pointer"
               >
                 <option v-if="courseList.length === 0" value="" disabled class="text-slate-400">
                   加载课程中...
@@ -231,23 +242,36 @@
             </div>
 
             <!-- 新增指标点按钮 -->
-            <button @click="openAddIndicatorModal" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer">
+            <button @click="openAddIndicatorModal" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer">
               <Plus class="w-3.5 h-3.5" /> 新增认证指标点
             </button>
 
             <!-- 审查锁定按钮 -->
-            <button @click="lockCurrentSyllabus" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer">
+            <button @click="lockCurrentSyllabus" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-amber-600/20 transition flex items-center gap-1.5 cursor-pointer">
               <Lock class="w-3.5 h-3.5" /> 审查锁定本版大纲
             </button>
           </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="border border-indigo-100 bg-indigo-50/30 rounded-2xl p-4 mb-5 space-y-3 text-xs">
+          <div class="font-bold text-slate-900">导入培养方案指标目录（每行：编号 | 类别 | 描述）</div>
+          <div class="flex flex-wrap gap-2.5">
+            <select v-model="planMajorCode" aria-label="培养方案专业" class="border border-slate-200 rounded-xl px-3 py-1.5 bg-white text-slate-800 text-xs shadow-inner"><option value="">选择专业</option><option v-for="m in managedMajors" :key="m.majorCode" :value="m.majorCode">{{ m.majorName }}</option></select>
+            <input v-model="planImportVersion" aria-label="培养方案版本" placeholder="如 2026版" class="border border-slate-200 rounded-xl px-3 py-1.5 bg-white text-slate-800 text-xs shadow-inner" />
+          </div>
+          <textarea v-model="planImportText" aria-label="培养方案指标目录" rows="4" class="w-full border border-slate-200 rounded-xl p-3 bg-white text-slate-800 text-xs shadow-inner focus:outline-none focus:border-indigo-500" placeholder="1-1 | 工程知识 | 指标描述"></textarea>
+          <div class="flex items-center gap-2">
+            <button @click="savePlanCatalog" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-xs transition cursor-pointer">导入目录</button>
+            <span class="text-slate-500 text-[11px]">以实际培养方案为准；重导同版本会同步该版目录，旧版本保留</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-slate-200/80">
           <table class="w-full text-left text-xs text-slate-700">
-            <thead class="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+            <thead class="bg-slate-50/90 text-slate-600 font-semibold border-b border-slate-200/80">
               <tr>
                 <th class="py-3 px-4">指标点编号</th>
-                <th class="py-3 px-4">毕业要求大项 (12项认证标准)</th>
+                <th class="py-3 px-4">毕业要求大项</th>
                 <th class="py-3 px-4">指标点分解表述</th>
                 <th class="py-3 px-4">支撑权重</th>
                 <th class="py-3 px-4">对应课程目标</th>
@@ -263,19 +287,19 @@
                   </div>
                 </td>
               </tr>
-              <tr v-for="ind in indicatorList" :key="ind.id" class="hover:bg-slate-50/80 transition-colors">
-                <td class="py-3 px-4 font-mono font-semibold text-indigo-600">{{ ind.indicatorCode }}</td>
-                <td class="py-3 px-4 text-slate-900 font-medium">{{ ind.requirementCategory }}</td>
-                <td class="py-3 px-4 text-slate-600 leading-relaxed max-w-md">{{ ind.indicatorDescription }}</td>
-                <td class="py-3 px-4">
-                  <span :class="['px-2.5 py-1 rounded-md text-[10px] font-bold font-mono',
+              <tr v-for="ind in indicatorList" :key="ind.id" class="hover:bg-slate-50/70 transition-colors">
+                <td class="py-3.5 px-4 font-mono font-bold text-indigo-600">{{ ind.indicatorCode }}</td>
+                <td class="py-3.5 px-4 text-slate-900 font-medium">{{ ind.requirementCategory }}</td>
+                <td class="py-3.5 px-4 text-slate-600 leading-relaxed max-w-md">{{ ind.indicatorDescription }}</td>
+                <td class="py-3.5 px-4">
+                  <span :class="['px-2.5 py-1 rounded-lg text-[10px] font-bold font-mono',
                                 ind.supportWeight === 'H' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
                                 (ind.supportWeight === 'M' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-slate-100 text-slate-600 border border-slate-200')]">
                     {{ ind.supportWeight }} ({{ ind.supportWeight === 'H' ? '强支撑' : (ind.supportWeight === 'M' ? '中等' : '弱支撑') }})
                   </span>
                 </td>
-                <td class="py-3 px-4 text-slate-500 font-mono">{{ ind.targetGoal || '目标1' }}</td>
-                <td class="py-3 px-4 text-right space-x-2">
+                <td class="py-3.5 px-4 text-slate-500 font-mono">{{ ind.targetGoal || '目标1' }}</td>
+                <td class="py-3.5 px-4 text-right space-x-2">
                   <button @click="openEditIndicatorModal(ind)" class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer">编辑</button>
                   <button @click="confirmDeleteIndicator(ind)" class="text-rose-600 hover:text-rose-800 font-semibold cursor-pointer">删除</button>
                 </td>
@@ -286,13 +310,13 @@
       </div>
     </div>
 
-    <!-- Tab 4: 督导账号建档与专业授权 (US-07) -->
+    <!-- Tab 4: 督导账号建档与专业授权 (US-06) -->
     <div v-if="activeTab === 'supervisors'" class="space-y-4">
-      <div class="minimal-card p-5">
+      <div class="pro-card p-6">
         <!-- 头部说明与安全边界政策提示 -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
           <div>
-            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+            <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
               <ShieldCheck class="w-4 h-4 text-indigo-600" />
               教学质量督导账号建档与专业授权管理
             </h2>
@@ -303,7 +327,7 @@
           <div class="flex items-center gap-2.5">
             <button
               @click="openCreateSupervisorModal"
-              class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer"
+              class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer"
             >
               <Plus class="w-3.5 h-3.5" /> 新建督导专家账号
             </button>
@@ -311,16 +335,16 @@
         </div>
 
         <!-- 主任管辖专业公示条 -->
-        <div class="p-3 bg-indigo-50/70 border border-indigo-100 rounded-xl mb-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="p-4 bg-indigo-50/70 border border-indigo-100 rounded-2xl mb-5 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div class="flex items-center gap-2 text-indigo-900">
             <Users class="w-4 h-4 text-indigo-600 shrink-0" />
-            <span class="font-semibold">当前主任管辖范围：</span>
+            <span class="font-bold">当前主任管辖范围：</span>
             <span v-if="managedMajors.length === 0" class="text-slate-500">正在获取管辖专业...</span>
             <div v-else class="flex flex-wrap gap-1.5">
               <span
                 v-for="m in managedMajors"
                 :key="m.majorCode"
-                class="px-2 py-0.5 rounded-md bg-white border border-indigo-200 text-indigo-700 font-mono font-medium shadow-2xs"
+                class="px-2.5 py-1 rounded-xl bg-white border border-indigo-200/80 text-indigo-700 font-mono font-bold shadow-2xs"
               >
                 {{ m.majorName }} ({{ m.majorCode }})
               </span>
@@ -332,9 +356,9 @@
         </div>
 
         <!-- 督导账号列表表格 -->
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-2xl border border-slate-200/80">
           <table class="w-full text-left text-xs text-slate-700">
-            <thead class="bg-slate-50 text-slate-600 uppercase font-semibold border-b border-slate-200">
+            <thead class="bg-slate-50/90 text-slate-600 uppercase font-semibold border-b border-slate-200/80">
               <tr>
                 <th class="py-3 px-4">专家姓名</th>
                 <th class="py-3 px-4">登录账号</th>
@@ -348,16 +372,16 @@
               <tr v-if="supervisorsList.length === 0">
                 <td colspan="6" class="py-10 text-center text-slate-400">暂无教学督导账号，请点击右上角新建</td>
               </tr>
-              <tr v-for="sup in supervisorsList" :key="sup.id" class="hover:bg-slate-50/80 transition-colors">
-                <td class="py-3 px-4 font-semibold text-slate-900 flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-[10px] font-bold">
+              <tr v-for="sup in supervisorsList" :key="sup.id" class="hover:bg-slate-50/70 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-900 flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
                     {{ sup.realName ? sup.realName.slice(0, 1) : '督' }}
                   </div>
                   {{ sup.realName }}
                 </td>
-                <td class="py-3 px-4 font-mono font-medium text-slate-700">{{ sup.username }}</td>
-                <td class="py-3 px-4 text-slate-500">{{ sup.department || '校教学质量督导团' }}</td>
-                <td class="py-3 px-4">
+                <td class="py-3.5 px-4 font-mono font-medium text-slate-700">{{ sup.username }}</td>
+                <td class="py-3.5 px-4 text-slate-500">{{ sup.department || '校教学质量督导团' }}</td>
+                <td class="py-3.5 px-4">
                   <div class="flex flex-wrap gap-1">
                     <span
                       v-if="!sup.authorizedMajors"
@@ -369,21 +393,21 @@
                       v-else
                       v-for="code in sup.authorizedMajors.split(';').filter(Boolean)"
                       :key="code"
-                      class="px-2 py-0.5 rounded text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-medium"
+                      class="px-2 py-0.5 rounded text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-bold"
                     >
                       {{ code }}
                     </span>
                   </div>
                 </td>
-                <td class="py-3 px-4">
-                  <span class="px-2 py-0.5 rounded-full text-[10px] bg-amber-50 text-amber-700 border border-amber-200 font-medium">
+                <td class="py-3.5 px-4">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] bg-amber-50 text-amber-700 border border-amber-200 font-medium">
                     只读审查权限 (Deny-by-Default)
                   </span>
                 </td>
-                <td class="py-3 px-4 text-right space-x-2">
+                <td class="py-3.5 px-4 text-right space-x-2">
                   <button
                     @click="openEditMajorsModal(sup)"
-                    class="text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer"
+                    class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer"
                   >
                     调整专业授权
                   </button>
@@ -396,56 +420,56 @@
     </div>
 
     <!-- 弹窗：新增/编辑课程 -->
-    <div v-if="showCourseModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-xl p-6 shadow-modal space-y-4">
+    <div v-if="showCourseModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-xl p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
         <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
           <BookOpen class="w-4 h-4 text-indigo-600" /> {{ currentCourseForm.id ? '编辑课程档案' : '录入新课程档案 (US-01)' }}
         </h3>
         <div class="grid grid-cols-2 gap-3 text-xs">
           <div>
-            <label class="text-slate-600 block mb-1">课程代码 (唯一) *</label>
-            <input v-model="currentCourseForm.courseCode" :readonly="!!currentCourseForm.id" placeholder="如 CS3001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle uppercase" />
+            <label class="text-slate-600 block mb-1 font-semibold">课程代码 (唯一) *</label>
+            <input v-model="currentCourseForm.courseCode" :readonly="!!currentCourseForm.id" placeholder="如 CS3001" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner uppercase font-mono" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">课程名称 *</label>
-            <input v-model="currentCourseForm.courseName" placeholder="如 软件项目管理" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">课程名称 *</label>
+            <input v-model="currentCourseForm.courseName" placeholder="如 软件项目管理" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">所属专业编码 *</label>
-            <select v-if="managedMajors.length > 0" v-model="currentCourseForm.majorCode" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
+            <label class="text-slate-600 block mb-1 font-semibold">所属专业编码 *</label>
+            <select v-if="managedMajors.length > 0" v-model="currentCourseForm.majorCode" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner cursor-pointer font-mono">
               <option v-for="m in managedMajors" :key="m.majorCode" :value="m.majorCode">
                 {{ m.majorName }} ({{ m.majorCode }})
               </option>
             </select>
-            <input v-else v-model="currentCourseForm.majorCode" placeholder="如 SE, CS" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle uppercase" />
+            <input v-else v-model="currentCourseForm.majorCode" placeholder="如 SE, CS" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner uppercase font-mono" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">教研室 *</label>
-            <input v-model="currentCourseForm.department" placeholder="如 软件工程教研室" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">教研室 *</label>
+            <input v-model="currentCourseForm.department" placeholder="如 软件工程教研室" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">主讲 / 任课教师</label>
-            <input v-model="currentCourseForm.teacherName" placeholder="如 郭军 (教授)" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">主讲 / 任课教师</label>
+            <input v-model="currentCourseForm.teacherName" placeholder="如 郭军 (教授)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">学分 *</label>
-            <input v-model.number="currentCourseForm.credits" type="number" step="0.5" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">学分 *</label>
+            <input v-model.number="currentCourseForm.credits" type="number" step="0.5" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">总学时 * (需等于理论+实验)</label>
-            <input v-model.number="currentCourseForm.hours" type="number" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">总学时 * (需等于理论+实验)</label>
+            <input v-model.number="currentCourseForm.hours" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">理论学时</label>
-            <input v-model.number="currentCourseForm.theoryHours" @input="syncTotalHours" type="number" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">理论学时</label>
+            <input v-model.number="currentCourseForm.theoryHours" @input="syncTotalHours" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">实验 / 上机学时</label>
-            <input v-model.number="currentCourseForm.practiceHours" @input="syncTotalHours" type="number" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">实验 / 上机学时</label>
+            <input v-model.number="currentCourseForm.practiceHours" @input="syncTotalHours" type="number" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">课程性质 *</label>
-            <select v-model="currentCourseForm.courseType" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
+            <label class="text-slate-600 block mb-1 font-semibold">课程性质 *</label>
+            <select v-model="currentCourseForm.courseType" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner cursor-pointer">
               <option value="专业核心课">专业核心课</option>
               <option value="专业基础课">专业基础课</option>
               <option value="专业选修课">专业选修课</option>
@@ -453,35 +477,35 @@
             </select>
           </div>
           <div class="col-span-2">
-            <label class="text-slate-600 block mb-1">先修关系编码 (多个用分号隔开，如 CS1001;CS2001)</label>
-            <input v-model="currentCourseForm.prerequisites" placeholder="如 CS1001;CS2001" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-600 block mb-1 font-semibold">先修关系编码 (多个用分号隔开，如 CS1001;CS2001)</label>
+            <input v-model="currentCourseForm.prerequisites" placeholder="如 CS1001;CS2001" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono" />
           </div>
           <div class="col-span-2">
-            <label class="text-slate-600 block mb-1">课程简介与教学目标 (US-02)</label>
-            <textarea v-model="currentCourseForm.description" rows="3" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"></textarea>
+            <label class="text-slate-600 block mb-1 font-semibold">课程简介与教学目标 (US-02)</label>
+            <textarea v-model="currentCourseForm.description" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"></textarea>
           </div>
         </div>
 
-        <div v-if="courseErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+        <div v-if="courseErrorMessage" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
           <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
           <span>{{ courseErrorMessage }}</span>
         </div>
 
-        <div class="flex items-center justify-end gap-2.5 pt-2">
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
           <button @click="showCourseModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleSaveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">保存并入库 (MySQL)</button>
+          <button @click="handleSaveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">保存并入库 (MySQL)</button>
         </div>
       </div>
     </div>
 
     <!-- 弹窗：课程 CSV 批量规范导入 (US-01) -->
-    <div v-if="showImportModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl p-6 shadow-modal space-y-4 max-h-[90vh] flex flex-col">
+    <div v-if="showImportModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl p-6 sm:p-7 shadow-modal space-y-4 max-h-[90vh] flex flex-col animate-fade-in">
         <!-- 弹窗头部 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-              <FileSpreadsheet class="w-4 h-4" />
+            <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-2xs">
+              <FileSpreadsheet class="w-5 h-5" />
             </div>
             <div>
               <h3 class="text-base font-bold text-slate-900">课程 CSV 批量规范导入 (US-01)</h3>
@@ -494,11 +518,11 @@
         <!-- 内容区域 (滚动) -->
         <div class="space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
           <!-- 步骤 1：模板下载与课程导出说明 -->
-          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-wrap items-center justify-between gap-3">
+          <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex flex-wrap items-center justify-between gap-3">
             <div>
-              <div class="font-semibold text-slate-800 flex items-center gap-1.5">
+              <div class="font-bold text-slate-800 flex items-center gap-1.5">
                 <span>标准课程档案 CSV (带 UTF-8 BOM)</span>
-                <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">双向闭环</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold">双向闭环</span>
               </div>
               <div class="text-slate-500 text-[11px] mt-0.5">支持导出当前教研室已有课程作为参照，或下载空白模板规范录入新课程</div>
             </div>
@@ -506,13 +530,13 @@
               <button
                 @click="handleExportCourses"
                 :disabled="isExportingCourses"
-                class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 rounded-lg font-semibold text-xs flex items-center gap-1.5 shadow-subtle cursor-pointer transition disabled:opacity-50"
+                class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 rounded-xl font-semibold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer transition disabled:opacity-50"
               >
                 <Download class="w-3.5 h-3.5 text-emerald-600" /> {{ isExportingCourses ? '导出中...' : '导出已有课程 (CSV)' }}
               </button>
               <button
                 @click="handleDownloadTemplate"
-                class="px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-slate-700 font-semibold text-xs flex items-center gap-1.5 shadow-subtle cursor-pointer transition"
+                class="px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl text-slate-700 font-semibold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer transition"
               >
                 <Download class="w-3.5 h-3.5 text-indigo-600" /> 下载空白模板
               </button>
@@ -520,10 +544,10 @@
           </div>
 
           <!-- 核心指引：专业编码速查字典与说明 -->
-          <div class="p-3.5 bg-indigo-50/70 border border-indigo-200 rounded-xl space-y-2">
+          <div class="p-4 bg-indigo-50/70 border border-indigo-200 rounded-2xl space-y-2.5">
             <div class="flex items-center justify-between">
               <span class="font-bold text-indigo-900 flex items-center gap-1.5">
-                <BookOpen class="w-3.5 h-3.5 text-indigo-600" /> 专业编码速查字典 (CSV必填字段)
+                <BookOpen class="w-4 h-4 text-indigo-600" /> 专业编码速查字典 (CSV必填字段)
               </span>
               <span class="text-[11px] text-indigo-600 font-medium">CSV 第4列【专业编码】需填写对应英文代码</span>
             </div>
@@ -531,7 +555,7 @@
               <span
                 v-for="m in (allMajors.length > 0 ? allMajors : managedMajors)"
                 :key="m.majorCode"
-                class="px-2.5 py-1 rounded-lg bg-white border border-indigo-200 text-slate-800 text-xs shadow-xs flex items-center gap-1.5"
+                class="px-2.5 py-1 rounded-xl bg-white border border-indigo-200 text-slate-800 text-xs shadow-2xs flex items-center gap-1.5"
               >
                 <b class="font-mono text-indigo-700 font-bold">{{ m.majorCode }}</b>
                 <span class="text-slate-700 font-medium">{{ m.majorName }}</span>
@@ -544,7 +568,7 @@
           </div>
 
           <!-- 提示条：区分课程档案与质量报表，以及防重规则说明 -->
-          <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 flex items-start gap-2">
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-2xl text-[11px] text-amber-900 flex items-start gap-2.5">
             <AlertCircle class="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
             <div class="space-y-0.5">
               <div><b>新课程录入防重规则</b>：本功能用于批量录入未入库的新课程档案。若使用【导出已有课程】的 CSV，请修改课程编码为新编码（如 DS9001）；若保持已有编码（如 DS2001），系统将按防重保护机制提示错误。</div>
@@ -553,7 +577,7 @@
           </div>
 
           <!-- 上传文件选择区 -->
-          <div class="border-2 border-dashed border-slate-200 hover:border-indigo-400 rounded-xl p-5 text-center transition bg-white cursor-pointer relative">
+          <div class="border-2 border-dashed border-slate-200 hover:border-indigo-400 rounded-2xl p-6 text-center transition bg-slate-50/50 hover:bg-indigo-50/10 cursor-pointer relative">
             <input
               type="file"
               accept=".csv"
@@ -561,9 +585,9 @@
               class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
             />
             <div class="flex flex-col items-center justify-center gap-2">
-              <UploadCloud class="w-8 h-8 text-indigo-500" />
+              <UploadCloud class="w-9 h-9 text-indigo-500" />
               <div>
-                <span class="font-semibold text-indigo-600">点击上传</span> 或拖拽 CSV 文件至此处
+                <span class="font-bold text-indigo-600">点击上传</span> 或拖拽 CSV 文件至此处
               </div>
               <div class="text-slate-400 text-[11px]">
                 {{ selectedFile ? `已选择: ${selectedFile.name} (${(selectedFile.size / 1024).toFixed(1)} KB)` : '仅支持 CSV 文件，每批次限 1,000 行、5MB 内，30分钟有效期' }}
@@ -581,17 +605,17 @@
           <div v-if="importPreview && !isUploading" class="space-y-3">
             <!-- 统计指标 -->
             <div class="grid grid-cols-3 gap-3">
-              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+              <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
                 <div class="text-slate-500 text-[11px]">总解析行数</div>
-                <div class="text-lg font-bold text-slate-900 mt-0.5">{{ importPreview.totalCount }}</div>
+                <div class="text-lg font-bold text-slate-900 mt-0.5 font-mono">{{ importPreview.totalCount }}</div>
               </div>
-              <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-center">
-                <div class="text-emerald-700 text-[11px] font-medium">有效课程数</div>
-                <div class="text-lg font-bold text-emerald-600 mt-0.5">{{ importPreview.successCount }}</div>
+              <div class="p-3 bg-emerald-50 rounded-2xl border border-emerald-200 text-center">
+                <div class="text-emerald-700 text-[11px] font-semibold">有效课程数</div>
+                <div class="text-lg font-bold text-emerald-600 mt-0.5 font-mono">{{ importPreview.successCount }}</div>
               </div>
-              <div class="p-3 bg-rose-50 rounded-xl border border-rose-200 text-center">
-                <div class="text-rose-700 text-[11px] font-medium">校验错误数</div>
-                <div class="text-lg font-bold text-rose-600 mt-0.5">{{ importPreview.errorCount }}</div>
+              <div class="p-3 bg-rose-50 rounded-2xl border border-rose-200 text-center">
+                <div class="text-rose-700 text-[11px] font-semibold">校验错误数</div>
+                <div class="text-lg font-bold text-rose-600 mt-0.5 font-mono">{{ importPreview.errorCount }}</div>
               </div>
             </div>
 
@@ -601,7 +625,7 @@
                 <XCircle class="w-4 h-4 shrink-0 text-rose-600" />
                 <span>检测到 <b>{{ importPreview.errorCount }}</b> 处校验错误。系统实行整批回滚保护原则，禁止部分入库，请修正后重新上传：</span>
               </div>
-              <div class="border border-rose-200 rounded-xl overflow-hidden max-h-48 overflow-y-auto">
+              <div class="border border-rose-200 rounded-2xl overflow-hidden max-h-48 overflow-y-auto">
                 <table class="w-full text-left text-xs">
                   <thead class="bg-rose-100/60 text-rose-800 uppercase font-semibold">
                     <tr>
@@ -612,7 +636,7 @@
                   </thead>
                   <tbody class="divide-y divide-rose-100 bg-white">
                     <tr v-for="(err, idx) in importPreview.errors" :key="idx" class="hover:bg-rose-50/50">
-                      <td class="py-2 px-3 font-mono font-semibold text-rose-600">第 {{ err.rowNumber }} 行</td>
+                      <td class="py-2 px-3 font-mono font-bold text-rose-600">第 {{ err.rowNumber }} 行</td>
                       <td class="py-2 px-3 font-semibold text-slate-700">{{ err.field }}</td>
                       <td class="py-2 px-3 text-rose-700">{{ err.reason }}</td>
                     </tr>
@@ -625,9 +649,9 @@
             <div v-else-if="importPreview.successCount > 0" class="space-y-2">
               <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-center gap-2">
                 <CheckCircle2 class="w-4 h-4 shrink-0 text-emerald-600" />
-                <span>全量数据校验通过！批次已就绪 (ID: <span class="font-mono">{{ importPreview.batchId?.slice(0, 8) }}...</span>)，可安全整批原子提交入库。</span>
+                <span>全量数据校验通过！批次已就绪 (ID: <span class="font-mono font-bold">{{ importPreview.batchId?.slice(0, 8) }}...</span>)，可安全整批原子提交入库。</span>
               </div>
-              <div class="border border-slate-200 rounded-xl overflow-hidden max-h-48 overflow-y-auto">
+              <div class="border border-slate-200 rounded-2xl overflow-hidden max-h-48 overflow-y-auto">
                 <table class="w-full text-left text-xs">
                   <thead class="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
                     <tr>
@@ -641,10 +665,10 @@
                   </thead>
                   <tbody class="divide-y divide-slate-100 bg-white">
                     <tr v-for="row in importPreview.validRows.slice(0, 5)" :key="row.courseCode" class="hover:bg-slate-50">
-                      <td class="py-2 px-3 font-mono font-semibold text-indigo-600">{{ row.courseCode }}</td>
+                      <td class="py-2 px-3 font-mono font-bold text-indigo-600">{{ row.courseCode }}</td>
                       <td class="py-2 px-3 font-semibold text-slate-800">{{ row.courseName }}</td>
-                      <td class="py-2 px-3 text-slate-600">{{ row.majorCode }}</td>
-                      <td class="py-2 px-3 text-slate-600">{{ row.credits }}分 / {{ row.hours }}h (理{{ row.theoryHours }}+实{{ row.practiceHours }})</td>
+                      <td class="py-2 px-3 text-slate-600 font-mono">{{ row.majorCode }}</td>
+                      <td class="py-2 px-3 text-slate-600 font-mono">{{ row.credits }}分 / {{ row.hours }}h</td>
                       <td class="py-2 px-3 text-slate-600">{{ row.courseType }}</td>
                       <td class="py-2 px-3 text-slate-500">{{ row.prerequisites || '无' }}</td>
                     </tr>
@@ -658,7 +682,7 @@
           </div>
 
           <!-- 通用错误反馈 -->
-          <div v-if="importErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+          <div v-if="importErrorMessage" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
             <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
             <span>{{ importErrorMessage }}</span>
           </div>
@@ -670,7 +694,7 @@
           <button
             @click="handleConfirmImport"
             :disabled="!canConfirmImport || isConfirming"
-            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer flex items-center gap-1.5"
+            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer flex items-center gap-1.5"
           >
             <span v-if="isConfirming" class="inline-block animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
             <span>{{ isConfirming ? '正在整批事务入库...' : '确认导入并整批入库 (US-01)' }}</span>
@@ -680,32 +704,31 @@
     </div>
 
     <!-- 弹窗：新增 / 编辑认证指标点 (写进 MySQL) -->
-    <div v-if="showIndicatorModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-6 shadow-modal space-y-4">
+    <div v-if="showIndicatorModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-lg p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <Target class="w-4 h-4 text-indigo-600" /> {{ indicatorForm.id ? '修改毕业要求指标点' : '新增毕业要求指标点' }}
           </h3>
-          <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-semibold">
             直接持久化至 MySQL
           </span>
         </div>
 
-        <div class="space-y-3 text-xs">
+        <div class="space-y-3.5 text-xs">
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-slate-600 block mb-1">指标点编号 (如 1-1, 11-1)</label>
-              <input
-                v-model="indicatorForm.indicatorCode"
-                placeholder="如 11-1"
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono"
-              />
+              <label class="text-slate-600 block mb-1 font-semibold">指标点编号 (如 1-1, 11-1)</label>
+              <select v-model="indicatorForm.indicatorCode" @change="selectPlanIndicator" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                <option value="">请选择</option>
+                <option v-for="item in planCatalog" :key="item.indicatorCode" :value="item.indicatorCode">{{ item.indicatorCode }}</option>
+              </select>
             </div>
             <div>
-              <label class="text-slate-600 block mb-1">支撑权重 (H强/M中/L弱)</label>
+              <label class="text-slate-600 block mb-1 font-semibold">支撑权重 (H强/M中/L弱)</label>
               <select
                 v-model="indicatorForm.supportWeight"
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle font-semibold"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-bold"
               >
                 <option value="H">H (强支撑)</option>
                 <option value="M">M (中等支撑)</option>
@@ -715,10 +738,10 @@
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">毕业要求大项 (通用认证12项)</label>
+            <label class="text-slate-600 block mb-1 font-semibold">毕业要求大项</label>
             <select
               v-model="indicatorForm.requirementCategory"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
             >
               <option v-for="cat in standardIndicatorCategories" :key="cat" :value="cat">
                 {{ cat }}
@@ -727,84 +750,84 @@
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">对应课程目标 (如 目标1, 目标2)</label>
+            <label class="text-slate-600 block mb-1 font-semibold">对应课程目标 (如 目标1, 目标2)</label>
             <input
               v-model="indicatorForm.targetGoal"
               placeholder="如 目标1"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
             />
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">指标点分解内容表述</label>
+            <label class="text-slate-600 block mb-1 font-semibold">指标点分解内容表述</label>
             <textarea
               v-model="indicatorForm.indicatorDescription"
               rows="3"
               placeholder="请输入该指标点在课程中的分解细化要求与能力观测点..."
-              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
             ></textarea>
           </div>
         </div>
 
-        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
           <button @click="showIndicatorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">保存并写入 MySQL</button>
+          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">保存并写入 MySQL</button>
         </div>
       </div>
     </div>
 
     <!-- 弹窗：主任新建督导专家账号 -->
-    <div v-if="showCreateSupervisorModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal space-y-4">
+    <div v-if="showCreateSupervisorModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <ShieldCheck class="w-4 h-4 text-indigo-600" /> 新建督导专家账号
           </h3>
-          <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono font-semibold">
             主任权限分配
           </span>
         </div>
 
         <div class="space-y-3 text-xs">
           <div>
-            <label class="text-slate-600 block mb-1">登录账号 (Username) *</label>
+            <label class="text-slate-600 block mb-1 font-semibold">登录账号 (Username) *</label>
             <input
               v-model="createSupervisorForm.username"
               placeholder="如 supervisor.zhao"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono"
             />
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">初始密码 (Password) *</label>
+            <label class="text-slate-600 block mb-1 font-semibold">初始密码 (Password) *</label>
             <input
               v-model="createSupervisorForm.password"
               type="password"
               placeholder="请输入至少6位初始密码"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
             />
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">专家真实姓名 *</label>
+            <label class="text-slate-600 block mb-1 font-semibold">专家真实姓名 *</label>
             <input
               v-model="createSupervisorForm.realName"
               placeholder="如 赵督导 (教授)"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
             />
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">所属单位 / 督导部门</label>
+            <label class="text-slate-600 block mb-1 font-semibold">所属单位 / 督导部门</label>
             <input
               v-model="createSupervisorForm.department"
               placeholder="校教学质量监控与督导评估中心"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
             />
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1.5 font-semibold text-slate-800">授权管辖专业 (严格限定主任管辖范围)</label>
+            <label class="text-slate-600 block mb-1.5 font-bold text-slate-800">授权管辖专业 (严格限定主任管辖范围)</label>
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
               <div v-if="managedMajors.length === 0" class="text-slate-400 text-xs">
                 未检索到当前管辖专业
@@ -826,26 +849,26 @@
           </div>
         </div>
 
-        <div v-if="supervisorErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+        <div v-if="supervisorErrorMessage" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
           <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
           <span>{{ supervisorErrorMessage }}</span>
         </div>
 
-        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
           <button @click="showCreateSupervisorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleCreateSupervisor" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">创建并授权</button>
+          <button @click="handleCreateSupervisor" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">创建并授权</button>
         </div>
       </div>
     </div>
 
     <!-- 弹窗：主任更新已有督导的专业授权 -->
-    <div v-if="showEditMajorsModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal space-y-4">
+    <div v-if="showEditMajorsModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <ShieldCheck class="w-4 h-4 text-indigo-600" /> 调整督导专业授权
           </h3>
-          <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono font-bold">
             {{ editingSupervisor?.realName }} ({{ editingSupervisor?.username }})
           </span>
         </div>
@@ -875,14 +898,59 @@
           </div>
         </div>
 
-        <div v-if="supervisorErrorMessage" class="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+        <div v-if="supervisorErrorMessage" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
           <AlertCircle class="w-4 h-4 shrink-0 text-rose-500" />
           <span>{{ supervisorErrorMessage }}</span>
         </div>
 
-        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
           <button @click="showEditMajorsModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleUpdateSupervisorMajors" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">更新授权</button>
+          <button @click="handleUpdateSupervisorMajors" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">更新授权</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: 待审核督导评价 (US-14) -->
+    <div v-if="activeTab === 'reviews'" class="pro-card p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">待审核督导评价</h2>
+          <p class="text-xs text-slate-500 mt-0.5">督导随堂听课评价需经教研室主任审核脱敏后方可进入教师复盘报告与质量雷达图</p>
+        </div>
+        <button @click="loadPendingEvaluations" class="px-3 py-1.5 rounded-xl bg-indigo-50 text-indigo-700 font-semibold text-xs border border-indigo-200/80 hover:bg-indigo-100 transition cursor-pointer">
+          刷新列表
+        </button>
+      </div>
+
+      <div v-if="pendingEvaluations.length === 0" class="py-12 text-center text-slate-400 text-xs">
+        暂无待审核评价
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div v-for="item in pendingEvaluations" :key="item.id" :data-testid="`evaluation-review-${item.id}`" class="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/50 space-y-3 hover:border-indigo-200 transition-colors">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="font-bold text-slate-900 text-sm">{{ item.offering?.course?.courseName }}</div>
+              <div class="text-xs text-slate-500 mt-0.5">主讲：{{ item.offering?.teacherName }}</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-xl bg-indigo-50 border border-indigo-200/80 text-indigo-700 font-mono font-bold text-xs">
+              {{ item.totalScore }} 分
+            </span>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200/60 text-xs space-y-1.5">
+            <div class="text-slate-800 font-semibold flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+              听课主题：{{ item.listenTopic }}
+            </div>
+            <div class="text-slate-600"><b class="text-emerald-700">亮点：</b>{{ item.highlights }}</div>
+            <div class="text-slate-600"><b class="text-amber-700">建议：</b>{{ item.suggestions }}</div>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-200/60">
+            <button @click="reviewEvaluation(item.id, true)" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer">通过</button>
+            <button @click="reviewEvaluation(item.id, false)" class="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer">退回</button>
+          </div>
         </div>
       </div>
     </div>
@@ -904,11 +972,8 @@ import {
   FileText,
   AlertCircle,
   User,
-  Filter,
-  RotateCcw,
   ShieldCheck,
   Users,
-  Check,
   UploadCloud,
   FileSpreadsheet,
   CheckCircle2,
@@ -937,9 +1002,40 @@ const activeTab = ref('courses')
 const tabs = [
   { key: 'courses', label: '专业全量课程档案 (US-01)', iconComp: BookOpen },
   { key: 'schedules', label: '开课排课统筹看板 (US-03)', iconComp: Calendar },
-  { key: 'indicators', label: '12项毕业要求指标点矩阵 (US-05)', iconComp: Target },
-  { key: 'supervisors', label: '督导建档与专业授权 (US-07)', iconComp: ShieldCheck }
+  { key: 'indicators', label: '毕业要求指标点矩阵 (US-05)', iconComp: Target },
+  { key: 'supervisors', label: '督导建档与专业授权 (US-06)', iconComp: ShieldCheck },
+  { key: 'reviews', label: '督导评价审核 (US-14)', iconComp: CheckCircle2 }
 ]
+
+const planMajorCode = ref('')
+const planImportVersion = ref('')
+const planImportText = ref('')
+const pendingEvaluations = ref<any[]>([])
+
+const savePlanCatalog = async () => {
+  try {
+    if (!planMajorCode.value || !planImportVersion.value.trim()) throw new Error('请选择专业并输入培养方案版本')
+    const rows = planImportText.value.split(/\r?\n/).map(line => line.trim()).filter(Boolean).map(line => {
+      const parts = line.split('|').map(v => v.trim())
+      if (parts.length < 3 || !parts[0] || !parts[1] || !parts[2]) throw new Error('每行需包含编号、类别、描述')
+      return { indicatorCode: parts[0], requirementCategory: parts[1], indicatorDescription: parts.slice(2).join('|') }
+    })
+    if (!rows.length) throw new Error('请填写指标目录')
+    await syllabusApi.importPlanIndicators(planMajorCode.value, planImportVersion.value, rows)
+    alert(`已导入 ${rows.length} 条培养方案指标`)
+  } catch (e: any) { alert(e.response?.data?.message || e.message || '导入失败') }
+}
+
+const loadPendingEvaluations = async () => {
+  try { pendingEvaluations.value = (await supervisionApi.getAll()).filter(e => e.status === 'PENDING_REVIEW') }
+  catch (e) { console.error('加载待审核评价失败', e) }
+}
+const reviewEvaluation = async (id: number, approved: boolean) => {
+  try {
+    await supervisionApi.review(id, approved)
+    await loadPendingEvaluations()
+  } catch (e: any) { alert(e.response?.data?.message || '审核失败') }
+}
 
 const courseList = ref<Course[]>([])
 const indicatorList = ref<GraduationIndicator[]>([])
@@ -1104,7 +1200,6 @@ const handleConfirmImport = async () => {
   }
 }
 
-
 // 指标点管理相关 (新增/修改/删除 MySQL 持久化)
 const showIndicatorModal = ref(false)
 const indicatorForm = ref<any>({
@@ -1116,20 +1211,8 @@ const indicatorForm = ref<any>({
   targetGoal: '目标1'
 })
 
-const standardIndicatorCategories = [
-  '1. 工程知识',
-  '2. 问题分析',
-  '3. 设计/开发解决方案',
-  '4. 研究',
-  '5. 使用现代工具',
-  '6. 工程与社会',
-  '7. 环境和可持续发展',
-  '8. 职业规范',
-  '9. 个人和团队',
-  '10. 沟通',
-  '11. 项目管理',
-  '12. 终身学习'
-]
+const planCatalog = ref<GraduationIndicator[]>([])
+const standardIndicatorCategories = computed(() => Array.from(new Set(planCatalog.value.map(i => i.requirementCategory))))
 
 const loadCourses = async () => {
   try {
@@ -1157,9 +1240,14 @@ const loadIndicatorsForSelectedCourse = async () => {
   try {
     const res = await syllabusApi.getIndicators(Number(selectedCourseIdForIndicator.value))
     indicatorList.value = Array.isArray(res) ? res : []
+    const course = courseList.value.find(c => c.id === selectedCourseIdForIndicator.value)
+    const latest = await syllabusApi.getLatest(Number(selectedCourseIdForIndicator.value))
+    planCatalog.value = course?.majorCode && latest?.planVersion
+      ? await syllabusApi.getPlanIndicators(course.majorCode, latest.planVersion) : []
   } catch (e) {
     console.error('加载指标点失败', e)
     indicatorList.value = []
+    planCatalog.value = []
   }
 }
 
@@ -1260,13 +1348,21 @@ const openAddIndicatorModal = () => {
   }
   indicatorForm.value = {
     id: null,
-    indicatorCode: '11-1',
-    requirementCategory: '11. 项目管理',
+    indicatorCode: planCatalog.value[0]?.indicatorCode || '',
+    requirementCategory: planCatalog.value[0]?.requirementCategory || '',
     indicatorDescription: '',
     supportWeight: 'H',
     targetGoal: '目标1'
   }
   showIndicatorModal.value = true
+}
+
+const selectPlanIndicator = () => {
+  const found = planCatalog.value.find(i => i.indicatorCode === indicatorForm.value.indicatorCode)
+  if (found) {
+    indicatorForm.value.requirementCategory = found.requirementCategory
+    indicatorForm.value.indicatorDescription = found.indicatorDescription
+  }
 }
 
 const openEditIndicatorModal = (ind: GraduationIndicator) => {
@@ -1320,7 +1416,7 @@ const lockCurrentSyllabus = async () => {
   try {
     const latest = await syllabusApi.getLatest(Number(selectedCourseIdForIndicator.value))
     if (latest) {
-      await syllabusApi.lock(latest.id, '教研室主任 (周宇斌)')
+      await syllabusApi.lock(latest.id, '')
       alert(`《${latest.course?.courseName || '该课程'}》大纲版本审查完成并成功锁定！`)
     } else {
       alert('该课程暂未发布教学大纲，无法进行审查锁定')
@@ -1334,7 +1430,7 @@ const viewCourseDetail = (c: Course) => {
   alert(`【${c.courseName} (${c.courseCode})】\n主讲教师：${c.teacherName || '未指定'}\n\n教学目标：\n${c.objectives || '暂无'}\n\n考核方式：\n${c.assessmentMethod || '暂无'}`)
 }
 
-// ==================== 督导建档与专业授权 (US-07) ====================
+// ==================== 督导建档与专业授权 (US-06) ====================
 const supervisorsList = ref<UserVO[]>([])
 const managedMajors = ref<Major[]>([])
 const showCreateSupervisorModal = ref(false)
@@ -1423,11 +1519,11 @@ const handleUpdateSupervisorMajors = async () => {
   }
 }
 
-// ==================== 最小班次维护能力 (CourseOffering) ====================
 onMounted(() => {
   loadCourses()
   loadSupervisors()
   loadManagedMajors()
   loadAllMajors()
+  loadPendingEvaluations()
 })
 </script>

@@ -15,6 +15,7 @@ public class SyllabusDTO {
     private Long id;
     private Long courseId;
     private String version;
+    private String planVersion;
     private String status;
     private String authorTeacher;
     private String lockedBy;

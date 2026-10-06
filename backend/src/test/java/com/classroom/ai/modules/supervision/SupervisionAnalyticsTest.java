@@ -42,12 +42,13 @@ class SupervisionAnalyticsTest {
         Course c1 = Course.builder().id(1L).courseCode("CS3001").courseName("软件项目管理").build();
         Course c2 = Course.builder().id(2L).courseCode("CS2002").courseName("计算机组成原理").build();
 
-        when(courseRepository.findAll()).thenReturn(List.of(c1, c2));
-        // 假设只有 c1 有督导记录
-        when(evaluationRepository.findSupervisedCourseIds()).thenReturn(List.of(1L));
+        CourseOffering o1 = CourseOffering.builder().id(11L).course(c1).academicTerm("2026秋").status("IN_PROGRESS").build();
+        CourseOffering o2 = CourseOffering.builder().id(12L).course(c2).academicTerm("2026秋").status("FINISHED").build();
+        when(offeringRepository.findAll()).thenReturn(List.of(o1, o2));
 
         SupervisionEvaluation eval = SupervisionEvaluation.builder()
                 .id(1L)
+                .offering(o1)
                 .totalScore(90.0)
                 .status("PUBLISHED")
                 .build();
@@ -68,9 +69,11 @@ class SupervisionAnalyticsTest {
         Course c1 = Course.builder().id(1L).courseCode("CS3001").courseName("软件项目管理").build();
         Course c2 = Course.builder().id(2L).courseCode("CS3002").courseName("操作系统原理").build();
 
-        CourseOffering off2 = CourseOffering.builder().id(20L).course(c2).teacherName("测试教师").build();
+        CourseOffering off1 = CourseOffering.builder().id(19L).course(c1).status("IN_PROGRESS").build();
+        CourseOffering off2 = CourseOffering.builder().id(20L).course(c2).teacherName("测试教师").status("IN_PROGRESS").build();
 
         when(courseRepository.findAll()).thenReturn(List.of(c1, c2));
+        when(offeringRepository.findAll()).thenReturn(List.of(off1, off2));
 
         // c1 没有听课记录 -> 应该触发 YELLOW (零覆盖)
         when(evaluationRepository.findByCourseId(1L)).thenReturn(List.of());

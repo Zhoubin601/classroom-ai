@@ -1,0 +1,1006 @@
+[
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/ClassroomBackendApplication.java",
+    "SHA256": "D83026ADFADFD4C8571010AF8C725562AE90D90287A91FC4D2E7CC91F4CC3576"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/common/ApiExceptionHandler.java",
+    "SHA256": "34824504F720854E4C172CDBEE5F247E49DDDAF334D7A1DFB17E5D696C5BB928"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/common/ApiResponse.java",
+    "SHA256": "C3BEEAB18939CB0417678AACEF7E6D6793F1FDCA857ED84DF98E1355DD83C510"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/common/exception/ForbiddenException.java",
+    "SHA256": "304F6288E6EA4CB6A7C8C4E5D8C819875B013F5CF6BBE1DB2FFA6C4CD681E34A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/common/exception/UnauthorizedException.java",
+    "SHA256": "FC8135216A2EF682AA5BC07E8BE9FCE1FE1BEA4295B7070321855DDC54A92CD0"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/config/CorsConfig.java",
+    "SHA256": "ED725C7E49AA92C053303E4E1819697E3D25290CB1EB4D413DBED0876DEAFA1F"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/config/RedisConfig.java",
+    "SHA256": "4B9609F153EA78E7D7B393EF97BE659AF2A9F6D4C22369C8887572174AD26018"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/config/UploadPaths.java",
+    "SHA256": "81210DD8571C6031E05F90C30FC849D8D121400BC4216BB1D8BCE6F71F538D75"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+    "SHA256": "01CCF4BDDA00C7DF9EF53A2D50F0A6309797EC4B5781C5A251A8B7D9103CCCF3"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+    "SHA256": "A0B357D3ADFDBE40ABA1F1F166FB83C2C5C49433E2F28F63E87ABBC5AB6DB2C9"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+    "SHA256": "4975FC7D731616BC3CDFCE2BCBBBFDB608BE4F2E53BC18C7BD844E429D2276A9"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/dto/ClassroomStreamDTO.java",
+    "SHA256": "C4AC8850A0F8C5B355E2EB7D14BCC6EDE8424D77FA817E057E9C5FE843EB9888"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/dto/FaceRegisterDTO.java",
+    "SHA256": "7365809BD8B6E3718EE0BBE92CE1DE86C830CCAFAB75D277450A8E5A5387BFBC"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/dto/FaceSearchDTO.java",
+    "SHA256": "1AB9051A37CABE357904D634E3C4F412EF1FC8859DFD814491A614B2C75170FB"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/dto/StudentDTO.java",
+    "SHA256": "A099D06D32C6C99B3BFC1A2989F5D4F317D4B72AC3DA97E119410B944AEE7FE4"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java",
+    "SHA256": "5C42411A394A31D416709693F18DC2B1ABEA555B3D21277CFF993C195461F257"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java",
+    "SHA256": "7AAC2E4B131C5875555E3456449E8883EC781D40D95CD3EF373325E380B38E30"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/entity/Student.java",
+    "SHA256": "5941ED480174ECACD99ECCFC1C6B5046F996585F0176793644E294F42A8C47ED"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+    "SHA256": "FC9704A7EFC59C5A14CB68FE829D4F6B235DA6F24F05F069CABA4A431819C74A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/attendance/dto/FinishAttendanceDTO.java",
+    "SHA256": "CB4F9DB9EA99D64CD1C216A0B060D3E4F063BE6A434087A0CFBC2CBD45EABAD9"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/attendance/dto/StartAttendanceDTO.java",
+    "SHA256": "AA729EE1A45C184BD7E830A475CFF267C61E70328FC3FA1438B7D97E42690435"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java",
+    "SHA256": "85108FD50C94D7923C8D332B68E6ACF3BCE3BC2522A39E8A2E6979A32C6E671D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/attendance/repository/AttendanceSessionRepository.java",
+    "SHA256": "D59C17C36D43A21FEBE9A13A0516032CAAB6ECD280F7E3D0FC6E1EEF129A224D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceService.java",
+    "SHA256": "FB3BF8F38BBF4D16F1B2F8BFEFA24A6B4C15897F4BC55D6F211D8E30BE214096"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/impl/AttendanceServiceImpl.java",
+    "SHA256": "9CA4C00A739CA955379987B2F4BE469544393CF6BD440F37DD072ABC91A65B06"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/context/AuthContext.java",
+    "SHA256": "AE79CE785D567BBBEEF7BBAEC9971656FCEEB534CA045EB3EB87D985DD653525"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+    "SHA256": "56B9AC3C9A5B4CD07AE73BD460D44EE49AF30556E068D8095614696459224D87"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java",
+    "SHA256": "5DBD945B1E0A4CBC87C3C52E9313732B9245DBA60F6FE97B97A91D7751723BED"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/dto/LoginDTO.java",
+    "SHA256": "F440B8E9E69B4E4FDEC56FB3C7C5A0FBFB8B568DC930634B8F4F8744DD68AA87"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/dto/SupervisorRegisterDTO.java",
+    "SHA256": "108B2FB27F4BA0F98C785B901C220A3BE61DCE82686EC3CC827B6A5B3AC84A34"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/entity/RoleEnum.java",
+    "SHA256": "78ED54C3964960E5E94BA5EFB1221E3F467CF3DAF278F6DFD1E98269B68B6299"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java",
+    "SHA256": "9FF03BD0F530A3059B6C9181320090C70FE0436FC14E4B2C449E2FE2CC3B475C"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/interceptor/AuthInterceptor.java",
+    "SHA256": "4FF9C95733F50FFBA7EE026F00D0ABC309EAA881982829E18C9FB731D5767BB5"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/repository/UserAccountRepository.java",
+    "SHA256": "79D5B69D83D50A61321E4B0BF796CEE689AFC81B40295483B45ABBA7301C9933"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/security/JwtAuthenticationFilter.java",
+    "SHA256": "C832493BD0F6D2602B81EB951D9FA79A058C8B1F3CF9E2B06FF42E058ABE21AB"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/security/JwtTokenProvider.java",
+    "SHA256": "571F268D71893470A3E18BB244C0623063B26700F1544A7B0C674BE9919BAA5B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/security/SecurityConfig.java",
+    "SHA256": "38FEAE4098DFD7555F7A18944810F058BDDBB8645E21227BDA5D4D839C678918"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/auth/vo/UserVO.java",
+    "SHA256": "136EFD94F6C089BCBB5CFF4A9823EAF6BD6F27CB1152D123B2169B02386526EA"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+    "SHA256": "C0AA036BFB0AC88A60436354B3F64A3A384AE0344ACA4B7F22D28C39A3327BF6"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+    "SHA256": "EA16265BC55386682213707E9DBE00D26E0A3CBE684E7DCF4F1D34F48D24AA5B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseImportController.java",
+    "SHA256": "C35EEC5ADE89AD40C1431D788211D43CA9CD9FC4BD43F6E72C51A386E8585769"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+    "SHA256": "1ADB62B9F81BC22AE6F6EFA3366F8512492449EFCAB16BC8F79E0DFF4139857A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingHistoryController.java",
+    "SHA256": "081DC7FB4F0549C37CC440262EE11EB42FC98C0DC64227925CE9C09C49ED01BE"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingQueryController.java",
+    "SHA256": "18D9E5D9C71665EDC89B68DD51250A0589E8E8C3BB13B35DA9885149324E5117"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+    "SHA256": "F20743766353B0D0A86360A8BB8AEE9AAC8D627294423ED84BA1FC6AE147881B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/MajorController.java",
+    "SHA256": "06F9DEFAB1244FEBE9B9CE92357BC73E44C86B0788750BE9CF1D22256BC7DAF2"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+    "SHA256": "3A5D24750FC8DFD4556766E8A94712152806F5E4292ED07C259936CA062B3F2B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/controller/TeacherController.java",
+    "SHA256": "FD2F5469E80D3F3782DE780B53D116DF336E31550E0FD855979CCDD4E0F9E895"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/ContentRevisionDTO.java",
+    "SHA256": "55F686496D7B547A868FA8EB8534B9CA2975333CA3B5041059EC3329B1806066"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseDTO.java",
+    "SHA256": "25A2A16EAA8F7E6EE7C2864548A489AFA21A936DB6440415B7F73A6C3384746A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseImportRowDTO.java",
+    "SHA256": "07481D4EB183C7E5B6116FEEFF82B7DCF8A68275FC93324A278D9FFAA5267860"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseOfferingDTO.java",
+    "SHA256": "5C90304DFAF00422B949CE4BBE4169DB2DBAF8652B7CD5534323926AB335F0A7"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseScheduleDTO.java",
+    "SHA256": "D6FD2691D01E810EAD27BC324D5E76AB75A4F4EB33F1E66A68FF02C2B3E2DD44"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/ImportConfirmDTO.java",
+    "SHA256": "41DA83759EA00BB426533750CD5AEEDD104E4B7FD8AE3F685995DC1762A5A864"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/IndicatorDTO.java",
+    "SHA256": "68039AC6C96B797D2CD23AA205FD7499A5D8F9FF1C761C6483B46A18E9C7C96D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/dto/SyllabusDTO.java",
+    "SHA256": "287F2B10A5766295A16E406947007A8E2B2FE22B257A9618AA2490C819A2445B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/AcademicTermLock.java",
+    "SHA256": "65A055C4F8939F129CA63CF1350772BC5FC05D94EE1BBD9D2BA245CA245B1794"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java",
+    "SHA256": "77562566A00F1F6FB18763C0775CFB5D6FFC7BE2C1A862C672213E60ECF4B715"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java",
+    "SHA256": "0AC14F814852A667C59791B176167D9EBF1A946319297E58896BFA000FC58D5B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java",
+    "SHA256": "74CB292E5B2D59335A9E0E2ADB46BE3589DDE1615A7E70D307DBA04388CDAF17"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java",
+    "SHA256": "B2629FEF0D6E6A20723E6C2C899BE8D1460638E8D47CA2B32F62518976EF6C6C"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java",
+    "SHA256": "5AA62EB325543AF1F837473E69D9E33FFF8D2A38DE0620EE157D782CD6911270"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java",
+    "SHA256": "0F6E1D40B3275A70A4D21FDFB553093AA82AA3D89786B5AE8F4C04E9C89713A6"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java",
+    "SHA256": "53B719D59E2B6C8AB29746CD2A8B97E3D21C39E67CF8B5919C7469B28FADF26E"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java",
+    "SHA256": "8441B8D013016513E48710C2EEB1DF99E61CA4094BBA2F32EFF5B24A8170C55D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java",
+    "SHA256": "2D755462397FD31F40461E704C72D90EA9A734CE0AFACB289D52049AC08FBCAE"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java",
+    "SHA256": "E107D6D0FAD9387A5992FAAF0FFEBD66CC37D49F3F7DCB96F74B5A4B235B1B3B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java",
+    "SHA256": "FE02188538F561E63B849611BB8952C493450A32C0213E1E870D78F05411D5C7"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java",
+    "SHA256": "39ED07755D6E6B8741BE4785294514F00A026EE7109CBEF1578523FFB07AE5A7"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseContentRevisionRepository.java",
+    "SHA256": "80EE9E9011A24FCEC5ADE3088269A83294EE8EB27E9C350F0613971ED0EF7316"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseImportLogRepository.java",
+    "SHA256": "8E960FC8842BA9A4DEE5E89ED349422A88222D4572478F29693D937EF31F34AA"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseOfferingRepository.java",
+    "SHA256": "6C5E4E4091D3EBA1319C231F200B59F3092C6E47AA6BC63C1D16A86AA5E9C784"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseOfferingTeacherRepository.java",
+    "SHA256": "710A6F43A04A7CF2DF901C439B311BD3BEA386CD458A2147CBA7F998C763DD73"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseRepository.java",
+    "SHA256": "2E9CB81E45EB1DA176ECCE5997521B87D84BA6596923F53F230BAA573F42B72E"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseScheduleRepository.java",
+    "SHA256": "AA6C7AD6BD72616BE3747BBE210359311E15687A983FA8108792192D62E07022"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseSyllabusRepository.java",
+    "SHA256": "32CC6D37B7547E46AFDA4EACBC14EEA4DFF8150F91630DBB78CAEFFEB01CB6C2"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/GraduationIndicatorRepository.java",
+    "SHA256": "D0EB38F2170D4B7B2B8C74FB955B3876840A279840A669DF4DB7529201E128D6"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/MajorRepository.java",
+    "SHA256": "0478450D9E9F4D6FF2DFBD2518A9CED838EB80102BE0FA2A805741175D3276E4"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/OfferingStudentEnrollmentRepository.java",
+    "SHA256": "C467D6100A8DC9C202E22FB89868A67117EE7DED5E6FA9420B1032565F8C0E35"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/TeacherRepository.java",
+    "SHA256": "89AD7AF64C959F724ECCD2CCC2B5EE02CA9F97E06B293B94BCF9CC3D8E20A344"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/repository/TrainingIndicatorRepository.java",
+    "SHA256": "AB4018A2B4E7F3A9FC81EE558A46375B6D80E88214D352B59B375B8013F8E1EC"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/AcademicTermLockService.java",
+    "SHA256": "52BD3485E988C7BEE39DEC0EADBB8E810AF40AB4BC00BCD1B87EAF43B2094A6E"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseArchiveRules.java",
+    "SHA256": "D72166D4C5326E4EB423D1FC49E1ECC7A2E1376A71345D969783A35143EA7E02"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java",
+    "SHA256": "2853DA94E056FB53FEA99E13CC90A616C00CAD0E1675D79DF2550476C74E11A5"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseImportService.java",
+    "SHA256": "40C4BBDFB9A4E3EBB6D0AF0F042E02932154299E3AE9933A10C279D166BEFE53"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java",
+    "SHA256": "962EB1762A120FB5B832DDF98F7315F15AAD3D96DDDD299340409D3A0EB9FB1E"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingQueryService.java",
+    "SHA256": "9ACB2FBDE30A442FDC78DE9788088B58A4BB9DED3B524E0EB9A2334C5B36DA3A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseScheduleService.java",
+    "SHA256": "D9A8599171F997867C293C44D53E64E0B8C34B8A340853CDE672257334EA7596"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseService.java",
+    "SHA256": "DBEEFC2CE05A24DF4C5E3D6BEC6EAA17DF7BF12E63419B77995D42F1559A6253"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/OfferingHistorySnapshot.java",
+    "SHA256": "EE3076F9869263725494C61EA64627787CF8F307FE6E4C684447DD67D860CB37"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/ScheduleConflictException.java",
+    "SHA256": "60B239EB039AEB4FAF2B9126FFCEA0ACC0E5C8D9D3CF7935EAEEE33F7661D8A6"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/ScheduleConflictService.java",
+    "SHA256": "2673840268C021C3D9566A7B2DB893230633BD15649C359EAB3A0D2F862F296A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/SyllabusService.java",
+    "SHA256": "965B1043F0704E517EA528D7779AEB14D9E875211BC4E656836509DCAFA6A573"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java",
+    "SHA256": "1322A4C5F00EA422C2D69D3B27B860A44304B5B9E9C7687DC66D30ECFD91516D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseScheduleServiceImpl.java",
+    "SHA256": "89E95DC476C9ACAFB6FF3F4B7CAFA1C255E26B4F0550FD21FDCB686DAD87F33A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java",
+    "SHA256": "0DF2BF4E5739F882CED64FA3AF6E4AEFC792957AE3C8650B6BB136CCAA8168B4"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java",
+    "SHA256": "CA85F3B0E564D277E611227AA80E64ED53BF6C219A5BB79E11AC3E41B73DF57E"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/util/CsvParserUtil.java",
+    "SHA256": "AD019C80E80AC1C762CF78CE3026E206F924E8611F227AC652951CD69F494EA0"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/vo/ImportPreviewVO.java",
+    "SHA256": "96612BE95903782DB4E48CC3C674756C2D0D7A37D972DCB1C2ABDA7C19CE9442"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/vo/ImportRowError.java",
+    "SHA256": "74FFFC137A84A1946B58661C3F19FBECD8B7EC409DE7D073F242163DB9ED4553"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/vo/OfferingHistoryItemVO.java",
+    "SHA256": "B96DF1CB576AADACD615A2F30726E51A2EB7B6131459ABF2009D6939144F82BC"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/course/vo/OfferingHistoryVO.java",
+    "SHA256": "96CEE606FD00ECECA4602AF617EE7938A8AED8F2407A56B6B36CA4D8F03B702D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+    "SHA256": "D346BE512D004EEF17DDEAF7271153BC414AD57024A3558824492CAEA7B4BE69"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingController.java",
+    "SHA256": "21989DEFF0DDC6E2F5252F7A4BFD29C8D79F2288B043D8F7FD91C15F0EDDD03D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/dto/CourseResourceDTO.java",
+    "SHA256": "85EA58827811A20D5752841CD05264AB06FA09E54BC9F2C1D76B7262E9EBDCAF"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/dto/MicroTeachingSliceDTO.java",
+    "SHA256": "FF15A26FBED37B03F5DBFE127A83EDAE3B3650049F3567989445CC90D3A07724"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java",
+    "SHA256": "23A0575E5A1472C785F9D3653244A346B32BFAFB0C513586FE2DD6ABD9793E57"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java",
+    "SHA256": "68886B9490F13D5CE78D001A148489B110AA6BEFB8238DF7BD0D0B16144CD13D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java",
+    "SHA256": "E9935C0B287EB8DC144326CC5544A53ECC195357C4E9D9CEE704A83CAF5575FE"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/CourseResourceRepository.java",
+    "SHA256": "ECE961EE13A767533F22C328372CF7927380DCA1980EBDA60BF751DF71CA943D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/MicroTeachingSliceRepository.java",
+    "SHA256": "F149C52E3B00EA5A7353A8D0E2C3B34DFF2CE7C7F7590A8FA1364FB7CDA1AB6C"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/ResourceAccessLogRepository.java",
+    "SHA256": "2D5B3C1040C560F4F8DE5F5AF0439BE109E5605BE8E07B94E81699F316F6573C"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/service/CourseResourceService.java",
+    "SHA256": "53025B06DFE38CD129B50F50B166443FF9B4C0C721DC01D0EB70C5359A7207F9"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/service/MicroTeachingService.java",
+    "SHA256": "B414596C4BE2A5BCD5E0E5E568BFB05FAB376EFB8C6872556A44A797E411C993"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceAccessService.java",
+    "SHA256": "EE8B82D6A5411A5E560A590E935FAC536F076C961F4DD8ABD614772CD2DCC004"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java",
+    "SHA256": "C9087FB9728E0B12F01FA838DBDAF94328234D1B0C121E695D1D61881B250659"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/CourseResourceServiceImpl.java",
+    "SHA256": "03877E299500BFC2FE153789F7943C475E8D94B0D27D033941D4C217B4CD4935"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/MicroTeachingServiceImpl.java",
+    "SHA256": "363677B8DDE1B2AC2F64030E12E548985DBCBEB76C74393CFBFD62C6D92BB62E"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+    "SHA256": "050A8966B8F2DCECF1E2288233DD400CC0D1F5603C1A68DE92D3EBEFBCF057EC"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+    "SHA256": "E9EFD084D6D8A1C13B9256D8BD5F6B4C83BAD9FD284B5640BAB8642655FF0F16"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/dto/EvaluationSubmitDTO.java",
+    "SHA256": "0670A5A6A17734DAC3AC131C9B8AEEB13FD0889DA9DE27BF8FE5E8CBE34F3453"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java",
+    "SHA256": "6809FC00B51D0FEAADAB989AD01C18064247D95E61EE649E521157D78560F171"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java",
+    "SHA256": "FF50B7F33ADB639699ADABD1591AF409E9F076DFBA726F2C7D6FEE5F9913A8DF"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/repository/EvaluationAuditLogRepository.java",
+    "SHA256": "DF8218A0F05A26332F0C150E34CF6CAF1686237A3028FCF894135A5D161AC6A2"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/repository/SupervisionEvaluationRepository.java",
+    "SHA256": "06E15CA27145E547BEE57667998A7F0BE642B46D84AD52304188DF68E743053A"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/SupervisionAnalyticsService.java",
+    "SHA256": "A458F54B25EE26C1C7690C2CEB6E1E396F1C349BC04A02B340A7863C184705E6"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/SupervisionService.java",
+    "SHA256": "C0CA80D9210372B026ADDDF48B860B79FF41CB23B9EEACCD8CE3032AF68AED84"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java",
+    "SHA256": "2598D55CCDBD574D389F0131BF01893374476805F1D679834C0BFBD0BBEF870D"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+    "SHA256": "9900B5843E8E9B811EB1CC9C68075883DAE1DDE1439370785BDAA7DA895101CD"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/CoverageDetailVO.java",
+    "SHA256": "DD9E1953E46E94DFAC311935685DBC249D006970C063E6EC3DACD6B02343BF41"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/SupervisionAlertVO.java",
+    "SHA256": "2348D0BEAE695CAE848D186601A38B9562A2CA0CEBF407B3AA839422A035D106"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/SupervisionDashboardVO.java",
+    "SHA256": "934B04CE59D16720AD954209F3A11120F90E5E3AAC0528DB98EA352756644DA5"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/TeacherQualityRadarVO.java",
+    "SHA256": "0DF5F2CA91CAC3212288EDEC48A770EB710287371A40389C1D538299A385FB96"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/repository/ClassroomRecordRepository.java",
+    "SHA256": "17D8411116776F73B2BF7F7E203DC2F52F7FBF4865C4E93477B5011FCD7012B2"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/repository/FaceFeatureRepository.java",
+    "SHA256": "0820702F22ACE11A42D28B866AA4C0122C98056FE9D6B58F62290ECB943DE34B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/repository/StudentRepository.java",
+    "SHA256": "B3DB6E3C57D525840C1FCD5E9D80E9B17F7005A9F000FFBDEBB513FFDB2A3B20"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/runner/RedisCacheWarmer.java",
+    "SHA256": "906FCBB531D71F96898AFBCBC30735C30D217DE25DE5ABAF95DE0EE443938D6B"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/runner/TeachingDataInitializer.java",
+    "SHA256": "9D1D846EDDA44063935B2507C21255D2F354E7A26D2414CB2CAE795EC89120FB"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/service/FaceService.java",
+    "SHA256": "3D80106562425F397AC38F59D4A7B21D2AC444903659D41B14981B51065DA86E"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/service/StudentService.java",
+    "SHA256": "C8EE287842A0B17B7786F3098113BBD75163B17E8099050B25D1E7CC63890A57"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/service/VisualDashboardService.java",
+    "SHA256": "55F316B23D0295500B536C6331221C1FDBCC7FC82907CD9C69B259F546C7D672"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/service/impl/FaceServiceImpl.java",
+    "SHA256": "7A7046969DBEDF860A3D73506C6BB893C7B41CA17F9CE4F31DADA370BDBFD704"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/service/impl/StudentServiceImpl.java",
+    "SHA256": "0B6773A83986F76F30BD4676E564C8B5C0CBEB886398DD9E9883468069AD97B3"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/service/impl/VisualDashboardServiceImpl.java",
+    "SHA256": "6506BE4A9E133A8C7B36751E482EFCC8578DD4D35B72A25E45E0B2B1E7B08408"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/vo/DashboardOverviewVO.java",
+    "SHA256": "22EFAF199FB937BEAAC0BB7EBCA3BF17DC89C2C492BD3D399DC86D38CEBE2F53"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/vo/FaceMatchVO.java",
+    "SHA256": "005683BDF1B295E1770844C8FA913A6F3F0254BDF1C2E2E96A82B332C2961F29"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/vo/FocusTrendPointVO.java",
+    "SHA256": "02ED6E644806208B2229C24D2D0EBF5972E3C89F713EE3AB513B5590690A5623"
+  },
+  {
+    "Path": "backend/src/main/java/com/classroom/ai/vo/StudentRealtimeStatusVO.java",
+    "SHA256": "61404717FBB97DC7E427D8457C37C364B6A649A4E35BC1D5F219526049CD6B30"
+  },
+  {
+    "Path": "backend/src/main/resources/application.yml",
+    "SHA256": "5C805843600D85BA2A1CC1A300E1AA4D71F6F4CD632FD65A48D8E4CD915D3232"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/ApiExceptionHandlerTest.java",
+    "SHA256": "986FB2C6CE1C795750DC92B9566B8348D8D26D89C64F62A2ED41F3E7743C6789"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/RegressionTest.java",
+    "SHA256": "9D91A17199E3B80B40B03E8BB084DBEF73CF27DF0A8051FFF5618B632F5B92D3"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/UploadPathsTest.java",
+    "SHA256": "844D73E38235544C3C4D4F9164AE68EE2B2279EE78D7412072FC9A798BF1DA47"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/Sprint2MysqlTest.java",
+    "SHA256": "000DF8A5808ACBD318CAB8DCD19E24A75D846AA362CDA08459358611669D77DE"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/attendance/AttendanceServiceTest.java",
+    "SHA256": "80F2C6A3E0A02953E26CAE7EA2294740EBF193FB439DA8796B6562A435BDF12E"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/auth/AuthControllerTest.java",
+    "SHA256": "DCF69CFF80C6666D6C40B47041E956560410CC46CBEA0D92562DC81FB1976CFA"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/auth/DirectorSupervisorManagementTest.java",
+    "SHA256": "70CABB0B1CE9AB221E51ED81363C9B1C548F575E2FCAA9A362B752F1404A7146"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseAcceptanceRegressionTest.java",
+    "SHA256": "C5602BA6261694842AE7D3B7CABD5F9A7EEB8C158B072BB7DCBFA67DA3849606"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseAuthorizationPrimaryTeacherTest.java",
+    "SHA256": "48CFCE99598BCF39529B9C9AC01DDB8E60591FA03416E4D5BFF6810EDA0BE52D"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseAuthorizationServiceTest.java",
+    "SHA256": "C28CBD841D561EB7C06FBD041443126C07EA2D614A81A9A6DE7CE0B6D9B7BD1B"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseBrowserMysqlTest.java",
+    "SHA256": "15B693B9532A97EFAF7AE95850F06313BBFD0B5B043B2C665A3D26464EE9D6A8"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseContentRevisionTest.java",
+    "SHA256": "F870242EB174C36AEE79C22933A4BD3EFBFA8FB3F9A7C3DA9BA9184CC13AA07F"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseHttpAuthorizationTest.java",
+    "SHA256": "F15032FE19659FF73B5C0364F2565E8473670DC6B5A80A268374DB3DEAC317BB"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseImportTest.java",
+    "SHA256": "EC356A719AA4AD07B5671564703EF3F6D7320AE5C96C741D914353E08497A125"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseOfferingHistoryTest.java",
+    "SHA256": "7E6C8232B09190E8C554A2008618AC584A58252EAF4D3957E5A05C300BB91CFC"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseScheduleConflictTest.java",
+    "SHA256": "64CFBACEBFD974917E0689E759AD4F0B1B29723D7CD65552E5AA3472A16EFD75"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseScheduleMultiTeacherConflictTest.java",
+    "SHA256": "F314452D9F4D478E0BE6B2E92D177D1537BB055A3A99FE54817CBF52EA634656"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseSchedulingMysqlTest.java",
+    "SHA256": "DF0E46F67E62C45F4D2EE752B4ED2B37A3DEA1E2C1C44170EF2264048B6E595E"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java",
+    "SHA256": "EE35FDFB35B10CBC46AAD171EA738267556A6AE2EFC44164989E4C7AF6AE7CE5"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/CourseWorkflowMysqlTest.java",
+    "SHA256": "4A185298C4ECAB95CCB86630F5E163B0511BDAC35C4358FAEBAC6963780F6476"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java",
+    "SHA256": "BE870B613CA0E18B9F9D794248422ED7A80598D1DA3C75910E617817D1D3D1B6"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/course/util/CsvParserUtilTest.java",
+    "SHA256": "A956BD13AEF6CCD166427757526EFE73716DAC4ABE78F593838FE6DE9EA227BB"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/resource/CourseResourceServiceTest.java",
+    "SHA256": "38BCBEA16013AF4C3F056CA6FD57CFA69283F5786B564B1001EA9156D2C1A485"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/supervision/SupervisionAnalyticsTest.java",
+    "SHA256": "BAD45521C3FC1C026B62C5C9A3DDD6C746BD0C9BEA705E422C46D324D882D204"
+  },
+  {
+    "Path": "backend/src/test/java/com/classroom/ai/modules/supervision/SupervisionServiceTest.java",
+    "SHA256": "158610926C882A8B414A845ED85E3C1DD5C0A3ACA0F4A24E7EA912C75F27C00E"
+  },
+  {
+    "Path": "frontend/src/App.vue",
+    "SHA256": "6CEADF1DF5DA94EAEC56D27AF857B1E84E9A772758588686EAF57550B657D6F0"
+  },
+  {
+    "Path": "frontend/src/api/index.ts",
+    "SHA256": "DE4AE4737FA5B7F390D3D52789FFBB65DC702700EF3545E905434DE099219ECF"
+  },
+  {
+    "Path": "frontend/src/api/metrics.mjs",
+    "SHA256": "796A150BB2BCBC7738B5412AAC46F7E756B519978472FFC0E8604F40EF5567CC"
+  },
+  {
+    "Path": "frontend/src/api/response.mjs",
+    "SHA256": "016B90FA2486F1E40B1B60703EA71AAB4367383D65A66404586B3EDCF59D2858"
+  },
+  {
+    "Path": "frontend/src/api/types.ts",
+    "SHA256": "AB0C1789A3DAE8EA770E9B8C4399F9C140669BB42227C2F54301D5C8690B13DE"
+  },
+  {
+    "Path": "frontend/src/components/FocusTrendChart.vue",
+    "SHA256": "0DDA4E41BF22D553DDE26987AB1FEE2E5780EC277276C8813240AF1D5BF73EF4"
+  },
+  {
+    "Path": "frontend/src/components/MetricCard.vue",
+    "SHA256": "9C6C4034DC11BD99A4A5E40B15DFAAF9EDD170F67B2C9BDE52DF54E7225C5311"
+  },
+  {
+    "Path": "frontend/src/components/OfferingHistoryPanel.vue",
+    "SHA256": "4F944F534588158491F5477E783559BEBB1E95BA037A0C72900D18052B03C319"
+  },
+  {
+    "Path": "frontend/src/components/OfferingScheduleBoard.vue",
+    "SHA256": "662A0AABCD9E9E7C3CE0E1027BEA13B31F004788A757A015958DA6E90643445D"
+  },
+  {
+    "Path": "frontend/src/components/StudentStatusGrid.vue",
+    "SHA256": "7DA254BCE75C19F0C29F0B5ABFBA4D3DE9D435FE82438BE0FD19BB6605C83CC5"
+  },
+  {
+    "Path": "frontend/src/main.ts",
+    "SHA256": "3E3CFEBA05EEFED438FB184DD09EB7D30956AD0696EE3E634DFF93C7F39B01F7"
+  },
+  {
+    "Path": "frontend/src/style.css",
+    "SHA256": "DF4F25FA08FC3F3B0FCD340E995667A3D62090DE9000E87ECA13DF3BBF31B8C2"
+  },
+  {
+    "Path": "frontend/src/utils/scheduleTime.ts",
+    "SHA256": "5BD50E369C6DA6BB343AE8735BB2C0C9BF4659963D7AB20B2271FAF0F74D4803"
+  },
+  {
+    "Path": "frontend/src/views/AttendanceDashboardView.vue",
+    "SHA256": "9C2DA0207AE9383454D242F304FE7073C03C2794A050F2C951D45AB075384CDA"
+  },
+  {
+    "Path": "frontend/src/views/DashboardView.vue",
+    "SHA256": "6A53210FFC0A3734B50B67F0314C9157BA69297D7A1456AC21025B683D969E8F"
+  },
+  {
+    "Path": "frontend/src/views/DirectorDeskView.vue",
+    "SHA256": "0864DACDFC9AAB04679E042EAC921B3CF8B7F83F0BF19B20E785BC1356FE9388"
+  },
+  {
+    "Path": "frontend/src/views/LoginView.vue",
+    "SHA256": "AD306A1FA30F7D2A12F5BF175CEB58BD31D807CC0DD532C08334DEBC9CB38CC0"
+  },
+  {
+    "Path": "frontend/src/views/StudentManageView.vue",
+    "SHA256": "3CCA86120234307AA2A70BF91D786221C8B3FA7EFF5CA9B13EEAFDC02A5309D3"
+  },
+  {
+    "Path": "frontend/src/views/SupervisorDeskView.vue",
+    "SHA256": "7867DB23C7C4E5331550E6AC74F7071CE7806D2717E778124E0D71C8B90A26AA"
+  },
+  {
+    "Path": "frontend/src/views/TeacherDeskView.vue",
+    "SHA256": "DC3C327C31C4B6152B5C00CE76B0376F46C28C5196F29D78EA28DA165844E777"
+  },
+  {
+    "Path": "frontend/tailwind.config.js",
+    "SHA256": "E16AA20835C650DDAAC8D030635BFCE032AC16F59C22B7789156E8D224613EEF"
+  },
+  {
+    "Path": "frontend/vite.config.ts",
+    "SHA256": "9191D2F167FCEC5B553FDD8FFA9C4DF2A5FBCACEA03CEE591F22D8CE35923EAD"
+  },
+  {
+    "Path": "scripts/README.md",
+    "SHA256": "F8A411053291F9E5858A3265CFB30CE2B4C38982EBA914139964974B35FFEF90"
+  },
+  {
+    "Path": "scripts/compose.ps1",
+    "SHA256": "D3FE95C4DADC02D058DB6A73B4A6E62E5FC23213BB7F4AA0AC503233054F7BCB"
+  },
+  {
+    "Path": "scripts/deploy/.env.example",
+    "SHA256": "D93BD38326759E6FB5914E2ADE6F4E3CD19837342F627EE64420A7AD4892594B"
+  },
+  {
+    "Path": "scripts/deploy/docker-compose.yml",
+    "SHA256": "042DAFD8FB83D0F82C963249B06ABFACC88ED70FC6E04E92AA2BDCAF51E8EE7B"
+  },
+  {
+    "Path": "scripts/deploy/mysql/generate_students.py",
+    "SHA256": "3D3178EC47B3BA77DB3DF27236C4E02A7CB8102BA56E0ED641A314825FB35EC2"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init/01_schema.sql",
+    "SHA256": "D86543A7F73ED7CB88CDAEF6BEB65D8FDD2D1EEB026CB49B3DFA8CBA4D1647F6"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init/02_lab2_migration.sql",
+    "SHA256": "0D7BF301B10EEA4BEC317E0CB9048435FAAF9DC04DB0B6BD060FDBD21764D10E"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init/03_us01_us02_integrity.sql",
+    "SHA256": "BA50812B9BC3E4AFC8993BAE497BF416219E4B993F4047555A070F4490014F04"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init/04_us03_term_lock.sql",
+    "SHA256": "D84BBB9095C6D90714A19EA9B4082EEFFDF298BCBA978A1AFBDBDB6ACABED342"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init/05_us04_archive.sql",
+    "SHA256": "D8E3F6370E0C9BAA3C3DD016643598C5604A96723B6E694B8C8E05950B17A7BF"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init/06_exp3_sprint2.sql",
+    "SHA256": "82019C1D031EFBE4D999A987062D2A508FB201EBC03A06C24687A13C05E7D09B"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init/initialize.sql",
+    "SHA256": "AF8D0AED4653CEE0ECB552A63681DF0A6EEDE5801469D11A5610083F40E95885"
+  },
+  {
+    "Path": "scripts/deploy/mysql/init_95_students.sql",
+    "SHA256": "A8AFA66E9A618593933CCFEA8CFD8F02C32B4A1BDE02B93969EF343D13FF09DF"
+  },
+  {
+    "Path": "scripts/generate_initialize_sql.py",
+    "SHA256": "7E1002661EA6B3F69F16B3309494CEE6C90111D4967AC96016E30F04CD9B9470"
+  },
+  {
+    "Path": "scripts/generate_sample_courseware.py",
+    "SHA256": "29099675627BD61351C7990F79BF05F593C8F3ADF52200A3C2B1D40692A8FE36"
+  },
+  {
+    "Path": "scripts/register_face.bat",
+    "SHA256": "EA8288626AB8C6D58EAE986D0B96DBAF0D390B8F0BC0C08026960E7BA9A2CFDD"
+  },
+  {
+    "Path": "scripts/run-all-features-playwright.ps1",
+    "SHA256": "01F86CBCB422A15951268BDB1007630C1ED24B375351C8ABBFFF786A4CF651B6"
+  },
+  {
+    "Path": "scripts/run-exp3-browser-tests.ps1",
+    "SHA256": "40507794A181978D2F0F5490BC59FB707000BB0C536CAA647AD5E7C1AF1A547A"
+  },
+  {
+    "Path": "scripts/run-exp3-mysql-tests.ps1",
+    "SHA256": "03C58783BD4491EB951656CDF9F84C4E443109B2014C3DD63B2EFEB1C72E7877"
+  },
+  {
+    "Path": "scripts/run-tests.ps1",
+    "SHA256": "681FD328ED2C29C82EDD2359E06A34B9A308F3F69D899797AACCF714AFC4F7A6"
+  },
+  {
+    "Path": "scripts/run-us0102-mysql-tests.ps1",
+    "SHA256": "43588113DE3BBA859E2CC259031E723BB472AC4559309A56134C7E0517F8632B"
+  },
+  {
+    "Path": "scripts/run_monitor.bat",
+    "SHA256": "293EC2403F4C80F619D6B9768ECA664CEE3C9BE2BDCB74D3F42467AE3DF0DE58"
+  },
+  {
+    "Path": "scripts/run_register.bat",
+    "SHA256": "2AA023954E8E1DEB1B9E1E213035BD8886AD0C018F9332639BF8D2F500DE69F4"
+  },
+  {
+    "Path": "scripts/start_frontend.ps1",
+    "SHA256": "AF7735F961E3796DEDEEE9EF19FEA02D70C3A04D6625771C55E1597B4C023511"
+  },
+  {
+    "Path": "scripts/start_project.ps1",
+    "SHA256": "273F09EAC60F88C04623F0B64A2189CB6DA2A9EEBB6C1B89A737E2C5AED84A31"
+  },
+  {
+    "Path": "scripts/start_services.ps1",
+    "SHA256": "CBBED1FB3A74D9973E2E2E7424C46D0BF2304B2A34620F73B78ADE111FFDC2AC"
+  },
+  {
+    "Path": "scripts/tests/README.md",
+    "SHA256": "ED34439453C0DF7D279F24BE400D732FF372FB770A39FBD2674418D8F2BE76EC"
+  },
+  {
+    "Path": "scripts/tests/all-features-playwright.cjs",
+    "SHA256": "32880086F57FE3C10CBAA9F064F2AA1D494331A032F2B1B59E9B86F00DFCA121"
+  },
+  {
+    "Path": "scripts/tests/browser_smoke.cjs",
+    "SHA256": "9DD6813948BF11D3044C08790247CD1D70DC7DAE0EF2312FD25B5CC2A5D85C40"
+  },
+  {
+    "Path": "scripts/tests/exp3-real-browser.cjs",
+    "SHA256": "8549A29C181D066C4EA71C3F10A55310A14729047FC2FAB10308A8FD9E04709B"
+  },
+  {
+    "Path": "scripts/tests/liubo-history-playwright.cjs",
+    "SHA256": "AE007DC48A97087F0FAE6A0F282A5B06445B3F05765B4B5E2E2F1E184255ED61"
+  },
+  {
+    "Path": "scripts/tests/manual-demo-browser.cjs",
+    "SHA256": "1AF3C3534F05E176AE634F4B73DA59822432324E48B7DCBADA6AD02C2E633F81"
+  },
+  {
+    "Path": "scripts/tests/test_backend_api.py",
+    "SHA256": "DDBA830478AB2D9F692DB8033E86BAFE3412DB3E2DC70D5D2C4E9E34797FFA02"
+  },
+  {
+    "Path": "scripts/tests/test_http_smoke.py",
+    "SHA256": "076DE6F2D86924E40DD4ED3A899708D5E4A4B664C510BC36BE41A60B005CA23C"
+  },
+  {
+    "Path": "scripts/tests/us01-us02-browser.cjs",
+    "SHA256": "67E7343FEABD005B19B655B9D2673B87D97B523B2D55ED90DC16BBD3DB6B6026"
+  },
+  {
+    "Path": "scripts/tests/us02-us03-real-browser.cjs",
+    "SHA256": "CD13A685087C6E88AE560AC8A2301CF83F5DE49C73A4FC3A341995ABF5801633"
+  },
+  {
+    "Path": "vision/README.md",
+    "SHA256": "587AC001987FDCFED0648B96A5046FD0B338F3A2058CE2C26618D5459FDA0F6B"
+  },
+  {
+    "Path": "vision/__init__.py",
+    "SHA256": "EA36070B3D207B4D37FCECA329F881760451B9F5B5BD4EE64F70DB040D6AF22F"
+  },
+  {
+    "Path": "vision/__main__.py",
+    "SHA256": "3C6AF29FC064E06ACEA99BCE82F60088E1899412FF01754798A117310388A83B"
+  },
+  {
+    "Path": "vision/classroom_monitor.py",
+    "SHA256": "02A33AA8321385C7224071C04356A12F3571563851B434523DABC11ECBF3B839"
+  },
+  {
+    "Path": "vision/diagnostics/camera_test.py",
+    "SHA256": "EE9F12EA694C28C1213894C4FFC6A0BA6703A27D3F42A79B6DB2679400BF924D"
+  },
+  {
+    "Path": "vision/diagnostics/check_ort.py",
+    "SHA256": "DEBF123327E5A49AA6FEDB767CAB0B99D0B7FA8216F67FB848F92BCB3180764F"
+  },
+  {
+    "Path": "vision/diagnostics/face_test.py",
+    "SHA256": "B952832092EA9D5E9ED6DDC127EFC300173FE36084A5486835A097BD4A0350E8"
+  },
+  {
+    "Path": "vision/diagnostics/head_pose_test.py",
+    "SHA256": "03B6CC2EBB469958B2299DD08F06B1F41149867A71BC7E9F72C41FD072DC8496"
+  },
+  {
+    "Path": "vision/diagnostics/test_mp.py",
+    "SHA256": "C14D058DB6C49CF0EC77470500497B81912300776A6D23439F21214417B88BCD"
+  },
+  {
+    "Path": "vision/diagnostics/yolo_test.py",
+    "SHA256": "62834A93E55F5058C9B2DB997F213EDB3159204051DB6ED7E20928B6B8CCD757"
+  },
+  {
+    "Path": "vision/face_recognition.py",
+    "SHA256": "62966A0E38007E355D76B4517453D2683AAAA07E12ECF10F12C03894B6AE6162"
+  },
+  {
+    "Path": "vision/face_register.py",
+    "SHA256": "9023A8F4577212FA8417A71785E695986E2F85DD9BB9A9C919C1BFC6B27BBA8D"
+  },
+  {
+    "Path": "vision/face_verify.py",
+    "SHA256": "3A83A0922A287325462C5B32C5BC3DDCA38971D42A0F9F1E8F60F17B8857208A"
+  },
+  {
+    "Path": "vision/paths.py",
+    "SHA256": "48594F178F1FC0773FCA7F7E82588D9F91B8388B99F8CC89D78FF8E9E74916B9"
+  },
+  {
+    "Path": "vision/requirements-analysis.txt",
+    "SHA256": "ED68D28117CC936AC3677CB8C32E9B65D5F231802413776DF64C0C98A1D634C2"
+  },
+  {
+    "Path": "vision/requirements.txt",
+    "SHA256": "06F845C7D1A753E8B278010559EF214862C34CBFB8A6165059D7B8F85AC4D08E"
+  },
+  {
+    "Path": "vision/tests/test_edge_regressions.py",
+    "SHA256": "04DC187CE446180DCADC74415BCA605B0E8BEF387B942FFC980F44AB3D0F54F3"
+  },
+  {
+    "Path": "vision/tests/test_layout.py",
+    "SHA256": "A4DE9420610CBB0DB13FD9604D2142FE5946B201868E04C055195B8743162C02"
+  },
+  {
+    "Path": "vision/yolo_face_analysis.py",
+    "SHA256": "B4488221A9751685A5F0BD0D115CF01411830BE02BD92147F81438D8C4A86D21"
+  }
+]

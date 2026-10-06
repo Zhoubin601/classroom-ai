@@ -55,11 +55,11 @@ public class CourseSchedule {
     @Column(nullable = false)
     private Integer dayOfWeek;
 
-    /** 开始节次 (1-12) */
+    /** 开始节次 (1-10，与督导课表矩阵一致) */
     @Column(nullable = false)
     private Integer startPeriod;
 
-    /** 结束节次 (1-12) */
+    /** 结束节次 (1-10，与督导课表矩阵一致) */
     @Column(nullable = false)
     private Integer endPeriod;
 

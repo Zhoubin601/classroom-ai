@@ -19,6 +19,7 @@ public class CourseResourceDTO {
     private String fileSize;
     private Long fileSizeBytes;
     private String tag;
+    private java.util.List<String> tags;
     private String version;
     private Boolean isPublic;
     private String dynamicWatermark;

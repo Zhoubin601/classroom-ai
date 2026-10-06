@@ -34,6 +34,10 @@ public class CourseSyllabus {
     @Column(nullable = false, length = 32)
     private String version;
 
+    /** Version of the major training plan used for the indicator snapshot. */
+    @Column(length = 32)
+    private String planVersion;
+
     /** 审核状态：DRAFT / SUBMITTED / APPROVED / LOCKED (版本锁定) */
     @Builder.Default
     @Column(nullable = false, length = 32)

@@ -1,45 +1,49 @@
 <template>
   <div class="space-y-6">
     <OfferingHistoryPanel />
+
     <!-- 顶部任课教师身份卡 -->
-    <div class="minimal-card p-6 flex flex-wrap items-center justify-between gap-4">
+    <div class="pro-card p-6 bg-gradient-to-r from-white via-slate-50/60 to-indigo-50/30 border border-slate-200/80 shadow-card-hover rounded-2xl flex flex-wrap items-center justify-between gap-5">
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shadow-subtle">
+        <div class="w-13 h-13 rounded-2xl bg-gradient-to-br from-indigo-500 to-navy-700 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 ring-4 ring-indigo-50">
           <BookOpen class="w-6 h-6" />
         </div>
         <div>
           <div class="flex items-center gap-3">
-            <h1 class="text-xl font-bold text-slate-900">{{ currentTeacher }} 老师工作台</h1>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">
+            <h1 class="text-xl font-bold tracking-tight text-slate-900">{{ currentTeacher }} 老师工作台</h1>
+            <span class="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-semibold shadow-xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               {{ currentOffering?.className ? `${currentOffering.className} 主讲教师` : '专业任课教师' }}
             </span>
           </div>
-          <p class="text-xs text-slate-500 mt-1">负责{{ currentCourse?.courseName ? `《${currentCourse.courseName}》` : '课程' }}大纲目标发布、12项毕业要求指标点维护、课件教案上传与听课复盘</p>
+          <p class="text-xs text-slate-500 mt-1.5 flex items-center gap-2">
+            <span>负责{{ currentCourse?.courseName ? `《${currentCourse.courseName}》` : '课程' }}大纲目标发布、培养方案指标点维护、课件教案上传与听课复盘</span>
+          </p>
         </div>
       </div>
 
       <!-- 快速切换任课教师视角 / 锁定当前认证教师 -->
-      <div class="flex flex-wrap items-center gap-2">
-        <div v-if="!props.loggedInUser || props.loggedInUser.role !== 'TEACHER'" class="flex items-center gap-2">
-          <span class="text-xs text-slate-500">切换教师视角：</span>
-          <select v-model="currentTeacher" @change="onTeacherChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 shadow-subtle focus:outline-none focus:border-indigo-500 cursor-pointer">
+      <div class="flex flex-wrap items-center gap-3">
+        <div v-if="!props.loggedInUser || props.loggedInUser.role !== 'TEACHER'" class="flex items-center gap-2 bg-white/90 px-3.5 py-1.5 rounded-xl border border-slate-200/80 shadow-xs">
+          <span class="text-xs text-slate-500 font-medium">切换教师视角：</span>
+          <select v-model="currentTeacher" @change="onTeacherChange" class="bg-transparent border-0 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-0 cursor-pointer pr-4">
             <option v-for="t in teacherList" :key="t.name" :value="t.name">
               {{ t.name }} 老师 ({{ t.courseName }})
             </option>
           </select>
         </div>
-        <div v-else class="flex items-center gap-2 text-xs bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl shadow-subtle">
+        <div v-else class="flex items-center gap-2 text-xs bg-white/90 border border-slate-200/80 px-3.5 py-2 rounded-xl shadow-xs">
           <span class="text-slate-500">已认证教师身份：</span>
-          <span class="font-bold text-indigo-700 font-mono">{{ props.loggedInUser.realName }}</span>
+          <span class="font-bold text-indigo-700 font-mono tracking-tight">{{ props.loggedInUser.realName }}</span>
           <span class="text-slate-400 text-[11px]">({{ props.loggedInUser.department || '软件工程教研室' }})</span>
         </div>
 
         <!-- 针对该教师负责的多门主讲课程提供快速切换 (US: 一个老师有多门课程分布在不同时间) -->
-        <div v-if="myOfferings.length > 1" class="flex items-center gap-1.5 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl shadow-subtle text-xs">
-          <span class="text-indigo-800 font-semibold flex items-center gap-1">
+        <div v-if="myOfferings.length > 1" class="flex items-center gap-2 bg-indigo-50/80 border border-indigo-200/80 px-3.5 py-1.5 rounded-xl shadow-xs text-xs">
+          <span class="text-indigo-900 font-semibold flex items-center gap-1.5">
             <BookOpen class="w-3.5 h-3.5 text-indigo-600" /> 当前主讲课程：
           </span>
-          <select v-model="selectedOfferingId" @change="onOfferingSelectChange" class="bg-white border border-indigo-300 rounded-lg px-2.5 py-1 text-xs text-indigo-900 font-bold shadow-xs focus:outline-none focus:border-indigo-500 cursor-pointer">
+          <select v-model="selectedOfferingId" @change="onOfferingSelectChange" class="bg-white border border-indigo-200 rounded-lg px-2.5 py-1 text-xs text-indigo-950 font-bold shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 cursor-pointer">
             <option v-for="off in myOfferings" :key="off.id" :value="off.id">
               《{{ off.course?.courseName }}》- {{ off.className }}
             </option>
@@ -50,24 +54,47 @@
 
     <!-- 顶部授课人次与学期宏观数据 (US-04) -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <div class="minimal-card p-5">
-        <span class="text-xs text-slate-500 font-medium">当前主讲课程</span>
-        <div class="text-base font-bold text-slate-900 mt-1 truncate">{{ currentCourse?.courseName ? `《${currentCourse.courseName}》` : '暂无主讲课程' }}</div>
+      <div class="pro-card p-5 group hover:border-indigo-300 transition-all">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-500 font-medium">当前主讲课程</span>
+          <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <BookOpen class="w-4 h-4" />
+          </div>
+        </div>
+        <div class="text-base font-bold text-slate-900 mt-2 truncate">{{ currentCourse?.courseName ? `《${currentCourse.courseName}》` : '暂无主讲课程' }}</div>
         <span class="text-[11px] text-indigo-600 font-medium mt-1 block truncate">{{ scheduleDisplayText }}</span>
       </div>
-      <div class="minimal-card p-5">
-        <span class="text-xs text-slate-500 font-medium">本学期授课班额 (US-04)</span>
-        <div class="text-2xl font-bold text-emerald-600 font-mono mt-1">{{ currentOffering ? `${currentOffering.studentCount} 人次` : '0 人次' }}</div>
-        <span class="text-[11px] text-slate-500 mt-1 block">{{ currentOffering?.className || '暂无班级' }}</span>
+
+      <div class="pro-card p-5 group hover:border-emerald-300 transition-all">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-500 font-medium">本学期授课班额 (US-04)</span>
+          <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <Sparkles class="w-4 h-4" />
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-emerald-600 font-mono mt-2 tracking-tight">{{ currentOffering ? `${currentOffering.studentCount} 人次` : '0 人次' }}</div>
+        <span class="text-[11px] text-slate-500 mt-1 block truncate">{{ currentOffering?.className || '暂无班级' }}</span>
       </div>
-      <div class="minimal-card p-5">
-        <span class="text-xs text-slate-500 font-medium">督导听课综合得分 (US-17)</span>
-        <div class="text-2xl font-bold text-indigo-600 font-mono mt-1">{{ radarData?.evaluationCount ? radarData.overallScore + ' 分' : '暂无评价' }}</div>
-        <span class="text-[11px] text-emerald-700 font-medium mt-1 block">已公开评价 {{ radarData?.evaluationCount ?? 0 }} 次</span>
+
+      <div class="pro-card p-5 group hover:border-indigo-300 transition-all">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-500 font-medium">督导听课综合得分 (US-17)</span>
+          <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <Target class="w-4 h-4" />
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-indigo-600 font-mono mt-2 tracking-tight">{{ radarData?.evaluationCount ? radarData.overallScore + ' 分' : '暂无评价' }}</div>
+        <span class="text-[11px] text-emerald-700 font-semibold mt-1 block">已公开评价 {{ radarData?.evaluationCount ?? 0 }} 次</span>
       </div>
-      <div class="minimal-card p-5">
-        <span class="text-xs text-slate-500 font-medium">课件资源总挂载量 (US-07)</span>
-        <div class="text-2xl font-bold text-amber-600 font-mono mt-1">{{ myResources.length }} 份</div>
+
+      <div class="pro-card p-5 group hover:border-amber-300 transition-all">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-500 font-medium">课件资源总挂载量 (US-07)</span>
+          <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+            <Folder class="w-4 h-4" />
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-amber-600 font-mono mt-2 tracking-tight">{{ myResources.length }} 份</div>
         <span class="text-[11px] text-slate-500 mt-1 block">含 PPTX/PDF 多版本</span>
       </div>
     </div>
@@ -77,105 +104,143 @@
       <!-- 左栏：教学资源多版本上传与大纲在线编辑 (占 7 列) -->
       <div class="lg:col-span-7 space-y-6">
         <!-- 课件教案上传管理 (US-07 / US-08 / US-11) -->
-        <div class="minimal-card p-5">
-          <div class="flex items-center justify-between mb-4">
+        <div class="pro-card p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100">
             <div>
-              <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-                <Folder class="w-4 h-4 text-indigo-600" /> 教学资源按章挂载与版本演进 (US-07)
+              <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                  <Folder class="w-4 h-4" />
+                </div>
+                教学资源按章挂载与版本演进 (US-07)
               </h2>
-              <p class="text-xs text-slate-500 mt-0.5">单文件上限 100MB，支持 PDF/PPT/Word 批量按章挂载与只读水印</p>
+              <p class="text-xs text-slate-500 mt-1">单文件上限 100MB，支持 PDF/PPT/Word 批量按章挂载与只读水印</p>
             </div>
-            <button @click="showUploadModal = true" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1 cursor-pointer">
+            <button @click="showUploadModal = true" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-xl text-xs font-semibold shadow-xs hover:shadow-subtle transition flex items-center gap-1.5 cursor-pointer">
               <Plus class="w-3.5 h-3.5" /> 上传新课件/教案
             </button>
           </div>
 
           <!-- 环节标签过滤 (US-08) -->
-          <div class="flex items-center gap-2 mb-3">
+          <div class="flex items-center gap-2 mb-4">
             <span class="text-xs text-slate-500 font-medium">环节标签过滤：</span>
-            <button
-              v-for="tag in ['全部', '理论', '实验', '研讨']"
-              :key="tag"
-              @click="selectedTag = tag === '全部' ? '' : tag; loadMyResources()"
-              :class="['px-2.5 py-1 rounded-lg text-xs font-medium transition cursor-pointer', (selectedTag === tag || (!selectedTag && tag === '全部')) ? 'bg-indigo-600 text-white shadow-subtle' : 'bg-slate-100 text-slate-600 hover:bg-slate-200']"
-            >
-              {{ tag }}
-            </button>
+            <div class="flex flex-wrap gap-1.5">
+              <button
+                v-for="tag in ['全部', '理论', '实验', '讨论', '研讨', '未标注']"
+                :key="tag"
+                @click="selectedTag = tag === '全部' ? '' : tag; loadMyResources()"
+                :class="['px-3 py-1 rounded-lg text-xs font-medium transition cursor-pointer', (selectedTag === tag || (!selectedTag && tag === '全部')) ? 'bg-indigo-600 text-white shadow-xs font-semibold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80']"
+              >
+                {{ tag }}
+              </button>
+            </div>
           </div>
 
           <!-- 资源列表 -->
-          <div class="space-y-2">
-            <div v-if="myResources.length === 0" class="py-8 text-center text-slate-400 text-xs bg-slate-50 border border-dashed border-slate-200 rounded-xl">
+          <div class="space-y-2.5" data-testid="my-resource-list">
+            <div v-if="myResources.length === 0" class="py-10 text-center text-slate-400 text-xs bg-slate-50/60 border border-dashed border-slate-200 rounded-2xl">
               该环节暂无课件教案资源，请点击右上角上传挂载
             </div>
-            <div v-for="res in myResources" :key="res.id" class="p-3 bg-white border border-slate-200 rounded-xl flex items-center justify-between hover:border-indigo-300 hover:shadow-subtle transition shadow-subtle">
-              <div class="flex items-center gap-3">
+            <div v-for="res in myResources" :key="res.id" class="p-3.5 bg-white border border-slate-200/80 rounded-xl flex items-center justify-between hover:border-indigo-300 hover:shadow-sm transition-all">
+              <div class="flex items-center gap-3.5 min-w-0">
                 <div
-                  class="w-9 h-9 rounded-lg border flex items-center justify-center flex-shrink-0"
+                  class="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 shadow-xs"
                   :class="res.fileType === 'PPTX' ? 'bg-amber-50 border-amber-200 text-amber-600' : (res.fileType === 'DOCX' ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-indigo-50 border-indigo-200 text-indigo-600')"
                 >
-                  <FileText class="w-4 h-4" />
+                  <FileText class="w-5 h-5" />
                 </div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs font-bold text-slate-900">{{ res.resourceName }}</span>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-bold text-slate-900 truncate max-w-[220px]">{{ res.resourceName }}</span>
                     <span
-                      class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold"
+                      class="text-[10px] px-2 py-0.5 rounded font-mono font-bold"
                       :class="res.fileType === 'PPTX' ? 'bg-amber-50 text-amber-700 border border-amber-200' : (res.fileType === 'DOCX' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-indigo-50 text-indigo-700 border border-indigo-200')"
                     >
                       {{ res.fileType || 'PPTX' }}
                     </span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 font-mono">{{ res.version }}</span>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">{{ res.tag }}环节</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">{{ res.tags?.join('、') || '未标注' }}</span>
                   </div>
-                  <div class="text-[11px] text-slate-500 mt-1 flex items-center gap-3">
+                  <div class="text-[11px] text-slate-500 mt-1.5 flex items-center gap-3 flex-wrap">
                     <span>章节：{{ res.chapter }}</span>
                     <span>大小：{{ res.fileSize }}</span>
-                    <span class="text-emerald-600 flex items-center gap-1 font-medium">
-                      <ShieldCheck class="w-3 h-3" /> 动态水印防护已就绪
+                    <span class="text-emerald-600 flex items-center gap-1 font-semibold">
+                      <ShieldCheck class="w-3.5 h-3.5" /> 动态水印防护已就绪
                     </span>
                   </div>
                 </div>
               </div>
-              <div class="flex items-center gap-2">
-                <button @click="previewResource(res)" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-indigo-700 border border-slate-200 rounded-lg text-xs font-medium transition flex items-center gap-1 cursor-pointer">
-                  <Eye class="w-3 h-3" /> 免密预览
+              <div class="flex items-center gap-2 flex-shrink-0 ml-3">
+                <button @click="openResourceEdit(res)" class="px-2.5 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg text-xs font-medium transition cursor-pointer shadow-2xs">编辑标签与共享</button>
+                <button @click="previewResource(res)" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200/80 rounded-lg text-xs font-semibold transition flex items-center gap-1 cursor-pointer">
+                  <Eye class="w-3.5 h-3.5" /> 授权预览
                 </button>
-                <button @click="confirmDeleteResource(res)" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 rounded-lg text-xs font-medium transition flex items-center gap-1 cursor-pointer" title="删除该课件挂载与文件">
-                  <Trash2 class="w-3 h-3" /> 删除
+                <button @click="confirmDeleteResource(res)" class="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 rounded-lg text-xs font-medium transition flex items-center gap-1 cursor-pointer" title="删除该课件挂载与文件">
+                  <Trash2 class="w-3.5 h-3.5" /> 删除
                 </button>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- US-10：跨课程、跨教师的教研室共享备课库 -->
+        <div class="pro-card p-6" data-testid="shared-resource-library">
+          <div class="flex flex-wrap items-end justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
+            <div>
+              <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                  <BookOpen class="w-4 h-4" />
+                </div>
+                教研室共享备课库
+              </h2>
+              <p class="text-xs text-slate-500 mt-1">检索本教研室教师允许共享的资源；预览仍需服务端授权。</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <input v-model="sharedKeyword" @keyup.enter="loadSharedResources" aria-label="共享资源关键词" placeholder="搜索课程、章节或资源名" class="w-52 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs" />
+              <button @click="loadSharedResources" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer">检索共享资源</button>
+            </div>
+          </div>
+          <p v-if="sharedError" role="alert" class="text-xs text-rose-600 mb-3 bg-rose-50 p-2.5 rounded-lg border border-rose-200">{{ sharedError }}</p>
+          <p v-if="sharedLoading" class="text-xs text-slate-500 py-4 text-center">正在加载共享资源...</p>
+          <p v-else-if="sharedResources.length === 0" class="text-xs text-slate-500 py-6 text-center bg-slate-50/60 rounded-xl border border-slate-100">暂无符合条件的共享资源</p>
+          <div v-else class="space-y-2.5">
+            <div v-for="res in sharedResources" :key="res.id" class="flex items-center justify-between gap-3 p-3.5 bg-white border border-slate-200/80 rounded-xl hover:border-slate-300 transition" :data-testid="`shared-resource-${res.id}`">
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-900 truncate">{{ res.resourceName }}</p>
+                <p class="text-[11px] text-slate-500 mt-1">{{ res.course?.courseName }} · {{ res.chapter }} · 上传者：{{ res.uploaderTeacher || '未记录' }}</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">环节：{{ res.tags?.join('、') || '未标注' }}</p>
+              </div>
+              <button @click="previewResource(res)" class="shrink-0 px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200/80 rounded-xl text-xs font-semibold transition cursor-pointer">授权预览</button>
+            </div>
+          </div>
+        </div>
+
         <!-- 在线课程简介、考核方式与教学目标发布 (US-02) -->
-        <div class="minimal-card p-5 space-y-4 border-l-4 border-indigo-500">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="space-y-1">
-              <div class="flex items-center gap-2">
+        <div class="pro-card p-6 space-y-4 border-l-4 border-l-indigo-600">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 flex-wrap">
                 <h2 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
                   <BookOpen class="w-4 h-4 text-indigo-600" /> 课程简介、考核方式与教学目标 (US-02)
                 </h2>
                 <!-- 已发布状态徽章 -->
                 <span
                   v-if="publishedRevision?.publishVersion"
-                  class="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1"
+                  class="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1 shadow-2xs"
                 >
-                  <ShieldCheck class="w-3 h-3 text-emerald-600" /> 已发布 v{{ publishedRevision.publishVersion }}
+                  <ShieldCheck class="w-3.5 h-3.5 text-emerald-600" /> 已发布 v{{ publishedRevision.publishVersion }}
                 </span>
                 <span
                   v-else
-                  class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-slate-100 text-slate-600 border border-slate-200"
+                  class="text-[11px] px-2.5 py-0.5 rounded-full font-medium bg-slate-100 text-slate-600 border border-slate-200"
                 >
                   未发布正式版本
                 </span>
                 <!-- 草稿并发锁版本徽章 -->
-                <span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                <span class="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
                   并发锁 lock-v{{ contentForm.lockVersion }}
                 </span>
               </div>
-              <div class="text-[11px] text-slate-500 flex items-center gap-3">
+              <div class="text-[11px] text-slate-500 flex items-center gap-3 flex-wrap">
                 <span v-if="publishedRevision?.publisherName">发布人：{{ publishedRevision.publisherName }}</span>
                 <span v-if="publishedRevision?.publishedAt">发布时间：{{ formatDateTime(publishedRevision.publishedAt) }}</span>
                 <span v-if="draftRevision?.editorName">草稿最后保存人：{{ draftRevision.editorName }}</span>
@@ -184,18 +249,18 @@
             </div>
 
             <!-- 操作按钮组 -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2.5">
               <button
                 @click="handleSaveDraft"
                 :disabled="isSavingDraft || isPublishingContent || !draftRevision || !!contentConflictMsg"
-                class="px-3 py-1.5 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50"
+                class="px-3.5 py-1.5 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold shadow-2xs transition cursor-pointer disabled:opacity-50"
               >
                 {{ isSavingDraft ? '正在暂存...' : '暂存草稿' }}
               </button>
               <button
                 @click="handlePublishContent"
                 :disabled="isSavingDraft || isPublishingContent || !draftRevision || !!contentConflictMsg"
-                class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-subtle transition cursor-pointer disabled:opacity-50 flex items-center gap-1"
+                class="px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
               >
                 <Sparkles class="w-3.5 h-3.5" /> {{ isPublishingContent ? '正在发布...' : '正式发布' }}
               </button>
@@ -203,14 +268,14 @@
           </div>
 
           <!-- 409 并发冲突告警条 -->
-          <div v-if="contentConflictMsg" class="p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-center justify-between gap-3 text-xs text-rose-700">
+          <div v-if="contentConflictMsg" class="p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-center justify-between gap-3 text-xs text-rose-700">
             <div class="flex items-center gap-2">
               <AlertCircle class="w-4 h-4 text-rose-600 flex-shrink-0" />
-              <span>{{ contentConflictMsg }}</span>
+              <span class="font-medium">{{ contentConflictMsg }}</span>
             </div>
             <button
               @click="loadCourseContent"
-              class="px-2.5 py-1 bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0"
+              class="px-3 py-1 bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0"
             >
               拉取最新草稿
             </button>
@@ -218,116 +283,126 @@
 
           <!-- 1. 课程简介 -->
           <div>
-            <label class="text-xs text-slate-700 font-semibold block mb-1">
+            <label class="text-xs text-slate-700 font-bold block mb-1.5">
               课程简介 <span class="text-rose-500 font-normal">*正式发布必填</span>
             </label>
             <textarea
               v-model="contentForm.description"
               :disabled="!draftRevision || isSavingDraft || isPublishingContent"
               rows="3"
-              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs transition"
               placeholder="请输入课程背景、学科定位、主要授课内容概括..."
             ></textarea>
           </div>
 
           <!-- 2. 考核与成绩评定方式 -->
           <div>
-            <label class="text-xs text-slate-700 font-semibold block mb-1">
+            <label class="text-xs text-slate-700 font-bold block mb-1.5">
               考核与成绩评定方式 <span class="text-rose-500 font-normal">*正式发布必填</span>
             </label>
             <input
               v-model="contentForm.assessmentMethod"
               :disabled="!draftRevision || isSavingDraft || isPublishingContent"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs transition"
               placeholder="例如：平时作业与实验 30% + 课程答辩与大作业 30% + 期末闭卷考试 40%"
             />
           </div>
 
           <!-- 3. 教学目标说明 -->
           <div>
-            <label class="text-xs text-slate-700 font-semibold block mb-1">
+            <label class="text-xs text-slate-700 font-bold block mb-1.5">
               教学目标说明 <span class="text-rose-500 font-normal">*正式发布必填 (支撑毕业要求指标点)</span>
             </label>
             <textarea
               v-model="contentForm.objectives"
               :disabled="!draftRevision || isSavingDraft || isPublishingContent"
               rows="3"
-              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs transition"
               placeholder="明确说明本门课程培养的知识目标、工程能力目标以及价值素质目标..."
             ></textarea>
           </div>
 
-          <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1 border-t border-slate-100">
+          <div class="text-[11px] text-slate-400 flex items-center justify-between pt-2 border-t border-slate-100">
             <span>规则：草稿可不完整；正式发布三项必填且仅限关联任课教师操作；旧窗口提交冲突时请拉取最新草稿。</span>
-            <span class="font-mono text-indigo-500">草稿仅任课教师可见</span>
+            <span class="font-mono text-indigo-600 font-medium">草稿仅任课教师可见</span>
           </div>
         </div>
       </div>
 
       <!-- 右栏：教学质量自我复盘 4 维雷达图与评语词云 (占 5 列) (US-17 / US-21) -->
       <div class="lg:col-span-5 space-y-6">
-        <div class="minimal-card p-5">
+        <div class="pro-card p-6">
           <div class="flex items-center justify-between mb-4">
-            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <Target class="w-4 h-4 text-indigo-600" /> 督导随堂评价 4 维雷达图 (US-17)
+            <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <Target class="w-4 h-4" />
+              </div>
+              督导随堂评价 4 维雷达图 (US-17)
             </h2>
-            <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">BOPPPS 教学模型</span>
+            <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-semibold shadow-2xs">BOPPPS 教学模型</span>
           </div>
 
           <!-- 雷达图容器 -->
           <div ref="radarChartRef" class="w-full h-64"></div>
 
           <!-- 4 维均分指标条 -->
-          <div class="grid grid-cols-2 gap-2 text-xs mt-3 pt-3 border-t border-slate-100">
-            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <div class="grid grid-cols-2 gap-2.5 text-xs mt-3 pt-3 border-t border-slate-100">
+            <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
               <span class="text-slate-500 block text-[10px]">教学态度 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono">{{ radarData?.attitudeScore ?? 0 }} 分</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.attitudeScore ?? 0 }} 分</span>
             </div>
-            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+            <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
               <span class="text-slate-500 block text-[10px]">教学内容 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono">{{ radarData?.contentScore ?? 0 }} 分</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.contentScore ?? 0 }} 分</span>
             </div>
-            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+            <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
               <span class="text-slate-500 block text-[10px]">教学方法 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono">{{ radarData?.methodScore ?? 0 }} 分</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.methodScore ?? 0 }} 分</span>
             </div>
-            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+            <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
               <span class="text-slate-500 block text-[10px]">教学效果 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono">{{ radarData?.effectScore ?? 0 }} 分</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.effectScore ?? 0 }} 分</span>
             </div>
           </div>
         </div>
 
         <!-- 督导脱敏评价与 BOPPPS 改进建议推送 (US-14 / US-21) -->
-        <div class="minimal-card p-5 space-y-4">
+        <div class="pro-card p-6 space-y-4">
           <div>
-            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <Award class="w-4 h-4 text-indigo-600" /> 督导质性反馈与持续改进建议 (US-21)
+            <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <Award class="w-4 h-4" />
+              </div>
+              督导质性反馈与持续改进建议 (US-21)
             </h2>
-            <p class="text-[11px] text-slate-500 mt-0.5">已执行 24 小时脱敏归档，保障客观公正交流</p>
+            <p class="text-[11px] text-slate-500 mt-1">已执行 24 小时脱敏归档，保障客观公正交流</p>
           </div>
 
           <!-- 教学亮点 -->
-          <div class="p-3.5 bg-emerald-50/70 border border-emerald-200 rounded-xl">
-            <span class="text-xs font-bold text-emerald-800 block mb-1">课堂教学亮点</span>
-            <ul class="text-xs text-slate-700 space-y-1 list-disc list-inside">
+          <div class="p-4 bg-emerald-50/70 border border-emerald-200/80 rounded-xl">
+            <span class="text-xs font-bold text-emerald-900 block mb-1.5 flex items-center gap-1.5">
+              <Sparkles class="w-3.5 h-3.5 text-emerald-600" /> 课堂教学亮点
+            </span>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
               <li v-for="(hl, i) in (radarData?.highlightList || [])" :key="i">{{ hl }}</li>
             </ul>
           </div>
 
           <!-- 改进建议 -->
-          <div class="p-3.5 bg-indigo-50/70 border border-indigo-200 rounded-xl">
-            <span class="text-xs font-bold text-indigo-800 block mb-1">BOPPPS 进阶教改建议</span>
-            <ul class="text-xs text-slate-700 space-y-1 list-disc list-inside">
+          <div class="p-4 bg-indigo-50/70 border border-indigo-200/80 rounded-xl">
+            <span class="text-xs font-bold text-indigo-900 block mb-1.5 flex items-center gap-1.5">
+              <Target class="w-3.5 h-3.5 text-indigo-600" /> BOPPPS 进阶教改建议
+            </span>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
               <li v-for="(sg, i) in (radarData?.suggestionList || [])" :key="i">{{ sg }}</li>
             </ul>
           </div>
 
           <!-- 评语词云标签 -->
           <div>
-            <span class="text-xs text-slate-600 font-medium block mb-2">督导高频评价热词 (词云统计)</span>
+            <span class="text-xs text-slate-600 font-semibold block mb-2">督导高频评价热词 (词云统计)</span>
             <div class="flex flex-wrap gap-1.5">
-              <span v-for="w in (radarData?.wordCloud || [])" :key="w.name" class="px-2.5 py-1 bg-slate-100 text-indigo-700 rounded-lg text-xs font-medium border border-slate-200">
+              <span v-for="w in (radarData?.wordCloud || [])" :key="w.name" class="px-2.5 py-1 bg-slate-100/90 text-indigo-700 rounded-lg text-xs font-semibold border border-slate-200/80 shadow-2xs">
                 # {{ w.name }} ({{ w.value }})
               </span>
             </div>
@@ -336,41 +411,43 @@
       </div>
     </div>
 
-    <!-- 底部整宽卡片：工程教育认证 12 项毕业要求指标点矩阵 (由任课教师在教师工作台负责填报与维护) (US-05) -->
-    <div class="minimal-card p-6 space-y-4">
+    <!-- 底部整宽卡片：培养方案毕业要求指标点映射 (US-05) -->
+    <div class="pro-card p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
         <div>
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shadow-xs">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shadow-xs">
               <Target class="w-4 h-4" />
             </div>
             <h2 class="text-base font-bold text-slate-900">
-              工程教育专业认证 · 12项毕业要求指标点矩阵维护
+              工程教育专业认证 · 毕业要求指标点矩阵维护
             </h2>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-medium">
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold shadow-2xs">
               任课教师专责维护 · MySQL 实时持久化
             </span>
           </div>
-          <p class="text-xs text-slate-500 mt-1">
+          <p class="text-xs text-slate-500 mt-1.5">
             任课教师对主讲课程《{{ currentCourse?.courseName || '当前课程' }}》负责填报指标点分解、支撑权重 (H强/M中/L弱) 与课程目标对应关系，支持随时新增、编辑与删除
           </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5">
-          <!-- 快捷套用12项国标推荐模板 -->
+          <input v-model="planVersion" aria-label="培养方案版本" placeholder="培养方案版本" class="border border-slate-200 rounded-xl px-3 py-1.5 text-xs w-28 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs" />
+          <input v-model="syllabusVersion" aria-label="新大纲版本" placeholder="新大纲版本" class="border border-slate-200 rounded-xl px-3 py-1.5 text-xs w-28 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs" />
+          <!-- 只使用教研室已导入的培养方案目录 -->
           <button
             @click="applyDefaultIndicators"
             :disabled="loadingIndicators"
-            class="px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
-            title="快速为该课程导入工程教育专业认证 12 项标准指标点基线，导入后可随时修改"
+            class="px-3.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold shadow-2xs transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            title="按所选培养方案版本创建课程大纲"
           >
-            <Sparkles class="w-3.5 h-3.5 text-indigo-600" /> 一键套用 12 项国标推荐模板
+            <Sparkles class="w-3.5 h-3.5 text-indigo-600" /> 从培养方案创建大纲
           </button>
 
           <!-- 新增指标点按钮 -->
           <button
             @click="openAddIndicatorModal"
-            class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer"
+            class="px-4 py-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-xl text-xs font-semibold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
           >
             <Plus class="w-3.5 h-3.5" /> 新增认证指标点
           </button>
@@ -378,44 +455,44 @@
       </div>
 
       <!-- 指标点矩阵表格 -->
-      <div class="overflow-x-auto">
+      <div class="overflow-x-auto border border-slate-200/80 rounded-xl">
         <table class="w-full text-left text-xs text-slate-700">
           <thead class="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
             <tr>
-              <th class="py-3 px-4">指标点编号</th>
-              <th class="py-3 px-4">毕业要求大项 (12项认证标准)</th>
-              <th class="py-3 px-4">指标点分解表述</th>
-              <th class="py-3 px-4">支撑权重</th>
-              <th class="py-3 px-4">对应课程目标</th>
-              <th class="py-3 px-4 text-right">任课教师操作</th>
+              <th class="py-3.5 px-4 font-semibold">指标点编号</th>
+              <th class="py-3.5 px-4 font-semibold">毕业要求大项</th>
+              <th class="py-3.5 px-4 font-semibold">指标点分解表述</th>
+              <th class="py-3.5 px-4 font-semibold">支撑权重</th>
+              <th class="py-3.5 px-4 font-semibold">对应课程目标</th>
+              <th class="py-3.5 px-4 text-right font-semibold">任课教师操作</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100">
             <tr v-if="indicators.length === 0">
-              <td colspan="6" class="py-12 text-center text-slate-400">
+              <td colspan="6" class="py-12 text-center text-slate-400 bg-white">
                 <div class="flex flex-col items-center justify-center gap-2">
                   <FileText class="w-6 h-6 text-slate-300" />
-                  <span>该课程暂未录入毕业要求指标点，请点击右上角【一键套用 12 项国标推荐模板】或【新增认证指标点】录入</span>
+                  <span>该课程暂未录入毕业要求指标点，请点击右上角【从培养方案创建大纲】或【新增认证指标点】录入</span>
                 </div>
               </td>
             </tr>
-            <tr v-for="ind in indicators" :key="ind.id" class="hover:bg-slate-50/80 transition-colors">
-              <td class="py-3 px-4 font-mono font-semibold text-indigo-600">{{ ind.indicatorCode }}</td>
-              <td class="py-3 px-4 text-slate-900 font-medium">{{ ind.requirementCategory }}</td>
-              <td class="py-3 px-4 text-slate-600 leading-relaxed max-w-md">{{ ind.indicatorDescription }}</td>
-              <td class="py-3 px-4">
+            <tr v-for="ind in indicators" :key="ind.id" class="hover:bg-slate-50/80 bg-white transition-colors">
+              <td class="py-3.5 px-4 font-mono font-bold text-indigo-600">{{ ind.indicatorCode }}</td>
+              <td class="py-3.5 px-4 text-slate-900 font-semibold">{{ ind.requirementCategory }}</td>
+              <td class="py-3.5 px-4 text-slate-600 leading-relaxed max-w-md">{{ ind.indicatorDescription }}</td>
+              <td class="py-3.5 px-4">
                 <span :class="[
-                  'px-2.5 py-1 rounded-md text-[10px] font-bold font-mono',
+                  'px-2.5 py-1 rounded-md text-[10px] font-bold font-mono inline-block shadow-2xs',
                   ind.supportWeight === 'H' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
                   (ind.supportWeight === 'M' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-slate-100 text-slate-600 border border-slate-200')
                 ]">
                   {{ ind.supportWeight }} ({{ ind.supportWeight === 'H' ? '强支撑' : (ind.supportWeight === 'M' ? '中等' : '弱支撑') }})
                 </span>
               </td>
-              <td class="py-3 px-4 text-slate-500 font-mono">{{ ind.targetGoal || '目标1' }}</td>
-              <td class="py-3 px-4 text-right space-x-2">
-                <button @click="openEditIndicatorModal(ind)" class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer">修改</button>
-                <button @click="confirmDeleteIndicator(ind)" class="text-rose-600 hover:text-rose-800 font-semibold cursor-pointer">删除</button>
+              <td class="py-3.5 px-4 text-slate-600 font-mono">{{ ind.targetGoal || '目标1' }}</td>
+              <td class="py-3.5 px-4 text-right space-x-3">
+                <button @click="openEditIndicatorModal(ind)" class="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer">修改</button>
+                <button @click="confirmDeleteIndicator(ind)" class="text-rose-600 hover:text-rose-800 font-bold cursor-pointer">删除</button>
               </td>
             </tr>
           </tbody>
@@ -430,26 +507,25 @@
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <Target class="w-4 h-4 text-indigo-600" /> {{ indicatorForm.id ? '修改毕业要求指标点 (任课教师)' : '新增毕业要求指标点 (任课教师)' }}
           </h3>
-          <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-semibold">
             直接持久化至 MySQL
           </span>
         </div>
 
-        <div class="space-y-3 text-xs">
+        <div class="space-y-3.5 text-xs">
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-slate-600 block mb-1">指标点编号 (如 1-1, 11-1, 12-1)</label>
-              <input
-                v-model="indicatorForm.indicatorCode"
-                placeholder="如 12-1"
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle font-mono"
-              />
+              <label class="text-slate-700 font-semibold block mb-1">指标点编号 (如 1-1, 11-1, 12-1)</label>
+              <select v-model="indicatorForm.indicatorCode" @change="selectPlanIndicator" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs">
+                <option value="">请选择</option>
+                <option v-for="item in planIndicators" :key="item.indicatorCode" :value="item.indicatorCode">{{ item.indicatorCode }}</option>
+              </select>
             </div>
             <div>
-              <label class="text-slate-600 block mb-1">支撑权重 (H强/M中/L弱)</label>
+              <label class="text-slate-700 font-semibold block mb-1">支撑权重 (H强/M中/L弱)</label>
               <select
                 v-model="indicatorForm.supportWeight"
-                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle font-semibold cursor-pointer"
+                class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs font-semibold cursor-pointer"
               >
                 <option value="H">H (强支撑)</option>
                 <option value="M">M (中等支撑)</option>
@@ -459,10 +535,10 @@
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">毕业要求大项 (通用认证12项)</label>
+            <label class="text-slate-700 font-semibold block mb-1">毕业要求大项（培养方案目录）</label>
             <select
               v-model="indicatorForm.requirementCategory"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle cursor-pointer"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs cursor-pointer"
             >
               <option v-for="cat in standardIndicatorCategories" :key="cat" :value="cat">
                 {{ cat }}
@@ -471,28 +547,48 @@
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">对应课程目标 (如 目标1, 目标2, 目标3)</label>
+            <label class="text-slate-700 font-semibold block mb-1">对应课程目标 (如 目标1, 目标2, 目标3)</label>
             <input
               v-model="indicatorForm.targetGoal"
               placeholder="如 目标1"
-              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-2xs"
             />
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">指标点分解内容表述</label>
+            <label class="text-slate-700 font-semibold block mb-1">指标点分解内容表述</label>
             <textarea
               v-model="indicatorForm.indicatorDescription"
               rows="3"
               placeholder="请输入该指标点在课程中的分解细化要求与能力观测点..."
-              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-subtle"
+              class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-2xs"
             ></textarea>
           </div>
         </div>
 
-        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
-          <button @click="showIndicatorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer">保存并更新 MySQL</button>
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button @click="showIndicatorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
+          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer">保存并更新 MySQL</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 编辑资源标签与共享范围弹窗 -->
+    <div v-if="editingResource" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-modal">
+        <h3 class="font-bold text-slate-900 text-sm">编辑资源标签与共享范围</h3>
+        <p class="text-xs text-slate-600 font-mono bg-slate-50 p-2 rounded-lg border border-slate-100">{{ editingResource.resourceName }}</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <label v-for="tag in ['理论', '实验', '讨论', '研讨']" :key="tag" class="flex items-center gap-1.5 cursor-pointer font-medium text-slate-700">
+            <input v-model="editResourceTags" type="checkbox" :value="tag" class="rounded text-indigo-600" />{{ tag }}
+          </label>
+        </div>
+        <label class="flex items-center gap-2 text-xs font-medium text-slate-800 cursor-pointer">
+          <input v-model="editResourcePublic" type="checkbox" class="rounded text-indigo-600" />教研室共享
+        </label>
+        <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <button @click="editingResource = null" class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-medium text-slate-700 cursor-pointer">取消</button>
+          <button @click="saveResourceMetadata" :disabled="savingResourceMetadata" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-xs cursor-pointer">保存修改</button>
         </div>
       </div>
     </div>
@@ -503,10 +599,10 @@
         <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
           <Upload class="w-4 h-4 text-indigo-600" /> 上传教学课件/教案 (US-07)
         </h3>
-        <div class="space-y-3 text-xs">
+        <div class="space-y-3.5 text-xs">
           <!-- 真实课件文件选择与拖拽区 -->
           <div>
-            <label class="text-slate-700 font-semibold block mb-1">选择真实课件文件 (.pptx / .docx / .pdf)</label>
+            <label class="text-slate-700 font-bold block mb-1">选择真实课件文件 (.pptx / .docx / .pdf)</label>
             <input
               type="file"
               ref="resourceFileInputRef"
@@ -523,7 +619,7 @@
             >
               <div v-if="!selectedResourceFile" class="flex flex-col items-center justify-center gap-1.5 text-slate-500">
                 <Upload class="w-6 h-6 text-indigo-600" />
-                <span class="font-medium text-slate-700 text-xs">点击选择本地真实 PPTX / DOCX / PDF 文件</span>
+                <span class="font-semibold text-slate-700 text-xs">点击选择本地真实 PPTX / DOCX / PDF 文件</span>
                 <span class="text-[10px] text-slate-400">支持拖拽文件至此处，单文件上限 100MB</span>
               </div>
               <div v-else class="flex items-center justify-between">
@@ -542,7 +638,7 @@
                 <button
                   type="button"
                   @click.stop="clearSelectedResourceFile"
-                  class="text-rose-500 hover:text-rose-700 text-xs px-2 py-1 rounded hover:bg-rose-50 cursor-pointer"
+                  class="text-rose-500 hover:text-rose-700 text-xs px-2 py-1 rounded hover:bg-rose-50 cursor-pointer font-medium"
                 >
                   更换文件
                 </button>
@@ -551,45 +647,45 @@
           </div>
 
           <div>
-            <label class="text-slate-600 block mb-1">所属章节 (按章挂载)</label>
-            <input v-model="uploadForm.chapter" placeholder="如 第一章 软件项目管理概论" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-700 font-semibold block mb-1">所属章节 (按章挂载)</label>
+            <input v-model="uploadForm.chapter" placeholder="如 第一章 软件项目管理概论" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs" />
           </div>
           <div>
-            <label class="text-slate-600 block mb-1">资源文件名称</label>
-            <input v-model="uploadForm.resourceName" placeholder="如 第1讲-需求估算与甘特图.pptx" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle" />
+            <label class="text-slate-700 font-semibold block mb-1">资源文件名称</label>
+            <input v-model="uploadForm.resourceName" placeholder="如 第1讲-需求估算与甘特图.pptx" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs" />
           </div>
-          <div class="grid grid-cols-2 gap-2">
+          <div class="grid grid-cols-2 gap-2.5">
             <div>
-              <label class="text-slate-600 block mb-1">文件格式</label>
-              <select v-model="uploadForm.fileType" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
+              <label class="text-slate-700 font-semibold block mb-1">文件格式</label>
+              <select v-model="uploadForm.fileType" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs">
                 <option value="PPTX">PPTX 演示文稿</option>
                 <option value="DOCX">DOCX 教案大纲</option>
                 <option value="PDF">PDF 电子文档</option>
               </select>
             </div>
             <div>
-              <label class="text-slate-600 block mb-1">环节标签 (US-08)</label>
-              <select v-model="uploadForm.tag" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-subtle">
-                <option value="理论">理论授课</option>
-                <option value="实验">实验实训</option>
-                <option value="研讨">研讨互动</option>
-                <option value="教案大纲">教案大纲</option>
-                <option value="讲义课件">讲义课件</option>
-              </select>
+              <label class="text-slate-700 font-semibold block mb-1">环节标签 (US-08)</label>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <label v-for="tag in ['理论', '实验', '讨论', '研讨']" :key="tag" class="inline-flex gap-1 items-center font-medium text-slate-700 cursor-pointer">
+                  <input v-model="uploadForm.tags" type="checkbox" :value="tag" class="rounded text-indigo-600" />{{ tag }}
+                </label>
+                <span class="text-slate-400 text-[10px] self-center">不选即未标注</span>
+              </div>
             </div>
           </div>
-          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] flex items-center gap-1.5">
+          <label class="flex items-center gap-2 text-xs font-semibold text-slate-800 cursor-pointer"><input v-model="uploadForm.isPublic" type="checkbox" class="rounded text-indigo-600" />教研室共享</label>
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] flex items-center gap-2">
             <AlertCircle class="w-4 h-4 text-amber-600 flex-shrink-0" />
             <span>单文件上限 100MB · 挂载后自动注入东北大学动态只读防盗水印</span>
           </div>
         </div>
 
-        <div class="flex items-center justify-end gap-2.5 pt-2">
-          <button @click="showUploadModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+        <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button @click="showUploadModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
           <button
             @click="handleSaveResource"
             :disabled="isUploadingResource"
-            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-subtle transition cursor-pointer flex items-center gap-1.5"
+            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer flex items-center gap-1.5"
           >
             <span v-if="isUploadingResource" class="inline-block w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
             {{ isUploadingResource ? '正在上传真实课件...' : '立即挂载' }}
@@ -598,119 +694,22 @@
       </div>
     </div>
 
-    <!-- 弹窗：免密在线预览与动态水印 (US-09 / US-11) -->
+    <!-- 授权后展示后端转换、加水印的真实 PDF -->
     <div v-if="previewModalVisible" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-3xl p-6 shadow-modal space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-          <div class="flex items-center gap-2.5">
-            <div
-              class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs"
-              :class="currentPreviewRes?.fileType === 'PPTX' ? 'bg-amber-100 text-amber-700' : (currentPreviewRes?.fileType === 'DOCX' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700')"
-            >
-              {{ currentPreviewRes?.fileType || 'PPTX' }}
-            </div>
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">{{ currentPreviewRes?.resourceName }}</h3>
-              <p class="text-[11px] text-slate-500">{{ currentPreviewRes?.chapter }} · {{ currentPreviewRes?.tag }}环节 · {{ currentPreviewRes?.fileSize }}</p>
-            </div>
-          </div>
-          <button @click="previewModalVisible = false" class="text-slate-400 hover:text-slate-600 text-lg cursor-pointer">✕</button>
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-5xl p-6 space-y-4 shadow-modal">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+          <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <Eye class="w-4 h-4 text-indigo-600" />
+            {{ currentPreviewRes?.resourceName }} · 限时水印预览
+          </h3>
+          <button @click="closePreview" class="text-slate-500 hover:text-slate-700 px-3 py-1 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold transition cursor-pointer">关闭</button>
         </div>
-
-        <!-- 只读预览窗口与动态水印 -->
-        <div class="relative w-full min-h-80 bg-slate-50 border border-slate-200 rounded-xl p-6 flex flex-col justify-between overflow-hidden">
-          <!-- 动态防扩散水印层 (US-11) -->
-          <div class="absolute inset-0 flex flex-wrap items-center justify-center gap-14 opacity-20 pointer-events-none select-none text-xs text-indigo-500 font-mono rotate-[-22deg] z-10">
-            <span v-for="n in 12" :key="n">{{ currentPreviewRes?.dynamicWatermark || '东北大学软件学院 · 爱教学只读凭证 · 郭军' }}</span>
-          </div>
-
-          <!-- 内容预览区 -->
-          <div class="relative z-0 space-y-4">
-            <!-- 头部文件信息卡 -->
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
-              <div class="space-y-1">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-slate-800">真实文件格式：</span>
-                  <span
-                    class="text-xs px-2 py-0.5 rounded font-mono font-semibold"
-                    :class="currentPreviewRes?.fileType === 'PPTX' ? 'bg-amber-50 text-amber-700 border border-amber-200' : (currentPreviewRes?.fileType === 'DOCX' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-indigo-50 text-indigo-700 border border-indigo-200')"
-                  >
-                    {{ currentPreviewRes?.fileType === 'PPTX' ? 'Microsoft PowerPoint 演示文稿 (.pptx)' : (currentPreviewRes?.fileType === 'DOCX' ? 'Microsoft Word 教案大纲 (.docx)' : 'PDF 电子文档 (.pdf)') }}
-                  </span>
-                </div>
-                <div class="text-[11px] text-slate-500 flex items-center gap-4">
-                  <span>文件大小：<b class="text-slate-700">{{ currentPreviewRes?.fileSize }}</b></span>
-                  <span>版本状态：<b class="text-indigo-600 font-mono">{{ currentPreviewRes?.version || 'v1.0' }}</b></span>
-                  <span>主讲教师：<b class="text-slate-700">{{ currentPreviewRes?.uploaderTeacher || currentTeacher }}</b></span>
-                </div>
-              </div>
-              <div class="text-right">
-                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium inline-flex items-center gap-1">
-                  <ShieldCheck class="w-3.5 h-3.5 text-emerald-600" /> 只读水印已激活
-                </span>
-              </div>
-            </div>
-
-            <!-- PPT / DOCX / PDF 结构化内容预览大纲 -->
-            <div v-if="currentPreviewRes?.fileType === 'PPTX'" class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-3">
-              <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5 border-b border-slate-100 pb-2">
-                <Folder class="w-3.5 h-3.5 text-amber-600" /> PPT 幻灯片大纲与授课核心要点
-              </div>
-              <div class="grid grid-cols-2 gap-2 text-xs">
-                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
-                  <div class="font-semibold text-slate-700 mb-1">幻灯片 1：封面与课程导引</div>
-                  <div class="text-[11px] text-slate-500">{{ currentPreviewRes?.resourceName }} · 软件项目管理</div>
-                </div>
-                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
-                  <div class="font-semibold text-slate-700 mb-1">幻灯片 2：教学目标与核心概念</div>
-                  <div class="text-[11px] text-slate-500">支撑工程认证毕业要求指标点分解</div>
-                </div>
-                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
-                  <div class="font-semibold text-slate-700 mb-1">幻灯片 3：核心算法与工程范式</div>
-                  <div class="text-[11px] text-slate-500">工期估算 / 关键路径CPM / 燃尽图追踪</div>
-                </div>
-                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
-                  <div class="font-semibold text-slate-700 mb-1">幻灯片 4：实战演练与总结</div>
-                  <div class="text-[11px] text-slate-500">团队实操、代码评审与答辩准备</div>
-                </div>
-              </div>
-            </div>
-
-            <div v-else-if="currentPreviewRes?.fileType === 'DOCX'" class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-2">
-              <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5 border-b border-slate-100 pb-2">
-                <FileText class="w-3.5 h-3.5 text-blue-600" /> Word 教案大纲与考核矩阵
-              </div>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                《{{ currentPreviewRes?.resourceName }}》真实 Word 教案已由教师挂载，包含东北大学教学大纲统一规范、12 条工程认证指标点矩阵、周次教学计划及平时/答辩/期末考核评定细则。
-              </p>
-            </div>
-
-            <div v-else class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-2">
-              <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5 border-b border-slate-100 pb-2">
-                <FileText class="w-3.5 h-3.5 text-indigo-600" /> PDF 电子教案概览
-              </div>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                标准只读 PDF 格式，支持免密在线审阅与双面打印，防篡改动态水印已就绪。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-          <div class="text-[11px] text-slate-500">
-            支持下载真实文件后使用本地 Microsoft Office / WPS 打开查验
-          </div>
-          <div class="flex items-center gap-2">
-            <button
-              @click="downloadResourceFile(currentPreviewRes)"
-              class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-subtle transition flex items-center gap-1.5 cursor-pointer"
-            >
-              <Download class="w-3.5 h-3.5" /> 下载课件原件 ({{ currentPreviewRes?.fileType || '文件' }})
-            </button>
-            <button @click="previewModalVisible = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">
-              关闭预览
-            </button>
-          </div>
+        <iframe v-if="previewUrl" :src="previewUrl" title="课件 PDF 预览" class="w-full h-[70vh] border border-slate-200 rounded-xl bg-slate-50"></iframe>
+        <p v-else class="text-sm text-slate-500 py-12 text-center">正在准备预览...</p>
+        <div class="flex justify-end pt-2">
+          <button @click="downloadResourceFile(currentPreviewRes)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer flex items-center gap-1.5">
+            <Download class="w-3.5 h-3.5" /> 鉴权下载原件
+          </button>
         </div>
       </div>
     </div>
@@ -772,6 +771,14 @@ const currentSchedule = ref<CourseSchedule | null>(null)
 const currentSyllabus = ref<any>(null)
 const selectedTag = ref('')
 const myResources = ref<CourseResource[]>([])
+const sharedResources = ref<CourseResource[]>([])
+const sharedKeyword = ref('')
+const sharedLoading = ref(false)
+const sharedError = ref('')
+const editingResource = ref<CourseResource | null>(null)
+const editResourceTags = ref<string[]>([])
+const editResourcePublic = ref(false)
+const savingResourceMetadata = ref(false)
 const radarData = ref<TeacherQualityRadarVO | null>(null)
 const radarChartRef = ref<HTMLDivElement | null>(null)
 let radarChart: echarts.ECharts | null = null
@@ -789,35 +796,10 @@ const indicatorForm = ref({
   targetGoal: '目标1'
 })
 
-const standardIndicatorCategories = [
-  '1. 工程知识',
-  '2. 问题分析',
-  '3. 设计/开发解决方案',
-  '4. 研究',
-  '5. 使用现代工具',
-  '6. 工程与社会',
-  '7. 环境和可持续发展',
-  '8. 职业规范',
-  '9. 个人和团队',
-  '10. 沟通',
-  '11. 项目管理',
-  '12. 终身学习'
-]
-
-const defaultIndicatorTemplates = [
-  { indicatorCode: '1-1', requirementCategory: '1. 工程知识', indicatorDescription: '能够将数学、自然科学、工程基础和专业知识用于解决软件系统工程中的复杂工程问题', supportWeight: 'H', targetGoal: '目标1' },
-  { indicatorCode: '2-1', requirementCategory: '2. 问题分析', indicatorDescription: '能够应用工程科学基本原理，识别、表达并通过文献研究分析软件工程复杂问题以获得有效结论', supportWeight: 'H', targetGoal: '目标1' },
-  { indicatorCode: '3-1', requirementCategory: '3. 设计/开发解决方案', indicatorDescription: '能够设计针对复杂软件工程问题的解决方案，设计满足特定需求的系统模块并在设计环节中体现创新意识', supportWeight: 'H', targetGoal: '目标2' },
-  { indicatorCode: '4-1', requirementCategory: '4. 研究', indicatorDescription: '能够基于科学原理并采用科学方法对软件工程复杂问题进行研究，包括实验设计、数据分析与解释', supportWeight: 'M', targetGoal: '目标2' },
-  { indicatorCode: '5-1', requirementCategory: '5. 使用现代工具', indicatorDescription: '能够针对复杂软件工程问题，开发、选择与使用恰当的技术、资源、现代工程工具和信息技术工具', supportWeight: 'H', targetGoal: '目标3' },
-  { indicatorCode: '6-1', requirementCategory: '6. 工程与社会', indicatorDescription: '能够基于软件工程相关背景知识进行合理分析，评价软件工程实践对社会、健康、安全、法律及文化的影响', supportWeight: 'L', targetGoal: '目标3' },
-  { indicatorCode: '7-1', requirementCategory: '7. 环境和可持续发展', indicatorDescription: '能够理解和评价针对复杂软件工程问题的工程实践对环境、社会可持续发展的影响', supportWeight: 'L', targetGoal: '目标3' },
-  { indicatorCode: '8-1', requirementCategory: '8. 职业规范', indicatorDescription: '具有人文社会科学素养、社会责任感，能够在软件工程实践中理解并遵守工程职业道德和规范', supportWeight: 'M', targetGoal: '目标4' },
-  { indicatorCode: '9-1', requirementCategory: '9. 个人和团队', indicatorDescription: '能够在多学科背景下的软件研发团队中承担个体、团队成员以及负责人的角色', supportWeight: 'H', targetGoal: '目标4' },
-  { indicatorCode: '10-1', requirementCategory: '10. 沟通', indicatorDescription: '能够就复杂软件工程问题与业界同行及社会公众进行有效沟通和交流，包括撰写报告和陈述发言', supportWeight: 'M', targetGoal: '目标4' },
-  { indicatorCode: '11-1', requirementCategory: '11. 项目管理', indicatorDescription: '理解并掌握软件工程项目管理原理与经济决策方法，并能在多学科环境中应用', supportWeight: 'H', targetGoal: '目标1' },
-  { indicatorCode: '12-1', requirementCategory: '12. 终身学习', indicatorDescription: '具有自主学习和终身学习的意识，有不断学习和适应软件工程与人工智能新技术发展的能力', supportWeight: 'H', targetGoal: '目标4' }
-]
+const planIndicators = ref<GraduationIndicator[]>([])
+const planVersion = ref('')
+const syllabusVersion = ref('')
+const standardIndicatorCategories = computed(() => Array.from(new Set(planIndicators.value.map(i => i.requirementCategory))))
 
 const scheduleDisplayText = computed(() => {
   if (!currentSchedule.value) return '暂未排课调度'
@@ -840,15 +822,22 @@ const uploadForm = ref({
   chapter: '第一章 课程概论',
   resourceName: '',
   fileType: 'PPTX',
-  tag: '理论',
-  fileUrl: '/uploads/resources/sample.pptx',
+  tags: [] as string[],
+  isPublic: false,
   fileSize: '15.6 MB',
-  fileSizeBytes: 16357785,
-  uploaderTeacher: '郭军'
+  fileSizeBytes: 0,
 })
 
 const previewModalVisible = ref(false)
 const currentPreviewRes = ref<CourseResource | null>(null)
+const previewUrl = ref('')
+let previewRequest = 0
+const closePreview = () => {
+  previewRequest++
+  if (previewUrl.value.startsWith('blob:')) URL.revokeObjectURL(previewUrl.value)
+  previewUrl.value = ''
+  previewModalVisible.value = false
+}
 
 const loadTeacherList = async () => {
   try {
@@ -875,7 +864,7 @@ const loadTeacherList = async () => {
 const onTeacherChange = async () => {
   selectedOfferingId.value = null
   await loadCourse()
-  await Promise.all([loadMyResources(), loadRadar(), loadIndicators(), loadCourseContent()])
+  await Promise.all([loadMyResources(), loadSharedResources(), loadRadar(), loadIndicators(), loadCourseContent()])
 }
 
 const onOfferingSelectChange = async () => {
@@ -892,7 +881,7 @@ const onOfferingSelectChange = async () => {
     } catch (err) {
       console.warn('获取排课信息失败', err)
     }
-    await Promise.all([loadMyResources(), loadRadar(), loadIndicators(), loadCourseContent()])
+    await Promise.all([loadMyResources(), loadSharedResources(), loadRadar(), loadIndicators(), loadCourseContent()])
   }
 }
 
@@ -931,7 +920,6 @@ const loadCourse = async () => {
   } catch (e) {
     console.error('获取教师开课记录失败', e)
   }
-
 }
 
 const loadIndicators = async () => {
@@ -942,6 +930,11 @@ const loadIndicators = async () => {
   loadingIndicators.value = true
   try {
     indicators.value = await syllabusApi.getIndicators(currentCourse.value.id)
+    currentSyllabus.value = await syllabusApi.getLatest(currentCourse.value.id)
+    planVersion.value = currentSyllabus.value?.planVersion || currentSyllabus.value?.version || ''
+    syllabusVersion.value = ''
+    planIndicators.value = planVersion.value && currentCourse.value.majorCode
+      ? await syllabusApi.getPlanIndicators(currentCourse.value.majorCode, planVersion.value) : []
   } catch (e) {
     console.error('加载指标点失败', e)
   } finally {
@@ -953,12 +946,20 @@ const openAddIndicatorModal = () => {
   indicatorForm.value = {
     id: null,
     indicatorCode: '',
-    requirementCategory: standardIndicatorCategories[0],
+    requirementCategory: standardIndicatorCategories.value[0] || '',
     indicatorDescription: '',
     supportWeight: 'H',
     targetGoal: '目标1'
   }
   showIndicatorModal.value = true
+}
+
+const selectPlanIndicator = () => {
+  const found = planIndicators.value.find(i => i.indicatorCode === indicatorForm.value.indicatorCode)
+  if (found) {
+    indicatorForm.value.requirementCategory = found.requirementCategory
+    indicatorForm.value.indicatorDescription = found.indicatorDescription
+  }
 }
 
 const openEditIndicatorModal = (ind: GraduationIndicator) => {
@@ -1010,25 +1011,17 @@ const confirmDeleteIndicator = async (ind: GraduationIndicator) => {
 }
 
 const applyDefaultIndicators = async () => {
-  if (!currentCourse.value?.id) {
-    alert('当前教师暂未关联开课记录')
+  if (!currentCourse.value?.id || !currentCourse.value.majorCode || !planVersion.value || !syllabusVersion.value) {
+    alert('请选择课程并填写培养方案版本和新大纲版本')
     return
   }
-  if (indicators.value.length > 0) {
-    if (!confirm('当前课程已录有指标点，继续套用将追加 12 项国标推荐标准，是否继续？')) {
-      return
-    }
-  }
-
   loadingIndicators.value = true
   try {
-    for (const tpl of defaultIndicatorTemplates) {
-      await syllabusApi.addIndicator(currentCourse.value.id, tpl)
-    }
+    await syllabusApi.createFromPlan(currentCourse.value.id, syllabusVersion.value, planVersion.value)
     await loadIndicators()
-    alert(`已成功为课程《${currentCourse.value.courseName}》批量写入 12 项工程认证指标点至 MySQL！`)
+    alert('已按培养方案目录创建大纲版本')
   } catch (err: any) {
-    alert(err.response?.data?.message || err.message || '导入标准模板失败')
+    alert(err.response?.data?.message || err.message || '创建大纲失败')
   } finally {
     loadingIndicators.value = false
   }
@@ -1073,7 +1066,8 @@ const renderRadarChart = () => {
       splitNumber: 4,
       axisName: {
         color: '#475569',
-        fontSize: 11
+        fontSize: 11,
+        fontWeight: 'bold'
       },
       splitLine: {
         lineStyle: {
@@ -1106,14 +1100,16 @@ const renderRadarChart = () => {
             ],
             name: '得分分析',
             areaStyle: {
-              color: 'rgba(79, 70, 229, 0.18)'
+              color: 'rgba(79, 70, 229, 0.22)'
             },
             lineStyle: {
               color: '#4f46e5',
-              width: 2
+              width: 2.5
             },
             itemStyle: {
-              color: '#4f46e5'
+              color: '#4f46e5',
+              borderColor: '#ffffff',
+              borderWidth: 2
             }
           }
         ]
@@ -1157,13 +1153,10 @@ const setResourceFile = (file: File) => {
   const ext = file.name.split('.').pop()?.toUpperCase() || ''
   if (ext === 'PPT' || ext === 'PPTX') {
     uploadForm.value.fileType = 'PPTX'
-    uploadForm.value.tag = '讲义课件'
   } else if (ext === 'DOC' || ext === 'DOCX') {
     uploadForm.value.fileType = 'DOCX'
-    uploadForm.value.tag = '教案大纲'
   } else if (ext === 'PDF') {
     uploadForm.value.fileType = 'PDF'
-    uploadForm.value.tag = '教案大纲'
   }
 }
 
@@ -1185,23 +1178,70 @@ const confirmDeleteResource = async (res: CourseResource) => {
   }
 }
 
-const downloadResourceFile = (res: CourseResource | null) => {
-  if (!res || !res.fileUrl) {
-    alert('暂无该课件文件下载地址')
-    return
+const downloadResourceFile = async (res: CourseResource | null) => {
+  if (!res) return
+  try {
+    const blob = await resourceApi.download(res.id)
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = res.resourceName
+    link.click()
+    setTimeout(() => URL.revokeObjectURL(url), 30000)
+  } catch (e: any) {
+    alert(e.response?.data?.message || '下载失败')
   }
-  const link = document.createElement('a')
-  link.href = res.fileUrl
-  link.download = res.resourceName || '课件'
-  link.target = '_blank'
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
 }
 
-const previewResource = (res: CourseResource) => {
+const previewResource = async (res: CourseResource) => {
+  closePreview()
+  const request = previewRequest
   currentPreviewRes.value = res
   previewModalVisible.value = true
+  try {
+    const pdf = await resourceApi.getPreviewPdf(res.id)
+    if (request !== previewRequest || !previewModalVisible.value) return
+    previewUrl.value = URL.createObjectURL(pdf)
+  } catch (e: any) {
+    if (request !== previewRequest) return
+    closePreview()
+    alert(e.message || '预览失败')
+  }
+}
+
+const loadSharedResources = async () => {
+  sharedLoading.value = true
+  sharedError.value = ''
+  try {
+    sharedResources.value = await resourceApi.search({ isPublic: true, keyword: sharedKeyword.value.trim() })
+  } catch (e: any) {
+    sharedResources.value = []
+    sharedError.value = e.response?.data?.message || e.message || '共享资源加载失败'
+  } finally {
+    sharedLoading.value = false
+  }
+}
+
+const openResourceEdit = (res: CourseResource) => {
+  editingResource.value = res
+  editResourceTags.value = [...(res.tags || [])]
+  editResourcePublic.value = res.isPublic
+}
+
+const saveResourceMetadata = async () => {
+  const resource = editingResource.value
+  if (!resource) return
+  savingResourceMetadata.value = true
+  try {
+    await resourceApi.save({ id: resource.id, courseId: resource.course.id, chapter: resource.chapter,
+      resourceName: resource.resourceName, tags: editResourceTags.value, isPublic: editResourcePublic.value })
+    editingResource.value = null
+    await Promise.all([loadMyResources(), loadSharedResources()])
+  } catch (e: any) {
+    alert(e.response?.data?.message || e.message || '资源信息保存失败')
+  } finally {
+    savingResourceMetadata.value = false
+  }
 }
 
 const handleSaveResource = async () => {
@@ -1214,22 +1254,19 @@ const handleSaveResource = async () => {
 
     isUploadingResource.value = true
 
-    // 如果选取了本地真实文件，先上传至后端 /api/v1/resources/upload
-    if (selectedResourceFile.value) {
-      const uploaded = await resourceApi.uploadFile(selectedResourceFile.value)
-      uploadForm.value.fileUrl = uploaded.fileUrl
-      uploadForm.value.fileSize = uploaded.fileSize
-      uploadForm.value.fileSizeBytes = uploaded.fileSizeBytes
-      uploadForm.value.fileType = uploaded.fileType
-    }
-
-    uploadForm.value.courseId = currentCourse.value.id
-    uploadForm.value.uploaderTeacher = currentTeacher.value
-    await resourceApi.save(uploadForm.value)
+    if (!selectedResourceFile.value) throw new Error('请选择真实文件')
+    await resourceApi.uploadFile(selectedResourceFile.value, {
+      courseId: currentCourse.value.id,
+      chapter: uploadForm.value.chapter,
+      resourceName: uploadForm.value.resourceName,
+      tags: uploadForm.value.tags,
+      isPublic: uploadForm.value.isPublic
+    })
     showUploadModal.value = false
     clearSelectedResourceFile()
     await loadMyResources()
-    alert(`课件《${uploadForm.value.resourceName}》真实挂载成功！已自动添加东北大学动态只读水印`)
+    await loadSharedResources()
+    alert(`课件《${uploadForm.value.resourceName}》上传成功，可通过授权预览查看水印`)
   } catch (e: any) {
     alert(e.response?.data?.message || e.message || '上传挂载失败')
   } finally {
@@ -1366,5 +1403,5 @@ watch(() => props.loggedInUser, (newUser) => {
   }
 })
 
-onUnmounted(() => { radarChart?.dispose(); radarChart = null })
+onUnmounted(() => { closePreview(); radarChart?.dispose(); radarChart = null })
 </script>

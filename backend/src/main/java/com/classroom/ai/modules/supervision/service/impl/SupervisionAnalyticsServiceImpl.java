@@ -9,6 +9,9 @@ import com.classroom.ai.modules.supervision.service.SupervisionAnalyticsService;
 import com.classroom.ai.modules.supervision.vo.SupervisionAlertVO;
 import com.classroom.ai.modules.supervision.vo.SupervisionDashboardVO;
 import com.classroom.ai.modules.supervision.vo.TeacherQualityRadarVO;
+import com.classroom.ai.modules.supervision.vo.CoverageDetailVO;
+import com.classroom.ai.modules.auth.context.AuthContext;
+import com.classroom.ai.modules.auth.entity.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,45 +30,78 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
 
     @Override
     public SupervisionDashboardVO getDashboardMetrics() {
-        List<Course> allCourses = courseRepository.findAll();
-        int totalCourses = allCourses.size();
-        List<Long> supervisedCourseIds = evaluationRepository.findSupervisedCourseIds();
-        int supervisedCount = supervisedCourseIds.size();
+        return getDashboardMetrics(null);
+    }
 
-        double coverageRate = 0.0;
-        if (totalCourses > 0) {
-            coverageRate = BigDecimal.valueOf((double) supervisedCount / totalCourses * 100)
-                    .setScale(1, RoundingMode.HALF_UP).doubleValue();
-        }
+    @Override
+    public SupervisionDashboardVO getDashboardMetrics(String requestedTerm) {
+        List<com.classroom.ai.modules.course.entity.CourseOffering> offerings = validOfferings();
+        String term = chosenTerm(offerings, requestedTerm);
+        List<CoverageDetailVO> details = getCoverageDetails(term);
+        int total = details.size();
+        int covered = (int) details.stream().filter(CoverageDetailVO::covered).count();
+        Set<Long> ids = details.stream().flatMap(d -> d.evaluationIds().stream()).collect(Collectors.toSet());
+        List<SupervisionEvaluation> evaluations = evaluationRepository.findAll().stream()
+                .filter(e -> e.getId() != null && ids.contains(e.getId())).toList();
+        double average = evaluations.stream().mapToDouble(e -> e.getTotalScore() == null ? 0 : e.getTotalScore()).average().orElse(0);
+        return SupervisionDashboardVO.builder().academicTerm(term).totalCourses(total).supervisedCourses(covered)
+                .coverageRate(total == 0 ? 0 : BigDecimal.valueOf(100.0 * covered / total).setScale(1, RoundingMode.HALF_UP).doubleValue())
+                .totalEvaluations(evaluations.size())
+                .collegeAvgScore(BigDecimal.valueOf(average).setScale(1, RoundingMode.HALF_UP).doubleValue())
+                .pendingCourses(total - covered).build();
+    }
 
-        List<SupervisionEvaluation> validEvals = evaluationRepository.findAll().stream()
-                .filter(e -> !"DRAFT".equals(e.getStatus()))
+    @Override
+    public List<CoverageDetailVO> getCoverageDetails(String requestedTerm) {
+        List<com.classroom.ai.modules.course.entity.CourseOffering> all = validOfferings();
+        String term = chosenTerm(all, requestedTerm);
+        if (term == null) return List.of();
+        List<com.classroom.ai.modules.course.entity.CourseOffering> selected = all.stream()
+                .filter(o -> term.equals(o.getAcademicTerm())).toList();
+        Set<Long> validOfferingIds = selected.stream().map(o -> o.getId()).collect(Collectors.toSet());
+        Map<Long, List<Long>> evaluations = evaluationRepository.findAll().stream()
+                .filter(e -> e.getOffering() != null && e.getOffering().getCourse() != null)
+                .filter(e -> validOfferingIds.contains(e.getOffering().getId()))
+                .filter(e -> "PUBLISHED".equals(e.getStatus()) || "APPROVED_PENDING".equals(e.getStatus()))
+                .filter(e -> e.getReviewedBy() != null || "PUBLISHED".equals(e.getStatus()))
+                .collect(Collectors.groupingBy(e -> e.getOffering().getCourse().getId(),
+                        Collectors.mapping(SupervisionEvaluation::getId, Collectors.toList())));
+        return selected.stream().collect(Collectors.toMap(o -> o.getCourse().getId(), o -> o, (a, b) -> a,
+                LinkedHashMap::new)).values().stream().map(o -> {
+                    List<Long> ids = evaluations.getOrDefault(o.getCourse().getId(), List.of());
+                    return new CoverageDetailVO(o.getCourse().getId(), o.getCourse().getCourseCode(),
+                            o.getCourse().getCourseName(), term, !ids.isEmpty(), ids);
+                }).toList();
+    }
+
+    private List<com.classroom.ai.modules.course.entity.CourseOffering> validOfferings() {
+        var user = AuthContext.getCurrentUser();
+        return offeringRepository.findAll().stream()
+                .filter(o -> o.getCourse() != null && o.getCourse().getId() != null)
+                .filter(o -> "IN_PROGRESS".equals(o.getStatus()) || "FINISHED".equals(o.getStatus()))
+                .filter(o -> user == null || (user.getRole() == RoleEnum.DIRECTOR
+                        ? user.getDepartment() != null && user.getDepartment().equals(o.getCourse().getDepartment())
+                        : user.getRole() == RoleEnum.SUPERVISOR && o.getCourse().getMajorCode() != null
+                        && Arrays.asList(user.getAuthorizedMajors() == null ? new String[0] : user.getAuthorizedMajors().split(";"))
+                        .contains(o.getCourse().getMajorCode())))
                 .toList();
+    }
 
-        double avgScore = 0.0;
-        if (!validEvals.isEmpty()) {
-            double sum = validEvals.stream().mapToDouble(SupervisionEvaluation::getTotalScore).sum();
-            avgScore = BigDecimal.valueOf(sum / validEvals.size()).setScale(1, RoundingMode.HALF_UP).doubleValue();
-        }
-
-        return SupervisionDashboardVO.builder()
-                .totalCourses(totalCourses)
-                .supervisedCourses(supervisedCount)
-                .coverageRate(coverageRate)
-                .totalEvaluations(validEvals.size())
-                .collegeAvgScore(avgScore)
-                .pendingCourses(Math.max(0, totalCourses - supervisedCount))
-                .build();
+    private String chosenTerm(List<com.classroom.ai.modules.course.entity.CourseOffering> offerings, String requested) {
+        if (requested != null && !requested.isBlank()) return requested;
+        return offerings.stream().map(o -> o.getAcademicTerm()).filter(Objects::nonNull).max(String::compareTo).orElse(null);
     }
 
     @Override
     public List<SupervisionAlertVO> getAlertList() {
         List<SupervisionAlertVO> alerts = new ArrayList<>();
-        List<Course> allCourses = courseRepository.findAll();
+        Set<Long> visibleCourseIds = validOfferings().stream().map(o -> o.getCourse().getId()).collect(Collectors.toSet());
+        List<Course> allCourses = courseRepository.findAll().stream()
+                .filter(course -> visibleCourseIds.contains(course.getId())).toList();
 
         for (Course course : allCourses) {
             List<SupervisionEvaluation> evals = evaluationRepository.findByCourseId(course.getId()).stream()
-                    .filter(e -> !"DRAFT".equals(e.getStatus()))
+                    .filter(this::isPublishedForFeedback)
                     .toList();
 
             // 1. 检查覆盖率或零督导预警 (US-16: 覆盖率<30% 或零覆盖黄色预警)
@@ -112,8 +148,13 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
 
     @Override
     public TeacherQualityRadarVO getTeacherRadar(String teacherName) {
+        Set<Long> visibleOfferingIds = validOfferings().stream().map(o -> o.getId()).collect(Collectors.toSet());
+        var currentUser = AuthContext.getCurrentUser();
         List<SupervisionEvaluation> evals = evaluationRepository.findByTeacherName(teacherName).stream()
-                .filter(e -> "PUBLISHED".equals(e.getStatus()) || ("PENDING_DESENSITIZE".equals(e.getStatus()) && e.getPublishTime() != null && !e.getPublishTime().isAfter(java.time.LocalDateTime.now())))
+                .filter(e -> e.getOffering() != null && (currentUser != null && currentUser.getRole() == RoleEnum.TEACHER
+                        ? currentUser.getTeacherCode() != null && currentUser.getTeacherCode().equalsIgnoreCase(e.getOffering().getTeacherCode())
+                        : visibleOfferingIds.contains(e.getOffering().getId())))
+                .filter(this::isPublishedForFeedback)
                 .toList();
 
         if (evals.isEmpty()) {
@@ -186,7 +227,7 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
         sb.append("序号,课程代码,课程名称,任课教师,学分,学时,选课班级,班额人次,督导听课次数,综合均分,教学态度均分,教学内容均分,教学方法均分,教学效果均分,质量达成评价\n");
 
         List<SupervisionEvaluation> allEvals = evaluationRepository.findAll().stream()
-                .filter(e -> !"DRAFT".equals(e.getStatus()))
+                .filter(this::isPublishedForFeedback)
                 .toList();
 
         Map<Long, List<SupervisionEvaluation>> evalMap = allEvals.stream()
@@ -228,5 +269,12 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
             return "\"" + value.replace("\"", "\"\"") + "\"";
         }
         return value;
+    }
+
+    private boolean isPublishedForFeedback(SupervisionEvaluation evaluation) {
+        return "PUBLISHED".equals(evaluation.getStatus())
+                || ("APPROVED_PENDING".equals(evaluation.getStatus()) && evaluation.getReviewedBy() != null
+                && evaluation.getPublishTime() != null
+                && !evaluation.getPublishTime().isAfter(java.time.LocalDateTime.now()));
     }
 }

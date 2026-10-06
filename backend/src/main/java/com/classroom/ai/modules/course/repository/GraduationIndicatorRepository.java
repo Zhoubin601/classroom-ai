@@ -13,5 +13,7 @@ public interface GraduationIndicatorRepository extends JpaRepository<GraduationI
 
     List<GraduationIndicator> findBySyllabusId(Long syllabusId);
 
+    void deleteBySyllabusId(Long syllabusId);
+
     void deleteByCourseId(Long courseId);
 }

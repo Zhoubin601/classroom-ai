@@ -1,0 +1,18 @@
+{
+  "BackendTests": 144,
+  "FrontendTests": 10,
+  "PythonTests": 5,
+  "Exp2Stories": 5,
+  "Sprint2Stories": 8,
+  "AllFeaturesCases": 24,
+  "AllFeaturesScreenshots": 22,
+  "ForwardedRequests": false,
+  "DocxFixtureBytes": 830,
+  "OfficePreviewPdfBytes": 12217,
+  "JarSHA256": "FAFC7369A9CA837A954E5C2B670A632D485CD89AD03E4FE73A26CCD81BCD50CE",
+  "InitialMain": "a4da3d8",
+  "InitialExp3": "347a51a",
+  "SyntheticPlan": true,
+  "PublicationTimeAdvanced": true,
+  "HardwareRecognitionVerified": false
+}

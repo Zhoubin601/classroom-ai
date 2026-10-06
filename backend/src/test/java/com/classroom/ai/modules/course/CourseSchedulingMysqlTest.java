@@ -245,7 +245,18 @@ class CourseSchedulingMysqlTest {
     }
     @Test void legacyTeacherDisplayFieldDoesNotGrantAccess() {
         var a=offering("T",t1);relations.deleteAll();
+        // Display names alone must not authorize access. The primary teacher
+        // code is a separate canonical assignment, including legacy databases.
+        a.setTeacherCode(null);offerings.saveAndFlush(a);
         AuthContext.setCurrentUser(UserVO.builder().role(RoleEnum.TEACHER).teacherCode("T1").build());
         assertThrows(ForbiddenException.class,()->management.details(a.getId()));assertTrue(history.getOfferingHistory(null).getData().getItems().isEmpty());
+    }
+    @Test void primaryTeacherCodeAuthorizesLegacyOfferingButNotUnrelatedTeacher() {
+        var a=offering("T",t1);relations.deleteAll();
+        AuthContext.setCurrentUser(UserVO.builder().role(RoleEnum.TEACHER).teacherCode("T1").build());
+        assertDoesNotThrow(()->management.details(a.getId()));
+        AuthContext.setCurrentUser(UserVO.builder().role(RoleEnum.TEACHER).teacherCode("T3").realName(t1.getTeacherName()).build());
+        assertThrows(ForbiddenException.class,()->management.details(a.getId()));
+        assertTrue(history.getOfferingHistory(null).getData().getItems().isEmpty());
     }
 }

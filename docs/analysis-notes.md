@@ -836,4 +836,174 @@ US-01/02/03/04/06 实现已形成联合提交 25fd785。新增真实 MySQL、JWT
   - **第二重（启动脚本自动检测与管道注入）**：在 `scripts/start_project.ps1` 启动服务后增加自动探测（`SELECT count(*) FROM t_user_account`），一旦检测到数据为空，立即通过 `docker exec -i classroom-mysql mysql -uroot -proot classroom_ai < initialize.sql` 自动秒级灌入。
   - **第三重（后端启动自愈保底）**：在 `application.yml` 中默认激活 `app.seed-demo: true`，并在启动参数中显式传递 `--app.seed-demo=true`，Spring Boot 启动时只要发现无数据会自动通过 JPA 初始化全部账号、教师、专业、学生档案与课程数据。
 
+### 4. 真实业务库全量导出并固化为项目基准初始化数据
+- **用户诉求**：
+  - 用户明确要求“把现在的我的classroomai的mysql的数据作为以后的初始化数据”，即不再使用之前合成的模拟样例数据，而是直接将用户当前开发机中实际运行的 `classroom_ai` 数据库（包含 1131 条真实课堂时序记录、80 位学生档案、80 条 512 维人脸特征向量、18 门课程、17 个排课班次、16 个用户账号、选课名单等）固化为以后的系统基准初始化数据。
+- **提取与清洗落地**：
+  1. **无损字符集提取**：
+     - 启动并连接 Docker `classroom-mysql` 容器中的 `classroom_ai` 真实业务库；
+     - 使用 `mysqldump --default-character-set=utf8mb4 --single-transaction --hex-blob -r /tmp/dump.sql` 直接在 Linux 容器内生成无 Windows 终端代码页（GBK/UTF-16）二次转码影响的纯净 UTF-8 导出文件；
+     - 通过 `docker cp` 完整提取 645KB 的全量数据脚本。
+  2. **覆盖全量 20 张业务表及全量记录**：
+     - `classroom_record`: 1131 条（具身机器人与真实课堂时序分析宏观记录）
+     - `face_feature`: 80 条（InsightFace 512 维高精度人脸特征底库）
+     - `student`: 80 条（计算机/软件等专业真实学生花名册）
+     - `t_academic_term_lock`: 1 条（学期锁状态记录）
+     - `t_attendance_session`: 1 条（课堂考勤真实会话）
+     - `t_course`: 18 条（软件工程、操作系统等全量课程主数据）
+     - `t_course_content_revision`: 3 条（课程大纲与简介版本控制）
+     - `t_course_import_log`: 7 条（批量导入审计记录）
+     - `t_course_offering`: 17 条（2026秋季等学期开课班次）
+     - `t_course_offering_teacher`: 4 条（多教师联合开课分工关联）
+     - `t_course_resource`: 5 条（课程资源/课件索引）
+     - `t_course_schedule`: 17 条（文管 A447 等多时段排课与冲突记录）
+     - `t_course_syllabus`: 1 条（课程教学目标矩阵）
+     - `t_graduation_indicator`: 12 条（工程教育认证 12 项毕业要求指标点）
+     - `t_major`: 5 条（SE, CS, AI, DS, SEC 专业字典）
+     - `t_micro_teaching_slice`: 2 条（AI 微格切片标注数据）
+     - `t_offering_student_enrollment`: 170 条（班次与学生选课真值映射）
+     - `t_supervision_evaluation`: 3 条（校级/院级督导评教记录）
+     - `t_teacher`: 8 条（8 位教师主数据档案）
+     - `t_user_account`: 16 条（主任、督导、教师全量加密账号与授权）
+  3. **引导机制与多重保底彻底修复**：
+     - **脚本固化**：同步覆盖更新根目录 `initialize.sql` 与 `scripts/deploy/mysql/init/initialize.sql`；
+     - **修复 Compose 挂载防死锁**：在 `scripts/deploy/docker-compose.yml` 中，将原 `./mysql/init:/docker-entrypoint-initdb.d:ro` 目录挂载调整为精确文件挂载 `./mysql/init/initialize.sql:/docker-entrypoint-initdb.d/initialize.sql:ro`。由于原目录内含有 `05_us04_archive.sql` 等增量迁移脚本，当空数据卷首次启动时，MySQL 官方容器会按字母排序先执行 `05_`，因表尚未建立引发 SQL 报错进而阻断容器初始化。改为挂载单文件后，容器初始化只执行 `initialize.sql`，彻底保证新环境冷启动 100% 成功。
+     - **启动脚本管道脱敏**：在 `scripts/start_project.ps1` 中，优化数据自动灌入逻辑：改用 `docker cp "$initSql" "classroom-mysql:/tmp/initialize.sql"` 配合 `docker exec ... -e "source /tmp/initialize.sql"`，彻底避免 PowerShell 5.1 在跨编码管道传流时的截断与乱码。
+  4. **全量数据导入实测验证**：
+     - 在容器内完整运行 `source /tmp/verify_init.sql`，20 张数据表全部建立，20 张表记录数全部精确就绪，0 报错。
+
+### 5. 源码包纯净精简瘦身（剥离审计文档、Git 历史与过程冗余）
+- **用户要求**：
+  - 用户已将交付包更新至 `v3` 目录，并明确指示：“把源码包的审计文档之类的东西全部删掉，只保留需要跑代码起来的源代码即可，git也不要保留”。
+- **剥离策略与落地**：
+  1. **彻底移除全部非运行期文件**：
+     - 排除 `.git/`（去除全部本地提交历史与 Git 数据库，节省 32.39 MB）；
+     - 排除 `docs/`（去除全部审计记录、验收文档、回归日志、patch 补丁文件等过程文档，节省 15.08 MB）；
+     - 排除 `memory-bank/`、`raw/`、`output/`（去除背景记录、原始资料与历史生成包）；
+     - 排除 `__pycache__/`、`.tsbuildinfo`、`frontend/dist/`、所有临时 `.log` 与 `.pid` 文件。
+  2. **严格保留全部代码运行必要核心资产**：
+     - 根目录启动/停止双击脚本：`start_project.bat`、`start_project.ps1`、`stop_project.bat`、`stop_project.ps1`、`README.md`、`LICENSE`、`.gitignore`；
+     - 核心基准数据库：`initialize.sql`（包含 20 张表及 1131 条真实时序记录的最新固化库）；
+     - 后端资产：`backend/pom.xml`、全部 Java 源代码及资源、免编译秒启产物 `backend/target/classroom-backend-0.0.1-SNAPSHOT.jar`（63MB）、内置离线 Maven 工具链 `backend/.tools/apache-maven-3.9.6`；
+     - 前端资产：`frontend/package.json`、`package-lock.json`、`vite.config.ts`、`src/`、`public/`、`dev/`；
+     - 部署与管理脚本：`scripts/deploy/docker-compose.yml`、`scripts/deploy/mysql/init/initialize.sql`、`start_services.ps1` 等；
+     - 视觉分析模块：`vision/` Python 脚本、依赖定义与 YOLO/InsightFace 模型权重；
+     - 运行时资源：`runtime/uploads/` 课程配套课件。
+  3. **成果指标**：
+     - 文件总数：由 585 个精简至 **376 个**（减少 35.7%）；
+     - 压缩包体积：由 124.35 MB 骤降至 **72.79 MB**（缩减 41.5%）；
+     - 产出同步覆盖：
+       - `D:\2026Autumn Semester File\软管\实验二\output\v3\第二组_Sprint 1源代码.zip`
+      - `D:\2026Autumn Semester File\classroom-ai-demo\output\20260922-第二组-Sprint1源代码-v4.zip`
+
+## 2026-09-23 实验三 Sprint 2 代码与验收记录
+- 在 `feat/exp3-sprint2` 上实现培养方案目录及大纲版本映射、资源服务端权限与多标签、安全预览、督导审核与延迟反馈、按学期有效开课去重的覆盖率。新增 `06_exp3_sprint2.sql` 幂等迁移，启动不重灌现有数据库。
+- `scripts/run-tests.ps1 -Offline` 通过后端单测、前端测试与构建、Python 回归；`scripts/run-exp3-mysql-tests.ps1` 在隔离 MySQL 中重复执行迁移并通过 3 个集成测试；`scripts/run-exp3-browser-tests.ps1` 用三个身份在隔离库中完成页面流程，并检查无效格式、转换失败与过期链接。
+- 当前容器按 `start_project.ps1 -Rebuild -NonInteractive` 成功启动。容器 LibreOffice 已将现有 PPTX 转为带查看者和时间水印的 PDF，预览响应为 `%PDF-`，4 页。
+- 迁移将没有主任审核记录的历史已发布评价保留为待审核，避免它们绕过新规则向教师披露；现有库有 3 条此类记录，需要主任逐条复核。
+- 用户复核：培养方案指标正文未提供；请使用真实培养方案由主任导入对应专业与版本后再核对实际指标映射。
+
+## 2026-09-24 Playwright 全功能端到端自动化测试验收记录
+- 测试套件脚本：`scripts/tests/all-features-playwright.cjs`，启动脚本：`scripts/run-all-features-playwright.ps1`。
+- 测试范围覆盖系统全量 6 大业务模块：
+  1. 统一认证鉴权与多角色 RBAC 隔离（主任、教师、督导角色隔离与 401 凭证拦截）；
+  2. 教研室主任工作台（US-01 导入与导出、US-03/04 排课统筹与冲突、US-05 培养方案与指标矩阵、US-06 督导授权、US-14 督导评价审核）；
+  3. 任课教师工作台（US-02 简介草稿暂存、US-07/10 课件上传与多环节标签、US-08 标签精准筛选、US-09 在线限时水印预览、US-14 匿名评价复盘与 US-17 BOPPPS 4 维雷达图）；
+  4. 教学督导工作台（US-03/06 高校周历总课表、US-06 复合检索、US-09 听课前课件大纲免密预审、US-13 BOPPPS 随堂打分与暂存、US-15 全院覆盖率统计与明细追溯、US-16 红黄质量预警中心）；
+  5. 课堂智能考勤大屏（关联开课、出勤/缺勤统计、抬头率与专注度态势波形图）；
+  6. 学生人脸档案库（MySQL 学生花名册、InsightFace 512 维特征向量列表展示与 1:N 云端测试入口）。
+- 测试结果：23 个端到端测试用例全部通过（100% PASS），0 失败。
+- 存证文件：在 `docs/playwright-all-features-evidence/` 生成 21 张全流程存证截图，在 `docs/playwright-e2e-report.md` 记录详细验收报告。
+
+## 2026-09-26 生产投入使用就绪度审查 (Production Readiness Review & Ship Gate Audit)
+- **审查结论**：不可直接投入实际生产使用 (Do NOT Ship to Production Yet)。该项目为高完成度敏捷工程原型与演示系统，在生产安全性、高可用部署、运维监控及真实教务对接层面存在 6 大类共 15 项优化点。
+- **阻断级问题 (Critical Blockers)**：
+  1. 默认明文密码与全量弱口令：`initialize.sql` 中大量账号存储明文 `'123456'`，`SecurityConfig` 允许明文比对，且所有初始账号均为弱口令。
+  2. JWT Secret 硬编码公开：`JwtTokenProvider` 默认硬编码公开密钥，若无环境变量注入将面临伪造任意角色 Token 风险。
+  3. CORS 过于宽松：`CorsConfig` 采用 `allowedOriginPatterns("*")` + `allowCredentials(true)`，存在跨域凭据劫持风险。
+  4. 数据库 DDL 自动变更隐患：`application.yml` 开启 `ddl-auto: update`，生产环境可能引发死锁与结构破坏，必须迁移为 `validate`。
+  5. 数据库与 Redis 默认弱口令暴露：root/root 且 Redis 无密码保护。
+  6. 前端以 Vite Dev Server 模式运行：缺乏 Nginx 静态文件分发、Gzip 压缩、SSL/TLS 证书终止与反向代理。
+- **架构级优化项 (High Priority)**：
+  1. 课件预览 Ticket 内存存储问题：`ResourceFileService` 单机 Map 改用 Redis 缓存与分布式 TTL。
+  2. LibreOffice 同步转码阻塞：大课件转码耗时达 90 秒，易拉崩主线程，需重构为上传异步预转码或独立微服务。
+  3. 视觉服务缺乏鉴权与守护保活：`/stop` 接口裸露且默认开启桌面窗口显示，需增加鉴权、支持 RTSP 流及 Headless 容器化守护。
+  4. 全局异常未捕获兜底：缺少 `@ExceptionHandler(Exception.class)` 500 统一脱敏与 TraceID 追踪。
+  5. 登录接口缺乏暴力破解防御与频控限流。
+- **体验与业务落地项 (Medium Priority)**：
+  1. 前端 Monolithic Bundle (1.45MB) 需做路由懒加载与 manualChunks 拆包。
+  2. 真实教务数据导入与同步接口打通。
+  3. 文件本地存储向对象存储 (MinIO/S3) 抽象演进。
+
+
+
+
+
+## 2026-10-03 UI/UX Pro Max 全量页面现代化重构设计方案
+- 依据用户要求结合 ui-ux-pro-max 技能，重构系统全量 6 大视图与核心组件，全面提升 UI/UX 视觉品质与交互体验。
+- 核心准则：保留既有全部业务逻辑、API 接口调用、数据模型、事件机制与自动化测试选择器（包括按钮文案、placeholder、表单交互等契约），确保 Playwright 端到端回归测试 100% 保持通过。
+- 设计语言定位：Modern Academic SaaS & Precision Intelligence Platform（现代学术教务与智能质量管控中枢）。
+- 规范落地：
+  1. 配色：Primary 采用深邃学术科技蓝 (#1E3A5F / #4338CA / #4F46E5)，Success/出勤采用翡翠绿 (#059669)，Warning/冲突采用琥珀橙 (#D97706)，Danger/缺勤采用玫瑰红 (#E11D48)，背景采用柔和微光灰白 (#F8FAFC)。
+  2. 表面与阴影：卡片升级为统一规范的现代高质感白底卡片，圆角提升至 rounded-2xl，搭配细腻的 1px 浅灰色外边框与 subtle 阴影，hover 时具备 150-200ms 的平滑景深微动效。
+  3. 排版与排布：全面清理 Emoji 结构图标，全部采用 Lucide 矢量图标；采用严谨的 4/8dp 间距节奏与清晰的字阶体系；数据指标卡片强化数字可读性（font-mono, tabular-nums）。
+  4. 无障碍与微交互：保障表单元素对比度 >= 4.5:1，按钮具备 cursor-pointer、加载 spinner 动画、交互反馈环与清晰禁用态；模态框与抽屉具备优雅的高斯模糊背景遮罩。
+
+
+## 2026-10-03 服务启动脚本 start_project.ps1 MySQL 密码告警中断缺陷排查与修复
+- **现象描述**：执行 `start_project.ps1` 在第一步检查基础服务（MySQL/Redis）并执行增量迁移时报错：
+  `[ERROR] Startup failed: mysql: [Warning] Using a password on the command line interface can be insecure.`
+- **根本原因 (Root Cause)**：
+  1. MySQL 客户端在使用 `-proot` 命令行明文传参时，默认向标准错误流 (stderr) 输出安全告警信息：`mysql: [Warning] Using a password on the command line interface can be insecure.`。
+  2. PowerShell 脚本头部设置了 `$ErrorActionPreference = 'Stop'`。在 Windows PowerShell 环境下，原生外部命令的标准错误输出会被截获并升级为终止性异常。
+  3. `scripts/start_project.ps1` 中执行 `06_exp3_sprint2.sql` 迁移时未做 stderr 静默或安全环境变量传参，导致正常的 Warning 被误识别为 Fatal Error 中断。
+- **解决方案与修复验证**：
+  1. 将脚本中 `docker exec classroom-mysql mysql -uroot -proot ...` 改为官方推荐的密码环境变量传参：`docker exec -e MYSQL_PWD=root classroom-mysql mysql -uroot ...`。
+  2. 此改动消除 MySQL 命令行明文告警，彻底避免 stderr 误报警；同时同步加固 `scripts/run-exp3-browser-tests.ps1`。
+  3. 执行 `.\scripts\start_project.ps1 -NonInteractive -SkipBuild` 验证，服务正常启动（MySQL 8.0, Redis 7.2, Backend 8080, Vite 5173 全部就绪并通过健康检查）。
+
+## 2026-10-06 远端结构与分支分析
+- 远端默认 main（7b1a589），共 6 个分支；当前开发分支 feat/exp3-sprint2（347a51a）与远端同提交，本地已有 UI、脚本和过程文档未提交改动。
+- main 与 Sprint 2 独有提交数为 2 / 4，共同祖先 40b9c3a；main 与共同祖先的文件树相同，分叉主要体现在历史关系。Sprint 2 相对 main 改动 101 个文件，增加 4700 行、删除 2101 行。
+- foundation-auth 与 us01-us02 全部提交已包含于 main；backup/pre-exp3 是 Sprint 2 的祖先。实验二补充分支与 main 的指定核心业务源码路径一致，配置和脚本等仍有差异。
+- 远端 Sprint 2 跟踪 376 个文件，结构为 Vue 前端 / Spring Boot 后端 / Python 视觉 / scripts 部署验收，加项目规定五个资料目录。
+- 待确认：本地 v0.1.0-sprint1 指向 3d93ad7，远端同名标签指向 688a47d；v0.1.0-sprint1-v3 仅本地存在。
+- 完整分析：docs/20261006-remote-structure-and-branches-v1.md。本轮只核对结构和 Git 关系，没有运行应用测试或执行合并、提交、推送。
+
+## 2026-10-06 用户确认正式阶段与分支建议修正
+- 来源：用户当前明确“实验还处于 exp2 的状态，exp3 是提前做的”。
+- 当前正式阶段为实验二；实验三代码属于提前开发成果，不能据此认为实验阶段已切换。
+- 建议 main 维持实验二维护和交付候选基线；feat/exp3-sprint2 保留提前开发，暂不合入 main。实验二补充分支与实验三前备份在当前收尾期间继续保留。
+- 本地 UI 和脚本未提交改动需按阶段核对；共用修复应独立审查后回移，不将实验三数据库迁移和新增流程直接混入实验二交付。
+- 已据此更新远端分析记录和长期背景；仅修改说明，未变更 Git 分支或代码。
+
+## 2026-10-06 实验二分支收尾完成
+- 按用户要求将 feat/exp2-supplement-auth-fix 合入 main；已推送 a4da3d8，合并前后 Git 文件树完全相同，没有撤销原主线修复或纳入实验三成果。
+- 已删除远端和本地的补充分支、foundation-auth、us01-us02，以及仅本地存在的 us03-us04-us06；提交历史全部保留在 main。
+- 当前远端和本地均保留 main、feat/exp3-sprint2、backup/pre-exp3-20260923；原工作区仍在 exp3，未提交代码和脚本保持原样。
+- 本轮以 Git 文件树、祖先、远端 SHA 和原工作区文件哈希验证；没有新增应用改动，不宣称重新通过应用验收。
+- 发布标签和此前人工复核事项未在本轮处理。详见 docs/20261006-exp2-branch-closeout-v1.md。
+
+## 2026-10-06 main 启动与实验二完善程度核验
+- main a4da3d8 可编译打包，普通后端 107 项、真实 MySQL 31 项、浏览器专项 1 项分轮共 139 项通过；前端 10 项和构建、Python 5 项通过。
+- 真实浏览器验收覆盖实验二三角色五故事，但合成数据通过不等同于自带基线完整或新环境可启动。
+- 冷启动实测：MySQL 整目录挂载让归档迁移早于完整基线执行，报开课表不存在并退出。已在独立本地分支 a962506 修正为单文件完整基线挂载，冷启动与生产服务、三角色登录复测通过。
+- 主线自带初始化数据另缺课程和开课的专业归属，默认督导列表为 0；不按名称/部门推断填充，需明确映射后修复。
+- 结论：实验二核心业务实现通过本轮自动验证，但远端 main 仍有启动和数据完善缺口；修复尚未推送，硬件、真实数据、人工验收和标签事项仍需后续复核。
+- 完整记录和证据：docs/20261006-main-startup-verification-v1.md、docs/main-startup-evidence-20261006-v1/。原工作区及 raw 未改写。
+# 2026-10-06 实验三就绪判断
+
+- 本轮核对远端 exp3 347a51a 与本地未提交 UI，已提交后端业务代码未修改。当前 8 条实验三故事及实验二五故事兼容浏览器验收通过；真实 Office 转 PDF 和冷启动隔离运行通过。
+- 后端分轮去重汇总 144 项通过（含校正后的排课测试与新增 1 项授权回归）；前端 10 项、Python 5 项通过。原版排课断言与既有主讲编号授权规则矛盾，不能写成原版 143 项全通过。
+- 本地补齐排课输入名称、审核卡片稳定定位及历史脚本加载等待；没有改变业务权限或覆盖用户原界面修改。
+- 判断：功能代码具备收尾条件，正式完成仍需真实培养方案内容核对、评审/回顾事实记录及整理提交本地启动与验收修正。正式实验阶段保持 exp2，不合 exp3 到 main。
+- 详细证据与边界：docs/20261006-exp3-readiness-verification-v1.md、docs/exp3-readiness-evidence-20261006-v1/。
+
+## 2026-10-06 exp3 完善与 main 集成结论
+
+- 用户已要求本轮完成并推送 main，前次“尚未合并”的描述是历史阶段状态，不再作为本轮合并阻塞。
+- 合并候选的后端分轮去重 144 项、前端 10 项、Python 5 项通过；实验二五故事、Sprint 2 八故事和生产 Docker 上全功能 24 项真实操作通过。
+- 全功能验收通过 Vite 真实代理上传磁盘 DOCX，确认 Office 转换与水印显示；保持空文件校验，没有绕过授权或伪造 API 响应。
+- 完善测试隔离、MySQL/PowerShell 兼容、Maven 发现、前端连接状态与代理配置，收拢现有 UI。正式资料缺口继续记录，不阻止用户已授权的代码集成。
+- 完整结果：docs/20261006-exp3-main-integration-v1.md；证据：docs/exp3-main-evidence-20261006-v1/。
 

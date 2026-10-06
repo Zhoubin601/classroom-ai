@@ -1,25 +1,16 @@
-# Stage 1: Build JAR using Maven on Temurin 21
-FROM maven:3.9.6-eclipse-temurin-21 AS builder
-WORKDIR /app
-
-# Copy pom.xml and download dependencies
-COPY pom.xml .
-RUN mvn dependency:go-offline -B || true
-
-# Copy source code and package application
-COPY src ./src
-RUN mvn clean package -DskipTests -B
-
-# Stage 2: Minimal JRE Runtime
-FROM eclipse-temurin:21-jre-alpine
+# Runtime image consumes the JAR built by the project launcher on the host.
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
 # Install tzdata for proper Shanghai timezone inside container
-RUN apk add --no-cache tzdata && \
+RUN sed -i '/jammy-updates/d; /jammy-backports/d; s|http://|https://|g' /etc/apt/sources.list && \
+    apt-get update -o Acquire::Retries=5 && \
+    apt-get install -y --no-install-recommends libreoffice-writer libreoffice-impress tzdata fonts-noto-cjk && \
+    rm -rf /var/lib/apt/lists/* && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone
 
-COPY --from=builder /app/target/classroom-backend-*.jar app.jar
+COPY target/classroom-backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Create directory for uploads
 RUN mkdir -p /app/runtime/uploads/faces

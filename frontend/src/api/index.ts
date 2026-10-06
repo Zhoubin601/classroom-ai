@@ -335,9 +335,21 @@ export const syllabusApi = {
     return res.data.data
   },
 
-  // 获取12条毕业要求指标点映射矩阵
+  // 获取当前大纲版本的毕业要求指标点映射矩阵
   getIndicators: async (courseId: number): Promise<any[]> => {
     const res = await client.get<ApiResponse<any[]>>(`/api/v1/syllabus/course/${courseId}/indicators`)
+    return res.data.data
+  },
+  getPlanIndicators: async (majorCode: string, version: string): Promise<any[]> => {
+    const res = await client.get<ApiResponse<any[]>>(`/api/v1/syllabus/plans/${encodeURIComponent(majorCode)}/${encodeURIComponent(version)}/indicators`)
+    return res.data.data
+  },
+  importPlanIndicators: async (majorCode: string, version: string, items: any[]): Promise<any[]> => {
+    const res = await client.put<ApiResponse<any[]>>(`/api/v1/syllabus/plans/${encodeURIComponent(majorCode)}/${encodeURIComponent(version)}/indicators`, items)
+    return res.data.data
+  },
+  createFromPlan: async (courseId: number, syllabusVersion: string, planVersion: string): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>(`/api/v1/syllabus/course/${courseId}/from-plan`, { syllabusVersion, planVersion })
     return res.data.data
   },
 
@@ -387,25 +399,43 @@ export const resourceApi = {
   },
 
   // 上传真实课件文件 (PPTX/DOCX/PDF)
-  uploadFile: async (file: File): Promise<{
-    fileUrl: string
-    fileName: string
-    fileType: string
-    fileSize: string
-    fileSizeBytes: number
-  }> => {
+  uploadFile: async (file: File, data: { courseId: number; chapter: string; resourceName: string; tags: string[]; isPublic: boolean }): Promise<any> => {
     const formData = new FormData()
     formData.append('file', file)
-    const res = await client.post<ApiResponse<{
-      fileUrl: string
-      fileName: string
-      fileType: string
-      fileSize: string
-      fileSizeBytes: number
-    }>>('/api/v1/resources/upload', formData, {
+    formData.append('courseId', String(data.courseId))
+    formData.append('chapter', data.chapter)
+    formData.append('resourceName', data.resourceName)
+    formData.append('tags', data.tags.join(','))
+    formData.append('isPublic', String(data.isPublic))
+    const res = await client.post<ApiResponse<any>>('/api/v1/resources/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
     return res.data.data
+  },
+  getPreviewPdf: async (id: number): Promise<Blob> => {
+    const res = await client.post<ApiResponse<{url: string}>>(`/api/v1/resources/${id}/preview-ticket`)
+    try {
+      const pdf = await client.get<Blob>(res.data.data.url, { responseType: 'blob', timeout: 120000 })
+      if (!String(pdf.headers['content-type'] || '').includes('application/pdf')) {
+        throw new Error('预览服务未返回 PDF 文件')
+      }
+      return pdf.data
+    } catch (error: any) {
+      if (error.response?.data instanceof Blob && String(error.response.headers?.['content-type'] || '').includes('application/json')) {
+        try {
+          const body = JSON.parse(await error.response.data.text())
+          throw new Error(body.message || '预览失败')
+        } catch (parseError) {
+          if (parseError instanceof SyntaxError) throw error
+          throw parseError
+        }
+      }
+      throw error
+    }
+  },
+  download: async (id: number): Promise<Blob> => {
+    const res = await client.get(`/api/v1/resources/${id}/download`, { responseType: 'blob' })
+    return res.data
   },
 
   // 保存课件资源 (100MB 限制与水印)
@@ -445,10 +475,22 @@ export const supervisionApi = {
     const res = await client.post<ApiResponse<any>>('/api/v1/supervisions', data)
     return res.data
   },
+  getWeights: async (): Promise<{attitude: number; content: number; method: number; effect: number}> => {
+    const res = await client.get<ApiResponse<{attitude: number; content: number; method: number; effect: number}>>('/api/v1/supervisions/weights')
+    return res.data.data
+  },
+  review: async (id: number, approved: boolean, note = ''): Promise<any> => {
+    const res = await client.post<ApiResponse<any>>(`/api/v1/supervisions/${id}/review`, { approved, note })
+    return res.data.data
+  },
+  getCoverage: async (term?: string): Promise<any[]> => {
+    const res = await client.get<ApiResponse<any[]>>('/api/v1/supervisions/analytics/coverage', { params: term ? { term } : undefined })
+    return res.data.data
+  },
 
   // 全院覆盖率动态监控仪表盘 (US-15)
-  getDashboard: async (): Promise<any> => {
-    const res = await client.get<ApiResponse<any>>('/api/v1/supervisions/analytics/dashboard')
+  getDashboard: async (term?: string): Promise<any> => {
+    const res = await client.get<ApiResponse<any>>('/api/v1/supervisions/analytics/dashboard', { params: term ? { term } : undefined })
     return res.data.data
   },
 

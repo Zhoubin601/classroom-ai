@@ -48,11 +48,23 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 100MB
-      max-request-size: 120MB
+      max-file-size: ${CLASSROOM_MULTIPART_MAX_FILE_SIZE:200MB}
+      max-request-size: ${CLASSROOM_MULTIPART_MAX_REQUEST_SIZE:220MB}
 
 classroom:
   upload-dir: ${CLASSROOM_UPLOAD_DIR:}
+  resource:
+    max-file-bytes: ${CLASSROOM_RESOURCE_MAX_FILE_BYTES:104857600}
+    allowed-extensions: ${CLASSROOM_RESOURCE_ALLOWED_EXTENSIONS:ppt,pptx,doc,docx,pdf}
+    preview-minutes: ${CLASSROOM_RESOURCE_PREVIEW_MINUTES:5}
+    soffice: ${CLASSROOM_SOFFICE:soffice}
+  supervision:
+    feedback-delay-hours: ${CLASSROOM_FEEDBACK_DELAY_HOURS:24}
+    weights:
+      attitude: ${CLASSROOM_WEIGHT_ATTITUDE:25}
+      content: ${CLASSROOM_WEIGHT_CONTENT:25}
+      method: ${CLASSROOM_WEIGHT_METHOD:25}
+      effect: ${CLASSROOM_WEIGHT_EFFECT:25}
   face:
     similarity-threshold: 0.45
     default-dimension: 512

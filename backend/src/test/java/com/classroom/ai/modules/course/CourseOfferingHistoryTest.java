@@ -151,7 +151,6 @@ public class CourseOfferingHistoryTest {
 
         when(offeringRepository.findAll()).thenReturn(List.of(activeOffering, frozenOffering));
         when(enrollmentRepository.countByOfferingId(101L)).thenReturn(95L);
-        when(offeringTeacherRepository.findByOfferingId(101L)).thenReturn(List.of(CourseOfferingTeacher.builder().teacherId(1L).teacherCode("T2024001").teacherName("郭军").build()));
         when(scheduleRepository.findByOfferingId(101L)).thenReturn(Collections.emptyList());
 
         ApiResponse<OfferingHistoryVO> resp = historyController.getOfferingHistory(null);

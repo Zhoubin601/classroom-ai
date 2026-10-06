@@ -1,26 +1,31 @@
 <template>
   <div class="space-y-6">
     <!-- 顶部操作栏 -->
-    <div class="flex flex-wrap items-center justify-between gap-4 p-5 bg-white border border-slate-200/80 rounded-2xl shadow-card">
-      <div>
-        <h2 class="text-lg font-bold text-slate-900 tracking-tight">学生档案与人脸特征底库管理</h2>
-        <p class="text-xs text-slate-500 mt-1">
-          管理录入 InsightFace 512 维特征向量，支持与 MySQL 持久化、Redis 高速缓存及 1:N 云端检索比对。
-        </p>
+    <div class="pro-card p-6 bg-gradient-to-r from-white via-slate-50/60 to-indigo-50/20 border border-slate-200/80 shadow-card-hover rounded-2xl flex flex-wrap items-center justify-between gap-5">
+      <div class="flex items-center gap-4">
+        <div class="w-13 h-13 rounded-2xl bg-gradient-to-br from-indigo-500 to-navy-700 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 ring-4 ring-indigo-50">
+          <ScanFace class="w-6 h-6" />
+        </div>
+        <div>
+          <h2 class="text-xl font-bold tracking-tight text-slate-900">学生档案与人脸特征底库管理</h2>
+          <p class="text-xs text-slate-500 mt-1">
+            管理录入 InsightFace 512 维特征向量，支持与 MySQL 持久化、Redis 高速缓存及 1:N 云端检索比对。
+          </p>
+        </div>
       </div>
 
       <div class="flex items-center gap-3">
         <button
           @click="openSearchModal"
-          class="px-4 py-2 rounded-xl text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 flex items-center gap-1.5 transition shadow-xs"
+          class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 flex items-center gap-1.5 transition shadow-2xs cursor-pointer"
         >
-          <ScanFace class="w-3.5 h-3.5 text-slate-500" />
+          <ScanFace class="w-3.5 h-3.5 text-indigo-600" />
           1:N 人脸识别云端测试
         </button>
 
         <button
           @click="openRegisterModal"
-          class="px-4 py-2 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs flex items-center gap-1.5 transition"
+          class="px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-xs flex items-center gap-1.5 transition cursor-pointer"
         >
           <UserPlus class="w-3.5 h-3.5" />
           注册新学生 / 录人人脸
@@ -29,13 +34,13 @@
     </div>
 
     <!-- 学生档案列表表格 -->
-    <div class="bg-white border border-slate-200/80 rounded-2xl shadow-card overflow-hidden">
-      <div class="p-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+    <div class="pro-card overflow-hidden">
+      <div class="p-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <span class="text-sm font-semibold text-slate-800">
+          <span class="text-sm font-bold text-slate-900">
             学生档案列表 (共 {{ filteredStudents.length }} 人 / 总库 {{ students.length }} 人)
           </span>
-          <span class="text-[11px] px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-600 font-mono">
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600 font-mono font-medium">
             MySQL: student 表
           </span>
         </div>
@@ -46,12 +51,12 @@
               v-model="searchKeyword"
               type="text"
               placeholder="搜索学号、姓名、班级..."
-              class="w-56 px-3 py-1.5 pl-8 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+              class="w-60 px-3.5 py-1.5 pl-8 rounded-xl bg-white border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs transition font-medium"
             />
-            <Search class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2" />
+            <Search class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
           </div>
 
-          <button @click="loadStudents" class="text-xs text-slate-500 hover:text-indigo-600 transition flex items-center gap-1">
+          <button @click="loadStudents" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs text-slate-600 hover:text-indigo-600 font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-2xs">
             <RefreshCw class="w-3.5 h-3.5" />
             刷新
           </button>
@@ -60,7 +65,7 @@
 
       <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
         <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 text-slate-600 font-medium tracking-wide border-b border-slate-200 sticky top-0 z-10 backdrop-blur-sm">
+          <thead class="bg-slate-50 text-slate-600 font-bold tracking-wide border-b border-slate-200 sticky top-0 z-10 backdrop-blur-xs">
             <tr>
               <th class="py-3.5 px-4 font-semibold">头像</th>
               <th class="py-3.5 px-4 font-semibold">学号 (Student ID)</th>
@@ -71,45 +76,45 @@
               <th class="py-3.5 px-4 font-semibold text-right">操作</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100 font-sans text-slate-700">
-            <tr v-for="s in filteredStudents" :key="s.studentId" class="hover:bg-slate-50/70 transition-colors">
+          <tbody class="divide-y divide-slate-100 font-sans text-slate-700 bg-white">
+            <tr v-for="s in filteredStudents" :key="s.studentId" class="hover:bg-slate-50/80 transition-colors">
               <td class="py-3 px-4">
-                <div class="w-9 h-9 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs overflow-hidden">
+                <div class="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs overflow-hidden shadow-2xs">
                   <img v-if="s.avatarUrl" :src="s.avatarUrl" :alt="s.name" class="w-full h-full object-cover" />
                   <span v-else>{{ s.name.charAt(0) }}</span>
                 </div>
               </td>
-              <td class="py-3 px-4 font-mono font-medium text-indigo-600">{{ s.studentId }}</td>
-              <td class="py-3 px-4 font-semibold text-slate-900">{{ s.name }}</td>
-              <td class="py-3 px-4 text-slate-600">{{ formatGender(s.gender) }}</td>
+              <td class="py-3 px-4 font-mono font-bold text-indigo-600">{{ s.studentId }}</td>
+              <td class="py-3 px-4 font-bold text-slate-900">{{ s.name }}</td>
+              <td class="py-3 px-4 text-slate-600 font-medium">{{ formatGender(s.gender) }}</td>
               <td class="py-3 px-4">
-                <span v-if="s.className" class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-700 font-medium text-[11px]">
+                <span v-if="s.className" class="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 font-semibold text-[11px] shadow-2xs">
                   {{ s.className }}
                 </span>
                 <span v-else class="text-slate-400 italic text-[11px]">未分班 (公共底库)</span>
               </td>
               <td class="py-3 px-4">
-                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
                   <Check class="w-3 h-3" />
                   512维已录入
                 </span>
               </td>
-              <td class="py-3 px-4 text-right space-x-2">
+              <td class="py-3 px-4 text-right space-x-3">
                 <button
                   @click="openAssignClassModal(s)"
-                  class="text-xs text-amber-600 hover:text-amber-700 hover:underline font-medium"
+                  class="text-xs text-amber-600 hover:text-amber-800 font-bold cursor-pointer"
                 >
                   调配班级
                 </button>
                 <button
                   @click="testSearchWithStudent(s)"
-                  class="text-xs text-indigo-600 hover:text-indigo-700 hover:underline font-medium"
+                  class="text-xs text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer"
                 >
                   比对测试
                 </button>
                 <button
                   @click="handleDelete(s.studentId)"
-                  class="text-xs text-rose-600 hover:text-rose-700 hover:underline font-medium"
+                  class="text-xs text-rose-600 hover:text-rose-800 font-bold cursor-pointer"
                 >
                   删除
                 </button>
@@ -117,7 +122,7 @@
             </tr>
 
             <tr v-if="filteredStudents.length === 0">
-              <td colspan="7" class="py-10 text-center text-slate-400">
+              <td colspan="7" class="py-14 text-center text-slate-400">
                 {{ students.length === 0 ? '暂无学生档案，请点击上方“注册新学生 / 录人人脸”开始录入' : '未匹配到符合搜索条件的学生' }}
               </td>
             </tr>
@@ -127,53 +132,55 @@
     </div>
 
     <!-- 弹窗 1: 注册录入人脸 (双引擎：浏览器实时摄像头直接录入 + 桌面独立窗口) -->
-    <div v-if="showRegisterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-      <div class="bg-white border border-slate-200/80 rounded-2xl w-full max-w-2xl p-6 shadow-modal relative max-h-[92vh] overflow-y-auto space-y-4">
+    <div v-if="showRegisterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl p-6 shadow-modal relative max-h-[92vh] overflow-y-auto space-y-4">
         <!-- 弹窗标题 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div class="flex items-center gap-2">
-            <Camera class="w-5 h-5 text-indigo-600" />
+            <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Camera class="w-4 h-4" />
+            </div>
             <div>
               <h3 class="text-base font-bold text-slate-900 tracking-tight">学生人脸特征库录入</h3>
               <p class="text-[11px] text-slate-500">InsightFace (ArcFace 512维) + MySQL持久化 + Redis高速检索缓存</p>
             </div>
           </div>
-          <button @click="closeRegisterModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
+          <button @click="closeRegisterModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-5 h-5" />
           </button>
         </div>
 
         <div class="space-y-4 text-xs">
           <!-- 1. 学生基础档案表单 -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200/80">
             <div>
-              <label class="block text-slate-700 mb-1 font-semibold">学号 (唯一) *</label>
+              <label class="block text-slate-700 mb-1 font-bold">学号 (唯一) *</label>
               <input
                 v-model="registerForm.studentId"
                 type="text"
                 placeholder="例如: STU2026002"
-                class="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-indigo-600 focus:outline-none focus:border-indigo-500 font-mono text-xs shadow-2xs"
+                class="w-full px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-mono text-xs shadow-2xs font-semibold"
               />
             </div>
 
             <div>
-              <label class="block text-slate-700 mb-1 font-semibold">学生姓名 *</label>
+              <label class="block text-slate-700 mb-1 font-bold">学生姓名 *</label>
               <input
                 v-model="registerForm.name"
                 type="text"
                 placeholder="例如: 李四"
-                class="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-900 focus:outline-none focus:border-indigo-500 text-xs shadow-2xs"
+                class="w-full px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-xs shadow-2xs font-semibold"
               />
             </div>
 
             <div>
-              <label class="block text-slate-600 mb-1">所属班级</label>
+              <label class="block text-slate-700 mb-1 font-semibold">所属班级</label>
               <input
                 v-model="registerForm.className"
                 list="registerClassOptions"
                 type="text"
                 placeholder="例如: 2024级计算机科学与技术1班"
-                class="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-800 focus:outline-none focus:border-indigo-500 text-xs shadow-2xs"
+                class="w-full px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-xs shadow-2xs"
               />
               <datalist id="registerClassOptions">
                 <option v-for="c in classList" :key="c" :value="c" />
@@ -181,10 +188,10 @@
             </div>
 
             <div>
-              <label class="block text-slate-600 mb-1">性别</label>
+              <label class="block text-slate-700 mb-1 font-semibold">性别</label>
               <select
                 v-model="registerForm.gender"
-                class="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-800 focus:outline-none focus:border-indigo-500 text-xs shadow-2xs"
+                class="w-full px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-xs shadow-2xs cursor-pointer font-medium"
               >
                 <option value="MALE">男 (MALE)</option>
                 <option value="FEMALE">女 (FEMALE)</option>
@@ -197,31 +204,31 @@
           <div class="flex items-center gap-2 border-b border-slate-200 pb-2">
             <button
               @click="switchRegisterMode('webcam')"
-              :class="registerMode === 'webcam' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-slate-500 hover:text-slate-800 border-transparent'"
-              class="px-3 py-1.5 rounded-lg font-medium border text-xs flex items-center gap-1.5 transition"
+              :class="registerMode === 'webcam' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-bold' : 'text-slate-500 hover:text-slate-800 border-transparent font-medium'"
+              class="px-3 py-1.5 rounded-xl border text-xs flex items-center gap-1.5 transition cursor-pointer"
             >
               <span>网页实时摄像头 (推荐·即时取景)</span>
             </button>
             <button
               @click="switchRegisterMode('desktop')"
-              :class="registerMode === 'desktop' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-slate-500 hover:text-slate-800 border-transparent'"
-              class="px-3 py-1.5 rounded-lg font-medium border text-xs flex items-center gap-1.5 transition"
+              :class="registerMode === 'desktop' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-bold' : 'text-slate-500 hover:text-slate-800 border-transparent font-medium'"
+              class="px-3 py-1.5 rounded-xl border text-xs flex items-center gap-1.5 transition cursor-pointer"
             >
               <span>独立桌面窗口 (OpenCV)</span>
             </button>
             <button
               @click="switchRegisterMode('file')"
-              :class="registerMode === 'file' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-slate-500 hover:text-slate-800 border-transparent'"
-              class="px-3 py-1.5 rounded-lg font-medium border text-xs flex items-center gap-1.5 transition"
+              :class="registerMode === 'file' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-bold' : 'text-slate-500 hover:text-slate-800 border-transparent font-medium'"
+              class="px-3 py-1.5 rounded-xl border text-xs flex items-center gap-1.5 transition cursor-pointer"
             >
               <span>照片文件上传</span>
             </button>
           </div>
 
           <!-- 模式一：网页实时摄像头直接拍照录入 (推荐，100% 画面可见) -->
-          <div v-if="registerMode === 'webcam'" class="space-y-3">
+          <div v-if="registerMode === 'webcam'" class="space-y-3.5">
             <!-- 摄像头画面容器 -->
-            <div class="relative w-full h-72 rounded-xl bg-slate-950 border border-slate-900 overflow-hidden shadow-inner flex items-center justify-center group">
+            <div class="relative w-full h-72 rounded-2xl bg-slate-950 border border-slate-900 overflow-hidden shadow-inner flex items-center justify-center group">
               <!-- 视频流 -->
               <video
                 ref="webcamVideo"
@@ -233,12 +240,14 @@
 
               <!-- 未开启提示 -->
               <div v-if="!isCameraActive" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-slate-950/90 z-20">
-                <Camera class="w-8 h-8 text-slate-400 mb-2" />
-                <p class="text-slate-300 font-semibold mb-2">摄像头尚未开启或未获得浏览器授权</p>
-                <p class="text-slate-500 text-[11px] mb-3">支持在浏览器中即时取景对准，一键调用 InsightFace 提取特征入库</p>
+                <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 mb-2">
+                  <Camera class="w-6 h-6 text-slate-400" />
+                </div>
+                <p class="text-slate-200 font-bold mb-1">摄像头尚未开启或未获得浏览器授权</p>
+                <p class="text-slate-400 text-[11px] mb-3">支持在浏览器中即时取景对准，一键调用 InsightFace 提取特征入库</p>
                 <button
                   @click="startWebcam"
-                  class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs flex items-center gap-1.5 transition shadow-sm"
+                  class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer"
                 >
                   开启网页实时摄像头
                 </button>
@@ -255,7 +264,7 @@
                 <!-- 画面中央人脸椭圆虚线引导框 -->
                 <div class="absolute inset-0 flex items-center justify-center">
                   <div class="w-48 h-60 rounded-full border-2 border-indigo-400/60 border-dashed animate-pulse flex items-center justify-center">
-                    <span class="text-[10px] text-white font-mono bg-slate-900/80 px-2 py-0.5 rounded-full border border-slate-700">
+                    <span class="text-[10px] text-white font-mono bg-slate-900/80 px-2.5 py-0.5 rounded-full border border-slate-700">
                       人脸对准区域
                     </span>
                   </div>
@@ -267,12 +276,12 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  <span class="font-mono text-[10px] text-emerald-400 font-semibold tracking-wider">LIVE WEBCAM ACTIVE</span>
+                  <span class="font-mono text-[10px] text-emerald-400 font-bold tracking-wider">LIVE WEBCAM ACTIVE</span>
                 </div>
 
                 <!-- 底部提示 -->
                 <div class="absolute bottom-3 inset-x-0 flex justify-center">
-                  <span class="bg-slate-900/80 backdrop-blur-sm border border-slate-700/60 text-slate-300 text-[10px] px-3 py-1 rounded-full">
+                  <span class="bg-slate-900/80 backdrop-blur-xs border border-slate-700/60 text-slate-300 text-[10px] px-3.5 py-1 rounded-full font-medium">
                     正对镜头，调整好角度后点击下方拍照按钮，或按键盘 <kbd class="text-indigo-300 font-mono font-bold">S</kbd> 键录入
                   </span>
                 </div>
@@ -284,7 +293,7 @@
               <button
                 @click="captureAndRegister"
                 :disabled="!isCameraActive || isCapturing"
-                class="w-full py-2.5 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-2 transition shadow-xs disabled:opacity-50 disabled:cursor-not-allowed"
+                class="w-full py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-2 transition shadow-xs disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 <span v-if="isCapturing" class="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
                 <Camera v-else class="w-4 h-4" />
@@ -292,13 +301,13 @@
               </button>
 
               <!-- 录入成功反馈 -->
-              <div v-if="captureSuccessMsg" class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2 font-medium">
+              <div v-if="captureSuccessMsg" class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2 font-semibold">
                 <Check class="w-4 h-4 text-emerald-600" />
                 <span>{{ captureSuccessMsg }}</span>
               </div>
 
               <!-- 录入失败反馈 -->
-              <div v-if="captureError" class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2 font-medium">
+              <div v-if="captureError" class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2 font-semibold">
                 <AlertCircle class="w-4 h-4 text-rose-600" />
                 <span>{{ captureError }}</span>
               </div>
@@ -308,11 +317,11 @@
           <!-- 模式二：独立桌面窗口录入 (face_register.py) -->
           <div v-if="registerMode === 'desktop'" class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
-              <span class="font-semibold text-slate-800 text-xs flex items-center gap-1.5">
+              <span class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
                 <Camera class="w-3.5 h-3.5 text-indigo-600" />
                 调起本地 Python OpenCV 独立窗口
               </span>
-              <span class="text-[10px] text-slate-400 font-mono">InsightFace buffalo_l</span>
+              <span class="text-[10px] text-slate-500 font-mono">InsightFace buffalo_l</span>
             </div>
 
             <p class="text-slate-500 text-[11px] leading-relaxed">
@@ -322,19 +331,19 @@
             <button
               @click="launchCameraRegister"
               :disabled="isCameraLaunching"
-              class="w-full py-2.5 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-2 transition shadow-xs disabled:opacity-50"
+              class="w-full py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-2 transition shadow-xs disabled:opacity-50 cursor-pointer"
             >
               <span v-if="isCameraLaunching" class="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
               {{ isCameraLaunching ? '正在调起桌面窗口程序...' : '启动独立桌面窗口 (Open face_register.py)' }}
             </button>
 
             <!-- 状态信息 -->
-            <div v-if="cameraStatusMessage" class="p-3 rounded-lg bg-slate-100 border border-slate-200 text-[11px] text-slate-700 flex items-start gap-2">
+            <div v-if="cameraStatusMessage" class="p-3 rounded-xl bg-white border border-slate-200 text-[11px] text-slate-700 flex items-start gap-2 shadow-2xs">
               <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-ping mt-1 flex-shrink-0"></span>
               <div>
-                <p class="font-medium text-slate-900">{{ cameraStatusMessage }}</p>
+                <p class="font-bold text-slate-900">{{ cameraStatusMessage }}</p>
                 <p class="text-slate-500 mt-1">
-                  💡 提示：若当前浏览器处于全屏，请按 <kbd class="text-indigo-600 font-mono">Alt + Tab</kbd> 切换到【Face Register】窗口并在其中按 S 键。
+                  💡 提示：若当前浏览器处于全屏，请按 <kbd class="text-indigo-600 font-mono font-bold">Alt + Tab</kbd> 切换到【Face Register】窗口并在其中按 S 键。
                 </p>
               </div>
             </div>
@@ -342,16 +351,16 @@
 
           <!-- 模式三：上传照片文件录入 -->
           <div v-if="registerMode === 'file'" class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-            <span class="font-semibold text-slate-800 text-xs block">上传单张人脸照片文件录入</span>
+            <span class="font-bold text-slate-800 text-xs block">上传单张人脸照片文件录入</span>
             <input
               type="file"
               accept="image/*"
               @change="handleFileUpload"
-              class="w-full text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-800 hover:file:bg-slate-300 cursor-pointer"
+              class="w-full text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-800 hover:file:bg-slate-300 cursor-pointer"
             />
             <button
               @click="submitManualRegister"
-              class="w-full py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-white transition-colors"
+              class="w-full py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer shadow-xs"
             >
               确认以此照片录入
             </button>
@@ -361,7 +370,7 @@
         <div class="mt-5 flex justify-end gap-3 border-t border-slate-100 pt-3">
           <button
             @click="closeRegisterModal"
-            class="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 transition"
+            class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 transition cursor-pointer"
           >
             关闭窗口
           </button>
@@ -370,18 +379,20 @@
     </div>
 
     <!-- 弹窗 2: 1:N 人脸识别云端检索与现场刷脸认证测试 -->
-    <div v-if="showSearchModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-      <div class="bg-white border border-slate-200/80 rounded-2xl w-full max-w-2xl p-6 shadow-modal relative max-h-[92vh] overflow-y-auto space-y-4">
+    <div v-if="showSearchModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl p-6 shadow-modal relative max-h-[92vh] overflow-y-auto space-y-4">
         <!-- 弹窗头部 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div class="flex items-center gap-2">
-            <ScanFace class="w-5 h-5 text-indigo-600" />
+            <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <ScanFace class="w-4 h-4" />
+            </div>
             <div>
               <h3 class="text-base font-bold text-slate-900 tracking-tight">1:N 人脸云端检索与现场刷脸认证</h3>
               <p class="text-[11px] text-slate-500">摄像头现场取景 -&gt; InsightFace 提取 512 维特征 -&gt; Redis 高速余弦相似度秒级匹配</p>
             </div>
           </div>
-          <button @click="closeSearchModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
+          <button @click="closeSearchModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-5 h-5" />
           </button>
         </div>
@@ -390,22 +401,22 @@
         <div class="flex items-center gap-2 border-b border-slate-200 pb-2 text-xs">
           <button
             @click="switchVerifyTab('webcam')"
-            :class="verifyTab === 'webcam' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-slate-500 hover:text-slate-800 border-transparent'"
-            class="px-3 py-1.5 rounded-lg font-medium border flex items-center gap-1.5 transition"
+            :class="verifyTab === 'webcam' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-bold' : 'text-slate-500 hover:text-slate-800 border-transparent font-medium'"
+            class="px-3 py-1.5 rounded-xl border flex items-center gap-1.5 transition cursor-pointer"
           >
             <span>网页摄像头现场刷脸 (推荐)</span>
           </button>
           <button
             @click="switchVerifyTab('desktop')"
-            :class="verifyTab === 'desktop' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-slate-500 hover:text-slate-800 border-transparent'"
-            class="px-3 py-1.5 rounded-lg font-medium border flex items-center gap-1.5 transition"
+            :class="verifyTab === 'desktop' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-bold' : 'text-slate-500 hover:text-slate-800 border-transparent font-medium'"
+            class="px-3 py-1.5 rounded-xl border flex items-center gap-1.5 transition cursor-pointer"
           >
             <span>独立桌面实时识别 (OpenCV)</span>
           </button>
           <button
             @click="switchVerifyTab('vector')"
-            :class="verifyTab === 'vector' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'text-slate-500 hover:text-slate-800 border-transparent'"
-            class="px-3 py-1.5 rounded-lg font-medium border flex items-center gap-1.5 transition"
+            :class="verifyTab === 'vector' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-bold' : 'text-slate-500 hover:text-slate-800 border-transparent font-medium'"
+            class="px-3 py-1.5 rounded-xl border flex items-center gap-1.5 transition cursor-pointer"
           >
             <span>底层特征向量算法测试</span>
           </button>
@@ -414,7 +425,7 @@
         <!-- 模式一：网页摄像头现场抓拍刷脸认证 -->
         <div v-if="verifyTab === 'webcam'" class="space-y-4 text-xs">
           <!-- 摄像头画面容器 -->
-          <div class="relative w-full h-72 rounded-xl bg-slate-950 border border-slate-900 overflow-hidden shadow-inner flex items-center justify-center group">
+          <div class="relative w-full h-72 rounded-2xl bg-slate-950 border border-slate-900 overflow-hidden shadow-inner flex items-center justify-center group">
             <video
               ref="verifyWebcamVideo"
               autoplay
@@ -425,12 +436,14 @@
 
             <!-- 摄像头未开启提示 -->
             <div v-if="!isVerifyCameraActive" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-slate-950/90 z-20">
-              <Camera class="w-8 h-8 text-slate-400 mb-2" />
-              <p class="text-slate-300 font-semibold mb-2">摄像头尚未开启或未获得浏览器授权</p>
-              <p class="text-slate-500 text-[11px] mb-3">支持在浏览器中即时取景对准，一键抓拍并由 InsightFace 提取特征秒级识别身份</p>
+              <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 mb-2">
+                <Camera class="w-6 h-6 text-slate-400" />
+              </div>
+              <p class="text-slate-200 font-bold mb-1">摄像头尚未开启或未获得浏览器授权</p>
+              <p class="text-slate-400 text-[11px] mb-3">支持在浏览器中即时取景对准，一键抓拍并由 InsightFace 提取特征秒级识别身份</p>
               <button
                 @click="startVerifyWebcam"
-                class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs flex items-center gap-1.5 transition shadow-sm"
+                class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer"
               >
                 开启网页实时摄像头
               </button>
@@ -460,9 +473,9 @@
           </div>
 
           <!-- 阈值调整与拍照按钮 -->
-          <div class="flex flex-wrap items-center justify-between gap-4 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
             <div class="flex items-center gap-3">
-              <span class="text-slate-600 font-medium">判定阈值:</span>
+              <span class="text-slate-700 font-semibold">判定阈值:</span>
               <input
                 v-model.number="searchThreshold"
                 type="range"
@@ -477,7 +490,7 @@
             <button
               @click="captureAndVerify"
               :disabled="!isVerifyCameraActive || isVerifying"
-              class="px-5 py-2 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2 transition shadow-xs disabled:opacity-50"
+              class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2 transition shadow-xs disabled:opacity-50 cursor-pointer"
             >
               <span v-if="isVerifying" class="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
               <Camera v-else class="w-3.5 h-3.5" />
@@ -486,7 +499,7 @@
           </div>
 
           <!-- 错误提示 -->
-          <div v-if="verifyError" class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-2 font-medium">
+          <div v-if="verifyError" class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-2 font-semibold">
             <AlertCircle class="w-4 h-4 text-rose-600" />
             <span>{{ verifyError }}</span>
           </div>
@@ -495,11 +508,11 @@
         <!-- 模式二：独立桌面窗口实时识别 -->
         <div v-if="verifyTab === 'desktop'" class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
           <div class="flex items-center justify-between">
-            <span class="font-semibold text-slate-800 text-xs flex items-center gap-1.5">
+            <span class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
               <Camera class="w-3.5 h-3.5 text-indigo-600" />
               调起本地 Python OpenCV 独立窗口
             </span>
-            <span class="text-[10px] text-slate-400 font-mono">InsightFace buffalo_l + CUDA</span>
+            <span class="text-[10px] text-slate-500 font-mono">InsightFace buffalo_l + CUDA</span>
           </div>
 
           <p class="text-slate-500 leading-relaxed text-[11px]">
@@ -509,18 +522,18 @@
           <button
             @click="launchDesktopVerify"
             :disabled="isDesktopVerifying"
-            class="w-full py-2.5 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-2 transition shadow-xs disabled:opacity-50"
+            class="w-full py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-2 transition shadow-xs disabled:opacity-50 cursor-pointer"
           >
             <span v-if="isDesktopVerifying" class="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
             {{ isDesktopVerifying ? '正在调起桌面识别窗口...' : '启动独立桌面识别窗口 (Open face_verify.py)' }}
           </button>
 
-          <div v-if="desktopVerifyMsg" class="p-3 rounded-lg bg-slate-100 border border-slate-200 text-[11px] text-slate-700 flex items-start gap-2">
+          <div v-if="desktopVerifyMsg" class="p-3 rounded-xl bg-white border border-slate-200 text-[11px] text-slate-700 flex items-start gap-2 shadow-2xs">
             <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-ping mt-1 flex-shrink-0"></span>
             <div>
-              <p class="font-medium text-slate-900">{{ desktopVerifyMsg }}</p>
+              <p class="font-bold text-slate-900">{{ desktopVerifyMsg }}</p>
               <p class="text-slate-500 mt-1">
-                💡 提示：若当前浏览器处于全屏，请按 <kbd class="text-indigo-600 font-mono">Alt + Tab</kbd> 切换到【Face Verify】独立窗口查看实时识别。
+                💡 提示：若当前浏览器处于全屏，请按 <kbd class="text-indigo-600 font-mono font-bold">Alt + Tab</kbd> 切换到【Face Verify】独立窗口查看实时识别。
               </p>
             </div>
           </div>
@@ -528,14 +541,14 @@
 
         <!-- 模式三：底层特征向量算法测试 -->
         <div v-if="verifyTab === 'vector'" class="space-y-4 text-xs">
-          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2.5">
-            <span class="block text-slate-700 font-semibold">待测特征向量来源：</span>
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+            <span class="block text-slate-800 font-bold">待测特征向量来源：</span>
             <div class="flex flex-wrap items-center gap-4">
-              <label class="flex items-center gap-1.5 cursor-pointer text-slate-700 hover:text-slate-900">
+              <label class="flex items-center gap-1.5 cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
                 <input type="radio" v-model="searchSourceMode" value="student" @change="onSearchSourceChange" class="accent-indigo-600" />
                 <span>选用底库学生人脸 (验证精准识别)</span>
               </label>
-              <label class="flex items-center gap-1.5 cursor-pointer text-slate-700 hover:text-slate-900">
+              <label class="flex items-center gap-1.5 cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
                 <input type="radio" v-model="searchSourceMode" value="random" @change="onSearchSourceChange" class="accent-indigo-600" />
                 <span>模拟陌生人/噪声 (验证防伪拦截)</span>
               </label>
@@ -545,26 +558,26 @@
               <select 
                 v-model="selectedStudentForTest" 
                 @change="onSelectedStudentTestChange"
-                class="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-800 text-xs focus:outline-none focus:border-indigo-500 shadow-2xs"
+                class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs font-medium cursor-pointer"
               >
                 <option v-for="st in registeredFaceStudents" :key="st.studentId" :value="st.studentId">
                   {{ st.name }} (学号: {{ st.studentId }} · {{ st.className || '公共底库' }})
                 </option>
               </select>
-              <p class="text-[11px] text-emerald-600 mt-1">
+              <p class="text-[11px] text-emerald-600 mt-1.5 font-medium">
                 💡 来源：已载入该同学已录入的真实 512 维高维特征，执行检索预期相似度达 0.99~1.00，成功命中！
               </p>
             </div>
             <div v-else class="pt-1">
-              <p class="text-[11px] text-amber-600">
+              <p class="text-[11px] text-amber-700 font-medium">
                 💡 来源：生成一组随机伪特征向量（模拟未录入人员）。预期相似度接近 0 并被阈值拦截（判为 Unknown）。
               </p>
             </div>
           </div>
 
-          <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
             <div class="flex items-center gap-3">
-              <span class="text-slate-600 font-medium">判定阈值:</span>
+              <span class="text-slate-700 font-semibold">判定阈值:</span>
               <input
                 v-model.number="searchThreshold"
                 type="range"
@@ -578,7 +591,7 @@
 
             <button
               @click="executeSearch"
-              class="px-5 py-2 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition flex items-center gap-2"
+              class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition flex items-center gap-2 cursor-pointer"
             >
               执行余弦相似度 1:N 检索
             </button>
@@ -586,35 +599,35 @@
         </div>
 
         <!-- 比对结果综合展示区 -->
-        <div v-if="searchResult" class="p-4 rounded-xl border" :class="searchResult.matched ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'">
+        <div v-if="searchResult" class="p-5 rounded-2xl border transition shadow-subtle" :class="searchResult.matched ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'">
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center gap-2">
               <div>
-                <h4 class="font-bold text-sm" :class="searchResult.matched ? 'text-emerald-800' : 'text-rose-800'">
+                <h4 class="font-bold text-sm" :class="searchResult.matched ? 'text-emerald-900' : 'text-rose-900'">
                   {{ searchResult.matched ? '认证成功：识别到档案学生！' : '未达到判定阈值：判定为校外陌生人 (Unknown)' }}
                 </h4>
-                <p class="text-[11px] text-slate-500">
+                <p class="text-[11px] text-slate-500 mt-0.5">
                   {{ searchResult.matched ? '该人脸特征与底库高度吻合，身份核验通过。' : '该人脸相似度未达门槛阈值，系统已进行防伪拦截，不予计入考勤。' }}
                 </p>
               </div>
             </div>
-            <span class="font-mono font-bold text-sm px-2.5 py-1 rounded-lg bg-white border" :class="searchResult.matched ? 'text-emerald-700 border-emerald-300' : 'text-rose-700 border-rose-300'">
+            <span class="font-mono font-bold text-sm px-3 py-1 rounded-xl bg-white border shadow-2xs" :class="searchResult.matched ? 'text-emerald-700 border-emerald-300' : 'text-rose-700 border-rose-300'">
               相似度: {{ searchResult.similarity }}
             </span>
           </div>
 
-          <div class="flex items-center gap-4 pt-3 border-t" :class="searchResult.matched ? 'border-emerald-200/60' : 'border-rose-200/60'">
+          <div class="flex items-center gap-4 pt-3.5 border-t" :class="searchResult.matched ? 'border-emerald-200/60' : 'border-rose-200/60'">
             <!-- 现场抓拍切片 (如果有) -->
-            <div v-if="searchResult.snapshotUrl" class="w-16 h-16 rounded-xl border border-slate-200 overflow-hidden bg-white flex-shrink-0">
-              <img :src="searchResult.snapshotUrl" alt="现场快照" class="w-full h-full object-cover" />
+            <div v-if="searchResult.avatarUrl" class="w-16 h-16 rounded-xl border border-slate-200 overflow-hidden bg-white flex-shrink-0 shadow-2xs">
+              <img :src="searchResult.avatarUrl" alt="现场快照" class="w-full h-full object-cover" />
             </div>
 
             <!-- 匹配到的档案详情 -->
             <div class="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs flex-1">
               <div>匹配学号: <span class="text-indigo-600 font-mono font-bold">{{ searchResult.studentId }}</span></div>
               <div>匹配姓名: <span class="text-slate-900 font-bold">{{ searchResult.name }}</span></div>
-              <div>所属班级: <span class="text-slate-600">{{ searchResult.className || '-' }}</span></div>
-              <div>判定门槛: <span class="text-slate-500 font-mono">&gt;= {{ searchThreshold }}</span></div>
+              <div>所属班级: <span class="text-slate-700 font-semibold">{{ searchResult.className || '-' }}</span></div>
+              <div>判定门槛: <span class="text-slate-500 font-mono font-semibold">&gt;= {{ searchThreshold }}</span></div>
             </div>
           </div>
         </div>
@@ -622,7 +635,7 @@
         <div class="mt-6 flex justify-end gap-3 pt-3 border-t border-slate-100">
           <button
             @click="closeSearchModal"
-            class="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
+            class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
           >
             关闭窗口
           </button>
@@ -631,35 +644,35 @@
     </div>
 
     <!-- 弹窗 3: 调配学生教学班级 (MySQL 真实联动) -->
-    <div v-if="showAssignModal && targetStudent" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-      <div class="bg-white border border-slate-200/80 rounded-2xl w-full max-w-md p-6 shadow-modal relative">
+    <div v-if="showAssignModal && targetStudent" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal relative">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
           <div class="flex items-center gap-2">
             <h3 class="text-sm font-bold text-slate-900">调配学生所属教学班</h3>
           </div>
-          <button @click="showAssignModal = false" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
+          <button @click="showAssignModal = false" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-4 h-4" />
           </button>
         </div>
 
         <div class="mt-4 space-y-4 text-xs">
-          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm shadow-2xs">
               {{ targetStudent.name.charAt(0) }}
             </div>
             <div>
               <div class="font-bold text-slate-900 text-sm">{{ targetStudent.name }}</div>
-              <div class="text-slate-500 font-mono text-[11px]">
-                学号: {{ targetStudent.studentId }} | 当前班级: <span class="text-indigo-600 font-medium">{{ targetStudent.className || '未分配 (底库)' }}</span>
+              <div class="text-slate-500 font-mono text-[11px] mt-0.5">
+                学号: {{ targetStudent.studentId }} | 当前班级: <span class="text-indigo-600 font-semibold">{{ targetStudent.className || '未分配 (底库)' }}</span>
               </div>
             </div>
           </div>
 
           <div>
-            <label class="block text-slate-700 font-semibold mb-1">选择目标班级 (直接更新 MySQL student 表):</label>
+            <label class="block text-slate-700 font-bold mb-1.5">选择目标班级 (直接更新 MySQL student 表):</label>
             <select
               v-model="targetClassName"
-              class="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-800 font-medium text-xs focus:outline-none focus:border-indigo-500 shadow-2xs"
+              class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs cursor-pointer"
             >
               <option value="">-- 移出班级 (保留在底库，不计入任何开课班额) --</option>
               <option v-for="c in classList" :key="c" :value="c">{{ c }}</option>
@@ -667,16 +680,16 @@
           </div>
 
           <div>
-            <label class="block text-slate-600 mb-1">或手动指定班级名称:</label>
+            <label class="block text-slate-700 font-medium mb-1">或手动指定班级名称:</label>
             <input
               v-model="targetClassName"
               type="text"
               placeholder="例如: 2024级人工智能1班"
-              class="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-800 text-xs focus:outline-none focus:border-indigo-500 shadow-2xs"
+              class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs font-medium"
             />
           </div>
 
-          <div v-if="assignMsg" class="p-2.5 rounded-lg text-xs font-medium" :class="assignMsg.includes('成功') ? 'bg-emerald-50 border border-emerald-200 text-emerald-800' : 'bg-rose-50 border border-rose-200 text-rose-800'">
+          <div v-if="assignMsg" class="p-3 rounded-xl text-xs font-semibold" :class="assignMsg.includes('成功') ? 'bg-emerald-50 border border-emerald-200 text-emerald-800' : 'bg-rose-50 border border-rose-200 text-rose-800'">
             {{ assignMsg }}
           </div>
         </div>
@@ -684,14 +697,14 @@
         <div class="mt-6 flex justify-end gap-3 pt-3 border-t border-slate-100">
           <button
             @click="showAssignModal = false"
-            class="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 transition"
+            class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 transition cursor-pointer"
           >
             取消
           </button>
           <button
             @click="handleAssignClass"
             :disabled="isAssigning"
-            class="px-5 py-2 rounded-xl text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition disabled:opacity-50 shadow-xs"
+            class="px-5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition disabled:opacity-50 shadow-xs cursor-pointer"
           >
             {{ isAssigning ? '保存中...' : '确认调配' }}
           </button>
@@ -749,17 +762,131 @@ const handleAssignClass = async () => {
   if (!targetStudent.value) return
   isAssigning.value = true
   assignMsg.value = ''
+
   try {
-    await studentApi.updateStudentClass(targetStudent.value.studentId, targetClassName.value)
-    assignMsg.value = '班级调配成功！'
+    const studentId = targetStudent.value.studentId
+    const newClass = targetClassName.value.trim()
+
+    // 1. 如果新班级为空，说明是移出班级
+    if (!newClass) {
+      // 遍历所有含有该学生的 offering 并移出
+      const allOfferings = await courseApi.getOfferings()
+      for (const off of allOfferings) {
+        try {
+          const detail = await courseApi.getOfferingStudents(off.id)
+          if (detail.enrolled?.some(st => st.studentId === studentId)) {
+            await courseApi.removeStudentFromOffering(off.id, studentId)
+          }
+        } catch {}
+      }
+      // 更新 student 表的 className 为 null
+      await studentApi.updateStudentClass(studentId, '')
+      assignMsg.value = '已成功将该学生从班级移出，保留在底库。'
+    } else {
+      // 2. 调配到指定新班级
+      // 找到该班级对应的 offering
+      const allOfferings = await courseApi.getOfferings()
+      const matchedOffering = allOfferings.find(o => o.className === newClass)
+
+      if (matchedOffering) {
+        // 先从原班级移出
+        for (const off of allOfferings) {
+          if (off.id !== matchedOffering.id) {
+            try {
+              const detail = await courseApi.getOfferingStudents(off.id)
+              if (detail.enrolled?.some(st => st.studentId === studentId)) {
+                await courseApi.removeStudentFromOffering(off.id, studentId)
+              }
+            } catch {}
+          }
+        }
+        // 加入新开课班级
+        await courseApi.addStudentsToOffering(matchedOffering.id, [studentId])
+      } else {
+        // 如果是自定义班级名称，直接更新学生主档
+        await studentApi.updateStudentClass(studentId, newClass)
+      }
+
+      assignMsg.value = `成功将学生调配至班级：${newClass}`
+    }
+
+    await loadStudents()
+    await loadClassList()
+
     setTimeout(() => {
       showAssignModal.value = false
-      loadStudents()
-    }, 500)
+    }, 1200)
   } catch (err: any) {
-    assignMsg.value = '调配失败: ' + (err.message || '网络错误')
+    assignMsg.value = '调配失败: ' + (err.message || '未知异常')
   } finally {
     isAssigning.value = false
+  }
+}
+
+// 注册弹窗状态
+const showRegisterModal = ref(false)
+const registerMode = ref<'webcam' | 'desktop' | 'file'>('webcam')
+const registerForm = ref({
+  studentId: '',
+  name: '',
+  gender: 'MALE',
+  className: ''
+})
+const uploadedImagePath = ref('')
+
+// 网页摄像头直接抓拍
+const webcamVideo = ref<HTMLVideoElement | null>(null)
+let webcamStream: MediaStream | null = null
+const isCameraActive = ref(false)
+const isCapturing = ref(false)
+const captureSuccessMsg = ref('')
+const captureError = ref('')
+
+// 1:N 云端检索测试弹窗
+const showSearchModal = ref(false)
+const verifyTab = ref<'webcam' | 'desktop' | 'vector'>('webcam')
+const searchThreshold = ref(0.42)
+const searchResult = ref<FaceMatchVO | null>(null)
+const registeredFaceStudents = ref<any[]>([])
+const selectedStudentForTest = ref('')
+const searchSourceMode = ref<'student' | 'random'>('student')
+let testEmbedding: number[] | null = null
+
+// 网页现场刷脸
+const verifyWebcamVideo = ref<HTMLVideoElement | null>(null)
+let verifyWebcamStream: MediaStream | null = null
+const isVerifyCameraActive = ref(false)
+const isVerifying = ref(false)
+const verifyError = ref('')
+
+// 桌面识别窗口
+const isDesktopVerifying = ref(false)
+const desktopVerifyMsg = ref('')
+
+// 桌面录入
+const isCameraLaunching = ref(false)
+const cameraStatusMessage = ref('')
+let pollTimer: number | null = null
+
+// 键盘 S 键快捷拍照
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 's' || e.key === 'S') {
+    if (showRegisterModal.value && registerMode.value === 'webcam' && isCameraActive.value && !isCapturing.value) {
+      e.preventDefault()
+      captureAndRegister()
+    } else if (showSearchModal.value && verifyTab.value === 'webcam' && isVerifyCameraActive.value && !isVerifying.value) {
+      e.preventDefault()
+      captureAndVerify()
+    }
+  }
+}
+
+const loadStudents = async () => {
+  try {
+    const list = await studentApi.getStudents()
+    students.value = Array.isArray(list) ? list : []
+  } catch (e) {
+    console.error('加载学生列表失败:', e)
   }
 }
 
@@ -767,191 +894,25 @@ const loadClassList = async () => {
   try {
     const offerings = await courseApi.getOfferings()
     const names = Array.from(new Set(offerings.map(o => o.className).filter(Boolean)))
-    classList.value = names.length > 0 ? names : ['2024级计算机科学与技术1班', '2024级软件工程1班', '2024级人工智能1班']
+    classList.value = names
+    if (names.length > 0 && !registerForm.value.className) {
+      registerForm.value.className = names[0]
+    }
   } catch (e) {
-    classList.value = ['2024级计算机科学与技术1班', '2024级软件工程1班', '2024级人工智能1班']
+    console.warn('加载班级列表失败', e)
   }
 }
 
-// 录入弹窗状态与表单
-const showRegisterModal = ref(false)
-const registerMode = ref<'webcam' | 'desktop' | 'file'>('webcam')
-const registerForm = ref({
-  studentId: '',
-  name: '',
-  gender: 'MALE',
-  className: '高一(1)班'
-})
-const uploadedImagePath = ref('')
-
-// 网页摄像头相关
-const webcamVideo = ref<HTMLVideoElement | null>(null)
-let mediaStream: MediaStream | null = null
-const isCameraActive = ref(false)
-const isCapturing = ref(false)
-const captureError = ref('')
-const captureSuccessMsg = ref('')
-
-// 桌面独立窗口相关
-const isCameraLaunching = ref(false)
-const cameraStatusMessage = ref('')
-let pollTimer: number | null = null
-
-// 比对测试弹窗状态
-const showSearchModal = ref(false)
-const verifyTab = ref<'webcam' | 'desktop' | 'vector'>('webcam')
-const searchThreshold = ref(0.45)
-const searchResult = ref<any | null>(null)
-const searchSourceMode = ref<'student' | 'random'>('student')
-const registeredFaceStudents = ref<{ studentId: string; name: string; className?: string; featureVector?: number[] }[]>([])
-const selectedStudentForTest = ref('')
-let testEmbedding: number[] | null = null
-
-// 比对测试摄像头相关
-const verifyWebcamVideo = ref<HTMLVideoElement | null>(null)
-let verifyMediaStream: MediaStream | null = null
-const isVerifyCameraActive = ref(false)
-const isVerifying = ref(false)
-const verifyError = ref('')
-
-// 独立桌面比对相关
-const isDesktopVerifying = ref(false)
-const desktopVerifyMsg = ref('')
-
-// 开启现场比对摄像头
-const startVerifyWebcam = async () => {
-  verifyError.value = ''
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-        facingMode: 'user'
-      },
-      audio: false
-    })
-    verifyMediaStream = stream
-    await nextTick()
-    if (verifyWebcamVideo.value) {
-      verifyWebcamVideo.value.srcObject = stream
-      await verifyWebcamVideo.value.play()
-    }
-    isVerifyCameraActive.value = true
-  } catch (err: any) {
-    console.error('启动现场比对摄像头失败:', err)
-    verifyError.value = '无法访问摄像头设备：请确认已授予浏览器摄像头权限，或检查设备是否被占用。'
-    isVerifyCameraActive.value = false
-  }
-}
-
-// 停止现场比对摄像头
-const stopVerifyWebcam = () => {
-  if (verifyMediaStream) {
-    verifyMediaStream.getTracks().forEach(t => {
-      try { t.stop() } catch (e) {}
-    })
-    verifyMediaStream = null
-  }
-  if (verifyWebcamVideo.value) {
-    verifyWebcamVideo.value.srcObject = null
-  }
-  isVerifyCameraActive.value = false
-}
-
-// 切换比对测试 Tab
-const switchVerifyTab = async (tab: 'webcam' | 'desktop' | 'vector') => {
-  verifyTab.value = tab
-  verifyError.value = ''
-  if (tab === 'webcam') {
-    await startVerifyWebcam()
-  } else {
-    stopVerifyWebcam()
-  }
-}
-
-// 现场抓拍刷脸比对（调用 InsightFace 提取 512 维特征并在云端检索）
-const captureAndVerify = async () => {
-  if (!verifyWebcamVideo.value || !isVerifyCameraActive.value) {
-    alert('请先开启摄像头！')
-    return
-  }
-
-  isVerifying.value = true
-  verifyError.value = ''
-  searchResult.value = null
-
-  try {
-    const video = verifyWebcamVideo.value
-    const canvas = document.createElement('canvas')
-    canvas.width = video.videoWidth || 640
-    canvas.height = video.videoHeight || 480
-    const ctx = canvas.getContext('2d')
-    if (ctx) {
-      ctx.translate(canvas.width, 0)
-      ctx.scale(-1, 1)
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-    }
-
-    const imageBase64 = canvas.toDataURL('image/jpeg', 0.95)
-    const res = await faceApi.verifyWebcamFace({
-      imageBase64,
-      threshold: searchThreshold.value
-    })
-
-    if (res && res.code === 200 && res.data) {
-      searchResult.value = res.data
-    } else {
-      verifyError.value = res?.message || '人脸特征提取失败，请正对摄像头重试！'
-    }
-  } catch (err: any) {
-    console.error('现场刷脸比对异常:', err)
-    verifyError.value = err.response?.data?.message || err.message || '现场识别服务异常'
-  } finally {
-    isVerifying.value = false
-  }
-}
-
-// 调起桌面端独立窗口实时识别
-const launchDesktopVerify = async () => {
-  isDesktopVerifying.value = true
-  desktopVerifyMsg.value = '正在调起桌面独立 OpenCV 窗口...'
-  try {
-    const msg = await faceApi.launchCameraVerify()
-    desktopVerifyMsg.value = msg || '已调起桌面窗口！请按 Alt+Tab 查看，按 ESC 退出。'
-  } catch (err: any) {
-    desktopVerifyMsg.value = '调起失败: ' + (err.message || '环境异常')
-  } finally {
-    setTimeout(() => { isDesktopVerifying.value = false }, 3000)
-  }
-}
-
-// 关闭比对弹窗
-const closeSearchModal = () => {
-  stopVerifyWebcam()
-  showSearchModal.value = false
-  isVerifying.value = false
-}
-
-// 加载底库已建档人脸特征列表
 const loadRegisteredFaces = async () => {
   try {
     const list = await faceApi.getAllFaces()
-    if (list && list.length > 0) {
-      registeredFaceStudents.value = list
-      if (!selectedStudentForTest.value || !list.some(s => s.studentId === selectedStudentForTest.value)) {
-        selectedStudentForTest.value = list[0].studentId
-      }
-    } else {
-      registeredFaceStudents.value = []
-    }
+    registeredFaceStudents.value = Array.isArray(list) ? list : []
   } catch (e) {
     console.error('加载人脸底库失败:', e)
   }
 }
 
-// 切换待测特征向量来源
 const onSearchSourceChange = () => {
-  searchResult.value = null
   if (searchSourceMode.value === 'student') {
     onSelectedStudentTestChange()
   } else {
@@ -959,130 +920,91 @@ const onSearchSourceChange = () => {
   }
 }
 
-// 切换选中的测试学生
 const onSelectedStudentTestChange = () => {
-  searchResult.value = null
-  const target = registeredFaceStudents.value.find(s => s.studentId === selectedStudentForTest.value)
-  if (target && target.featureVector && target.featureVector.length > 0) {
-    testEmbedding = target.featureVector
+  const found = registeredFaceStudents.value.find(s => s.studentId === selectedStudentForTest.value)
+  if (found && found.featureVector) {
+    testEmbedding = found.featureVector
   } else {
     testEmbedding = generate512Vector()
   }
 }
 
-// 生成 512 维正态分布且归一化的特征向量
 const generate512Vector = () => {
   const vec = Array.from({ length: 512 }, () => (Math.random() - 0.5) * 2)
-  const norm = Math.sqrt(vec.reduce((sum, val) => sum + val * val, 0))
-  return vec.map(v => v / norm)
+  const norm = Math.sqrt(vec.reduce((sum, v) => sum + v * v, 0))
+  return vec.map(v => v / (norm || 1))
 }
 
-const loadStudents = async () => {
-  try {
-    const list = await studentApi.getStudents()
-    if (list) students.value = list
-  } catch (e) {
-    console.error('加载学生列表失败:', e)
+const openRegisterModal = async () => {
+  registerForm.value = {
+    studentId: `STU${Date.now().toString().slice(-6)}`,
+    name: '',
+    gender: 'MALE',
+    className: classList.value[0] || '2024级软件工程2班'
   }
-}
-
-// 启动网页摄像头流
-const startWebcam = async () => {
+  uploadedImagePath.value = ''
+  captureSuccessMsg.value = ''
   captureError.value = ''
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-        facingMode: 'user'
-      },
-      audio: false
-    })
-    mediaStream = stream
-    await nextTick()
-    if (webcamVideo.value) {
-      webcamVideo.value.srcObject = stream
-      await webcamVideo.value.play()
-    }
-    isCameraActive.value = true
-  } catch (err: any) {
-    console.error('启动网页摄像头失败:', err)
-    captureError.value = '无法访问摄像头设备：请确认已授予浏览器摄像头权限，或检查设备是否被其他程序占用。'
-    isCameraActive.value = false
-  }
+  registerMode.value = 'webcam'
+  showRegisterModal.value = true
+  await nextTick()
+  await startWebcam()
 }
 
-// 停止网页摄像头流
-const stopWebcam = () => {
-  if (mediaStream) {
-    mediaStream.getTracks().forEach(track => {
-      try { track.stop() } catch (e) {}
-    })
-    mediaStream = null
-  }
-  if (webcamVideo.value) {
-    webcamVideo.value.srcObject = null
-  }
-  isCameraActive.value = false
+const closeRegisterModal = () => {
+  stopWebcam()
+  if (pollTimer) clearInterval(pollTimer)
+  isCameraLaunching.value = false
+  cameraStatusMessage.value = ''
+  showRegisterModal.value = false
 }
 
-// 切换录入模式
 const switchRegisterMode = async (mode: 'webcam' | 'desktop' | 'file') => {
   registerMode.value = mode
-  captureError.value = ''
   captureSuccessMsg.value = ''
-  cameraStatusMessage.value = ''
-
+  captureError.value = ''
   if (mode === 'webcam') {
+    await nextTick()
     await startWebcam()
   } else {
     stopWebcam()
   }
 }
 
-// 打开录入弹窗
-const openRegisterModal = async () => {
-  registerForm.value = {
-    studentId: `STU202600${students.value.length + 1}`,
-    name: '',
-    gender: 'MALE',
-    className: '高一(1)班'
-  }
-  uploadedImagePath.value = ''
-  cameraStatusMessage.value = ''
+const startWebcam = async () => {
   captureError.value = ''
   captureSuccessMsg.value = ''
-  isCameraLaunching.value = false
-  isCapturing.value = false
-  registerMode.value = 'webcam'
-  showRegisterModal.value = true
-
-  // 默认自动开启网页摄像头
-  await nextTick()
-  await startWebcam()
-}
-
-// 关闭录入弹窗
-const closeRegisterModal = () => {
-  stopWebcam()
-  if (pollTimer) {
-    clearInterval(pollTimer)
-    pollTimer = null
+  try {
+    if (webcamStream) stopWebcam()
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false
+    })
+    webcamStream = stream
+    if (webcamVideo.value) {
+      webcamVideo.value.srcObject = stream
+      await webcamVideo.value.play()
+      isCameraActive.value = true
+    }
+  } catch (err: any) {
+    console.error('打开摄像头失败:', err)
+    captureError.value = '无法打开摄像头：' + (err.message || '请检查设备是否连接或授权')
+    isCameraActive.value = false
   }
-  showRegisterModal.value = false
-  isCameraLaunching.value = false
-  isCapturing.value = false
 }
 
-// 网页摄像头拍照并录入
+const stopWebcam = () => {
+  if (webcamStream) {
+    webcamStream.getTracks().forEach(track => track.stop())
+    webcamStream = null
+  }
+  isCameraActive.value = false
+}
+
 const captureAndRegister = async () => {
+  if (!webcamVideo.value || !isCameraActive.value) return
   if (!registerForm.value.studentId.trim() || !registerForm.value.name.trim()) {
-    alert('请填写学号和姓名')
-    return
-  }
-
-  if (!webcamVideo.value || !isCameraActive.value) {
-    alert('请先开启网页摄像头！')
+    captureError.value = '请先填写上方的学生学号与姓名！'
     return
   }
 
@@ -1093,61 +1015,127 @@ const captureAndRegister = async () => {
   try {
     const video = webcamVideo.value
     const canvas = document.createElement('canvas')
-    canvas.width = video.videoWidth || 640
-    canvas.height = video.videoHeight || 480
+    canvas.width = video.videoWidth || 1280
+    canvas.height = video.videoHeight || 720
     const ctx = canvas.getContext('2d')
-    if (ctx) {
-      // 水平镜像翻转绘制，使快照与镜像取景体验保持一致
-      ctx.translate(canvas.width, 0)
-      ctx.scale(-1, 1)
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-    }
+    if (!ctx) throw new Error('无法创建图像上下文')
 
-    const imageBase64 = canvas.toDataURL('image/jpeg', 0.95)
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    const base64Data = canvas.toDataURL('image/jpeg', 0.95)
 
     const res = await faceApi.registerWebcamFace({
+      imageBase64: base64Data,
       studentId: registerForm.value.studentId.trim(),
       name: registerForm.value.name.trim(),
-      className: registerForm.value.className.trim(),
       gender: registerForm.value.gender,
-      imageBase64
+      className: registerForm.value.className.trim()
     })
 
-    if (res && res.code === 200) {
-      captureSuccessMsg.value = res.message || '人脸特征录入成功！已同步至 MySQL 与 Redis。'
-      await loadStudents()
-      setTimeout(() => {
-        closeRegisterModal()
-      }, 1000)
-    } else {
-      captureError.value = res?.message || '人脸特征提取失败，请正对摄像头重试！'
-    }
+    captureSuccessMsg.value = `【录入成功】InsightFace 已提取 512 维特征向量！已写入 MySQL student 表及 Redis 检索缓存。`
+    await loadStudents()
+    await loadClassList()
+
+    setTimeout(() => {
+      closeRegisterModal()
+    }, 1200)
+
   } catch (err: any) {
-    console.error('网页快照录入异常:', err)
-    const msg = err.response?.data?.message || err.message || '录入失败，请确认后端服务状态'
-    captureError.value = msg
+    console.error('抓拍录入失败:', err)
+    captureError.value = '录入未成功: ' + (err.response?.data?.message || err.message || '请正对摄像头重试')
   } finally {
     isCapturing.value = false
   }
 }
 
-// 键盘快捷键监听：当弹窗开启且在网页摄像头模式时，按 S 键直接拍照录入或比对
-const handleKeyDown = (e: KeyboardEvent) => {
-  const tag = (e.target as HTMLElement)?.tagName?.toLowerCase()
-  if (tag === 'input' || tag === 'select' || tag === 'textarea') return
+const closeSearchModal = () => {
+  stopVerifyWebcam()
+  showSearchModal.value = false
+}
 
-  if (e.key === 's' || e.key === 'S') {
-    if (showRegisterModal.value && registerMode.value === 'webcam') {
-      e.preventDefault()
-      if (!isCapturing.value && isCameraActive.value) {
-        captureAndRegister()
-      }
-    } else if (showSearchModal.value && verifyTab.value === 'webcam') {
-      e.preventDefault()
-      if (!isVerifying.value && isVerifyCameraActive.value) {
-        captureAndVerify()
-      }
+const switchVerifyTab = async (tab: 'webcam' | 'desktop' | 'vector') => {
+  verifyTab.value = tab
+  verifyError.value = ''
+  searchResult.value = null
+  if (tab === 'webcam') {
+    await nextTick()
+    await startVerifyWebcam()
+  } else {
+    stopVerifyWebcam()
+  }
+}
+
+const startVerifyWebcam = async () => {
+  verifyError.value = ''
+  try {
+    if (verifyWebcamStream) stopVerifyWebcam()
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false
+    })
+    verifyWebcamStream = stream
+    if (verifyWebcamVideo.value) {
+      verifyWebcamVideo.value.srcObject = stream
+      await verifyWebcamVideo.value.play()
+      isVerifyCameraActive.value = true
     }
+  } catch (err: any) {
+    console.error('打开比对摄像头失败:', err)
+    verifyError.value = '无法开启摄像头：' + (err.message || '请检查权限')
+    isVerifyCameraActive.value = false
+  }
+}
+
+const stopVerifyWebcam = () => {
+  if (verifyWebcamStream) {
+    verifyWebcamStream.getTracks().forEach(track => track.stop())
+    verifyWebcamStream = null
+  }
+  isVerifyCameraActive.value = false
+}
+
+const captureAndVerify = async () => {
+  if (!verifyWebcamVideo.value || !isVerifyCameraActive.value) return
+  isVerifying.value = true
+  verifyError.value = ''
+  searchResult.value = null
+
+  try {
+    const video = verifyWebcamVideo.value
+    const canvas = document.createElement('canvas')
+    canvas.width = video.videoWidth || 1280
+    canvas.height = video.videoHeight || 720
+    const ctx = canvas.getContext('2d')
+    if (!ctx) throw new Error('无法创建图像上下文')
+
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    const base64Data = canvas.toDataURL('image/jpeg', 0.95)
+
+    const res = await faceApi.verifyWebcamFace({
+      imageBase64: base64Data,
+      threshold: searchThreshold.value
+    })
+
+    searchResult.value = res.data || res
+  } catch (err: any) {
+    console.error('比对失败:', err)
+    verifyError.value = '比对未成功: ' + (err.response?.data?.message || err.message || '请正对摄像头重试')
+  } finally {
+    isVerifying.value = false
+  }
+}
+
+const launchDesktopVerify = async () => {
+  isDesktopVerifying.value = true
+  desktopVerifyMsg.value = '正在拉起桌面端 face_verify.py 独立窗口并加载已录入底库...'
+
+  try {
+    const msg = await faceApi.launchCameraVerify()
+    desktopVerifyMsg.value = msg || '已调起桌面端实时识别窗口！'
+  } catch (err: any) {
+    console.error('调起桌面识别失败:', err)
+    desktopVerifyMsg.value = '调起失败，请确认本地 Python 环境与摄像头设备可用。'
+  } finally {
+    isDesktopVerifying.value = false
   }
 }
 

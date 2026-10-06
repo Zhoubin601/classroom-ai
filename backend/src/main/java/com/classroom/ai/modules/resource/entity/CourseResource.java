@@ -54,9 +54,24 @@ public class CourseResource {
     /** 文件大小字节数 */
     private Long fileSizeBytes;
 
-    /** 教学环节标签：理论 / 实验 / 研讨 (US-08) */
+    /** 教学环节标签：理论 / 实验 / 讨论 / 研讨 (US-08) */
     @Column(nullable = false, length = 32)
     private String tag;
+
+    @Column(name = "tags", length = 255)
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private String tagCsv;
+
+    @Transient
+    public java.util.List<String> getTags() {
+        if (tagCsv == null || tagCsv.isBlank()) return java.util.List.of();
+        return java.util.Arrays.stream(tagCsv.split(",")).map(String::trim).filter(s -> !s.isBlank()).toList();
+    }
+
+    public void setTags(java.util.List<String> values) {
+        tagCsv = values == null ? "" : values.stream().map(String::trim).filter(s -> !s.isBlank()).distinct()
+                .collect(java.util.stream.Collectors.joining(","));
+    }
 
     /** 版本号，如 "v1.0", "v2.0" (US-11) */
     @Builder.Default

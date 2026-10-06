@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SupervisionDashboardVO {
+    private String academicTerm;
     /** 本学期全院开设课程总门数 */
     private Integer totalCourses;
     /** 已完成督导听课课程门数 */

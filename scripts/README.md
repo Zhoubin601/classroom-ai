@@ -14,8 +14,14 @@
 | `./scripts/compose.ps1 up -d` | 启动 Compose 服务 |
 | `./scripts/compose.ps1 logs -f classroom-backend` | 查看容器后端日志 |
 | `./scripts/run-tests.ps1 -Offline` | 自动测试与前端构建 |
+| `./scripts/run-exp3-mysql-tests.ps1` | Sprint 2 隔离 MySQL 集成测试、重复迁移及匿名发布边界 |
+| `./scripts/run-exp3-browser-tests.ps1` | Sprint 2 8 条故事，独立 MySQL/Redis、真实浏览器与临时后端 |
+| `./scripts/run-us0102-mysql-tests.ps1` | 实验二隔离 MySQL 回归；Tests 参数选择测试类 |
+| `./scripts/run-all-features-playwright.ps1` | 对 BASE_URL/BACKEND_URL 指定环境执行全功能页面实操，支持 -Headed |
 
 `deploy/` 保存 Docker Compose、`.env.example` 和 MySQL 文件；Compose 的本地 `.env` 应放在 `deploy/`，不会自动生成。
 `tests/` 是跨服务联调，模块内的单元测试不在这里。旧人脸调试脚本会写入固定学号，未纳入自动运行。
 
 目录迁移解释见 [目录整理说明](../docs/目录整理说明.md)。
+
+全功能页面脚本会导入课程、培养方案和课件，应指向测试用数据库的服务。本次集成验收使用独立 Docker 数据库与生产后端；配置入口尊重 `PLAYWRIGHT_MODULE`、`EXP3_CHROMIUM_PATH`、`BASE_URL`、`BACKEND_URL`，不固定个人用户目录。
