@@ -1,0 +1,23 @@
+{
+  "observedAt": "2026-10-07T05:42:42.246Z",
+  "method": "SELECT only after backend update",
+  "unchanged": true,
+  "changedTables": [],
+  "tableCounts": {
+    "t_course": 24,
+    "t_major": 5,
+    "t_major_department": 2,
+    "t_course_offering": 18,
+    "t_course_offering_teacher": 4,
+    "t_offering_student_enrollment": 171,
+    "t_course_schedule": 18,
+    "t_course_syllabus": 29,
+    "t_graduation_indicator": 188,
+    "t_training_indicator": 62,
+    "t_course_resource": 10,
+    "t_micro_teaching_slice": 2,
+    "t_course_content_revision": 8,
+    "t_attendance_session": 4,
+    "t_supervision_evaluation": 5
+  }
+}

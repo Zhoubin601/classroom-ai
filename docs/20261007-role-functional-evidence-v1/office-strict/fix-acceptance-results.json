@@ -1,0 +1,29 @@
+[
+  {
+    "story": "US07/09",
+    "format": "docx",
+    "result": "PASS",
+    "realPdfBytes": 34323,
+    "renderedPixels": true,
+    "guards": true
+  },
+  {
+    "story": "US07/09",
+    "format": "pptx",
+    "result": "PASS",
+    "realPdfBytes": 35310,
+    "renderedPixels": true,
+    "guards": true
+  },
+  {
+    "story": "US09",
+    "role": "supervisor",
+    "result": "PASS",
+    "originalDownload": 403
+  },
+  {
+    "story": "US07",
+    "case": "corrupt DOCX with working converter",
+    "result": "PASS"
+  }
+]

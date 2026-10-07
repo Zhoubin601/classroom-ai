@@ -42,7 +42,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public Course saveCourse(CourseDTO dto) {
         var operator = CourseArchiveRules.requireDirector();
         if (dto.getCourseCode() == null || dto.getCourseCode().trim().isEmpty()) {
@@ -63,7 +63,7 @@ public class CourseServiceImpl implements CourseService {
         int theory = normalizedHours[0];
         int practice = normalizedHours[1];
         var major = CourseArchiveRules.requireMajor(dto.getMajorCode(), majorRepository);
-        CourseArchiveRules.validatePrerequisites(dto.getPrerequisites(), Set.of(), courseRepository);
+        List<Course> graph = courseRepository.findAllForUpdate();
 
         String cleanCode = dto.getCourseCode().trim();
         Course course;
@@ -71,6 +71,10 @@ public class CourseServiceImpl implements CourseService {
             course = courseRepository.findForUpdate(dto.getId())
                     .orElseThrow(() -> new IllegalArgumentException("未找到课程"));
             CourseArchiveRules.validateDepartment(course.getDepartment());
+            if ((!java.util.Objects.equals(course.getMajorCode(), major.getMajorCode())
+                    || (course.getMajorId() != null && !java.util.Objects.equals(course.getMajorId(), major.getId())))
+                    && courseRepository.countAssociatedRecords(course.getId()) > 0)
+                throw new IllegalStateException("课程已有教学班、大纲或资源，不能原地更换专业，请保留历史归属");
             // 编码是外部引用键，已有档案不允许原地改码，避免字符串引用悬空。
             if (!cleanCode.equals(course.getCourseCode())) throw new IllegalArgumentException("已有课程编码不可修改，请保留原编码");
             courseRepository.findByCourseCode(cleanCode).ifPresent(other -> {
@@ -85,6 +89,19 @@ public class CourseServiceImpl implements CourseService {
             course = new Course();
         }
 
+        String prerequisites = dto.getPrerequisites() == null && dto.getId() != null ? course.getPrerequisites() : dto.getPrerequisites();
+        boolean sameLegacyPrerequisites = dto.getId() != null && java.util.Objects.equals(prerequisites, course.getPrerequisites());
+        if (!sameLegacyPrerequisites) CourseArchiveRules.validatePrerequisites(prerequisites, Set.of(), courseRepository);
+        if (dto.getId() != null) CourseArchiveRules.protectReferencedCourse(course, dto.getCourseName().trim(), graph);
+        var proposed = Course.builder().id(course.getId()).courseCode(cleanCode).courseName(dto.getCourseName().trim()).prerequisites(prerequisites).build();
+        if (CourseArchiveRules.prerequisiteTokens(prerequisites).stream().map(CourseArchiveRules::referenceKey)
+                .anyMatch(key -> key.equals(CourseArchiveRules.referenceKey(cleanCode))
+                        || key.equals(CourseArchiveRules.referenceKey(dto.getCourseName()))
+                        || (dto.getId() != null && key.equals(CourseArchiveRules.referenceKey(course.getCourseName())))))
+            throw new IllegalArgumentException("课程不能将自身设为先修课程");
+        CourseArchiveRules.validateDependencyGraph(List.of(proposed), graph);
+        if (!sameLegacyPrerequisites) prerequisites = CourseArchiveRules.canonicalPrerequisites(prerequisites, graph);
+
         course.setCourseCode(cleanCode);
         course.setCourseName(dto.getCourseName().trim());
         course.setDepartment(dto.getDepartment().trim());
@@ -94,7 +111,7 @@ public class CourseServiceImpl implements CourseService {
         course.setTheoryHours(theory);
         course.setPracticeHours(practice);
         course.setCourseType(dto.getCourseType().trim());
-        course.setPrerequisites(dto.getPrerequisites());
+        course.setPrerequisites(prerequisites);
         if (dto.getId() == null) {
             course.setDescription(dto.getDescription());
             course.setObjectives(dto.getObjectives());
@@ -111,9 +128,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public void deleteCourse(Long id) {
-        CourseArchiveRules.validateDepartment(getCourseById(id).getDepartment());
+        CourseArchiveRules.requireDirector();
+        var graph = courseRepository.findAllForUpdate();
+        var target = courseRepository.findForUpdate(id).orElseThrow(() -> new IllegalArgumentException("课程不存在"));
+        CourseArchiveRules.validateDepartment(target.getDepartment());
+        boolean referenced = graph.stream().filter(course -> !java.util.Objects.equals(course.getId(), id))
+                .flatMap(course -> CourseArchiveRules.prerequisiteTokens(course.getPrerequisites()).stream())
+                .map(CourseArchiveRules::referenceKey).anyMatch(key -> key.equals(CourseArchiveRules.referenceKey(target.getCourseCode()))
+                        || key.equals(CourseArchiveRules.referenceKey(target.getCourseName())));
+        if (referenced || courseRepository.countAssociatedRecords(id) > 0)
+            throw new IllegalStateException("课程已有先修引用、教学班、大纲或资源，不能删除历史档案");
         courseRepository.deleteById(id);
     }
 
@@ -162,6 +188,11 @@ public class CourseServiceImpl implements CourseService {
     public List<com.classroom.ai.entity.Student> getAvailableStudentsForOffering(Long offeringId) {
         CourseOffering offering = courseOfferingRepository.findById(offeringId)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
+        var user = com.classroom.ai.modules.auth.context.AuthContext.getCurrentUser();
+        if (user == null) throw new com.classroom.ai.common.exception.UnauthorizedException("请先登录");
+        if (user.getRole() != com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR) return List.of();
+        CourseArchiveRules.validateDepartment(offering.getCourse().getDepartment());
+        if (Boolean.TRUE.equals(offering.getIsSnapshotFrozen())) return List.of();
         List<com.classroom.ai.modules.course.entity.OfferingStudentEnrollment> enrollments = enrollmentRepository.findByOfferingId(offeringId);
         java.util.Set<String> enrolled = enrollments.stream()
                 .map(com.classroom.ai.modules.course.entity.OfferingStudentEnrollment::getStudentNumber)

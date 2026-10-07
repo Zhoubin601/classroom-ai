@@ -48,8 +48,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     if (user.getId() != null) {
                         latestAccountOpt = userAccountRepository.findById(user.getId());
                     }
-                    if (latestAccountOpt.isEmpty() && user.getUsername() != null) {
+                    // ID tokens cannot inherit a subsequently recreated same-name account.
+                    if (user.getId() == null && user.getUsername() != null) {
                         latestAccountOpt = userAccountRepository.findByUsername(user.getUsername());
+                    }
+                    if (latestAccountOpt.isEmpty() || latestAccountOpt.get().getRole() == null
+                            || (user.getUsername() != null && !user.getUsername().equals(latestAccountOpt.get().getUsername()))) {
+                        SecurityContextHolder.clearContext();
+                        AuthContext.clear();
+                        filterChain.doFilter(request, response);
+                        return;
                     }
                     if (latestAccountOpt.isPresent()) {
                         UserAccount acc = latestAccountOpt.get();
@@ -63,6 +71,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 .authorizedMajors(acc.getAuthorizedMajors()) // 最新授权专业
                                 .build();
                     }
+                } else {
+                    SecurityContextHolder.clearContext();
+                    AuthContext.clear();
+                    filterChain.doFilter(request, response);
+                    return;
                 }
 
                 AuthContext.setCurrentUser(user);

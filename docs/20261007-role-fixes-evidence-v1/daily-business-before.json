@@ -1,0 +1,127 @@
+[
+  {
+    "table": "classroom_record",
+    "checksum": "2422521838",
+    "count": 1149
+  },
+  {
+    "table": "face_feature",
+    "checksum": "754565611",
+    "count": 80
+  },
+  {
+    "table": "student",
+    "checksum": "3202988301",
+    "count": 80
+  },
+  {
+    "table": "t_academic_term_lock",
+    "checksum": "692549747",
+    "count": 1
+  },
+  {
+    "table": "t_app_data_migration",
+    "checksum": "994408324",
+    "count": 1
+  },
+  {
+    "table": "t_attendance_session",
+    "checksum": "2637402019",
+    "count": 5
+  },
+  {
+    "table": "t_course",
+    "checksum": "17646982",
+    "count": 24
+  },
+  {
+    "table": "t_course_content_revision",
+    "checksum": "1440946102",
+    "count": 8
+  },
+  {
+    "table": "t_course_import_log",
+    "checksum": "395015939",
+    "count": 14
+  },
+  {
+    "table": "t_course_offering",
+    "checksum": "2862317736",
+    "count": 18
+  },
+  {
+    "table": "t_course_offering_teacher",
+    "checksum": "3753866579",
+    "count": 5
+  },
+  {
+    "table": "t_course_resource",
+    "checksum": "3126612692",
+    "count": 10
+  },
+  {
+    "table": "t_course_schedule",
+    "checksum": "1023559090",
+    "count": 18
+  },
+  {
+    "table": "t_course_syllabus",
+    "checksum": "1217707872",
+    "count": 29
+  },
+  {
+    "table": "t_evaluation_audit_log",
+    "checksum": "3058353256",
+    "count": 4
+  },
+  {
+    "table": "t_graduation_indicator",
+    "checksum": "2524039376",
+    "count": 188
+  },
+  {
+    "table": "t_major",
+    "checksum": "3519321879",
+    "count": 5
+  },
+  {
+    "table": "t_major_department",
+    "checksum": "3366326489",
+    "count": 2
+  },
+  {
+    "table": "t_micro_teaching_slice",
+    "checksum": "3844148735",
+    "count": 2
+  },
+  {
+    "table": "t_offering_student_enrollment",
+    "checksum": "1450904581",
+    "count": 172
+  },
+  {
+    "table": "t_resource_access_log",
+    "checksum": "3315369892",
+    "count": 19
+  },
+  {
+    "table": "t_supervision_evaluation",
+    "checksum": "303769691",
+    "count": 6
+  },
+  {
+    "table": "t_teacher",
+    "checksum": "3734834735",
+    "count": 8
+  },
+  {
+    "table": "t_training_indicator",
+    "checksum": "3696413972",
+    "count": 62
+  },
+  {
+    "table": "t_user_account",
+    "checksum": "571830656",
+    "count": 16
+  }
+]

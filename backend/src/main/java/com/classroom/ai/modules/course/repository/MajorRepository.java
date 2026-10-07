@@ -9,6 +9,9 @@ import java.util.Optional;
 @Repository
 public interface MajorRepository extends JpaRepository<Major, Long> {
     Optional<Major> findByMajorCode(String majorCode);
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @org.springframework.data.jpa.repository.Query("select m from Major m where m.majorCode = :code")
+    Optional<Major> findForUpdate(@org.springframework.data.repository.query.Param("code") String code);
     /** Lead or explicitly associated department; never inferred from arbitrary courses. */
     @org.springframework.data.jpa.repository.Query("""
             select m from Major m where m.department = :department or exists

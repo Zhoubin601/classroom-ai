@@ -1,0 +1,31 @@
+{
+  "result": "PASS",
+  "targetedBrowserChecks": 13,
+  "fullBrowserChecks": 23,
+  "officeChecks": 6,
+  "java": {
+    "tests": 196,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 47
+  },
+  "frontendTestsPassed": 10,
+  "frontendBuild": "PASS",
+  "pageErrors": [],
+  "rawUnchanged": true,
+  "localDeploymentVerified": true,
+  "testedAndDeployedJarMatch": true,
+  "temporaryRuntimeCleaned": true,
+  "changedSources": [
+    "backend\\src\\main\\java\\com\\classroom\\ai\\controller\\VisualDashboardController.java",
+    "backend\\src\\main\\java\\com\\classroom\\ai\\service\\VisualDashboardService.java",
+    "backend\\src\\main\\java\\com\\classroom\\ai\\service\\impl\\VisualDashboardServiceImpl.java",
+    "backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+    "backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseServiceImpl.java",
+    "frontend\\src\\api\\index.ts",
+    "frontend\\src\\views\\AttendanceDashboardView.vue",
+    "frontend\\src\\views\\DashboardView.vue"
+  ],
+  "hardwareCameraInference": "NOT_TESTED",
+  "knownCsvStudentDatabaseMicroSliceExceptions": "UNCHANGED"
+}

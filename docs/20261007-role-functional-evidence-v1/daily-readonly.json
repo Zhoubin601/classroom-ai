@@ -1,0 +1,29 @@
+{
+  "observedAt": "2026-10-07T10:33:43.691Z",
+  "mode": "real login and GET only; no domain writes",
+  "rows": [
+    {
+      "path": "/api/v1/courses/offerings/10",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "path": "/api/v1/attendance/offering/10",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "path": "/api/visual/students/status?offeringId=10",
+      "http": 200,
+      "code": 200,
+      "studentCount": 10
+    },
+    {
+      "path": "/api/v1/courses/offerings/2/students",
+      "http": 200,
+      "code": 200,
+      "enrolled": 10,
+      "available": 70
+    }
+  ]
+}

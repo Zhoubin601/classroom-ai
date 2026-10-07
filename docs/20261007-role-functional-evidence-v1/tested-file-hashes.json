@@ -1,0 +1,726 @@
+[
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\resources\\db\\major-department-v1.sql",
+    "Hash": "488C4334004EC8D0CA81770A96CD127A859F93324A2A49C122E187493B1C6186"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\resources\\application.yml",
+    "Hash": "5C805843600D85BA2A1CC1A300E1AA4D71F6F4CD632FD65A48D8E4CD915D3232"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\vite-env.d.ts",
+    "Hash": "424FAF9241DD699DDA995B367ED36665732DA1E6EC1F33B2FD40394488ECAC92"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\TeacherDeskView.vue",
+    "Hash": "99BCEA8B7DE35CAEE60693BFF7ABF9EB6AA1889B8A965B3E200A655D50476D27"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\SupervisorDeskView.vue",
+    "Hash": "3FF2FDF57A4DF54F081E648351346C5B3DB2CD19635B5920F9CB841061966989"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\StudentManageView.vue",
+    "Hash": "3CCA86120234307AA2A70BF91D786221C8B3FA7EFF5CA9B13EEAFDC02A5309D3"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\LoginView.vue",
+    "Hash": "AD306A1FA30F7D2A12F5BF175CEB58BD31D807CC0DD532C08334DEBC9CB38CC0"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\DirectorDeskView.vue",
+    "Hash": "00D90D03F4014C926D06E5BE87C72C24085178FC6A5BA9CDBE2F12F05105D561"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\DashboardView.vue",
+    "Hash": "6A53210FFC0A3734B50B67F0314C9157BA69297D7A1456AC21025B683D969E8F"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\AttendanceDashboardView.vue",
+    "Hash": "5DF5D39662448F3A87B6A4D99A785136CE4328A2AA0397F8FB6DBF17D1FFE877"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\utils\\scheduleTime.ts",
+    "Hash": "F8C125DF0767262BE51ACF33ABCB056C7DC7ADA9B4E3346A3E6508FBFF2AB7B0"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\style.css",
+    "Hash": "DF4F25FA08FC3F3B0FCD340E995667A3D62090DE9000E87ECA13DF3BBF31B8C2"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\main.ts",
+    "Hash": "3E3CFEBA05EEFED438FB184DD09EB7D30956AD0696EE3E634DFF93C7F39B01F7"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\App.vue",
+    "Hash": "76CE92204D02EA1250092C7ACE25056DF3F6781BF221D045B36789451D66B5F9"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\StudentStatusGrid.vue",
+    "Hash": "7DA254BCE75C19F0C29F0B5ABFBA4D3DE9D435FE82438BE0FD19BB6605C83CC5"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\ProtectedPdfPreview.vue",
+    "Hash": "2CA292A58C974B25BB3500C427B26CC5613ABD8DAC7733341385D2B4F477DA3B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\OfferingScheduleBoard.vue",
+    "Hash": "11661EDDD83A0B8259956A3C40BE8C4B32E721D97A47C8E212E8B21666ED0471"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\OfferingHistoryPanel.vue",
+    "Hash": "4F944F534588158491F5477E783559BEBB1E95BA037A0C72900D18052B03C319"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\MetricCard.vue",
+    "Hash": "9C6C4034DC11BD99A4A5E40B15DFAAF9EDD170F67B2C9BDE52DF54E7225C5311"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\FocusTrendChart.vue",
+    "Hash": "0DDA4E41BF22D553DDE26987AB1FEE2E5780EC277276C8813240AF1D5BF73EF4"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\types.ts",
+    "Hash": "88C567FF78267A3085182D2E202E1116931270677744C4CBE43D9DE31560B545"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\response.mjs",
+    "Hash": "016B90FA2486F1E40B1B60703EA71AAB4367383D65A66404586B3EDCF59D2858"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\metrics.mjs",
+    "Hash": "796A150BB2BCBC7738B5412AAC46F7E756B519978472FFC0E8604F40EF5567CC"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+    "Hash": "FD094DA7E1F3AE276FF167A908BA778B5E530718F575665A27C229CE723581B5"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\ClassroomBackendApplication.java",
+    "Hash": "D83026ADFADFD4C8571010AF8C725562AE90D90287A91FC4D2E7CC91F4CC3576"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\config\\UploadPaths.java",
+    "Hash": "81210DD8571C6031E05F90C30FC849D8D121400BC4216BB1D8BCE6F71F538D75"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\config\\RedisConfig.java",
+    "Hash": "4B9609F153EA78E7D7B393EF97BE659AF2A9F6D4C22369C8887572174AD26018"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\config\\CorsConfig.java",
+    "Hash": "ED725C7E49AA92C053303E4E1819697E3D25290CB1EB4D413DBED0876DEAFA1F"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\vo\\StudentRealtimeStatusVO.java",
+    "Hash": "61404717FBB97DC7E427D8457C37C364B6A649A4E35BC1D5F219526049CD6B30"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\vo\\FocusTrendPointVO.java",
+    "Hash": "02ED6E644806208B2229C24D2D0EBF5972E3C89F713EE3AB513B5590690A5623"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\vo\\FaceMatchVO.java",
+    "Hash": "005683BDF1B295E1770844C8FA913A6F3F0254BDF1C2E2E96A82B332C2961F29"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\vo\\DashboardOverviewVO.java",
+    "Hash": "22EFAF199FB937BEAAC0BB7EBCA3BF17DC89C2C492BD3D399DC86D38CEBE2F53"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\common\\exception\\UnauthorizedException.java",
+    "Hash": "FC8135216A2EF682AA5BC07E8BE9FCE1FE1BEA4295B7070321855DDC54A92CD0"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\common\\exception\\ForbiddenException.java",
+    "Hash": "304F6288E6EA4CB6A7C8C4E5D8C819875B013F5CF6BBE1DB2FFA6C4CD681E34A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\common\\ApiResponse.java",
+    "Hash": "C3BEEAB18939CB0417678AACEF7E6D6793F1FDCA857ED84DF98E1355DD83C510"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\common\\ApiExceptionHandler.java",
+    "Hash": "34824504F720854E4C172CDBEE5F247E49DDDAF334D7A1DFB17E5D696C5BB928"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\service\\VisualDashboardService.java",
+    "Hash": "55F316B23D0295500B536C6331221C1FDBCC7FC82907CD9C69B259F546C7D672"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\service\\StudentService.java",
+    "Hash": "C8EE287842A0B17B7786F3098113BBD75163B17E8099050B25D1E7CC63890A57"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\dto\\StudentDTO.java",
+    "Hash": "A099D06D32C6C99B3BFC1A2989F5D4F317D4B72AC3DA97E119410B944AEE7FE4"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\dto\\FaceSearchDTO.java",
+    "Hash": "1AB9051A37CABE357904D634E3C4F412EF1FC8859DFD814491A614B2C75170FB"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\dto\\FaceRegisterDTO.java",
+    "Hash": "7365809BD8B6E3718EE0BBE92CE1DE86C830CCAFAB75D277450A8E5A5387BFBC"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\dto\\ClassroomStreamDTO.java",
+    "Hash": "C4AC8850A0F8C5B355E2EB7D14BCC6EDE8424D77FA817E057E9C5FE843EB9888"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\service\\impl\\VisualDashboardServiceImpl.java",
+    "Hash": "6506BE4A9E133A8C7B36751E482EFCC8578DD4D35B72A25E45E0B2B1E7B08408"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\service\\impl\\StudentServiceImpl.java",
+    "Hash": "0B6773A83986F76F30BD4676E564C8B5C0CBEB886398DD9E9883468069AD97B3"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\service\\impl\\FaceServiceImpl.java",
+    "Hash": "7A7046969DBEDF860A3D73506C6BB893C7B41CA17F9CE4F31DADA370BDBFD704"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\service\\FaceService.java",
+    "Hash": "3D80106562425F397AC38F59D4A7B21D2AC444903659D41B14981B51065DA86E"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\controller\\VisualDashboardController.java",
+    "Hash": "4975FC7D731616BC3CDFCE2BCBBBFDB608BE4F2E53BC18C7BD844E429D2276A9"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\controller\\StudentController.java",
+    "Hash": "A0B357D3ADFDBE40ABA1F1F166FB83C2C5C49433E2F28F63E87ABBC5AB6DB2C9"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\controller\\FaceController.java",
+    "Hash": "01CCF4BDDA00C7DF9EF53A2D50F0A6309797EC4B5781C5A251A8B7D9103CCCF3"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\runner\\TeachingDataInitializer.java",
+    "Hash": "F9E5D2A1795711123040EABC0FEF6FE139281D75EF1B6E7E82A0AAA99B916B9E"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\runner\\RedisCacheWarmer.java",
+    "Hash": "906FCBB531D71F96898AFBCBC30735C30D217DE25DE5ABAF95DE0EE443938D6B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\runner\\MajorDepartmentMigration.java",
+    "Hash": "22DEA3B33A33580BDCA84D144830F5AE91DA0823B748E643E423BEC1A3801514"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\vo\\TeacherQualityRadarVO.java",
+    "Hash": "0DF5F2CA91CAC3212288EDEC48A770EB710287371A40389C1D538299A385FB96"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\vo\\SupervisionDashboardVO.java",
+    "Hash": "934B04CE59D16720AD954209F3A11120F90E5E3AAC0528DB98EA352756644DA5"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\vo\\SupervisionAlertVO.java",
+    "Hash": "2348D0BEAE695CAE848D186601A38B9562A2CA0CEBF407B3AA839422A035D106"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\vo\\CoverageDetailVO.java",
+    "Hash": "DD9E1953E46E94DFAC311935685DBC249D006970C063E6EC3DACD6B02343BF41"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\SupervisionService.java",
+    "Hash": "C0CA80D9210372B026ADDDF48B860B79FF41CB23B9EEACCD8CE3032AF68AED84"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\SupervisionAnalyticsService.java",
+    "Hash": "A458F54B25EE26C1C7690C2CEB6E1E396F1C349BC04A02B340A7863C184705E6"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\repository\\StudentRepository.java",
+    "Hash": "B3DB6E3C57D525840C1FCD5E9D80E9B17F7005A9F000FFBDEBB513FFDB2A3B20"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\repository\\FaceFeatureRepository.java",
+    "Hash": "0820702F22ACE11A42D28B866AA4C0122C98056FE9D6B58F62290ECB943DE34B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\repository\\ClassroomRecordRepository.java",
+    "Hash": "17D8411116776F73B2BF7F7E203DC2F52F7FBF4865C4E93477B5011FCD7012B2"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceFileService.java",
+    "Hash": "DDF8B7BB5A8042BBD5B3E5DA393FA6C6F31D34440127B7B722C69D740A36B601"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceAccessService.java",
+    "Hash": "EE8B82D6A5411A5E560A590E935FAC536F076C961F4DD8ABD614772CD2DCC004"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\MicroTeachingService.java",
+    "Hash": "B414596C4BE2A5BCD5E0E5E568BFB05FAB376EFB8C6872556A44A797E411C993"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionServiceImpl.java",
+    "Hash": "712C8F51F2A22A0C12F2C73C33C470924DEF7430E7D39425D96EFFE87DEF5141"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionAnalyticsServiceImpl.java",
+    "Hash": "2598D55CCDBD574D389F0131BF01893374476805F1D679834C0BFBD0BBEF870D"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\dto\\MicroTeachingSliceDTO.java",
+    "Hash": "FF15A26FBED37B03F5DBFE127A83EDAE3B3650049F3567989445CC90D3A07724"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\dto\\CourseResourceDTO.java",
+    "Hash": "85EA58827811A20D5752841CD05264AB06FA09E54BC9F2C1D76B7262E9EBDCAF"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\impl\\MicroTeachingServiceImpl.java",
+    "Hash": "363677B8DDE1B2AC2F64030E12E548985DBCBEB76C74393CFBFD62C6D92BB62E"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\impl\\CourseResourceServiceImpl.java",
+    "Hash": "03877E299500BFC2FE153789F7943C475E8D94B0D27D033941D4C217B4CD4935"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\CourseResourceService.java",
+    "Hash": "53025B06DFE38CD129B50F50B166443FF9B4C0C721DC01D0EB70C5359A7207F9"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\entity\\Student.java",
+    "Hash": "5941ED480174ECACD99ECCFC1C6B5046F996585F0176793644E294F42A8C47ED"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\entity\\FaceFeature.java",
+    "Hash": "7AAC2E4B131C5875555E3456449E8883EC781D40D95CD3EF373325E380B38E30"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\entity\\ClassroomRecord.java",
+    "Hash": "5C42411A394A31D416709693F18DC2B1ABEA555B3D21277CFF993C195461F257"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\vo\\OfferingHistoryVO.java",
+    "Hash": "96CEE606FD00ECECA4602AF617EE7938A8AED8F2407A56B6B36CA4D8F03B702D"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\vo\\OfferingHistoryItemVO.java",
+    "Hash": "B96DF1CB576AADACD615A2F30726E51A2EB7B6131459ABF2009D6939144F82BC"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\vo\\ImportRowError.java",
+    "Hash": "74FFFC137A84A1946B58661C3F19FBECD8B7EC409DE7D073F242163DB9ED4553"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\vo\\ImportPreviewVO.java",
+    "Hash": "96612BE95903782DB4E48CC3C674756C2D0D7A37D972DCB1C2ABDA7C19CE9442"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\util\\CsvParserUtil.java",
+    "Hash": "AD019C80E80AC1C762CF78CE3026E206F924E8611F227AC652951CD69F494EA0"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\attendance\\dto\\StartAttendanceDTO.java",
+    "Hash": "AA729EE1A45C184BD7E830A475CFF267C61E70328FC3FA1438B7D97E42690435"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\attendance\\dto\\FinishAttendanceDTO.java",
+    "Hash": "CB4F9DB9EA99D64CD1C216A0B060D3E4F063BE6A434087A0CFBC2CBD45EABAD9"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\repository\\SupervisionEvaluationRepository.java",
+    "Hash": "06E15CA27145E547BEE57667998A7F0BE642B46D84AD52304188DF68E743053A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\repository\\EvaluationAuditLogRepository.java",
+    "Hash": "DF8218A0F05A26332F0C150E34CF6CAF1686237A3028FCF894135A5D161AC6A2"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\dto\\EvaluationSubmitDTO.java",
+    "Hash": "0670A5A6A17734DAC3AC131C9B8AEEB13FD0889DA9DE27BF8FE5E8CBE34F3453"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\controller\\SupervisionController.java",
+    "Hash": "E9EFD084D6D8A1C13B9256D8BD5F6B4C83BAD9FD284B5640BAB8642655FF0F16"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\controller\\SupervisionAnalyticsController.java",
+    "Hash": "050A8966B8F2DCECF1E2288233DD400CC0D1F5603C1A68DE92D3EBEFBCF057EC"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\attendance\\service\\impl\\AttendanceServiceImpl.java",
+    "Hash": "B916773F7FC07BCEEA68315D857768043D21759DEC3822CA878519F201DC0293"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\attendance\\service\\AttendanceService.java",
+    "Hash": "A1BEC3B1E97A8F75C1E114744F2106F3EAEB4D1973E5900AF1ACBDEC4DF8DF5E"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\entity\\SupervisionEvaluation.java",
+    "Hash": "FF50B7F33ADB639699ADABD1591AF409E9F076DFBA726F2C7D6FEE5F9913A8DF"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\entity\\EvaluationAuditLog.java",
+    "Hash": "6809FC00B51D0FEAADAB989AD01C18064247D95E61EE649E521157D78560F171"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\attendance\\controller\\AttendanceController.java",
+    "Hash": "5B1C1D3CC7E7C02A2C47FBF1CC8C9D29C237BA8FE9DCAA552286A72CF614DEB3"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\MicroTeachingController.java",
+    "Hash": "21989DEFF0DDC6E2F5252F7A4BFD29C8D79F2288B043D8F7FD91C15F0EDDD03D"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+    "Hash": "D346BE512D004EEF17DDEAF7271153BC414AD57024A3558824492CAEA7B4BE69"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\ResourceAccessLog.java",
+    "Hash": "E9935C0B287EB8DC144326CC5544A53ECC195357C4E9D9CEE704A83CAF5575FE"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\MicroTeachingSlice.java",
+    "Hash": "68886B9490F13D5CE78D001A148489B110AA6BEFB8238DF7BD0D0B16144CD13D"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\CourseResource.java",
+    "Hash": "23A0575E5A1472C785F9D3653244A346B32BFAFB0C513586FE2DD6ABD9793E57"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\attendance\\repository\\AttendanceSessionRepository.java",
+    "Hash": "B5B28DA1A9D53FF2CA5E4F6B7A1633905DE51C50C2B8A078E0A81E72F100BE93"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\repository\\ResourceAccessLogRepository.java",
+    "Hash": "2D5B3C1040C560F4F8DE5F5AF0439BE109E5605BE8E07B94E81699F316F6573C"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\repository\\MicroTeachingSliceRepository.java",
+    "Hash": "F149C52E3B00EA5A7353A8D0E2C3B34DFF2CE7C7F7590A8FA1364FB7CDA1AB6C"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\repository\\CourseResourceRepository.java",
+    "Hash": "ECE961EE13A767533F22C328372CF7927380DCA1980EBDA60BF751DF71CA943D"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\entity\\UserAccount.java",
+    "Hash": "9FF03BD0F530A3059B6C9181320090C70FE0436FC14E4B2C449E2FE2CC3B475C"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\entity\\RoleEnum.java",
+    "Hash": "78ED54C3964960E5E94BA5EFB1221E3F467CF3DAF278F6DFD1E98269B68B6299"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\attendance\\entity\\AttendanceSession.java",
+    "Hash": "85108FD50C94D7923C8D332B68E6ACF3BCE3BC2522A39E8A2E6979A32C6E671D"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\vo\\UserVO.java",
+    "Hash": "136EFD94F6C089BCBB5CFF4A9823EAF6BD6F27CB1152D123B2169B02386526EA"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\TeacherController.java",
+    "Hash": "FD2F5469E80D3F3782DE780B53D116DF336E31550E0FD855979CCDD4E0F9E895"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\SyllabusController.java",
+    "Hash": "1ECEC01368A9C91241C9F1525733925B05F57DED14C956B9CE7C3D00AF21E364"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\MajorController.java",
+    "Hash": "D94F3E30A4A2CB4C7F35C50794C5DDEFCE956D3A453ED6651F4718C530217532"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseScheduleController.java",
+    "Hash": "F20743766353B0D0A86360A8BB8AEE9AAC8D627294423ED84BA1FC6AE147881B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseOfferingQueryController.java",
+    "Hash": "18D9E5D9C71665EDC89B68DD51250A0589E8E8C3BB13B35DA9885149324E5117"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseOfferingHistoryController.java",
+    "Hash": "081DC7FB4F0549C37CC440262EE11EB42FC98C0DC64227925CE9C09C49ED01BE"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseOfferingController.java",
+    "Hash": "1ADB62B9F81BC22AE6F6EFA3366F8512492449EFCAB16BC8F79E0DFF4139857A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseImportController.java",
+    "Hash": "C35EEC5ADE89AD40C1431D788211D43CA9CD9FC4BD43F6E72C51A386E8585769"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseController.java",
+    "Hash": "EA16265BC55386682213707E9DBE00D26E0A3CBE684E7DCF4F1D34F48D24AA5B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseContentController.java",
+    "Hash": "C0AA036BFB0AC88A60436354B3F64A3A384AE0344ACA4B7F22D28C39A3327BF6"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\Course.java",
+    "Hash": "77562566A00F1F6FB18763C0775CFB5D6FFC7BE2C1A862C672213E60ECF4B715"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\AcademicTermLock.java",
+    "Hash": "65A055C4F8939F129CA63CF1350772BC5FC05D94EE1BBD9D2BA245CA245B1794"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseContentRevision.java",
+    "Hash": "0AC14F814852A667C59791B176167D9EBF1A946319297E58896BFA000FC58D5B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseOfferingManagementService.java",
+    "Hash": "18A34CFFEFA5E0556064FE365215032B1701B65284207641BCA7DCB23836D70A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseImportService.java",
+    "Hash": "40C4BBDFB9A4E3EBB6D0AF0F042E02932154299E3AE9933A10C279D166BEFE53"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseAuthorizationService.java",
+    "Hash": "49FC2EF4CB64A1D09A291335690A3565092ECD2EB1D76340FCBB9B9FF9AC8337"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseArchiveRules.java",
+    "Hash": "7600895027ECCDAA14A5F93E3B22BCA205313B81EE91351BE289C13817E6B936"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\AcademicTermLockService.java",
+    "Hash": "52BD3485E988C7BEE39DEC0EADBB8E810AF40AB4BC00BCD1B87EAF43B2094A6E"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseScheduleService.java",
+    "Hash": "D9A8599171F997867C293C44D53E64E0B8C34B8A340853CDE672257334EA7596"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseOfferingQueryService.java",
+    "Hash": "9ACB2FBDE30A442FDC78DE9788088B58A4BB9DED3B524E0EB9A2334C5B36DA3A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseService.java",
+    "Hash": "DBEEFC2CE05A24DF4C5E3D6BEC6EAA17DF7BF12E63419B77995D42F1559A6253"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\TrainingIndicator.java",
+    "Hash": "39ED07755D6E6B8741BE4785294514F00A026EE7109CBEF1578523FFB07AE5A7"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\Teacher.java",
+    "Hash": "FE02188538F561E63B849611BB8952C493450A32C0213E1E870D78F05411D5C7"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\OfferingStudentEnrollment.java",
+    "Hash": "E107D6D0FAD9387A5992FAAF0FFEBD66CC37D49F3F7DCB96F74B5A4B235B1B3B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\MajorDepartment.java",
+    "Hash": "EDB4D36750807B0AE74BEECB4CDF1DBD7A2AB66AD7A76660BC0B23CC2C295D5A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\Major.java",
+    "Hash": "4A72F0C747801C935888B08FC722C8C8763241543C5B5DF9F6637BF7ACD7F486"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\GraduationIndicator.java",
+    "Hash": "8441B8D013016513E48710C2EEB1DF99E61CA4094BBA2F32EFF5B24A8170C55D"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseSyllabus.java",
+    "Hash": "53B719D59E2B6C8AB29746CD2A8B97E3D21C39E67CF8B5919C7469B28FADF26E"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseSchedule.java",
+    "Hash": "0F6E1D40B3275A70A4D21FDFB553093AA82AA3D89786B5AE8F4C04E9C89713A6"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseOfferingTeacher.java",
+    "Hash": "5AA62EB325543AF1F837473E69D9E33FFF8D2A38DE0620EE157D782CD6911270"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseOffering.java",
+    "Hash": "B2629FEF0D6E6A20723E6C2C899BE8D1460638E8D47CA2B32F62518976EF6C6C"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseImportLog.java",
+    "Hash": "74CB292E5B2D59335A9E0E2ADB46BE3589DDE1615A7E70D307DBA04388CDAF17"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\OfferingHistorySnapshot.java",
+    "Hash": "EE3076F9869263725494C61EA64627787CF8F307FE6E4C684447DD67D860CB37"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\CourseContentRevisionRepository.java",
+    "Hash": "80EE9E9011A24FCEC5ADE3088269A83294EE8EB27E9C350F0613971ED0EF7316"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\SyllabusDTO.java",
+    "Hash": "287F2B10A5766295A16E406947007A8E2B2FE22B257A9618AA2490C819A2445B"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\IndicatorDTO.java",
+    "Hash": "CD2417214214A20F8DD704BCE897EDCC870E676D345E052B199224CFD6558857"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\ImportConfirmDTO.java",
+    "Hash": "41DA83759EA00BB426533750CD5AEEDD104E4B7FD8AE3F685995DC1762A5A864"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\CourseScheduleDTO.java",
+    "Hash": "D6FD2691D01E810EAD27BC324D5E76AB75A4F4EB33F1E66A68FF02C2B3E2DD44"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\CourseOfferingDTO.java",
+    "Hash": "5C90304DFAF00422B949CE4BBE4169DB2DBAF8652B7CD5534323926AB335F0A7"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\CourseImportRowDTO.java",
+    "Hash": "07481D4EB183C7E5B6116FEEFF82B7DCF8A68275FC93324A278D9FFAA5267860"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\CourseDTO.java",
+    "Hash": "25A2A16EAA8F7E6EE7C2864548A489AFA21A936DB6440415B7F73A6C3384746A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\dto\\ContentRevisionDTO.java",
+    "Hash": "55F686496D7B547A868FA8EB8534B9CA2975333CA3B5041059EC3329B1806066"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\RecommendedIndicatorTemplate.java",
+    "Hash": "29A73FC8966A8685A063882CAE320BE306274E88E6E327F66A3472799D565059"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\ScheduleConflictException.java",
+    "Hash": "60B239EB039AEB4FAF2B9126FFCEA0ACC0E5C8D9D3CF7935EAEEE33F7661D8A6"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\CourseOfferingRepository.java",
+    "Hash": "6C5E4E4091D3EBA1319C231F200B59F3092C6E47AA6BC63C1D16A86AA5E9C784"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\CourseImportLogRepository.java",
+    "Hash": "8E960FC8842BA9A4DEE5E89ED349422A88222D4572478F29693D937EF31F34AA"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\CourseOfferingTeacherRepository.java",
+    "Hash": "710A6F43A04A7CF2DF901C439B311BD3BEA386CD458A2147CBA7F998C763DD73"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\CourseRepository.java",
+    "Hash": "646D6432622897BCD415A1CC58B056DEEA02CB384207E940ECCE392147802288"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\CourseScheduleRepository.java",
+    "Hash": "AA6C7AD6BD72616BE3747BBE210359311E15687A983FA8108792192D62E07022"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\SyllabusService.java",
+    "Hash": "965B1043F0704E517EA528D7779AEB14D9E875211BC4E656836509DCAFA6A573"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\ScheduleConflictService.java",
+    "Hash": "2673840268C021C3D9566A7B2DB893230633BD15649C359EAB3A0D2F862F296A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\CourseSyllabusRepository.java",
+    "Hash": "9CD716A9BC51F6B9FA485AC8E36DE6DA70E57895046FDAF64863FAD077418449"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\TrainingIndicatorRepository.java",
+    "Hash": "E4B0573E5536A38C808D4B0BFBB8AF99DF48E39228FEAB2EED446A6BE480BBF6"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\TeacherRepository.java",
+    "Hash": "89AD7AF64C959F724ECCD2CCC2B5EE02CA9F97E06B293B94BCF9CC3D8E20A344"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\OfferingStudentEnrollmentRepository.java",
+    "Hash": "C467D6100A8DC9C202E22FB89868A67117EE7DED5E6FA9420B1032565F8C0E35"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\MajorRepository.java",
+    "Hash": "ADC524AE6CE4C42F96CCE9217BDEAE4778D33B5169F73F09368893A8BFE9120E"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\repository\\GraduationIndicatorRepository.java",
+    "Hash": "D0EB38F2170D4B7B2B8C74FB955B3876840A279840A669DF4DB7529201E128D6"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\SyllabusServiceImpl.java",
+    "Hash": "48E0EE97FA819371A78610A093839F7A4115F9023E0DF56EA7BB7D8F046B3510"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseServiceImpl.java",
+    "Hash": "745FD8EFC971995E7290534A0D5F1874FF8109495B231FFBC5D012F454556673"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseScheduleServiceImpl.java",
+    "Hash": "89E95DC476C9ACAFB6FF3F4B7CAFA1C255E26B4F0550FD21FDCB686DAD87F33A"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseImportServiceImpl.java",
+    "Hash": "08B78B1CEA63D70929837412F381CB20FDA54379BC85D038030B197192DC74DC"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\controller\\DirectorController.java",
+    "Hash": "205879A6EB108F9DA8A0E0D09A6A909325BFF6BE3E02CDA16A6BDFC5CAA1CC1C"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\controller\\AuthController.java",
+    "Hash": "0A34F2108EEF68457A20074322BB583C322BCF58E01CC174EF97E781AC2C0E6C"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\repository\\UserAccountRepository.java",
+    "Hash": "79D5B69D83D50A61321E4B0BF796CEE689AFC81B40295483B45ABBA7301C9933"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\interceptor\\AuthInterceptor.java",
+    "Hash": "4FF9C95733F50FFBA7EE026F00D0ABC309EAA881982829E18C9FB731D5767BB5"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\dto\\SupervisorRegisterDTO.java",
+    "Hash": "3296C6DFC4D73F05BA686063348A31CF8EAD274F4C57D56E7C8837720187242C"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\dto\\LoginDTO.java",
+    "Hash": "F440B8E9E69B4E4FDEC56FB3C7C5A0FBFB8B568DC930634B8F4F8744DD68AA87"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\security\\SecurityConfig.java",
+    "Hash": "38FEAE4098DFD7555F7A18944810F058BDDBB8645E21227BDA5D4D839C678918"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\context\\AuthContext.java",
+    "Hash": "AE79CE785D567BBBEEF7BBAEC9971656FCEEB534CA045EB3EB87D985DD653525"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\security\\JwtTokenProvider.java",
+    "Hash": "27146F34262FF1EF4FA655FF165BDDA6BE96AB69BD58B0E6BC4246FFD56F71C8"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\auth\\security\\JwtAuthenticationFilter.java",
+    "Hash": "5575DF64169956D2C4A1649C98CF4C0C66C0CA95E260BCEB9C558883873B62FB"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\initialize.sql",
+    "Hash": "D37A91B7416B3E29AF5941DB4467CC052E0FAF6E5B19A76EFEEA16249B3398F8"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\pom.xml",
+    "Hash": "82EF44FAFEEAF5B59651336070B8019C493F1446DC90E1858E37CB5E2C6C8B97"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\package.json",
+    "Hash": "C993B831A668147E1AD03C603249192327D0A2871C175DF7CC1B7555FE98BE86"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\vite.config.ts",
+    "Hash": "9191D2F167FCEC5B553FDD8FFA9C4DF2A5FBCACEA03CEE591F22D8CE35923EAD"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\target\\classroom-backend-0.0.1-SNAPSHOT.jar",
+    "Hash": "023D6657E006AE881A15DCDEEB557FE6706B1FDCBEA5B0504373C6400BDFA1BC"
+  },
+  {
+    "Path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\dist\\index.html",
+    "Hash": "C9FB3644C911F5A7D44220FAE69E67046CCDD37B0475DC8EF2166C5936AB0846"
+  }
+]

@@ -103,13 +103,14 @@ public class SyllabusController {
 
     @PreAuthorize("hasRole('DIRECTOR')")
     @PutMapping("/plans/{majorCode}/{version}/indicators")
-    @org.springframework.transaction.annotation.Transactional
+    @org.springframework.transaction.annotation.Transactional(isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public ApiResponse<List<com.classroom.ai.modules.course.entity.TrainingIndicator>> importPlanIndicators(
             @PathVariable String majorCode, @PathVariable String version,
             @RequestBody List<com.classroom.ai.modules.course.dto.IndicatorDTO> items) {
         checkMajorAccess(majorCode, true);
         if (RecommendedIndicatorTemplate.VERSION.equals(version))
             throw new IllegalArgumentException("推荐模板版本不能用作真实培养方案版本");
+        majorRepository.findForUpdate(majorCode).orElseThrow(() -> new IllegalArgumentException("专业不存在"));
         if (items == null || items.isEmpty()) throw new IllegalArgumentException("培养方案指标目录不能为空");
         var codes = new java.util.HashSet<String>();
         for (var item : items) {
@@ -121,6 +122,14 @@ public class SyllabusController {
             if (!codes.add(code)) throw new IllegalArgumentException("指标编号重复：" + code);
         }
         var existing = trainingRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(majorCode, version);
+        if (syllabusRepository.countPlanReferences(majorCode, version) > 0) {
+            boolean unchanged = existing.size() == items.size() && items.stream().allMatch(item ->
+                    existing.stream().anyMatch(old -> old.getIndicatorCode().equals(item.getIndicatorCode().trim())
+                            && java.util.Objects.equals(old.getRequirementCategory(), item.getRequirementCategory().trim())
+                            && java.util.Objects.equals(old.getIndicatorDescription(), item.getIndicatorDescription().trim())));
+            if (!unchanged) throw new IllegalStateException("该目录版本已被课程大纲引用，请使用新目录版本，保留历史内容");
+            return getPlanIndicators(majorCode, version);
+        }
         var byCode = existing.stream().collect(java.util.stream.Collectors.toMap(
                 com.classroom.ai.modules.course.entity.TrainingIndicator::getIndicatorCode, item -> item));
         for (var item : items) {
@@ -174,6 +183,8 @@ public class SyllabusController {
                 || role == com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER) {
             permitted = lead || (!department.isEmpty() && majorRepository.findByDepartment(department).stream()
                     .anyMatch(m -> m.getMajorCode().equals(major.getMajorCode())));
+            if (!permitted && role == com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER)
+                permitted = authorizationService.isTeachingMajor(major.getMajorCode());
         } else if (role == com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR) {
             permitted = java.util.Arrays.stream(java.util.Optional.ofNullable(user.getAuthorizedMajors()).orElse("").split(";"))
                     .anyMatch(code -> code.trim().equalsIgnoreCase(major.getMajorCode()));

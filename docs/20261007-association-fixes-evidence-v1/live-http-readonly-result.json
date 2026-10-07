@@ -1,0 +1,55 @@
+{
+  "observedAt": "2026-10-07T05:42:15.585Z",
+  "method": "Live backend/MySQL; login then GET only; no business writes or saved credentials",
+  "checkedCourses": 24,
+  "unauthenticatedProfile401": true,
+  "checks": [
+    {
+      "role": "DIRECTOR",
+      "courseCount": 12,
+      "majorCount": 1,
+      "offeringCount": 5
+    },
+    {
+      "role": "TEACHER",
+      "offeringCount": 4,
+      "foreignAttendanceDenied": true
+    },
+    {
+      "role": "DIRECTOR",
+      "courseCount": 2,
+      "majorCount": 1,
+      "offeringCount": 2
+    },
+    {
+      "role": "DIRECTOR",
+      "courseCount": 2,
+      "majorCount": 1,
+      "offeringCount": 2
+    },
+    {
+      "role": "DIRECTOR",
+      "courseCount": 2,
+      "majorCount": 1,
+      "offeringCount": 2
+    },
+    {
+      "role": "DIRECTOR",
+      "courseCount": 2,
+      "majorCount": 1,
+      "offeringCount": 2
+    },
+    {
+      "role": "DIRECTOR",
+      "courseCount": 2,
+      "majorCount": 1,
+      "offeringCount": 2
+    },
+    {
+      "role": "DIRECTOR",
+      "courseCount": 2,
+      "majorCount": 1,
+      "offeringCount": 3
+    }
+  ]
+}

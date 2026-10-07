@@ -57,7 +57,9 @@ public class CourseOfferingManagementService {
             throw new IllegalArgumentException("必须提供课程、主讲教师、协同教师和选课名单（允许空名单）");
         String term = required(dto.getAcademicTerm(),32,"学期"), className = required(dto.getClassName(),64,"教学班");
         CourseOffering existing = id == null ? null : locked(id);
-        Course course = courses.findById(dto.getCourseId()).orElseThrow(() -> new IllegalArgumentException("课程不存在"));
+        if (existing != null && !Objects.equals(existing.getCourse().getId(), dto.getCourseId()))
+            throw new IllegalArgumentException("已有教学班所属课程不可更换，请为其他课程新建教学班");
+        Course course = courses.findForUpdate(dto.getCourseId()).orElseThrow(() -> new IllegalArgumentException("课程不存在"));
         CourseArchiveRules.validateDepartment(course.getDepartment());
         LinkedHashSet<Long> teacherIds = new LinkedHashSet<>();
         teacherIds.add(dto.getPrimaryTeacherId());

@@ -1,0 +1,228 @@
+{
+  "counts": {
+    "tests": 196,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 47
+  },
+  "passed": 149,
+  "suites": [
+    {
+      "suite": "com.classroom.ai.ApiExceptionHandlerTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.auth.AuthControllerTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.AssociationMysqlTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 7
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseBrowserMysqlTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseImportTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseOfferingHistoryTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 21
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 11
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.Sprint2MysqlTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4
+    },
+    {
+      "suite": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.RegressionTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.UploadPathsTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "com.classroom.ai.VisualHttpAuthorizationTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

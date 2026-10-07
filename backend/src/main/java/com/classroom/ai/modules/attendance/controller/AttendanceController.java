@@ -29,8 +29,8 @@ public class AttendanceController {
     }
 
     @GetMapping("/current")
-    public ApiResponse<AttendanceSession> getCurrentSession() {
-        return ApiResponse.success(attendanceService.getCurrentActiveSession());
+    public ApiResponse<AttendanceSession> getCurrentSession(@RequestParam(required = false) Long offeringId) {
+        return ApiResponse.success(attendanceService.getCurrentActiveSession(offeringId));
     }
 
     @GetMapping("/offering/{offeringId}")

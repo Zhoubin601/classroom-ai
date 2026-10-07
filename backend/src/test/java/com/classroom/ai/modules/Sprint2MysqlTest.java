@@ -54,6 +54,7 @@ class Sprint2MysqlTest {
     }
 
     @Autowired CourseRepository courses;
+    @Autowired MajorRepository majors;
     @Autowired CourseOfferingRepository offerings;
     @Autowired CourseSyllabusRepository syllabi;
     @Autowired GraduationIndicatorRepository mappings;
@@ -71,8 +72,10 @@ class Sprint2MysqlTest {
     @AfterEach void clear() { AuthContext.clear(); }
 
     private Course course(String code) {
+        var major = majors.findByMajorCode("SE").orElseGet(() -> majors.save(Major.builder().majorCode("SE")
+                .majorName("测试软件工程").department("软件工程教研室").build()));
         return courses.save(Course.builder().courseCode(code).courseName(code).department("软件工程教研室")
-                .majorCode("SE").credits(3.0).hours(48).build());
+                .majorCode("SE").majorId(major.getId()).credits(3.0).hours(48).build());
     }
 
     private CourseOffering offering(Course course, String term, String status) {

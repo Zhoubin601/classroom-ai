@@ -189,6 +189,8 @@ public class CourseResourceController {
     public ResponseEntity<FileSystemResource> download(@PathVariable Long id) {
         Path path = fileService.download(id, authorizationService.requireCurrentUser());
         return ResponseEntity.ok().cacheControl(CacheControl.noStore())
+                .contentType(org.springframework.http.MediaTypeFactory.getMediaType(path.getFileName().toString())
+                        .orElse(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + path.getFileName() + "\"")
                 .body(new FileSystemResource(path));
     }

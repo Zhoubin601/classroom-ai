@@ -13,7 +13,6 @@ import com.classroom.ai.modules.auth.vo.UserVO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -83,16 +82,8 @@ public class AuthController {
             return ApiResponse.success(AuthContext.getCurrentUser());
         }
 
-        // 尝试从 Bearer Token 解析
-        String authHeader = request.getHeader("Authorization");
-        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7).trim();
-            if (jwtTokenProvider.validateToken(token)) {
-                UserVO vo = jwtTokenProvider.parseUserFromToken(token);
-                return ApiResponse.success(vo);
-            }
-        }
-
+        // The authentication filter has already resolved the current database account.
+        // Parsing claims here would revive deleted or replaced identities on this public route.
         throw new UnauthorizedException("未登录或会话已过期");
     }
 

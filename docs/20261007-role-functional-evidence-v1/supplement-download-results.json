@@ -1,0 +1,107 @@
+{
+  "results": [
+    {
+      "name": "本课教师与主任下载、同室共享教师和督导禁止原件下载",
+      "status": "PASS",
+      "details": {
+        "resourceId": 20,
+        "ownDownload": true,
+        "directorDownload": true,
+        "sharedTeacherReadOnly": true,
+        "supervisorReadOnly": true
+      }
+    }
+  ],
+  "requests": [
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources",
+      "method": "GET",
+      "http": 200,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources",
+      "method": "POST",
+      "http": 200,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/20/download",
+      "method": "GET",
+      "http": 200,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/20/download",
+      "method": "GET",
+      "http": 200,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 200
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources/20",
+      "method": "GET",
+      "http": 200,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 200
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources/20/download",
+      "method": "GET",
+      "http": 403,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 403
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources/20",
+      "method": "DELETE",
+      "http": 403,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 403
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources",
+      "method": "POST",
+      "http": 403,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/20/download",
+      "method": "GET",
+      "http": 403,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/20",
+      "method": "DELETE",
+      "http": 403,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources",
+      "method": "POST",
+      "http": 403,
+      "contentType": "application/json;charset=UTF-8",
+      "code": 403
+    }
+  ],
+  "pageErrors": [],
+  "observedAt": "2026-10-07T10:34:27.148Z"
+}

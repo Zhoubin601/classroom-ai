@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSON;
 import com.classroom.ai.dto.ClassroomStreamDTO;
 import com.classroom.ai.entity.ClassroomRecord;
 import com.classroom.ai.entity.Student;
-import com.classroom.ai.modules.attendance.repository.AttendanceSessionRepository;
 import com.classroom.ai.modules.course.entity.CourseOffering;
 import com.classroom.ai.modules.course.entity.OfferingStudentEnrollment;
 import com.classroom.ai.modules.course.repository.CourseOfferingRepository;
@@ -19,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import com.classroom.ai.modules.course.service.CourseAuthorizationService;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Isolation;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +36,9 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
     private final StringRedisTemplate stringRedisTemplate;
     private final CourseOfferingRepository courseOfferingRepository;
     private final OfferingStudentEnrollmentRepository enrollmentRepository;
-    private final AttendanceSessionRepository attendanceSessionRepository;
+    private final CourseAuthorizationService authorization;
+    @jakarta.persistence.PersistenceContext
+    private jakarta.persistence.EntityManager entityManager;
 
     @Autowired
     public VisualDashboardServiceImpl(StudentRepository studentRepository,
@@ -42,20 +46,13 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                                        StringRedisTemplate stringRedisTemplate,
                                        CourseOfferingRepository courseOfferingRepository,
                                        OfferingStudentEnrollmentRepository enrollmentRepository,
-                                       AttendanceSessionRepository attendanceSessionRepository) {
+                                       CourseAuthorizationService authorization) {
         this.studentRepository = studentRepository;
         this.classroomRecordRepository = classroomRecordRepository;
         this.stringRedisTemplate = stringRedisTemplate;
         this.courseOfferingRepository = courseOfferingRepository;
         this.enrollmentRepository = enrollmentRepository;
-        this.attendanceSessionRepository = attendanceSessionRepository;
-    }
-
-    public VisualDashboardServiceImpl(StudentRepository studentRepository,
-                                       ClassroomRecordRepository classroomRecordRepository,
-                                       StringRedisTemplate stringRedisTemplate,
-                                       CourseOfferingRepository courseOfferingRepository) {
-        this(studentRepository, classroomRecordRepository, stringRedisTemplate, courseOfferingRepository, null, null);
+        this.authorization = authorization;
     }
 
     private static final String KEY_REALTIME_OVERVIEW = "classroom:realtime:overview";
@@ -72,28 +69,37 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private static String cacheKey(String key, Long offeringId) {
-        return offeringId == null ? key : key + ":offering:" + offeringId;
+    private static String key(String base, Long offeringId) {
+        return base + ":" + offeringId;
+    }
+
+    private CourseOffering authorizedOffering(Long offeringId, boolean write) {
+        authorization.requireCurrentUser();
+        if (offeringId == null || offeringId <= 0) {
+            throw new IllegalArgumentException("请明确指定开课班次 offeringId");
+        }
+        CourseOffering offering = (write ? courseOfferingRepository.findForUpdate(offeringId)
+                : courseOfferingRepository.findById(offeringId))
+                .orElseThrow(() -> new IllegalArgumentException("未找到开课班次: " + offeringId));
+        // Refresh after acquiring the same row lock used by archive, including an entity
+        // previously loaded by OpenEntityManagerInView. Freeze and stream writes serialize.
+        if (write && entityManager != null) entityManager.refresh(offering);
+        authorization.validateOfferingRead(offering);
+        if (write && (Boolean.TRUE.equals(offering.getIsSnapshotFrozen()) || "FINISHED".equals(offering.getStatus()))) {
+            throw new IllegalStateException("历史班次已冻结，不能修改实时考勤数据");
+        }
+        return offering;
     }
 
     private boolean isStreamActive(Long offeringId) {
         try {
-            String heartbeatStr = stringRedisTemplate.opsForValue().get(cacheKey(KEY_LAST_HEARTBEAT, offeringId));
+            String heartbeatStr = stringRedisTemplate.opsForValue().get(key(KEY_LAST_HEARTBEAT, offeringId));
             if (heartbeatStr == null || heartbeatStr.isBlank()) {
                 return false;
             }
             long lastHeartbeat = Long.parseLong(heartbeatStr);
             if (System.currentTimeMillis() - lastHeartbeat > STREAM_MAX_STALENESS_MS) {
                 return false;
-            }
-            if (offeringId != null) {
-                String activeOffIdStr = stringRedisTemplate.opsForValue().get(cacheKey(KEY_ACTIVE_OFFERING_ID, offeringId));
-                if (activeOffIdStr != null && !activeOffIdStr.isBlank()) {
-                    long activeOffId = Long.parseLong(activeOffIdStr);
-                    if (activeOffId != offeringId) {
-                        return false;
-                    }
-                }
             }
             return true;
         } catch (Exception e) {
@@ -102,8 +108,11 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void processClassroomStream(ClassroomStreamDTO streamDTO) {
-        if (streamDTO == null) return;
+        if (streamDTO == null) throw new IllegalArgumentException("推流数据不能为空");
+        Long offeringId = streamDTO.getOfferingId();
+        CourseOffering offering = authorizedOffering(offeringId, true);
         if (streamDTO.getLookupRate() != null && (!Double.isFinite(streamDTO.getLookupRate())
                 || streamDTO.getLookupRate() < 0 || streamDTO.getLookupRate() > 1)) {
             throw new IllegalArgumentException("lookupRate must be between 0 and 1");
@@ -112,21 +121,6 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
         LocalDateTime now = LocalDateTime.now();
         String timeStr = now.format(TIME_FORMATTER);
         String dateTimeStr = now.format(DATE_TIME_FORMATTER);
-
-        // 1. 确定当前推断流归属的开课班次 (offeringId)
-        Long offeringId = streamDTO.getOfferingId();
-        if (offeringId == null && streamDTO.getClassName() != null) {
-            List<CourseOffering> offList = courseOfferingRepository.findByClassName(streamDTO.getClassName());
-            if (offList != null && !offList.isEmpty()) {
-                offeringId = offList.get(0).getId();
-            }
-        }
-        if (offeringId == null && attendanceSessionRepository != null) {
-            var activeSessionOpt = attendanceSessionRepository.findFirstByStatusOrderByCreatedAtDesc("ACTIVE");
-            if (activeSessionOpt.isPresent() && activeSessionOpt.get().getOffering() != null) {
-                offeringId = activeSessionOpt.get().getOffering().getId();
-            }
-        }
 
         // 2. 获取本班正式选课学生学号集合 (以班次选课名单为唯一基准真值)
         Set<String> enrolledStudentIds = new LinkedHashSet<>();
@@ -138,17 +132,6 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                 }
             }
         }
-        if (enrolledStudentIds.isEmpty() && offeringId == null && studentRepository != null) {
-            for (Student s : studentRepository.findAll()) {
-                enrolledStudentIds.add(s.getStudentId());
-            }
-        }
-        // 如果未配置开课或在隔离测试环境中名单为空，将当前去重后的识别学生作为基准
-        if (enrolledStudentIds.isEmpty() && (offeringId == null || enrollmentRepository == null)) {
-            List<String> raw = streamDTO.getPresentStudentIds() != null ? streamDTO.getPresentStudentIds() : Collections.emptyList();
-            enrolledStudentIds.addAll(new HashSet<>(raw));
-        }
-
         // 3. 严格人脸识别过滤：将识别到的学号严格区分为【本班出勤】与【非本班/旁听/未知】
         List<String> rawPresentIds = streamDTO.getPresentStudentIds() != null ? streamDTO.getPresentStudentIds() : Collections.emptyList();
         Set<String> uniquePresent = new HashSet<>(rawPresentIds);
@@ -198,31 +181,31 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                 .build();
 
         try {
-            stringRedisTemplate.opsForValue().set(cacheKey(KEY_REALTIME_OVERVIEW, offeringId), JSON.toJSONString(overviewVO), 20, TimeUnit.SECONDS);
-            stringRedisTemplate.opsForValue().set(cacheKey(KEY_LAST_HEARTBEAT, offeringId), String.valueOf(System.currentTimeMillis()), 20, TimeUnit.SECONDS);
+            stringRedisTemplate.opsForValue().set(key(KEY_REALTIME_OVERVIEW, offeringId), JSON.toJSONString(overviewVO), 20, TimeUnit.SECONDS);
+            stringRedisTemplate.opsForValue().set(key(KEY_LAST_HEARTBEAT, offeringId), String.valueOf(System.currentTimeMillis()), 20, TimeUnit.SECONDS);
             if (offeringId != null) {
-                stringRedisTemplate.opsForValue().set(cacheKey(KEY_ACTIVE_OFFERING_ID, offeringId), String.valueOf(offeringId), 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForValue().set(key(KEY_ACTIVE_OFFERING_ID, offeringId), String.valueOf(offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 更新本班出勤学生 ID 集合 (带 TTL)
-            stringRedisTemplate.delete(cacheKey(KEY_PRESENT_IDS, offeringId));
+            stringRedisTemplate.delete(key(KEY_PRESENT_IDS, offeringId));
             if (!enrolledPresentIds.isEmpty()) {
-                stringRedisTemplate.opsForSet().add(cacheKey(KEY_PRESENT_IDS, offeringId), enrolledPresentIds.toArray(new String[0]));
-                stringRedisTemplate.expire(cacheKey(KEY_PRESENT_IDS, offeringId), 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForSet().add(key(KEY_PRESENT_IDS, offeringId), enrolledPresentIds.toArray(new String[0]));
+                stringRedisTemplate.expire(key(KEY_PRESENT_IDS, offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 更新非本班旁听学生 ID 集合 (带 TTL)
-            stringRedisTemplate.delete(cacheKey(KEY_AUDITING_IDS, offeringId));
+            stringRedisTemplate.delete(key(KEY_AUDITING_IDS, offeringId));
             if (!auditingIds.isEmpty()) {
-                stringRedisTemplate.opsForSet().add(cacheKey(KEY_AUDITING_IDS, offeringId), auditingIds.toArray(new String[0]));
-                stringRedisTemplate.expire(cacheKey(KEY_AUDITING_IDS, offeringId), 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForSet().add(key(KEY_AUDITING_IDS, offeringId), auditingIds.toArray(new String[0]));
+                stringRedisTemplate.expire(key(KEY_AUDITING_IDS, offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 更新学生姿态状态 Hash (带 TTL)
-            stringRedisTemplate.delete(cacheKey(KEY_REALTIME_POSES, offeringId));
+            stringRedisTemplate.delete(key(KEY_REALTIME_POSES, offeringId));
             if (streamDTO.getStudentPoses() != null && !streamDTO.getStudentPoses().isEmpty()) {
-                stringRedisTemplate.opsForHash().putAll(cacheKey(KEY_REALTIME_POSES, offeringId), streamDTO.getStudentPoses());
-                stringRedisTemplate.expire(cacheKey(KEY_REALTIME_POSES, offeringId), 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForHash().putAll(key(KEY_REALTIME_POSES, offeringId), streamDTO.getStudentPoses());
+                stringRedisTemplate.expire(key(KEY_REALTIME_POSES, offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 追加时序折线数据点 (限制最近 60 个点)
@@ -232,12 +215,12 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                     .presentCount(presentCount)
                     .build();
 
-            stringRedisTemplate.opsForList().rightPush(cacheKey(KEY_TREND_HISTORY, offeringId), JSON.toJSONString(trendPoint));
-            Long listSize = stringRedisTemplate.opsForList().size(cacheKey(KEY_TREND_HISTORY, offeringId));
+            stringRedisTemplate.opsForList().rightPush(key(KEY_TREND_HISTORY, offeringId), JSON.toJSONString(trendPoint));
+            Long listSize = stringRedisTemplate.opsForList().size(key(KEY_TREND_HISTORY, offeringId));
             if (listSize != null && listSize > 60) {
-                stringRedisTemplate.opsForList().leftPop(cacheKey(KEY_TREND_HISTORY, offeringId));
+                stringRedisTemplate.opsForList().leftPop(key(KEY_TREND_HISTORY, offeringId));
             }
-            stringRedisTemplate.expire(cacheKey(KEY_TREND_HISTORY, offeringId), 60, TimeUnit.SECONDS);
+            stringRedisTemplate.expire(key(KEY_TREND_HISTORY, offeringId), 60, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.warn("Failed to update realtime cache in Redis: {}", e.getMessage());
         }
@@ -246,8 +229,8 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
         try {
             ClassroomRecord record = ClassroomRecord.builder()
                     .sessionId(streamDTO.getSessionId() != null ? streamDTO.getSessionId() : "SESSION_" + now.toLocalDate())
-                    .courseName(streamDTO.getCourseName() != null ? streamDTO.getCourseName() : "智能课堂分析")
-                    .className(streamDTO.getClassName() != null ? streamDTO.getClassName() : "软件工程班级")
+                    .courseName(offering.getCourse().getCourseName())
+                    .className(offering.getClassName())
                     .totalExpected(totalRegistered)
                     .actualPresent(presentCount)
                     .attendanceRate(attendanceRate / 100.0)
@@ -267,21 +250,8 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
     @Override
     public DashboardOverviewVO getOverview(Long offeringId) {
-        int total = 0;
-        if (offeringId != null) {
-            long enrolledCount = enrollmentRepository != null ? enrollmentRepository.countByOfferingId(offeringId) : 0;
-            if (enrolledCount > 0) {
-                total = (int) enrolledCount;
-            } else {
-                var offOpt = courseOfferingRepository.findById(offeringId);
-                if (offOpt.isPresent()) {
-                    total = (int) studentRepository.countByClassName(offOpt.get().getClassName());
-                }
-            }
-        }
-        if (total == 0 && studentRepository != null) {
-            total = (int) studentRepository.count();
-        }
+        authorizedOffering(offeringId, false);
+        int total = Math.toIntExact(enrollmentRepository.countByOfferingId(offeringId));
 
         // 核心时效性校验：如果摄像头未开启或最近 12 秒内没有收到有效推断心跳，强制返回干净初始待机状态
         if (!isStreamActive(offeringId)) {
@@ -301,7 +271,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
         // 若推断流处于活跃期，从 Redis 读取最新帧指标
         try {
-            String json = stringRedisTemplate.opsForValue().get(cacheKey(KEY_REALTIME_OVERVIEW, offeringId));
+            String json = stringRedisTemplate.opsForValue().get(key(KEY_REALTIME_OVERVIEW, offeringId));
             if (json != null && !json.isBlank()) {
                 DashboardOverviewVO vo = JSON.parseObject(json, DashboardOverviewVO.class);
                 if (vo != null) {
@@ -341,6 +311,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
     @Override
     public List<FocusTrendPointVO> getTrend(Long offeringId) {
+        authorizedOffering(offeringId, false);
         if (!isStreamActive(offeringId)) {
             String nowStr = LocalDateTime.now().format(TIME_FORMATTER);
             return List.of(FocusTrendPointVO.builder().time(nowStr).lookupRate(0.0).presentCount(0).build());
@@ -348,7 +319,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
         List<FocusTrendPointVO> list = new ArrayList<>();
         try {
-            List<String> rawList = stringRedisTemplate.opsForList().range(cacheKey(KEY_TREND_HISTORY, offeringId), 0, -1);
+            List<String> rawList = stringRedisTemplate.opsForList().range(key(KEY_TREND_HISTORY, offeringId), 0, -1);
             if (rawList != null) {
                 for (String s : rawList) {
                     list.add(JSON.parseObject(s, FocusTrendPointVO.class));
@@ -372,6 +343,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
     @Override
     public List<StudentRealtimeStatusVO> getStudentsRealtimeStatus(Long offeringId) {
+        authorizedOffering(offeringId, false);
         List<Student> students = new ArrayList<>();
         if (offeringId != null) {
             List<OfferingStudentEnrollment> enrollments = enrollmentRepository != null ? enrollmentRepository.findByOfferingId(offeringId) : Collections.emptyList();
@@ -379,8 +351,6 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                 List<String> studentNumbers = enrollments.stream().map(OfferingStudentEnrollment::getStudentNumber).toList();
                 students = studentRepository != null ? studentRepository.findByStudentIdIn(studentNumbers) : Collections.emptyList();
             }
-        } else {
-            students = studentRepository != null ? studentRepository.findAll() : Collections.emptyList();
         }
 
         List<StudentRealtimeStatusVO> result = new ArrayList<>();
@@ -409,13 +379,13 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
         Map<Object, Object> posesMap = Collections.emptyMap();
 
         try {
-            Set<String> members = stringRedisTemplate.opsForSet().members(cacheKey(KEY_PRESENT_IDS, offeringId));
+            Set<String> members = stringRedisTemplate.opsForSet().members(key(KEY_PRESENT_IDS, offeringId));
             if (members != null) presentIds = members;
 
-            Set<String> auditMembers = stringRedisTemplate.opsForSet().members(cacheKey(KEY_AUDITING_IDS, offeringId));
+            Set<String> auditMembers = stringRedisTemplate.opsForSet().members(key(KEY_AUDITING_IDS, offeringId));
             if (auditMembers != null) auditingIds = auditMembers;
 
-            posesMap = stringRedisTemplate.opsForHash().entries(cacheKey(KEY_REALTIME_POSES, offeringId));
+            posesMap = stringRedisTemplate.opsForHash().entries(key(KEY_REALTIME_POSES, offeringId));
         } catch (Exception e) {
             log.warn("Failed to fetch present ids / poses from Redis: {}", e.getMessage());
         }
@@ -443,10 +413,10 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
         // 2. 装载非本班学生/旁听学生 (独立标明 isAuditing=true，供前端专属展示)
         for (String aid : auditingIds) {
-            Optional<Student> studentOpt = studentRepository.findByStudentId(aid);
-            String name = studentOpt.map(s -> s.getName() + " (非本班)").orElse("未知学生 (" + aid + ")");
-            String className = studentOpt.map(Student::getClassName).orElse("非本班/旁听");
-            String avatar = studentOpt.map(Student::getAvatarUrl).orElse("https://api.dicebear.com/7.x/bottts/svg?seed=" + aid);
+            // 未选课身份只展示识别编号，不能借上报学号查询其他班学生档案。
+            String name = "旁听/未知学生 (" + aid + ")";
+            String className = "非本班/旁听";
+            String avatar = null;
 
             Object poseVal = posesMap.get(aid);
             String pose = poseVal != null ? poseVal.toString() : "UP";
@@ -472,16 +442,18 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void clearRealtimeStreamData(Long offeringId) {
+        authorizedOffering(offeringId, true);
         try {
             stringRedisTemplate.delete(List.of(
-                    cacheKey(KEY_REALTIME_OVERVIEW, offeringId),
-                    cacheKey(KEY_REALTIME_POSES, offeringId),
-                    cacheKey(KEY_TREND_HISTORY, offeringId),
-                    cacheKey(KEY_PRESENT_IDS, offeringId),
-                    cacheKey(KEY_AUDITING_IDS, offeringId),
-                    cacheKey(KEY_LAST_HEARTBEAT, offeringId),
-                    cacheKey(KEY_ACTIVE_OFFERING_ID, offeringId)
+                    key(KEY_REALTIME_OVERVIEW, offeringId),
+                    key(KEY_REALTIME_POSES, offeringId),
+                    key(KEY_TREND_HISTORY, offeringId),
+                    key(KEY_PRESENT_IDS, offeringId),
+                    key(KEY_AUDITING_IDS, offeringId),
+                    key(KEY_LAST_HEARTBEAT, offeringId),
+                    key(KEY_ACTIVE_OFFERING_ID, offeringId)
             ));
             log.info("【爱教学】实时大屏推断缓存已彻底清理并归零复位 (offeringId={})", offeringId);
         } catch (Exception e) {

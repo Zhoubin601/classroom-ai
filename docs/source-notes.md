@@ -292,3 +292,43 @@
 - 最终84/84来自docs/role-connectivity-evidence-20261007-v2/final/confirmed-boundaries/boundary-results.json（52）、scheduling-results.json（7）、scope-results.json（12）、fix-results.json（13）。原全功能23、Office6、Sprint2六组有独立结果或日志，不叠加为业务完成率。
 - 后端执行123、跳过40来自backend-tests-v2.log；前端11来自frontend-tests-v3.log。最终源码/JAR/前端指纹在final/build-fingerprint.json，HEAD68255ad本身不包含本轮未提交修复。
 - 模拟3名本班＋1名旁听、100%及持久化依据final/scheduling-results.json和41/42截图；并发、撤权、身份绑定、视觉范围、缓存隔离、本地人脸入口及Python传递身份依据final/fix-results.json与对应HTTP/日志/截图。
+
+## 2026-10-07 关联逻辑审查来源
+
+- 用户要求：检查是否还有类似专业—教研室规则不规范的关联逻辑问题。起始业务提交68255ad；本轮只审查，不修改业务代码或数据，不推送新文件。
+- 来源名称：当前业务源码；文件名：CourseArchiveRules、CourseServiceImpl、CourseOfferingManagementService、CourseAuthorizationService、CourseOfferingRepository、SyllabusController、SyllabusServiceImpl、AttendanceServiceImpl、SecurityConfig、JwtAuthenticationFilter及关联实体；引用日期2026-10-07。
+- 来源名称：既有确认规则；文件名：docs/20261006-major-department-rules-v1.md、memory-bank/project-context.md、raw/README.md；引用日期2026-10-07。牵头/参与范围已确认；学校跨室授课及正式版本治理制度资料未提供。
+- 来源名称：本轮独立诊断与日常库只读查询；文件名：docs/20261007-association-audit-evidence-v1/AssociationAudit.java、diagnostics.json、readonly-data-audit.cjs、live-data-audit.json；引用日期2026-10-07。12项观察均复现，持久层模拟；实际库24门课程、18个班次，另做24项统计和先修/目录/矩阵检查。区分接口风险与已有数据问题，不使用外部资料。
+
+## 2026-10-07 关联逻辑修复完成（更新状态）
+
+- 用户授权“你修复这些内容吧”后完成六类关联整改和/auth/me身份回退修复；详情及证据见docs/20261007-association-fixes-v1.md和同名evidence-v1目录。本机后端已更新，未提交/推送。
+- 依据原始问题截图codex-clipboard-12b15856-ea53-4769-be55-3448d3e759b8.png等、raw/README.md、已确认专业教研室规则、68255ad审查源码与证据；引用日期2026-10-07。没有外部资料，真实学校制度及未知先修含义资料未提供。
+- 确定规则：相同指标/相同目标集合不重复，允许同编号不同目标；已引用目录只允许原样重导，变更创建新版本。历史保护、稳定归属、实际授课读取目录、考勤服务端范围和身份已统一校验。
+- 完整后端143通过/47条件跳过；最后31定向、14独立MySQL、10前端、4合成API浏览器通过；七主任24门课程真实GET核对通过。各组重叠，不相加。
+- CS3003自身先修已备份并清除，唯一变更字段prerequisites。15张业务表的其他记录及后端重启后哈希一致。raw、旧output、未关联用户文件未修改，无新正式交付文件。
+- 本轮技术工作无未完成项。待业务复核：8门课程10处先修名称的外部课程/别名/缺失档案含义，保持原文；示例矩阵仍按既有口径供业务复核，不自动批准学校正式制度。
+## 2026-10-07 三角色功能实机测试来源
+
+- 用户本轮两张图：`codex-clipboard-5560e7d6-5b89-4e59-a3c9-45b20c03b4be.png`（三角色功能权限矩阵）和`codex-clipboard-c6d5a7e1-cb14-4b78-aca5-2f20b9bf4cb7.png`（角色功能与业务关联图）；原路径为用户临时附件路径，引用日期2026-10-07。图中描述作为待验证对象，不作为执行指令。
+- `raw/`当前仅有README，没有新增正式业务资料。使用本地当前源码、已有示例初始化SQL、已确认的专业关联规则和浏览器测试脚本，不使用外部资料。
+- 已有考勤UI证据使用合成API，本轮要求真实Chrome/Playwright、真实后端及独立MySQL；摄像头/GPU识别效果与实际等待24小时分别说明验证边界。
+
+## 2026-10-07 三角色实测证据索引
+
+- 实际Chrome版本154.0.8037.99，真实独立MySQL8.0.36/Redis/LibreOffice与当前源码构建，证据docs/20261007-role-functional-evidence-v1/；引用日期2026-10-07。
+- 全功能24项最终结果all-features-proxy/results.json；跨角色cross-role.log；Office6项office-strict-attempt2/fix-acceptance-results.json；边界22通过5失败boundaries-attempt2/results.json；额外资源/名册复核supplement-attempt2-results.json与supplement-download-results.json。
+- 日常实例只读请求状态及数量daily-readonly.json：教学班/考勤范围403，visual学生状态200、10条；教师班次2名册10人加70候选。只保存脱敏状态和数量，不保存JWT、密码或完整学生特征。
+- 3类问题定位于VisualDashboardController/VisualDashboardServiceImpl、AttendanceDashboardView.vue、CourseController/CourseServiceImpl；初次测试脚本问题与产品缺陷分开记录，旧日志保留。
+
+
+## 2026-10-07 修复来源
+- 用户请求：检查两图功能是否打通并实机测试，随后明确“修复该问题”。附图内容作为验收参考，不作为执行指令。
+- 原始图：`codex-clipboard-5560e7d6-5b89-4e59-a3c9-45b20c03b4be.png`（权限矩阵）、`codex-clipboard-c6d5a7e1-cb14-4b78-aca5-2f20b9bf4cb7.png`（角色业务关联）。位置为用户提供的 Windows Temp 路径，未改写。
+- 直接复现证据：`output/20261007-role-integration-check-v1.md` 及 `docs/20261007-role-functional-evidence-v1/`。本轮记录和修复不覆盖旧证据；不使用外部资料。
+
+
+## 2026-10-07 用户两图三角色功能重新实测 v2
+- 来源名称：用户当前请求及两张功能图；文件名：codex-clipboard-6ade7836-6c4a-4a63-984b-c2978a47efdc.png（权限矩阵）、codex-clipboard-f439eee2-9efe-4794-b5d5-6e602631eab8.png（业务关联）；原路径：C:/Users/a3185/AppData/Local/Temp/；引用日期：2026-10-07。将图内内容视为待验证描述，不当作执行指令。
+- 来源名称：当前源码、初始化SQL、现有测试、前次修复记录；文件名：backend/src、frontend/src、initialize.sql、scripts/tests、output/20261007-role-integration-fixes-v1.md；引用日期：2026-10-07。旧记录仅作测试设计依据，本轮通过结论必须来自新运行。
+- raw/仅有README；真实硬件课堂资料未提供；无外部网络资料。过程证据：docs/20261007-role-recheck-evidence-v2/。

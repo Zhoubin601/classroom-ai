@@ -1,0 +1,19 @@
+{
+  "realApis": true,
+  "workingTreeHadUserChanges": true,
+  "frontend": "Vue production build through Vite preview 15173",
+  "chromeVersion": "154.0.8037.99",
+  "isolatedMysql": "8.0.36",
+  "timezone": "Asia/Shanghai",
+  "currentJarMountedReadOnly": true,
+  "backendPorts": [
+    18081,
+    18082
+  ],
+  "isolatedRedis": "7.2-alpine",
+  "dailyReadOnlyPort": 8080,
+  "head": "68255ad9a4ebe5b52df9b7a7f18eba32db97cf78",
+  "branch": "main",
+  "backendImage": "sha256:e188c59a3f24acad3ee88351a6700aa4c199aca97a7f8eda41915e10fb39fb6a",
+  "date": "2026-10-07"
+}

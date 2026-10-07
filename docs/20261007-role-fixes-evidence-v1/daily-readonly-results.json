@@ -1,0 +1,100 @@
+{
+  "observedAt": "2026-10-07T11:06:41.086Z",
+  "mode": "8080 local deployment; real authentication and GET only; no business writes",
+  "result": "PASS",
+  "rows": [
+    {
+      "actor": "director",
+      "route": "overview",
+      "offeringId": 4,
+      "coreHttp": 403,
+      "http": 403,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "director",
+      "route": "trend",
+      "offeringId": 4,
+      "coreHttp": 403,
+      "http": 403,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "director",
+      "route": "students/status",
+      "offeringId": 4,
+      "coreHttp": 403,
+      "http": 403,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "director",
+      "authorizedOffering": 13,
+      "enrolled": 10,
+      "available": 70,
+      "overviewTotal": 10
+    },
+    {
+      "actor": "guojun",
+      "route": "overview",
+      "offeringId": 4,
+      "coreHttp": 403,
+      "http": 403,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "guojun",
+      "route": "trend",
+      "offeringId": 4,
+      "coreHttp": 403,
+      "http": 403,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "guojun",
+      "route": "students/status",
+      "offeringId": 4,
+      "coreHttp": 403,
+      "http": 403,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "guojun",
+      "authorizedOffering": 18,
+      "enrolled": 1,
+      "available": 0,
+      "overviewTotal": 1
+    },
+    {
+      "actor": "supervisor",
+      "route": "overview",
+      "offeringId": 10,
+      "coreHttp": 200,
+      "http": 200,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "supervisor",
+      "route": "trend",
+      "offeringId": 10,
+      "coreHttp": 200,
+      "http": 200,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "supervisor",
+      "route": "students/status",
+      "offeringId": 10,
+      "coreHttp": 200,
+      "http": 200,
+      "currentGrantChecked": true
+    },
+    {
+      "actor": "supervisor",
+      "authorizedOffering": 18,
+      "enrolled": 1,
+      "available": 0,
+      "overviewTotal": 1
+    }
+  ]
+}

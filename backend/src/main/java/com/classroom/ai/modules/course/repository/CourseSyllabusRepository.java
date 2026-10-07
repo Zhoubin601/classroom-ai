@@ -15,4 +15,11 @@ public interface CourseSyllabusRepository extends JpaRepository<CourseSyllabus, 
     Optional<CourseSyllabus> findByCourseIdAndVersion(Long courseId, String version);
 
     Optional<CourseSyllabus> findFirstByCourseIdOrderByCreatedAtDesc(Long courseId);
+
+    @org.springframework.data.jpa.repository.Query("""
+        select count(s) from CourseSyllabus s where s.course.majorCode = :majorCode
+        and coalesce(s.planVersion, s.version) = :planVersion
+        """)
+    long countPlanReferences(@org.springframework.data.repository.query.Param("majorCode") String majorCode,
+                             @org.springframework.data.repository.query.Param("planVersion") String planVersion);
 }

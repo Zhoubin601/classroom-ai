@@ -24,4 +24,8 @@ public final class RecommendedIndicatorTemplate {
     public static boolean contains(String code) {
         return code != null && code.matches("(?:[1-9]|1[0-2])-[1-9][0-9]*");
     }
+    public static String categoryFor(String code) {
+        if (!contains(code)) throw new IllegalArgumentException("指标点不属于推荐模板: " + code);
+        return CATEGORIES.get(Integer.parseInt(code.substring(0, code.indexOf('-'))) - 1);
+    }
 }

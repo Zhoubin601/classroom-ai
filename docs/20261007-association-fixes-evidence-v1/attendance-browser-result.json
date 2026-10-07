@@ -1,0 +1,223 @@
+{
+  "observedAt": "2026-10-07T05:41:20.148Z",
+  "mode": "Real Vue / Chromium; synthetic API; no live backend writes",
+  "checks": [
+    "协作教师可见服务端授权班次",
+    "当前考勤按所选班次查询且不自动跳转",
+    "活动会话正确恢复",
+    "快速切换不显示其他班次的历史记录"
+  ],
+  "requests": [
+    {
+      "path": "/api/v1/auth/csrf",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/auth/csrf",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/courses/offerings/history",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/schedules",
+      "method": "GET",
+      "offeringId": "101"
+    },
+    {
+      "path": "/api/v1/resources",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/resources",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/supervisions/analytics/radar",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/syllabus/course/101/indicators",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/courses/101/content/draft",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/courses/101/content/published",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/syllabus/course/101/latest",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/schedules",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/attendance/offering/101",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "offeringId": "101"
+    },
+    {
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/visual/reset",
+      "method": "POST",
+      "offeringId": "101"
+    },
+    {
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "offeringId": "101"
+    },
+    {
+      "path": "/api/visual/trend",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/visual/students/status",
+      "method": "GET",
+      "offeringId": "101"
+    },
+    {
+      "path": "/api/visual/reset",
+      "method": "POST",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/v1/attendance/offering/102",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/visual/trend",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/visual/students/status",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/visual/reset",
+      "method": "POST",
+      "offeringId": "101"
+    },
+    {
+      "path": "/api/v1/attendance/offering/101",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/visual/reset",
+      "method": "POST",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/v1/attendance/offering/102",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/visual/trend",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/visual/students/status",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "offeringId": "102"
+    },
+    {
+      "path": "/api/visual/trend",
+      "method": "GET",
+      "offeringId": null
+    },
+    {
+      "path": "/api/visual/students/status",
+      "method": "GET",
+      "offeringId": "102"
+    }
+  ],
+  "errors": []
+}

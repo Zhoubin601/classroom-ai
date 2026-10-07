@@ -1,0 +1,243 @@
+{
+  "results": [
+    {
+      "name": "本课教师与主任下载、同室共享教师和督导禁止原件下载",
+      "status": "FAIL",
+      "error": "Unexpected token '%', \"%PDF-1.4\n1\"... is not valid JSON"
+    },
+    {
+      "name": "主任维护资源上传与删除闭环",
+      "status": "PASS",
+      "details": {
+        "resourceId": 23,
+        "uploadedBytes": 36627,
+        "deleted": true
+      }
+    },
+    {
+      "name": "主任课程建档、无依赖班次删除和课程删除闭环",
+      "status": "PASS",
+      "details": {
+        "courseId": 30,
+        "offeringId": 21,
+        "deleted": true
+      }
+    },
+    {
+      "name": "补查教师与督导均获得全校候选学生",
+      "status": "PASS",
+      "details": {
+        "observation": "REPRODUCED_SCOPE_GAP",
+        "counts": {
+          "guojun": {
+            "enrolled": 5,
+            "available": 75
+          },
+          "supervisor": {
+            "enrolled": 5,
+            "available": 75
+          }
+        },
+        "supervisorUiOffersRosterEditing": true,
+        "serverMutationStill403": true
+      }
+    },
+    {
+      "name": "补查三角色实时大屏均可读取未授权AI班次",
+      "status": "PASS",
+      "details": {
+        "observation": "REPRODUCED_SCOPE_GAP",
+        "rows": [
+          {
+            "actor": "director",
+            "core": 403,
+            "visual": 200,
+            "count": 10
+          },
+          {
+            "actor": "guojun",
+            "core": 403,
+            "visual": 200,
+            "count": 10
+          },
+          {
+            "actor": "supervisor",
+            "core": 403,
+            "visual": 200,
+            "count": 10
+          }
+        ]
+      }
+    },
+    {
+      "name": "日常8080实例只读复核两类接口权限缺口",
+      "status": "PASS",
+      "details": [
+        {
+          "path": "/api/v1/courses/offerings/10",
+          "http": 403,
+          "code": 403
+        },
+        {
+          "path": "/api/v1/attendance/offering/10",
+          "http": 403,
+          "code": 403
+        },
+        {
+          "path": "/api/visual/students/status?offeringId=10",
+          "http": 200,
+          "code": 200,
+          "studentCount": 10
+        },
+        {
+          "path": "/api/v1/courses/offerings/2/students",
+          "http": 200,
+          "code": 200,
+          "enrolled": 10,
+          "available": 70
+        }
+      ]
+    },
+    {
+      "name": "浏览器无未捕获异常",
+      "status": "PASS"
+    }
+  ],
+  "requests": [
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/23",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources?courseId=2",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/21",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/30",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    }
+  ],
+  "pageErrors": [],
+  "observedAt": "2026-10-07T10:33:43.695Z"
+}

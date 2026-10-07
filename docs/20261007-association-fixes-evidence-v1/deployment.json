@@ -1,0 +1,7 @@
+{
+  "verifiedJarHash": "023d6657e006ae881a15dcdeeb557fe6706b1fdcbea5b0504373c6400bdfa1bc",
+  "runningImage": "sha256:e188c59a3f24acad3ee88351a6700aa4c199aca97a7f8eda41915e10fb39fb6a",
+  "jarMatches": true,
+  "oldImageTag": "classroom-backend:before-association-20261007",
+  "sourceCommit": "68255ad + uncommitted association fixes"
+}

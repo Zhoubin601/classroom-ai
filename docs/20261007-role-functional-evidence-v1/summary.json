@@ -1,0 +1,105 @@
+{
+  "observedAt": "2026-10-07T10:38:12.243Z",
+  "conclusion": "PARTIALLY_CONNECTED_WITH_SCOPE_AND_FROZEN_WRITE_GAPS",
+  "groups": {
+    "fullFeatureBrowser": {
+      "passed": 24,
+      "failed": 0,
+      "screenshots": 22,
+      "pageErrors": []
+    },
+    "roleBoundaryIntegration": {
+      "passed": 22,
+      "failed": 5,
+      "failures": [
+        {
+          "name": "冻结班次不应在大屏继续启用模拟写入",
+          "status": "FAIL",
+          "error": "冻结班次仍可启动模拟：attendance HTTP 409 / code 409；visual HTTP 200 / code 200",
+          "ms": 2222
+        },
+        {
+          "name": "实时大屏读取必须与考勤会话使用同一班次范围",
+          "status": "FAIL",
+          "error": "未授权AI班次大屏overview返回200，学生状态返回200，明细10条\n\n200 !== 403\n",
+          "ms": 22
+        },
+        {
+          "name": "实时推流必须拒绝未授权班次写入",
+          "status": "FAIL",
+          "error": "非授权班次推流返回200，持久记录增量1\n\n200 !== 403\n",
+          "ms": 494
+        },
+        {
+          "name": "实时重置必须拒绝未授权班次写入",
+          "status": "FAIL",
+          "error": "guojun POST /api/visual/reset?offeringId=10: got 200\n\n200 !== 403\n",
+          "ms": 8
+        },
+        {
+          "name": "教师督导名册读取不应暴露全校候选学生",
+          "status": "FAIL",
+          "error": "guojun可读取5名本班学生及75名全校候选学生\n\n75 !== 0\n",
+          "ms": 12
+        }
+      ]
+    },
+    "officeAndValidation": {
+      "passed": 6,
+      "failed": 0
+    },
+    "crossRole": {
+      "log": "cross-role.log",
+      "completed": true,
+      "scope": "plan,resource sharing,revocation,tickets,evaluation-review-delayed-anonymous-feedback"
+    },
+    "supplement": {
+      "passed": 7,
+      "latestResults": [
+        "supplement-attempt2-results.json",
+        "supplement-download-results.json"
+      ],
+      "earlierDownloadParserErrorResolved": true
+    }
+  },
+  "countsOverlap": true,
+  "existingExceptionsConfirmed": [
+    "director quality CSV is global",
+    "director student list is global",
+    "all authenticated roles can mutate foreign-course micro metadata"
+  ],
+  "untested": [
+    "physical camera/GPU capture and face recognition",
+    "actual 24-hour wall-clock wait",
+    "micro-video playback"
+  ],
+  "dailyReadonly": {
+    "observedAt": "2026-10-07T10:33:43.691Z",
+    "mode": "real login and GET only; no domain writes",
+    "rows": [
+      {
+        "path": "/api/v1/courses/offerings/10",
+        "http": 403,
+        "code": 403
+      },
+      {
+        "path": "/api/v1/attendance/offering/10",
+        "http": 403,
+        "code": 403
+      },
+      {
+        "path": "/api/visual/students/status?offeringId=10",
+        "http": 200,
+        "code": 200,
+        "studentCount": 10
+      },
+      {
+        "path": "/api/v1/courses/offerings/2/students",
+        "http": 200,
+        "code": 200,
+        "enrolled": 10,
+        "available": 70
+      }
+    ]
+  }
+}

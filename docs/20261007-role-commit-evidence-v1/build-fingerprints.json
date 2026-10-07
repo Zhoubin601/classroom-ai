@@ -1,0 +1,858 @@
+[
+  {
+    "path": "backend/src/test/java/com/classroom/ai/ApiExceptionHandlerTest.java",
+    "sha256": "986fb2c6ce1c795750dc92b9566b8348d8d26d89c64f62a2ed41f3e7743c6789"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/RegressionTest.java",
+    "sha256": "ae8c8a75c214952a1e0b8edfef688f34af7ab3a263a89ce2d75e00954ed918e6"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/UploadPathsTest.java",
+    "sha256": "844d73e38235544c3c4d4f9164ae68ee2b2279ee78d7412072fc9a798bf1da47"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/VisualHttpAuthorizationTest.java",
+    "sha256": "2ae6d95f04c31b6ea8d01b6e99dcb64cc6ac7fb47d9b0307d2cfa9b31005a42c"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/Sprint2MysqlTest.java",
+    "sha256": "949e0e0cd91fed916d3a1bcd421f22279b5d340139c83a196ff795769ac3f7d0"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/attendance/AttendanceHttpAuthorizationTest.java",
+    "sha256": "318578a47e4087d8ce764d255b99bb81f7fe61579825d587791121f001b0a46f"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/attendance/AttendanceServiceTest.java",
+    "sha256": "ded93ebaf5d36aefd48d6e1c00a30f2a80057817e81047e465388f7e6d913b9d"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/attendance/FaceHttpAuthorizationTest.java",
+    "sha256": "00294023974d14e5616b9e55f294594ce1e198a5986b738f8d9271f8afa963e8"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/auth/AuthControllerTest.java",
+    "sha256": "dcc325e182b60253724b0fc09f37e264996cccd7e4282f527843af458e9a29d9"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/auth/DirectorSupervisorManagementTest.java",
+    "sha256": "70cabb0b1ce9ab221e51ed81363c9b1c548f575e2fcaa9a362b752f1404a7146"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/auth/JwtAccountIntegrityTest.java",
+    "sha256": "8f1532f52cda9bf303f7cf4d1599638bfe0af066e00f7247bbd539e52c19c9df"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/AssociationIntegrityTest.java",
+    "sha256": "d8932544c3a48da002031cd57719056ce057d10413e78cffc252ff80758da7ae"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/AssociationMysqlTest.java",
+    "sha256": "a56a7927f1b211aad98b1ba047aa175882ab5801ff063845a8e9a9085a7771fc"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseAcceptanceRegressionTest.java",
+    "sha256": "c5602ba6261694842ae7d3b7cabd5f9a7eeb8c158b072bb7dcbfa67da3849606"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseAuthorizationPrimaryTeacherTest.java",
+    "sha256": "48cfce99598bcf39529b9c9ac01ddb8e60591fa03416e4d5bff6810eda0be52d"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseAuthorizationServiceTest.java",
+    "sha256": "c28cbd841d561eb7c06fbd041443126c07ea2d614a81a9a6de7ce0b6d9b7bd1b"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseBrowserMysqlTest.java",
+    "sha256": "15b693b9532a97efaf7ae95850f06313bbfd0b5b043b2c665a3d26464ee9d6a8"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseContentRevisionTest.java",
+    "sha256": "f870242eb174c36aee79c22933a4bd3efbfa8fb3f9a7c3da9ba9184cc13aa07f"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseHttpAuthorizationTest.java",
+    "sha256": "f15032fe19659ff73b5c0364f2565e8473670dc6b5a80a268374db3deac317bb"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseImportTest.java",
+    "sha256": "ec356a719aa4ad07b5671564703ef3f6d7320ae5c96c741d914353e08497a125"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseOfferingHistoryTest.java",
+    "sha256": "7e6c8232b09190e8c554a2008618ac584a58252eaf4d3957e5a05c300bb91cfc"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseScheduleConflictTest.java",
+    "sha256": "64cfbacebfd974917e0689e759ad4f0b1b29723d7cd65552e5aa3472a16efd75"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseScheduleMultiTeacherConflictTest.java",
+    "sha256": "f314452d9f4d478e0be6b2e92d177d1537bb055a3a99fe54817cbf52ea634656"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseSchedulingMysqlTest.java",
+    "sha256": "df0e46f67e62c45f4d2ee752b4ed2b37a3dea1e2c1c44170ef2264048b6e595e"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java",
+    "sha256": "ee35fdfb35b10cbc46aad171ea738267556a6ae2efc44164989e4c7af6ae7ce5"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/CourseWorkflowMysqlTest.java",
+    "sha256": "4a185298c4ecab95ccb86630f5e163b0511bdac35c4358faebac6963780f6476"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/MajorDepartmentMysqlTest.java",
+    "sha256": "51a66db6bdddd13881cdd4dbe45f41536778f26ea21a816c7477a847005cfa68"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/resource/CourseResourceServiceTest.java",
+    "sha256": "38bcbea16013af4c3f056ca6fd57cfa69283f5786b564b1001ea9156d2c1a485"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/supervision/SupervisionAnalyticsTest.java",
+    "sha256": "bad45521c3fc1c026b62c5c9a3ddd6c746bd0c9bea705e422c46d324d882d204"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/supervision/SupervisionServiceTest.java",
+    "sha256": "46671cf1425f2f09ad506b58935df38bad73f8a7190b18e533b4deecc06ce6c6"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java",
+    "sha256": "ac25421a6cbf4c0e1011dc26d715ff4adcf384f1c7c545c088b3199d2269701f"
+  },
+  {
+    "path": "backend/src/test/java/com/classroom/ai/modules/course/util/CsvParserUtilTest.java",
+    "sha256": "a956bd13aef6ccd166427757526efe73716dac4abe78f593838fe6de9ea227bb"
+  },
+  {
+    "path": "backend/src/main/resources/application.yml",
+    "sha256": "5c805843600d85ba2a1cc1a300e1aa4d71f6f4cd632fd65a48d8e4cd915d3232"
+  },
+  {
+    "path": "backend/src/main/resources/db/major-department-v1.sql",
+    "sha256": "e8f3e6f72bcb931c4fb568e3148f4b3eacb405cdfc5aec909367cc59e0b016de"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/ClassroomBackendApplication.java",
+    "sha256": "d83026adfadfd4c8571010af8c725562ae90d90287a91fc4d2e7cc91f4cc3576"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/common/ApiExceptionHandler.java",
+    "sha256": "34824504f720854e4c172cdbee5f247e49dddaf334d7a1dfb17e5d696c5bb928"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/common/ApiResponse.java",
+    "sha256": "c3beeab18939cb0417678aacef7e6d6793f1fdca857ed84df98e1355dd83c510"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/config/CorsConfig.java",
+    "sha256": "ed725c7e49aa92c053303e4e1819697e3d25290cb1eb4d413dbed0876deafa1f"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/config/RedisConfig.java",
+    "sha256": "4b9609f153ea78e7d7b393ef97be659af2a9f6d4c22369c8887572174ad26018"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/config/UploadPaths.java",
+    "sha256": "81210dd8571c6031e05f90c30fc849d8d121400bc4216bb1d8bce6f71f538d75"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+    "sha256": "01ccf4bdda00c7df9ef53a2d50f0a6309797ec4b5781c5a251a8b7d9103cccf3"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+    "sha256": "a0b357d3adfdbe40aba1f1f166fb83c2c5c49433e2f28f63e87abbc5ab6db2c9"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+    "sha256": "a411c176c0363189b54456466340c861ba6f05a89ae90f448ea5598a7a16e91d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/dto/ClassroomStreamDTO.java",
+    "sha256": "c4ac8850a0f8c5b355e2eb7d14bcc6ede8424d77fa817e057e9c5fe843eb9888"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/dto/FaceRegisterDTO.java",
+    "sha256": "7365809bd8b6e3718ee0bbe92ce1de86c830ccafab75d277450a8e5a5387bfbc"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/dto/FaceSearchDTO.java",
+    "sha256": "1ab9051a37cabe357904d634e3c4f412ef1fc8859dfd814491a614b2c75170fb"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/dto/StudentDTO.java",
+    "sha256": "a099d06d32c6c99b3bfc1a2989f5d4f317d4b72ac3da97e119410b944aee7fe4"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java",
+    "sha256": "5c42411a394a31d416709693f18dc2b1abea555b3d21277cff993c195461f257"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java",
+    "sha256": "7aac2e4b131c5875555e3456449e8883ec781d40d95cd3ef373325e380b38e30"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/entity/Student.java",
+    "sha256": "5941ed480174ecacd99eccfc1c6b5046f996585f0176793644e294f42a8c47ed"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/repository/ClassroomRecordRepository.java",
+    "sha256": "17d8411116776f73b2bf7f7e203dc2f52f7fbf4865c4e93477b5011fcd7012b2"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/repository/FaceFeatureRepository.java",
+    "sha256": "0820702f22ace11a42d28b866aa4c0122c98056fe9d6b58f62290ecb943de34b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/repository/StudentRepository.java",
+    "sha256": "b3db6e3c57d525840c1fcd5e9d80e9b17f7005a9f000ffbdebb513ffdb2a3b20"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/runner/MajorDepartmentMigration.java",
+    "sha256": "abc7770a674c1ece37a7bef5ab71eac1430b41f4c76f5a7ce402da9f65c6b0e0"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/runner/RedisCacheWarmer.java",
+    "sha256": "906fcbb531d71f96898afbcbc30735c30d217de25de5abaf95de0ee443938d6b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/runner/TeachingDataInitializer.java",
+    "sha256": "f9e5d2a1795711123040eabc0fef6fe139281d75ef1b6e7e82a0aaa99b916b9e"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/service/FaceService.java",
+    "sha256": "3d80106562425f397ac38f59d4a7b21d2ac444903659d41b14981b51065da86e"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/service/StudentService.java",
+    "sha256": "c8ee287842a0b17b7786f3098113bbd75163b17e8099050b25d1e7cc63890a57"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/service/VisualDashboardService.java",
+    "sha256": "30c6093a95a50c8291bc78c4dd31cbc130759ee6ec415256268fd866c6790d25"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/vo/DashboardOverviewVO.java",
+    "sha256": "22efaf199fb937beaac0bb7ebca3bf17dc89c2c492bd3d399dc86d38cebe2f53"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/vo/FaceMatchVO.java",
+    "sha256": "005683bdf1b295e1770844c8fa913a6f3f0254bdf1c2e2e96a82b332c2961f29"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/vo/FocusTrendPointVO.java",
+    "sha256": "02ed6e644806208b2229c24d2d0ebf5972e3c89f713ee3ab513b5590690a5623"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/vo/StudentRealtimeStatusVO.java",
+    "sha256": "61404717fbb97dc7e427d8457c37c364b6a649a4e35bc1d5f219526049cd6b30"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/service/impl/FaceServiceImpl.java",
+    "sha256": "7a7046969dbedf860a3d73506c6bb893c7b41ca17f9ce4f31dada370bdbfd704"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/service/impl/StudentServiceImpl.java",
+    "sha256": "0b6773a83986f76f30bd4676e564c8b5c0cbeb886398dd9e9883468069ad97b3"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/service/impl/VisualDashboardServiceImpl.java",
+    "sha256": "c3f3d00c6d5afa969a7f8ca9a9e58143ab39d3f329a36752cfc1c0e130498044"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+    "sha256": "050a8966b8f2dcecf1e2288233dd400cc0d1f5603c1a68de92d3ebefbcf057ec"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+    "sha256": "e9efd084d6d8a1c13b9256d8bd5f6b4c83bad9fd284b5640bab8642655ff0f16"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/dto/EvaluationSubmitDTO.java",
+    "sha256": "0670a5a6a17734dac3ac131c9b8aeeb13fd0889da9de27bf8fe5e8cbe34f3453"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java",
+    "sha256": "6809fc00b51d0feaadab989ad01c18064247d95e61ee649e521157d78560f171"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java",
+    "sha256": "ff50b7f33adb639699adabd1591af409e9f076dfba726f2c7d6fee5f9913a8df"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/repository/EvaluationAuditLogRepository.java",
+    "sha256": "df8218a0f05a26332f0c150e34cf6caf1686237a3028fcf894135a5d161ac6a2"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/repository/SupervisionEvaluationRepository.java",
+    "sha256": "06e15ca27145e547bee57667998a7f0be642b46d84ad52304188df68e743053a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/SupervisionAnalyticsService.java",
+    "sha256": "a458f54b25ee26c1c7690c2ceb6e1e396f1c349bc04a02b340a7863c184705e6"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/SupervisionService.java",
+    "sha256": "c0ca80d9210372b026adddf48b860b79ff41cb23b9eeaccd8ce3032af68aed84"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/CoverageDetailVO.java",
+    "sha256": "dd9e1953e46e94dfac311935685dbc249d006970c063e6ec3dacd6b02343bf41"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/SupervisionAlertVO.java",
+    "sha256": "2348d0beae695cae848d186601a38b9562a2ca0cebf407b3aa839422a035d106"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/SupervisionDashboardVO.java",
+    "sha256": "934b04ce59d16720ad954209f3a11120f90e5e3aac0528db98ea352756644da5"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/TeacherQualityRadarVO.java",
+    "sha256": "0df5f2ca91cac3212288edec48a770eb710287371a40389c1d538299a385fb96"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java",
+    "sha256": "2598d55ccdbd574d389f0131bf01893374476805f1d679834c0bfbd0bbef870d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+    "sha256": "712c8f51f2a22a0c12f2c73c33c470924def7430e7d39425d96effe87def5141"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+    "sha256": "ad242b40d27f71223f7dc68dac6926330fe2b3c05a46867a6a8f03c898b15d43"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingController.java",
+    "sha256": "21989deff0ddc6e2f5252f7a4bfd29c8d79f2288b043d8f7fd91c15f0eddd03d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/dto/CourseResourceDTO.java",
+    "sha256": "85ea58827811a20d5752841cd05264ab06fa09e54bc9f2c1d76b7262e9ebdcaf"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/dto/MicroTeachingSliceDTO.java",
+    "sha256": "ff15a26fbed37b03f5dbfe127a83edae3b3650049f3567989445cc90d3a07724"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java",
+    "sha256": "23a0575e5a1472c785f9d3653244a346b32bfafb0c513586fe2dd6abd9793e57"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java",
+    "sha256": "68886b9490f13d5ce78d001a148489b110aa6befb8238df7bd0d0b16144cd13d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java",
+    "sha256": "e9935c0b287eb8dc144326cc5544a53ecc195357c4e9d9cee704a83caf5575fe"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/CourseResourceRepository.java",
+    "sha256": "ece961ee13a767533f22c328372cf7927380dca1980ebda60bf751df71ca943d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/MicroTeachingSliceRepository.java",
+    "sha256": "f149c52e3b00ea5a7353a8d0e2c3b34dff2ce7c7f7590a8fa1364fb7cda1ab6c"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/ResourceAccessLogRepository.java",
+    "sha256": "2d5b3c1040c560f4f8de5f5af0439be109e5605be8e07b94e81699f316f6573c"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/CourseResourceService.java",
+    "sha256": "53025b06dfe38cd129b50f50b166443ff9b4c0c721dc01d0eb70c5359a7207f9"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/MicroTeachingService.java",
+    "sha256": "b414596c4be2a5bcd5e0e5e568bfb05fab376efb8c6872556a44a797e411c993"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceAccessService.java",
+    "sha256": "ee8b82d6a5411a5e560a590e935fac536f076c961f4dd8abd614772cd2dcc004"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java",
+    "sha256": "ddf8b7bb5a8042bbd5b3e5da393fa6c6f31d34440127b7b722c69d740a36b601"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/CourseResourceServiceImpl.java",
+    "sha256": "03877e299500bfc2fe153789f7943c475e8d94b0d27d033941d4c217b4cd4935"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/MicroTeachingServiceImpl.java",
+    "sha256": "363677b8dde1b2ac2f64030e12e548985dbcbeb76c74393cfbfd62c6d92bb62e"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+    "sha256": "c0aa036bfb0ac88a60436354b3f64a3a384ae0344aca4b7f22d28c39a3327bf6"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+    "sha256": "ea16265bc55386682213707e9dbe00d26e0a3cbe684e7dcf4f1d34f48d24aa5b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseImportController.java",
+    "sha256": "c35eec5ade89ad40c1431d788211d43ca9cd9fc4bd43f6e72c51a386e8585769"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+    "sha256": "1adb62b9f81bc22ae6f6efa3366f8512492449efcab16bc8f79e0dff4139857a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingHistoryController.java",
+    "sha256": "081dc7fb4f0549c37cc440262ee11eb42fc98c0dc64227925ce9c09c49ed01be"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingQueryController.java",
+    "sha256": "18d9e5d9c71665edc89b68dd51250a0589e8e8c3bb13b35da9885149324e5117"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+    "sha256": "f20743766353b0d0a86360a8bb8aee9aac8d627294423ed84ba1fc6ae147881b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/MajorController.java",
+    "sha256": "d94f3e30a4a2cb4c7f35c50794c5ddefce956d3a453ed6651f4718c530217532"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+    "sha256": "1ecec01368a9c91241c9f1525733925b05f57ded14c956b9ce7c3d00af21e364"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/TeacherController.java",
+    "sha256": "fd2f5469e80d3f3782de780b53d116df336e31550e0fd855979ccdd4e0f9e895"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/ContentRevisionDTO.java",
+    "sha256": "55f686496d7b547a868fa8eb8534b9ca2975333ca3b5041059ec3329b1806066"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseDTO.java",
+    "sha256": "25a2a16eaa8f7e6ee7c2864548a489afa21a936db6440415b7f73a6c3384746a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseImportRowDTO.java",
+    "sha256": "07481d4eb183c7e5b6116feeff82b7dcf8a68275fc93324a278d9ffaa5267860"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseOfferingDTO.java",
+    "sha256": "5c90304dfaf00422b949ce4bbe4169db2dbaf8652b7cd5534323926ab335f0a7"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseScheduleDTO.java",
+    "sha256": "d6fd2691d01e810ead27bc324d5e76ab75a4f4eb33f1e66a68ff02c2b3e2dd44"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/ImportConfirmDTO.java",
+    "sha256": "41da83759ea00bb426533750cd5aeedd104e4b7fd8ae3f685995dc1762a5a864"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/IndicatorDTO.java",
+    "sha256": "68039ac6c96b797d2cd23aa205fd7499a5d8f9ff1c761c6483b46a18e9c7c96d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/SyllabusDTO.java",
+    "sha256": "287f2b10a5766295a16e406947007a8e2b2fe22b257a9618aa2490c819a2445b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/AcademicTermLock.java",
+    "sha256": "65a055c4f8939f129ca63cf1350772bc5fc05d94ee1bbd9d2ba245ca245b1794"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java",
+    "sha256": "77562566a00f1f6fb18763c0775cfb5d6ffc7be2c1a862c672213e60ecf4b715"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java",
+    "sha256": "0ac14f814852a667c59791b176167d9ebf1a946319297e58896bfa000fc58d5b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java",
+    "sha256": "74cb292e5b2d59335a9e0e2adb46be3589dde1615a7e70d307dba04388cdaf17"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java",
+    "sha256": "b2629fef0d6e6a20723e6c2c899be8d1460638e8d47ca2b32f62518976ef6c6c"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java",
+    "sha256": "5aa62eb325543af1f837473e69d9e33fff8d2a38de0620ee157d782cd6911270"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java",
+    "sha256": "0f6e1d40b3275a70a4d21fdfb553093aa82aa3d89786b5ae8f4c04e9c89713a6"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java",
+    "sha256": "53b719d59e2b6c8ab29746cd2a8b97e3d21c39e67cf8b5919c7469b28fadf26e"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java",
+    "sha256": "8441b8d013016513e48710c2eeb1df99e61ca4094bba2f32eff5b24a8170c55d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java",
+    "sha256": "4a72f0c747801c935888b08fc722c8c8763241543c5b5df9f6637bf7acd7f486"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/MajorDepartment.java",
+    "sha256": "584a45c671aca7ad78490a7dba60a3445d9dbecbb4dfe84913a1fcd2adf92631"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java",
+    "sha256": "e107d6d0fad9387a5992faaf0ffebd66cc37d49f3f7dcb96f74b5a4b235b1b3b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java",
+    "sha256": "fe02188538f561e63b849611bb8952c493450a32c0213e1e870d78f05411d5c7"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java",
+    "sha256": "39ed07755d6e6b8741be4785294514f00a026ee7109cbef1578523ffb07ae5a7"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseContentRevisionRepository.java",
+    "sha256": "80ee9e9011a24fcec5ade3088269a83294ee8eb27e9c350f0613971ed0ef7316"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseImportLogRepository.java",
+    "sha256": "8e960fc8842ba9a4dee5e89ed349422a88222d4572478f29693d937ef31f34aa"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseOfferingRepository.java",
+    "sha256": "6c5e4e4091d3eba1319c231f200b59f3092c6e47aa6bc63c1d16a86aa5e9c784"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseOfferingTeacherRepository.java",
+    "sha256": "710a6f43a04a7cf2df901c439b311bd3bea386cd458a2147cba7f998c763dd73"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseRepository.java",
+    "sha256": "646d6432622897bcd415a1cc58b056deea02cb384207e940ecce392147802288"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseScheduleRepository.java",
+    "sha256": "aa6c7ad6bd72616be3747bbe210359311e15687a983fa8108792192d62e07022"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseSyllabusRepository.java",
+    "sha256": "9cd716a9bc51f6b9fa485ac8e36de6da70e57895046fdaf64863fad077418449"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/GraduationIndicatorRepository.java",
+    "sha256": "d0eb38f2170d4b7b2b8c74fb955b3876840a279840a669df4db7529201e128d6"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/MajorRepository.java",
+    "sha256": "adc524ae6ce4c42f96cce9217bdeae4778d33b5169f73f09368893a8bfe9120e"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/OfferingStudentEnrollmentRepository.java",
+    "sha256": "c467d6100a8dc9c202e22fb89868a67117ee7ded5e6fa9420b1032565f8c0e35"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/TeacherRepository.java",
+    "sha256": "89ad7af64c959f724eccd2ccc2b5ee02ca9f97e06b293b94bcf9cc3d8e20a344"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/TrainingIndicatorRepository.java",
+    "sha256": "e4b0573e5536a38c808d4b0bfbb8af99df48e39228feab2eed446a6be480bbf6"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/AcademicTermLockService.java",
+    "sha256": "52bd3485e988c7bee39dec0eadbb8e810af40ab4bc00bcd1b87eaf43b2094a6e"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseArchiveRules.java",
+    "sha256": "7600895027eccdaa14a5f93e3b22bca205313b81ee91351be289c13817e6b936"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java",
+    "sha256": "49fc2ef4cb64a1d09a291335690a3565092ecd2eb1d76340fcbb9b9ff9ac8337"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseImportService.java",
+    "sha256": "40c4bbdfb9a4e3ebb6d0af0f042e02932154299e3ae9933a10c279d166befe53"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java",
+    "sha256": "18a34cffefa5e0556064fe365215032b1701b65284207641bca7dcb23836d70a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingQueryService.java",
+    "sha256": "9acb2fbde30a442fdc78de9788088b58a4bb9ded3b524e0eb9a2334c5b36da3a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseScheduleService.java",
+    "sha256": "d9a8599171f997867c293c44d53e64e0b8c34b8a340853cde672257334ea7596"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseService.java",
+    "sha256": "dbeefc2ce05a24df4c5e3d6bec6eaa17df7bf12e63419b77995d42f1559a6253"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/OfferingHistorySnapshot.java",
+    "sha256": "ee3076f9869263725494c61ea64627787cf8f307fe6e4c684447dd67d860cb37"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/RecommendedIndicatorTemplate.java",
+    "sha256": "29a73fc8966a8685a063882cae320be306274e88e6e327f66a3472799d565059"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/ScheduleConflictException.java",
+    "sha256": "60b239eb039aeb4faf2b9126ffcea0acc0e5c8d9d3cf7935eaeee33f7661d8a6"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/ScheduleConflictService.java",
+    "sha256": "2673840268c021c3d9566a7b2db893230633bd15649c359eab3a0d2f862f296a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/SyllabusService.java",
+    "sha256": "965b1043f0704e517ea528d7779aeb14d9e875211bc4e656836509dcafa6a573"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/util/CsvParserUtil.java",
+    "sha256": "ad019c80e80ac1c762cf78ce3026e206f924e8611f227ac652951cd69f494ea0"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/ImportPreviewVO.java",
+    "sha256": "96612be95903782db4e48cc3c674756c2d0d7a37d972dcb1c2abda7c19ce9442"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/ImportRowError.java",
+    "sha256": "74fffc137a84a1946b58661c3f19fbecd8b7ec409de7d073f242163db9ed4553"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/OfferingHistoryItemVO.java",
+    "sha256": "b96df1cb576aadacd615a2f30726e51a2eb7b6131459abf2009d6939144f82bc"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/OfferingHistoryVO.java",
+    "sha256": "96cee606fd00ececa4602af617ee7938a8aed8f2407a56b6b36ca4d8f03b702d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java",
+    "sha256": "08b78b1cea63d70929837412f381cb20fda54379bc85d038030b197192dc74dc"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseScheduleServiceImpl.java",
+    "sha256": "89e95dc476c9acafb6ff3f4b7cafa1c255e26b4f0550fd21fdcb686dad87f33a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java",
+    "sha256": "9c542f6a5187cf9ca38414d218a3dad0da2f8afede88d72f7189c9edb1a76690"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java",
+    "sha256": "48e0ee97fa819371a78610a093839f7a4115f9023e0df56ea7bb7d8f046b3510"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/context/AuthContext.java",
+    "sha256": "ae79ce785d567bbbeef7bbaec9971656fceeb534ca045eb3eb87d985dd653525"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+    "sha256": "0a34f2108eef68457a20074322bb583c322bcf58e01cc174ef97e781ac2c0e6c"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java",
+    "sha256": "205879a6eb108f9da8a0e0d09a6a909325bff6be3e02cda16a6bdfc5caa1cc1c"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/dto/LoginDTO.java",
+    "sha256": "f440b8e9e69b4e4fdec56fb3c7c5a0fbfb8b568dc930634b8f4f8744dd68aa87"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/dto/SupervisorRegisterDTO.java",
+    "sha256": "108b2fb27f4ba0f98c785b901c220a3be61dce82686ec3cc827b6a5b3ac84a34"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/entity/RoleEnum.java",
+    "sha256": "78ed54c3964960e5e94ba5efb1221e3f467cf3daf278f6dfd1e98269b68b6299"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java",
+    "sha256": "9ff03bd0f530a3059b6c9181320090c70fe0436fc14e4b2c449e2fe2cc3b475c"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/interceptor/AuthInterceptor.java",
+    "sha256": "4ff9c95733f50ffba7ee026f00d0abc309eaa881982829e18c9fb731d5767bb5"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/repository/UserAccountRepository.java",
+    "sha256": "79d5b69d83d50a61321e4b0bf796cee689afc81b40295483b45abba7301c9933"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/security/JwtAuthenticationFilter.java",
+    "sha256": "5575df64169956d2c4a1649c98cf4c0c66c0ca95e260bceb9c558883873b62fb"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/security/JwtTokenProvider.java",
+    "sha256": "571f268d71893470a3e18bb244c0623063b26700f1544a7b0c674be9919baa5b"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/security/SecurityConfig.java",
+    "sha256": "87bf5082a50e60f928fdd846f68a458726f4eb1de98ac682bba39c21a2b6751d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/auth/vo/UserVO.java",
+    "sha256": "136efd94f6c089bcbb5cff4a9823eaf6bd6f27cb1152d123b2169b02386526ea"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+    "sha256": "5b1c1d3cc7e7c02a2c47fbf1cc8c9d29c237ba8fe9dcaa552286a72cf614deb3"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/dto/FinishAttendanceDTO.java",
+    "sha256": "cb4f9db9ea99d64cd1c216a0b060d3e4f063be6a434087a0cfbc2cbd45eabad9"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/dto/StartAttendanceDTO.java",
+    "sha256": "aa729ee1a45c184bd7e830a475cff267c61e70328fc3fa1438b7d97e42690435"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java",
+    "sha256": "85108fd50c94d7923c8d332b68e6acf3bce3bc2522a39e8a2e6979a32c6e671d"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/repository/AttendanceSessionRepository.java",
+    "sha256": "be1f2cda48f34abcb7b9de3800be7e4d86e478bf82578bf48857f99472f7d082"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceAccessService.java",
+    "sha256": "ebdb910ea5316d944ab51e2b20bac3d995aa99ba8b65c6db824f51278159d3ce"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceService.java",
+    "sha256": "a1bec3b1e97a8f75c1e114744f2106f3eaeb4d1973e5900af1acbdec4df8df5e"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/impl/AttendanceServiceImpl.java",
+    "sha256": "3917c2c62f9a8b9d3c2768cca39a981e58fbd16711126a769b33114a6c6de360"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/common/exception/ForbiddenException.java",
+    "sha256": "304f6288e6ea4cb6a7c8c4e5d8c819875b013f5cf6bbe1db2ffa6c4cd681e34a"
+  },
+  {
+    "path": "backend/src/main/java/com/classroom/ai/common/exception/UnauthorizedException.java",
+    "sha256": "fc8135216a2ef682aa5bc07e8be9fce1fe1bea4295b7070321855ddc54a92cd0"
+  },
+  {
+    "path": "frontend/src/App.vue",
+    "sha256": "99595529304492b66c2e4f54afad2ff80529dbd952835b2e3d0b4a1a5464d8db"
+  },
+  {
+    "path": "frontend/src/main.ts",
+    "sha256": "3e3cfeba05eefed438fb184dd09eb7d30956ad0696ee3e634dff93c7f39b01f7"
+  },
+  {
+    "path": "frontend/src/style.css",
+    "sha256": "b45e45c18464fce0fa8d5a2257f7a9355814518797f934de7512a50fb89b1a80"
+  },
+  {
+    "path": "frontend/src/vite-env.d.ts",
+    "sha256": "424faf9241dd699dda995b367ed36665732da1e6ec1f33b2fd40394488ecac92"
+  },
+  {
+    "path": "frontend/src/api/index.ts",
+    "sha256": "5e0c9f31c939732c34dbb6568db67f47399a8a8d178808346cfbef643ddad2e4"
+  },
+  {
+    "path": "frontend/src/api/metrics.mjs",
+    "sha256": "796a150bb2bcbc7738b5412aac46f7e756b519978472ffc0e8604f40ef5567cc"
+  },
+  {
+    "path": "frontend/src/api/response.mjs",
+    "sha256": "016b90fa2486f1e40b1b60703ea71aab4367383d65a66404586b3edcf59d2858"
+  },
+  {
+    "path": "frontend/src/api/types.ts",
+    "sha256": "88c567ff78267a3085182d2e202e1116931270677744c4cbe43d9de31560b545"
+  },
+  {
+    "path": "frontend/src/components/FocusTrendChart.vue",
+    "sha256": "fb345aa3ed0bff5340a1c1b12efcc2cd0a1477daa5e92dfbefed48b99690b538"
+  },
+  {
+    "path": "frontend/src/components/MetricCard.vue",
+    "sha256": "1185b0732c7da9970c27e77c90684cf1041eb2392d698df438cde28218ad36fa"
+  },
+  {
+    "path": "frontend/src/components/OfferingHistoryPanel.vue",
+    "sha256": "4f944f534588158491f5477e783559bebb1e95ba037a0c72900d18052b03c319"
+  },
+  {
+    "path": "frontend/src/components/OfferingScheduleBoard.vue",
+    "sha256": "4113d15f3028a4c8ad1c2fc783731c972fa99d1c1d125bd79cc97fd720ebbba4"
+  },
+  {
+    "path": "frontend/src/components/ProtectedPdfPreview.vue",
+    "sha256": "2ca292a58c974b25bb3500c427b26cc5613abd8dac7733341385d2b4f477da3b"
+  },
+  {
+    "path": "frontend/src/components/StudentStatusGrid.vue",
+    "sha256": "59a6798b55af7678590ea37501eec275b16122d2f922d863489c26ed276a547f"
+  },
+  {
+    "path": "frontend/src/utils/scheduleTime.ts",
+    "sha256": "5bd50e369c6da6bb343ae8735bb2c0c9bf4659963d7ab20b2271faf0f74d4803"
+  },
+  {
+    "path": "frontend/src/views/AttendanceDashboardView.vue",
+    "sha256": "7a5e12da1b690cb2a5a0df44c130239c67691d114ef7fed34edf5a4c2ab2f497"
+  },
+  {
+    "path": "frontend/src/views/DashboardView.vue",
+    "sha256": "331b6a19d4d2e0836ddbaa8e92a881ed9c81c7ec64f99a3f889a2aaeee4355ab"
+  },
+  {
+    "path": "frontend/src/views/DirectorDeskView.vue",
+    "sha256": "bd00d2a74ee8aeea3493069c4cd0d7ed3e72417667feddc53f96aa4ad97a040f"
+  },
+  {
+    "path": "frontend/src/views/LoginView.vue",
+    "sha256": "337711be49cf46b7377efd37e656737ec9f23e4791e9d9a50075ad4f8530c4d1"
+  },
+  {
+    "path": "frontend/src/views/StudentManageView.vue",
+    "sha256": "86e7a462e6557fd347c591e4b2d84133ff3482f214353183c521fc951dcdad18"
+  },
+  {
+    "path": "frontend/src/views/SupervisorDeskView.vue",
+    "sha256": "3ff2fdf57a4df54f081e648351346c5b3db2cd19635b5920f9cb841061966989"
+  },
+  {
+    "path": "frontend/src/views/TeacherDeskView.vue",
+    "sha256": "99bcea8b7de35caee60693bff7abf9eb6aa1889b8a965b3e200a655d50476d27"
+  },
+  {
+    "path": "frontend/dev/camera-plugin.mjs",
+    "sha256": "042ee990e3127b6a1a89a3a9b25be64bd116ffabf70a6ff37974eab1cbc7add1"
+  },
+  {
+    "path": "frontend/dist/index.html",
+    "sha256": "3e07ac9afd629617f8d32b8b45e52d9dbc7f75591633a00d48c7d4cd5f8457d0"
+  },
+  {
+    "path": "frontend/dist/assets/index-bsu3HjlC.js",
+    "sha256": "de1224c6de6f8625ff1d07403758bce539b0df74d390216183ffa62efd284465"
+  },
+  {
+    "path": "frontend/dist/assets/index-C0ie7zOR.css",
+    "sha256": "16f335e2d93a05afeb4245794229cee9d27f2829a956c1309f56ab5825edffde"
+  },
+  {
+    "path": "frontend/dist/assets/pdf.worker.min-yatZIOMy.mjs",
+    "sha256": "1baa1844c89c80a5b2797c916e75ab29254be46d8e9cb53cb6364d7aad84be36"
+  },
+  {
+    "path": "backend/target/classroom-backend-0.0.1-SNAPSHOT.jar",
+    "sha256": "67e6d178fd14de692a27fc91ae94451f37a8d6c2a3ad7f2b9a0c321f6a87f2e1"
+  }
+]

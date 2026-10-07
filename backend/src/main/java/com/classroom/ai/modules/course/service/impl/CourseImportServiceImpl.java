@@ -259,6 +259,16 @@ public class CourseImportServiceImpl implements CourseImportService {
             rowNumber++;
         }
 
+        if (!validRows.isEmpty()) {
+            try {
+                CourseArchiveRules.validateDependencyGraph(validRows.stream().map(row -> Course.builder()
+                        .courseCode(row.getCourseCode()).courseName(row.getCourseName()).prerequisites(row.getPrerequisites()).build()).toList(), courseRepository.findAll());
+            } catch (IllegalArgumentException failure) {
+                errors.add(new ImportRowError(validRows.get(0).getRowNumber(), "先修关系", failure.getMessage()));
+                validRows.remove(0);
+            }
+        }
+
         int totalCount = dataRows.size();
         int errorRows = (int) errors.stream().map(ImportRowError::getRowNumber).distinct().count();
         String batchId = UUID.randomUUID().toString();
@@ -406,7 +416,7 @@ public class CourseImportServiceImpl implements CourseImportService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public Map<String, Object> confirmImport(ImportConfirmDTO dto) {
         String currentOperator = CourseArchiveRules.requireDirector().getUsername();
         if (dto == null || dto.getBatchId() == null || dto.getBatchId().isBlank())
@@ -422,6 +432,7 @@ public class CourseImportServiceImpl implements CourseImportService {
         }
         if (cache.hasErrors) throw new IllegalArgumentException("当前批次存在错误，整批回滚保护禁止部分入库");
         if (cache.validRows == null || cache.validRows.isEmpty()) throw new IllegalArgumentException("批次无有效数据行");
+        List<Course> persistedGraph = courseRepository.findAllForUpdate();
         Set<String> batchKeys = new HashSet<>();
         for (CourseImportRowDTO row : cache.validRows) {
             batchKeys.add(CourseArchiveRules.referenceKey(row.getCourseCode()));
@@ -442,6 +453,9 @@ public class CourseImportServiceImpl implements CourseImportService {
                 .courseType(row.getCourseType()).prerequisites(row.getPrerequisites()).description(row.getDescription())
                 .createdBy(currentOperator).updatedBy(currentOperator).build());
         }
+        CourseArchiveRules.validateDependencyGraph(toSave, persistedGraph);
+        List<Course> completeGraph = new ArrayList<>(persistedGraph); completeGraph.addAll(toSave);
+        toSave.forEach(course -> course.setPrerequisites(CourseArchiveRules.canonicalPrerequisites(course.getPrerequisites(), completeGraph)));
         // 验证完成后原子占用，只有一个请求能进入写入阶段。
         if (!BATCH_CACHE.remove(batchId, cache)) throw new IllegalStateException("批次正在确认或已被消费");
         boolean transactionActive = org.springframework.transaction.support.TransactionSynchronizationManager.isSynchronizationActive();

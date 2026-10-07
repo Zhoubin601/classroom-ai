@@ -17,6 +17,7 @@ public interface AttendanceSessionRepository extends JpaRepository<AttendanceSes
     Optional<AttendanceSession> findFirstByStatusOrderByCreatedAtDesc(String status);
 
     List<AttendanceSession> findByStatusOrderByCreatedAtDescIdDesc(String status);
+    List<AttendanceSession> findByStatusOrderByCreatedAtDesc(String status);
 
     @org.springframework.data.jpa.repository.Query("SELECT s.offering.id FROM AttendanceSession s WHERE s.id = :id")
     Optional<Long> findOfferingId(@org.springframework.data.repository.query.Param("id") Long id);

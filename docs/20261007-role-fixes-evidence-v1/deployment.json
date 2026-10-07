@@ -1,0 +1,10 @@
+{
+  "rollbackImage": "classroom-ai-demo-classroom-backend:before-role-fixes-20261007-190356",
+  "oldImageId": "sha256:e188c59a3f24acad3ee88351a6700aa4c199aca97a7f8eda41915e10fb39fb6a",
+  "newImageId": "sha256:f0f8238713231949e21e5498786230f78070f72a6869ab62125500c2d0002d8f",
+  "startedAt": "2026-10-07T19:03:56.2525991+08:00",
+  "readyAt": "2026-10-07T19:04:20.1031065+08:00",
+  "businessTablesUnchanged": true,
+  "jarHash": "193D58F9EF18974503567BC060DB8C42D536798116F576BFCED2114C4B9CC172",
+  "businessTableCount": 25
+}

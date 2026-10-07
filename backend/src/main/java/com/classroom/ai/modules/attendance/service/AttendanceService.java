@@ -10,6 +10,7 @@ public interface AttendanceService {
     AttendanceSession startSession(StartAttendanceDTO dto);
     AttendanceSession finishSession(FinishAttendanceDTO dto);
     AttendanceSession getCurrentActiveSession();
+    AttendanceSession getCurrentActiveSession(Long offeringId);
     List<AttendanceSession> getSessionsByOffering(Long offeringId);
     AttendanceSession updateLiveStatus(Long sessionId, Integer actualCount, Double lookupRate);
 }

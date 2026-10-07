@@ -1,0 +1,10 @@
+[
+  "backend\\src\\main\\java\\com\\classroom\\ai\\controller\\VisualDashboardController.java",
+  "backend\\src\\main\\java\\com\\classroom\\ai\\service\\VisualDashboardService.java",
+  "backend\\src\\main\\java\\com\\classroom\\ai\\service\\impl\\VisualDashboardServiceImpl.java",
+  "backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+  "backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseServiceImpl.java",
+  "frontend\\src\\api\\index.ts",
+  "frontend\\src\\views\\AttendanceDashboardView.vue",
+  "frontend\\src\\views\\DashboardView.vue"
+]

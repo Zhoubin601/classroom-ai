@@ -66,6 +66,14 @@ public class CourseAuthorizationService {
         validateCourseRead(course);
     }
 
+    /** Assignment grants catalog reading, without expanding department management. */
+    public boolean isTeachingMajor(String majorCode) {
+        UserVO user = requireCurrentUser();
+        if (user.getRole() != RoleEnum.TEACHER || majorCode == null) return false;
+        return courseRepository.findByMajorCode(majorCode).stream()
+                .anyMatch(course -> isTeacherAssociatedWithCourse(user, course));
+    }
+
     public void validateCourseWrite(Course course) {
         if (course == null) {
             throw new IllegalArgumentException("待校验课程档案不能为空");

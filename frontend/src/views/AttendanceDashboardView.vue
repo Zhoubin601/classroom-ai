@@ -34,6 +34,7 @@
             v-if="activeOfferingList.length > 0"
             v-model.number="selectedOfferingId" 
             @change="onOfferingChange" 
+            :disabled="isMonitorStarting || isSimulationStarting"
             class="bg-white border border-slate-300 text-slate-800 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 cursor-pointer rounded-lg px-2.5 py-1 text-xs shadow-2xs min-w-[280px] max-w-md"
           >
             <option 
@@ -42,7 +43,7 @@
               :value="Number(off.id)"
               class="bg-white text-slate-800 py-1.5 font-medium"
             >
-              【{{ off.className }}】{{ off.course?.courseName || '课程' }} - {{ off.teacherName }} ({{ off.studentCount }}人)
+              【{{ off.className }}】{{ off.course?.courseName || '课程' }} - {{ off.teacherName }} ({{ off.studentCount }}人){{ off.isSnapshotFrozen ? " · 已冻结，只读" : "" }}
             </option>
           </select>
           <select 
@@ -74,25 +75,25 @@
               ? 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 cursor-pointer'
               : 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
           ]"
-          :title="selectedOfferingId ? '查看班级花名册或从总库选入/移出学生' : '当前无正在授课班级'"
+          :title="canManageRoster ? '查看和维护班级学生名单' : '查看本班已选学生'"
         >
           <Users class="w-3.5 h-3.5 text-slate-500" />
-          班级成员选拔 ({{ overview.totalRegistered }}人)
+          {{ canManageRoster ? "班级成员选拔" : "班级学生名单" }} ({{ overview.totalRegistered }}人)
         </button>
 
         <!-- 核心按钮：启动/停止摄像头智能考勤 -->
         <button
           @click="toggleMonitor"
-          :disabled="(!canWriteAttendance && !isMonitoring) || isMonitorStarting"
+          :disabled="!canWriteAttendance || isMonitorStarting || isSimulationStarting || isSimulating"
           :class="[
             'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition shadow-xs',
-            !canWriteAttendance && !isMonitoring
+            !canWriteAttendance
               ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
               : isMonitoring
               ? 'bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 cursor-pointer'
               : 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white cursor-pointer shadow-indigo-500/20'
           ]"
-          :title="!canWriteAttendance ? '未选择班级或历史班次已冻结' : ''"
+          :title="!canWriteAttendance ? '请选择未冻结的授课班级' : ''"
         >
           <span v-if="isMonitorStarting" class="w-3.5 h-3.5 rounded-full border-2 border-current border-t-transparent animate-spin"></span>
           <Square v-else-if="isMonitoring" class="w-3.5 h-3.5" />
@@ -103,7 +104,7 @@
         <!-- 一键下课归档考勤结果 -->
         <button
           @click="finishAndArchiveAttendance"
-          :disabled="!canWriteAttendance || (!currentSessionId && !isSimulating && !isMonitoring && overview.currentPresent === 0 && lastActiveMetrics.present === 0)"
+          :disabled="!canWriteAttendance || isMonitorStarting || isSimulationStarting || (!currentSessionId && !isSimulating && !isMonitoring && overview.currentPresent === 0 && lastActiveMetrics.present === 0)"
           :class="[
             'px-4 py-2 rounded-xl text-xs font-semibold shadow-xs transition flex items-center gap-1.5',
             canWriteAttendance && (currentSessionId || isSimulating || isMonitoring || overview.currentPresent > 0 || lastActiveMetrics.present > 0)
@@ -119,18 +120,18 @@
         <!-- 备用按钮：模拟推流 -->
         <button
           @click="toggleSimulation"
-          :disabled="(!canWriteAttendance && !isSimulating) || isMonitoring"
+          :disabled="!canWriteAttendance || isMonitoring || isMonitorStarting || isSimulationStarting"
           :class="[
             'px-3.5 py-2 rounded-xl text-xs font-semibold transition border shadow-2xs',
-            !canWriteAttendance && !isSimulating
+            !canWriteAttendance
               ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
               : isSimulating
               ? 'bg-amber-50 text-amber-800 border-amber-200 cursor-pointer'
               : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200 cursor-pointer'
           ]"
-          :title="!canWriteAttendance ? '未选择班级或历史班次已冻结' : ''"
+          :title="!canWriteAttendance ? '请选择未冻结的授课班级' : ''"
         >
-          {{ isSimulating ? '暂停模拟' : '演示模拟流' }}
+          {{ isSimulationStarting ? '正在启动模拟...' : isSimulating ? '暂停模拟' : '演示模拟流' }}
         </button>
 
         <!-- 查看已归档考勤历史明细 -->
@@ -284,13 +285,13 @@
           <div>
             <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
               <Users class="w-5 h-5 text-indigo-600" />
-              班级学生花名册与选拔管理
+              {{ canManageRoster ? "班级学生花名册与选拔管理" : "班级学生花名册" }}
               <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono font-semibold">
                 {{ offeringList.find(o => o.id === selectedOfferingId)?.className }}
               </span>
             </h3>
             <p class="text-xs text-slate-500 mt-1">
-              从人脸底库中自由挑选学生加入本课程班级，或移出班级。数据实时与后端数据库严格同步。
+              {{ canManageRoster ? "选择学生加入本班，或将学生移出本班。" : "查看本班已选学生；名单由教研室主任维护。" }}
             </p>
           </div>
           <button @click="showStudentModal = false" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
@@ -307,6 +308,7 @@
             <span>本班已有学生名单 ({{ currentOfferingStudents.length }}人)</span>
           </button>
           <button
+            v-if="canManageRoster"
             @click="activeModalTab = 'add'"
             :class="['px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 cursor-pointer', activeModalTab === 'add' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 shadow-2xs' : 'text-slate-500 hover:text-slate-800']"
           >
@@ -318,7 +320,7 @@
         <!-- 内容区域 1: 当前班级学生列表 -->
         <div v-if="activeModalTab === 'enrolled'" class="flex-1 overflow-y-auto space-y-2.5 pr-1">
           <div v-if="currentOfferingStudents.length === 0" class="py-14 text-center text-slate-400 text-xs bg-slate-50 rounded-xl">
-            当前班级暂无学生，请切换至【从总档案库选入学生】进行挑选
+            {{ canManageRoster ? "当前班级暂无学生，可从总档案库选入学生。" : "当前班级暂无已选学生。" }}
           </div>
           <div
             v-for="s in currentOfferingStudents"
@@ -340,6 +342,7 @@
             </div>
 
             <button
+              v-if="canManageRoster"
               @click="handleRemoveStudentFromClass(s.studentId, s.name)"
               class="px-3 py-1.5 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition font-semibold cursor-pointer"
             >
@@ -349,7 +352,7 @@
         </div>
 
         <!-- 内容区域 2: 从总库选入学生 -->
-        <div v-if="activeModalTab === 'add'" class="flex-1 overflow-y-auto space-y-2.5 pr-1">
+        <div v-if="canManageRoster && activeModalTab === 'add'" class="flex-1 overflow-y-auto space-y-2.5 pr-1">
           <div v-if="availableStudents.length === 0" class="py-14 text-center text-slate-400 text-xs bg-slate-50 rounded-xl">
             总档案库中暂无其他待分配或属于其他班级的候选学生
           </div>
@@ -390,7 +393,7 @@
           </span>
           <div class="flex items-center gap-2.5">
             <button
-              v-if="activeModalTab === 'add'"
+              v-if="canManageRoster && activeModalTab === 'add'"
               @click="handleAddStudentsToClass"
               :disabled="selectedStudentsToAdd.length === 0"
               :class="['px-4 py-2 rounded-xl font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer', selectedStudentsToAdd.length > 0 ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed']"
@@ -576,6 +579,16 @@ const currentSessionId = ref<number | null>(null)
 const isMonitoring = ref(false)
 const isMonitorStarting = ref(false)
 const isSimulating = ref(false)
+const isSimulationStarting = ref(false)
+let simulationGeneration = 0
+let dashboardActive = true
+const stopSimulation = () => {
+  simulationGeneration++
+  if (simulationTimer) clearInterval(simulationTimer)
+  simulationTimer = null
+  isSimulating.value = false
+  isSimulationStarting.value = false
+}
 const videoFeedUrl = ref('/api/visual/video-feed')
 
 let pollTimer: number | null = null
@@ -599,24 +612,6 @@ const lastActiveMetrics = ref({
   lookupRate: 0
 })
 
-// 获取考勤操作人身份传参（是谁考的勤：教学督导、教研室主任还是任课教师）
-const getOperatorParams = () => {
-  const user = currentUser.value
-  const role = user?.role || 'TEACHER'
-  let title = '任课教师'
-  if (role === 'SUPERVISOR') {
-    title = '教学督导'
-  } else if (role === 'DIRECTOR') {
-    title = '教研室主任'
-  }
-  const name = user?.realName || (role === 'TEACHER' ? (offeringList.value.find(o => o.id === selectedOfferingId.value)?.teacherName || '郭军') : '系统操作员')
-  return {
-    operatorName: name,
-    operatorRole: role,
-    operatorTitle: title
-  }
-}
-
 // 格式化展示考勤人员身份
 const formatOperatorDisplay = (s: any) => {
   if (s.operatorTitle && s.operatorName) {
@@ -629,18 +624,19 @@ const formatOperatorDisplay = (s: any) => {
 }
 
 const loadArchivedSessions = async () => {
-  if (!selectedOfferingId.value) {
+  const offeringId = selectedOfferingId.value
+  if (!offeringId) {
     archivedSessions.value = []
     return
   }
   try {
     isLoadingArchive.value = true
-    const list = await attendanceApi.getByOffering(selectedOfferingId.value)
-    archivedSessions.value = Array.isArray(list) ? list : []
+    const list = await attendanceApi.getByOffering(offeringId)
+    if (selectedOfferingId.value === offeringId) archivedSessions.value = Array.isArray(list) ? list : []
   } catch (e) {
     console.error('加载历史考勤归档失败', e)
   } finally {
-    isLoadingArchive.value = false
+    if (selectedOfferingId.value === offeringId) isLoadingArchive.value = false
   }
 }
 
@@ -677,12 +673,11 @@ const isOfferingInSession = (offeringId: number) => {
   return schedules.some(s => isScheduleInSession(s).inSession)
 }
 
-// Backend already limits the list to this actor's primary/collaborating scope.
+// The API already scopes primary/collaborating assignments by stable identity.
 const activeOfferingList = computed(() => offeringList.value)
-const canWriteAttendance = computed(() => {
-  const offering = offeringList.value.find(o => o.id === selectedOfferingId.value)
-  return !!offering && !offering.isSnapshotFrozen && offering.status !== 'FINISHED'
-})
+const selectedOffering = computed(() => offeringList.value.find(o => o.id === selectedOfferingId.value))
+const canWriteAttendance = computed(() => !!selectedOffering.value && !selectedOffering.value.isSnapshotFrozen && selectedOffering.value.status !== 'FINISHED')
+const canManageRoster = computed(() => currentUser.value?.role === 'DIRECTOR' && canWriteAttendance.value)
 
 // 当前选中班级的授课时段状态
 const currentOfferingSessionStatus = computed(() => {
@@ -733,6 +728,12 @@ const loadOfferings = async () => {
 }
 
 const onOfferingChange = async () => {
+  const offeringId = selectedOfferingId.value
+  stopSimulation()
+  showStudentModal.value = false
+  currentSessionId.value = null
+  archivedSessions.value = []
+  isLoadingArchive.value = false
   if (isMonitoring.value) {
     await visualApi.stopMonitor()
     isMonitoring.value = false
@@ -742,11 +743,13 @@ const onOfferingChange = async () => {
     simulationTimer = null
     isSimulating.value = false
   }
-  currentSessionId.value = null
+  if (selectedOfferingId.value !== offeringId) return
   lastActiveMetrics.value = { present: 0, rate: 0, lookupRate: 0 }
   if (selectedOfferingId.value) {
-    await visualApi.resetStream(selectedOfferingId.value)
+    if (canWriteAttendance.value) await visualApi.resetStream(offeringId)
+    if (selectedOfferingId.value !== offeringId) return
     await loadArchivedSessions()
+    await restoreSelectedAttendance()
   }
   await fetchDashboardData()
 }
@@ -771,11 +774,13 @@ const fetchDashboardData = async () => {
   }
 
   try {
+    const offeringId = selectedOfferingId.value
     const [ov, tr, st] = await Promise.all([
-      visualApi.getOverview(selectedOfferingId.value),
-      visualApi.getTrend(selectedOfferingId.value),
-      visualApi.getStudentsStatus(selectedOfferingId.value)
+      visualApi.getOverview(offeringId),
+      visualApi.getTrend(offeringId),
+      visualApi.getStudentsStatus(offeringId)
     ])
+    if (selectedOfferingId.value !== offeringId) return
     if (ov) overview.value = ov
     trendData.value = tr || []
     studentsStatus.value = st || []
@@ -793,20 +798,25 @@ const fetchDashboardData = async () => {
 }
 
 const toggleMonitor = async () => {
-  if (!selectedOfferingId.value || (!canWriteAttendance.value && !isMonitoring.value)) return
+  if (!canWriteAttendance.value || isMonitorStarting.value || isSimulationStarting.value || isSimulating.value) return
+  const offeringId = selectedOfferingId.value
   isMonitorStarting.value = true
   try {
     if (!isMonitoring.value) {
       if (!currentSessionId.value) {
         const session = await attendanceApi.start({
-          offeringId: selectedOfferingId.value,
+          offeringId,
           weekNumber: 2,
           classroom: getCurrentClassroom(),
-          ...getOperatorParams()
         })
+        if (!dashboardActive || selectedOfferingId.value !== offeringId) return
         currentSessionId.value = session.id
       }
       await visualApi.startMonitor()
+      if (!dashboardActive || selectedOfferingId.value !== offeringId) {
+        await visualApi.stopMonitor()
+        return
+      }
       isMonitoring.value = true
       videoFeedUrl.value = `/api/visual/video-feed?t=${Date.now()}`
     } else {
@@ -835,7 +845,7 @@ const openClassStudentModal = async () => {
 }
 
 const handleAddStudentsToClass = async () => {
-  if (!selectedOfferingId.value || selectedStudentsToAdd.value.length === 0) return
+  if (!canManageRoster.value || !selectedOfferingId.value || selectedStudentsToAdd.value.length === 0) return
   try {
     await courseApi.addStudentsToOffering(selectedOfferingId.value, selectedStudentsToAdd.value)
     await openClassStudentModal()
@@ -847,7 +857,7 @@ const handleAddStudentsToClass = async () => {
 }
 
 const handleRemoveStudentFromClass = async (studentId: string, studentName: string) => {
-  if (!selectedOfferingId.value) return
+  if (!canManageRoster.value || !selectedOfferingId.value) return
   if (!confirm(`确定将学生 ${studentName} (${studentId}) 移出当前课程班级吗？`)) return
   try {
     await courseApi.removeStudentFromOffering(selectedOfferingId.value, studentId)
@@ -860,7 +870,7 @@ const handleRemoveStudentFromClass = async (studentId: string, studentName: stri
 }
 
 const finishAndArchiveAttendance = async () => {
-  if (!selectedOfferingId.value) return
+  if (!canWriteAttendance.value || !selectedOfferingId.value) return
 
   const finalPresent = overview.value.currentPresent > 0 ? overview.value.currentPresent : lastActiveMetrics.value.present
   const finalRate = overview.value.attendanceRate > 0 ? overview.value.attendanceRate : lastActiveMetrics.value.rate
@@ -891,7 +901,6 @@ const finishAndArchiveAttendance = async () => {
         sessionId: currentSessionId.value,
         actualCount: finalPresent,
         avgLookupRate: finalLookup,
-        ...getOperatorParams()
       })
       currentSessionId.value = null
     } else {
@@ -900,14 +909,12 @@ const finishAndArchiveAttendance = async () => {
         offeringId: selectedOfferingId.value,
         weekNumber: 2,
         classroom: getCurrentClassroom(),
-        ...getOperatorParams()
       })
       if (created?.id) {
         await attendanceApi.finish({
           sessionId: created.id,
           actualCount: finalPresent,
           avgLookupRate: finalLookup,
-          ...getOperatorParams()
         })
       }
     }
@@ -929,69 +936,39 @@ const finishAndArchiveAttendance = async () => {
 }
 
 const toggleSimulation = async () => {
-  if ((!selectedOfferingId.value || !canWriteAttendance.value) && !isSimulating.value) return
-  isSimulating.value = !isSimulating.value
-  if (isSimulating.value) {
-    if (!selectedOfferingId.value) {
-      isSimulating.value = false
-      return
-    }
-
-    // 自动为演示模拟流创建/关联 AttendanceSession，确保模拟流拥有官方考勤会话 ID 且随时可归档
+  if (isSimulating.value) { stopSimulation(); return }
+  if (!canWriteAttendance.value || !selectedOfferingId.value || isSimulationStarting.value || isMonitorStarting.value || isMonitoring.value) return
+  const offeringId = selectedOfferingId.value
+  const generation = ++simulationGeneration
+  const stillSelected = () => generation === simulationGeneration && selectedOfferingId.value === offeringId
+  isSimulationStarting.value = true
+  try {
     if (!currentSessionId.value) {
-      try {
-        const session = await attendanceApi.start({
-          offeringId: selectedOfferingId.value,
-          weekNumber: 2,
-          classroom: getCurrentClassroom(),
-          ...getOperatorParams()
-        })
-        if (session) currentSessionId.value = session.id
-      } catch (e: any) {
-        isSimulating.value = false
-        alert('无法启动考勤: ' + (e.message || '请重新确认班次权限'))
-        return
-      }
+      const session = await attendanceApi.start({ offeringId, weekNumber: 2, classroom: getCurrentClassroom() })
+      if (!stillSelected()) return
+      if (!session?.id) throw new Error('未能建立考勤会话')
+      currentSessionId.value = session.id
     }
-
-    // 1. 获取当前所选班级正式名单
-    let classEnrolledIds: string[] = []
-    try {
-      const res = await courseApi.getOfferingStudents(selectedOfferingId.value)
-      if (res.enrolled && res.enrolled.length > 0) {
-        classEnrolledIds = res.enrolled.map((s: any) => s.studentId)
-      }
-    } catch (e) {
-      console.warn('获取班级名单用于模拟流失败，使用默认学号备用', e)
-    }
-
-    if (classEnrolledIds.length === 0) {
-      classEnrolledIds = ['20246001', '20246002', '20246003', '20246004']
-    }
-
-    // 挑选 4 名本班学生 + 1 名非本班旁听学生 (20249999)
-    // 验证：本班学生计入出勤，非本班学生绝对不计入本班出勤率！
-    const enrolledPresent = classEnrolledIds.slice(0, 4)
-    const externalAuditingId = '20249999'
-    const simulatedPresent = [...enrolledPresent, externalAuditingId]
-
+    const roster = await courseApi.getOfferingStudents(offeringId)
+    if (!stillSelected()) return
+    const enrolledPresent = (roster.enrolled || []).slice(0, 4).map((s: any) => s.studentId)
+    const simulatedPresent = [...enrolledPresent, '20249999']
+    const offering = selectedOffering.value
+    isSimulating.value = true
+    let reporting = false
     simulationTimer = window.setInterval(async () => {
+      if (!stillSelected() || reporting) return
+      reporting = true
       try {
-        if (!selectedOfferingId.value) return
         const detected = simulatedPresent.length
         const lookup = Math.floor(detected * (0.8 + Math.random() * 0.15))
         const poses: Record<string, string> = {}
-        simulatedPresent.forEach(id => {
-          poses[id] = Math.random() > 0.25 ? 'UP' : 'DOWN'
-        })
-
-        const currOff = offeringList.value.find(o => o.id === selectedOfferingId.value)
-
+        simulatedPresent.forEach(id => { poses[id] = Math.random() > 0.25 ? 'UP' : 'DOWN' })
         await visualApi.reportStream({
-          sessionId: 'sim-' + Date.now(),
-          offeringId: selectedOfferingId.value,
-          courseName: currOff?.course?.courseName || '软件项目管理',
-          className: currOff?.className || '软件工程2024级2班',
+          sessionId: 'sim-' + currentSessionId.value,
+          offeringId,
+          courseName: offering?.course?.courseName || '',
+          className: offering?.className || '',
           detectedPersonCount: detected,
           lookupCount: lookup,
           lookdownCount: detected - lookup,
@@ -999,16 +976,38 @@ const toggleSimulation = async () => {
           presentStudentIds: simulatedPresent,
           studentPoses: poses
         })
-      } catch (error) { console.error('模拟推流失败', error) }
+      } catch (error: any) {
+        if (stillSelected()) {
+          stopSimulation()
+          await loadOfferings()
+          alert('模拟推流已停止: ' + (error.message || '请检查班级权限和冻结状态'))
+        }
+      } finally { reporting = false }
     }, 1500)
-  } else if (simulationTimer) {
-    clearInterval(simulationTimer)
-    simulationTimer = null
+  } catch (error: any) {
+    if (stillSelected()) {
+      stopSimulation()
+      await loadOfferings()
+      alert('启动模拟失败: ' + (error.message || '未知错误'))
+    }
+  } finally {
+    if (generation === simulationGeneration) isSimulationStarting.value = false
   }
 }
 
 const onVideoFeedError = () => {
   // 视频流加载中重试
+}
+
+const restoreSelectedAttendance = async () => {
+  const offeringId = selectedOfferingId.value
+  if (!offeringId) return
+  try {
+    const session = await attendanceApi.getCurrent(offeringId)
+    if (selectedOfferingId.value === offeringId && Number(session?.offering?.id) === offeringId) {
+      currentSessionId.value = session.id
+    }
+  } catch (error) { console.error('恢复所选班次考勤会话失败', error) }
 }
 
 onMounted(async () => {
@@ -1025,18 +1024,12 @@ onMounted(async () => {
   if (selectedOfferingId.value) {
     await loadArchivedSessions()
     try {
-      const session = await attendanceApi.getCurrent()
-      if (session && !props.initialOfferingId && isOfferingInSession(Number(session.offering?.id))) {
-        if (activeOfferingList.value.some(o => o.id === Number(session.offering.id))) {
-          currentSessionId.value = session.id
-          selectedOfferingId.value = Number(session.offering.id)
-        }
-      }
+      await restoreSelectedAttendance()
       isMonitoring.value = await visualApi.getMonitorStatus()
     } catch (error) { console.error('恢复考勤会话失败', error) }
     
     // 若未开流，主动复位一次 Redis 幽灵残留
-    if (!isMonitoring.value) {
+    if (!isMonitoring.value && canWriteAttendance.value) {
       try {
         await visualApi.resetStream(selectedOfferingId.value)
       } catch {}
@@ -1056,9 +1049,11 @@ watch(() => props.loggedInUser, (newUser) => {
 })
 
 onUnmounted(() => {
+  dashboardActive = false
+  stopSimulation()
   if (pollTimer) clearInterval(pollTimer)
   if (simulationTimer) clearInterval(simulationTimer)
-  if (selectedOfferingId.value) {
+  if (selectedOfferingId.value && canWriteAttendance.value) {
     visualApi.resetStream(selectedOfferingId.value).catch(() => {})
   }
 })

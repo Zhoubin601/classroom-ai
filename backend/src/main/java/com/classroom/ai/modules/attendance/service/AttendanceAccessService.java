@@ -15,8 +15,11 @@ public class AttendanceAccessService {
     private final CourseOfferingRepository offerings;
     private final CourseAuthorizationService authorization;
 
+    @jakarta.persistence.PersistenceContext
+    private jakarta.persistence.EntityManager entityManager;
+
     public CourseOffering requireRead(Long id) {
-        AuthContext.requireRole(RoleEnum.DIRECTOR, RoleEnum.TEACHER, RoleEnum.SUPERVISOR);
+        requireRole();
         if (id == null) throw new IllegalArgumentException("必须指定考勤班次");
         CourseOffering offering = offerings.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次ID: " + id));
@@ -26,13 +29,19 @@ public class AttendanceAccessService {
 
     /** Call inside the writer's transaction; archive locks the same parent row. */
     public CourseOffering lockForWrite(Long id) {
-        AuthContext.requireRole(RoleEnum.DIRECTOR, RoleEnum.TEACHER, RoleEnum.SUPERVISOR);
+        requireRole();
         if (id == null) throw new IllegalArgumentException("必须指定考勤班次");
         CourseOffering offering = offerings.findForUpdate(id)
                 .orElseThrow(() -> new IllegalArgumentException("未找到开课班次ID: " + id));
+        if (entityManager != null) entityManager.refresh(offering);
         authorization.validateOfferingRead(offering);
         if (Boolean.TRUE.equals(offering.getIsSnapshotFrozen()) || "FINISHED".equals(offering.getStatus()))
             throw new IllegalStateException("历史班次已冻结，不能写入考勤");
         return offering;
+    }
+    private void requireRole() {
+        var user = authorization.requireCurrentUser();
+        if (user.getRole() != RoleEnum.DIRECTOR && user.getRole() != RoleEnum.TEACHER && user.getRole() != RoleEnum.SUPERVISOR)
+            throw new com.classroom.ai.common.exception.ForbiddenException("当前角色不能操作考勤");
     }
 }

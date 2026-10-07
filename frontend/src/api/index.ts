@@ -51,7 +51,7 @@ export const visualApi = {
   },
 
   // 获取 ECharts 抬头率与专注度时序曲线数据
-  getTrend: async (offeringId?: number): Promise<FocusTrendPointVO[]> => {
+  getTrend: async (offeringId: number): Promise<FocusTrendPointVO[]> => {
     const res = await client.get<ApiResponse<FocusTrendPointVO[]>>('/api/visual/trend', { params: { offeringId } })
     return res.data.data
   },
@@ -89,9 +89,6 @@ export const visualApi = {
   // 停止桌面端视觉督导推断流并复位清理大屏缓存
   stopMonitor: async (): Promise<string> => {
     const res = await client.post<ApiResponse<any>>('/api/visual/stop-monitor')
-    try {
-      await client.post('/api/visual/reset')
-    } catch {}
     return res.data.message || '督导已停止'
   },
 
@@ -529,20 +526,20 @@ export const supervisionApi = {
 // ==================== 7. 智能考勤与教务联动 API ====================
 export const attendanceApi = {
   // 启动考勤
-  start: async (data: { offeringId: number; weekNumber?: number; classroom?: string; operatorName?: string; operatorRole?: string; operatorTitle?: string }): Promise<any> => {
+  start: async (data: { offeringId: number; weekNumber?: number; classroom?: string }): Promise<any> => {
     const res = await client.post<ApiResponse<any>>('/api/v1/attendance/start', data)
     return res.data.data
   },
 
   // 结束下课并归档
-  finish: async (data: { sessionId: number; actualCount?: number; avgLookupRate?: number; absentStudentIds?: string[]; operatorName?: string; operatorRole?: string; operatorTitle?: string }): Promise<any> => {
+  finish: async (data: { sessionId: number; actualCount?: number; avgLookupRate?: number; absentStudentIds?: string[] }): Promise<any> => {
     const res = await client.post<ApiResponse<any>>('/api/v1/attendance/finish', data)
     return res.data.data
   },
 
   // 获取当前正在进行的考勤
-  getCurrent: async (): Promise<any> => {
-    const res = await client.get<ApiResponse<any>>('/api/v1/attendance/current')
+  getCurrent: async (offeringId?: number): Promise<any> => {
+    const res = await client.get<ApiResponse<any>>('/api/v1/attendance/current', { params: { offeringId } })
     return res.data.data
   },
 

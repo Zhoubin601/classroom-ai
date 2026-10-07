@@ -1,0 +1,18 @@
+{
+  "branch": "fix-exp3",
+  "baseCommit": "e2f0950629134ec85d776df58f3e97a57ff9f193",
+  "result": "PASS",
+  "java": {
+    "tests": 206,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 47
+  },
+  "javaPassed": 159,
+  "frontendTestsPassed": 11,
+  "frontendBuild": "PASS",
+  "realChromeChecks": 13,
+  "pageErrors": [],
+  "temporaryServicesRemoved": true,
+  "local8080NotRedeployedInCommitTurn": true
+}

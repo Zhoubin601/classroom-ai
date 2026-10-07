@@ -72,16 +72,22 @@ class RegressionTest {
 
     @Test void emptyPoseFrameClearsOldPoseAndDeduplicatesAttendance() {
         var records = mock(ClassroomRecordRepository.class);
-        when(students.count()).thenReturn(2L);
-        new VisualDashboardServiceImpl(students, records, redis, offerings).processClassroomStream(ClassroomStreamDTO.builder()
+        var enrollmentRepo = mock(OfferingStudentEnrollmentRepository.class);
+        when(offerings.findForUpdate(1L)).thenReturn(Optional.of(CourseOffering.builder().id(1L)
+                .course(Course.builder().courseName("课程").build()).className("班级").build()));
+        when(enrollmentRepo.findByOfferingId(1L)).thenReturn(List.of(OfferingStudentEnrollment.builder().studentNumber("A").build()));
+        new VisualDashboardServiceImpl(students, records, redis, offerings, enrollmentRepo, mock(CourseAuthorizationService.class)).processClassroomStream(ClassroomStreamDTO.builder()
+                .offeringId(1L)
                 .presentStudentIds(List.of("A", "A")).studentPoses(Map.of()).lookupRate(0.5).build());
-        verify(redis).delete("classroom:realtime:poses");
+        verify(redis).delete("classroom:realtime:poses:1");
         verify(records).save(argThat(record -> record.getActualPresent() == 1 && record.getLookupRate() == 0.5));
     }
 
     @Test void rejectsPercentageWhereStreamRequiresFraction() {
-        var service = new VisualDashboardServiceImpl(students, mock(ClassroomRecordRepository.class), redis, offerings);
-        assertThrows(IllegalArgumentException.class, () -> service.processClassroomStream(ClassroomStreamDTO.builder().lookupRate(90.0).build()));
+        when(offerings.findForUpdate(1L)).thenReturn(Optional.of(new CourseOffering()));
+        var service = new VisualDashboardServiceImpl(students, mock(ClassroomRecordRepository.class), redis, offerings,
+                mock(OfferingStudentEnrollmentRepository.class), mock(CourseAuthorizationService.class));
+        assertThrows(IllegalArgumentException.class, () -> service.processClassroomStream(ClassroomStreamDTO.builder().offeringId(1L).lookupRate(90.0).build()));
     }
 
     @Test void defaultWeeksHaveValidHumanReadableLabel() {
@@ -151,42 +157,34 @@ class RegressionTest {
 
     @Test void finishedAttendanceCannotBeOverwritten() {
         var sessions = mock(AttendanceSessionRepository.class);
-        try {
-            var service = attendanceService(sessions, AttendanceSession.builder().status("FINISHED").build());
-            assertThrows(IllegalStateException.class, () -> service.finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(1).build()));
-            verify(sessions, never()).save(any());
-        } finally { com.classroom.ai.modules.auth.context.AuthContext.clear(); }
+        when(sessions.findForUpdate(1L)).thenReturn(Optional.of(AttendanceSession.builder().offering(new CourseOffering()).status("FINISHED").build()));
+        assertThrows(IllegalStateException.class, () -> attendanceService(sessions).finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(1).build()));
+        verify(sessions, never()).save(any());
     }
 
     @Test void zeroExpectedAttendanceDoesNotDivideByOneOrFailOnNull() {
         var sessions = mock(AttendanceSessionRepository.class);
+        when(sessions.findForUpdate(1L)).thenReturn(Optional.of(AttendanceSession.builder().offering(new CourseOffering()).status("ACTIVE").expectedCount(0).build()));
         when(sessions.save(any())).thenAnswer(call -> call.getArgument(0));
-        try {
-            var result = attendanceService(sessions, AttendanceSession.builder().status("ACTIVE").expectedCount(0).build())
-                    .finishSession(FinishAttendanceDTO.builder().sessionId(1L).build());
-            assertEquals(0.0, result.getAttendanceRate()); assertEquals(0, result.getActualCount());
-        } finally { com.classroom.ai.modules.auth.context.AuthContext.clear(); }
+        var result = attendanceService(sessions).finishSession(FinishAttendanceDTO.builder().sessionId(1L).build());
+        assertEquals(0.0, result.getAttendanceRate());
+        assertEquals(0, result.getActualCount());
     }
 
     @Test void negativeAttendanceIsRejected() {
         var sessions = mock(AttendanceSessionRepository.class);
-        try {
-            var service = attendanceService(sessions, AttendanceSession.builder().status("ACTIVE").expectedCount(2).build());
-            assertThrows(IllegalArgumentException.class, () -> service.finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(-1).build()));
-        } finally { com.classroom.ai.modules.auth.context.AuthContext.clear(); }
+        when(sessions.findForUpdate(1L)).thenReturn(Optional.of(AttendanceSession.builder().offering(new CourseOffering()).status("ACTIVE").expectedCount(2).build()));
+        assertThrows(IllegalArgumentException.class, () -> attendanceService(sessions).finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(-1).build()));
     }
 
-    private AttendanceServiceImpl attendanceService(AttendanceSessionRepository sessions, AttendanceSession session) {
-        com.classroom.ai.modules.auth.context.AuthContext.setCurrentUser(com.classroom.ai.modules.auth.vo.UserVO.builder()
-                .username("test").realName("测试教师").teacherCode("T1").role(com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER).build());
-        var offering = CourseOffering.builder().id(100L).teacherCode("T1").build();
-        session.setOffering(offering);
+    private AttendanceServiceImpl attendanceService(AttendanceSessionRepository sessions) {
+        var auth = mock(CourseAuthorizationService.class);
+        when(offerings.findForUpdate(any())).thenReturn(Optional.of(new CourseOffering()));
         when(sessions.findOfferingId(1L)).thenReturn(Optional.of(100L));
-        when(sessions.findForUpdate(1L)).thenReturn(Optional.of(session));
-        when(offerings.findForUpdate(100L)).thenReturn(Optional.of(offering));
-        var auth = new CourseAuthorizationService(courses, offerings, mock(CourseOfferingTeacherRepository.class));
-        return new AttendanceServiceImpl(sessions, offerings, null, null,
-                new com.classroom.ai.modules.attendance.service.AttendanceAccessService(offerings, auth), auth);
+        lenient().when(auth.requireCurrentUser()).thenReturn(com.classroom.ai.modules.auth.vo.UserVO.builder()
+                .username("test-teacher").realName("test-teacher").role(com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER).build());
+        // These existing cases exercise arithmetic/state; scoped authorization is covered separately.
+        return new AttendanceServiceImpl(sessions, offerings, null, null, auth);
     }
 
     @Test void negativeFileSizeIsRejected() {
@@ -196,7 +194,7 @@ class RegressionTest {
 
     @Test void lockedSyllabusCannotBeEdited() {
         var syllabi = mock(CourseSyllabusRepository.class);
-        when(courses.findById(1L)).thenReturn(Optional.of(new Course()));
+        when(courses.findForUpdate(1L)).thenReturn(Optional.of(Course.builder().id(1L).build()));
         when(syllabi.findById(1L)).thenReturn(Optional.of(CourseSyllabus.builder().status("LOCKED").build()));
         assertThrows(IllegalStateException.class, () -> new SyllabusServiceImpl(syllabi, mock(GraduationIndicatorRepository.class), courses)
                 .saveSyllabus(SyllabusDTO.builder().id(1L).courseId(1L).build()));

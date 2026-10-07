@@ -1,0 +1,1722 @@
+{
+  "observedAt": "2026-10-07T10:28:06.313Z",
+  "mode": "Real Chrome / Vue / Spring Boot / isolated MySQL and Redis; no API mocks",
+  "results": [
+    {
+      "name": "匿名请求被拦截",
+      "status": "PASS",
+      "ms": 19
+    },
+    {
+      "name": "课程与班次列表遵守三角色范围",
+      "status": "PASS",
+      "details": {
+        "directorCourses": 8,
+        "teacherOfferings": 3,
+        "supervisorOfferings": 11
+      },
+      "ms": 139
+    },
+    {
+      "name": "绕过列表直接访问外部课程与班次被拒绝",
+      "status": "PASS",
+      "ms": 91
+    },
+    {
+      "name": "教师督导不能建档导入排课或调整授权",
+      "status": "PASS",
+      "ms": 76
+    },
+    {
+      "name": "主任创建班次与跨室协作关系真实入库",
+      "status": "PASS",
+      "details": {
+        "offeringId": 18,
+        "teacherIds": [
+          1,
+          2
+        ],
+        "studentCount": 5
+      },
+      "ms": 122
+    },
+    {
+      "name": "主任排课冲突与删除操作闭环",
+      "status": "PASS",
+      "details": {
+        "scheduleId": 20,
+        "conflictHttp": 409
+      },
+      "ms": 111
+    },
+    {
+      "name": "主任花名册添加移出与人数同步",
+      "status": "PASS",
+      "ms": 76
+    },
+    {
+      "name": "教师正式发布、草稿隔离与再次发布实机闭环",
+      "status": "PASS",
+      "details": {
+        "firstPublishVersion": 1,
+        "latestPublishVersion": 2
+      },
+      "ms": 969
+    },
+    {
+      "name": "培养方案牵头写入、参与读取、教师督导禁止导入",
+      "status": "PASS",
+      "ms": 67
+    },
+    {
+      "name": "课程映射维护、重复校验与主任审查锁定",
+      "status": "PASS",
+      "details": {
+        "syllabusId": 6,
+        "status": "LOCKED"
+      },
+      "ms": 171
+    },
+    {
+      "name": "主任督导建档与授权不扩张专业范围",
+      "status": "PASS",
+      "details": {
+        "createdUserId": 18,
+        "oldTokenReadsCurrentGrant": true
+      },
+      "ms": 745
+    },
+    {
+      "name": "评价暂存、驳回、原督导重提与审核日志闭环",
+      "status": "PASS",
+      "details": {
+        "evaluationId": 7,
+        "auditActions": [
+          "SAVE_DRAFT",
+          "SUBMIT",
+          "REJECT",
+          "SUBMIT",
+          "APPROVE"
+        ]
+      },
+      "ms": 122
+    },
+    {
+      "name": "审核24小时延迟及教师匿名反馈雷达词云",
+      "status": "PASS",
+      "details": {
+        "publishTimeAdvancedOnlyInDisposableDb": true,
+        "anonymous": true,
+        "radarEvaluationCount": 2
+      },
+      "ms": 869
+    },
+    {
+      "name": "评价草稿与驳回稿删除、已提交评价禁止删除",
+      "status": "PASS",
+      "ms": 84
+    },
+    {
+      "name": "主任督导覆盖明细与低分预警、教师拒绝管理接口",
+      "status": "PASS",
+      "ms": 114
+    },
+    {
+      "name": "三角色真实考勤开始更新结束与服务端身份",
+      "status": "PASS",
+      "details": {
+        "offeringId": 18,
+        "roles": [
+          "DIRECTOR",
+          "TEACHER",
+          "SUPERVISOR"
+        ],
+        "collaborator": true,
+        "expectedCount": 5,
+        "actualCount": 4,
+        "attendanceRate": 80
+      },
+      "ms": 345
+    },
+    {
+      "name": "真实浏览器演示流、Redis大屏与MySQL归档闭环",
+      "status": "PASS",
+      "details": {
+        "sessionId": 15,
+        "currentPresent": 4,
+        "auditingCount": 1,
+        "attendanceRate": 80
+      },
+      "ms": 3306
+    },
+    {
+      "name": "冻结教学班拒绝三角色考勤写入",
+      "status": "PASS",
+      "ms": 69
+    },
+    {
+      "name": "冻结班次不应在大屏继续启用模拟写入",
+      "status": "PASS",
+      "details": {
+        "hidden": true
+      },
+      "ms": 216
+    },
+    {
+      "name": "质量CSV导出仅主任可用但实际覆盖跨室班次（图中例外）",
+      "status": "PASS",
+      "details": {
+        "directorCsvIncludesOtherDepartments": true
+      },
+      "ms": 29
+    },
+    {
+      "name": "学生底库仅主任可用但实际未隔离教研室（图中例外）",
+      "status": "PASS",
+      "details": {
+        "sameGlobalStudentCount": 80
+      },
+      "ms": 24
+    },
+    {
+      "name": "微格跨课程读取挂载删除对三角色开放（图中例外）",
+      "status": "PASS",
+      "details": {
+        "foreignCourseId": 10,
+        "metadataOnly": true,
+        "videoPlaybackNotTested": true
+      },
+      "ms": 107
+    },
+    {
+      "name": "实时大屏读取必须与考勤会话使用同一班次范围",
+      "status": "FAIL",
+      "error": "未授权AI班次大屏overview返回200，学生状态返回200，明细10条\n\n200 !== 403\n",
+      "ms": 27
+    },
+    {
+      "name": "实时推流必须拒绝未授权班次写入",
+      "status": "FAIL",
+      "error": "Command failed: docker exec -e MYSQL_PWD=root classroom-exp3-browser-7cefeb5184 mysql -uroot --default-character-set=utf8mb4 classroom_ai -N -e SELECT COUNT(*) FROM t_classroom_record\nERROR 1146 (42S02) at line 1: Table 'classroom_ai.t_classroom_record' doesn't exist\n",
+      "ms": 250
+    },
+    {
+      "name": "实时重置必须拒绝未授权班次写入",
+      "status": "FAIL",
+      "error": "guojun POST /api/visual/reset?offeringId=10: got 200\n\n200 !== 403\n",
+      "ms": 7
+    },
+    {
+      "name": "教师督导名册读取不应暴露全校候选学生",
+      "status": "FAIL",
+      "error": "guojun可读取5名本班学生及75名全校候选学生\n\n75 !== 0\n",
+      "ms": 12
+    },
+    {
+      "name": "浏览器没有未捕获JavaScript异常",
+      "status": "PASS",
+      "ms": 0
+    }
+  ],
+  "requests": [
+    {
+      "actor": "director",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director_base",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director_arch",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/v1/courses",
+      "method": "GET",
+      "http": 401,
+      "code": 401,
+      "message": "未登录或登录令牌已过期，请重新登录"
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "http": 401,
+      "code": 401,
+      "message": "未登录或登录令牌已过期，请重新登录"
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/v1/resources/micro-slices/course/1",
+      "method": "GET",
+      "http": 401,
+      "code": 401,
+      "message": "未登录或登录令牌已过期，请重新登录"
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/student/list",
+      "method": "GET",
+      "http": 401,
+      "code": 401,
+      "message": "未登录或登录令牌已过期，请重新登录"
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/visual/overview?offeringId=1",
+      "method": "GET",
+      "http": 401,
+      "code": 401,
+      "message": "未登录或登录令牌已过期，请重新登录"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：教研室主任仅可管理本教研室 (软件工程教研室) 的课程档案"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：教研室主任仅可管理本教研室 (软件工程教研室) 的课程档案"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/offering/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：教研室主任仅可管理本教研室 (软件工程教研室) 的课程档案"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/current?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：教研室主任仅可管理本教研室 (软件工程教研室) 的课程档案"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可访问本人主讲或关联的课程档案 (课程: 人工智能导论)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 10)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/offering/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 10)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/current?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 10)"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：督导无权直接访问未授权专业课程档案 (AI)"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：督导无权查阅未授权专业 (AI) 的开课班次"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/offering/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：督导无权查阅未授权专业 (AI) 的开课班次"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/current?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：督导无权查阅未授权专业 (AI) 的开课班次"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/2",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/import/template",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/schedules",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/director/supervisors",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/director/supervisors/2/majors",
+      "method": "PUT",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/2",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/import/template",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/schedules",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/director/supervisors",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/director/supervisors/2/majors",
+      "method": "PUT",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/student/list",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/schedules",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "排课成功"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/schedules",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "message": "发现 1 条排课冲突，请调整教师、教室或时间"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/schedules/19",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/schedules/19",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/schedules/19",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200,
+      "message": "排课记录删除成功"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/schedules",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "排课成功"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/18/students/add",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "成功将学生加入班级，班级现有人数: 6"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/18/students/remove/20246006",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "成功将学生移出班级，班级现有人数: 5"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/18/students/add",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/18/students/add",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/18/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/2/content/published",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/2/content/published",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/2/content/draft",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/2/content/publish",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/2/content/draft",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/2/content/publish",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/2/content/published",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/syllabus/plans/SE/ROLE-1791368873357/indicators",
+      "method": "PUT",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/plans/SE/ROLE-1791368873357/indicators",
+      "method": "PUT",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/syllabus/plans/SE/ROLE-1791368873357/indicators",
+      "method": "PUT",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director_arch",
+      "path": "/api/v1/syllabus/plans/CS/CS-ROLE-1791368873357/indicators",
+      "method": "PUT",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director_base",
+      "path": "/api/v1/syllabus/plans/CS/CS-ROLE-1791368873357/indicators",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director_base",
+      "path": "/api/v1/syllabus/plans/CS/CS-ROLE-1791368873357/indicators",
+      "method": "PUT",
+      "http": 403,
+      "code": 403,
+      "message": "专业公共培养方案目录仅由牵头教研室主任维护"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/syllabus/plans/AI/ROLE-1791368873357/indicators",
+      "method": "PUT",
+      "http": 403,
+      "code": 403,
+      "message": "专业公共培养方案目录仅由牵头教研室主任维护"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/course/2/from-plan",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "已从培养方案创建大纲版本"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/course/2/indicators",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/course/2/indicators",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "指标点新增成功并已同步MySQL"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/course/2/indicators",
+      "method": "POST",
+      "http": 400,
+      "code": 400,
+      "message": "同一指标与课程目标重复映射: ROLE-1"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/indicators/39",
+      "method": "PUT",
+      "http": 200,
+      "code": 200,
+      "message": "指标点修改成功并已更新MySQL"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/indicators/39",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200,
+      "message": "指标点已从MySQL中移除"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/syllabus/course/2/indicators",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/6/lock?lockedBy=spoofed",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/syllabus/6/lock?lockedBy=spoofed",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "大纲版本已审查锁定"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/syllabus/course/2/indicators",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "message": "已锁定的大纲不能修改，请创建新版本"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/syllabus/course/2/latest",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/syllabus/plans/SE/ROLE-1791368873357/indicators",
+      "method": "PUT",
+      "http": 409,
+      "code": 409,
+      "message": "该目录版本已被课程大纲引用，请使用新目录版本，保留历史内容"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/director/supervisors",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "督导账号创建与授权成功"
+    },
+    {
+      "actor": "role_sup_1791368873357",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/director/supervisors/18/majors",
+      "method": "PUT",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：教研室主任仅能分配本教研室管辖的专业 (SE)，无权授权其他专业 [AI]"
+    },
+    {
+      "actor": "director_arch",
+      "path": "/api/v1/director/supervisors/18/majors",
+      "method": "PUT",
+      "http": 200,
+      "code": 200,
+      "message": "督导专业授权更新成功"
+    },
+    {
+      "actor": "role_sup_1791368873357",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/director/supervisors/18/majors",
+      "method": "PUT",
+      "http": 200,
+      "code": 200,
+      "message": "督导专业授权更新成功"
+    },
+    {
+      "actor": "role_sup_1791368873357",
+      "path": "/api/v1/auth/me",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "role_sup_1791368873357",
+      "path": "/api/v1/courses/2",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：督导无权直接访问未授权专业课程档案 (SE)"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/director/supervisors/18/majors",
+      "method": "PUT",
+      "http": 200,
+      "code": 200,
+      "message": "督导专业授权更新成功"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "评教草稿暂存成功"
+    },
+    {
+      "actor": "role_sup_1791368873357",
+      "path": "/api/v1/supervisions",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "无权查看该评价"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "督导评价已提交，等待教研室主任审核"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/7/review",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director_arch",
+      "path": "/api/v1/supervisions/7/review",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：教研室主任仅可管理本教研室 (计算机系统结构教研室) 的课程档案"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/7/review",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "评价审核完成"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "督导评价已提交，等待教研室主任审核"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/7/review",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "评价审核完成"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/7/audit",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions/7/audit",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "当前角色无权执行此操作 (TEACHER)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions/analytics/radar?teacherName=%E9%83%AD%E5%86%9B",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions/analytics/radar?teacherName=%E5%88%98%E5%8D%9A",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "只能查看本人教学质量反馈"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "评教草稿暂存成功"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/8",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200,
+      "message": "评价记录删除成功"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "督导评价已提交，等待教研室主任审核"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/9/review",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "评价审核完成"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/9",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200,
+      "message": "评价记录删除成功"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/7",
+      "method": "DELETE",
+      "http": 409,
+      "code": 409,
+      "message": "已提交评价不可删除"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/analytics/coverage?term=E2E-1791368873357",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/analytics/alerts",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/analytics/dashboard?term=E2E-1791368873357",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/analytics/coverage?term=E2E-1791368873357",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/analytics/alerts",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/analytics/dashboard?term=E2E-1791368873357",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions/analytics/dashboard",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "当前角色无权执行此操作 (TEACHER)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions/analytics/coverage",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "当前角色无权执行此操作 (TEACHER)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions/analytics/alerts",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "当前角色无权执行此操作 (TEACHER)"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂智能考勤已启动"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/live-update?sessionId=11&actualCount=99",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/live-update?sessionId=11&actualCount=4&lookupRate=75",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂考勤已成功结束并归档至课程档案"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂智能考勤已启动"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/live-update?sessionId=12&actualCount=99",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/live-update?sessionId=12&actualCount=4&lookupRate=75",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂考勤已成功结束并归档至课程档案"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂智能考勤已启动"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/live-update?sessionId=13&actualCount=99",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/live-update?sessionId=13&actualCount=4&lookupRate=75",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂考勤已成功结束并归档至课程档案"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂智能考勤已启动"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/live-update?sessionId=14&actualCount=99",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 18)"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/attendance/live-update?sessionId=14&actualCount=4&lookupRate=75",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "课堂考勤已成功结束并归档至课程档案"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/attendance/current?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/offering/18",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/18/archive",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "结课归档成功"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "message": "历史教学班已冻结，不能修改考勤"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "message": "历史教学班已冻结，不能修改考勤"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "message": "历史教学班已冻结，不能修改考勤"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/history?term=E2E-1791368873357",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/18/students/add",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "message": "历史班次已冻结"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/supervisions/analytics/export-report",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/supervisions/analytics/export-report",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "当前角色无权执行此操作 (TEACHER)"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/supervisions/analytics/export-report",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "当前角色无权执行此操作 (SUPERVISOR)"
+    },
+    {
+      "actor": "director",
+      "path": "/api/student/list",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director_base",
+      "path": "/api/student/list",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/student/list",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/student/list",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "权限拒绝：当前角色无权执行此操作或访问该资源"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "微格切片元数据挂载成功"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/micro-slices/course/10",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/micro-slices/3",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200,
+      "message": "微格切片删除成功"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "微格切片元数据挂载成功"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/micro-slices/course/10",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/micro-slices/4",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200,
+      "message": "微格切片删除成功"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "微格切片元数据挂载成功"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/micro-slices/course/10",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/micro-slices/5",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200,
+      "message": "微格切片删除成功"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/offering/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "message": "越权拦截：任课教师仅可操作本人所属开课班次 (班次ID: 10)"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/reset?offeringId=10",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "message": "Realtime stream cache reset successfully"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/18/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "message": "success"
+    }
+  ],
+  "pageErrors": [],
+  "dialogs": [
+    {
+      "actor": "guojun",
+      "type": "alert",
+      "message": "课程简介、考核方式与教学目标发布成功！正式版本: v1"
+    },
+    {
+      "actor": "guojun",
+      "type": "alert",
+      "message": "草稿暂存成功！并发锁版本已同步为: 1"
+    },
+    {
+      "actor": "guojun",
+      "type": "alert",
+      "message": "课程简介、考核方式与教学目标发布成功！正式版本: v2"
+    },
+    {
+      "actor": "guojun",
+      "type": "confirm",
+      "message": "【确认下课并归档入库】\n\n您即将对当前班级《三角色合成班-1791368873357》执行下课归档操作：\n\n• 应到人数：5 人\n• 实到人数：4 人\n• 最终出勤率：80%\n• 平均抬头率：80%\n\n确认后，系统将正式关闭本堂推流并原子性持久化至 MySQL 考勤档案表。确定下课吗？"
+    },
+    {
+      "actor": "guojun",
+      "type": "alert",
+      "message": "【课堂考勤归档成功】\n\n本次课堂已正式下课并永久归档至教务系统历史数据库：\n• 实到人数：4 人\n• 最终出勤率：80%\n• 平均抬头率：80%\n\n大屏已自动复位待机；您可点击【考勤归档记录】随时查验历次入库明细！"
+    }
+  ]
+}

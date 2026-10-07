@@ -19,14 +19,12 @@ import java.util.List;
 public class VisualDashboardController {
 
     private final VisualDashboardService visualDashboardService;
-    private final com.classroom.ai.modules.attendance.service.AttendanceAccessService attendanceAccess;
 
     /**
      * 1. 获取大屏实时宏观看板数据（出勤率、抬头率、预警数、专注评级）
      */
     @GetMapping("/overview")
     public ApiResponse<DashboardOverviewVO> getOverview(@RequestParam(required = false) Long offeringId) {
-        attendanceAccess.requireRead(offeringId);
         DashboardOverviewVO overview = visualDashboardService.getOverview(offeringId);
         return ApiResponse.success(overview);
     }
@@ -36,7 +34,6 @@ public class VisualDashboardController {
      */
     @GetMapping("/trend")
     public ApiResponse<List<FocusTrendPointVO>> getTrend(@RequestParam(required = false) Long offeringId) {
-        attendanceAccess.requireRead(offeringId);
         List<FocusTrendPointVO> trend = visualDashboardService.getTrend(offeringId);
         return ApiResponse.success(trend);
     }
@@ -46,7 +43,6 @@ public class VisualDashboardController {
      */
     @GetMapping("/students/status")
     public ApiResponse<List<StudentRealtimeStatusVO>> getStudentsRealtimeStatus(@RequestParam(required = false) Long offeringId) {
-        attendanceAccess.requireRead(offeringId);
         List<StudentRealtimeStatusVO> list = visualDashboardService.getStudentsRealtimeStatus(offeringId);
         return ApiResponse.success(list);
     }
@@ -55,9 +51,7 @@ public class VisualDashboardController {
      * 4. 接收 Python 边缘视觉端/机器人上报的单帧/周期推断流数据
      */
     @PostMapping("/report/stream")
-    @org.springframework.transaction.annotation.Transactional
     public ApiResponse<String> reportStream(@RequestBody ClassroomStreamDTO streamDTO) {
-        attendanceAccess.lockForWrite(streamDTO.getOfferingId());
         visualDashboardService.processClassroomStream(streamDTO);
         return ApiResponse.success("Stream metric processed successfully", "OK");
     }
@@ -67,7 +61,6 @@ public class VisualDashboardController {
      */
     @PostMapping("/reset")
     public ApiResponse<String> resetStream(@RequestParam(required = false) Long offeringId) {
-        attendanceAccess.requireRead(offeringId);
         visualDashboardService.clearRealtimeStreamData(offeringId);
         return ApiResponse.success("Realtime stream cache reset successfully", "OK");
     }

@@ -1,0 +1,148 @@
+{
+  "pageErrors": [],
+  "baseURL": "http://127.0.0.1:15173",
+  "backendURL": "http://127.0.0.1:18081",
+  "forwarded": true,
+  "results": [
+    {
+      "module": "认证与权限",
+      "name": "错误密码拦截",
+      "status": "PASS",
+      "details": "HTTP 401 拦截并给出安全提示"
+    },
+    {
+      "module": "认证与权限",
+      "name": "主任角色 RBAC 隔离",
+      "status": "PASS",
+      "details": "仅可见主任、大屏、学生档案库"
+    },
+    {
+      "module": "认证与权限",
+      "name": "教师角色 RBAC 隔离",
+      "status": "PASS",
+      "details": "仅可见教师工作台与考勤大屏"
+    },
+    {
+      "module": "认证与权限",
+      "name": "督导角色 RBAC 隔离",
+      "status": "PASS",
+      "details": "仅可见督导工作台与考勤大屏，展示 SE;CS 授权"
+    },
+    {
+      "module": "主任工作台",
+      "name": "US-01 课程导入模板下载",
+      "status": "PASS",
+      "details": "JWT 校验通过，下载 CSV 空白模板 HTTP 200"
+    },
+    {
+      "module": "主任工作台",
+      "name": "US-01 批量导入与入库",
+      "status": "PASS",
+      "details": "成功将新课程 PW-TEST-3981 写入 MySQL"
+    },
+    {
+      "module": "主任工作台",
+      "name": "US-03 开课排课看板",
+      "status": "PASS",
+      "details": "开课班次、周次与教室排课矩阵就绪"
+    },
+    {
+      "module": "主任工作台",
+      "name": "US-05 培养方案目录维护",
+      "status": "PASS",
+      "details": "成功为软件工程专业导入 2 条培养方案指标"
+    },
+    {
+      "module": "主任工作台",
+      "name": "US-06 督导建档与授权",
+      "status": "PASS",
+      "details": "成功读取并展示张督导授权专业 SE;CS"
+    },
+    {
+      "module": "主任工作台",
+      "name": "US-14 督导评价审核流",
+      "status": "PASS",
+      "details": "待审核督导随堂听课评价面板加载正常"
+    },
+    {
+      "module": "教师工作台",
+      "name": "US-02 课程简介草稿保存",
+      "status": "PASS",
+      "details": "暂存草稿通过，并发锁版本正常同步"
+    },
+    {
+      "module": "教师工作台",
+      "name": "US-07 课件教案上传",
+      "status": "PASS",
+      "details": "成功上传课件 PW-Doc-7964.pdf，绑定理论+实验+讨论多标签并设置教研室共享"
+    },
+    {
+      "module": "教师工作台",
+      "name": "US-08 环节标签筛选",
+      "status": "PASS",
+      "details": "点击实验/未标注/全部药丸筛选，列表精准过滤"
+    },
+    {
+      "module": "教师工作台",
+      "name": "US-09 在线限时水印预览",
+      "status": "PASS",
+      "details": "成功通过动态票据获取带水印 PDF 并在受保护画布中实际渲染预览"
+    },
+    {
+      "module": "教师工作台",
+      "name": "US-17 教学质量雷达图",
+      "status": "PASS",
+      "details": "BOPPPS 四维均分及雷达图可视组件正常渲染"
+    },
+    {
+      "module": "督导工作台",
+      "name": "US-03 督导听课总课表",
+      "status": "PASS",
+      "details": "大学周历矩阵排课看板展示完整，支持主讲教师高亮"
+    },
+    {
+      "module": "督导工作台",
+      "name": "US-06 复合检索",
+      "status": "PASS",
+      "details": "支持代码/名称/学期/班级复合检索，严格遵循授权专业"
+    },
+    {
+      "module": "督导工作台",
+      "name": "US-09 课件免密预审",
+      "status": "PASS",
+      "details": "督导专家一键拉取授课课件并支持在线免密调阅"
+    },
+    {
+      "module": "督导工作台",
+      "name": "US-13 随堂评价暂存",
+      "status": "PASS",
+      "details": "BOPPPS 4 维打分暂存草稿成功"
+    },
+    {
+      "module": "督导工作台",
+      "name": "US-15 覆盖率巡检与追溯",
+      "status": "PASS",
+      "details": "展示全院开课总数、已督导门数、覆盖率并支持明细单号追溯"
+    },
+    {
+      "module": "督导工作台",
+      "name": "US-16 质量预警",
+      "status": "PASS",
+      "details": "覆盖率 <30% 标黄与听课均分 <75 分标红规则就绪"
+    },
+    {
+      "module": "考勤大屏",
+      "name": "考勤大屏页面",
+      "status": "PASS",
+      "details": "页面与班级选择展示正常；摄像头识别未包含在本用例"
+    },
+    {
+      "module": "学生底库",
+      "name": "学生档案列表",
+      "status": "PASS",
+      "details": "数据库档案列表展示正常；现场人脸采集和识别未包含在本用例"
+    }
+  ],
+  "completed": true,
+  "screenshots": 21
+}

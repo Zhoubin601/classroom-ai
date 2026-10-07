@@ -53,6 +53,7 @@ class AuthControllerTest {
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(authController)
+                .addFilters(new com.classroom.ai.modules.auth.security.JwtAuthenticationFilter(jwtTokenProvider, userAccountRepository))
                 .setControllerAdvice(new ApiExceptionHandler())
                 .build();
     }
@@ -132,6 +133,9 @@ class AuthControllerTest {
 
         when(jwtTokenProvider.validateToken("valid-token")).thenReturn(true);
         when(jwtTokenProvider.parseUserFromToken("valid-token")).thenReturn(vo);
+        when(userAccountRepository.findById(1L)).thenReturn(Optional.of(UserAccount.builder()
+                .id(1L).username("guojun").realName("郭军").role(RoleEnum.TEACHER)
+                .department("软件工程教研室").build()));
 
         mockMvc.perform(get("/api/v1/auth/me")
                         .header("Authorization", "Bearer valid-token"))

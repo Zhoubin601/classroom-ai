@@ -46,8 +46,17 @@ public class AttendanceServiceImpl implements AttendanceService {
         this.authorization = authorization;
     }
 
+    public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
+                                 CourseOfferingRepository offeringRepository,
+                                 CourseScheduleRepository scheduleRepository,
+                                 com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository,
+                                 CourseAuthorizationService authorization) {
+        this(sessionRepository, offeringRepository, scheduleRepository, enrollmentRepository,
+                new AttendanceAccessService(offeringRepository, authorization), authorization);
+    }
+
     @Override
-    @Transactional
+    @Transactional(isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public AttendanceSession startSession(StartAttendanceDTO dto) {
         CourseOffering offering = access.lockForWrite(dto.getOfferingId());
 
@@ -84,7 +93,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public AttendanceSession finishSession(FinishAttendanceDTO dto) {
         AttendanceSession session = lockSession(dto.getSessionId());
 
@@ -113,7 +122,18 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     @Transactional(readOnly = true)
     public AttendanceSession getCurrentActiveSession() {
+        return getCurrentActiveSession(null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public AttendanceSession getCurrentActiveSession(Long offeringId) {
         authorization.requireCurrentUser();
+        if (offeringId != null) {
+            CourseOffering offering = access.requireRead(offeringId);
+            if (Boolean.TRUE.equals(offering.getIsSnapshotFrozen()) || "FINISHED".equals(offering.getStatus())) return null;
+            return sessionRepository.findFirstByOfferingIdAndStatusOrderByCreatedAtDesc(offeringId, "ACTIVE").orElse(null);
+        }
         // Find the newest visible session, rather than exposing the global newest.
         for (AttendanceSession session : sessionRepository.findByStatusOrderByCreatedAtDescIdDesc("ACTIVE")) {
             CourseOffering offering = session.getOffering();
@@ -133,7 +153,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED)
     public AttendanceSession updateLiveStatus(Long sessionId, Integer actualCount, Double lookupRate) {
         AttendanceSession session = lockSession(sessionId);
         if ("ACTIVE".equals(session.getStatus())) {
@@ -153,7 +173,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     private AttendanceSession lockSession(Long id) {
-        AuthContext.requireAuthenticated();
+        authorization.requireCurrentUser();
         if (id == null) throw new IllegalArgumentException("必须指定考勤会话");
         Long offeringId = sessionRepository.findOfferingId(id)
                 .orElseThrow(() -> new IllegalArgumentException("未找到考勤会话ID: " + id));

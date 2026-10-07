@@ -1,0 +1,198 @@
+{
+  "results": [
+    {
+      "name": "本课教师与主任下载、同室共享教师和督导禁止原件下载",
+      "status": "FAIL",
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(resource)\n"
+    },
+    {
+      "name": "主任维护资源上传与删除闭环",
+      "status": "PASS",
+      "details": {
+        "resourceId": 22,
+        "uploadedBytes": 36627,
+        "deleted": true
+      }
+    },
+    {
+      "name": "主任课程建档、无依赖班次删除和课程删除闭环",
+      "status": "PASS",
+      "details": {
+        "courseId": 29,
+        "offeringId": 20,
+        "deleted": true
+      }
+    },
+    {
+      "name": "补查教师与督导均获得全校候选学生",
+      "status": "FAIL",
+      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText(/确认选入选中的/) to be visible\u001b[22m\n"
+    },
+    {
+      "name": "补查三角色实时大屏均可读取未授权AI班次",
+      "status": "PASS",
+      "details": {
+        "observation": "REPRODUCED_SCOPE_GAP",
+        "rows": [
+          {
+            "actor": "director",
+            "core": 403,
+            "visual": 200,
+            "count": 10
+          },
+          {
+            "actor": "guojun",
+            "core": 403,
+            "visual": 200,
+            "count": 10
+          },
+          {
+            "actor": "supervisor",
+            "core": 403,
+            "visual": 200,
+            "count": 10
+          }
+        ]
+      }
+    },
+    {
+      "name": "日常8080实例只读复核两类接口权限缺口",
+      "status": "FAIL",
+      "error": "Cannot read properties of undefined (reading 'newContext')"
+    },
+    {
+      "name": "浏览器无未捕获异常",
+      "status": "PASS"
+    }
+  ],
+  "requests": [
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources?courseId=1",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/22",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources?courseId=2",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/20",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/29",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    }
+  ],
+  "pageErrors": [],
+  "observedAt": "2026-10-07T10:33:09.739Z"
+}

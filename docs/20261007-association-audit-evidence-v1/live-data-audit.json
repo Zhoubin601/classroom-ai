@@ -1,0 +1,376 @@
+{
+  "baseline": "68255ad",
+  "observedAt": "2026-10-07T04:26:54.134Z",
+  "method": "SELECT only; live classroom_ai database; no writes",
+  "checks": [
+    {
+      "name": "course_count",
+      "count": 24,
+      "query": "SELECT COUNT(*) FROM t_course"
+    },
+    {
+      "name": "offering_count",
+      "count": 18,
+      "query": "SELECT COUNT(*) FROM t_course_offering"
+    },
+    {
+      "name": "course_major_missing_or_inconsistent",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course c LEFT JOIN t_major m ON m.id=c.major_id WHERE m.id IS NULL OR NOT(BINARY c.major_code <=> BINARY m.major_code)"
+    },
+    {
+      "name": "course_department_not_linked_to_major",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course c JOIN t_major m ON m.id=c.major_id WHERE NOT(BINARY c.department <=> BINARY m.department) AND NOT EXISTS(SELECT 1 FROM t_major_department d WHERE d.major_id=m.id AND BINARY d.department=BINARY c.department)"
+    },
+    {
+      "name": "major_department_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_major_department d LEFT JOIN t_major m ON m.id=d.major_id WHERE m.id IS NULL"
+    },
+    {
+      "name": "offering_course_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course_offering o LEFT JOIN t_course c ON c.id=o.course_id WHERE c.id IS NULL"
+    },
+    {
+      "name": "offering_legacy_major_both_null",
+      "count": 16,
+      "query": "SELECT COUNT(*) FROM t_course_offering WHERE major_id IS NULL AND major_code IS NULL"
+    },
+    {
+      "name": "offering_nonempty_major_disagrees_with_course",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course_offering o JOIN t_course c ON c.id=o.course_id WHERE (o.major_id IS NOT NULL AND NOT(o.major_id <=> c.major_id)) OR (NULLIF(TRIM(o.major_code),'') IS NOT NULL AND NOT(BINARY o.major_code <=> BINARY c.major_code))"
+    },
+    {
+      "name": "offering_primary_teacher_missing",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course_offering o LEFT JOIN t_teacher t ON BINARY t.teacher_code=BINARY o.teacher_code WHERE t.id IS NULL"
+    },
+    {
+      "name": "offering_teacher_relation_orphan_or_stale_code",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course_offering_teacher r LEFT JOIN t_course_offering o ON o.id=r.offering_id LEFT JOIN t_teacher t ON t.id=r.teacher_id WHERE o.id IS NULL OR t.id IS NULL OR NOT(BINARY r.teacher_code <=> BINARY t.teacher_code)"
+    },
+    {
+      "name": "teacher_account_code_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_user_account u LEFT JOIN t_teacher t ON BINARY t.teacher_code=BINARY u.teacher_code WHERE u.role='TEACHER' AND t.id IS NULL"
+    },
+    {
+      "name": "enrollment_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_offering_student_enrollment e LEFT JOIN t_course_offering o ON o.id=e.offering_id LEFT JOIN student s ON s.id=e.student_id WHERE o.id IS NULL OR s.id IS NULL"
+    },
+    {
+      "name": "schedule_offering_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course_schedule s LEFT JOIN t_course_offering o ON o.id=s.offering_id WHERE o.id IS NULL"
+    },
+    {
+      "name": "attendance_offering_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_attendance_session a LEFT JOIN t_course_offering o ON o.id=a.offering_id WHERE o.id IS NULL"
+    },
+    {
+      "name": "evaluation_offering_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_supervision_evaluation e LEFT JOIN t_course_offering o ON o.id=e.offering_id WHERE o.id IS NULL"
+    },
+    {
+      "name": "evaluation_supervisor_account_missing",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_supervision_evaluation e LEFT JOIN t_user_account u ON u.id=e.supervisor_user_id WHERE e.supervisor_user_id IS NOT NULL AND u.id IS NULL"
+    },
+    {
+      "name": "resource_course_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course_resource r LEFT JOIN t_course c ON c.id=r.course_id WHERE c.id IS NULL"
+    },
+    {
+      "name": "micro_slice_course_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_micro_teaching_slice r LEFT JOIN t_course c ON c.id=r.course_id WHERE c.id IS NULL"
+    },
+    {
+      "name": "syllabus_course_orphan",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course_syllabus s LEFT JOIN t_course c ON c.id=s.course_id WHERE c.id IS NULL"
+    },
+    {
+      "name": "indicator_course_or_syllabus_inconsistent",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_graduation_indicator i LEFT JOIN t_course c ON c.id=i.course_id LEFT JOIN t_course_syllabus s ON s.id=i.syllabus_id WHERE c.id IS NULL OR (i.syllabus_id IS NOT NULL AND (s.id IS NULL OR NOT(i.course_id <=> s.course_id)))"
+    },
+    {
+      "name": "duplicate_indicator_codes_within_syllabus",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM (SELECT syllabus_id,indicator_code FROM t_graduation_indicator WHERE syllabus_id IS NOT NULL GROUP BY syllabus_id,indicator_code HAVING COUNT(*)>1) x"
+    },
+    {
+      "name": "duplicate_syllabus_versions",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM (SELECT course_id,version FROM t_course_syllabus GROUP BY course_id,version HAVING COUNT(*)>1) x"
+    },
+    {
+      "name": "nonrecommended_syllabi_missing_catalog",
+      "count": 3,
+      "query": "SELECT COUNT(*) FROM t_course_syllabus s JOIN t_course c ON c.id=s.course_id WHERE COALESCE(s.plan_version,'')<>'RECOMMENDED-12' AND NOT EXISTS(SELECT 1 FROM t_training_indicator t WHERE BINARY t.major_code=BINARY c.major_code AND BINARY t.plan_version=BINARY COALESCE(s.plan_version,s.version))"
+    },
+    {
+      "name": "course_prerequisite_exact_self_reference",
+      "count": 0,
+      "query": "SELECT COUNT(*) FROM t_course WHERE BINARY TRIM(prerequisites)=BINARY course_code OR BINARY TRIM(prerequisites)=BINARY course_name"
+    }
+  ],
+  "missingCatalogBindings": [
+    {
+      "status": "PUBLISHED",
+      "isLatest": false,
+      "courseCode": "CS2002",
+      "syllabusId": 2,
+      "planVersion": "v2026.1",
+      "syllabusVersion": "v2026.1"
+    },
+    {
+      "status": "PUBLISHED",
+      "isLatest": false,
+      "courseCode": "CS2001",
+      "syllabusId": 3,
+      "planVersion": "v2026.1",
+      "syllabusVersion": "v2026.1"
+    },
+    {
+      "status": "PUBLISHED",
+      "isLatest": false,
+      "courseCode": "CS3002",
+      "syllabusId": 4,
+      "planVersion": "v2026.1",
+      "syllabusVersion": "v2026.1"
+    }
+  ],
+  "recommendedMappingCount": 176,
+  "recommendedCategoryMismatches": [],
+  "prerequisiteReferences": [
+    {
+      "id": 1,
+      "code": "CS3001",
+      "name": "软件项目管理",
+      "prerequisites": "《软件工程导论》"
+    },
+    {
+      "id": 2,
+      "code": "CS1001",
+      "name": "软件工程导论",
+      "prerequisites": "《程序设计基础》"
+    },
+    {
+      "id": 3,
+      "code": "CS4002",
+      "name": "敏捷软件工程实训",
+      "prerequisites": "《软件工程导论》、《面向对象程序设计》"
+    },
+    {
+      "id": 4,
+      "code": "CS2002",
+      "name": "计算机组成原理",
+      "prerequisites": "《数字逻辑与数字系统》"
+    },
+    {
+      "id": 5,
+      "code": "CS2003",
+      "name": "数字逻辑与系统设计",
+      "prerequisites": "《大学计算机基础》"
+    },
+    {
+      "id": 6,
+      "code": "CS2001",
+      "name": "数据结构与算法",
+      "prerequisites": "《C++程序设计》"
+    },
+    {
+      "id": 7,
+      "code": "CS1002",
+      "name": "C++高级程序设计",
+      "prerequisites": "无"
+    },
+    {
+      "id": 8,
+      "code": "CS3002",
+      "name": "操作系统原理",
+      "prerequisites": "《计算机组成原理》"
+    },
+    {
+      "id": 9,
+      "code": "CS3008",
+      "name": "嵌入式Linux系统",
+      "prerequisites": "《操作系统原理》、《计算机系统结构》"
+    },
+    {
+      "id": 10,
+      "code": "AI3001",
+      "name": "人工智能导论",
+      "prerequisites": "《高等数学》、《离散数学》"
+    },
+    {
+      "id": 11,
+      "code": "AI3002",
+      "name": "机器学习与模式识别",
+      "prerequisites": "《线性代数》、《概率论与数理统计》"
+    },
+    {
+      "id": 12,
+      "code": "SE3002",
+      "name": "敏捷开发与人机协同",
+      "prerequisites": "《软件项目管理》"
+    },
+    {
+      "id": 13,
+      "code": "SE3003",
+      "name": "DevOps与持续交付",
+      "prerequisites": "《操作系统原理》、《软件工程导论》"
+    },
+    {
+      "id": 14,
+      "code": "CS3003",
+      "name": "计算机网络与安全",
+      "prerequisites": "《计算机网络与安全》"
+    },
+    {
+      "id": 15,
+      "code": "SEC3001",
+      "name": "信息安全攻防实践",
+      "prerequisites": "《计算机网络与安全》"
+    },
+    {
+      "id": 16,
+      "code": "DS2001",
+      "name": "数据库系统实现",
+      "prerequisites": "《数据结构与算法》"
+    },
+    {
+      "id": 17,
+      "code": "DS3001",
+      "name": "分布式大数据计算",
+      "prerequisites": "《数据库系统实现》、《操作系统原理》"
+    },
+    {
+      "id": 26,
+      "code": "DEMO-SE88",
+      "name": "新工科敏捷协同实战",
+      "prerequisites": ""
+    },
+    {
+      "id": 27,
+      "code": "PW-TEST-3247",
+      "name": "Playwright自动化测试实战",
+      "prerequisites": ""
+    },
+    {
+      "id": 28,
+      "code": "PW-TEST-2371",
+      "name": "Playwright自动化测试实战",
+      "prerequisites": ""
+    },
+    {
+      "id": 29,
+      "code": "PW-TEST-4810",
+      "name": "Playwright自动化测试实战",
+      "prerequisites": ""
+    },
+    {
+      "id": 30,
+      "code": "PW-TEST-1653",
+      "name": "Playwright自动化测试实战",
+      "prerequisites": ""
+    },
+    {
+      "id": 31,
+      "code": "PW-TEST-9192",
+      "name": "Playwright自动化测试实战",
+      "prerequisites": ""
+    },
+    {
+      "id": 32,
+      "code": "PW-TEST-6212",
+      "name": "Playwright自动化测试实战",
+      "prerequisites": ""
+    }
+  ],
+  "prerequisiteProblems": [
+    {
+      "courseId": 2,
+      "courseCode": "CS1001",
+      "reference": "《程序设计基础》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 3,
+      "courseCode": "CS4002",
+      "reference": "《面向对象程序设计》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 4,
+      "courseCode": "CS2002",
+      "reference": "《数字逻辑与数字系统》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 5,
+      "courseCode": "CS2003",
+      "reference": "《大学计算机基础》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 6,
+      "courseCode": "CS2001",
+      "reference": "《C++程序设计》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 7,
+      "courseCode": "CS1002",
+      "reference": "无",
+      "kind": "no_prerequisite_marker_rejected_by_validator"
+    },
+    {
+      "courseId": 9,
+      "courseCode": "CS3008",
+      "reference": "《计算机系统结构》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 10,
+      "courseCode": "AI3001",
+      "reference": "《高等数学》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 10,
+      "courseCode": "AI3001",
+      "reference": "《离散数学》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 11,
+      "courseCode": "AI3002",
+      "reference": "《线性代数》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 11,
+      "courseCode": "AI3002",
+      "reference": "《概率论与数理统计》",
+      "kind": "reference_missing_in_current_database"
+    },
+    {
+      "courseId": 14,
+      "courseCode": "CS3003",
+      "reference": "《计算机网络与安全》",
+      "kind": "self_reference"
+    }
+  ],
+  "multiCourseCycles": []
+}
