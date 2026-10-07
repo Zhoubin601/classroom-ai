@@ -11,8 +11,10 @@ import argparse
 from pathlib import Path
 
 if __package__:
+    from .backend_auth import authenticated_request
     from .paths import UPLOADS_DIR
 else:
+    from backend_auth import authenticated_request
     from paths import UPLOADS_DIR
 
 if sys.platform == "win32":
@@ -107,7 +109,7 @@ def search_face_backend(backend_url: str, embedding: np.ndarray, threshold: floa
     }
     try:
         import urllib.request
-        req = urllib.request.Request(url, method="POST")
+        req = authenticated_request(url, method="POST")
         req.add_header("Content-Type", "application/json")
         data = json.dumps(payload).encode("utf-8")
         with urllib.request.urlopen(req, data=data, timeout=8) as resp:
@@ -180,7 +182,7 @@ def verify_camera_stream(app, camera_index: int, threshold: float, backend_url: 
     registered_faces = []
     try:
         url = f"{backend_url.rstrip('/')}/api/face/all"
-        with urllib.request.urlopen(url, timeout=5) as resp:
+        with urllib.request.urlopen(authenticated_request(url), timeout=5) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             if data.get("code") == 200:
                 registered_faces = data.get("data", [])

@@ -47,6 +47,25 @@ export function runPython(executable, args, options, timeoutMs = 110000) {
   })
 }
 
+// Vite handles these local routes before the Java proxy, so it must enforce
+// the same face-management role using the backend's verified identity.
+export async function authorizeFaceRequest(req) {
+  const backend = process.env.CLASSROOM_API_PROXY || 'http://127.0.0.1:8080'
+  const headers = {}
+  if (req.headers?.authorization) headers.Authorization = req.headers.authorization
+  if (req.headers?.cookie) headers.Cookie = req.headers.cookie
+  const response = await fetch(backend + '/api/v1/auth/me', { headers, signal: AbortSignal.timeout(5000) })
+  if (!response.ok) throw Object.assign(new Error('未登录或会话已过期'), { status: response.status === 401 ? 401 : 403 })
+  const body = await response.json()
+  if (body.code !== 200 || body.data?.role !== 'DIRECTOR') throw Object.assign(new Error('仅教研室主任可管理人脸底库'), { status: 403 })
+  return { ...optionsForFace(req), backend }
+}
+
+function optionsForFace(req) {
+  // Credentials stay in the child environment, never arguments or config files.
+  return { env: { ...process.env, CLASSROOM_FACE_AUTHORIZATION: req.headers?.authorization || '', CLASSROOM_FACE_COOKIE: req.headers?.cookie || '' } }
+}
+
 export default function cameraLauncherPlugin(projectRoot) {
   let monitor = null
   let lastMonitorError = ''
@@ -87,6 +106,8 @@ export default function cameraLauncherPlugin(projectRoot) {
       }
       if (req.method !== routes.get(route)) { res.setHeader('Allow', routes.get(route)); return send(405, '请求方法不支持') }
       try {
+        const face = route.startsWith('/api/face/') ? await authorizeFaceRequest(req) : null
+        const faceOptions = face ? { ...options, env: face.env } : options
         if (route === '/api/visual/monitor-status') {
           const isRunning = await health()
           return send(200, 'success', {
@@ -149,7 +170,7 @@ export default function cameraLauncherPlugin(projectRoot) {
         const data = await readJson(req)
 
         if (route === '/api/face/launch-verify') {
-          const child = spawn(python, [path.join(visionRoot, 'face_verify.py')], { ...options, stdio: 'ignore' })
+          const child = spawn(python, [path.join(visionRoot, 'face_verify.py'), '--backend', face.backend], { ...faceOptions, stdio: 'ignore' })
           await new Promise((resolve, reject) => { child.once('spawn', resolve); child.once('error', reject) })
           return send(200, '独立桌面窗口实时识别程序已启动，请查看弹出窗口')
         }
@@ -166,9 +187,10 @@ export default function cameraLauncherPlugin(projectRoot) {
             fs.writeFileSync(tempFile, Buffer.from(data.imageBase64.split(',')[1], 'base64'))
             const output = await runPython(python, [
               path.join(visionRoot, 'face_verify.py'),
+              '--backend', face.backend,
               '--image', tempFile,
               '--threshold', String(threshold)
-            ], options)
+            ], faceOptions)
             const lines = output.trim().split(/\r?\n/)
             const jsonLine = lines.reverse().find(l => l.trim().startsWith('{') && l.trim().endsWith('}'))
             if (!jsonLine) throw new Error('未获取到人脸识别有效分析结果')
@@ -180,10 +202,10 @@ export default function cameraLauncherPlugin(projectRoot) {
         }
 
         validateRegistration(data)
-        const args = [path.join(visionRoot, 'face_register.py'), '--id', data.studentId, '--name', data.name,
+        const args = [path.join(visionRoot, 'face_register.py'), '--backend', face.backend, '--id', data.studentId, '--name', data.name,
           '--class-name', data.className || '', '--gender', data.gender || 'UNKNOWN']
         if (route === '/api/face/launch-register') {
-          const child = spawn(python, args, { ...options, stdio: 'ignore' })
+          const child = spawn(python, args, { ...faceOptions, stdio: 'ignore' })
           await new Promise((resolve, reject) => { child.once('spawn', resolve); child.once('error', reject) })
           return send(200, '摄像头注册程序已启动，请等待取景窗口')
         }
@@ -195,7 +217,7 @@ export default function cameraLauncherPlugin(projectRoot) {
         const tempFile = path.join(tempDir, `webcam_${randomUUID()}.jpg`)
         try {
           fs.writeFileSync(tempFile, Buffer.from(data.imageBase64.split(',')[1], 'base64'))
-          await runPython(python, [...args, '--image', tempFile], options)
+          await runPython(python, [...args, '--image', tempFile], faceOptions)
           return send(200, '人脸已录入并同步后端', { studentId: data.studentId, avatarUrl: `/uploads/faces/${data.studentId}_snapshot.jpg` })
         } finally { fs.rmSync(tempFile, { force: true }) }
       } catch (error) { send(error.status || 500, error.message || '操作失败') }

@@ -20,7 +20,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const frontend = process.env.EXP3_FRONTEND_URL || 'http://127.0.0.1:5173';
 const backend = process.env.EXP3_BACKEND_URL || 'http://127.0.0.1:18081';
 const expiredBackend = process.env.EXP3_EXPIRED_BACKEND_URL || 'http://127.0.0.1:18082';
-const evidenceDir = path.resolve(__dirname, '../../docs/sprint2-chrome-evidence');
+const evidenceDir = path.resolve(process.env.EXP3_EVIDENCE_DIR || path.join(__dirname, '../../docs/sprint2-chrome-evidence'));
 
 function pdfBuffer() {
   const stream = 'BT /F1 14 Tf 40 100 Td (Sprint 2 preview) Tj ET\n';

@@ -269,3 +269,26 @@
 - 本机数据库只读快照：docs/20261006-batch-course-matrix-evidence-v1/before.json，引用日期2026-10-06；24门课程、6份大纲、13条指标。软件项目管理锁定矩阵12条，C++最新23版1条“111”，其余22门矩阵为空。
 - 原始正式培养方案：资料未提供，用户已确认本项目使用示例，不新增外部资料。代码目录依据RecommendedIndicatorTemplate.java；保存与历史保护依据SyllabusController.java、SyllabusServiceImpl.java。
 - 课程主题及新增建议：脚本scripts/batch-course-matrices.cjs的明确课程配置；预检方案docs/20261006-batch-course-matrix-evidence-v1/plan.json。建议标明示例草稿与待确认，不能当作已有教学事实。raw未修改。
+
+## 2026-10-07 三角色功能打通实测来源
+- 用户附件：D:/2026Autumn Semester File/软管/实验三/output/20261007-爱教学-角色功能权限矩阵-v1.png、20261007-爱教学-角色功能与关联图-v1.png；引用日期2026-10-07。按当前消息中的图示检查三角色课程、排课、发布、映射、目录、资源、督导授权、评价、覆盖/预警、雷达/词云、考勤及三个范围例外。
+- raw/目前仅README.md，无额外业务原始资料；本轮不读取或改写外部原始Word。
+- 代码与测试：当前工作区Git HEAD 68255ad；README.md、scripts/tests/exp3-real-browser.cjs、fix-exp3-acceptance.cjs、all-features-playwright.cjs。已有通过记录不代表本轮通过。
+- 已确认背景：memory-bank/project-context.md；培养方案采用明确标记的实验合成示例。
+- 不使用外部检索资料；测试以隔离环境合成数据验证机制。
+
+## 2026-10-07 本轮实际运行证据
+- 原始附件来源同本日上述条目。生产构建日志、Playwright实测输出、脱敏HTTP摘要及43张运行截图：docs/role-connectivity-evidence-20261007-v1/。截图含初次超时重跑证据，不能把旧轮截图数量当作独立功能数量。
+- 具体数字69/57/12来自boundary-results.json（52/44/8）、scheduling-v2/scheduling-results.json（7/7/0）、scope-results.json（10/6/4）。这些是检查组而非业务完成率。
+- 失败定位：AttendanceServiceImpl.java、SecurityConfig.java、FaceController.java、FaceServiceImpl.java；本轮未修改业务源码。仅测试脚本补充和旧定位修正。
+
+## 2026-10-07 修复与复测来源
+- 用户当前消息：修复这些问题，然后再次进行测试；四类缺陷来源docs/20261007-role-connectivity-verification-v1.md及boundary/scope实际结果。
+- 原始依据仍为用户提供的两张角色图，raw未改动；本轮沿用本日已读取的代码、目录与长期背景。
+- 追加检查：frontend/dev/camera-plugin.mjs的本地代理、VisualDashboardController和真实视觉服务入口，避免后端收权后同一能力通过旁路仍可越权。
+## 2026-10-07 修复最终复测依据
+
+- 原始图仍为本日上述两张用户附件；四类缺陷来自v1的12项失败。修复及复测授权来源用户当前请求，引用日期2026-10-07。
+- 最终84/84来自docs/role-connectivity-evidence-20261007-v2/final/confirmed-boundaries/boundary-results.json（52）、scheduling-results.json（7）、scope-results.json（12）、fix-results.json（13）。原全功能23、Office6、Sprint2六组有独立结果或日志，不叠加为业务完成率。
+- 后端执行123、跳过40来自backend-tests-v2.log；前端11来自frontend-tests-v3.log。最终源码/JAR/前端指纹在final/build-fingerprint.json，HEAD68255ad本身不包含本轮未提交修复。
+- 模拟3名本班＋1名旁听、100%及持久化依据final/scheduling-results.json和41/42截图；并发、撤权、身份绑定、视觉范围、缓存隔离、本地人脸入口及Python传递身份依据final/fix-results.json与对应HTTP/日志/截图。

@@ -36,7 +36,7 @@ const backendURL = process.env.BACKEND_URL || 'http://127.0.0.1:8080';
 const chromiumPath = process.env.EXP3_CHROMIUM_PATH;
 const headless = process.env.HEADLESS !== 'false';
 const slowMo = process.env.SLOWMO ? parseInt(process.env.SLOWMO, 10) : 100;
-const evidenceDir = path.resolve(__dirname, '../../docs/playwright-all-features-evidence');
+const evidenceDir = path.resolve(process.env.ALL_FEATURES_EVIDENCE_DIR || path.join(__dirname, '../../docs/playwright-all-features-evidence'));
 
 if (!fs.existsSync(evidenceDir)) {
   fs.mkdirSync(evidenceDir, { recursive: true });

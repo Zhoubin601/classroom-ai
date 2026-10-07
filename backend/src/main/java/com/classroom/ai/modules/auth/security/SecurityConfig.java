@@ -98,6 +98,7 @@ public class SecurityConfig {
                 // 主任专属管理路由：督导建档授权与学生底库管理
                 .requestMatchers("/api/v1/director/**").hasRole("DIRECTOR")
                 .requestMatchers("/api/student/**").hasRole("DIRECTOR")
+                .requestMatchers("/api/face/**").hasRole("DIRECTOR")
                 // 指标点维护写操作：仅任课教师和教研室主任
                 .requestMatchers(HttpMethod.POST, "/api/v1/syllabus/course/*/indicators").hasAnyRole("TEACHER", "DIRECTOR")
                 .requestMatchers(HttpMethod.PUT, "/api/v1/syllabus/indicators/*").hasAnyRole("TEACHER", "DIRECTOR")

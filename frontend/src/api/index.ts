@@ -51,8 +51,8 @@ export const visualApi = {
   },
 
   // 获取 ECharts 抬头率与专注度时序曲线数据
-  getTrend: async (): Promise<FocusTrendPointVO[]> => {
-    const res = await client.get<ApiResponse<FocusTrendPointVO[]>>('/api/visual/trend')
+  getTrend: async (offeringId?: number): Promise<FocusTrendPointVO[]> => {
+    const res = await client.get<ApiResponse<FocusTrendPointVO[]>>('/api/visual/trend', { params: { offeringId } })
     return res.data.data
   },
 

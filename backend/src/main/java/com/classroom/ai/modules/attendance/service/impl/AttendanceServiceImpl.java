@@ -9,6 +9,10 @@ import com.classroom.ai.modules.course.entity.CourseOffering;
 import com.classroom.ai.modules.course.entity.CourseSchedule;
 import com.classroom.ai.modules.course.repository.CourseOfferingRepository;
 import com.classroom.ai.modules.course.repository.CourseScheduleRepository;
+import com.classroom.ai.modules.attendance.service.AttendanceAccessService;
+import com.classroom.ai.modules.auth.context.AuthContext;
+import com.classroom.ai.modules.auth.vo.UserVO;
+import com.classroom.ai.modules.course.service.CourseAuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,34 +29,27 @@ public class AttendanceServiceImpl implements AttendanceService {
     private final CourseOfferingRepository offeringRepository;
     private final CourseScheduleRepository scheduleRepository;
     private final com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository;
+    private final AttendanceAccessService access;
+    private final CourseAuthorizationService authorization;
 
     @Autowired
     public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
                                  CourseOfferingRepository offeringRepository,
                                  @Autowired(required = false) CourseScheduleRepository scheduleRepository,
-                                 @Autowired(required = false) com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository) {
+                                 @Autowired(required = false) com.classroom.ai.modules.course.repository.OfferingStudentEnrollmentRepository enrollmentRepository,
+                                 AttendanceAccessService access, CourseAuthorizationService authorization) {
         this.sessionRepository = sessionRepository;
         this.offeringRepository = offeringRepository;
         this.scheduleRepository = scheduleRepository;
         this.enrollmentRepository = enrollmentRepository;
-    }
-
-    public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
-                                 CourseOfferingRepository offeringRepository,
-                                 CourseScheduleRepository scheduleRepository) {
-        this(sessionRepository, offeringRepository, scheduleRepository, null);
-    }
-
-    public AttendanceServiceImpl(AttendanceSessionRepository sessionRepository,
-                                 CourseOfferingRepository offeringRepository) {
-        this(sessionRepository, offeringRepository, null, null);
+        this.access = access;
+        this.authorization = authorization;
     }
 
     @Override
     @Transactional
     public AttendanceSession startSession(StartAttendanceDTO dto) {
-        CourseOffering offering = offeringRepository.findById(dto.getOfferingId())
-                .orElseThrow(() -> new IllegalArgumentException("未找到开课班次ID: " + dto.getOfferingId()));
+        CourseOffering offering = access.lockForWrite(dto.getOfferingId());
 
         // 智能解析真实上课教室：优先显式指定；若无则从排课中读取真实教室 (如文管 A447)；最后兜底文管 A447
         String resolvedClassroom = dto.getClassroom();
@@ -69,55 +66,12 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
         final String finalClassroom = resolvedClassroom;
 
-        // 考勤操作人身份解析与绑定 (是谁考的勤：教学督导、教研室主任还是任课教师)
-        String opRole = dto.getOperatorRole();
-        String opName = dto.getOperatorName();
-        String opTitle = dto.getOperatorTitle();
-
-        if (opTitle == null || opTitle.isBlank()) {
-            if ("SUPERVISOR".equalsIgnoreCase(opRole)) {
-                opTitle = "教学督导";
-            } else if ("DIRECTOR".equalsIgnoreCase(opRole)) {
-                opTitle = "教研室主任";
-            } else {
-                opTitle = "任课教师";
-            }
-        }
-        if (opName == null || opName.isBlank()) {
-            if ("TEACHER".equalsIgnoreCase(opRole) || opRole == null) {
-                opName = offering.getTeacherName();
-            } else if ("SUPERVISOR".equalsIgnoreCase(opRole)) {
-                opName = "张督导";
-            } else if ("DIRECTOR".equalsIgnoreCase(opRole)) {
-                opName = "李主任";
-            } else {
-                opName = "考勤管理员";
-            }
-        }
-        if (opRole == null || opRole.isBlank()) {
-            opRole = "TEACHER";
-        }
-        final String finalOpName = opName;
-        final String finalOpRole = opRole;
-        final String finalOpTitle = opTitle;
-
-        // 如果已有正在进行的考勤，则复用或先完成
+        // Parent lock prevents concurrent starts and serializes against archive.
         AttendanceSession session = sessionRepository.findFirstByOfferingIdAndStatusOrderByCreatedAtDesc(offering.getId(), "ACTIVE")
-                .map(existing -> {
-                    if (dto.getOperatorName() != null && !dto.getOperatorName().isBlank()) {
-                        existing.setOperatorName(finalOpName);
-                        existing.setOperatorRole(finalOpRole);
-                        existing.setOperatorTitle(finalOpTitle);
-                    }
-                    return existing;
-                })
                 .orElseGet(() -> AttendanceSession.builder()
                         .offering(offering)
                         .weekNumber(dto.getWeekNumber() != null ? dto.getWeekNumber() : 2)
                         .classroom(finalClassroom)
-                        .operatorName(finalOpName)
-                        .operatorRole(finalOpRole)
-                        .operatorTitle(finalOpTitle)
                         .expectedCount(resolveExpectedCount(offering))
                         .actualCount(0)
                         .attendanceRate(0.0)
@@ -125,15 +79,14 @@ public class AttendanceServiceImpl implements AttendanceService {
                         .status("ACTIVE")
                         .startTime(LocalDateTime.now())
                         .build());
-
+        bindOperator(session);
         return sessionRepository.save(session);
     }
 
     @Override
     @Transactional
     public AttendanceSession finishSession(FinishAttendanceDTO dto) {
-        AttendanceSession session = sessionRepository.findById(dto.getSessionId())
-                .orElseThrow(() -> new IllegalArgumentException("未找到考勤会话ID: " + dto.getSessionId()));
+        AttendanceSession session = lockSession(dto.getSessionId());
 
         if (!"ACTIVE".equals(session.getStatus())) {
             throw new IllegalStateException("考勤已归档，不能重复修改");
@@ -152,40 +105,38 @@ public class AttendanceServiceImpl implements AttendanceService {
             session.setAbsentStudentIds(String.join(",", dto.getAbsentStudentIds()));
         }
 
-        // 归档时记录或补充操作人信息
-        if (dto.getOperatorName() != null && !dto.getOperatorName().isBlank()) {
-            session.setOperatorName(dto.getOperatorName());
-        }
-        if (dto.getOperatorRole() != null && !dto.getOperatorRole().isBlank()) {
-            session.setOperatorRole(dto.getOperatorRole());
-        }
-        if (dto.getOperatorTitle() != null && !dto.getOperatorTitle().isBlank()) {
-            session.setOperatorTitle(dto.getOperatorTitle());
-        }
-        if (session.getOperatorName() == null || session.getOperatorName().isBlank()) {
-            session.setOperatorName(session.getOffering() != null ? session.getOffering().getTeacherName() : "郭军");
-            session.setOperatorRole("TEACHER");
-            session.setOperatorTitle("任课教师");
-        }
+        bindOperator(session);
 
         return sessionRepository.save(session);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AttendanceSession getCurrentActiveSession() {
-        return sessionRepository.findFirstByStatusOrderByCreatedAtDesc("ACTIVE").orElse(null);
+        authorization.requireCurrentUser();
+        // Find the newest visible session, rather than exposing the global newest.
+        for (AttendanceSession session : sessionRepository.findByStatusOrderByCreatedAtDescIdDesc("ACTIVE")) {
+            CourseOffering offering = session.getOffering();
+            if (offering == null || Boolean.TRUE.equals(offering.getIsSnapshotFrozen()) || "FINISHED".equals(offering.getStatus())) continue;
+            try {
+                authorization.validateOfferingRead(offering);
+                return session;
+            } catch (com.classroom.ai.common.exception.ForbiddenException ignored) { }
+        }
+        return null;
     }
 
     @Override
     public List<AttendanceSession> getSessionsByOffering(Long offeringId) {
+        access.requireRead(offeringId);
         return sessionRepository.findByOfferingId(offeringId);
     }
 
     @Override
     @Transactional
     public AttendanceSession updateLiveStatus(Long sessionId, Integer actualCount, Double lookupRate) {
-        AttendanceSession session = sessionRepository.findById(sessionId).orElse(null);
-        if (session != null && "ACTIVE".equals(session.getStatus())) {
+        AttendanceSession session = lockSession(sessionId);
+        if ("ACTIVE".equals(session.getStatus())) {
             validateCounts(actualCount, lookupRate);
             session.setActualCount(actualCount);
             if (session.getExpectedCount() != null && session.getExpectedCount() > 0) {
@@ -198,7 +149,28 @@ public class AttendanceServiceImpl implements AttendanceService {
             }
             return sessionRepository.save(session);
         }
-        return session;
+        throw new IllegalStateException("考勤已归档，不能更新实时数据");
+    }
+
+    private AttendanceSession lockSession(Long id) {
+        AuthContext.requireAuthenticated();
+        if (id == null) throw new IllegalArgumentException("必须指定考勤会话");
+        Long offeringId = sessionRepository.findOfferingId(id)
+                .orElseThrow(() -> new IllegalArgumentException("未找到考勤会话ID: " + id));
+        access.lockForWrite(offeringId);
+        return sessionRepository.findForUpdate(id)
+                .orElseThrow(() -> new IllegalArgumentException("未找到考勤会话ID: " + id));
+    }
+
+    private void bindOperator(AttendanceSession session) {
+        UserVO actor = authorization.requireCurrentUser();
+        session.setOperatorRole(actor.getRole().name());
+        session.setOperatorName(actor.getRealName() == null || actor.getRealName().isBlank() ? actor.getUsername() : actor.getRealName());
+        session.setOperatorTitle(switch (actor.getRole()) {
+            case DIRECTOR -> "教研室主任";
+            case SUPERVISOR -> "教学督导";
+            default -> "任课教师";
+        });
     }
 
     private void validateCounts(Integer actual, Double lookupRate) {

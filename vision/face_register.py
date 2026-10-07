@@ -13,8 +13,10 @@ import argparse
 from pathlib import Path
 
 if __package__:
+    from .backend_auth import authenticated_request
     from .paths import MODELS_DIR, UPLOADS_DIR
 else:
+    from backend_auth import authenticated_request
     from paths import MODELS_DIR, UPLOADS_DIR
 
 # 强制将标准输出与错误输出设置为 UTF-8，彻底解决 Windows 终端下 Emoji 或中文打印抛出 UnicodeEncodeError
@@ -127,7 +129,7 @@ def sync_to_backend(backend_url: str, student_id: str, name: str, class_name: st
     try:
         import urllib.request
         import urllib.error
-        req = urllib.request.Request(url, method="POST")
+        req = authenticated_request(url, method="POST")
         req.add_header("Content-Type", "application/json")
         data = json.dumps(payload).encode("utf-8")
         with urllib.request.urlopen(req, data=data, timeout=5) as resp:

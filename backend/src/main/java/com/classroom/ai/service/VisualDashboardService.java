@@ -24,6 +24,7 @@ public interface VisualDashboardService {
      * 获取 ECharts 抬头率与专注度时序趋势折线数据
      */
     List<FocusTrendPointVO> getTrend();
+    List<FocusTrendPointVO> getTrend(Long offeringId);
 
     /**
      * 获取当前班级/所有学生的实时考勤与姿态状态明细卡片

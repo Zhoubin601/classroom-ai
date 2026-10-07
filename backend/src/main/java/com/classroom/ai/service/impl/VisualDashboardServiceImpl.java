@@ -72,9 +72,13 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    private static String cacheKey(String key, Long offeringId) {
+        return offeringId == null ? key : key + ":offering:" + offeringId;
+    }
+
     private boolean isStreamActive(Long offeringId) {
         try {
-            String heartbeatStr = stringRedisTemplate.opsForValue().get(KEY_LAST_HEARTBEAT);
+            String heartbeatStr = stringRedisTemplate.opsForValue().get(cacheKey(KEY_LAST_HEARTBEAT, offeringId));
             if (heartbeatStr == null || heartbeatStr.isBlank()) {
                 return false;
             }
@@ -83,7 +87,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                 return false;
             }
             if (offeringId != null) {
-                String activeOffIdStr = stringRedisTemplate.opsForValue().get(KEY_ACTIVE_OFFERING_ID);
+                String activeOffIdStr = stringRedisTemplate.opsForValue().get(cacheKey(KEY_ACTIVE_OFFERING_ID, offeringId));
                 if (activeOffIdStr != null && !activeOffIdStr.isBlank()) {
                     long activeOffId = Long.parseLong(activeOffIdStr);
                     if (activeOffId != offeringId) {
@@ -194,31 +198,31 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                 .build();
 
         try {
-            stringRedisTemplate.opsForValue().set(KEY_REALTIME_OVERVIEW, JSON.toJSONString(overviewVO), 20, TimeUnit.SECONDS);
-            stringRedisTemplate.opsForValue().set(KEY_LAST_HEARTBEAT, String.valueOf(System.currentTimeMillis()), 20, TimeUnit.SECONDS);
+            stringRedisTemplate.opsForValue().set(cacheKey(KEY_REALTIME_OVERVIEW, offeringId), JSON.toJSONString(overviewVO), 20, TimeUnit.SECONDS);
+            stringRedisTemplate.opsForValue().set(cacheKey(KEY_LAST_HEARTBEAT, offeringId), String.valueOf(System.currentTimeMillis()), 20, TimeUnit.SECONDS);
             if (offeringId != null) {
-                stringRedisTemplate.opsForValue().set(KEY_ACTIVE_OFFERING_ID, String.valueOf(offeringId), 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForValue().set(cacheKey(KEY_ACTIVE_OFFERING_ID, offeringId), String.valueOf(offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 更新本班出勤学生 ID 集合 (带 TTL)
-            stringRedisTemplate.delete(KEY_PRESENT_IDS);
+            stringRedisTemplate.delete(cacheKey(KEY_PRESENT_IDS, offeringId));
             if (!enrolledPresentIds.isEmpty()) {
-                stringRedisTemplate.opsForSet().add(KEY_PRESENT_IDS, enrolledPresentIds.toArray(new String[0]));
-                stringRedisTemplate.expire(KEY_PRESENT_IDS, 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForSet().add(cacheKey(KEY_PRESENT_IDS, offeringId), enrolledPresentIds.toArray(new String[0]));
+                stringRedisTemplate.expire(cacheKey(KEY_PRESENT_IDS, offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 更新非本班旁听学生 ID 集合 (带 TTL)
-            stringRedisTemplate.delete(KEY_AUDITING_IDS);
+            stringRedisTemplate.delete(cacheKey(KEY_AUDITING_IDS, offeringId));
             if (!auditingIds.isEmpty()) {
-                stringRedisTemplate.opsForSet().add(KEY_AUDITING_IDS, auditingIds.toArray(new String[0]));
-                stringRedisTemplate.expire(KEY_AUDITING_IDS, 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForSet().add(cacheKey(KEY_AUDITING_IDS, offeringId), auditingIds.toArray(new String[0]));
+                stringRedisTemplate.expire(cacheKey(KEY_AUDITING_IDS, offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 更新学生姿态状态 Hash (带 TTL)
-            stringRedisTemplate.delete(KEY_REALTIME_POSES);
+            stringRedisTemplate.delete(cacheKey(KEY_REALTIME_POSES, offeringId));
             if (streamDTO.getStudentPoses() != null && !streamDTO.getStudentPoses().isEmpty()) {
-                stringRedisTemplate.opsForHash().putAll(KEY_REALTIME_POSES, streamDTO.getStudentPoses());
-                stringRedisTemplate.expire(KEY_REALTIME_POSES, 20, TimeUnit.SECONDS);
+                stringRedisTemplate.opsForHash().putAll(cacheKey(KEY_REALTIME_POSES, offeringId), streamDTO.getStudentPoses());
+                stringRedisTemplate.expire(cacheKey(KEY_REALTIME_POSES, offeringId), 20, TimeUnit.SECONDS);
             }
 
             // 追加时序折线数据点 (限制最近 60 个点)
@@ -228,12 +232,12 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
                     .presentCount(presentCount)
                     .build();
 
-            stringRedisTemplate.opsForList().rightPush(KEY_TREND_HISTORY, JSON.toJSONString(trendPoint));
-            Long listSize = stringRedisTemplate.opsForList().size(KEY_TREND_HISTORY);
+            stringRedisTemplate.opsForList().rightPush(cacheKey(KEY_TREND_HISTORY, offeringId), JSON.toJSONString(trendPoint));
+            Long listSize = stringRedisTemplate.opsForList().size(cacheKey(KEY_TREND_HISTORY, offeringId));
             if (listSize != null && listSize > 60) {
-                stringRedisTemplate.opsForList().leftPop(KEY_TREND_HISTORY);
+                stringRedisTemplate.opsForList().leftPop(cacheKey(KEY_TREND_HISTORY, offeringId));
             }
-            stringRedisTemplate.expire(KEY_TREND_HISTORY, 60, TimeUnit.SECONDS);
+            stringRedisTemplate.expire(cacheKey(KEY_TREND_HISTORY, offeringId), 60, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.warn("Failed to update realtime cache in Redis: {}", e.getMessage());
         }
@@ -297,7 +301,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
         // 若推断流处于活跃期，从 Redis 读取最新帧指标
         try {
-            String json = stringRedisTemplate.opsForValue().get(KEY_REALTIME_OVERVIEW);
+            String json = stringRedisTemplate.opsForValue().get(cacheKey(KEY_REALTIME_OVERVIEW, offeringId));
             if (json != null && !json.isBlank()) {
                 DashboardOverviewVO vo = JSON.parseObject(json, DashboardOverviewVO.class);
                 if (vo != null) {
@@ -332,14 +336,19 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
     @Override
     public List<FocusTrendPointVO> getTrend() {
-        if (!isStreamActive(null)) {
+        return getTrend(null);
+    }
+
+    @Override
+    public List<FocusTrendPointVO> getTrend(Long offeringId) {
+        if (!isStreamActive(offeringId)) {
             String nowStr = LocalDateTime.now().format(TIME_FORMATTER);
             return List.of(FocusTrendPointVO.builder().time(nowStr).lookupRate(0.0).presentCount(0).build());
         }
 
         List<FocusTrendPointVO> list = new ArrayList<>();
         try {
-            List<String> rawList = stringRedisTemplate.opsForList().range(KEY_TREND_HISTORY, 0, -1);
+            List<String> rawList = stringRedisTemplate.opsForList().range(cacheKey(KEY_TREND_HISTORY, offeringId), 0, -1);
             if (rawList != null) {
                 for (String s : rawList) {
                     list.add(JSON.parseObject(s, FocusTrendPointVO.class));
@@ -400,13 +409,13 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
         Map<Object, Object> posesMap = Collections.emptyMap();
 
         try {
-            Set<String> members = stringRedisTemplate.opsForSet().members(KEY_PRESENT_IDS);
+            Set<String> members = stringRedisTemplate.opsForSet().members(cacheKey(KEY_PRESENT_IDS, offeringId));
             if (members != null) presentIds = members;
 
-            Set<String> auditMembers = stringRedisTemplate.opsForSet().members(KEY_AUDITING_IDS);
+            Set<String> auditMembers = stringRedisTemplate.opsForSet().members(cacheKey(KEY_AUDITING_IDS, offeringId));
             if (auditMembers != null) auditingIds = auditMembers;
 
-            posesMap = stringRedisTemplate.opsForHash().entries(KEY_REALTIME_POSES);
+            posesMap = stringRedisTemplate.opsForHash().entries(cacheKey(KEY_REALTIME_POSES, offeringId));
         } catch (Exception e) {
             log.warn("Failed to fetch present ids / poses from Redis: {}", e.getMessage());
         }
@@ -466,13 +475,13 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
     public void clearRealtimeStreamData(Long offeringId) {
         try {
             stringRedisTemplate.delete(List.of(
-                    KEY_REALTIME_OVERVIEW,
-                    KEY_REALTIME_POSES,
-                    KEY_TREND_HISTORY,
-                    KEY_PRESENT_IDS,
-                    KEY_AUDITING_IDS,
-                    KEY_LAST_HEARTBEAT,
-                    KEY_ACTIVE_OFFERING_ID
+                    cacheKey(KEY_REALTIME_OVERVIEW, offeringId),
+                    cacheKey(KEY_REALTIME_POSES, offeringId),
+                    cacheKey(KEY_TREND_HISTORY, offeringId),
+                    cacheKey(KEY_PRESENT_IDS, offeringId),
+                    cacheKey(KEY_AUDITING_IDS, offeringId),
+                    cacheKey(KEY_LAST_HEARTBEAT, offeringId),
+                    cacheKey(KEY_ACTIVE_OFFERING_ID, offeringId)
             ));
             log.info("【爱教学】实时大屏推断缓存已彻底清理并归零复位 (offeringId={})", offeringId);
         } catch (Exception e) {

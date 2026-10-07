@@ -151,24 +151,42 @@ class RegressionTest {
 
     @Test void finishedAttendanceCannotBeOverwritten() {
         var sessions = mock(AttendanceSessionRepository.class);
-        when(sessions.findById(1L)).thenReturn(Optional.of(AttendanceSession.builder().status("FINISHED").build()));
-        assertThrows(IllegalStateException.class, () -> new AttendanceServiceImpl(sessions, offerings).finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(1).build()));
-        verify(sessions, never()).save(any());
+        try {
+            var service = attendanceService(sessions, AttendanceSession.builder().status("FINISHED").build());
+            assertThrows(IllegalStateException.class, () -> service.finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(1).build()));
+            verify(sessions, never()).save(any());
+        } finally { com.classroom.ai.modules.auth.context.AuthContext.clear(); }
     }
 
     @Test void zeroExpectedAttendanceDoesNotDivideByOneOrFailOnNull() {
         var sessions = mock(AttendanceSessionRepository.class);
-        when(sessions.findById(1L)).thenReturn(Optional.of(AttendanceSession.builder().status("ACTIVE").expectedCount(0).build()));
         when(sessions.save(any())).thenAnswer(call -> call.getArgument(0));
-        var result = new AttendanceServiceImpl(sessions, offerings).finishSession(FinishAttendanceDTO.builder().sessionId(1L).build());
-        assertEquals(0.0, result.getAttendanceRate());
-        assertEquals(0, result.getActualCount());
+        try {
+            var result = attendanceService(sessions, AttendanceSession.builder().status("ACTIVE").expectedCount(0).build())
+                    .finishSession(FinishAttendanceDTO.builder().sessionId(1L).build());
+            assertEquals(0.0, result.getAttendanceRate()); assertEquals(0, result.getActualCount());
+        } finally { com.classroom.ai.modules.auth.context.AuthContext.clear(); }
     }
 
     @Test void negativeAttendanceIsRejected() {
         var sessions = mock(AttendanceSessionRepository.class);
-        when(sessions.findById(1L)).thenReturn(Optional.of(AttendanceSession.builder().status("ACTIVE").expectedCount(2).build()));
-        assertThrows(IllegalArgumentException.class, () -> new AttendanceServiceImpl(sessions, offerings).finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(-1).build()));
+        try {
+            var service = attendanceService(sessions, AttendanceSession.builder().status("ACTIVE").expectedCount(2).build());
+            assertThrows(IllegalArgumentException.class, () -> service.finishSession(FinishAttendanceDTO.builder().sessionId(1L).actualCount(-1).build()));
+        } finally { com.classroom.ai.modules.auth.context.AuthContext.clear(); }
+    }
+
+    private AttendanceServiceImpl attendanceService(AttendanceSessionRepository sessions, AttendanceSession session) {
+        com.classroom.ai.modules.auth.context.AuthContext.setCurrentUser(com.classroom.ai.modules.auth.vo.UserVO.builder()
+                .username("test").realName("测试教师").teacherCode("T1").role(com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER).build());
+        var offering = CourseOffering.builder().id(100L).teacherCode("T1").build();
+        session.setOffering(offering);
+        when(sessions.findOfferingId(1L)).thenReturn(Optional.of(100L));
+        when(sessions.findForUpdate(1L)).thenReturn(Optional.of(session));
+        when(offerings.findForUpdate(100L)).thenReturn(Optional.of(offering));
+        var auth = new CourseAuthorizationService(courses, offerings, mock(CourseOfferingTeacherRepository.class));
+        return new AttendanceServiceImpl(sessions, offerings, null, null,
+                new com.classroom.ai.modules.attendance.service.AttendanceAccessService(offerings, auth), auth);
     }
 
     @Test void negativeFileSizeIsRejected() {

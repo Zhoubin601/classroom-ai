@@ -40,7 +40,7 @@ async function protectedViewer(page) {
   try {
     async function login(username) {
       const c=await browser.newContext({viewport:{width:1440,height:1000}});
-      const page=await c.newPage();page.on('dialog',d=>d.accept());
+      const page=await c.newPage();page.on('dialog',d=>{console.log('DIALOG',username,d.message());return d.accept();});
       await page.goto(frontend);
       await page.getByPlaceholder('如 guojun, director, supervisor 等').fill(username);
       await page.getByPlaceholder('请输入登录密码 (默认 123456)').fill('123456');
@@ -122,11 +122,11 @@ async function protectedViewer(page) {
     await teacher.getByRole('textbox',{name:'新大纲版本'}).fill(version);
     const [templated]=await Promise.all([
       teacher.waitForResponse(r=>r.url().includes('/from-plan') && r.request().method()==='POST'),
-      teacher.getByRole('button',{name:'一键套用12项国标推荐模板'}).click()
+      teacher.getByRole('button',{name:'套用推荐示例模板（12类）',exact:true}).click()
     ]);
     const syllabus=(await templated.json()).data;assert.ok(syllabus.id);
     assert.equal(syllabus.planVersion,'RECOMMENDED-12');
-    await teacher.getByText(/当前为12项推荐草案/).waitFor();
+    await teacher.getByText(/当前为推荐示例草案/).waitFor();
     const indicators=(await (await api(teacher,`/api/v1/syllabus/course/${common.course.id}/indicators`)).json()).data;
     assert.equal(indicators.length,12);
     const first=indicators[0];

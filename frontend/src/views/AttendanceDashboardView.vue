@@ -83,16 +83,16 @@
         <!-- 核心按钮：启动/停止摄像头智能考勤 -->
         <button
           @click="toggleMonitor"
-          :disabled="!selectedOfferingId || isMonitorStarting"
+          :disabled="(!canWriteAttendance && !isMonitoring) || isMonitorStarting"
           :class="[
             'px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition shadow-xs',
-            !selectedOfferingId
+            !canWriteAttendance && !isMonitoring
               ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
               : isMonitoring
               ? 'bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 cursor-pointer'
               : 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white cursor-pointer shadow-indigo-500/20'
           ]"
-          :title="!selectedOfferingId ? '当前无正在授课班级，无法开启课堂考勤' : ''"
+          :title="!canWriteAttendance ? '未选择班级或历史班次已冻结' : ''"
         >
           <span v-if="isMonitorStarting" class="w-3.5 h-3.5 rounded-full border-2 border-current border-t-transparent animate-spin"></span>
           <Square v-else-if="isMonitoring" class="w-3.5 h-3.5" />
@@ -103,10 +103,10 @@
         <!-- 一键下课归档考勤结果 -->
         <button
           @click="finishAndArchiveAttendance"
-          :disabled="!selectedOfferingId || (!currentSessionId && !isSimulating && !isMonitoring && overview.currentPresent === 0 && lastActiveMetrics.present === 0)"
+          :disabled="!canWriteAttendance || (!currentSessionId && !isSimulating && !isMonitoring && overview.currentPresent === 0 && lastActiveMetrics.present === 0)"
           :class="[
             'px-4 py-2 rounded-xl text-xs font-semibold shadow-xs transition flex items-center gap-1.5',
-            selectedOfferingId && (currentSessionId || isSimulating || isMonitoring || overview.currentPresent > 0 || lastActiveMetrics.present > 0)
+            canWriteAttendance && (currentSessionId || isSimulating || isMonitoring || overview.currentPresent > 0 || lastActiveMetrics.present > 0)
               ? 'bg-navy-900 hover:bg-navy-800 text-white cursor-pointer shadow-navy-900/20'
               : 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
           ]"
@@ -119,16 +119,16 @@
         <!-- 备用按钮：模拟推流 -->
         <button
           @click="toggleSimulation"
-          :disabled="!selectedOfferingId || isMonitoring"
+          :disabled="(!canWriteAttendance && !isSimulating) || isMonitoring"
           :class="[
             'px-3.5 py-2 rounded-xl text-xs font-semibold transition border shadow-2xs',
-            !selectedOfferingId
+            !canWriteAttendance && !isSimulating
               ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
               : isSimulating
               ? 'bg-amber-50 text-amber-800 border-amber-200 cursor-pointer'
               : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200 cursor-pointer'
           ]"
-          :title="!selectedOfferingId ? '当前无正在授课班级' : ''"
+          :title="!canWriteAttendance ? '未选择班级或历史班次已冻结' : ''"
         >
           {{ isSimulating ? '暂停模拟' : '演示模拟流' }}
         </button>
@@ -677,14 +677,11 @@ const isOfferingInSession = (offeringId: number) => {
   return schedules.some(s => isScheduleInSession(s).inSession)
 }
 
-// 活跃且符合当前教师身份的开课列表（教师仅看本人的课程；非教师角色全量查看）
-const activeOfferingList = computed(() => {
-  let list = offeringList.value
-  if (currentUser.value?.role === 'TEACHER') {
-    const myName = currentUser.value.realName || '郭军'
-    list = list.filter(o => o.teacherName === myName)
-  }
-  return list
+// Backend already limits the list to this actor's primary/collaborating scope.
+const activeOfferingList = computed(() => offeringList.value)
+const canWriteAttendance = computed(() => {
+  const offering = offeringList.value.find(o => o.id === selectedOfferingId.value)
+  return !!offering && !offering.isSnapshotFrozen && offering.status !== 'FINISHED'
 })
 
 // 当前选中班级的授课时段状态
@@ -776,7 +773,7 @@ const fetchDashboardData = async () => {
   try {
     const [ov, tr, st] = await Promise.all([
       visualApi.getOverview(selectedOfferingId.value),
-      visualApi.getTrend(),
+      visualApi.getTrend(selectedOfferingId.value),
       visualApi.getStudentsStatus(selectedOfferingId.value)
     ])
     if (ov) overview.value = ov
@@ -796,7 +793,7 @@ const fetchDashboardData = async () => {
 }
 
 const toggleMonitor = async () => {
-  if (!selectedOfferingId.value) return
+  if (!selectedOfferingId.value || (!canWriteAttendance.value && !isMonitoring.value)) return
   isMonitorStarting.value = true
   try {
     if (!isMonitoring.value) {
@@ -932,7 +929,7 @@ const finishAndArchiveAttendance = async () => {
 }
 
 const toggleSimulation = async () => {
-  if (!selectedOfferingId.value && !isSimulating.value) return
+  if ((!selectedOfferingId.value || !canWriteAttendance.value) && !isSimulating.value) return
   isSimulating.value = !isSimulating.value
   if (isSimulating.value) {
     if (!selectedOfferingId.value) {
@@ -950,8 +947,10 @@ const toggleSimulation = async () => {
           ...getOperatorParams()
         })
         if (session) currentSessionId.value = session.id
-      } catch (e) {
-        console.warn('为模拟流创建考勤会话失败', e)
+      } catch (e: any) {
+        isSimulating.value = false
+        alert('无法启动考勤: ' + (e.message || '请重新确认班次权限'))
+        return
       }
     }
 
