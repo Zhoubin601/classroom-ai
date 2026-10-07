@@ -89,10 +89,16 @@ public class SyllabusController {
     @GetMapping("/plans/{majorCode}/{version}/indicators")
     public ApiResponse<List<com.classroom.ai.modules.course.entity.TrainingIndicator>> getPlanIndicators(
             @PathVariable String majorCode, @PathVariable String version) {
-        checkMajorDepartment(majorCode);
+        checkMajorAccess(majorCode, false);
         if (RecommendedIndicatorTemplate.VERSION.equals(version))
             return ApiResponse.success(RecommendedIndicatorTemplate.items(majorCode));
         return ApiResponse.success(trainingRepository.findByMajorCodeAndPlanVersionOrderByIndicatorCode(majorCode, version));
+    }
+
+    @GetMapping("/plans/{majorCode}/versions")
+    public ApiResponse<List<String>> getPlanVersions(@PathVariable String majorCode) {
+        checkMajorAccess(majorCode, false);
+        return ApiResponse.success(trainingRepository.findPlanVersions(majorCode));
     }
 
     @PreAuthorize("hasRole('DIRECTOR')")
@@ -101,7 +107,7 @@ public class SyllabusController {
     public ApiResponse<List<com.classroom.ai.modules.course.entity.TrainingIndicator>> importPlanIndicators(
             @PathVariable String majorCode, @PathVariable String version,
             @RequestBody List<com.classroom.ai.modules.course.dto.IndicatorDTO> items) {
-        checkMajorDepartment(majorCode);
+        checkMajorAccess(majorCode, true);
         if (RecommendedIndicatorTemplate.VERSION.equals(version))
             throw new IllegalArgumentException("推荐模板版本不能用作真实培养方案版本");
         if (items == null || items.isEmpty()) throw new IllegalArgumentException("培养方案指标目录不能为空");
@@ -155,11 +161,28 @@ public class SyllabusController {
         return ApiResponse.success("已从培养方案创建大纲版本", syllabusService.saveSyllabus(dto));
     }
 
-    private void checkMajorDepartment(String majorCode) {
+    private void checkMajorAccess(String majorCode, boolean write) {
         var major = majorRepository.findByMajorCode(majorCode).orElseThrow(() -> new IllegalArgumentException("专业不存在"));
         var user = authorizationService.requireCurrentUser();
-        if (!java.util.Objects.equals(major.getDepartment(), user.getDepartment()))
-            throw new com.classroom.ai.common.exception.ForbiddenException("仅可查看本教研室培养方案");
+        String department = user.getDepartment() == null ? "" : user.getDepartment().trim();
+        var role = user.getRole();
+        boolean lead = !department.isEmpty() && department.equals(major.getDepartment());
+        boolean permitted;
+        if (write) {
+            permitted = role == com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR && lead;
+        } else if (role == com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR
+                || role == com.classroom.ai.modules.auth.entity.RoleEnum.TEACHER) {
+            permitted = lead || (!department.isEmpty() && majorRepository.findByDepartment(department).stream()
+                    .anyMatch(m -> m.getMajorCode().equals(major.getMajorCode())));
+        } else if (role == com.classroom.ai.modules.auth.entity.RoleEnum.SUPERVISOR) {
+            permitted = java.util.Arrays.stream(java.util.Optional.ofNullable(user.getAuthorizedMajors()).orElse("").split(";"))
+                    .anyMatch(code -> code.trim().equalsIgnoreCase(major.getMajorCode()));
+        } else {
+            permitted = false;
+        }
+        if (!permitted) throw new com.classroom.ai.common.exception.ForbiddenException(write
+                ? "专业公共培养方案目录仅由牵头教研室主任维护"
+                : "当前教研室未关联该专业，或督导未获专业授权");
     }
 
     private final com.classroom.ai.modules.course.repository.CourseRepository courseRepository;

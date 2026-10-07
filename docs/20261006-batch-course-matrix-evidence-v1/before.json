@@ -1,0 +1,530 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-21 16:22:50.828545",
+      "courseCode": "CS3001",
+      "courseName": "软件项目管理",
+      "department": "软件工程教研室",
+      "objectives": "掌握现代敏捷软件工程生命周期，具备跨角色协同与风险治理能力。",
+      "description": "【二次草稿编辑】新增敏捷大模型辅助开发章节说明",
+      "assessmentMethod": "平时作业与甘特图 30% + 敏捷Sprint答辩 30% + 期末综合评审 40%"
+    },
+    {
+      "id": 2,
+      "majorCode": "SE",
+      "updatedAt": null,
+      "courseCode": "CS1001",
+      "courseName": "软件工程导论",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "介绍软件生命周期、软件工程方法学与工程规范。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 3,
+      "majorCode": "SE",
+      "updatedAt": null,
+      "courseCode": "CS4002",
+      "courseName": "敏捷软件工程实训",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "实战Scrum敏捷迭代演练与现代DevOps工具链实操。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 4,
+      "majorCode": "CS",
+      "updatedAt": null,
+      "courseCode": "CS2002",
+      "courseName": "计算机组成原理",
+      "department": "计算机系统结构教研室",
+      "objectives": null,
+      "description": "讲授单处理器计算机硬件组成与微架构指令系统。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 5,
+      "majorCode": "CS",
+      "updatedAt": null,
+      "courseCode": "CS2003",
+      "courseName": "数字逻辑与系统设计",
+      "department": "计算机系统结构教研室",
+      "objectives": null,
+      "description": "讲授逻辑代数基础、组合逻辑电路与时序逻辑电路设计。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 6,
+      "majorCode": "CS",
+      "updatedAt": null,
+      "courseCode": "CS2001",
+      "courseName": "数据结构与算法",
+      "department": "基础软件教研室",
+      "objectives": null,
+      "description": "系统讲授线性表、树、图等核心数据结构与经典算法。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 7,
+      "majorCode": "CS",
+      "updatedAt": null,
+      "courseCode": "CS1002",
+      "courseName": "C++高级程序设计",
+      "department": "基础软件教研室",
+      "objectives": null,
+      "description": "面向对象编程思维、类模板与现代C++ STL标准库实战。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 8,
+      "majorCode": "CS",
+      "updatedAt": null,
+      "courseCode": "CS3002",
+      "courseName": "操作系统原理",
+      "department": "系统软件教研室",
+      "objectives": null,
+      "description": "进程线程管理、虚存管理与文件系统底层调度核心原理。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 9,
+      "majorCode": "CS",
+      "updatedAt": null,
+      "courseCode": "CS3008",
+      "courseName": "嵌入式Linux系统",
+      "department": "系统软件教研室",
+      "objectives": null,
+      "description": "ARM架构下的Linux内核裁剪、交叉编译与设备驱动开发。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 10,
+      "majorCode": "AI",
+      "updatedAt": null,
+      "courseCode": "AI3001",
+      "courseName": "人工智能导论",
+      "department": "人工智能教研室",
+      "objectives": null,
+      "description": "启发式搜索、知识图谱、专家系统及现代深度学习基础。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 11,
+      "majorCode": "AI",
+      "updatedAt": null,
+      "courseCode": "AI3002",
+      "courseName": "机器学习与模式识别",
+      "department": "人工智能教研室",
+      "objectives": null,
+      "description": "分类聚类算法、支持向量机、集成学习与模型评估。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 12,
+      "majorCode": "SE",
+      "updatedAt": null,
+      "courseCode": "SE3002",
+      "courseName": "敏捷开发与人机协同",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "生成式AI辅助编程、代码审查协同与敏捷迭代。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 13,
+      "majorCode": "SE",
+      "updatedAt": null,
+      "courseCode": "SE3003",
+      "courseName": "DevOps与持续交付",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "容器化编排、CI/CD流水线构建与可观测性工程实践。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 14,
+      "majorCode": "SEC",
+      "updatedAt": null,
+      "courseCode": "CS3003",
+      "courseName": "计算机网络与安全",
+      "department": "网络空间安全教研室",
+      "objectives": null,
+      "description": "OSI七层模型、TCP/IP协议族、密码学与网络攻击防御。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 15,
+      "majorCode": "SEC",
+      "updatedAt": null,
+      "courseCode": "SEC3001",
+      "courseName": "信息安全攻防实践",
+      "department": "网络空间安全教研室",
+      "objectives": null,
+      "description": "漏洞扫描分析、逆向工程、Web渗透测试与攻防演练。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 16,
+      "majorCode": "DS",
+      "updatedAt": "2026-09-24 16:03:52.177023",
+      "courseCode": "DS2001",
+      "courseName": "数据库系统实现",
+      "department": "数据科学教研室",
+      "objectives": "掌握现代敏捷软件工程生命周期，具备跨角色协同与风险治理能力。",
+      "description": "【人工演示草稿】东北大学软件项目管理课程教学大纲与实践要求",
+      "assessmentMethod": "平时作业与甘特图 30% + 敏捷Sprint答辩 30% + 期末综合评审 40%"
+    },
+    {
+      "id": 17,
+      "majorCode": "DS",
+      "updatedAt": null,
+      "courseCode": "DS3001",
+      "courseName": "分布式大数据计算",
+      "department": "数据科学教研室",
+      "objectives": null,
+      "description": "Hadoop与Spark计算引擎、流批一体处理与大规模数据分析。",
+      "assessmentMethod": null
+    },
+    {
+      "id": 26,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-24 16:03:47.732430",
+      "courseCode": "DEMO-SE88",
+      "courseName": "新工科敏捷协同实战",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "东北大学软件工程特色专业方向实战课",
+      "assessmentMethod": null
+    },
+    {
+      "id": 27,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-24 16:06:23.739490",
+      "courseCode": "PW-TEST-3247",
+      "courseName": "Playwright自动化测试实战",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "全流程自动化测试实训课程",
+      "assessmentMethod": null
+    },
+    {
+      "id": 28,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-24 16:08:12.859827",
+      "courseCode": "PW-TEST-2371",
+      "courseName": "Playwright自动化测试实战",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "全流程自动化测试实训课程",
+      "assessmentMethod": null
+    },
+    {
+      "id": 29,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-24 16:09:45.301349",
+      "courseCode": "PW-TEST-4810",
+      "courseName": "Playwright自动化测试实战",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "全流程自动化测试实训课程",
+      "assessmentMethod": null
+    },
+    {
+      "id": 30,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-24 16:11:52.154075",
+      "courseCode": "PW-TEST-1653",
+      "courseName": "Playwright自动化测试实战",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "全流程自动化测试实训课程",
+      "assessmentMethod": null
+    },
+    {
+      "id": 31,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-24 16:14:29.694264",
+      "courseCode": "PW-TEST-9192",
+      "courseName": "Playwright自动化测试实战",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "全流程自动化测试实训课程",
+      "assessmentMethod": null
+    },
+    {
+      "id": 32,
+      "majorCode": "SE",
+      "updatedAt": "2026-09-24 16:15:36.703242",
+      "courseCode": "PW-TEST-6212",
+      "courseName": "Playwright自动化测试实战",
+      "department": "软件工程教研室",
+      "objectives": null,
+      "description": "全流程自动化测试实训课程",
+      "assessmentMethod": null
+    }
+  ],
+  "syllabi": [
+    {
+      "id": 1,
+      "status": "LOCKED",
+      "version": "v2026.1",
+      "courseId": 1,
+      "lockedBy": "李主任",
+      "createdAt": null,
+      "updatedAt": null,
+      "courseGoals": "目标1: 掌握敏捷Scrum与甘特图项目生命周期规划; 目标2: 具备人机协同与质量管控能力",
+      "planVersion": "v2026.1",
+      "authorTeacher": "郭军 (教授)"
+    },
+    {
+      "id": 2,
+      "status": "PUBLISHED",
+      "version": "v2026.1",
+      "courseId": 4,
+      "lockedBy": "李主任",
+      "createdAt": null,
+      "updatedAt": null,
+      "courseGoals": "掌握单处理器计算机硬件微架构设计与软硬件协同思维",
+      "planVersion": "v2026.1",
+      "authorTeacher": "姜琳颖 (副教授)"
+    },
+    {
+      "id": 3,
+      "status": "PUBLISHED",
+      "version": "v2026.1",
+      "courseId": 6,
+      "lockedBy": "李主任",
+      "createdAt": null,
+      "updatedAt": null,
+      "courseGoals": "掌握高阶算法复杂度分析与核心数据结构选型",
+      "planVersion": "v2026.1",
+      "authorTeacher": "赵广生 (讲师)"
+    },
+    {
+      "id": 4,
+      "status": "PUBLISHED",
+      "version": "v2026.1",
+      "courseId": 8,
+      "lockedBy": "李主任",
+      "createdAt": null,
+      "updatedAt": null,
+      "courseGoals": "掌握现代操作系统并发控制与内核资源抽象",
+      "planVersion": "v2026.1",
+      "authorTeacher": "王伟 (副教授)"
+    },
+    {
+      "id": 5,
+      "status": "LOCKED",
+      "version": "22",
+      "courseId": 7,
+      "lockedBy": "赵主任",
+      "createdAt": "2026-10-06 19:07:02.614663",
+      "updatedAt": "2026-10-06 19:07:08.434999",
+      "courseGoals": null,
+      "planVersion": "RECOMMENDED-12",
+      "authorTeacher": "赵主任"
+    },
+    {
+      "id": 6,
+      "status": "DRAFT",
+      "version": "23",
+      "courseId": 7,
+      "lockedBy": null,
+      "createdAt": "2026-10-06 19:08:47.397754",
+      "updatedAt": "2026-10-06 19:08:47.397770",
+      "courseGoals": null,
+      "planVersion": "RECOMMENDED-12",
+      "authorTeacher": "赵主任"
+    }
+  ],
+  "indicators": [
+    {
+      "id": 1,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标1",
+      "indicatorCode": "1-1",
+      "supportWeight": "H",
+      "requirementCategory": "1. 工程知识",
+      "indicatorDescription": "能够将项目生命周期理论与估算算法用于复杂软件开发建模"
+    },
+    {
+      "id": 2,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标1",
+      "indicatorCode": "2-3",
+      "supportWeight": "M",
+      "requirementCategory": "2. 问题分析",
+      "indicatorDescription": "能够识别软件过程瓶颈与工期死锁风险"
+    },
+    {
+      "id": 3,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标2",
+      "indicatorCode": "3-1",
+      "supportWeight": "H",
+      "requirementCategory": "3. 设计/开发解决方案",
+      "indicatorDescription": "能够设计覆盖敏捷迭代与持续交付的完整工程流程"
+    },
+    {
+      "id": 4,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标2",
+      "indicatorCode": "4-2",
+      "supportWeight": "M",
+      "requirementCategory": "4. 研究",
+      "indicatorDescription": "能够基于实验度量数据科学评价软件缺陷收敛趋势"
+    },
+    {
+      "id": 5,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标1",
+      "indicatorCode": "5-2",
+      "supportWeight": "H",
+      "requirementCategory": "5. 使用现代工具",
+      "indicatorDescription": "能够熟练运用甘特图、Jira及AI敏捷协同工具进行全流程把控"
+    },
+    {
+      "id": 6,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标1",
+      "indicatorCode": "6-1",
+      "supportWeight": "M",
+      "requirementCategory": "6. 工程与社会",
+      "indicatorDescription": "合理分析软件发布对行业与社会的合规性影响"
+    },
+    {
+      "id": 7,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标2",
+      "indicatorCode": "7-1",
+      "supportWeight": "L",
+      "requirementCategory": "7. 环境和可持续发展",
+      "indicatorDescription": "评价软件工程生命周期资源利用与系统可持续性"
+    },
+    {
+      "id": 8,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标1",
+      "indicatorCode": "8-2",
+      "supportWeight": "H",
+      "requirementCategory": "8. 职业规范",
+      "indicatorDescription": "具有软件工程师职业道德与软件知识产权保护规范"
+    },
+    {
+      "id": 9,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标2",
+      "indicatorCode": "9-2",
+      "supportWeight": "H",
+      "requirementCategory": "9. 个人和团队",
+      "indicatorDescription": "能够在多角色人机协同开发团队中承担轮值DRI与质量审查职责"
+    },
+    {
+      "id": 10,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标1",
+      "indicatorCode": "10-1",
+      "supportWeight": "M",
+      "requirementCategory": "10. 沟通",
+      "indicatorDescription": "能够撰写符合IEEE标准的工程规范与Sprint评审报告"
+    },
+    {
+      "id": 11,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标1",
+      "indicatorCode": "11-1",
+      "supportWeight": "H",
+      "requirementCategory": "11. 项目管理",
+      "indicatorDescription": "全面掌握软件经济决策、MoSCoW需求分级与工期缓冲池机制"
+    },
+    {
+      "id": 12,
+      "courseId": 1,
+      "createdAt": null,
+      "updatedAt": null,
+      "syllabusId": 1,
+      "targetGoal": "目标2",
+      "indicatorCode": "12-2",
+      "supportWeight": "M",
+      "requirementCategory": "12. 终身学习",
+      "indicatorDescription": "具有跟踪并吸收现代智能化软件工程新技术的敏锐度"
+    },
+    {
+      "id": 37,
+      "courseId": 7,
+      "createdAt": "2026-10-06 19:09:11.810386",
+      "updatedAt": "2026-10-06 19:09:11.810402",
+      "syllabusId": 6,
+      "targetGoal": "目标1",
+      "indicatorCode": "1-1",
+      "supportWeight": "M",
+      "requirementCategory": "工程知识",
+      "indicatorDescription": "111"
+    }
+  ],
+  "directors": [
+    {
+      "username": "director",
+      "department": "软件工程教研室"
+    },
+    {
+      "username": "director_ai",
+      "department": "人工智能教研室"
+    },
+    {
+      "username": "director_arch",
+      "department": "计算机系统结构教研室"
+    },
+    {
+      "username": "director_base",
+      "department": "基础软件教研室"
+    },
+    {
+      "username": "director_ds",
+      "department": "数据科学教研室"
+    },
+    {
+      "username": "director_sec",
+      "department": "网络空间安全教研室"
+    },
+    {
+      "username": "director_sys",
+      "department": "系统软件教研室"
+    }
+  ]
+}

@@ -72,11 +72,15 @@ public class CourseImportServiceImpl implements CourseImportService {
         byte[] bom = new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
         out.write(bom);
 
-        String content = "课程编码,课程名称,教研室,专业编码,学分,总学时,理论学时,实验学时,课程性质,先修课程编码,课程简介\n" +
-                "CS3001,软件项目管理,软件工程教研室,SE,3.0,48,36,12,专业核心课,CS1001;CS2001,系统讲授现代软件工程项目管理实践。\n" +
-                "CS3002,数据库系统概论,计算机科学教研室,CS,4.0,64,48,16,专业核心课,CS1002,全面介绍关系型数据库与SQL核心原理。\n";
+        UserVO operator = CourseArchiveRules.requireDirector();
+        StringBuilder content = new StringBuilder("课程编码,课程名称,教研室,专业编码,学分,总学时,理论学时,实验学时,课程性质,先修课程编码,课程简介\n");
+        for (Major major : majorRepository.findByDepartment(operator.getDepartment().trim())) {
+            content.append("SAMPLE-").append(escapeCsv(major.getMajorCode())).append(",示例课程（请替换）,")
+                    .append(escapeCsv(operator.getDepartment().trim())).append(',').append(escapeCsv(major.getMajorCode()))
+                    .append(",3.0,48,36,12,专业核心课,,仅用于展示导入格式，请替换为课程实际资料。\n");
+        }
 
-        out.write(content.getBytes(StandardCharsets.UTF_8));
+        out.write(content.toString().getBytes(StandardCharsets.UTF_8));
         out.flush();
     }
 

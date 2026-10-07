@@ -445,11 +445,12 @@
           </button>
 
           <button @click="applyRecommendedTemplate" :disabled="loadingIndicators" class="px-3 py-2 rounded-xl border text-xs text-indigo-700 disabled:opacity-50">
-            一键套用12项国标推荐模板
+            套用推荐示例模板（12类）
           </button>
           <!-- 新增指标点按钮 -->
           <button
             @click="openAddIndicatorModal"
+            :disabled="!canEditIndicators"
             class="px-4 py-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-xl text-xs font-semibold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
           >
             <Plus class="w-3.5 h-3.5" /> 新增认证指标点
@@ -457,7 +458,10 @@
         </div>
       </div>
 
-      <p v-if="planVersion === 'RECOMMENDED-12'" class="text-xs text-amber-700" role="status">当前为12项推荐草案，须按课程实际内容修订；真实培养方案请由主任导入后另建大纲版本。</p>
+      <p v-if="indicatorError" class="text-xs text-rose-700" role="alert">{{ indicatorError }} <button @click="loadIndicators" class="underline">重试加载</button></p>
+      <p v-else-if="!loadingIndicators && !currentSyllabus" class="text-xs text-amber-700">当前课程尚未创建大纲，请填写新大纲版本，从已导入目录创建或套用推荐示例模板。</p>
+      <p v-else-if="!loadingIndicators && planIndicators.length === 0" class="text-xs text-amber-700">当前大纲目录暂无指标，请联系专业牵头教研室导入，或选择已有目录创建新大纲版本。</p>
+      <p v-if="planVersion === 'RECOMMENDED-12'" class="text-xs text-amber-700" role="status">当前为推荐示例草案，供实验演示；请按课程内容修订，不代表专业正式培养方案。</p>
       <!-- 指标点矩阵表格 -->
       <div class="overflow-x-auto border border-slate-200/80 rounded-xl">
         <table class="w-full text-left text-xs text-slate-700">
@@ -520,7 +524,7 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-slate-700 font-semibold block mb-1">指标点编号 (如 1-1, 11-1, 12-1)</label>
-              <select v-model="indicatorForm.indicatorCode" @change="selectPlanIndicator" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs">
+              <select v-model="indicatorForm.indicatorCode" aria-label="指标点编号" @change="selectPlanIndicator" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs">
                 <option value="">请选择</option>
                 <option v-for="item in planIndicators" :key="item.indicatorCode" :value="item.indicatorCode">{{ item.indicatorCode }}</option>
               </select>
@@ -542,12 +546,15 @@
             <label class="text-slate-700 font-semibold block mb-1">毕业要求大项（培养方案目录）</label>
             <select
               v-model="indicatorForm.requirementCategory"
+              aria-label="毕业要求大项（培养方案目录）"
+              @change="selectPlanCategory"
               class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs cursor-pointer"
             >
               <option v-for="cat in standardIndicatorCategories" :key="cat" :value="cat">
                 {{ cat }}
               </option>
             </select>
+            <p class="mt-1 text-[11px] text-slate-500">选择大项会同步对应指标编号；编号与大项均以当前目录为准。</p>
           </div>
 
           <div>
@@ -800,6 +807,9 @@ const indicatorForm = ref({
 })
 
 const planIndicators = ref<GraduationIndicator[]>([])
+const indicatorError = ref('')
+const canEditIndicators = computed(() => !loadingIndicators.value && !indicatorError.value &&
+  !!currentSyllabus.value && currentSyllabus.value.status !== 'LOCKED' && planIndicators.value.length > 0)
 const planVersion = ref('')
 const syllabusVersion = ref('')
 const standardIndicatorCategories = computed(() => Array.from(new Set(planIndicators.value.map(i => i.requirementCategory))))
@@ -926,6 +936,8 @@ const loadCourse = async () => {
 }
 
 const loadIndicators = async () => {
+  planIndicators.value = []
+  indicatorError.value = ''
   if (!currentCourse.value?.id) {
     indicators.value = []
     return
@@ -938,7 +950,8 @@ const loadIndicators = async () => {
     syllabusVersion.value = ''
     planIndicators.value = planVersion.value && currentCourse.value.majorCode
       ? await syllabusApi.getPlanIndicators(currentCourse.value.majorCode, planVersion.value) : []
-  } catch (e) {
+  } catch (e: any) {
+    indicatorError.value = e.response?.data?.message || '加载指标目录失败'
     console.error('加载指标点失败', e)
   } finally {
     loadingIndicators.value = false
@@ -946,9 +959,10 @@ const loadIndicators = async () => {
 }
 
 const openAddIndicatorModal = () => {
+  if (!canEditIndicators.value) return
   indicatorForm.value = {
     id: null,
-    indicatorCode: '',
+    indicatorCode: planIndicators.value[0]?.indicatorCode || '',
     requirementCategory: standardIndicatorCategories.value[0] || '',
     indicatorDescription: '',
     supportWeight: 'H',
@@ -965,7 +979,18 @@ const selectPlanIndicator = () => {
   }
 }
 
+const selectPlanCategory = () => {
+  const previous = planIndicators.value.find(i => i.indicatorCode === indicatorForm.value.indicatorCode)
+  if (previous?.requirementCategory === indicatorForm.value.requirementCategory) return
+  const found = planIndicators.value.find(i => i.requirementCategory === indicatorForm.value.requirementCategory)
+  indicatorForm.value.indicatorCode = found?.indicatorCode || ''
+  if (!indicatorForm.value.indicatorDescription.trim() || indicatorForm.value.indicatorDescription === previous?.indicatorDescription) {
+    indicatorForm.value.indicatorDescription = found?.indicatorDescription || ''
+  }
+}
+
 const openEditIndicatorModal = (ind: GraduationIndicator) => {
+  if (!canEditIndicators.value) return
   indicatorForm.value = {
     id: ind.id,
     indicatorCode: ind.indicatorCode,

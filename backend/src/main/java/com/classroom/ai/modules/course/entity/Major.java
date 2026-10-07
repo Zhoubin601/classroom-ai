@@ -35,7 +35,7 @@ public class Major {
     @Column(nullable = false, length = 64)
     private String majorName;
 
-    /** 所属院系/教研室 */
+    /** 唯一牵头教研室，负责专业公共培养方案；参与教研室见 MajorDepartment。 */
     @Column(length = 64)
     private String department;
 

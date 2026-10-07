@@ -1,0 +1,9 @@
+{
+  "username": "director_base",
+  "department": "基础软件教研室",
+  "managedCodes": [
+    "CS"
+  ],
+  "recommendedIndicatorCount": 12,
+  "image": "sha256:fa535718dbe205e7df0d05196f14813651adb838706efd6c48022a1b11e778dc"
+}

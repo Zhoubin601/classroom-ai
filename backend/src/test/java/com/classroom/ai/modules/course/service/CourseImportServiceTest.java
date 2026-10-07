@@ -69,6 +69,8 @@ class CourseImportServiceTest {
     @Test
     @DisplayName("下载模板：输出 UTF-8 BOM 以及包含标准表头内容的 CSV 模板")
     void testDownloadTemplate() throws IOException {
+        when(majorRepository.findByDepartment("软件工程教研室")).thenReturn(List.of(
+                Major.builder().majorCode("SE").department("软件工程教研室").build()));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         courseImportService.downloadTemplate(out);
 
@@ -81,7 +83,8 @@ class CourseImportServiceTest {
 
         String text = new String(bytes, StandardCharsets.UTF_8);
         assertThat(text).contains("课程编码,课程名称,教研室,专业编码,学分,总学时,理论学时,实验学时,课程性质,先修课程编码,课程简介");
-        assertThat(text).contains("CS3001,软件项目管理");
+        assertThat(text).contains("SAMPLE-SE,示例课程（请替换）,软件工程教研室,SE");
+        assertThat(text).doesNotContain("计算机科学教研室");
     }
 
     @Test

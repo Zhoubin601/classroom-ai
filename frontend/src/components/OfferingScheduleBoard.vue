@@ -106,57 +106,62 @@
     </div>
 
     <!-- 筛选排课表单 -->
-    <form class="pro-card p-4.5 flex flex-wrap gap-3 items-end" @submit.prevent="loadSchedules">
-      <div class="flex-1 min-w-[140px]">
-        <label class="block text-[11px] font-semibold text-slate-600 mb-1">学期</label>
+    <form aria-label="排课筛选" class="pro-card grid grid-cols-1 gap-3 p-4 items-end sm:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(8rem,0.6fr)_minmax(0,1.2fr)_auto]" @submit.prevent="loadSchedules">
+      <div class="min-w-0">
+        <label for="schedule-filter-term" class="block text-[11px] font-semibold text-slate-600 mb-1.5">学期</label>
         <input
+          id="schedule-filter-term"
           v-model="filter.term"
           aria-label="学期"
           placeholder="全部学期"
           list="offering-terms"
-          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
+          class="h-10 w-full min-w-0 bg-slate-50 border border-slate-200 rounded-xl px-3 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
         />
         <datalist id="offering-terms"><option v-for="term in terms" :key="term" :value="term" /></datalist>
       </div>
 
-      <div class="flex-1 min-w-[160px]">
-        <label class="block text-[11px] font-semibold text-slate-600 mb-1">教师</label>
+      <div class="min-w-0">
+        <label for="schedule-filter-teacher" class="block text-[11px] font-semibold text-slate-600 mb-1.5">教师</label>
         <select
+          id="schedule-filter-teacher"
           v-model="filter.teacher"
           aria-label="教师"
-          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner cursor-pointer"
+          class="h-10 w-full min-w-0 bg-slate-50 border border-slate-200 rounded-xl px-3 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner cursor-pointer"
         >
           <option value="">全部教师</option>
           <option v-for="t in teachers" :key="t.id" :value="t.teacherCode">{{ t.teacherName }} · {{ t.teacherCode }}</option>
         </select>
       </div>
 
-      <div class="w-24">
-        <label class="block text-[11px] font-semibold text-slate-600 mb-1">周次</label>
+      <div class="min-w-0">
+        <label for="schedule-filter-week" class="block text-[11px] font-semibold text-slate-600 mb-1.5">周次</label>
         <input
+          id="schedule-filter-week"
           v-model="filter.week"
           aria-label="周次"
           type="number"
           min="1"
           max="53"
           placeholder="全部周次"
-          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono"
+          class="h-10 w-full min-w-0 bg-slate-50 border border-slate-200 rounded-xl px-3 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono"
         />
       </div>
 
-      <div class="flex-1 min-w-[160px]">
-        <label class="block text-[11px] font-semibold text-slate-600 mb-1">教室</label>
+      <div class="min-w-0">
+        <label for="schedule-filter-classroom" class="block text-[11px] font-semibold text-slate-600 mb-1.5">教室</label>
         <input
+          id="schedule-filter-classroom"
           v-model="filter.classroom"
           aria-label="教室"
           placeholder="例如：文管 A447"
-          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
+          class="h-10 w-full min-w-0 bg-slate-50 border border-slate-200 rounded-xl px-3 text-xs text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
         />
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center justify-end gap-2 sm:col-span-2 xl:col-span-1">
         <button
-          class="px-4 py-2 text-xs font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white shadow-sm shadow-indigo-600/20 transition cursor-pointer disabled:opacity-50"
+          type="submit"
+          class="h-10 shrink-0 px-4 text-xs font-semibold whitespace-nowrap rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white shadow-sm shadow-indigo-600/20 transition cursor-pointer disabled:opacity-50"
           :disabled="querying"
         >
           筛选排课
@@ -164,7 +169,7 @@
         <button
           type="button"
           @click="resetFilter"
-          class="px-3.5 py-2 text-xs font-medium rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer border border-slate-200"
+          class="h-10 shrink-0 px-3.5 text-xs font-medium whitespace-nowrap rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer border border-slate-200"
         >
           重置
         </button>

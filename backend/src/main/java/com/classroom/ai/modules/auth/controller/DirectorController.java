@@ -165,7 +165,7 @@ public class DirectorController {
     }
 
     private List<Major> getMajorsForDirector(UserVO director) {
-        // 与课程建档使用同一明确归属，不根据专业名/教研室关键字猜测权限。
+        // 与课程建档共用牵头或明确参与范围，不根据课程编辑或名称猜测权限。
         if (director.getDepartment() == null || director.getDepartment().isBlank()) return List.of();
         return majorRepository.findByDepartment(director.getDepartment().trim());
     }

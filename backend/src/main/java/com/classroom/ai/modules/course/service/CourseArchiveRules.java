@@ -33,7 +33,11 @@ public final class CourseArchiveRules {
         if (code == null || code.isBlank()) throw new IllegalArgumentException("专业编码不能为空");
         Major major = repository.findByMajorCode(code.trim().toUpperCase(Locale.ROOT))
             .orElseThrow(() -> new IllegalArgumentException("未知的专业编码: " + code));
-        validateDepartment(major.getDepartment());
+        String department = requireDirector().getDepartment().trim();
+        boolean lead = department.equals(major.getDepartment());
+        if (!lead && repository.findByDepartment(department).stream()
+                .noneMatch(m -> m.getMajorCode().equals(major.getMajorCode())))
+            throw new ForbiddenException("专业未关联当前教研室，禁止跨专业建档或导入");
         return major;
     }
 

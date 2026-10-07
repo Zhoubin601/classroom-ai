@@ -1,0 +1,204 @@
+{
+  "status": "passed",
+  "totalCourses": 24,
+  "createdDrafts": 23,
+  "addedRows": 175,
+  "historicalSyllabiUnchanged": 6,
+  "historicalIndicatorsUnchanged": 13,
+  "allCoursesHaveMatrix": true,
+  "rerunCreates": 0,
+  "courses": [
+    {
+      "courseCode": "CS3001",
+      "courseName": "软件项目管理",
+      "syllabusId": 1,
+      "version": "v2026.1",
+      "status": "LOCKED",
+      "rows": 12
+    },
+    {
+      "courseCode": "CS1001",
+      "courseName": "软件工程导论",
+      "syllabusId": 7,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "CS4002",
+      "courseName": "敏捷软件工程实训",
+      "syllabusId": 8,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "CS2002",
+      "courseName": "计算机组成原理",
+      "syllabusId": 9,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "CS2003",
+      "courseName": "数字逻辑与系统设计",
+      "syllabusId": 10,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "CS2001",
+      "courseName": "数据结构与算法",
+      "syllabusId": 11,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "CS1002",
+      "courseName": "C++高级程序设计",
+      "syllabusId": 12,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "CS3002",
+      "courseName": "操作系统原理",
+      "syllabusId": 13,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "CS3008",
+      "courseName": "嵌入式Linux系统",
+      "syllabusId": 14,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "AI3001",
+      "courseName": "人工智能导论",
+      "syllabusId": 15,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "AI3002",
+      "courseName": "机器学习与模式识别",
+      "syllabusId": 16,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "SE3002",
+      "courseName": "敏捷开发与人机协同",
+      "syllabusId": 17,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "SE3003",
+      "courseName": "DevOps与持续交付",
+      "syllabusId": 18,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 9
+    },
+    {
+      "courseCode": "CS3003",
+      "courseName": "计算机网络与安全",
+      "syllabusId": 19,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "SEC3001",
+      "courseName": "信息安全攻防实践",
+      "syllabusId": 20,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "DS2001",
+      "courseName": "数据库系统实现",
+      "syllabusId": 21,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "DS3001",
+      "courseName": "分布式大数据计算",
+      "syllabusId": 22,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "DEMO-SE88",
+      "courseName": "新工科敏捷协同实战",
+      "syllabusId": 23,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 8
+    },
+    {
+      "courseCode": "PW-TEST-3247",
+      "courseName": "Playwright自动化测试实战",
+      "syllabusId": 24,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "PW-TEST-2371",
+      "courseName": "Playwright自动化测试实战",
+      "syllabusId": 25,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "PW-TEST-4810",
+      "courseName": "Playwright自动化测试实战",
+      "syllabusId": 26,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "PW-TEST-1653",
+      "courseName": "Playwright自动化测试实战",
+      "syllabusId": 27,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "PW-TEST-9192",
+      "courseName": "Playwright自动化测试实战",
+      "syllabusId": 28,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    },
+    {
+      "courseCode": "PW-TEST-6212",
+      "courseName": "Playwright自动化测试实战",
+      "syllabusId": 29,
+      "version": "示例矩阵-20261006-v1",
+      "status": "DRAFT",
+      "rows": 7
+    }
+  ]
+}

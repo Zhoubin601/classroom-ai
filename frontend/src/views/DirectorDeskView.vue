@@ -242,7 +242,7 @@
             </div>
 
             <!-- 新增指标点按钮 -->
-            <button @click="openAddIndicatorModal" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer">
+            <button @click="openAddIndicatorModal" :disabled="!canAddIndicator" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50">
               <Plus class="w-3.5 h-3.5" /> 新增认证指标点
             </button>
 
@@ -254,9 +254,30 @@
         </div>
 
         <div class="border border-indigo-100 bg-indigo-50/30 rounded-2xl p-4 mb-5 space-y-3 text-xs">
+          <p v-if="indicatorLoading" role="status">正在加载课程指标与目录...</p>
+          <div v-else-if="indicatorLoadError" role="alert" class="text-rose-700">
+            {{ indicatorLoadError }} <button @click="loadIndicatorsForSelectedCourse" class="underline ml-2">重试加载</button>
+          </div>
+          <template v-else>
+            <p v-if="selectedSyllabus">当前大纲：{{ selectedSyllabus.version }} · 目录版本：{{ selectedSyllabus.planVersion || selectedSyllabus.version }} · {{ selectedSyllabus.status === 'LOCKED' ? '已锁定，请创建新版本后修改' : '可维护课程映射' }}</p>
+            <p v-else>该课程尚未创建大纲，请先选择目录并创建大纲，再新增指标映射。</p>
+            <p v-if="catalogVersion === 'RECOMMENDED-12'" class="text-amber-700" role="status">当前目录为推荐示例模板，供实验演示；请按课程内容修订，不代表专业正式培养方案。</p>
+            <p v-else-if="planCatalog.length === 0" class="text-amber-700">目录版本 {{ catalogVersion || '未绑定' }} 尚无指标，请联系牵头教研室导入，或选择已有目录创建新大纲。</p>
+          </template>
+          <div class="flex flex-wrap gap-2.5">
+            <select v-model="newPlanVersion" aria-label="新大纲目录版本" class="border border-slate-200 rounded-xl px-3 py-1.5 bg-white">
+              <option value="RECOMMENDED-12">推荐示例模板（12类）</option>
+              <option v-for="version in availablePlanVersions" :key="version" :value="version">已导入目录：{{ version }}</option>
+            </select>
+            <input v-model="newSyllabusVersion" aria-label="新大纲版本" placeholder="请输入新大纲版本，如 v1" class="border border-slate-200 rounded-xl px-3 py-1.5 bg-white" />
+            <button @click="createIndicatorSyllabus" :disabled="indicatorLoading || creatingSyllabus || !selectedCourseIdForIndicator || !newSyllabusVersion.trim()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl disabled:opacity-50">{{ creatingSyllabus ? '正在创建...' : '创建大纲并绑定目录' }}</button>
+          </div>
+        </div>
+
+        <div v-if="leadMajors.length > 0" class="border border-indigo-100 bg-indigo-50/30 rounded-2xl p-4 mb-5 space-y-3 text-xs">
           <div class="font-bold text-slate-900">导入培养方案指标目录（每行：编号 | 类别 | 描述）</div>
           <div class="flex flex-wrap gap-2.5">
-            <select v-model="planMajorCode" aria-label="培养方案专业" class="border border-slate-200 rounded-xl px-3 py-1.5 bg-white text-slate-800 text-xs shadow-inner"><option value="">选择专业</option><option v-for="m in managedMajors" :key="m.majorCode" :value="m.majorCode">{{ m.majorName }}</option></select>
+            <select v-model="planMajorCode" aria-label="培养方案专业" class="border border-slate-200 rounded-xl px-3 py-1.5 bg-white text-slate-800 text-xs shadow-inner"><option value="">选择牵头专业</option><option v-for="m in leadMajors" :key="m.majorCode" :value="m.majorCode">{{ m.majorName }}</option></select>
             <input v-model="planImportVersion" aria-label="培养方案版本" placeholder="如 2026版" class="border border-slate-200 rounded-xl px-3 py-1.5 bg-white text-slate-800 text-xs shadow-inner" />
           </div>
           <textarea v-model="planImportText" aria-label="培养方案指标目录" rows="4" class="w-full border border-slate-200 rounded-xl p-3 bg-white text-slate-800 text-xs shadow-inner focus:outline-none focus:border-indigo-500" placeholder="1-1 | 工程知识 | 指标描述"></textarea>
@@ -265,6 +286,8 @@
             <span class="text-slate-500 text-[11px]">以实际培养方案为准；重导同版本会同步该版目录，旧版本保留</span>
           </div>
         </div>
+
+        <p v-else class="text-xs text-slate-500 mb-4">公共培养方案目录由专业牵头教研室维护；本教研室可读取关联专业目录并维护本室课程映射。</p>
 
         <div class="overflow-x-auto rounded-2xl border border-slate-200/80">
           <table class="w-full text-left text-xs text-slate-700">
@@ -283,7 +306,7 @@
                 <td colspan="6" class="py-12 text-center text-slate-400">
                   <div class="flex flex-col items-center justify-center gap-2">
                     <FileText class="w-6 h-6 text-slate-300" />
-                    <span>该课程暂未录入毕业要求指标点，请点击右上角【新增认证指标点】进行录入</span>
+                    <span>{{ selectedSyllabus ? '该版大纲暂无课程指标映射；目录加载后可新增指标点' : '该课程尚无大纲，请先创建大纲并绑定目录' }}</span>
                   </div>
                 </td>
               </tr>
@@ -300,8 +323,8 @@
                 </td>
                 <td class="py-3.5 px-4 text-slate-500 font-mono">{{ ind.targetGoal || '目标1' }}</td>
                 <td class="py-3.5 px-4 text-right space-x-2">
-                  <button @click="openEditIndicatorModal(ind)" class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer">编辑</button>
-                  <button @click="confirmDeleteIndicator(ind)" class="text-rose-600 hover:text-rose-800 font-semibold cursor-pointer">删除</button>
+                  <button @click="openEditIndicatorModal(ind)" :disabled="!canAddIndicator" class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer disabled:opacity-50">编辑</button>
+                  <button @click="confirmDeleteIndicator(ind)" :disabled="!canAddIndicator" class="text-rose-600 hover:text-rose-800 font-semibold cursor-pointer disabled:opacity-50">删除</button>
                 </td>
               </tr>
             </tbody>
@@ -339,7 +362,9 @@
           <div class="flex items-center gap-2 text-indigo-900">
             <Users class="w-4 h-4 text-indigo-600 shrink-0" />
             <span class="font-bold">当前主任管辖范围：</span>
-            <span v-if="managedMajors.length === 0" class="text-slate-500">正在获取管辖专业...</span>
+            <span v-if="managedMajorsLoading" class="text-slate-500" role="status">正在获取管辖专业...</span>
+            <span v-else-if="managedMajorsError" class="text-rose-700" role="alert">{{ managedMajorsError }} <button @click="loadManagedMajors" class="underline">重试</button></span>
+            <span v-else-if="managedMajors.length === 0" class="text-slate-500">当前教研室尚未配置专业关联</span>
             <div v-else class="flex flex-wrap gap-1.5">
               <span
                 v-for="m in managedMajors"
@@ -445,7 +470,7 @@
           </div>
           <div>
             <label class="text-slate-600 block mb-1 font-semibold">教研室 *</label>
-            <input v-model="currentCourseForm.department" placeholder="如 软件工程教研室" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner" />
+            <input v-model="currentCourseForm.department" aria-label="课程所属教研室" readonly class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none shadow-inner" />
           </div>
           <div>
             <label class="text-slate-600 block mb-1 font-semibold">主讲 / 任课教师</label>
@@ -559,11 +584,11 @@
               >
                 <b class="font-mono text-indigo-700 font-bold">{{ m.majorCode }}</b>
                 <span class="text-slate-700 font-medium">{{ m.majorName }}</span>
-                <span v-if="m.department" class="text-[10px] text-slate-400">({{ m.department }})</span>
+                <span v-if="m.department" class="text-[10px] text-slate-400">(牵头：{{ m.department }})</span>
               </span>
             </div>
             <div class="text-[11px] text-indigo-700 leading-relaxed pt-1">
-              💡 <b>专业编码是什么？</b> 专业编码是学校开设各专业的官方英文字符代号。例如数据科学教研室对应 <b>DS</b>（数据科学与大数据技术），软件工程对应 <b>SE</b>，计算机对应 <b>CS</b>，人工智能对应 <b>AI</b>，网络安全对应 <b>SEC</b>。
+              💡 <b>专业编码是什么？</b> 专业字典使用 <b>SE、CS、AI、DS、SEC</b> 等编码。同一专业可以关联多个教研室；导入仅能使用当前教研室已关联的专业，课程教研室需填写本人所属教研室。
             </div>
           </div>
 
@@ -719,7 +744,7 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="text-slate-600 block mb-1 font-semibold">指标点编号 (如 1-1, 11-1)</label>
-              <select v-model="indicatorForm.indicatorCode" @change="selectPlanIndicator" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner">
+              <select v-model="indicatorForm.indicatorCode" aria-label="指标点编号" @change="selectPlanIndicator" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner">
                 <option value="">请选择</option>
                 <option v-for="item in planCatalog" :key="item.indicatorCode" :value="item.indicatorCode">{{ item.indicatorCode }}</option>
               </select>
@@ -741,12 +766,15 @@
             <label class="text-slate-600 block mb-1 font-semibold">毕业要求大项</label>
             <select
               v-model="indicatorForm.requirementCategory"
+              aria-label="毕业要求大项"
+              @change="selectPlanCategory"
               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"
             >
               <option v-for="cat in standardIndicatorCategories" :key="cat" :value="cat">
                 {{ cat }}
               </option>
             </select>
+            <p class="mt-1 text-[11px] text-slate-500">选择大项会同步对应指标编号；编号与大项均以当前目录为准。</p>
           </div>
 
           <div>
@@ -830,7 +858,7 @@
             <label class="text-slate-600 block mb-1.5 font-bold text-slate-800">授权管辖专业 (严格限定主任管辖范围)</label>
             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
               <div v-if="managedMajors.length === 0" class="text-slate-400 text-xs">
-                未检索到当前管辖专业
+                {{ managedMajorsLoading ? '正在获取管辖专业...' : (managedMajorsError || '当前教研室尚未配置专业关联') }}
               </div>
               <label
                 v-for="m in managedMajors"
@@ -880,7 +908,7 @@
 
           <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
             <div v-if="managedMajors.length === 0" class="text-slate-400 text-xs">
-              未检索到当前管辖专业
+              {{ managedMajorsLoading ? '正在获取管辖专业...' : (managedMajorsError || '当前教研室尚未配置专业关联') }}
             </div>
             <label
               v-for="m in managedMajors"
@@ -980,7 +1008,9 @@ import {
   XCircle
 } from 'lucide-vue-next'
 import { courseApi, syllabusApi, supervisionApi, directorApi, courseImportApi, majorApi } from '../api'
-import type { Course, GraduationIndicator, Major, UserVO, ImportPreviewVO } from '../api/types'
+import type { Course, CourseSyllabus, GraduationIndicator, Major, UserVO, ImportPreviewVO } from '../api/types'
+
+const props = defineProps<{ department?: string }>()
 
 const allMajors = ref<Major[]>([])
 const loadAllMajors = async () => {
@@ -1022,6 +1052,7 @@ const savePlanCatalog = async () => {
     })
     if (!rows.length) throw new Error('请填写指标目录')
     await syllabusApi.importPlanIndicators(planMajorCode.value, planImportVersion.value, rows)
+    await loadIndicatorsForSelectedCourse()
     alert(`已导入 ${rows.length} 条培养方案指标`)
   } catch (e: any) { alert(e.response?.data?.message || e.message || '导入失败') }
 }
@@ -1212,6 +1243,17 @@ const indicatorForm = ref<any>({
 })
 
 const planCatalog = ref<GraduationIndicator[]>([])
+const selectedSyllabus = ref<CourseSyllabus | null>(null)
+const indicatorLoading = ref(false)
+const indicatorLoadError = ref('')
+const catalogVersion = ref('')
+const availablePlanVersions = ref<string[]>([])
+const newPlanVersion = ref('RECOMMENDED-12')
+const newSyllabusVersion = ref('')
+const creatingSyllabus = ref(false)
+let indicatorRequest = 0
+const canAddIndicator = computed(() => !indicatorLoading.value && !indicatorLoadError.value &&
+  !!selectedSyllabus.value && selectedSyllabus.value.status !== 'LOCKED' && planCatalog.value.length > 0)
 const standardIndicatorCategories = computed(() => Array.from(new Set(planCatalog.value.map(i => i.requirementCategory))))
 
 const loadCourses = async () => {
@@ -1233,30 +1275,67 @@ const loadCourses = async () => {
 }
 
 const loadIndicatorsForSelectedCourse = async () => {
+  const request = ++indicatorRequest
+  const courseId = Number(selectedCourseIdForIndicator.value)
+  indicatorList.value = []
+  indicatorLoading.value = false
+  catalogVersion.value = ''
+  indicatorLoadError.value = ''
+  planCatalog.value = []
+  selectedSyllabus.value = null
+  availablePlanVersions.value = []
+  showIndicatorModal.value = false
   if (!selectedCourseIdForIndicator.value) {
     indicatorList.value = []
     return
   }
   try {
-    const res = await syllabusApi.getIndicators(Number(selectedCourseIdForIndicator.value))
+    indicatorLoading.value = true
+    const [res, latest] = await Promise.all([syllabusApi.getIndicators(courseId), syllabusApi.getLatest(courseId)])
+    if (request !== indicatorRequest) return
     indicatorList.value = Array.isArray(res) ? res : []
-    const course = courseList.value.find(c => c.id === selectedCourseIdForIndicator.value)
-    const latest = await syllabusApi.getLatest(Number(selectedCourseIdForIndicator.value))
-    planCatalog.value = course?.majorCode && latest?.planVersion
-      ? await syllabusApi.getPlanIndicators(course.majorCode, latest.planVersion) : []
-  } catch (e) {
+    selectedSyllabus.value = latest
+    const course = courseList.value.find(c => c.id === courseId)
+    if (!course?.majorCode) throw new Error('课程尚未关联专业，请先修正课程档案')
+    catalogVersion.value = latest?.planVersion || latest?.version || 'RECOMMENDED-12'
+    const [catalog, versions] = await Promise.all([
+      syllabusApi.getPlanIndicators(course.majorCode, catalogVersion.value), syllabusApi.getPlanVersions(course.majorCode)
+    ])
+    if (request !== indicatorRequest) return
+    planCatalog.value = catalog
+    availablePlanVersions.value = versions
+    newPlanVersion.value = versions.includes(catalogVersion.value) ? catalogVersion.value : 'RECOMMENDED-12'
+  } catch (e: any) {
+    if (request !== indicatorRequest) return
     console.error('加载指标点失败', e)
-    indicatorList.value = []
+    indicatorLoadError.value = e.response?.data?.message || e.message || '目录加载失败，请重试'
     planCatalog.value = []
+  } finally {
+    if (request === indicatorRequest) indicatorLoading.value = false
   }
+}
+
+const createIndicatorSyllabus = async () => {
+  if (creatingSyllabus.value || !selectedCourseIdForIndicator.value || !newSyllabusVersion.value.trim()) return
+  creatingSyllabus.value = true
+  try {
+    const course = courseList.value.find(c => c.id === selectedCourseIdForIndicator.value)
+    if (!course?.majorCode) throw new Error('课程尚未关联专业')
+    const catalog = await syllabusApi.getPlanIndicators(course.majorCode, newPlanVersion.value)
+    if (!catalog.length) throw new Error('所选目录没有指标，请联系牵头教研室导入')
+    await syllabusApi.save({ courseId: course.id, version: newSyllabusVersion.value.trim(),
+      planVersion: newPlanVersion.value, status: 'DRAFT', indicators: [] })
+    newSyllabusVersion.value = ''
+    await loadIndicatorsForSelectedCourse()
+    alert('大纲已创建并绑定目录，现在可新增课程指标映射')
+  } catch (e: any) { alert(e.response?.data?.message || e.message || '创建大纲失败') }
+  finally { creatingSyllabus.value = false }
 }
 
 const openAddCourseModal = () => {
   courseErrorMessage.value = ''
-  const defaultDept = managedMajors.value.length > 0 && managedMajors.value[0].department
-    ? managedMajors.value[0].department
-    : '软件工程教研室'
-  const defaultMajor = managedMajors.value.length > 0 ? managedMajors.value[0].majorCode : 'SE'
+  const defaultDept = props.department || ''
+  const defaultMajor = managedMajors.value[0]?.majorCode || ''
 
   currentCourseForm.value = {
     courseCode: '',
@@ -1342,6 +1421,7 @@ const removeCourse = async (id: number) => {
 
 // 指标点新增、编辑与删除方法
 const openAddIndicatorModal = () => {
+  if (!canAddIndicator.value) return
   if (!selectedCourseIdForIndicator.value) {
     alert('请先选择一门课程！')
     return
@@ -1365,7 +1445,18 @@ const selectPlanIndicator = () => {
   }
 }
 
+const selectPlanCategory = () => {
+  const previous = planCatalog.value.find(i => i.indicatorCode === indicatorForm.value.indicatorCode)
+  if (previous?.requirementCategory === indicatorForm.value.requirementCategory) return
+  const found = planCatalog.value.find(i => i.requirementCategory === indicatorForm.value.requirementCategory)
+  indicatorForm.value.indicatorCode = found?.indicatorCode || ''
+  if (!indicatorForm.value.indicatorDescription.trim() || indicatorForm.value.indicatorDescription === previous?.indicatorDescription) {
+    indicatorForm.value.indicatorDescription = found?.indicatorDescription || ''
+  }
+}
+
 const openEditIndicatorModal = (ind: GraduationIndicator) => {
+  if (!canAddIndicator.value) return
   indicatorForm.value = {
     id: ind.id,
     indicatorCode: ind.indicatorCode,
@@ -1433,6 +1524,9 @@ const viewCourseDetail = (c: Course) => {
 // ==================== 督导建档与专业授权 (US-06) ====================
 const supervisorsList = ref<UserVO[]>([])
 const managedMajors = ref<Major[]>([])
+const managedMajorsLoading = ref(true)
+const managedMajorsError = ref('')
+const leadMajors = computed(() => managedMajors.value.filter(m => m.department === props.department))
 const showCreateSupervisorModal = ref(false)
 const createSupervisorForm = ref({
   username: '',
@@ -1456,15 +1550,20 @@ const loadSupervisors = async () => {
 }
 
 const loadManagedMajors = async () => {
+  managedMajorsLoading.value = true
+  managedMajorsError.value = ''
   try {
     const list = await directorApi.getManagedMajors()
     managedMajors.value = Array.isArray(list) ? list : []
-  } catch (e) {
+  } catch (e: any) {
+    managedMajors.value = []
+    managedMajorsError.value = e.response?.data?.message || '加载管辖专业失败'
     console.error('加载主任管辖专业失败', e)
-  }
+  } finally { managedMajorsLoading.value = false }
 }
 
 const openCreateSupervisorModal = () => {
+  if (managedMajorsLoading.value || managedMajorsError.value) return
   createSupervisorForm.value = {
     username: '',
     password: '',
@@ -1499,6 +1598,7 @@ const handleCreateSupervisor = async () => {
 }
 
 const openEditMajorsModal = (sup: UserVO) => {
+  if (managedMajorsLoading.value || managedMajorsError.value) return
   editingSupervisor.value = sup
   const existing = sup.authorizedMajors ? sup.authorizedMajors.split(';').map((s: string) => s.trim()).filter(Boolean) : []
   editSupervisorSelectedMajors.value = existing.filter(code => managedMajors.value.some(m => m.majorCode === code))
@@ -1507,7 +1607,7 @@ const openEditMajorsModal = (sup: UserVO) => {
 }
 
 const handleUpdateSupervisorMajors = async () => {
-  if (!editingSupervisor.value) return
+  if (!editingSupervisor.value || managedMajorsLoading.value || managedMajorsError.value || !managedMajors.value.length) return
   try {
     supervisorErrorMessage.value = ''
     await directorApi.updateSupervisorMajors(editingSupervisor.value.id, editSupervisorSelectedMajors.value.join(';'))

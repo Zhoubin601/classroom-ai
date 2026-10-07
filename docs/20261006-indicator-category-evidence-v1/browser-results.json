@@ -1,0 +1,211 @@
+{
+  "status": "passed",
+  "note": "仅模拟GET大纲和课程指标响应为未锁定草稿，目录与排课筛选请求使用真实服务；未保存业务数据",
+  "checks": [
+    "主任大项可选、编号双向同步、保留手写描述；取消未保存",
+    "排课筛选在1600/1024/768/390px无重叠或溢出，输入和按钮高度40px；真实GET筛选与重置通过",
+    "教师大项可选、编号双向同步、保留手写描述；取消未保存"
+  ],
+  "layouts": [
+    {
+      "viewport": 1600,
+      "width": 1544,
+      "padding": "16px",
+      "overflow": false,
+      "fields": [
+        {
+          "label": "学期",
+          "x": 17,
+          "y": 39.5,
+          "width": 330,
+          "height": 40
+        },
+        {
+          "label": "教师",
+          "x": 359,
+          "y": 39.5,
+          "width": 396,
+          "height": 40
+        },
+        {
+          "label": "周次",
+          "x": 767,
+          "y": 39.5,
+          "width": 198,
+          "height": 40
+        },
+        {
+          "label": "教室",
+          "x": 977,
+          "y": 39.5,
+          "width": 396,
+          "height": 40
+        },
+        {
+          "label": "筛选排课",
+          "x": 1385,
+          "y": 39.5,
+          "width": 80,
+          "height": 40
+        },
+        {
+          "label": "重置",
+          "x": 1473,
+          "y": 39.5,
+          "width": 54,
+          "height": 40
+        }
+      ]
+    },
+    {
+      "viewport": 1024,
+      "width": 968,
+      "padding": "16px",
+      "overflow": false,
+      "fields": [
+        {
+          "label": "学期",
+          "x": 17,
+          "y": 39.5,
+          "width": 461,
+          "height": 40
+        },
+        {
+          "label": "教师",
+          "x": 490,
+          "y": 39.5,
+          "width": 461,
+          "height": 40
+        },
+        {
+          "label": "周次",
+          "x": 17,
+          "y": 114,
+          "width": 461,
+          "height": 40
+        },
+        {
+          "label": "教室",
+          "x": 490,
+          "y": 114,
+          "width": 461,
+          "height": 40
+        },
+        {
+          "label": "筛选排课",
+          "x": 809,
+          "y": 166,
+          "width": 80,
+          "height": 40
+        },
+        {
+          "label": "重置",
+          "x": 897,
+          "y": 166,
+          "width": 54,
+          "height": 40
+        }
+      ]
+    },
+    {
+      "viewport": 768,
+      "width": 720,
+      "padding": "16px",
+      "overflow": false,
+      "fields": [
+        {
+          "label": "学期",
+          "x": 17,
+          "y": 39.5,
+          "width": 337,
+          "height": 40
+        },
+        {
+          "label": "教师",
+          "x": 366,
+          "y": 39.5,
+          "width": 337,
+          "height": 40
+        },
+        {
+          "label": "周次",
+          "x": 17,
+          "y": 114,
+          "width": 337,
+          "height": 40
+        },
+        {
+          "label": "教室",
+          "x": 366,
+          "y": 114,
+          "width": 337,
+          "height": 40
+        },
+        {
+          "label": "筛选排课",
+          "x": 561,
+          "y": 166,
+          "width": 80,
+          "height": 40
+        },
+        {
+          "label": "重置",
+          "x": 649,
+          "y": 166,
+          "width": 54,
+          "height": 40
+        }
+      ]
+    },
+    {
+      "viewport": 390,
+      "width": 358,
+      "padding": "16px",
+      "overflow": false,
+      "fields": [
+        {
+          "label": "学期",
+          "x": 17,
+          "y": 39.5,
+          "width": 324,
+          "height": 40
+        },
+        {
+          "label": "教师",
+          "x": 17,
+          "y": 114,
+          "width": 324,
+          "height": 40
+        },
+        {
+          "label": "周次",
+          "x": 17,
+          "y": 188.5,
+          "width": 324,
+          "height": 40
+        },
+        {
+          "label": "教室",
+          "x": 17,
+          "y": 263,
+          "width": 324,
+          "height": 40
+        },
+        {
+          "label": "筛选排课",
+          "x": 199,
+          "y": 315,
+          "width": 80,
+          "height": 40
+        },
+        {
+          "label": "重置",
+          "x": 287,
+          "y": 315,
+          "width": 54,
+          "height": 40
+        }
+      ]
+    }
+  ]
+}

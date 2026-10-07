@@ -1,0 +1,11 @@
+{
+  "image": "sha256:8d7af90577dc1a5f391af07f28aac55244a39080667fddf5081815377959ed1c",
+  "rollbackTag": "classroom-backend-before-major-rules:20261006-1900",
+  "coreCountsBefore": {
+    "courses": 24,
+    "syllabi": 4,
+    "majors": 5,
+    "indicators": 12,
+    "accounts": 16
+  }
+}

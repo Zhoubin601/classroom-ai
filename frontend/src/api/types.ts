@@ -147,6 +147,7 @@ export interface CourseSyllabus {
   id: number
   course: Course
   version: string
+  planVersion?: string
   status: string
   authorTeacher?: string
   lockedBy?: string

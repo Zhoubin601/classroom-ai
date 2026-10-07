@@ -223,3 +223,49 @@
 - scripts/tests/fixtures/sprint2.docx、sprint2.pptx为本轮生成的合成测试文件，不是原始教学资料；仅验证格式转换与翻页。
 - docs/fix-exp3-evidence-20261006-v1/为本轮实际构建、隔离MySQL/Redis、Chromium/LibreOffice运行证据；最终记录见 docs/20261006-fix-exp3-sprint2-verification-v1.md。
 - raw未新增资料，培养方案正文和会议记录仍为“资料未提供”。
+
+## 2026-10-06 当前项目 Sprint 2 要求检查来源
+
+- 来源名称：实验一原始项目规划；文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx；引用日期：2026-10-06。只读核对表6、表11、表16：Sprint2为8条/33点，US-05不固定12条，评审回顾计划10月11日，共同DoD包含自然人批准。原文件SHA256读取前后不变，摘录见docs/20261006-sprint2-original-tables-v1.txt。
+- 来源名称：当前源码与同日集成验收；文件名：当前main d57137f、docs/exp3-main-evidence-20261006-v1/tested-code-sha256.json、sprint2-pass-results.txt、docs/20261006-exp3-main-integration-v1.md；引用日期：2026-10-06。251项记录中246项字节一致，5项仅LF/CRLF不同；当前业务源码与66b2d9e无Git内容差异。本轮浏览器启动被自动审批拒绝，既有浏览器证据不冒充本轮实跑。
+- 来源名称：本轮实际测试；文件名：docs/20261006-sprint2-current-regression-v1.txt、docs/20261006-sprint2-current-mysql-v1.txt、docs/20261006-sprint2-current-build-v1.txt；引用日期：2026-10-06。普通后端108通过/36条件跳过，Sprint2 MySQL3通过，前端10通过及构建成功，Python5通过；另外33项专用测试本轮未补跑。
+- 资料未提供：真实专业培养方案指标正文、本轮真实评审/回顾原始记录和自然人批准本轮正式交付的记录。本轮未使用外部网络资料。
+
+## 2026-10-06 临时需求文档修订依据
+
+- 来源名称：用户确认；文件名：当前会话；引用日期：2026-10-06。用户明确以实验一提交物为准，并授权修改临时的全量需求文档。
+- 来源名称：实验一正式项目规划；文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx；引用日期：2026-10-06。沿用已只读核验的表6/11/16摘录docs/20261006-sprint2-original-tables-v1.txt。
+- 来源名称：当前实现及同日核验；文件名：docs/20261006-sprint2-current-audit-v1.md、docs/20261006-exp3-main-integration-v1.md；引用日期：2026-10-06。文档描述区分原始AC、当前实现和未验证事项，不新增测试完成声明。
+- 修改文件：docs/爱教学平台全量需求与功能规格文档.md。US-05改为导入培养方案驱动及版本映射，US-10改为已实现共享与权限隔离；相关Sprint2验收口径、路线、角色、汇总及建议同步。未引入外部资料。
+
+## 2026-10-06 培养方案资料范围用户确认
+
+- 来源名称：用户直接说明；文件名：当前会话；引用日期：2026-10-06。用户确认“我们并没有真实培养方案”。
+- 已更正需求与当前检查文档，将培养方案项说明为合成示例的机制验证范围，取消等待真实资料的待办；不新增或伪造真实专业指标，不修改原始规划或业务数据。
+
+## 2026-10-06 Codex 云端运行验证准备
+- 来源：用户要求克隆远程 main 并运行，随后明确选择 Codex 云端任务。
+- 来源名称：classroom-ai Git 远端；链接：https://github.com/Zhoubin601/classroom-ai；引用日期：2026-10-06。git ls-remote 核实 main 为 9432ed1946be9cd2abee215e8f9b60d76b234267。
+- 来源名称：OpenAI 官方 Cloud environments；链接：https://learn.chatgpt.com/docs/environments/cloud-environments；引用日期：2026-10-06。
+- 仓库运行依据：README.md、frontend/package.json、backend/Dockerfile、scripts/deploy/docker-compose.yml。本轮未使用原始业务资料，没有修改 raw/。
+
+## 2026-10-06 专业教研室关联与指标点修复来源
+
+- 用户提供的两张界面截图：codex-clipboard-12b15856-ea53-4769-be55-3448d3e759b8.png（赵主任无专业范围）、codex-clipboard-305954f6-07bb-4b32-9857-2570d4dcc06b.png（指标编号与类别下拉为空）；引用日期2026-10-06。
+- 现有示例字典与课程：scripts/deploy/mysql/init/initialize.sql；当前 classroom_ai 数据库只读核对 CS 牵头计算机系统结构教研室，基础软件的 CS2001/CS1002、系统软件的 CS3002/CS3008 支撑 CS。关联为当前演示项目规则，非学校正式制度。
+- 实际源码：MajorRepository、CourseArchiveRules、DirectorController、MajorController、SyllabusController、DirectorDeskView.vue、TeacherDeskView.vue。专业单教研室匹配导致参与教研室无范围；页面依赖大纲目录，旧版本无目录或接口错误会形成空下拉。
+- 本机旧大纲示例：CS2001 大纲 id=3，version/planVersion=v2026.1，目录未导入；本轮保留该数据，没有自动替换旧版本或补造指标内容。
+- 独立验证证据：docs/20261006-major-department-evidence-v1/；隔离数据库、真实生产构建页面、运行实例只读复核均已执行。使用 ui-ux-pro-max 本地空状态/加载反馈规则，不使用外部资料。
+
+## 2026-10-06 大项与排课筛选界面来源
+
+- 用户截图：codex-clipboard-7736cefc-dd37-4352-be68-b2a49c3feeb6.png（毕业要求大项被禁用）、codex-clipboard-f219af8c-7bbd-40cf-96c3-b7c99b92c5d9.png（筛选栏宽度/边距错乱）；原文件在用户提供的C:/Users/a3185/AppData/Local/Temp/，引用日期2026-10-06，未修改截图。
+- 实际代码：frontend/src/views/DirectorDeskView.vue、TeacherDeskView.vue与frontend/src/components/OfferingScheduleBoard.vue。类别此前设为disabled；筛选表单使用未生成的p-4.5及不均匀flex宽度。
+- 验证证据：docs/20261006-indicator-category-evidence-v1/；过程结论docs/20261006-indicator-schedule-ui-verification-v1.md。使用已读取的ui-ux-pro-max本地界面规则，无外部资料，无raw变更。
+
+## 2026-10-06 全课程指标矩阵批量配置来源
+
+- 用户当前指令：给所有课程安排指标点矩阵，减少逐条填写；沿用此前已确认的无真实培养方案、实验示例范围。
+- 本机数据库只读快照：docs/20261006-batch-course-matrix-evidence-v1/before.json，引用日期2026-10-06；24门课程、6份大纲、13条指标。软件项目管理锁定矩阵12条，C++最新23版1条“111”，其余22门矩阵为空。
+- 原始正式培养方案：资料未提供，用户已确认本项目使用示例，不新增外部资料。代码目录依据RecommendedIndicatorTemplate.java；保存与历史保护依据SyllabusController.java、SyllabusServiceImpl.java。
+- 课程主题及新增建议：脚本scripts/batch-course-matrices.cjs的明确课程配置；预检方案docs/20261006-batch-course-matrix-evidence-v1/plan.json。建议标明示例草稿与待确认，不能当作已有教学事实。raw未修改。

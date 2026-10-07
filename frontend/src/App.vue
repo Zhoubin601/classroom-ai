@@ -99,7 +99,7 @@
 
     <!-- 主体内容区 (带平滑过渡与自适应宽度) -->
     <main class="flex-1 max-w-[1720px] w-full mx-auto p-4 sm:p-6 lg:p-7 animate-fade-in">
-      <DirectorDeskView v-if="activeTab === 'director' && currentUser?.role === 'DIRECTOR'" />
+      <DirectorDeskView v-if="activeTab === 'director' && currentUser?.role === 'DIRECTOR'" :department="currentUser.department" />
       <TeacherDeskView v-else-if="activeTab === 'teacher' && currentUser?.role === 'TEACHER'" :logged-in-user="currentUser" />
       <SupervisorDeskView v-else-if="activeTab === 'supervisor' && currentUser?.role === 'SUPERVISOR'" @jump-to-attendance="handleJumpToAttendance" />
       <AttendanceDashboardView v-else-if="activeTab === 'attendance'" :initial-offering-id="targetOfferingId" :logged-in-user="currentUser" />

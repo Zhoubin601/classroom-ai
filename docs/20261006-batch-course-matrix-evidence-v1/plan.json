@@ -1,0 +1,1672 @@
+[
+  {
+    "courseId": 1,
+    "courseCode": "CS3001",
+    "courseName": "软件项目管理",
+    "action": "preserve",
+    "reason": "已有矩阵保留",
+    "existingRows": 12
+  },
+  {
+    "courseId": 2,
+    "courseCode": "CS1001",
+    "courseName": "软件工程导论",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 2,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释软件生命周期、需求、设计、测试与维护的基本概念及其联系。\n目标2：对小型软件案例识别需求歧义、过程风险和质量问题，给出分析依据。 为案例制定需求到测试的基本开发流程，说明方案的约束与取舍。 使用版本管理、需求记录和测试工具完成基础软件工程练习。\n目标3：在案例讨论中识别软件知识产权、用户隐私与工程责任。 通过分工完成小组案例，记录个人贡献和协作问题。 编写需求及设计说明，并向小组清楚解释方案。 比较传统与敏捷开发方法，自主查阅并总结适用条件。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：解释软件生命周期、需求、设计、测试与维护的基本概念及其联系。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：对小型软件案例识别需求歧义、过程风险和质量问题，给出分析依据。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：为案例制定需求到测试的基本开发流程，说明方案的约束与取舍。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：使用版本管理、需求记录和测试工具完成基础软件工程练习。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：在案例讨论中识别软件知识产权、用户隐私与工程责任。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：通过分工完成小组案例，记录个人贡献和协作问题。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：编写需求及设计说明，并向小组清楚解释方案。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《软件工程导论》建议：比较传统与敏捷开发方法，自主查阅并总结适用条件。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 3,
+    "courseCode": "CS4002",
+    "courseName": "敏捷软件工程实训",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 3,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：识别迭代需求、优先级和交付风险，使用可验证的验收条件描述问题。 设计可增量交付的软件功能并通过迭代反馈调整实现方案。 使用Git、任务看板、自动化测试和持续集成工具完成迭代。\n目标3：遵守代码来源、开源许可与数据隐私要求，记录工具辅助工作的边界。 在需求、开发和测试角色间协作，记录任务贡献与评审结论。 通过迭代演示、评审和回顾清楚表达交付成果与改进建议。 制定迭代计划，跟踪工作量、风险及交付进度，比较计划与实际偏差。 根据回顾自主学习新工具，并验证其对开发效率和质量的影响。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：识别迭代需求、优先级和交付风险，使用可验证的验收条件描述问题。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：设计可增量交付的软件功能并通过迭代反馈调整实现方案。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：使用Git、任务看板、自动化测试和持续集成工具完成迭代。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：遵守代码来源、开源许可与数据隐私要求，记录工具辅助工作的边界。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：在需求、开发和测试角色间协作，记录任务贡献与评审结论。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：通过迭代演示、评审和回顾清楚表达交付成果与改进建议。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "11-1",
+          "requirementCategory": "项目管理",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：制定迭代计划，跟踪工作量、风险及交付进度，比较计划与实际偏差。",
+          "supportWeight": "H",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷软件工程实训》建议：根据回顾自主学习新工具，并验证其对开发效率和质量的影响。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 4,
+    "courseCode": "CS2002",
+    "courseName": "计算机组成原理",
+    "department": "计算机系统结构教研室",
+    "director": "director_arch",
+    "action": "create-draft",
+    "existingSyllabusId": 2,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 4,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释指令系统、处理器、存储层次及输入输出组织的工作原理。\n目标2：分析程序执行中的数据通路、控制信号及性能瓶颈。 为给定指令设计数据通路与控制方案，说明正确性和资源取舍。 设计处理器或存储访问实验，采集数据并解释性能差异。 使用仿真、硬件描述或性能分析工具验证计算机组成方案。\n目标3：用结构图、时序图及实验报告解释硬件运行过程。 自主比较新型处理器和存储技术与基础体系结构的联系。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《计算机组成原理》建议：解释指令系统、处理器、存储层次及输入输出组织的工作原理。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《计算机组成原理》建议：分析程序执行中的数据通路、控制信号及性能瓶颈。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《计算机组成原理》建议：为给定指令设计数据通路与控制方案，说明正确性和资源取舍。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《计算机组成原理》建议：设计处理器或存储访问实验，采集数据并解释性能差异。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《计算机组成原理》建议：使用仿真、硬件描述或性能分析工具验证计算机组成方案。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《计算机组成原理》建议：用结构图、时序图及实验报告解释硬件运行过程。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《计算机组成原理》建议：自主比较新型处理器和存储技术与基础体系结构的联系。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 5,
+    "courseCode": "CS2003",
+    "courseName": "数字逻辑与系统设计",
+    "department": "计算机系统结构教研室",
+    "director": "director_arch",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 5,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：运用逻辑代数、组合逻辑与时序逻辑知识说明数字系统行为。\n目标2：根据功能与时序约束分析逻辑电路的状态、竞争和边界条件。 设计组合电路和有限状态机，比较器件数量、时序与可维护性。 制定逻辑验证用例，分析仿真波形与实测结果的差异。 使用电路仿真或硬件描述工具验证数字系统设计。\n目标3：通过分工集成电路模块，完成接口核对与联合验证。 以真值表、状态图和时序图清楚表达电路设计。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《数字逻辑与系统设计》建议：运用逻辑代数、组合逻辑与时序逻辑知识说明数字系统行为。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《数字逻辑与系统设计》建议：根据功能与时序约束分析逻辑电路的状态、竞争和边界条件。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《数字逻辑与系统设计》建议：设计组合电路和有限状态机，比较器件数量、时序与可维护性。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《数字逻辑与系统设计》建议：制定逻辑验证用例，分析仿真波形与实测结果的差异。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《数字逻辑与系统设计》建议：使用电路仿真或硬件描述工具验证数字系统设计。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《数字逻辑与系统设计》建议：通过分工集成电路模块，完成接口核对与联合验证。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《数字逻辑与系统设计》建议：以真值表、状态图和时序图清楚表达电路设计。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 6,
+    "courseCode": "CS2001",
+    "courseName": "数据结构与算法",
+    "department": "基础软件教研室",
+    "director": "director_base",
+    "action": "create-draft",
+    "existingSyllabusId": 3,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 6,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：运用线性表、树、图和算法复杂度知识解释数据组织与算法行为。\n目标2：根据输入规模、时间和空间约束分析算法问题与边界情况。 选择合适的数据结构并设计求解算法，说明正确性和复杂度。 构造典型与极端输入，比较算法运行结果和性能。 使用调试、单元测试和性能测量工具验证算法实现。\n目标3：通过伪代码、图示与实验报告解释算法及其取舍。 自主阅读新的算法方案，并通过实现与测量验证适用条件。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《数据结构与算法》建议：运用线性表、树、图和算法复杂度知识解释数据组织与算法行为。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《数据结构与算法》建议：根据输入规模、时间和空间约束分析算法问题与边界情况。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《数据结构与算法》建议：选择合适的数据结构并设计求解算法，说明正确性和复杂度。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《数据结构与算法》建议：构造典型与极端输入，比较算法运行结果和性能。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《数据结构与算法》建议：使用调试、单元测试和性能测量工具验证算法实现。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《数据结构与算法》建议：通过伪代码、图示与实验报告解释算法及其取舍。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《数据结构与算法》建议：自主阅读新的算法方案，并通过实现与测量验证适用条件。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 7,
+    "courseCode": "CS1002",
+    "courseName": "C++高级程序设计",
+    "department": "基础软件教研室",
+    "director": "director_base",
+    "action": "create-draft",
+    "existingSyllabusId": 6,
+    "copiedRows": 1,
+    "dto": {
+      "courseId": 7,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释面向对象、模板、STL及资源管理机制，并应用于C++程序。\n目标2：识别类型、内存、生命周期和异常处理问题，分析错误产生原因。 设计职责清晰的类与接口，使用泛型和标准库实现可维护程序。 使用编译器、调试器和自动化测试验证C++程序的行为与性能。\n目标3：遵守代码引用和开源许可要求，避免泄露练习数据或复制未经理解的代码。 按模块分工开发小型程序，通过代码评审完成集成。 编写接口说明和测试报告，解释程序设计及缺陷修复。 自主查阅现代C++特性与标准库文档，并用示例验证理解。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "111",
+          "supportWeight": "M",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《C++高级程序设计》建议：识别类型、内存、生命周期和异常处理问题，分析错误产生原因。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《C++高级程序设计》建议：设计职责清晰的类与接口，使用泛型和标准库实现可维护程序。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《C++高级程序设计》建议：使用编译器、调试器和自动化测试验证C++程序的行为与性能。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《C++高级程序设计》建议：遵守代码引用和开源许可要求，避免泄露练习数据或复制未经理解的代码。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《C++高级程序设计》建议：按模块分工开发小型程序，通过代码评审完成集成。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《C++高级程序设计》建议：编写接口说明和测试报告，解释程序设计及缺陷修复。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《C++高级程序设计》建议：自主查阅现代C++特性与标准库文档，并用示例验证理解。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 8,
+    "courseCode": "CS3002",
+    "courseName": "操作系统原理",
+    "department": "系统软件教研室",
+    "director": "director_sys",
+    "action": "create-draft",
+    "existingSyllabusId": 4,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 8,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释进程线程、同步、虚拟内存、文件系统与资源调度机制。\n目标2：分析并发程序中的竞态、死锁、缺页和调度瓶颈。 为给定约束设计同步、调度或内存管理方案并说明取舍。 通过可重复实验观察并发和系统资源行为，分析测量结果。 使用系统调用、调试及跟踪工具定位操作系统相关问题。\n目标3：遵守系统访问权限与数据保护规范，说明资源使用和安全责任。 阅读操作系统技术资料，验证新的内核或调度机制。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《操作系统原理》建议：解释进程线程、同步、虚拟内存、文件系统与资源调度机制。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《操作系统原理》建议：分析并发程序中的竞态、死锁、缺页和调度瓶颈。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《操作系统原理》建议：为给定约束设计同步、调度或内存管理方案并说明取舍。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《操作系统原理》建议：通过可重复实验观察并发和系统资源行为，分析测量结果。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《操作系统原理》建议：使用系统调用、调试及跟踪工具定位操作系统相关问题。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《操作系统原理》建议：遵守系统访问权限与数据保护规范，说明资源使用和安全责任。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《操作系统原理》建议：阅读操作系统技术资料，验证新的内核或调度机制。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 9,
+    "courseCode": "CS3008",
+    "courseName": "嵌入式Linux系统",
+    "department": "系统软件教研室",
+    "director": "director_sys",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 9,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释ARM架构、嵌入式Linux启动、内核配置与设备驱动机制。\n目标2：分析目标设备的功能、资源、实时性和接口约束。 设计内核裁剪、驱动与应用组合方案，并验证设备功能。 制定板级验证和驱动测试实验，记录故障现象与定位依据。 使用交叉编译、调试及日志工具完成嵌入式系统构建与诊断。\n目标3：通过驱动、应用与验证角色分工完成设备集成。 以接口说明、部署步骤和测试报告交付嵌入式系统成果。 比较不同配置的功耗和资源占用，提出节约资源的实现建议。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：解释ARM架构、嵌入式Linux启动、内核配置与设备驱动机制。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：分析目标设备的功能、资源、实时性和接口约束。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：设计内核裁剪、驱动与应用组合方案，并验证设备功能。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：制定板级验证和驱动测试实验，记录故障现象与定位依据。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：使用交叉编译、调试及日志工具完成嵌入式系统构建与诊断。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "7-1",
+          "requirementCategory": "环境和可持续发展",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：比较不同配置的功耗和资源占用，提出节约资源的实现建议。",
+          "supportWeight": "L",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：通过驱动、应用与验证角色分工完成设备集成。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《嵌入式Linux系统》建议：以接口说明、部署步骤和测试报告交付嵌入式系统成果。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 10,
+    "courseCode": "AI3001",
+    "courseName": "人工智能导论",
+    "department": "人工智能教研室",
+    "director": "director_ai",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 10,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释搜索、知识表示与机器学习基础，并辨别不同方法的适用问题。\n目标2：根据任务与数据特点识别人工智能问题的目标、约束和评价指标。 选择并实现基础人工智能方法，比较求解质量与计算成本。 构造可重复实验，比较不同方法并解释误差与局限。 使用人工智能开发工具完成实现、调试和结果展示。\n目标3：遵守数据来源、隐私及算法结果表达规范，说明实验局限。 分析人工智能应用对用户和社会的影响，识别误用与偏差风险。 自主学习新方法，比较其与基础算法的联系和适用范围。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：解释搜索、知识表示与机器学习基础，并辨别不同方法的适用问题。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：根据任务与数据特点识别人工智能问题的目标、约束和评价指标。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：选择并实现基础人工智能方法，比较求解质量与计算成本。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：构造可重复实验，比较不同方法并解释误差与局限。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：使用人工智能开发工具完成实现、调试和结果展示。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "6-1",
+          "requirementCategory": "工程与社会",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：分析人工智能应用对用户和社会的影响，识别误用与偏差风险。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：遵守数据来源、隐私及算法结果表达规范，说明实验局限。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《人工智能导论》建议：自主学习新方法，比较其与基础算法的联系和适用范围。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 11,
+    "courseCode": "AI3002",
+    "courseName": "机器学习与模式识别",
+    "department": "人工智能教研室",
+    "director": "director_ai",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 11,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释分类、聚类、支持向量机和集成学习的基本原理。\n目标2：分析样本、特征、数据偏差与任务指标，识别数据泄漏和过拟合风险。 构建特征处理、模型训练和验证流程，比较算法与参数方案。 开展可重复的对比实验，使用合理评价指标解释结果与不确定性。 使用机器学习库和实验记录工具实现训练、验证与可视化。\n目标3：遵守数据授权与隐私要求，如实记录数据处理和实验结果。 撰写模型比较报告，清楚表达结果、误差与局限。 讨论模型偏差、可解释性与应用后果，提出合理使用边界。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：解释分类、聚类、支持向量机和集成学习的基本原理。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：分析样本、特征、数据偏差与任务指标，识别数据泄漏和过拟合风险。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：构建特征处理、模型训练和验证流程，比较算法与参数方案。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：开展可重复的对比实验，使用合理评价指标解释结果与不确定性。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：使用机器学习库和实验记录工具实现训练、验证与可视化。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "6-1",
+          "requirementCategory": "工程与社会",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：讨论模型偏差、可解释性与应用后果，提出合理使用边界。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：遵守数据授权与隐私要求，如实记录数据处理和实验结果。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《机器学习与模式识别》建议：撰写模型比较报告，清楚表达结果、误差与局限。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 12,
+    "courseCode": "SE3002",
+    "courseName": "敏捷开发与人机协同",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 12,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：分析生成式AI辅助开发任务，识别需求歧义、错误输出与验证风险。 设计人工决策与AI辅助结合的开发流程，明确验收和复核环节。 运用代码助手、版本管理和自动化测试完成可追溯的开发任务。\n目标3：识别AI代码来源、隐私和责任问题，记录人工复核与引用边界。 在人机协同团队中承担明确角色，通过代码评审完成交付。 说明提示、复核证据和结果局限，组织迭代评审与回顾。 安排迭代任务并跟踪效率、质量和风险，评估工具使用收益。 自主比较新的协同工具和方法，使用实践证据调整工作流程。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：分析生成式AI辅助开发任务，识别需求歧义、错误输出与验证风险。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：设计人工决策与AI辅助结合的开发流程，明确验收和复核环节。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：运用代码助手、版本管理和自动化测试完成可追溯的开发任务。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：识别AI代码来源、隐私和责任问题，记录人工复核与引用边界。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：在人机协同团队中承担明确角色，通过代码评审完成交付。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：说明提示、复核证据和结果局限，组织迭代评审与回顾。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "11-1",
+          "requirementCategory": "项目管理",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：安排迭代任务并跟踪效率、质量和风险，评估工具使用收益。",
+          "supportWeight": "H",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《敏捷开发与人机协同》建议：自主比较新的协同工具和方法，使用实践证据调整工作流程。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 13,
+    "courseCode": "SE3003",
+    "courseName": "DevOps与持续交付",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 13,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：分析软件交付中的构建、环境差异、部署失败与运行故障。 设计可重复构建、测试、部署和回滚的持续交付流程。 通过故障注入或对照部署实验验证流水线与恢复方案。 使用容器、CI/CD和可观测性工具完成交付与问题定位。\n目标3：遵守最小权限、密钥管理和制品来源规范，保护部署数据。 协调开发、测试与运维分工，按共享验收条件完成交付。 编写流水线说明、运行手册与故障复盘报告。 规划交付步骤和风险应对，比较交付周期与变更质量。 比较构建及运行资源消耗，提出缓存或资源配置优化方案。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：分析软件交付中的构建、环境差异、部署失败与运行故障。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：设计可重复构建、测试、部署和回滚的持续交付流程。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：通过故障注入或对照部署实验验证流水线与恢复方案。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：使用容器、CI/CD和可观测性工具完成交付与问题定位。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "7-1",
+          "requirementCategory": "环境和可持续发展",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：比较构建及运行资源消耗，提出缓存或资源配置优化方案。",
+          "supportWeight": "L",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：遵守最小权限、密钥管理和制品来源规范，保护部署数据。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：协调开发、测试与运维分工，按共享验收条件完成交付。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：编写流水线说明、运行手册与故障复盘报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "11-1",
+          "requirementCategory": "项目管理",
+          "indicatorDescription": "【示例草稿·待确认】《DevOps与持续交付》建议：规划交付步骤和风险应对，比较交付周期与变更质量。",
+          "supportWeight": "H",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 14,
+    "courseCode": "CS3003",
+    "courseName": "计算机网络与安全",
+    "department": "网络空间安全教研室",
+    "director": "director_sec",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 14,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释网络分层、TCP/IP协议及基础密码机制。\n目标2：分析连接、路由、传输和网络安全问题，依据报文与日志定位原因。 设计满足功能与安全约束的网络配置和防护方案。 开展受控网络通信与安全实验，记录现象并分析结果。 使用抓包、网络诊断及安全配置工具验证协议行为。\n目标3：在授权范围内开展实验，遵守网络访问和用户隐私规范。 用拓扑图、报文分析与测试报告解释网络方案。 分析网络服务中断和数据泄露对使用者的影响。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：解释网络分层、TCP/IP协议及基础密码机制。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：分析连接、路由、传输和网络安全问题，依据报文与日志定位原因。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：设计满足功能与安全约束的网络配置和防护方案。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：开展受控网络通信与安全实验，记录现象并分析结果。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：使用抓包、网络诊断及安全配置工具验证协议行为。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "6-1",
+          "requirementCategory": "工程与社会",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：分析网络服务中断和数据泄露对使用者的影响。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：在授权范围内开展实验，遵守网络访问和用户隐私规范。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《计算机网络与安全》建议：用拓扑图、报文分析与测试报告解释网络方案。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 15,
+    "courseCode": "SEC3001",
+    "courseName": "信息安全攻防实践",
+    "department": "网络空间安全教研室",
+    "director": "director_sec",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 15,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：在授权实验环境中识别漏洞与攻击面，分析成因、影响和证据。 设计修复、防护与验证方案，比较安全收益和业务约束。 在隔离靶场复现安全问题，通过对照验证修复效果。 使用扫描、调试和日志分析工具完成受控安全测试。\n目标3：遵守明确授权、数据保护和负责任披露要求，记录测试边界。 按测试、分析、修复与复核角色协作完成安全实践。 撰写包含复现依据、风险和修复验证的安全报告。 评估安全事件对使用者和服务的影响，提出降低危害的措施。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：在授权实验环境中识别漏洞与攻击面，分析成因、影响和证据。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：设计修复、防护与验证方案，比较安全收益和业务约束。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：在隔离靶场复现安全问题，通过对照验证修复效果。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：使用扫描、调试和日志分析工具完成受控安全测试。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "6-1",
+          "requirementCategory": "工程与社会",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：评估安全事件对使用者和服务的影响，提出降低危害的措施。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：遵守明确授权、数据保护和负责任披露要求，记录测试边界。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：按测试、分析、修复与复核角色协作完成安全实践。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《信息安全攻防实践》建议：撰写包含复现依据、风险和修复验证的安全报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 16,
+    "courseCode": "DS2001",
+    "courseName": "数据库系统实现",
+    "department": "数据科学教研室",
+    "director": "director_ds",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 16,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释关系模型、查询处理、事务、索引与存储管理机制。\n目标2：分析查询瓶颈、并发冲突和数据一致性问题，给出可验证依据。 设计查询、索引或事务实现方案，比较正确性与性能。 构造查询与并发负载，测量数据库方案并分析结果。 使用数据库、执行计划、调试和性能测量工具完成验证。\n目标3：遵守数据库访问权限、数据隐私和实验数据使用要求。 分工完成存储、查询或事务模块，核对接口并集成测试。 编写模式、接口及性能实验报告，解释实现取舍。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：解释关系模型、查询处理、事务、索引与存储管理机制。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：分析查询瓶颈、并发冲突和数据一致性问题，给出可验证依据。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：设计查询、索引或事务实现方案，比较正确性与性能。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：构造查询与并发负载，测量数据库方案并分析结果。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：使用数据库、执行计划、调试和性能测量工具完成验证。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：遵守数据库访问权限、数据隐私和实验数据使用要求。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：分工完成存储、查询或事务模块，核对接口并集成测试。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《数据库系统实现》建议：编写模式、接口及性能实验报告，解释实现取舍。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 17,
+    "courseCode": "DS3001",
+    "courseName": "分布式大数据计算",
+    "department": "数据科学教研室",
+    "director": "director_ds",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 17,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释分布式数据处理、批流计算和容错机制的基本原理。\n目标2：分析大规模数据任务的分区、通信、数据倾斜和容错问题。 设计分布式数据处理流程，比较效率、资源和可靠性。 通过不同规模或配置的对比实验分析吞吐与资源占用。 使用Hadoop或Spark及监测工具实现和诊断计算任务。\n目标3：遵守数据访问、隐私和来源要求，如实记录处理与实验结果。 通过流程图、测量结果与技术报告解释计算方案。 评估计算与存储资源消耗，提出分区或配置优化措施。",
+      "indicators": [
+        {
+          "indicatorCode": "1-1",
+          "requirementCategory": "工程知识",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：解释分布式数据处理、批流计算和容错机制的基本原理。",
+          "supportWeight": "H",
+          "targetGoal": "目标1"
+        },
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：分析大规模数据任务的分区、通信、数据倾斜和容错问题。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：设计分布式数据处理流程，比较效率、资源和可靠性。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：通过不同规模或配置的对比实验分析吞吐与资源占用。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：使用Hadoop或Spark及监测工具实现和诊断计算任务。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "7-1",
+          "requirementCategory": "环境和可持续发展",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：评估计算与存储资源消耗，提出分区或配置优化措施。",
+          "supportWeight": "L",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：遵守数据访问、隐私和来源要求，如实记录处理与实验结果。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《分布式大数据计算》建议：通过流程图、测量结果与技术报告解释计算方案。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 26,
+    "courseCode": "DEMO-SE88",
+    "courseName": "新工科敏捷协同实战",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 26,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：识别迭代需求、优先级和交付风险，使用可验证的验收条件描述问题。 设计可增量交付的软件功能并通过迭代反馈调整实现方案。 使用Git、任务看板、自动化测试和持续集成工具完成迭代。\n目标3：遵守代码来源、开源许可与数据隐私要求，记录工具辅助工作的边界。 在需求、开发和测试角色间协作，记录任务贡献与评审结论。 通过迭代演示、评审和回顾清楚表达交付成果与改进建议。 制定迭代计划，跟踪工作量、风险及交付进度，比较计划与实际偏差。 根据回顾自主学习新工具，并验证其对开发效率和质量的影响。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：识别迭代需求、优先级和交付风险，使用可验证的验收条件描述问题。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：设计可增量交付的软件功能并通过迭代反馈调整实现方案。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：使用Git、任务看板、自动化测试和持续集成工具完成迭代。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：遵守代码来源、开源许可与数据隐私要求，记录工具辅助工作的边界。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：在需求、开发和测试角色间协作，记录任务贡献与评审结论。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：通过迭代演示、评审和回顾清楚表达交付成果与改进建议。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "11-1",
+          "requirementCategory": "项目管理",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：制定迭代计划，跟踪工作量、风险及交付进度，比较计划与实际偏差。",
+          "supportWeight": "H",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "12-1",
+          "requirementCategory": "终身学习",
+          "indicatorDescription": "【示例草稿·待确认】《新工科敏捷协同实战》建议：根据回顾自主学习新工具，并验证其对开发效率和质量的影响。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 27,
+    "courseCode": "PW-TEST-3247",
+    "courseName": "Playwright自动化测试实战",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 27,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：根据功能、交互与风险设计测试场景，识别边界和易失败路径。 设计稳定、可维护的自动化测试结构，明确断言与数据准备。 复现失败并对比修复结果，分析测试覆盖与不稳定原因。 使用Playwright、浏览器调试及测试报告工具执行自动化验证。\n目标3：隔离测试数据和凭据，避免测试操作损坏用户业务内容。 通过开发与测试分工复核缺陷，协作维护测试用例。 提供包含复现步骤、断言和证据的缺陷或测试报告。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：根据功能、交互与风险设计测试场景，识别边界和易失败路径。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：设计稳定、可维护的自动化测试结构，明确断言与数据准备。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：复现失败并对比修复结果，分析测试覆盖与不稳定原因。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：使用Playwright、浏览器调试及测试报告工具执行自动化验证。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：隔离测试数据和凭据，避免测试操作损坏用户业务内容。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：通过开发与测试分工复核缺陷，协作维护测试用例。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：提供包含复现步骤、断言和证据的缺陷或测试报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 28,
+    "courseCode": "PW-TEST-2371",
+    "courseName": "Playwright自动化测试实战",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 28,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：根据功能、交互与风险设计测试场景，识别边界和易失败路径。 设计稳定、可维护的自动化测试结构，明确断言与数据准备。 复现失败并对比修复结果，分析测试覆盖与不稳定原因。 使用Playwright、浏览器调试及测试报告工具执行自动化验证。\n目标3：隔离测试数据和凭据，避免测试操作损坏用户业务内容。 通过开发与测试分工复核缺陷，协作维护测试用例。 提供包含复现步骤、断言和证据的缺陷或测试报告。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：根据功能、交互与风险设计测试场景，识别边界和易失败路径。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：设计稳定、可维护的自动化测试结构，明确断言与数据准备。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：复现失败并对比修复结果，分析测试覆盖与不稳定原因。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：使用Playwright、浏览器调试及测试报告工具执行自动化验证。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：隔离测试数据和凭据，避免测试操作损坏用户业务内容。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：通过开发与测试分工复核缺陷，协作维护测试用例。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：提供包含复现步骤、断言和证据的缺陷或测试报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 29,
+    "courseCode": "PW-TEST-4810",
+    "courseName": "Playwright自动化测试实战",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 29,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：根据功能、交互与风险设计测试场景，识别边界和易失败路径。 设计稳定、可维护的自动化测试结构，明确断言与数据准备。 复现失败并对比修复结果，分析测试覆盖与不稳定原因。 使用Playwright、浏览器调试及测试报告工具执行自动化验证。\n目标3：隔离测试数据和凭据，避免测试操作损坏用户业务内容。 通过开发与测试分工复核缺陷，协作维护测试用例。 提供包含复现步骤、断言和证据的缺陷或测试报告。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：根据功能、交互与风险设计测试场景，识别边界和易失败路径。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：设计稳定、可维护的自动化测试结构，明确断言与数据准备。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：复现失败并对比修复结果，分析测试覆盖与不稳定原因。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：使用Playwright、浏览器调试及测试报告工具执行自动化验证。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：隔离测试数据和凭据，避免测试操作损坏用户业务内容。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：通过开发与测试分工复核缺陷，协作维护测试用例。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：提供包含复现步骤、断言和证据的缺陷或测试报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 30,
+    "courseCode": "PW-TEST-1653",
+    "courseName": "Playwright自动化测试实战",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 30,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：根据功能、交互与风险设计测试场景，识别边界和易失败路径。 设计稳定、可维护的自动化测试结构，明确断言与数据准备。 复现失败并对比修复结果，分析测试覆盖与不稳定原因。 使用Playwright、浏览器调试及测试报告工具执行自动化验证。\n目标3：隔离测试数据和凭据，避免测试操作损坏用户业务内容。 通过开发与测试分工复核缺陷，协作维护测试用例。 提供包含复现步骤、断言和证据的缺陷或测试报告。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：根据功能、交互与风险设计测试场景，识别边界和易失败路径。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：设计稳定、可维护的自动化测试结构，明确断言与数据准备。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：复现失败并对比修复结果，分析测试覆盖与不稳定原因。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：使用Playwright、浏览器调试及测试报告工具执行自动化验证。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：隔离测试数据和凭据，避免测试操作损坏用户业务内容。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：通过开发与测试分工复核缺陷，协作维护测试用例。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：提供包含复现步骤、断言和证据的缺陷或测试报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 31,
+    "courseCode": "PW-TEST-9192",
+    "courseName": "Playwright自动化测试实战",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 31,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：根据功能、交互与风险设计测试场景，识别边界和易失败路径。 设计稳定、可维护的自动化测试结构，明确断言与数据准备。 复现失败并对比修复结果，分析测试覆盖与不稳定原因。 使用Playwright、浏览器调试及测试报告工具执行自动化验证。\n目标3：隔离测试数据和凭据，避免测试操作损坏用户业务内容。 通过开发与测试分工复核缺陷，协作维护测试用例。 提供包含复现步骤、断言和证据的缺陷或测试报告。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：根据功能、交互与风险设计测试场景，识别边界和易失败路径。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：设计稳定、可维护的自动化测试结构，明确断言与数据准备。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：复现失败并对比修复结果，分析测试覆盖与不稳定原因。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：使用Playwright、浏览器调试及测试报告工具执行自动化验证。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：隔离测试数据和凭据，避免测试操作损坏用户业务内容。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：通过开发与测试分工复核缺陷，协作维护测试用例。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：提供包含复现步骤、断言和证据的缺陷或测试报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  },
+  {
+    "courseId": 32,
+    "courseCode": "PW-TEST-6212",
+    "courseName": "Playwright自动化测试实战",
+    "department": "软件工程教研室",
+    "director": "director",
+    "action": "create-draft",
+    "existingSyllabusId": null,
+    "copiedRows": 0,
+    "dto": {
+      "courseId": 32,
+      "version": "示例矩阵-20261006-v1",
+      "planVersion": "RECOMMENDED-12",
+      "status": "DRAFT",
+      "courseGoals": "【示例草稿·待确认】\n目标1：解释本课程实践所使用的方法、概念与适用条件。\n目标2：根据功能、交互与风险设计测试场景，识别边界和易失败路径。 设计稳定、可维护的自动化测试结构，明确断言与数据准备。 复现失败并对比修复结果，分析测试覆盖与不稳定原因。 使用Playwright、浏览器调试及测试报告工具执行自动化验证。\n目标3：隔离测试数据和凭据，避免测试操作损坏用户业务内容。 通过开发与测试分工复核缺陷，协作维护测试用例。 提供包含复现步骤、断言和证据的缺陷或测试报告。",
+      "indicators": [
+        {
+          "indicatorCode": "2-1",
+          "requirementCategory": "问题分析",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：根据功能、交互与风险设计测试场景，识别边界和易失败路径。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "3-1",
+          "requirementCategory": "设计/开发解决方案",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：设计稳定、可维护的自动化测试结构，明确断言与数据准备。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "4-1",
+          "requirementCategory": "研究",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：复现失败并对比修复结果，分析测试覆盖与不稳定原因。",
+          "supportWeight": "M",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "5-1",
+          "requirementCategory": "使用现代工具",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：使用Playwright、浏览器调试及测试报告工具执行自动化验证。",
+          "supportWeight": "H",
+          "targetGoal": "目标2"
+        },
+        {
+          "indicatorCode": "8-1",
+          "requirementCategory": "职业规范",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：隔离测试数据和凭据，避免测试操作损坏用户业务内容。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "9-1",
+          "requirementCategory": "个人和团队",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：通过开发与测试分工复核缺陷，协作维护测试用例。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        },
+        {
+          "indicatorCode": "10-1",
+          "requirementCategory": "沟通",
+          "indicatorDescription": "【示例草稿·待确认】《Playwright自动化测试实战》建议：提供包含复现步骤、断言和证据的缺陷或测试报告。",
+          "supportWeight": "M",
+          "targetGoal": "目标3"
+        }
+      ]
+    }
+  }
+]

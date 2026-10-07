@@ -459,7 +459,7 @@ public class TeachingDataInitializer implements ApplicationRunner {
     private void initAuthAndMasterData() {
         if (majorRepository.count() == 0) {
             majorRepository.save(com.classroom.ai.modules.course.entity.Major.builder().majorCode("SE").majorName("软件工程").department("软件工程教研室").build());
-            majorRepository.save(com.classroom.ai.modules.course.entity.Major.builder().majorCode("CS").majorName("计算机科学与技术").department("计算机科学教研室").build());
+            majorRepository.save(com.classroom.ai.modules.course.entity.Major.builder().majorCode("CS").majorName("计算机科学与技术").department("计算机系统结构教研室").build());
             majorRepository.save(com.classroom.ai.modules.course.entity.Major.builder().majorCode("AI").majorName("人工智能").department("人工智能教研室").build());
             log.info("【爱教学】专业独立字典已就绪 (SE, CS, AI)");
         }

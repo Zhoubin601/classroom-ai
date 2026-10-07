@@ -1,0 +1,150 @@
+{
+  "status": "passed",
+  "note": "七个主任账号正常登录，24门实际页面逐门检查，无接口mock，无业务保存",
+  "checks": [
+    {
+      "courseCode": "CS3001",
+      "visibleRows": 12,
+      "status": "LOCKED",
+      "director": "director"
+    },
+    {
+      "courseCode": "CS1001",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "CS4002",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "SE3002",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "SE3003",
+      "visibleRows": 9,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "DEMO-SE88",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "PW-TEST-3247",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "PW-TEST-2371",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "PW-TEST-4810",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "PW-TEST-1653",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "PW-TEST-9192",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "PW-TEST-6212",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director"
+    },
+    {
+      "courseCode": "AI3001",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_ai"
+    },
+    {
+      "courseCode": "AI3002",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_ai"
+    },
+    {
+      "courseCode": "CS2002",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director_arch"
+    },
+    {
+      "courseCode": "CS2003",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director_arch"
+    },
+    {
+      "courseCode": "CS2001",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director_base"
+    },
+    {
+      "courseCode": "CS1002",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_base"
+    },
+    {
+      "courseCode": "DS2001",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_ds"
+    },
+    {
+      "courseCode": "DS3001",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_ds"
+    },
+    {
+      "courseCode": "CS3003",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_sec"
+    },
+    {
+      "courseCode": "SEC3001",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_sec"
+    },
+    {
+      "courseCode": "CS3002",
+      "visibleRows": 7,
+      "status": "DRAFT",
+      "director": "director_sys"
+    },
+    {
+      "courseCode": "CS3008",
+      "visibleRows": 8,
+      "status": "DRAFT",
+      "director": "director_sys"
+    }
+  ]
+}

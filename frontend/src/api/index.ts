@@ -352,6 +352,10 @@ export const syllabusApi = {
     const res = await client.post<ApiResponse<any>>(`/api/v1/syllabus/course/${courseId}/from-plan`, { syllabusVersion, planVersion })
     return res.data.data
   },
+  getPlanVersions: async (majorCode: string): Promise<string[]> => {
+    const res = await client.get<ApiResponse<string[]>>(`/api/v1/syllabus/plans/${encodeURIComponent(majorCode)}/versions`)
+    return res.data.data
+  },
 
   // 保存大纲与指标点矩阵
   save: async (data: any): Promise<any> => {
