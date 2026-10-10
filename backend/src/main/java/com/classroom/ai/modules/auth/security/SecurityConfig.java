@@ -94,7 +94,7 @@ public class SecurityConfig {
                     "/v3/api-docs/**",
                     "/swagger-ui/**"
                 ).permitAll()
-                .requestMatchers("/uploads/resources/**").denyAll()
+                .requestMatchers("/uploads/resources/**", "/uploads/micro/**").denyAll()
                 // 主任专属管理路由：督导建档授权与学生底库管理
                 .requestMatchers("/api/v1/director/**").hasRole("DIRECTOR")
                 .requestMatchers("/api/student/**").hasRole("DIRECTOR")

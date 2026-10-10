@@ -40,6 +40,9 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
     @jakarta.persistence.PersistenceContext
     private jakarta.persistence.EntityManager entityManager;
 
+    @Autowired(required = false)
+    private com.classroom.ai.modules.attendance.repository.AttendanceSessionRepository attendanceSessions;
+
     @Autowired
     public VisualDashboardServiceImpl(StudentRepository studentRepository,
                                        ClassroomRecordRepository classroomRecordRepository,
@@ -113,6 +116,16 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
         if (streamDTO == null) throw new IllegalArgumentException("推流数据不能为空");
         Long offeringId = streamDTO.getOfferingId();
         CourseOffering offering = authorizedOffering(offeringId, true);
+        com.classroom.ai.modules.attendance.entity.AttendanceSession attendance = null;
+        if (streamDTO.getAttendanceSessionId() != null) {
+            if (attendanceSessions == null) throw new IllegalStateException("考勤会话服务不可用");
+            attendance = attendanceSessions.findForUpdate(streamDTO.getAttendanceSessionId())
+                    .orElseThrow(() -> new IllegalArgumentException("考勤会话不存在"));
+            if (entityManager != null) entityManager.refresh(attendance);
+            if (!Objects.equals(attendance.getOffering().getId(), offeringId))
+                throw new IllegalArgumentException("考勤会话与推流班次不一致");
+            if (!"ACTIVE".equals(attendance.getStatus())) throw new IllegalStateException("考勤已结束，摄像头推流已停止");
+        }
         if (streamDTO.getLookupRate() != null && (!Double.isFinite(streamDTO.getLookupRate())
                 || streamDTO.getLookupRate() < 0 || streamDTO.getLookupRate() > 1)) {
             throw new IllegalArgumentException("lookupRate must be between 0 and 1");
@@ -157,6 +170,14 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
 
         double lookupRate = streamDTO.getLookupRate() != null ? streamDTO.getLookupRate() * 100.0 : 0.0;
         int lookdownCount = streamDTO.getLookdownCount() != null ? streamDTO.getLookdownCount() : 0;
+
+        if (attendance != null) {
+            attendance.setExpectedCount(totalRegistered);
+            attendance.setActualCount(presentCount);
+            attendance.setAttendanceRate(attendanceRate);
+            attendance.setAvgLookupRate(Math.round(lookupRate * 10.0) / 10.0);
+            attendanceSessions.save(attendance);
+        }
 
         // 专注度综合评级
         String focusLevel = "良好 (Normal)";
@@ -223,6 +244,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
             stringRedisTemplate.expire(key(KEY_TREND_HISTORY, offeringId), 60, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.warn("Failed to update realtime cache in Redis: {}", e.getMessage());
+            throw new IllegalStateException("实时数据缓存失败，请检查Redis服务", e);
         }
 
         // 6. 持久化一条宏观记录至 MySQL
@@ -240,6 +262,7 @@ public class VisualDashboardServiceImpl implements VisualDashboardService {
             classroomRecordRepository.save(record);
         } catch (Exception e) {
             log.error("Failed to save classroom record to MySQL: {}", e.getMessage());
+            throw new IllegalStateException("课堂数据保存失败，请检查数据库服务", e);
         }
     }
 

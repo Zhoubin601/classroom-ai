@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "physicalCamera": true,
+  "mockedAPIs": false,
+  "framesSent": 4,
+  "trendPoints": 4,
+  "trend": [
+    {
+      "time": "12:38:40",
+      "lookupRate": 100,
+      "presentCount": 1
+    },
+    {
+      "time": "12:38:41",
+      "lookupRate": 100,
+      "presentCount": 1
+    },
+    {
+      "time": "12:38:42",
+      "lookupRate": 100,
+      "presentCount": 1
+    },
+    {
+      "time": "12:38:44",
+      "lookupRate": 100,
+      "presentCount": 1
+    }
+  ],
+  "records": 4,
+  "actualCount": 1,
+  "attendanceRate": 100,
+  "sessionStatus": "FINISHED"
+}

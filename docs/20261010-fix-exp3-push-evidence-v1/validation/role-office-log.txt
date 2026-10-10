@@ -1,0 +1,5 @@
+PASS DOCX: real upload/conversion, rendered canvas, protection, two-page navigation
+PASS PPTX: real upload/conversion, rendered canvas, protection
+PASS US07: corrupt DOCX rejected with working LibreOffice, real >100MB upload rejected
+PASS US05: real template button, 12 draft items, goal/weight CRUD, invalid weight, director lock, reserved plan separation
+PASS US13/14: short/empty/duplicate highlights rejected, incomplete draft allowed, three distinct highlights submitted

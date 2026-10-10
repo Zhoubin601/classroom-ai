@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-10",
+  "timezone": "Asia/Shanghai",
+  "browser": {
+    "observedAt": "2026-10-10T04:52:58.085Z",
+    "chromeVersion": "154.0.8037.99",
+    "playwrightVersion": "1.61.1-beta-1782139630000",
+    "executablePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "headless": true
+  },
+  "groups": [
+    {
+      "name": "页面功能",
+      "evidence": "all-features-proxy/results.json",
+      "pass": 23,
+      "fail": 0,
+      "notRun": 0,
+      "pageErrors": 0
+    },
+    {
+      "name": "Office真实转换及业务守卫",
+      "evidence": "office-strict/fix-acceptance-results.json",
+      "pass": 6,
+      "fail": 0,
+      "notRun": 0,
+      "pageErrors": null
+    },
+    {
+      "name": "角色与业务边界",
+      "evidence": "boundaries/results.json",
+      "pass": 27,
+      "fail": 0,
+      "notRun": 0,
+      "pageErrors": 0
+    },
+    {
+      "name": "考勤冻结并发与归档",
+      "evidence": "fix-results.json",
+      "pass": 13,
+      "fail": 0,
+      "notRun": 0,
+      "pageErrors": 0
+    },
+    {
+      "name": "微格课程权限",
+      "evidence": "micro-scope/browser-results.json",
+      "pass": 11,
+      "fail": 0,
+      "notRun": 0,
+      "pageErrors": 0
+    },
+    {
+      "name": "原生HTTP与实际视频播放",
+      "evidence": "camera-micro/results.json",
+      "pass": 6,
+      "fail": 0,
+      "notRun": 8,
+      "pageErrors": 0
+    }
+  ],
+  "sourceChanges": [],
+  "rawUnchanged": true,
+  "sourceFileCount": 259,
+  "businessSourceUnchanged": true,
+  "dailyCountsUnchanged": true,
+  "dailyJarMatchesTest": true,
+  "dailySmoke": [
+    {
+      "actor": "director",
+      "status": "PASS",
+      "courses": 12,
+      "offerings": 5,
+      "microSlices": 1,
+      "monitorInvalidContext": 400,
+      "monitorAnonymous": 401,
+      "scopedContextEndpoint": 400
+    },
+    {
+      "actor": "guojun",
+      "status": "PASS",
+      "courses": 4,
+      "offerings": 4,
+      "microSlices": 1,
+      "monitorInvalidContext": 400,
+      "monitorAnonymous": 401,
+      "scopedContextEndpoint": 400
+    },
+    {
+      "actor": "supervisor",
+      "status": "PASS",
+      "courses": 24,
+      "offerings": 18,
+      "microSlices": 1,
+      "monitorInvalidContext": 400,
+      "monitorAnonymous": 401,
+      "scopedContextEndpoint": 400
+    }
+  ],
+  "dailyMedia": [
+    {
+      "sliceId": 1,
+      "courseId": 1,
+      "kind": "external-reference",
+      "status": "NOT_TESTED",
+      "reason": "不访问第三方地址"
+    },
+    {
+      "sliceId": 2,
+      "courseId": 2,
+      "kind": "external-reference",
+      "status": "NOT_TESTED",
+      "reason": "不访问第三方地址"
+    },
+    {
+      "sliceId": 6,
+      "courseId": 16,
+      "kind": "external-reference",
+      "status": "NOT_TESTED",
+      "reason": "不访问第三方地址"
+    }
+  ],
+  "cleanup": {
+    "originalProjectContainers": [
+      "classroom-backend",
+      "classroom-mysql",
+      "classroom-redis"
+    ],
+    "testContainersRemoved": true,
+    "testFrontendStopped": true,
+    "cleanedAt": "2026-10-10T12:53:03.1602050+08:00",
+    "testNetworkRemoved": true
+  },
+  "backendTestsRun": false,
+  "physicalCameraRun": false,
+  "mocksUsedForBusinessApis": false
+}

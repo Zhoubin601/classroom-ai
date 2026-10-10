@@ -2,6 +2,7 @@ package com.classroom.ai.modules.resource.service.impl;
 
 import com.classroom.ai.modules.course.entity.Course;
 import com.classroom.ai.modules.course.repository.CourseRepository;
+import com.classroom.ai.modules.course.service.CourseAuthorizationService;
 import com.classroom.ai.modules.resource.dto.MicroTeachingSliceDTO;
 import com.classroom.ai.modules.resource.entity.MicroTeachingSlice;
 import com.classroom.ai.modules.resource.repository.MicroTeachingSliceRepository;
@@ -18,22 +19,37 @@ public class MicroTeachingServiceImpl implements MicroTeachingService {
 
     private final MicroTeachingSliceRepository sliceRepository;
     private final CourseRepository courseRepository;
+    private final CourseAuthorizationService authorizationService;
 
     @Override
+    @Transactional(readOnly = true)
     public List<MicroTeachingSlice> getSlicesByCourseId(Long courseId) {
+        authorizationService.validateCourseRead(courseId);
         return sliceRepository.findByCourseId(courseId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<MicroTeachingSlice> getSlicesByStage(String stage) {
-        return sliceRepository.findByBopppsStage(stage);
+        authorizationService.requireCurrentUser();
+        List<Long> courseIds = authorizationService.filterCourses(courseRepository.findAll())
+                .stream().map(Course::getId).toList();
+        if (courseIds.isEmpty()) return List.of();
+        return sliceRepository.findByBopppsStageAndCourse_IdIn(stage, courseIds);
     }
 
     @Override
     @Transactional
     public MicroTeachingSlice mountSlice(MicroTeachingSliceDTO dto) {
+        authorizationService.requireCurrentUser();
+        if (dto == null || dto.getCourseId() == null) {
+            throw new IllegalArgumentException("挂载微格切片必须指定课程ID");
+        }
         Course course = courseRepository.findById(dto.getCourseId())
                 .orElseThrow(() -> new IllegalArgumentException("未找到课程ID为 " + dto.getCourseId() + " 的记录"));
+        authorizationService.validateCourseWrite(course);
+        if (dto.getSliceUrl() != null && dto.getSliceUrl().startsWith("/uploads/micro/"))
+            throw new IllegalArgumentException("平台视频请使用上传接口，不能重新挂载受控文件路径");
 
         MicroTeachingSlice slice = MicroTeachingSlice.builder()
                 .course(course)
@@ -53,6 +69,10 @@ public class MicroTeachingServiceImpl implements MicroTeachingService {
     @Override
     @Transactional
     public void deleteSlice(Long id) {
-        sliceRepository.deleteById(id);
+        authorizationService.requireCurrentUser();
+        MicroTeachingSlice slice = sliceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("未找到微格切片ID为 " + id + " 的记录"));
+        authorizationService.validateCourseWrite(slice.getCourse());
+        sliceRepository.delete(slice);
     }
 }

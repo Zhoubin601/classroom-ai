@@ -1,0 +1,11 @@
+{
+  "testContainersRemoved": true,
+  "testFrontendStopped": true,
+  "cleanedAt": "2026-10-10T12:27:50.8231368+08:00",
+  "testNetworkRemoved": true,
+  "originalProjectContainers": [
+    "classroom-backend",
+    "classroom-mysql",
+    "classroom-redis"
+  ]
+}

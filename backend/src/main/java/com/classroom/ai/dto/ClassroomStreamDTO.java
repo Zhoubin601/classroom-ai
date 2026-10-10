@@ -21,6 +21,9 @@ public class ClassroomStreamDTO implements Serializable {
     // 开课班次ID (CourseOffering ID)
     private Long offeringId;
 
+    // 原生摄像头关联的活动考勤会话；由后端同步实到人数与抬头率。
+    private Long attendanceSessionId;
+
     // 课程名称
     private String courseName;
 

@@ -1,0 +1,407 @@
+{
+  "observedAt": "2026-10-10T04:52:57.041Z",
+  "mode": "Real authenticated Chrome fetch through Vite proxy, Spring Boot and isolated MySQL; micro-slice metadata endpoints, no video playback",
+  "results": [
+    {
+      "name": "匿名查询、按环节查询、挂载、删除均401",
+      "status": "PASS"
+    },
+    {
+      "name": "主任本室与教师本人课程可以挂载，真实数据库新增",
+      "status": "PASS",
+      "details": {
+        "ownCourseId": 1,
+        "clipId": 5
+      }
+    },
+    {
+      "name": "三角色授权课程读取成功",
+      "status": "PASS"
+    },
+    {
+      "name": "三角色直接访问外课和切片ID均403，数据库不变",
+      "status": "PASS",
+      "details": {
+        "unauthorizedCourseId": 10,
+        "foreignSliceStillExists": true
+      }
+    },
+    {
+      "name": "督导对已授权课程仅可读，不可挂载或删除",
+      "status": "PASS"
+    },
+    {
+      "name": "按教学环节查询不泄漏外课切片",
+      "status": "PASS"
+    },
+    {
+      "name": "跨教研室协同教师可维护本人关联课程",
+      "status": "PASS"
+    },
+    {
+      "name": "收回专业授权后旧登录立即不可读，环节列表为空",
+      "status": "PASS"
+    },
+    {
+      "name": "Demo主任CSV与学生底库保留全量，教师督导仍禁止专用接口",
+      "status": "PASS",
+      "details": {
+        "csvIncludesOtherDepartments": true,
+        "globalStudentCount": 81
+      }
+    },
+    {
+      "name": "主任删除本室切片，教师删除本人课程切片",
+      "status": "PASS"
+    },
+    {
+      "name": "浏览器无未捕获异常",
+      "status": "PASS"
+    }
+  ],
+  "requests": [
+    {
+      "actor": "guojun",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices/6",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/resources/micro-slices/course/1",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices/course/1",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/resources/micro-slices/course/1",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/resources/micro-slices/course/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/resources/micro-slices/4?courseId=1",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices/course/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices/4?courseId=1",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/resources/micro-slices/course/10",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/resources/micro-slices/4?courseId=1",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/resources/micro-slices/5",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/resources/micro-slices/stage/scope-1791607967020",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices/stage/scope-1791607967020",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/courses",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/resources/micro-slices/stage/scope-1791607967020",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "jiangly",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "jiangly",
+      "route": "/api/v1/resources/micro-slices/course/1",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "jiangly",
+      "route": "/api/v1/resources/micro-slices/7",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/director/supervisors",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "micro_scope_1791607967020",
+      "route": "/api/v1/resources/micro-slices/course/1",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/director/supervisors/19/majors",
+      "method": "PUT",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "micro_scope_1791607967020",
+      "route": "/api/v1/resources/micro-slices/course/1",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "micro_scope_1791607967020",
+      "route": "/api/v1/resources/micro-slices/stage/scope-1791607967020",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/supervisions/analytics/export-report",
+      "method": "GET",
+      "http": 200
+    },
+    {
+      "actor": "director",
+      "route": "/api/student/list",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director_base",
+      "route": "/api/student/list",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/supervisions/analytics/export-report",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/student/list",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/v1/supervisions/analytics/export-report",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "route": "/api/student/list",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "route": "/api/v1/resources/micro-slices/5",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "route": "/api/v1/resources/micro-slices/8",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    }
+  ],
+  "pageErrors": []
+}

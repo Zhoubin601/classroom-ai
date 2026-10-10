@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-10",
+  "scopeSource": {
+    "path": "D:\\2026Autumn Semester File\\软管\\实验三\\raw\\实验一最终提交物\\第二组_项目规划方案.docx",
+    "sha256Before": "299cd2d510e7a8da609ec2fe513e3810e616d3562673bce09ee16e81688437bb",
+    "date": "2026-10-10",
+    "readMethod": "OfficeCLI failed: System.Private.Xml runtime missing; fallback read-only Python zipfile + XML",
+    "sha256AfterRead": "299cd2d510e7a8da609ec2fe513e3810e616d3562673bce09ee16e81688437bb",
+    "sha256AtCompletion": "299cd2d510e7a8da609ec2fe513e3810e616d3562673bce09ee16e81688437bb"
+  },
+  "stories": [
+    "US-05",
+    "US-07",
+    "US-08",
+    "US-09",
+    "US-10",
+    "US-13",
+    "US-14",
+    "US-15"
+  ],
+  "plannedStoryPoints": 33,
+  "browser": {
+    "observedAt": "2026-10-10T13:07:15.6935300+08:00",
+    "frontend": "http://127.0.0.1:15173",
+    "mockedBusinessResponses": false,
+    "backend": "http://127.0.0.1:18081",
+    "exitCode": 0
+  },
+  "browserPASSGroups": 6,
+  "mysql": {
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "12.631"
+  },
+  "officeEvidenceFromEarlierRun": "docs/20261010-role-recheck-evidence-v1/office-strict/fix-acceptance-results.json",
+  "codeAndRawChanges": [],
+  "meetingDocumentsFoundAreSprint1": [
+    {
+      "path": "D:\\2026Autumn Semester File\\软管\\实验二\\output\\实验二提交物\\第二组_Sprint评审会会议纪要.docx",
+      "sha256": "3d295a54edde6dc7ed1a3b6524984427edf254946086aed3fde91efe91e26f62",
+      "relevantExtracts": [
+        "软件项目管理 / 实验二 Sprint 1 执行与交付（4学时）——代号：蜂鸟",
+        "Sprint 1执行结束后，由PO郭振顺主持召开Sprint评审会，向干系人（指导教师郭军）现场演示Sprint 1交付的课程底座可工作软件增量，验证DoD达成情况并收集反馈。",
+        "2026年9月21日 14:00 — 15:30 / 文管学馆A407敏捷研讨室"
+      ],
+      "appliesTo": "Sprint 1",
+      "unchangedAfterRead": true
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\软管\\实验二\\output\\实验二提交物\\第二组_Sprint回顾会会议纪要.docx",
+      "sha256": "2755542bcb44fd3658812b072fdec4cef70b0e3b1f618a5c9cd0d86f31b5389e",
+      "relevantExtracts": [
+        "软件项目管理 / 实验二 Sprint 1 执行与交付（4学时）——代号：蜂鸟",
+        "2026年9月21日 16:00 — 17:30 / 六舍A354"
+      ],
+      "appliesTo": "Sprint 1",
+      "unchangedAfterRead": true
+    }
+  ],
+  "formalSprint2ReviewDate": "2026-10-11",
+  "formalSprint2ReviewRetrospectiveApprovalEvidence": "资料未提供：在检查的项目docs/output与软管实验二/实验三目录未发现Sprint2对应记录",
+  "cleanup": {
+    "originalProjectContainers": [
+      "classroom-backend",
+      "classroom-mysql",
+      "classroom-redis"
+    ],
+    "cleanedAt": "2026-10-10T13:07:21.3777464+08:00",
+    "testNetworkRemoved": true,
+    "testContainersRemoved": true,
+    "testFrontendStopped": true
+  }
+}

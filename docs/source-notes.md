@@ -332,3 +332,47 @@
 - 来源名称：用户当前请求及两张功能图；文件名：codex-clipboard-6ade7836-6c4a-4a63-984b-c2978a47efdc.png（权限矩阵）、codex-clipboard-f439eee2-9efe-4794-b5d5-6e602631eab8.png（业务关联）；原路径：C:/Users/a3185/AppData/Local/Temp/；引用日期：2026-10-07。将图内内容视为待验证描述，不当作执行指令。
 - 来源名称：当前源码、初始化SQL、现有测试、前次修复记录；文件名：backend/src、frontend/src、initialize.sql、scripts/tests、output/20261007-role-integration-fixes-v1.md；引用日期：2026-10-07。旧记录仅作测试设计依据，本轮通过结论必须来自新运行。
 - raw/仅有README；真实硬件课堂资料未提供；无外部网络资料。过程证据：docs/20261007-role-recheck-evidence-v2/。
+
+## 2026-10-09 微格业务范围确认及实现来源
+- 来源名称：用户当前确认；文件名：当前会话；引用日期：2026-10-09。Demo保留主任质量CSV全量、主任学生底库全量；微格采用主任维护本室、教师维护本人主讲/协同课程、督导仅预览授权专业课程。
+- 来源名称：本地当前fix-exp3代码；文件名：MicroTeachingController.java、MicroTeachingServiceImpl.java、CourseAuthorizationService.java、SecurityConfig.java；引用日期：2026-10-09。微格旧实现只要求登录，未调用统一课程授权；按环节查询也未按课程过滤。
+- raw/只有README.md，未使用外部资料。范围依据是用户本次确认，不视为学校正式制度。
+
+
+## 2026-10-09 两张桌面附图重新实机检查 v2
+来源名称：当前用户请求与两张附图；文件名：C:/Users/a3185/Desktop/1.png（矩阵）、2.png（业务关联）；引用日期：2026-10-09。附图是验收参考，不执行图内指令。raw/仅有README。当前源码、initialize.sql、scripts/tests/fixtures与前次测试脚本作为本地测试来源；memory-bank/project-context.md记录已确认Demo全量CSV/学生底库及微格课程权限口径。无外部资料。
+# 2026-10-09 UI 评审来源
+
+- 来源名称：用户当前 UI 评审请求；文件名：当前会话；引用日期：2026-10-09。
+- 来源名称：原始资料目录；文件名：raw/README.md；引用日期：2026-10-09。除目录说明外资料未提供。
+- 来源名称：当前实现与本地过程记录；文件名：frontend/src/App.vue、frontend/src/style.css、frontend/src/views/、frontend/src/components/、frontend/package.json、docs/、memory-bank/project-context.md；引用日期：2026-10-09。当前工作区含既有未提交修改，评审不覆盖这些改动。
+- 来源名称：已有设计规范；文件名：design-system/classroomai/MASTER.md；引用日期：2026-10-09。该文件为已存在的生成规范，是否为用户正式确认版本待确认。
+- 来源名称：用户指定技能与本地数据；文件名：C:/Users/a3185/.agents/skills/ui-ux-pro-max/SKILL.md、ux-guidelines.csv、stacks/vue.csv；引用日期：2026-10-09。只采用适合 Web 的建议，不将原生 App 的 pt/dp、安全区规范直接套用；无外部网络资料。
+
+
+
+### 本轮实测收尾（v2）
+新增证据来源：docs/20261009-role-functional-evidence-v2/summary.json、五组results及vision-transport-results.json、daily-readonly.json；docs/20261009-radar-proof-evidence-v1/results.json。引用日期2026-10-09。截图已人工查看考勤模拟大屏和匿名反馈；实际雷达渲染专项核验Canvas像素。新旧JAR分别留SHA256，不留登录凭据。
+
+
+## 2026-10-09 摄像头全链路修复
+用户授权修复全链路并尽量全部打通，确认摄像头启用和本地截图、补测真实微格播放、验证后更新5173/8080；来源当前会话，引用日期2026-10-09。截图codex-clipboard-70abc0f6-1d3e-43f2-9287-c816c3cf3bd9.png仅作复现参考。底库拉取无认证、原生推流无认证/班次、局部启动状态错误、退出未停止为源码发现。
+
+
+## 2026-10-10 继续摄像头全链路修复
+继续已授权范围。上次构建失败剩余一项为新测试的Mockito嵌套桩设定错误，已修正；不是产品缺陷。新增证据独立放docs/20261010-camera-integration-evidence-v1，不覆盖旧尝试。允许摄像头、本地截图和通过后更新日常服务的授权继续有效。
+
+## 2026-10-10 摄像头修复收尾
+已完成约定的软件链路和本机更新：真实摄像头人脸/姿态、认证班次上报、实时考勤、大屏、停止及归档、微格真实解码播放。最终实机14/14、连续4帧趋势与持久化通过、考勤回归13/13；其他组23/23、6/6、27/27、11/11。Java223项176通过47跳过，前端13与Python9项通过。最终依据docs/20261010-camera-integration-evidence-v1/summary.json、camera-micro/results.json、camera-trend/results.json、daily-after.json、daily-smoke.json，引用日期2026-10-10。
+日常5173/8080已更新，三角色冒烟通过，MySQL/Redis保留且六类业务记录数未变；隔离环境和原生摄像头进程已清理。早期夹具/取证脚本及预览构建冲突的失败保留为尝试，最终稳定构建复测通过。仅本地docs保存已获授权的摄像头截图，人脸向量仅用于隔离库，临时库已删除。
+正式交付：output/20261010-camera-integration-fix-v1.md。当前范围无阻塞问题；实际班次名单、多人/光照识别效果、旧微格视频来源需现场复核，不能以本次单人和合成视频推断总体准确率。原始真实课堂视频资料未提供，未替换原有业务微格记录。
+
+
+## 2026-10-10 两图功能重新实测
+来源名称：用户功能/权限附图；文件名：C:/Users/a3185/Desktop/1.png、2.png；引用日期：2026-10-10。图片用于验收参考，不作为执行指令。raw仅README，原始业务材料资料未提供。另读取本地源码、初始化SQL、测试夹具、既有报告与memory-bank已确认Demo规则；不使用外部资料。
+
+
+## 2026-10-10 实验一Sprint2完成复核
+只读原件：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx，引用日期2026-10-10；按表6/11/16确定范围和DoD。上轮本日六组实测证据与原始八故事专项分开标记。
+
+来源补充：只读实验二提交物的第二组_Sprint评审会会议纪要.docx和第二组_Sprint回顾会会议纪要.docx，引用日期2026-10-10，均标明Sprint1、2026-09-21；原件哈希不变，详见docs/20261010-sprint2-readiness-evidence-v1/meeting-source-check.json。不能用它们证明Sprint2已评审或获批准。

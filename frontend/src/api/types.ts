@@ -71,6 +71,7 @@ export interface FaceMatchVO {
 }
 
 export interface ClassroomStreamDTO {
+  attendanceSessionId?: number | null;
   sessionId: string
   offeringId?: number
   courseName?: string

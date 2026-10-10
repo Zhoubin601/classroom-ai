@@ -1,0 +1,42 @@
+{
+  "browser": "Real Chrome",
+  "mockedAPIs": false,
+  "syntheticVideo": true,
+  "physicalCamera": true,
+  "results": [
+    {
+      "name": "真实摄像头提取人脸；向量仅进入隔离数据库",
+      "status": "PASS",
+      "details": {
+        "faceDetected": true,
+        "featureDimension": 512,
+        "cameraIndex": 0,
+        "storedOnlyInDisposableDatabase": true
+      }
+    }
+  ],
+  "requests": [
+    {
+      "actor": "director",
+      "path": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 400,
+      "code": 400
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/stop-monitor",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    }
+  ],
+  "pageErrors": []
+}

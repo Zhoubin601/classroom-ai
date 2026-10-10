@@ -52,7 +52,7 @@ class MonitorTests(unittest.TestCase):
         for filename in ["classroom_monitor.py"]:
             for running, frame, expected in [(True, None, False), (True, b"JPEG", True), (False, b"JPEG", False)]:
                 with self.subTest(filename=filename, running=running, frame=frame):
-                    scope = {"BaseHTTPRequestHandler": object, "json": json,
+                    scope = {"BaseHTTPRequestHandler": object, "json": json, "os": __import__('os'),
                              "latest_jpeg_frame": frame, "monitor_instance": SimpleNamespace(running=running)}
                     handler = load_definition(ROOT / filename, "MJPEGHandler", scope)()
                     handler.path = "/health"

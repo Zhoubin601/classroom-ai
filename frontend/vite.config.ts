@@ -19,7 +19,7 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       '/api/visual/video-feed': {
-        target: 'http://127.0.0.1:8088',
+        target: `http://127.0.0.1:${process.env.CLASSROOM_MONITOR_PORT || 8088}`,
         changeOrigin: true,
         rewrite: () => '/video_feed'
       },

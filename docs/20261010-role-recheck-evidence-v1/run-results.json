@@ -1,0 +1,26 @@
+[
+  {
+    "suite": "all-features-proxy",
+    "exitCode": 0
+  },
+  {
+    "suite": "fix-exp3-acceptance",
+    "exitCode": 0
+  },
+  {
+    "suite": "role-boundaries",
+    "exitCode": 0
+  },
+  {
+    "suite": "verify-fixes",
+    "exitCode": 0
+  },
+  {
+    "suite": "camera-micro-browser",
+    "exitCode": 0
+  },
+  {
+    "suite": "micro-scope-browser",
+    "exitCode": 0
+  }
+]

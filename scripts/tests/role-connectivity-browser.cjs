@@ -117,17 +117,32 @@ async function main() {
       const radar=ok(await api(teacher,'/api/v1/supervisions/analytics/radar?teacherName='+encodeURIComponent('郭军')));assert.ok(radar.evaluationCount>0);assert.ok(radar.suggestionList.includes('合成测试加强实践反馈'));assert.ok(radar.wordCloud.length>0);
       return {redAlert:true,evaluationCount:radar.evaluationCount,wordCloudItems:radar.wordCloud.length};
     });
-    await check('主任CSV包含外室开课范围例外',async()=>{
+    await check('Demo主任CSV按已确认规则包含全量开课',async()=>{
       const r=await api(director,'/api/v1/supervisions/analytics/export-report');assert.equal(r.status,200);assert.ok(r.text.includes(outside.course.courseCode));return {http:200,outsideCourseIncluded:true};
-    },'documented-scope-exception');
-    await check('主任学生底库全量读取范围例外',async()=>{const students=ok(await api(director,'/api/student/list'));assert.ok(students.length>0);return {count:students.length,noDepartmentFilter:true};},'documented-scope-exception');
-    for(const a of [teacher,director,supervisor]) {
-      await check(`${a.username}微格跨课程挂载读取删除范围例外`,async()=>{
-        const courseId=a===teacher||a===director?outside.course.id:common.course.id;
-        const r=ok(await api(a,'/api/v1/resources/micro-slices','POST',{courseId,videoTitle:'合成范围测试-'+stamp,bopppsStage:'B',durationSeconds:30,sliceUrl:'https://example.invalid/synthetic.mp4',sourceAgent:'role-connectivity-test'}));
+    },'confirmed-demo-policy');
+    await check('Demo主任学生底库按已确认规则全量读取',async()=>{const students=ok(await api(director,'/api/student/list'));assert.ok(students.length>0);return {count:students.length,noDepartmentFilter:true};},'confirmed-demo-policy');
+    for(const a of [teacher,director]) {
+      await check(`${a.username}微格本课维护与外课拒绝`,async()=>{
+        const courseId=common.course.id;
+        const payload={courseId,videoTitle:'合成范围测试-'+stamp,bopppsStage:'B',durationSeconds:30,sliceUrl:'https://example.invalid/synthetic.mp4',sourceAgent:'role-connectivity-test'};
+        denied(await api(a,`/api/v1/resources/micro-slices/course/${outside.course.id}`));
+        denied(await api(a,'/api/v1/resources/micro-slices','POST',{...payload,courseId:outside.course.id}));
+        const r=ok(await api(a,'/api/v1/resources/micro-slices','POST',payload));
         const list=ok(await api(a,`/api/v1/resources/micro-slices/course/${courseId}`));assert.ok(list.some(s=>s.id===r.id));ok(await api(a,`/api/v1/resources/micro-slices/${r.id}`,'DELETE'));return {http:200,courseId,metadataOnly:true};
-      },'documented-scope-exception');
+      });
     }
+    await check('督导微格仅授权读取，禁止挂载删除',async()=>{
+      const payload={courseId:common.course.id,videoTitle:'合成督导只读-'+stamp,bopppsStage:'B',durationSeconds:30,sliceUrl:'https://example.invalid/synthetic.mp4'};
+      const clip=ok(await api(teacher,'/api/v1/resources/micro-slices','POST',payload));
+      assert.ok(ok(await api(supervisor,`/api/v1/resources/micro-slices/course/${common.course.id}`)).some(s=>s.id===clip.id));
+      denied(await api(supervisor,'/api/v1/resources/micro-slices','POST',payload));
+      denied(await api(supervisor,`/api/v1/resources/micro-slices/${clip.id}`,'DELETE'));
+      ok(await api(teacher,`/api/v1/resources/micro-slices/${clip.id}`,'DELETE'));
+    });
+    for(const a of [teacher,director,supervisor]) await check(`${a.username}按环节查询仅返回授权课程微格`,async()=>{
+      const readable=new Set(ok(await api(a,'/api/v1/courses')).map(c=>c.id));
+      assert.ok(ok(await api(a,'/api/v1/resources/micro-slices/stage/B')).every(s=>readable.has(s.course.id)));
+    });
     await check('真实浏览器演示模拟流到考勤归档',async()=>{
       await teacher.page.getByRole('button',{name:/课堂智能考勤大屏/}).click();
       await teacher.page.getByRole('heading',{name:/课堂智能考勤与态势监控大屏/}).waitFor();

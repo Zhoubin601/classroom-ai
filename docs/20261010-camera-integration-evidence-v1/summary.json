@@ -1,0 +1,75 @@
+{
+  "functional": {
+    "total": 23,
+    "passed": 23
+  },
+  "office": {
+    "total": 6,
+    "passed": 6
+  },
+  "boundaries": {
+    "total": 27,
+    "passed": 27
+  },
+  "attendance": {
+    "total": 13,
+    "passed": 13
+  },
+  "microScope": {
+    "total": 11,
+    "passed": 11
+  },
+  "cameraMicro": {
+    "total": 14,
+    "passed": 14
+  },
+  "cameraTrend": {
+    "status": "PASS",
+    "physicalCamera": true,
+    "mockedAPIs": false,
+    "framesSent": 4,
+    "trendPoints": 4,
+    "trend": [
+      {
+        "time": "12:38:40",
+        "lookupRate": 100,
+        "presentCount": 1
+      },
+      {
+        "time": "12:38:41",
+        "lookupRate": 100,
+        "presentCount": 1
+      },
+      {
+        "time": "12:38:42",
+        "lookupRate": 100,
+        "presentCount": 1
+      },
+      {
+        "time": "12:38:44",
+        "lookupRate": 100,
+        "presentCount": 1
+      }
+    ],
+    "records": 4,
+    "actualCount": 1,
+    "attendanceRate": 100,
+    "sessionStatus": "FINISHED"
+  },
+  "automated": {
+    "java": {
+      "total": 223,
+      "passed": 176,
+      "skipped": 47,
+      "failed": 0
+    },
+    "frontend": {
+      "total": 13,
+      "passed": 13
+    },
+    "vision": {
+      "total": 9,
+      "passed": 9
+    }
+  }
+}

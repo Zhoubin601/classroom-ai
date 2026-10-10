@@ -1,0 +1,37 @@
+{
+  "base": "http://127.0.0.1:5173",
+  "businessFixtureWrites": false,
+  "results": [
+    {
+      "actor": "director",
+      "status": "PASS",
+      "courses": 12,
+      "offerings": 5,
+      "microSlices": 1,
+      "monitorInvalidContext": 400,
+      "monitorAnonymous": 401,
+      "scopedContextEndpoint": 400
+    },
+    {
+      "actor": "guojun",
+      "status": "PASS",
+      "courses": 4,
+      "offerings": 4,
+      "microSlices": 1,
+      "monitorInvalidContext": 400,
+      "monitorAnonymous": 401,
+      "scopedContextEndpoint": 400
+    },
+    {
+      "actor": "supervisor",
+      "status": "PASS",
+      "courses": 24,
+      "offerings": 18,
+      "microSlices": 1,
+      "monitorInvalidContext": 400,
+      "monitorAnonymous": 401,
+      "scopedContextEndpoint": 400
+    }
+  ],
+  "pageErrors": []
+}

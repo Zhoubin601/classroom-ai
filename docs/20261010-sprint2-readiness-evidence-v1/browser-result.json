@@ -1,0 +1,7 @@
+{
+  "observedAt": "2026-10-10T13:07:15.6935300+08:00",
+  "frontend": "http://127.0.0.1:15173",
+  "mockedBusinessResponses": false,
+  "backend": "http://127.0.0.1:18081",
+  "exitCode": 0
+}

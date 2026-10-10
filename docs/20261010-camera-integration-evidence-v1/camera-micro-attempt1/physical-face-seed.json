@@ -1,0 +1,6 @@
+{
+  "faceDetected": true,
+  "featureDimension": 512,
+  "cameraIndex": 0,
+  "storedOnlyInDisposableDatabase": true
+}

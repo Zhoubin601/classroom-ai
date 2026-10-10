@@ -22,8 +22,10 @@ from pathlib import Path
 
 if __package__:
     from .paths import PROJECT_ROOT
+    from .monitor_transport import MonitorTransport
 else:
     from paths import PROJECT_ROOT
+    from monitor_transport import MonitorTransport
 from typing import Dict, List, Tuple
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import socketserver
@@ -105,6 +107,9 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
 class MJPEGHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         global latest_jpeg_frame, monitor_instance
+        secret = os.environ.get('CLASSROOM_MONITOR_CONTROL_SECRET', '')
+        if secret and self.headers.get('X-Monitor-Control') != secret:
+            self.send_response(403); self.end_headers(); return
         if self.path.startswith('/video_feed'):
             self.send_response(200)
             self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=frame')
@@ -132,7 +137,7 @@ class MJPEGHandler(BaseHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             ready = bool(monitor_instance and monitor_instance.running and latest_jpeg_frame is not None)
-            self.wfile.write(json.dumps({"status": "ok" if ready else "starting", "running": ready}).encode("utf-8"))
+            self.wfile.write(json.dumps({"status": "ok" if ready else "starting", "running": ready, **(monitor_instance.transport.status() if monitor_instance and hasattr(monitor_instance, "transport") else {})}).encode("utf-8"))
         elif self.path == '/stop':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
@@ -158,6 +163,8 @@ class ClassroomMonitor:
         self.no_window = no_window
         self.port = port
         self.running = True
+        self.transport = MonitorTransport(self.backend_url, os.environ.get("CLASSROOM_MONITOR_OFFERING_ID", "0"), os.environ.get("CLASSROOM_MONITOR_SESSION_ID", "0"))
+        self.transport.load_context()
 
         self.project_root = PROJECT_ROOT
         self.student_db: Dict[str, dict] = {}  # { studentId: { name, className, vector: np.ndarray } }
@@ -215,29 +222,23 @@ class ClassroomMonitor:
         if verbose:
             print(">> [2/2] 正在从云端 (MySQL + Redis) 同步学生人脸 512 维特征底库...")
 
-        url = f"{self.backend_url}/api/face/all"
         try:
-            req = urllib.request.Request(url, method="GET")
-            req.add_header("Accept", "application/json")
-            with urllib.request.urlopen(req, timeout=3) as resp:
-                data = json.loads(resp.read().decode("utf-8"))
-                if data.get("code") == 200 and isinstance(data.get("data"), list):
-                    new_db = {}
-                    for item in data["data"]:
-                        stu_id = item.get("studentId")
-                        vec = item.get("featureVector")
-                        if stu_id and vec and len(vec) == 512:
-                            new_db[stu_id] = {
-                                "name": item.get("name", "Unknown"),
-                                "className": item.get("className", "高一(1)班"),
-                                "vector": np.array(vec, dtype=np.float32)
-                            }
-                    self.student_db = new_db
-                    if verbose:
-                        print(f"   [OK] 成功从云端同步档案，当前建档人数: {len(self.student_db)} 位！")
-        except Exception as e:
+            data = self.transport.load_context()
+            new_db = {}
+            for item in data.get("faces", []):
+                stu_id, vec = item.get("studentId"), item.get("featureVector")
+                if stu_id and vec and len(vec) == 512:
+                    new_db[stu_id] = {"name": item.get("name", "Unknown"),
+                                      "className": data["className"],
+                                      "vector": np.array(vec, dtype=np.float32)}
+            self.student_db = new_db
             if verbose:
-                print(f"   [NOTICE] 云端底库拉取异常: {e}")
+                print(f"   [OK] 已同步当前班次人脸底库: {len(new_db)} 位")
+        except Exception:
+            self.student_db = {}
+            if self.transport.fatal:
+                self.running = False
+            if verbose: print(self.transport.error or "当前班次人脸底库同步失败")
 
     def match_student(self, embedding: np.ndarray, threshold: float = 0.40) -> Tuple[str, str, float]:
         """与底库特征进行 1:N 余弦相似度比对，判定学生身份"""
@@ -297,18 +298,12 @@ class ClassroomMonitor:
         """异步非阻塞向后端上报实时推断聚合数据，彻底不拖慢 OpenCV 视频流"""
         def _post():
             try:
-                url = f"{self.backend_url}/api/visual/report/stream"
-                data = json.dumps(payload).encode("utf-8")
-                req = urllib.request.Request(url, data=data, method="POST")
-                req.add_header("Content-Type", "application/json")
-                with urllib.request.urlopen(req, timeout=3) as resp:
-                    pass
-            except Exception:
-                pass
+                if not self.transport.send(payload) and self.transport.fatal:
+                    self.running = False
+                    print(self.transport.error or "摄像头推流已停止")
             finally:
                 self.is_reporting = False
-
-        if not self.is_reporting:
+        if not self.is_reporting and self.running:
             self.is_reporting = True
             threading.Thread(target=_post, daemon=True).start()
 
@@ -318,7 +313,8 @@ class ClassroomMonitor:
         cap = cv2.VideoCapture(self.camera_index, cv2.CAP_DSHOW)
         if not cap.isOpened():
             print(f"[ERROR] 无法连接摄像头设备 (Index: {self.camera_index})！请检查硬件设备或权限。")
-            return
+            self.running = False
+            raise RuntimeError("无法连接摄像头，请检查设备或是否被其他程序占用")
 
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
@@ -372,7 +368,7 @@ class ClassroomMonitor:
             present_student_ids: List[str] = []
             student_poses: Dict[str, str] = {}
 
-            for face in faces:
+            for face_index, face in enumerate(faces):
                 bbox = face.bbox.astype(int)
                 x1, y1, x2, y2 = bbox
                 embedding = face.embedding
@@ -392,6 +388,10 @@ class ClassroomMonitor:
                 if student_id != "Unknown":
                     present_student_ids.append(student_id)
                     student_poses[student_id] = pose_state
+                else:
+                    visitor_id = f"UNKNOWN_FACE_{face_index + 1}"
+                    present_student_ids.append(visitor_id)
+                    student_poses[visitor_id] = pose_state
 
                 # 绘制人脸框与科技 HUD 标注
                 # 绿色表示抬头听课，红色表示低头走神
@@ -445,7 +445,7 @@ class ClassroomMonitor:
 
             hud_text = (
                 f"在座人数: {detected_count} 人  |  "
-                f"识别建档: {len(present_student_ids)} 人  |  "
+                f"识别建档: {sum(sid in self.student_db for sid in set(present_student_ids))} 人  |  "
                 f"实时抬头率: {lookup_rate * 100:.1f}%  |  "
                 f"低头预警: {lookdown_count} 人  |  "
                 f"推断帧率: {fps:.1f} FPS"
@@ -473,8 +473,13 @@ class ClassroomMonitor:
 
         self.running = False
         cap.release()
+        if self.is_reporting:
+            for _ in range(60):
+                if not self.is_reporting: break
+                time.sleep(0.1)
         cv2.destroyAllWindows()
         print("视觉督导程序已退出，摄像头与硬件设备已完全释放。")
+        if self.transport.fatal: raise RuntimeError(self.transport.error or "摄像头数据上报已停止")
 
 
 def main():

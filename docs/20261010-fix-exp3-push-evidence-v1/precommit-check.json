@@ -1,0 +1,32 @@
+{
+  "scope": "camera attendance binding, lifecycle and errors; scoped micro teaching upload and playback; tests and verification records",
+  "target": "origin/fix-exp3",
+  "baseline": "fa387b87023eef5a1b7ab7a0a8d754ff1833de75",
+  "checks": [
+    "same tested business source fingerprints",
+    "staged whitespace check",
+    "credential/capability/face-vector scan",
+    "raw excluded",
+    "physical-camera screenshots local only"
+  ],
+  "whitespaceNormalizedOnlyInEvidenceOrReports": [
+    "docs/20261010-camera-integration-evidence-v1/all-features-proxy.cjs",
+    "docs/20261010-camera-integration-evidence-v1/role-boundaries.cjs",
+    "docs/20261010-fix-exp3-push-evidence-v1/validation/camera-backend-tests-log.txt",
+    "docs/20261010-fix-exp3-push-evidence-v1/validation/sprint2-mysql-log.txt",
+    "docs/20261010-role-recheck-evidence-v1/all-features-proxy.cjs",
+    "docs/20261010-role-recheck-evidence-v1/role-boundaries.cjs",
+    "output/20261009-demo-micro-permissions-v1.md"
+  ],
+  "latestSprint2Mysql": "4 passed; no failures, errors or skips",
+  "latestSprint2Browser": "exit 0; six PASS groups covering eight stories",
+  "earlierRoleGroups": [
+    23,
+    6,
+    27,
+    13,
+    11,
+    6
+  ],
+  "newPhysicalCameraChecksRun": false
+}

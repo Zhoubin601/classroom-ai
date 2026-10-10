@@ -1,0 +1,645 @@
+{
+  "browser": "Real Chrome",
+  "mockedAPIs": false,
+  "syntheticVideo": true,
+  "physicalCamera": true,
+  "results": [
+    {
+      "name": "真实摄像头提取人脸；向量仅进入隔离数据库",
+      "status": "PASS",
+      "details": {
+        "faceDetected": true,
+        "featureDimension": 512,
+        "cameraIndex": 0,
+        "storedOnlyInDisposableDatabase": true
+      }
+    },
+    {
+      "name": "本机启动接口先验证登录、班次权限及会话",
+      "status": "PASS",
+      "details": {
+        "anonymous": 401,
+        "missingContext": 400,
+        "foreignTeacher": 403,
+        "finishedSession": 409
+      }
+    },
+    {
+      "name": "三角色真实Python传输→后端→班次考勤；结束后拒绝旧帧",
+      "status": "PASS",
+      "details": [
+        {
+          "role": "director",
+          "sessionId": 12,
+          "actualCount": 1,
+          "auditingCount": 1,
+          "finishedFrameHttp": 409
+        },
+        {
+          "role": "guojun",
+          "sessionId": 13,
+          "actualCount": 1,
+          "auditingCount": 1,
+          "finishedFrameHttp": 409
+        },
+        {
+          "role": "supervisor",
+          "sessionId": 14,
+          "actualCount": 1,
+          "auditingCount": 1,
+          "finishedFrameHttp": 409
+        }
+      ]
+    },
+    {
+      "name": "真实摄像头人脸/姿态→MJPEG→Redis大屏→MySQL活动考勤",
+      "status": "PASS",
+      "details": {
+        "offeringId": 18,
+        "sessionId": 15,
+        "framesSent": 1,
+        "currentPresent": 1,
+        "trendPoints": 1,
+        "rosterCount": 1,
+        "internalControl": 403
+      }
+    },
+    {
+      "name": "停止摄像头释放设备，旧视频授权失效且数据库不再增长",
+      "status": "PASS",
+      "details": {
+        "recordsAfterStop": 1,
+        "noAdditionalFrames": true,
+        "oldVideoTicket": 401
+      }
+    },
+    {
+      "name": "最后一帧为0时归档保留0，不使用历史正值覆盖",
+      "status": "PASS",
+      "details": {
+        "actualCount": 0,
+        "lookupRate": 0,
+        "status": "FINISHED"
+      }
+    },
+    {
+      "name": "重新启动并通过页面结束考勤，归档结果与实时数据一致",
+      "status": "PASS",
+      "details": {
+        "sessionId": 16,
+        "actualCount": 1,
+        "attendanceRate": 100,
+        "lookup": 100,
+        "status": "FINISHED"
+      }
+    },
+    {
+      "name": "切换班次自动停止原生摄像头",
+      "status": "PASS",
+      "details": {
+        "stoppedOnOfferingChange": true
+      }
+    },
+    {
+      "name": "退出登录自动释放原生摄像头，重新登录可继续操作",
+      "status": "PASS",
+      "details": {
+        "stoppedBeforeLogout": true
+      }
+    },
+    {
+      "name": "班次冻结后推断停止并显示错误；新启动被拦截",
+      "status": "PASS",
+      "details": {
+        "nativeStopped": true,
+        "visibleError": true
+      }
+    },
+    {
+      "name": "真实浏览器生成合成WebM，教师上传并实际解码播放",
+      "status": "PASS",
+      "details": {
+        "sliceId": 3,
+        "bytes": 25645,
+        "time": 0.60944,
+        "width": 320,
+        "height": 180,
+        "ready": 4,
+        "pixel": [
+          204,
+          33,
+          52,
+          255
+        ]
+      }
+    },
+    {
+      "name": "督导只读播放真实视频；越权和绕过媒体接口被拒绝",
+      "status": "PASS",
+      "details": {
+        "decodedBySupervisor": true,
+        "outsideScope": 403,
+        "anonymous": 401,
+        "directPath": 403,
+        "supervisorDelete": 403
+      }
+    },
+    {
+      "name": "主任读取、教师删除后媒体不可访问",
+      "status": "PASS",
+      "details": {
+        "deleted": true
+      }
+    },
+    {
+      "name": "浏览器无未捕获页面异常",
+      "status": "PASS"
+    }
+  ],
+  "requests": [
+    {
+      "actor": "director",
+      "path": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/visual/start-monitor",
+      "method": "POST",
+      "http": 401,
+      "code": 401
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/start-monitor",
+      "method": "POST",
+      "http": 400,
+      "code": 400
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/visual/start-monitor",
+      "method": "POST",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/start-monitor",
+      "method": "POST",
+      "http": 409,
+      "code": 409
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/monitor-context",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-context",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/monitor-context",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/finish",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/trend",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/stop-monitor",
+      "method": "POST",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/visual/video-feed",
+      "method": "GET",
+      "http": 401,
+      "code": 401
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/visual/video-feed",
+      "method": "GET",
+      "http": 401,
+      "code": 401
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/offering/18",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/offering/18",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/current",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/offering/18",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/18/archive",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/monitor-status",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/micro-slices/course/2",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources/micro-slices/3/video",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "anonymous",
+      "path": "/api/v1/resources/micro-slices/3/video",
+      "method": "GET",
+      "http": 401,
+      "code": 401
+    },
+    {
+      "actor": "guojun",
+      "path": "/uploads/micro/2ac9ff3d-172a-40ba-a11c-affbde11035a.webm",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "guojun",
+      "path": "/uploads/micro/2ac9ff3d-172a-40ba-a11c-affbde11035a.webm",
+      "method": "GET",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/micro-slices/3",
+      "method": "DELETE",
+      "http": 403,
+      "code": 403
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/micro-slices/3/video",
+      "method": "GET",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/micro-slices/3",
+      "method": "DELETE",
+      "http": 200,
+      "code": 200
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/micro-slices/3/video",
+      "method": "GET",
+      "http": 400,
+      "code": 400
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/stop-monitor",
+      "method": "POST",
+      "http": 200,
+      "code": 200
+    }
+  ],
+  "pageErrors": []
+}

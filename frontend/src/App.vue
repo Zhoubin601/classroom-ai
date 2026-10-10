@@ -103,6 +103,7 @@
       <TeacherDeskView v-else-if="activeTab === 'teacher' && currentUser?.role === 'TEACHER'" :logged-in-user="currentUser" />
       <SupervisorDeskView v-else-if="activeTab === 'supervisor' && currentUser?.role === 'SUPERVISOR'" @jump-to-attendance="handleJumpToAttendance" />
       <AttendanceDashboardView v-else-if="activeTab === 'attendance'" :initial-offering-id="targetOfferingId" :logged-in-user="currentUser" />
+      <MicroTeachingView v-else-if="activeTab === 'micro'" :logged-in-user="currentUser" />
       <StudentManageView v-else-if="activeTab === 'students' && currentUser?.role === 'DIRECTOR'" />
       <div v-else class="minimal-card p-12 text-center text-rose-600 font-bold space-y-2 border-rose-200 bg-rose-50/30">
         <p class="text-base flex items-center justify-center gap-2">
@@ -134,15 +135,16 @@ import {
   Users,
   Clock
 } from 'lucide-vue-next'
-import { authApi } from './api'
+import { visualApi, authApi } from './api'
 import LoginView from './views/LoginView.vue'
 import DirectorDeskView from './views/DirectorDeskView.vue'
 import TeacherDeskView from './views/TeacherDeskView.vue'
 import SupervisorDeskView from './views/SupervisorDeskView.vue'
 import AttendanceDashboardView from './views/AttendanceDashboardView.vue'
 import StudentManageView from './views/StudentManageView.vue'
+import MicroTeachingView from './views/MicroTeachingView.vue'
 
-type TabKey = 'director' | 'teacher' | 'supervisor' | 'attendance' | 'students'
+type TabKey = 'director' | 'teacher' | 'supervisor' | 'attendance' | 'students' | 'micro'
 
 const runMode = ref<'full'>('full')
 const activeTab = ref<TabKey>('director')
@@ -158,6 +160,7 @@ const allNavTabs = [
   { key: 'director' as TabKey, label: '教研室主任工作台', iconComp: Briefcase },
   { key: 'teacher' as TabKey, label: '任课教师工作台', iconComp: BookOpen },
   { key: 'supervisor' as TabKey, label: '教学督导工作台', iconComp: ShieldCheck },
+  { key: 'micro' as TabKey, label: '微格教学视频', iconComp: Video },
   { key: 'attendance' as TabKey, label: '课堂智能考勤大屏', iconComp: Video },
   { key: 'students' as TabKey, label: '学生人脸档案库', iconComp: Users }
 ]
@@ -169,11 +172,11 @@ const visibleNavTabs = computed(() => {
 
   // 严格按用户角色隔离工作台
   if (role === 'SUPERVISOR') {
-    return tabs.filter(t => t.key === 'supervisor' || t.key === 'attendance')
+    return tabs.filter(t => t.key === 'supervisor' || t.key === 'attendance' || t.key === 'micro')
   } else if (role === 'TEACHER') {
-    return tabs.filter(t => t.key === 'teacher' || t.key === 'attendance')
+    return tabs.filter(t => t.key === 'teacher' || t.key === 'attendance' || t.key === 'micro')
   } else if (role === 'DIRECTOR') {
-    return tabs.filter(t => t.key === 'director' || t.key === 'attendance' || t.key === 'students')
+    return tabs.filter(t => t.key === 'director' || t.key === 'attendance' || t.key === 'students' || t.key === 'micro')
   }
   return tabs
 })
@@ -208,6 +211,7 @@ const handleLoginSuccess = (user: any) => {
 }
 
 const handleLogout = async () => {
+  await visualApi.stopMonitor().catch(() => {})
   try {
     await authApi.logout()
   } catch {}

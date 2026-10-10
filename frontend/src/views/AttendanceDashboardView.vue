@@ -12,7 +12,7 @@
               课堂智能考勤与态势监控大屏
               <span v-if="isMonitoring" class="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 font-semibold shadow-2xs">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                摄像头推断采集中
+                {{ monitorReporting ? "摄像头与考勤数据已连接" : "摄像头画面已就绪，正在连接数据" }}
               </span>
               <span v-else class="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 font-semibold">
                 <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
@@ -21,7 +21,7 @@
             </h1>
           </div>
           <p class="text-xs text-slate-500 mt-1 font-sans">
-            推断引擎: InsightFace (ArcFace 512维) + MediaPipe (solvePnP) | 毫秒级 1:N 考勤人脸识别
+            按所选班次名单识别出勤，实时查看课堂在座与抬头状态。
           </p>
         </div>
       </div>
@@ -251,9 +251,8 @@
 
         <!-- 底部推断参数条 -->
         <div class="flex items-center justify-between mt-2.5 pt-2.5 border-t border-slate-100 text-[10px] text-slate-500 font-mono">
-          <span>分辨率: 1280x720</span>
-          <span>FPS: {{ isMonitoring ? '24~30 FPS' : '0' }}</span>
-          <span class="text-indigo-600 font-bold">ArcFace 向量比对阈值: 0.42</span>
+          <span>{{ isMonitoring ? '实时摄像头画面' : '摄像头未启动' }}</span>
+          <span class="text-indigo-600 font-bold">识别结果按当前班次同步</span>
         </div>
       </div>
 
@@ -272,6 +271,10 @@
           <FocusTrendChart :data="trendData" />
         </div>
       </div>
+    </div>
+
+    <div v-if="monitorError" role="alert" data-testid="monitor-error" class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+      {{ monitorError }}。请检查登录与班次状态后重新启动摄像头。
     </div>
 
     <!-- 3. 学生实时在座考勤与姿态网格卡片 -->
@@ -578,6 +581,19 @@ const currentSessionId = ref<number | null>(null)
 
 const isMonitoring = ref(false)
 const isMonitorStarting = ref(false)
+const monitorError = ref('')
+const monitorReporting = ref(false)
+let monitorAbort: AbortController | null = null
+let monitorGeneration = 0
+let cameraSessionId: number | null = null
+const stopCamera = async () => {
+  monitorGeneration++
+  monitorAbort?.abort()
+  monitorAbort = null
+  const owned = isMonitoring.value || isMonitorStarting.value
+  isMonitoring.value = false; isMonitorStarting.value = false; monitorReporting.value = false
+  if (owned) await visualApi.stopMonitor()
+}
 const isSimulating = ref(false)
 const isSimulationStarting = ref(false)
 let simulationGeneration = 0
@@ -734,10 +750,8 @@ const onOfferingChange = async () => {
   currentSessionId.value = null
   archivedSessions.value = []
   isLoadingArchive.value = false
-  if (isMonitoring.value) {
-    await visualApi.stopMonitor()
-    isMonitoring.value = false
-  }
+  if (isMonitoring.value || isMonitorStarting.value) await stopCamera()
+  monitorError.value = ''
   if (isSimulating.value && simulationTimer) {
     clearInterval(simulationTimer)
     simulationTimer = null
@@ -781,6 +795,14 @@ const fetchDashboardData = async () => {
       visualApi.getStudentsStatus(offeringId)
     ])
     if (selectedOfferingId.value !== offeringId) return
+    if (isMonitoring.value) {
+      const status = await visualApi.getMonitorState()
+      if (status.offeringId !== offeringId || !status.running || status.error || status.fatal) {
+        monitorError.value = status.error || '摄像头数据连接已停止'
+        await stopCamera().catch(() => {})
+        await loadOfferings()
+      } else { monitorReporting.value = !!status.reporting }
+    }
     if (ov) overview.value = ov
     trendData.value = tr || []
     studentsStatus.value = st || []
@@ -793,40 +815,43 @@ const fetchDashboardData = async () => {
       }
     }
   } catch (error) {
+    if (isMonitoring.value || isMonitorStarting.value) {
+      monitorError.value = error instanceof Error ? error.message : '考勤数据连接已停止'
+      await stopCamera().catch(() => {})
+      await loadOfferings()
+    }
     console.error('拉取大屏态势数据失败', error)
   }
 }
 
 const toggleMonitor = async () => {
   if (!canWriteAttendance.value || isMonitorStarting.value || isSimulationStarting.value || isSimulating.value) return
+  if (isMonitoring.value) { await stopCamera(); return }
   const offeringId = selectedOfferingId.value
-  isMonitorStarting.value = true
+  if (!offeringId) return
+  const generation = ++monitorGeneration
+  monitorAbort = new AbortController()
+  isMonitorStarting.value = true; monitorError.value = ''
   try {
-    if (!isMonitoring.value) {
-      if (!currentSessionId.value) {
-        const session = await attendanceApi.start({
-          offeringId,
-          weekNumber: 2,
-          classroom: getCurrentClassroom(),
-        })
-        if (!dashboardActive || selectedOfferingId.value !== offeringId) return
-        currentSessionId.value = session.id
-      }
-      await visualApi.startMonitor()
-      if (!dashboardActive || selectedOfferingId.value !== offeringId) {
-        await visualApi.stopMonitor()
-        return
-      }
-      isMonitoring.value = true
-      videoFeedUrl.value = `/api/visual/video-feed?t=${Date.now()}`
-    } else {
-      await visualApi.stopMonitor()
-      isMonitoring.value = false
+    if (!currentSessionId.value) {
+      const session = await attendanceApi.start({ offeringId, weekNumber: 2, classroom: getCurrentClassroom() })
+      if (!dashboardActive || generation !== monitorGeneration || selectedOfferingId.value !== offeringId) return
+      currentSessionId.value = session.id
     }
+    const status = await visualApi.startMonitor(offeringId, currentSessionId.value!, monitorAbort.signal)
+    if (!dashboardActive || generation !== monitorGeneration || selectedOfferingId.value !== offeringId) return
+    isMonitoring.value = true; monitorReporting.value = !!status.reporting
+    cameraSessionId = currentSessionId.value
+    videoFeedUrl.value = status.videoUrl || ''
+    await fetchDashboardData()
   } catch (error: any) {
-    alert('操作摄像头失败: ' + (error.message || '未知错误'))
+    if (generation === monitorGeneration && dashboardActive) {
+      monitorError.value = error.message || '摄像头启动失败'
+      await visualApi.stopMonitor().catch(() => {})
+      isMonitoring.value = false; monitorReporting.value = false
+    }
   } finally {
-    isMonitorStarting.value = false
+    if (generation === monitorGeneration) isMonitorStarting.value = false
   }
 }
 
@@ -872,9 +897,10 @@ const handleRemoveStudentFromClass = async (studentId: string, studentName: stri
 const finishAndArchiveAttendance = async () => {
   if (!canWriteAttendance.value || !selectedOfferingId.value) return
 
-  const finalPresent = overview.value.currentPresent > 0 ? overview.value.currentPresent : lastActiveMetrics.value.present
-  const finalRate = overview.value.attendanceRate > 0 ? overview.value.attendanceRate : lastActiveMetrics.value.rate
-  const finalLookup = overview.value.realtimeLookupRate > 0 ? overview.value.realtimeLookupRate : lastActiveMetrics.value.lookupRate
+  const useStoredCameraMetrics = currentSessionId.value !== null && cameraSessionId === currentSessionId.value
+  let finalPresent = overview.value.currentPresent > 0 ? overview.value.currentPresent : lastActiveMetrics.value.present
+  let finalRate = overview.value.attendanceRate > 0 ? overview.value.attendanceRate : lastActiveMetrics.value.rate
+  let finalLookup = overview.value.realtimeLookupRate > 0 ? overview.value.realtimeLookupRate : lastActiveMetrics.value.lookupRate
   const finalExpected = overview.value.totalRegistered
 
   const msg = `【确认下课并归档入库】\n\n您即将对当前班级《${offeringList.value.find(o => o.id === selectedOfferingId.value)?.className}》执行下课归档操作：\n\n• 应到人数：${finalExpected} 人\n• 实到人数：${finalPresent} 人\n• 最终出勤率：${finalRate}%\n• 平均抬头率：${finalLookup}%\n\n确认后，系统将正式关闭本堂推流并原子性持久化至 MySQL 考勤档案表。确定下课吗？`
@@ -884,8 +910,7 @@ const finishAndArchiveAttendance = async () => {
   try {
     // 1. 如果摄像头正在推断，先关闭摄像头
     if (isMonitoring.value) {
-      await visualApi.stopMonitor()
-      isMonitoring.value = false
+      await stopCamera()
     }
 
     // 2. 如果正在演示模拟流，先停止模拟推流
@@ -897,12 +922,13 @@ const finishAndArchiveAttendance = async () => {
 
     // 3. 优先通过当前会话 ID 调用 finish 接口原子化归档入库
     if (currentSessionId.value) {
-      await attendanceApi.finish({
+      const finished = await attendanceApi.finish({
         sessionId: currentSessionId.value,
-        actualCount: finalPresent,
-        avgLookupRate: finalLookup,
+        ...(useStoredCameraMetrics ? {} : { actualCount: finalPresent, avgLookupRate: finalLookup }),
       })
+      finalPresent = finished.actualCount; finalRate = finished.attendanceRate; finalLookup = finished.avgLookupRate
       currentSessionId.value = null
+      cameraSessionId = null
     } else {
       // 容错：直接创建归档会话
       const created = await attendanceApi.start({
@@ -966,6 +992,7 @@ const toggleSimulation = async () => {
         simulatedPresent.forEach(id => { poses[id] = Math.random() > 0.25 ? 'UP' : 'DOWN' })
         await visualApi.reportStream({
           sessionId: 'sim-' + currentSessionId.value,
+          attendanceSessionId: currentSessionId.value,
           offeringId,
           courseName: offering?.course?.courseName || '',
           className: offering?.className || '',
@@ -1025,7 +1052,11 @@ onMounted(async () => {
     await loadArchivedSessions()
     try {
       await restoreSelectedAttendance()
-      isMonitoring.value = await visualApi.getMonitorStatus()
+      const status = await visualApi.getMonitorState()
+      isMonitoring.value = !!status.running && !!status.reporting && status.offeringId === selectedOfferingId.value
+      if (isMonitoring.value) cameraSessionId = status.sessionId || null
+      monitorReporting.value = isMonitoring.value
+      if (isMonitoring.value) videoFeedUrl.value = status.videoUrl || ''
     } catch (error) { console.error('恢复考勤会话失败', error) }
     
     // 若未开流，主动复位一次 Redis 幽灵残留
@@ -1050,11 +1081,10 @@ watch(() => props.loggedInUser, (newUser) => {
 
 onUnmounted(() => {
   dashboardActive = false
+  if (localStorage.getItem('jwtToken')) void stopCamera().catch(() => {})
+  else { monitorGeneration++; monitorAbort?.abort(); isMonitoring.value = false }
   stopSimulation()
   if (pollTimer) clearInterval(pollTimer)
   if (simulationTimer) clearInterval(simulationTimer)
-  if (selectedOfferingId.value && canWriteAttendance.value) {
-    visualApi.resetStream(selectedOfferingId.value).catch(() => {})
-  }
 })
 </script>

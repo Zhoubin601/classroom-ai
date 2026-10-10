@@ -5,7 +5,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import { Readable } from 'node:stream'
 import cameraLauncherPlugin from '../dev/camera-plugin.mjs'
-import { validateRegistration, safeUploadPath, runPython, authorizeFaceRequest } from '../dev/camera-plugin.mjs'
+import { validateRegistration, safeUploadPath, runPython, authorizeFaceRequest, authorizeMonitorRequest } from '../dev/camera-plugin.mjs'
 
 test('student id must not escape file directories', () => {
   assert.throws(() => validateRegistration({ studentId: '../../x', name: 'test' }))
@@ -86,4 +86,41 @@ test('local face adapters verify backend role and reject before spawning or writ
     globalThis.fetch = async () => ({ ok: false, status: 401 })
     await assert.rejects(authorizeFaceRequest({ headers: {} }), e => e.status === 401)
   } finally { globalThis.fetch = previousFetch }
+})
+
+test('camera adapter forwards auth and validates active offering before starting hardware', async () => {
+  const previousFetch = globalThis.fetch
+  const requests = []
+  try {
+    globalThis.fetch = async (url, options) => {
+      requests.push({ url, headers: options.headers })
+      return { ok: true, json: async () => ({ code: 200, data: url.endsWith('/me') ? { id: 8, role: 'TEACHER' } : { offeringId: 2, sessionId: 7 } }) }
+    }
+    const verified = await authorizeMonitorRequest({ headers: { authorization: 'Bearer synthetic' } }, { offeringId: 2, sessionId: 7 })
+    assert.equal(verified.context.offeringId, 2)
+    assert.ok(requests[1].url.endsWith('offeringId=2&sessionId=7'))
+    assert.ok(requests.every(r => r.headers.Authorization === 'Bearer synthetic'))
+    await assert.rejects(authorizeMonitorRequest({headers:{}}, {offeringId:'2',sessionId:7}), e=>e.status===400)
+    for (const code of [401,403,409]) {
+      globalThis.fetch = async url => url.endsWith('/me') && code!==401
+        ? { ok:true, json:async()=>({code:200,data:{id:8,role:'SUPERVISOR'}}) }
+        : { ok:false,status:code,json:async()=>({code,message:'拒绝'}) }
+      await assert.rejects(authorizeMonitorRequest({headers:{}}, {offeringId:2,sessionId:7}), e=>e.status===code)
+    }
+  } finally { globalThis.fetch = previousFetch }
+})
+
+test('camera lifecycle endpoints require authentication and never reuse public local video', async () => {
+  const previousFetch = globalThis.fetch
+  try {
+    globalThis.fetch = async () => ({ok:false,status:401})
+    const handlers=[]
+    cameraLauncherPlugin(path.join(os.tmpdir(),'camera-no-write')).configureServer({httpServer:{once(){}},middlewares:{use(...args){if(args.length===1)handlers.push(args[0])}}})
+    for (const [url,method] of [['/api/visual/start-monitor','POST'],['/api/visual/stop-monitor','POST'],['/api/visual/monitor-status','GET'],['/api/visual/video-feed','GET']]) {
+      const req=Readable.from([]);Object.assign(req,{url,method,headers:{}})
+      let body;const res={setHeader(){},end(text){body=JSON.parse(text)}}
+      await handlers[0](req,res,()=>assert.fail('route bypassed'))
+      assert.equal(res.statusCode,401);assert.equal(body.code,401)
+    }
+  }finally{globalThis.fetch=previousFetch}
 })

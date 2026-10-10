@@ -40,6 +40,18 @@ client.interceptors.request.use((config) => {
 // Some legacy endpoints return HTTP 200 with a business error code.
 client.interceptors.response.use(checkApiResponse, rejectApiError)
 
+export interface MonitorStatus {
+  running: boolean
+  starting?: boolean
+  reporting?: boolean
+  framesSent?: number
+  offeringId?: number | null
+  sessionId?: number | null
+  videoUrl?: string | null
+  error?: string | null
+  fatal?: boolean
+}
+
 // ==================== 1. 大屏可视化 API ====================
 export const visualApi = {
   // 获取大屏实时宏观看板指标
@@ -71,19 +83,22 @@ export const visualApi = {
   },
 
   // 启动桌面端 classroom_monitor.py 视觉督导推断流
-  startMonitor: async (): Promise<string> => {
-    const res = await client.post<ApiResponse<any>>('/api/visual/start-monitor')
+  startMonitor: async (offeringId: number, sessionId: number, signal?: AbortSignal): Promise<MonitorStatus> => {
+    await client.post('/api/visual/start-monitor', { offeringId, sessionId }, { signal })
     for (let attempt = 0; attempt < 90; attempt++) {
-      const status = await client.get<ApiResponse<{ running: boolean; starting: boolean; error?: string | null }>>('/api/visual/monitor-status')
-      if (status.data.data?.running) return '摄像头已就绪'
-      if (!status.data.data?.starting) {
-        const detail = status.data.data?.error
-        throw new Error(detail ? `视觉进程已退出: ${detail}` : '视觉进程已退出，请检查Python依赖、模型和摄像头')
-      }
+      if (signal?.aborted) throw new Error('摄像头启动已取消')
+      const res = await client.get<ApiResponse<MonitorStatus>>('/api/visual/monitor-status', { signal })
+      const status = res.data.data
+      if (status.error || status.fatal) throw new Error(status.error || '摄像头数据连接失败')
+      if (status.running && status.reporting && status.offeringId === offeringId && status.sessionId === sessionId) return status
+      if (!status.starting && !status.running) throw new Error('视觉进程已退出，请检查摄像头与服务状态')
       await new Promise(resolve => setTimeout(resolve, 1000))
     }
-    await client.post('/api/visual/stop-monitor')
-    throw new Error('摄像头初始化超时')
+    throw new Error('摄像头或数据连接初始化超时，请重试')
+  },
+  getMonitorState: async (): Promise<MonitorStatus> => {
+    const res = await client.get<ApiResponse<MonitorStatus>>('/api/visual/monitor-status')
+    return res.data.data
   },
 
   // 停止桌面端视觉督导推断流并复位清理大屏缓存
@@ -98,13 +113,11 @@ export const visualApi = {
   },
 
   // 获取视觉督导运行状态
-  getMonitorStatus: async (): Promise<boolean> => {
+  getMonitorStatus: async (offeringId?: number): Promise<boolean> => {
     try {
-      const res = await client.get<ApiResponse<{ running: boolean }>>('/api/visual/monitor-status')
-      return !!res.data.data?.running
-    } catch {
-      return false
-    }
+      const status = await visualApi.getMonitorState()
+      return !!status.running && !!status.reporting && (!offeringId || status.offeringId === offeringId)
+    } catch { return false }
   }
 }
 
@@ -692,3 +705,17 @@ export const directorApi = {
 }
 
 
+
+
+export const microTeachingApi = {
+  list: async (courseId: number): Promise<any[]> => (await client.get('/api/v1/resources/micro-slices/course/' + courseId)).data.data,
+  mount: async (data: any): Promise<any> => (await client.post('/api/v1/resources/micro-slices', data)).data.data,
+  upload: async (courseId: number, title: string, stage: string, durationSeconds: number, file: File): Promise<any> => {
+    const data = new FormData()
+    data.append('courseId', String(courseId)); data.append('title', title); data.append('stage', stage)
+    data.append('durationSeconds', String(durationSeconds)); data.append('file', file)
+    return (await client.post('/api/v1/resources/micro-slices/upload', data, { headers: { 'Content-Type': 'multipart/form-data' }, timeout: 120000 })).data.data
+  },
+  video: async (id: number): Promise<Blob> => (await client.get('/api/v1/resources/micro-slices/' + id + '/video', { responseType: 'blob', timeout: 120000 })).data,
+  remove: async (id: number): Promise<void> => { await client.delete('/api/v1/resources/micro-slices/' + id) }
+}

@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-10T12:55:59.047806+08:00",
+  "counts": [
+    "t_course\t24",
+    "t_course_offering\t18",
+    "student\t80",
+    "face_feature\t80",
+    "t_attendance_session\t7",
+    "t_micro_teaching_slice\t3"
+  ],
+  "countsUnchanged": true,
+  "containerJarSHA256": "e62f0c0010c02c3d6ecbe4937511656605e88e177bf7c187e30a353a95e1a369"
+}

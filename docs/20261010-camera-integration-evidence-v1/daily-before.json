@@ -1,0 +1,15 @@
+{
+  "jarSHA256": "E62F0C0010C02C3D6ECBE4937511656605E88E177BF7C187E30A353A95E1A369",
+  "backendImage": "sha256:60945ecd055b4dd49c9242f40cd60762c985fbb8e9e7f0e7ae70d8cb0a871565",
+  "mysqlId": "78aecef6bd843be7e6e65d73d02ccee4d4bb45e75083e10b94fe40a7ad6ff904",
+  "counts": [
+    "t_course\t24",
+    "t_course_offering\t18",
+    "student\t80",
+    "face_feature\t80",
+    "t_attendance_session\t7",
+    "t_micro_teaching_slice\t2"
+  ],
+  "redisId": "4aac75faa2799c052e7cb04f266456203b48ab945937084488d1f30f459a322f",
+  "at": "2026-10-10T12:39:32.6293873+08:00"
+}

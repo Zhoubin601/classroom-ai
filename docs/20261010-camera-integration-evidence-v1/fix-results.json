@@ -1,0 +1,867 @@
+{
+  "observedAt": "2026-10-10T04:39:20.347Z",
+  "mode": "real Chrome + Vue + Spring Boot + isolated MySQL/Redis; no mocked APIs",
+  "results": [
+    {
+      "name": "三角色所有实时入口越权 403 且数据库不变",
+      "status": "PASS",
+      "details": {
+        "classroomRecordsUnchanged": true,
+        "roles": 3,
+        "endpoints": 5
+      }
+    },
+    {
+      "name": "缺失班次拒绝400，不通过同名班或全局活动会话猜测",
+      "status": "PASS",
+      "details": {
+        "missingOffering400": true,
+        "sameNameDoesNotGrantAccess": true
+      }
+    },
+    {
+      "name": "三角色与跨室协作教师可操作获授权未冻结班次",
+      "status": "PASS",
+      "details": {
+        "authorizedRolesPass": true,
+        "unassignedTeacher403": true
+      }
+    },
+    {
+      "name": "同名双班概览、趋势、学生姿态及重置相互隔离",
+      "status": "PASS",
+      "details": {
+        "twoOfferingIds": [
+          19,
+          20
+        ],
+        "sameClassName": true,
+        "resetOnlySelected": true
+      }
+    },
+    {
+      "name": "空名单真实人数为0；旁听编号不泄漏其他学生姓名头像",
+      "status": "PASS",
+      "details": {
+        "zeroRoster": true,
+        "auditingProfileHidden": true
+      }
+    },
+    {
+      "name": "教师督导仅本班名单，主任保留选入移出闭环",
+      "status": "PASS",
+      "details": {
+        "teacherAndSupervisorAvailable": 0,
+        "directorAddRemovePass": true
+      }
+    },
+    {
+      "name": "实机模拟、下课归档和历史查询正常闭环",
+      "status": "PASS",
+      "details": {
+        "actualCount": 4,
+        "archivedAttendance": true
+      }
+    },
+    {
+      "name": "旧页面启动时被归档：真实409后不启动定时推流",
+      "status": "PASS",
+      "details": {
+        "startRejected409": true,
+        "streamPosts": 0,
+        "recordsUnchanged": true
+      }
+    },
+    {
+      "name": "三角色冻结班只读，接口409无写入，界面禁用模拟和摄像头",
+      "status": "PASS",
+      "details": {
+        "roles": 3,
+        "frozenWrite409": true,
+        "disabledUi": true
+      }
+    },
+    {
+      "name": "模拟运行中班次归档，下一帧409后自动停止",
+      "status": "PASS",
+      "details": {
+        "streamStoppedOn409": true,
+        "recordsUnchangedAfterFreeze": true
+      }
+    },
+    {
+      "name": "真实MySQL并发冻结与推流共用行锁，不使用旧实体绕过",
+      "status": "PASS",
+      "details": {
+        "blockedUntilFreezeCommit": true,
+        "rejected409": true
+      }
+    },
+    {
+      "name": "真实PDF/DOCX/PPTX下载MIME和字节正确，教师督导禁止越权原件",
+      "status": "PASS",
+      "details": {
+        "types": [
+          "PDF",
+          "DOCX",
+          "PPTX"
+        ],
+        "bytesMatch": true,
+        "downloadScopeUnchanged": true
+      }
+    },
+    {
+      "name": "浏览器无未捕获异常",
+      "status": "PASS"
+    }
+  ],
+  "requests": [
+    {
+      "actor": "director",
+      "path": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/teachers",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/student/list",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/overview?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/trend?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/reset?offeringId=10",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/trend?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/reset?offeringId=10",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/overview?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/trend?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/students/status?offeringId=10",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/reset?offeringId=10",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview",
+      "method": "GET",
+      "http": 400,
+      "code": 400,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/trend",
+      "method": "GET",
+      "http": 400,
+      "code": 400,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status",
+      "method": "GET",
+      "http": 400,
+      "code": 400,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/reset",
+      "method": "POST",
+      "http": 400,
+      "code": 400,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 400,
+      "code": 400,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/overview?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/students/status?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/overview?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/students/status?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/v1/attendance/start",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/visual/overview?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "jiangly",
+      "path": "/api/visual/students/status?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/visual/students/status?offeringId=19",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=20",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/trend?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/trend?offeringId=20",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/reset?offeringId=19",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=20",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=20",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=22",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=22",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/students/status?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/19/students/add",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/19/students/add",
+      "method": "POST",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/19/students/add",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/19/students/remove/20246006",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/overview?offeringId=19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/attendance/offering/19",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/19/archive",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/visual/reset?offeringId=19",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/reset?offeringId=19",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/visual/reset?offeringId=19",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/courses/offerings/19/students",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/courses/offerings/20/archive",
+      "method": "POST",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/visual/report/stream",
+      "method": "POST",
+      "http": 409,
+      "code": 409,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/10/download",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/pdf;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/10/download",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/pdf;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/10/download",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources/10/download",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/11/download",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/11/download",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/11/download",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources/11/download",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "guojun",
+      "path": "/api/v1/resources/12/download",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8"
+    },
+    {
+      "actor": "director",
+      "path": "/api/v1/resources/12/download",
+      "method": "GET",
+      "http": 200,
+      "code": 200,
+      "contentType": "application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8"
+    },
+    {
+      "actor": "supervisor",
+      "path": "/api/v1/resources/12/download",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    },
+    {
+      "actor": "liubo",
+      "path": "/api/v1/resources/12/download",
+      "method": "GET",
+      "http": 403,
+      "code": 403,
+      "contentType": "application/json;charset=UTF-8"
+    }
+  ],
+  "pageErrors": [],
+  "dialogs": [
+    {
+      "actor": "guojun",
+      "message": "【确认下课并归档入库】\n\n您即将对当前班级《修复合成同名班-1791607127893》执行下课归档操作：\n\n• 应到人数：5 人\n• 实到人数：4 人\n• 最终出勤率：80%\n• 平均抬头率：80%\n\n确认后，系统将正式关闭本堂推流并原子性持久化至 MySQL 考勤档案表。确定下课吗？"
+    },
+    {
+      "actor": "guojun",
+      "message": "【课堂考勤归档成功】\n\n本次课堂已正式下课并永久归档至教务系统历史数据库：\n• 实到人数：4 人\n• 最终出勤率：80%\n• 平均抬头率：80%\n\n大屏已自动复位待机；您可点击【考勤归档记录】随时查验历次入库明细！"
+    },
+    {
+      "actor": "guojun",
+      "message": "启动模拟失败: 历史班次已冻结，不能写入考勤"
+    },
+    {
+      "actor": "guojun",
+      "message": "模拟推流已停止: 历史班次已冻结，不能修改实时考勤数据"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "base": "http://127.0.0.1:5173",
+  "businessWrites": false,
+  "results": [
+    {
+      "sliceId": 1,
+      "courseId": 1,
+      "kind": "external-reference",
+      "status": "NOT_TESTED",
+      "reason": "不访问第三方地址"
+    },
+    {
+      "sliceId": 2,
+      "courseId": 2,
+      "kind": "external-reference",
+      "status": "NOT_TESTED",
+      "reason": "不访问第三方地址"
+    },
+    {
+      "sliceId": 6,
+      "courseId": 16,
+      "kind": "external-reference",
+      "status": "NOT_TESTED",
+      "reason": "不访问第三方地址"
+    }
+  ]
+}

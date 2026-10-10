@@ -1,0 +1,26 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {execFileSync,spawn}=require('node:child_process'),{chromium}=require(process.env.PLAYWRIGHT_MODULE);
+const root=path.resolve(__dirname,'../..'),dir=path.join(__dirname,'camera-trend');fs.mkdirSync(dir,{recursive:true});
+const base=process.env.BASE_URL,backend=process.env.BACKEND_URL,actors={},student='TREND_'+Date.now();let browser,p,offering,session;
+const state=JSON.parse(fs.readFileSync(path.join(__dirname,'environment.json'),'utf8').replace(/^\uFEFF/,''));assert.match(state.mysql,/^classroom-exp3-browser-[a-f0-9]{10}$/);
+const wait=ms=>new Promise(r=>setTimeout(r,ms));let result;
+async function login(who){const c=await browser.newContext({viewport:{width:1500,height:1100}}),page=await c.newPage();page.on('dialog',d=>d.accept());await page.goto(base);await page.getByPlaceholder('如 guojun, director, supervisor 等').fill(who);await page.getByPlaceholder('请输入登录密码 (默认 123456)').fill(process.env.ROLE_TEST_PASSWORD);await page.getByRole('button',{name:'立即验证并登录',exact:true}).click();await page.getByRole('button',{name:'退出登录',exact:true}).waitFor();actors[who]={page,token:await page.evaluate(()=>localStorage.getItem('jwtToken'))};return page;}
+async function api(who,route,method='GET',data,front=false){const r=await actors[who].page.request.fetch((front?base:backend)+route,{method,headers:{Authorization:'Bearer '+actors[who].token},...(data===undefined?{}:{data})});const body=await r.json();assert.equal(r.status(),200,body.message);assert.equal(body.code,200,body.message);return body.data;}
+async function seed(){return new Promise((resolve,reject)=>{let output='',err='';const child=spawn(path.join(root,'.venv1/Scripts/python.exe'),[path.join(__dirname,'seed-camera-person.py')],{cwd:root,windowsHide:true,env:{...process.env,CAMERA_TEST_AUTH:'Bearer '+actors.director.token,CAMERA_TEST_STUDENT:student}});const timer=setTimeout(()=>{child.kill();reject(new Error('Native seed timed out'));},100000);child.stdout.on('data',d=>output+=d);child.stderr.on('data',d=>err=(err+d).slice(-700));child.on('close',code=>{clearTimeout(timer);if(code!==0)return reject(new Error('Native camera seed failed: '+err));try{resolve(JSON.parse(output.trim().split('\n').at(-1)));}catch(e){reject(e);}});child.on('error',reject);});}
+async function main(){browser=await chromium.launch({headless:true,executablePath:process.env.EXP3_CHROMIUM_PATH});try{
+ await login('director');p=await login('guojun');const face=await seed();assert.equal(face.featureDimension,512);
+ const teachers=await api('director','/api/v1/teachers'),teacher=teachers.find(t=>t.teacherCode==='T2024001');
+ offering=await api('director','/api/v1/courses/offerings','POST',{courseId:2,academicTerm:'TREND-'+Date.now(),className:'连续帧隔离验收',primaryTeacherId:teacher.id,collaboratingTeacherIds:[],studentNumbers:[student]});
+ await p.getByRole('button',{name:'课堂智能考勤大屏',exact:true}).click();await p.locator('select').first().selectOption(String(offering.id));await wait(1200);
+ await p.getByRole('button',{name:'打开摄像头开启考勤',exact:true}).click();await p.getByRole('button',{name:'停止摄像头监控',exact:true}).waitFor({timeout:95000});
+ let status;for(let i=0;i<30;i++){status=await api('guojun','/api/visual/monitor-status','GET',undefined,true);if(status.framesSent>=4)break;await wait(500);}
+ assert.ok(status.reporting);assert.ok(status.framesSent>=4);session=await api('guojun',`/api/v1/attendance/current?offeringId=${offering.id}`);
+ const trend=await api('guojun',`/api/visual/trend?offeringId=${offering.id}`),overview=await api('guojun',`/api/visual/overview?offeringId=${offering.id}`);
+ assert.ok(trend.length>=4);assert.ok(trend.every(v=>v.presentCount===1));assert.equal(overview.currentPresent,1);
+ const count=Number(execFileSync('docker',['exec','-e','MYSQL_PWD',state.mysql,'mysql','-uroot','classroom_ai','-N','-e',`SELECT COUNT(*) FROM classroom_record WHERE session_id='CAMERA_${offering.id}_${session.id}'`],{encoding:'utf8',env:{...process.env,MYSQL_PWD:process.env.ROLE_TEST_MYSQL_PASSWORD},stdio:['ignore','pipe','pipe']}));assert.ok(count>=4);
+ await wait(1300);await p.screenshot({path:path.join(dir,'continuous-real-camera-trend.png'),fullPage:true});
+ await p.getByRole('button',{name:'结束考勤并归档下课',exact:true}).click();let saved;for(let i=0;i<25;i++){saved=(await api('guojun',`/api/v1/attendance/offering/${offering.id}`)).find(s=>s.id===session.id);if(saved?.status==='FINISHED')break;await wait(300);}
+ assert.equal(saved.status,'FINISHED');assert.equal(saved.actualCount,1);
+ result={status:'PASS',physicalCamera:true,mockedAPIs:false,framesSent:status.framesSent,trendPoints:trend.length,trend,records:count,actualCount:saved.actualCount,attendanceRate:saved.attendanceRate,sessionStatus:saved.status};console.log(`PASS 连续真实摄像头帧 ${status.framesSent}、趋势 ${trend.length}、MySQL ${count}，归档 ${saved.attendanceRate}%`);
+}catch(e){result={status:'FAIL',error:e.message};console.error(e.message);process.exitCode=1;}finally{if(actors.guojun)await api('guojun','/api/visual/stop-monitor','POST',undefined,true).catch(()=>{});fs.writeFileSync(path.join(dir,'results.json'),JSON.stringify(result,null,2));await browser?.close();}}
+main().catch(e=>{console.error(e.message);process.exitCode=1;});

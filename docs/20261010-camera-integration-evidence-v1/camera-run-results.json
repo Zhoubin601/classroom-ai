@@ -1,0 +1,10 @@
+[
+  {
+    "exitCode": 0,
+    "suite": "camera-trend-browser"
+  },
+  {
+    "exitCode": 0,
+    "suite": "verify-fixes"
+  }
+]
