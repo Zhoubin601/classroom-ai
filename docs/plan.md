@@ -259,3 +259,19 @@
 
 ## 2026-10-10 fix-exp3提交与推送
 用户明确授权提交并push当前fix-exp3。纳入摄像头、微格课程权限及媒体页面修复、相关测试、最新三角色与Sprint2复核记录；原生真人截图依既有仅本地保存约定保留本地。历史未跟踪图片/ZIP及无关设计文件保留本地。远端已fetch与本地基线相同，常规提交推送，不强推；提交前核对已测源码指纹及暂存diff，推送后验证远端提交号。
+
+
+## 2026-10-10 AttendanceAccessService测试导入缺陷检查
+原样AssociationMysqlTest+隔离MySQL→保存7项错误及根因→临时测试配置单点补入→对照复跑→清理临时MySQL→核对原始源码指纹和Git HEAD→生成检查记录。
+
+
+## 2026-10-10 AttendanceAccessService导入复核完成
+真实MySQL原配置7项ERROR、0跳过；临时副本仅补Spring @Import后7/7通过、0跳过。此前常规测试该类7项均跳过。原backend/src全量指纹及HEAD不变，临时MySQL已移除。缺陷已确认，无待确认事实；原源码修复尚未应用、未提交推送。交付output/20261010-attendance-test-import-check-v1.md，证据docs/20261010-attendance-test-import-check-v1/summary.json。
+
+
+## 2026-10-10 AttendanceAccessService测试配置修复
+用户已授权修复后推送fix-exp3。最小修改AssociationMysqlTest的Spring @Import；原项目真实MySQL执行7项，再运行默认后端回归并明确条件跳过数。验证通过后仅提交本次修复及相关过程/报告，核验远端提交。
+
+
+## 2026-10-10 AttendanceAccessService修复验证通过
+原项目仅修改AssociationMysqlTest的Java导入及Spring @Import。真实MySQL7/7通过、0跳过；默认回归223项，其中176通过、47条件跳过、0失败/错误。193个backend/src文件比对，仅该测试变化；生产源码不变。临时MySQL已清理。交付output/20261010-attendance-test-import-fix-v1.md；准备按用户授权提交并推送fix-exp3。

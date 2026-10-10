@@ -6,6 +6,7 @@ import com.classroom.ai.modules.auth.entity.RoleEnum;
 import com.classroom.ai.modules.auth.vo.UserVO;
 import com.classroom.ai.modules.attendance.dto.*;
 import com.classroom.ai.modules.attendance.repository.AttendanceSessionRepository;
+import com.classroom.ai.modules.attendance.service.AttendanceAccessService;
 import com.classroom.ai.modules.attendance.service.impl.AttendanceServiceImpl;
 import com.classroom.ai.modules.course.controller.SyllabusController;
 import com.classroom.ai.modules.course.dto.*;
@@ -33,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest(showSql=false, properties={"spring.jpa.hibernate.ddl-auto=update","spring.sql.init.mode=never"})
 @AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)
 @Import({CourseAuthorizationService.class,SyllabusServiceImpl.class,SyllabusController.class,CourseServiceImpl.class,
-        CourseOfferingManagementService.class,AcademicTermLockService.class,ScheduleConflictService.class,AttendanceServiceImpl.class,CourseImportServiceImpl.class})
+        CourseOfferingManagementService.class,AcademicTermLockService.class,ScheduleConflictService.class,AttendanceServiceImpl.class,AttendanceAccessService.class,CourseImportServiceImpl.class})
 @EnabledIfEnvironmentVariable(named="EXP3_MYSQL_URL",matches="jdbc:mysql://127\\.0\\.0\\.1:13317/exp3_test.*")
 class AssociationMysqlTest {
     @DynamicPropertySource static void database(DynamicPropertyRegistry props) {

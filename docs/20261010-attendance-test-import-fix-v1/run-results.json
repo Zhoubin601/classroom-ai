@@ -1,0 +1,10 @@
+[
+  {
+    "exitCode": 0,
+    "variant": "mysql-targeted"
+  },
+  {
+    "exitCode": 0,
+    "variant": "backend-regression"
+  }
+]

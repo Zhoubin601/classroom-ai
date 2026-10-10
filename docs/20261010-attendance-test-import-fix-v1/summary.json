@@ -1,0 +1,1336 @@
+{
+  "at": "2026-10-10T13:52:18.007344+08:00",
+  "branch": "fix-exp3",
+  "parentCommit": "9f26625fbfad196decabd0998313e7a0fa4c45b5",
+  "fix": "Add AttendanceAccessService to AssociationMysqlTest Spring @Import",
+  "sourceSha256": "5117af4e2f49360bc0ba4580cac716b414317d45edbcedeaf0e094fd572d13ff",
+  "sourceVerification": {
+    "checkedFiles": 193,
+    "changedFiles": [
+      "backend/src/test/java/com/classroom/ai/modules/course/AssociationMysqlTest.java"
+    ],
+    "productionBackendSourceUnchanged": true
+  },
+  "mysql": {
+    "version": "8.0.36",
+    "disposable": true,
+    "host": "127.0.0.1",
+    "port": 13317,
+    "database": "exp3_test"
+  },
+  "targeted": {
+    "suite": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 7,
+    "cases": [
+      {
+        "name": "offeringCannotReassignExistingAttendanceToAnotherCourse",
+        "status": "passed"
+      },
+      {
+        "name": "referencesProtectCatalogAndHistoryWhileNewVersionsStillWork",
+        "status": "passed"
+      },
+      {
+        "name": "crossRoomTeacherReadsCatalogUsingActualAssignment",
+        "status": "passed"
+      },
+      {
+        "name": "associationCountsProtectMajorEvenWhenOnlyAResourceExists",
+        "status": "passed"
+      },
+      {
+        "name": "attendanceHasScopeServerIdentityAndFrozenHistoryProtection",
+        "status": "passed"
+      },
+      {
+        "name": "prerequisiteCycleIsRejectedAndUnknownLegacyTextRemainsEditable",
+        "status": "passed"
+      },
+      {
+        "name": "concurrentIdenticalMappingOnlySavesOneRow",
+        "status": "passed"
+      }
+    ]
+  },
+  "defaultBackendRegression": {
+    "totals": {
+      "tests": 223,
+      "passed": 176,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 47
+    },
+    "suites": [
+      {
+        "suite": "com.classroom.ai.ApiExceptionHandlerTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 3,
+        "cases": [
+          {
+            "name": "malformedJsonUsesResponseEnvelope",
+            "status": "passed"
+          },
+          {
+            "name": "databaseConstraintErrorsDoNotExposeSqlOrReturnServerError",
+            "status": "passed"
+          },
+          {
+            "name": "invalidInputUsesJsonAndClientStatus",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.CameraMonitorHttpTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 3,
+        "cases": [
+          {
+            "name": "mismatchedFinishedOrFrozenSessionCannotReadFaces",
+            "status": "passed"
+          },
+          {
+            "name": "allRolesGetOnlyCurrentRosterFacesAndRealCourseIdentity",
+            "status": "passed"
+          },
+          {
+            "name": "anonymousAndForeignRequestsNeverReadFaceVectors",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.CameraStreamSessionTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 3,
+        "cases": [
+          {
+            "name": "finishedOrMismatchedSessionsHaveNoStreamSideEffects",
+            "status": "passed"
+          },
+          {
+            "name": "cacheAndDatabaseFailuresNeverReturnFalseSuccess",
+            "status": "passed"
+          },
+          {
+            "name": "nativeFrameSynchronizesAuthoritativeRosterMetricsToSession",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6,
+        "cases": [
+          {
+            "name": "foreignOfferingEndpointsAre403BeforeAnyWrite",
+            "status": "passed"
+          },
+          {
+            "name": "deletedAccountOldTokenReceives401",
+            "status": "passed"
+          },
+          {
+            "name": "explicitCurrentDoesNotReturnAnotherOfferingSession",
+            "status": "passed"
+          },
+          {
+            "name": "spoofedBodyAndOldTokenRolesCannotOverrideCurrentAccount",
+            "status": "passed"
+          },
+          {
+            "name": "profileUsesCurrentDatabaseIdentityRatherThanTokenClaims",
+            "status": "passed"
+          },
+          {
+            "name": "anonymousAttendanceIs401",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 10,
+        "cases": [
+          {
+            "name": "foreignOfferingCannotStartOrReadEvenWhenStudentCountExists",
+            "status": "passed"
+          },
+          {
+            "name": "revokedSupervisorCannotUpdateOrFinishExistingSession",
+            "status": "passed"
+          },
+          {
+            "name": "testStartAttendanceSessionBySupervisor",
+            "status": "passed"
+          },
+          {
+            "name": "testFinishAttendanceSession",
+            "status": "passed"
+          },
+          {
+            "name": "currentReturnsOlderVisibleSessionAndNeverOutsideOrFrozen",
+            "status": "passed"
+          },
+          {
+            "name": "frozenOfferingRejectsUpdateAndFinishBeforeSessionMutation",
+            "status": "passed"
+          },
+          {
+            "name": "frozenOfferingRejectsStartWithoutCreatingSession",
+            "status": "passed"
+          },
+          {
+            "name": "testStartAttendanceSession",
+            "status": "passed"
+          },
+          {
+            "name": "forgedFinishIdentityIsIgnored",
+            "status": "passed"
+          },
+          {
+            "name": "forgedStartIdentityIsIgnored",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 3,
+        "cases": [
+          {
+            "name": "anonymousHasNoFaceLibraryAccess",
+            "status": "passed"
+          },
+          {
+            "name": "teacherAndSupervisorCannotReadRegisterSearchOrDeleteFaces",
+            "status": "passed"
+          },
+          {
+            "name": "directorCanReadFaceLibrary",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.auth.AuthControllerTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5,
+        "cases": [
+          {
+            "name": "testRegisterSupervisor_PublicEndpointDisabled_Returns404",
+            "status": "passed"
+          },
+          {
+            "name": "testGetMe_Unauthorized",
+            "status": "passed"
+          },
+          {
+            "name": "testLogin_Success",
+            "status": "passed"
+          },
+          {
+            "name": "testLogin_WrongPassword_Returns401",
+            "status": "passed"
+          },
+          {
+            "name": "testGetMe_WithValidBearerToken_ReturnsUser",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4,
+        "cases": [
+          {
+            "name": "testCreateSupervisor_SuccessWithManagedMajor",
+            "status": "passed"
+          },
+          {
+            "name": "testUpdateSupervisorMajors_Success",
+            "status": "passed"
+          },
+          {
+            "name": "testCreateSupervisor_UnauthorizedMajor_Throws403",
+            "status": "passed"
+          },
+          {
+            "name": "testAssignMajors_UnauthorizedMajor_Throws403",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5,
+        "cases": [
+          {
+            "name": "deletedIdCannotInheritRecreatedSameNameAccount",
+            "status": "passed"
+          },
+          {
+            "name": "currentAccountRoleAndDepartmentOverrideOldClaims",
+            "status": "passed"
+          },
+          {
+            "name": "deletedAccountDoesNotAuthenticate",
+            "status": "passed"
+          },
+          {
+            "name": "legacyTokenWithoutIdStillReloadsExistingAccount",
+            "status": "passed"
+          },
+          {
+            "name": "mismatchedUsernameIsRejected",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 20,
+        "cases": [
+          {
+            "name": "selfAndMutualPrerequisitesAreRejected",
+            "status": "passed"
+          },
+          {
+            "name": "referencedCatalogIsImmutableButAnIdenticalReimportIsIdempotent",
+            "status": "passed"
+          },
+          {
+            "name": "associatedCourseCannotChangeMajorButUnusedCourseCan",
+            "status": "passed"
+          },
+          {
+            "name": "actualCrossDepartmentAssignmentGrantsCatalogReadOnly",
+            "status": "passed"
+          },
+          {
+            "name": "deletingAPrerequisiteCannotLeaveDanglingReferences",
+            "status": "passed"
+          },
+          {
+            "name": "noPrerequisiteMarkerIsEmptyAndNamesAreStoredAsStableCodes",
+            "status": "passed"
+          },
+          {
+            "name": "duplicateTargetSetsAreRejectedButDifferentGoalsRemainAllowed",
+            "status": "passed"
+          },
+          {
+            "name": "everyIndicatorWriteRejectsMismatchedCategoryBeforeSaving",
+            "status": "passed"
+          },
+          {
+            "name": "unchangedUnknownPrerequisitesDoNotBlockMetadataEditing",
+            "status": "passed"
+          },
+          {
+            "name": "editingIntoAnExistingMappingIsRejected",
+            "status": "passed"
+          },
+          {
+            "name": "existingOfferingCannotChangeCourse",
+            "status": "passed"
+          },
+          {
+            "name": "ambiguousPrerequisiteNamesRequireStableCodes",
+            "status": "passed"
+          },
+          {
+            "name": "omittedPlanIsPreservedAndRebindingNeedsCompleteMappings",
+            "status": "passed"
+          },
+          {
+            "name": "renamingAReferencedCourseNeedsStableCodeReferences",
+            "status": "passed"
+          },
+          {
+            "name": "currentAttendanceSkipsForeignSessionsAndSupportsExplicitOffering",
+            "status": "passed"
+          },
+          {
+            "name": "historyCannotBeEditedThroughWholeSyllabusSave",
+            "status": "passed"
+          },
+          {
+            "name": "attendanceRejectsForeignOfferingForAllReadAndWritePaths",
+            "status": "passed"
+          },
+          {
+            "name": "attendanceUsesServerIdentityAndRetainsAuthorizedSupervisorFlow",
+            "status": "passed"
+          },
+          {
+            "name": "bulkSaveRejectsDuplicateMappingsWithoutDeletingExistingRows",
+            "status": "passed"
+          },
+          {
+            "name": "frozenOfferingAttendanceCannotBeMutated",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.AssociationMysqlTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 7,
+        "passed": 0,
+        "cases": [
+          {
+            "name": "offeringCannotReassignExistingAttendanceToAnotherCourse",
+            "status": "skipped"
+          },
+          {
+            "name": "referencesProtectCatalogAndHistoryWhileNewVersionsStillWork",
+            "status": "skipped"
+          },
+          {
+            "name": "crossRoomTeacherReadsCatalogUsingActualAssignment",
+            "status": "skipped"
+          },
+          {
+            "name": "associationCountsProtectMajorEvenWhenOnlyAResourceExists",
+            "status": "skipped"
+          },
+          {
+            "name": "attendanceHasScopeServerIdentityAndFrozenHistoryProtection",
+            "status": "skipped"
+          },
+          {
+            "name": "prerequisiteCycleIsRejectedAndUnknownLegacyTextRemainsEditable",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentIdenticalMappingOnlySavesOneRow",
+            "status": "skipped"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 13,
+        "cases": [
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          },
+          {
+            "name": "acceptanceRegressions",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1,
+        "cases": [
+          {
+            "name": "primaryTeacherCanSeeOfferingWithoutTeamRelationRow",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4,
+        "cases": [
+          {
+            "name": "testDirector_DepartmentIsolation",
+            "status": "passed"
+          },
+          {
+            "name": "testSupervisor_MajorAuthorizationAndReadOnly",
+            "status": "passed"
+          },
+          {
+            "name": "testUnauthenticated_Throws401",
+            "status": "passed"
+          },
+          {
+            "name": "testTeacher_CourseBinding",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseBrowserMysqlTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 0,
+        "cases": [
+          {
+            "name": "realBrowserWorkflow",
+            "status": "skipped"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7,
+        "cases": [
+          {
+            "name": "testPublish_MissingFields_Returns400",
+            "status": "passed"
+          },
+          {
+            "name": "testSaveDraft_VersionConflict_Returns409",
+            "status": "passed"
+          },
+          {
+            "name": "testSaveDraft_IncompleteAllowed",
+            "status": "passed"
+          },
+          {
+            "name": "testGetPublished_DraftEditingDoesNotPollutePublished",
+            "status": "passed"
+          },
+          {
+            "name": "testGetPublished_UnpublishedReturnsNull",
+            "status": "passed"
+          },
+          {
+            "name": "testPublish_Success_IncrementsPublishVersion",
+            "status": "passed"
+          },
+          {
+            "name": "testPublish_ForbiddenForNonRelatedTeacher",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7,
+        "cases": [
+          {
+            "name": "teacherCannotChangeOfferingsRosterOrSchedules",
+            "status": "passed"
+          },
+          {
+            "name": "unauthorizedPublishedContentReturns403",
+            "status": "passed"
+          },
+          {
+            "name": "supervisorCannotPreviewConfirmOrCreateCourse",
+            "status": "passed"
+          },
+          {
+            "name": "supervisorCannotReadOrCreateUnpublishedDraft",
+            "status": "passed"
+          },
+          {
+            "name": "teacherWithSameNameButNoAssociationCannotPublish",
+            "status": "passed"
+          },
+          {
+            "name": "anonymousImportAndContentReadReturn401",
+            "status": "passed"
+          },
+          {
+            "name": "authorizedPublishedContentRemainsReadable",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseImportTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4,
+        "cases": [
+          {
+            "name": "testPreviewImport_Success",
+            "status": "passed"
+          },
+          {
+            "name": "testConfirmImport_Success",
+            "status": "passed"
+          },
+          {
+            "name": "testPreviewImport_ValidationErrors",
+            "status": "passed"
+          },
+          {
+            "name": "testDownloadTemplate",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseOfferingHistoryTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2,
+        "cases": [
+          {
+            "name": "testTeacherRoleDataIsolation",
+            "status": "passed"
+          },
+          {
+            "name": "testHistoryStatistics_EnrollmentAndFrozenSnapshot",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4,
+        "cases": [
+          {
+            "name": "weeksAndPeriodsOverlapInclusively",
+            "status": "passed"
+          },
+          {
+            "name": "sameOfferingDifferentClassroomStillConflicts",
+            "status": "passed"
+          },
+          {
+            "name": "classroomConflictReturnsAllRowsAndReasons",
+            "status": "passed"
+          },
+          {
+            "name": "semesterSeparationAndNamesAreNotTeacherIdentity",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2,
+        "cases": [
+          {
+            "name": "collaboratorAcrossClassroomsBlocksAndIdentifiesTeacher",
+            "status": "passed"
+          },
+          {
+            "name": "semesterMoveAlsoChecksInternalOfferingOverlap",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 21,
+        "passed": 0,
+        "cases": [
+          {
+            "name": "differentSemesterAndDisjointWeeksSucceed",
+            "status": "skipped"
+          },
+          {
+            "name": "everyNormalMutationRejectsArchivedOffering",
+            "status": "skipped"
+          },
+          {
+            "name": "changingSemesterRevalidatesAllSchedules",
+            "status": "skipped"
+          },
+          {
+            "name": "maintainsTeamAndNinetyFiveStudentsAndFiltersSample",
+            "status": "skipped"
+          },
+          {
+            "name": "semesterLockRemainsHeldUntilOuterTransactionCommits",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentRoomRequestsHaveExactlyOneWinner",
+            "status": "skipped"
+          },
+          {
+            "name": "failedArchiveRollsBackSnapshotAndStatus",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentTeacherRequestsAcrossRoomsHaveExactlyOneWinner",
+            "status": "skipped"
+          },
+          {
+            "name": "stableIdListsCountSameStudentAcrossOfferingsButNotTeachers",
+            "status": "skipped"
+          },
+          {
+            "name": "archiveIsIdempotentAndPreservesDisplayAndCountAfterOtherChanges",
+            "status": "skipped"
+          },
+          {
+            "name": "changingTeacherRevalidatesAndRollsBackWholeOffering",
+            "status": "skipped"
+          },
+          {
+            "name": "primaryTeacherCodeAuthorizesLegacyOfferingButNotUnrelatedTeacher",
+            "status": "skipped"
+          },
+          {
+            "name": "combinedSearchUsesIdsAndAndPermissionsWithCollaboratorDeduplication",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentArchiveAndRosterEditShareOfferingLock",
+            "status": "skipped"
+          },
+          {
+            "name": "sameOfferingAcrossRoomsBlockedAndEditingExcludesItself",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentOfferingChangeAndScheduleCannotIntroduceConflict",
+            "status": "skipped"
+          },
+          {
+            "name": "teacherCannotMaintainOfferingOrScheduleAndForgedEditRejected",
+            "status": "skipped"
+          },
+          {
+            "name": "archiveMigrationIsRepeatableAndPreservesUnknownLegacyData",
+            "status": "skipped"
+          },
+          {
+            "name": "emptyRosterDoesNotFallBackToStaleCountAndEmptyHistoryIsZero",
+            "status": "skipped"
+          },
+          {
+            "name": "allConflictsReturnHttp409WithReasonsAndCourseDetails",
+            "status": "skipped"
+          },
+          {
+            "name": "legacyTeacherDisplayFieldDoesNotGrantAccess",
+            "status": "skipped"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4,
+        "cases": [
+          {
+            "name": "testSupervisorQueryUnauthorizedMajor_ShouldThrowForbidden",
+            "status": "passed"
+          },
+          {
+            "name": "testSupervisorQueryOfferings_AutoFilterByAuthorizedMajors",
+            "status": "passed"
+          },
+          {
+            "name": "testSupervisorGetCourseById_UnauthorizedMajor_ShouldThrowForbidden",
+            "status": "passed"
+          },
+          {
+            "name": "testSupervisorGetCourseById_AuthorizedMajor_Success",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 11,
+        "passed": 0,
+        "cases": [
+          {
+            "name": "concurrentDraftSavesDoNotLoseUpdates",
+            "status": "skipped"
+          },
+          {
+            "name": "validBatchImportsAllRowsAndRecordsOperator",
+            "status": "skipped"
+          },
+          {
+            "name": "archiveEditPreservesPublishedContentAndRejectsCodeOrScopeChange",
+            "status": "skipped"
+          },
+          {
+            "name": "deletedPrerequisiteRejectsConfirmation",
+            "status": "skipped"
+          },
+          {
+            "name": "completeDraftPublishAndReeditWorkflowRejectsStaleRequests",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentPublishHasOneWinnerAndOneConflict",
+            "status": "skipped"
+          },
+          {
+            "name": "legacyMigrationIsRepeatableAndPreservesAuditHistory",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentFirstReadsCreateOneDraft",
+            "status": "skipped"
+          },
+          {
+            "name": "deletedMajorRejectsConfirmation",
+            "status": "skipped"
+          },
+          {
+            "name": "concurrentBatchConfirmationWritesExactlyOnce",
+            "status": "skipped"
+          },
+          {
+            "name": "auditFailureRollsBackWholeBatchAndAllowsRetry",
+            "status": "skipped"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 3,
+        "passed": 0,
+        "cases": [
+          {
+            "name": "onlyLeadWritesSharedCatalogWhileParticipantsAndAuthorizedSupervisorsReadIt",
+            "status": "skipped"
+          },
+          {
+            "name": "participatingDepartmentCanBindCatalogAndKeepHistoricalMappings",
+            "status": "skipped"
+          },
+          {
+            "name": "sharedProfessionalScopeDoesNotGrantOtherDepartmentsCourses",
+            "status": "skipped"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 12,
+        "cases": [
+          {
+            "name": "testConfirmImport_RejectBatchWithErrors",
+            "status": "passed"
+          },
+          {
+            "name": "testConfirmImport_DuplicateConsumption",
+            "status": "passed"
+          },
+          {
+            "name": "testExportCourses",
+            "status": "passed"
+          },
+          {
+            "name": "testPreviewImport_VariousValidationFailures",
+            "status": "passed"
+          },
+          {
+            "name": "testPreviewImport_RejectTeachingQualityReport",
+            "status": "passed"
+          },
+          {
+            "name": "testPreviewImport_FlexibleHeadersAndReorderedColumns",
+            "status": "passed"
+          },
+          {
+            "name": "testPreviewImport_Success_WithBatchInternalPrerequisite",
+            "status": "passed"
+          },
+          {
+            "name": "testConfirmImport_Success",
+            "status": "passed"
+          },
+          {
+            "name": "testFileLimits",
+            "status": "passed"
+          },
+          {
+            "name": "testDownloadTemplate",
+            "status": "passed"
+          },
+          {
+            "name": "testConfirmImport_ForbiddenOperator",
+            "status": "passed"
+          },
+          {
+            "name": "testConfirmImport_ExpiredBatch",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5,
+        "cases": [
+          {
+            "name": "testStandardCsv",
+            "status": "passed"
+          },
+          {
+            "name": "testUtf8BomStripping",
+            "status": "passed"
+          },
+          {
+            "name": "testQuotedCommas",
+            "status": "passed"
+          },
+          {
+            "name": "testEscapedQuotes",
+            "status": "passed"
+          },
+          {
+            "name": "testCrlfAndBlankLines",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2,
+        "cases": [
+          {
+            "name": "testUploadSizeLimit_Over100MB_ShouldThrowException",
+            "status": "passed"
+          },
+          {
+            "name": "testUploadValidResource_ShouldGenerateWatermark",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 8,
+        "cases": [
+          {
+            "name": "directorAndTeacherCanMountAndDeleteInScope",
+            "status": "passed"
+          },
+          {
+            "name": "anonymousRequestsCannotReadMountOrDelete",
+            "status": "passed"
+          },
+          {
+            "name": "stageQueriesUseOnlyReadableCourseIdsForEveryRole",
+            "status": "passed"
+          },
+          {
+            "name": "directForeignCourseAndSliceIdsCannotBypassScope",
+            "status": "passed"
+          },
+          {
+            "name": "threeRolesReadTheirAuthorizedCourse",
+            "status": "passed"
+          },
+          {
+            "name": "supervisorCannotMountOrDeleteEvenAnAuthorizedCourse",
+            "status": "passed"
+          },
+          {
+            "name": "crossDepartmentCollaboratorCanMaintainCourseButDirectorCannot",
+            "status": "passed"
+          },
+          {
+            "name": "revokedAuthorizationAndMissingInputsNeverWrite",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.resource.MicroVideoHttpTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 3,
+        "cases": [
+          {
+            "name": "supervisorCannotUploadAndForeignCourseCannotBeRead",
+            "status": "passed"
+          },
+          {
+            "name": "managedFilePathCannotBypassLoginAndCourseAuthorization",
+            "status": "passed"
+          },
+          {
+            "name": "validUploadUsesPrivateGeneratedPathAndDisguisedFilesAreRejected",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.Sprint2MysqlTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 4,
+        "passed": 0,
+        "cases": [
+          {
+            "name": "reviewDelayAndSemesterCoverage",
+            "status": "skipped"
+          },
+          {
+            "name": "syllabusVersionsKeepTheirOwnMappings",
+            "status": "skipped"
+          },
+          {
+            "name": "recommendedTemplateKeepsRealPlansSeparateAndSupportsMaintenance",
+            "status": "skipped"
+          },
+          {
+            "name": "resourceVisibilityTagsAndExpiringPreview",
+            "status": "skipped"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 3,
+        "cases": [
+          {
+            "name": "testDashboardMetrics",
+            "status": "passed"
+          },
+          {
+            "name": "testAlertRules_YellowAndRed",
+            "status": "passed"
+          },
+          {
+            "name": "testAnnualReportExportCsv",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 8,
+        "cases": [
+          {
+            "name": "testEvaluationScoreOutOfRange_ShouldThrowException",
+            "status": "passed"
+          },
+          {
+            "name": "testEvaluationSubmit_ShouldEnterDesensitizationPeriod",
+            "status": "passed"
+          },
+          {
+            "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[1]",
+            "status": "passed"
+          },
+          {
+            "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[2]",
+            "status": "passed"
+          },
+          {
+            "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[3]",
+            "status": "passed"
+          },
+          {
+            "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[4]",
+            "status": "passed"
+          },
+          {
+            "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[5]",
+            "status": "passed"
+          },
+          {
+            "name": "testEvaluationDraft_ShouldBeDraftStatus",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.RegressionTest",
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 18,
+        "cases": [
+          {
+            "name": "reversedScheduleRangesAreRejected",
+            "status": "passed"
+          },
+          {
+            "name": "commentsOver500CharactersAndNanScoresAreRejected",
+            "status": "passed"
+          },
+          {
+            "name": "negativeFileSizeIsRejected",
+            "status": "passed"
+          },
+          {
+            "name": "partialCacheFallsBackToCompleteDatabaseWithoutDuplicates",
+            "status": "passed"
+          },
+          {
+            "name": "rejectsInvalidSimilarityThreshold",
+            "status": "passed"
+          },
+          {
+            "name": "lockedSyllabusCannotBeEdited",
+            "status": "passed"
+          },
+          {
+            "name": "unpublishedEvaluationDoesNotLeakIntoRadar",
+            "status": "passed"
+          },
+          {
+            "name": "rejectsWrongDimensionBeforeWriting",
+            "status": "passed"
+          },
+          {
+            "name": "teacherSeesPublishedAnonymousCopiesOnly",
+            "status": "passed"
+          },
+          {
+            "name": "emptyPoseFrameClearsOldPoseAndDeduplicatesAttendance",
+            "status": "passed"
+          },
+          {
+            "name": "rejectsPercentageWhereStreamRequiresFraction",
+            "status": "passed"
+          },
+          {
+            "name": "zeroExpectedAttendanceDoesNotDivideByOneOrFailOnNull",
+            "status": "passed"
+          },
+          {
+            "name": "defaultWeeksHaveValidHumanReadableLabel",
+            "status": "passed"
+          },
+          {
+            "name": "csvEscapesCommasQuotesAndKeepsDecimalDotInOtherLocales",
+            "status": "passed"
+          },
+          {
+            "name": "rejectsZeroNanAndNullVectors",
+            "status": "passed"
+          },
+          {
+            "name": "finishedAttendanceCannotBeOverwritten",
+            "status": "passed"
+          },
+          {
+            "name": "emptyRadarDoesNotInventScoresOrFeedback",
+            "status": "passed"
+          },
+          {
+            "name": "negativeAttendanceIsRejected",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.UploadPathsTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2,
+        "cases": [
+          {
+            "name": "rootAndBackendLaunchesUseTheSameSharedPictures",
+            "status": "passed"
+          },
+          {
+            "name": "explicitAbsoluteAndRelativeUploadLocationsAreRespected",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "suite": "com.classroom.ai.VisualHttpAuthorizationTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5,
+        "cases": [
+          {
+            "name": "anonymousRequestsAreRejectedBeforeReadingOrWritingCaches",
+            "status": "passed"
+          },
+          {
+            "name": "frozenOfferingRejectsStreamAndResetForEveryRoleBeforeAnySideEffect",
+            "status": "passed"
+          },
+          {
+            "name": "emptyAuthorizedRosterDoesNotUseStudentsFromOtherClasses",
+            "status": "passed"
+          },
+          {
+            "name": "allThreeRolesCannotBypassOfferingScopeThroughAnyRealtimeEndpoint",
+            "status": "passed"
+          },
+          {
+            "name": "missingOfferingNeverFallsBackToGlobalRosterOrActiveClass",
+            "status": "passed"
+          }
+        ]
+      }
+    ]
+  },
+  "runResults": [
+    {
+      "exitCode": 0,
+      "variant": "mysql-targeted"
+    },
+    {
+      "exitCode": 0,
+      "variant": "backend-regression"
+    }
+  ],
+  "cleanup": {
+    "temporaryMysqlRemoved": true,
+    "at": "2026-10-10T13:51:33.0432373+08:00"
+  }
+}

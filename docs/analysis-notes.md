@@ -1212,3 +1212,19 @@ HTTP专项8/8，当前fix-exp3新构建真实Chrome/Playwright独立MySQL专项1
 
 ## 2026-10-10 Sprint2复核结论
 原规划DOCX表6/11/16重新只读核对，SHA256299cd2d510e7a8da609ec2fe513e3810e616d3562673bce09ee16e81688437bb不变。八故事/33估算点功能符合；新Chrome专项退出0，6组PASS覆盖八故事，新MySQL4/4通过，零跳过。正式收尾仍待Sprint2评审/回顾及D5自然人批准证据；查得实验二会议原件为Sprint1，不能替代。10月11日计划评审尚未到期，不判逾期。OfficeCLI因XML运行库缺失只读失败后用标准库XML摘录。过程索引docs/20261010-sprint2-readiness-evidence-v1/summary.json，结论output/20261010-sprint2-readiness-check-v1.md。源码/raw无变化，临时服务已清理。
+
+
+## 2026-10-10 AttendanceAccessService测试导入缺陷检查
+已静态定位AssociationMysqlTest的7个@Test，测试切片导入AttendanceServiceImpl但未导入必需AttendanceAccessService。先原样真实MySQL复现，再仅在docs临时模块追加Spring @Import对照运行，保留原测试与业务源码。
+
+
+## 2026-10-10 AttendanceAccessService导入复核完成
+真实MySQL原配置7项ERROR、0跳过；临时副本仅补Spring @Import后7/7通过、0跳过。此前常规测试该类7项均跳过。原backend/src全量指纹及HEAD不变，临时MySQL已移除。缺陷已确认，无待确认事实；原源码修复尚未应用、未提交推送。交付output/20261010-attendance-test-import-check-v1.md，证据docs/20261010-attendance-test-import-check-v1/summary.json。
+
+
+## 2026-10-10 AttendanceAccessService测试配置修复
+原因已确认是测试切片缺少服务Bean。补Java类导入并将AttendanceAccessService.class追加到Spring @Import即可；保留现有断言和环境隔离条件，不改生产服务。
+
+
+## 2026-10-10 AttendanceAccessService修复验证通过
+原项目仅修改AssociationMysqlTest的Java导入及Spring @Import。真实MySQL7/7通过、0跳过；默认回归223项，其中176通过、47条件跳过、0失败/错误。193个backend/src文件比对，仅该测试变化；生产源码不变。临时MySQL已清理。交付output/20261010-attendance-test-import-fix-v1.md；准备按用户授权提交并推送fix-exp3。

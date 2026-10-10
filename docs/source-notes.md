@@ -376,3 +376,19 @@
 只读原件：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx，引用日期2026-10-10；按表6/11/16确定范围和DoD。上轮本日六组实测证据与原始八故事专项分开标记。
 
 来源补充：只读实验二提交物的第二组_Sprint评审会会议纪要.docx和第二组_Sprint回顾会会议纪要.docx，引用日期2026-10-10，均标明Sprint1、2026-09-21；原件哈希不变，详见docs/20261010-sprint2-readiness-evidence-v1/meeting-source-check.json。不能用它们证明Sprint2已评审或获批准。
+
+
+## 2026-10-10 AttendanceAccessService测试导入缺陷检查
+来源：用户提出AttendanceAccessService漏导入导致7项集成测试报错；本地AssociationMysqlTest.java的@DataJpaTest/@Import、AttendanceServiceImpl构造注入及此前条件跳过日志。引用日期2026-10-10。
+
+
+## 2026-10-10 AttendanceAccessService导入复核完成
+真实MySQL原配置7项ERROR、0跳过；临时副本仅补Spring @Import后7/7通过、0跳过。此前常规测试该类7项均跳过。原backend/src全量指纹及HEAD不变，临时MySQL已移除。缺陷已确认，无待确认事实；原源码修复尚未应用、未提交推送。交付output/20261010-attendance-test-import-check-v1.md，证据docs/20261010-attendance-test-import-check-v1/summary.json。
+
+
+## 2026-10-10 AttendanceAccessService测试配置修复
+来源：用户当前修复/推送授权；本地AssociationMysqlTest.java、AttendanceServiceImpl.java及上轮真实MySQL对照证据docs/20261010-attendance-test-import-check-v1/summary.json。引用日期2026-10-10。raw未提供额外业务资料，本次无需外部资料。
+
+
+## 2026-10-10 AttendanceAccessService修复验证通过
+原项目仅修改AssociationMysqlTest的Java导入及Spring @Import。真实MySQL7/7通过、0跳过；默认回归223项，其中176通过、47条件跳过、0失败/错误。193个backend/src文件比对，仅该测试变化；生产源码不变。临时MySQL已清理。交付output/20261010-attendance-test-import-fix-v1.md；准备按用户授权提交并推送fix-exp3。

@@ -219,3 +219,19 @@
 
 ## 2026-10-10 Sprint2复核结论
 原规划DOCX表6/11/16重新只读核对，SHA256299cd2d510e7a8da609ec2fe513e3810e616d3562673bce09ee16e81688437bb不变。八故事/33估算点功能符合；新Chrome专项退出0，6组PASS覆盖八故事，新MySQL4/4通过，零跳过。正式收尾仍待Sprint2评审/回顾及D5自然人批准证据；查得实验二会议原件为Sprint1，不能替代。10月11日计划评审尚未到期，不判逾期。OfficeCLI因XML运行库缺失只读失败后用标准库XML摘录。过程索引docs/20261010-sprint2-readiness-evidence-v1/summary.json，结论output/20261010-sprint2-readiness-check-v1.md。源码/raw无变化，临时服务已清理。
+
+
+## 2026-10-10 AttendanceAccessService测试导入缺陷检查
+当前信息足以验证，不需再次确认。用户本轮请求为检查；不修改原业务/测试源码，不自动提交或推送此诊断。
+
+
+## 2026-10-10 AttendanceAccessService导入复核完成
+真实MySQL原配置7项ERROR、0跳过；临时副本仅补Spring @Import后7/7通过、0跳过。此前常规测试该类7项均跳过。原backend/src全量指纹及HEAD不变，临时MySQL已移除。缺陷已确认，无待确认事实；原源码修复尚未应用、未提交推送。交付output/20261010-attendance-test-import-check-v1.md，证据docs/20261010-attendance-test-import-check-v1/summary.json。
+
+
+## 2026-10-10 AttendanceAccessService测试配置修复
+修复及推送fix-exp3已获用户明确授权，无需额外确认。默认回归跳过项必须单独说明，不以零错误替代实际执行。
+
+
+## 2026-10-10 AttendanceAccessService修复验证通过
+原项目仅修改AssociationMysqlTest的Java导入及Spring @Import。真实MySQL7/7通过、0跳过；默认回归223项，其中176通过、47条件跳过、0失败/错误。193个backend/src文件比对，仅该测试变化；生产源码不变。临时MySQL已清理。交付output/20261010-attendance-test-import-fix-v1.md；准备按用户授权提交并推送fix-exp3。

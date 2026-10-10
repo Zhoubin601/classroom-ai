@@ -1,0 +1,11 @@
+--- original/AssociationMysqlTest.java
++++ temporary/AssociationMysqlTest.java
+@@ -33,7 +33,7 @@
+ @DataJpaTest(showSql=false, properties={"spring.jpa.hibernate.ddl-auto=update","spring.sql.init.mode=never"})
+ @AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)
+ @Import({CourseAuthorizationService.class,SyllabusServiceImpl.class,SyllabusController.class,CourseServiceImpl.class,
+-        CourseOfferingManagementService.class,AcademicTermLockService.class,ScheduleConflictService.class,AttendanceServiceImpl.class,CourseImportServiceImpl.class})
++        CourseOfferingManagementService.class,AcademicTermLockService.class,ScheduleConflictService.class,AttendanceServiceImpl.class,com.classroom.ai.modules.attendance.service.AttendanceAccessService.class,CourseImportServiceImpl.class})
+ @EnabledIfEnvironmentVariable(named="EXP3_MYSQL_URL",matches="jdbc:mysql://127\\.0\\.0\\.1:13317/exp3_test.*")
+ class AssociationMysqlTest {
+     @DynamicPropertySource static void database(DynamicPropertyRegistry props) {

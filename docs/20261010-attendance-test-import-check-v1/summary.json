@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-10T13:48:09.827582+08:00",
+  "branch": "fix-exp3",
+  "head": "9f26625fbfad196decabd0998313e7a0fa4c45b5",
+  "confirmed": true,
+  "missingBean": "com.classroom.ai.modules.attendance.service.AttendanceAccessService",
+  "test": "AssociationMysqlTest",
+  "configurationLine": 36,
+  "constructorDependencyLine": 40,
+  "mysql": "8.0.36, disposable database exp3_test on 127.0.0.1:13317",
+  "results": [
+    {
+      "variant": "original",
+      "tests": 7,
+      "failures": 0,
+      "errors": 7,
+      "skipped": 0,
+      "passed": 0,
+      "seconds": 9.982
+    },
+    {
+      "variant": "temporary-fixed",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 7,
+      "seconds": 12.83
+    }
+  ],
+  "sourceVerification": {
+    "checkedBackendSourceFiles": 193,
+    "changed": [],
+    "added": [],
+    "headUnchanged": true
+  },
+  "previousRun": {
+    "tests": 7,
+    "skipped": 7,
+    "log": "docs/20261010-fix-exp3-push-evidence-v1/validation/camera-backend-tests-log.txt",
+    "line": 171
+  },
+  "cleanup": {
+    "temporaryMysqlRemoved": true,
+    "at": "2026-10-10T13:44:23.0838050+08:00"
+  },
+  "originalSourceModified": false,
+  "committedOrPushed": false
+}
