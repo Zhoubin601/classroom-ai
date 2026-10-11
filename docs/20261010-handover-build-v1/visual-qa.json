@@ -1,0 +1,84 @@
+{
+  "figureChecks": [
+    {
+      "name": "20261010-business-overview-v1.svg",
+      "dimensions": {
+        "width": 1560,
+        "height": 940
+      },
+      "overflow": [],
+      "nodeOverflow": []
+    },
+    {
+      "name": "20261010-data-relations-v1.svg",
+      "dimensions": {
+        "width": 1900,
+        "height": 1410
+      },
+      "overflow": [],
+      "nodeOverflow": []
+    },
+    {
+      "name": "20261010-evaluation-workflow-v1.svg",
+      "dimensions": {
+        "width": 1600,
+        "height": 1010
+      },
+      "overflow": [],
+      "nodeOverflow": []
+    },
+    {
+      "name": "20261010-role-scopes-v1.svg",
+      "dimensions": {
+        "width": 1560,
+        "height": 1030
+      },
+      "overflow": [],
+      "nodeOverflow": []
+    },
+    {
+      "name": "20261010-runtime-architecture-v1.svg",
+      "dimensions": {
+        "width": 1640,
+        "height": 1130
+      },
+      "overflow": [],
+      "nodeOverflow": []
+    }
+  ],
+  "desktop": {
+    "pageWidth": 1440,
+    "viewport": 1440,
+    "sections": 10,
+    "figures": 5,
+    "permissionRows": 38,
+    "duplicateIds": [],
+    "brokenAnchors": []
+  },
+  "mobile": {
+    "pageWidth": 375,
+    "viewport": 375
+  },
+  "landscape": {
+    "pageWidth": 812,
+    "viewport": 812
+  },
+  "additionalWidths": [
+    {
+      "pageWidth": 768,
+      "viewport": 768
+    },
+    {
+      "pageWidth": 1024,
+      "viewport": 1024
+    }
+  ],
+  "filtering": {
+    "visible": 1,
+    "summary": "显示 1 / 38 项操作"
+  },
+  "emptyFiltering": 0,
+  "reducedMotion": "auto",
+  "errors": [],
+  "externalRequests": []
+}

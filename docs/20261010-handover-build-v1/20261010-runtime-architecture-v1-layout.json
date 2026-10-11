@@ -1,0 +1,412 @@
+{
+  "slug": "runtime-architecture",
+  "title": "02 / 技术与本机运行结构",
+  "subtitle": "默认 Windows 本机 Vite + Python，Docker Compose 运行 Java / MySQL / Redis。",
+  "width": 1640,
+  "height": 1130,
+  "sources": "Vite配置与camera-plugin；Compose；backend/Dockerfile；视觉传输",
+  "nodes": [
+    {
+      "id": "U",
+      "x": 560,
+      "y": 155,
+      "w": 450,
+      "h": 100,
+      "title": "浏览器 / 三个角色",
+      "lines": [
+        "JWT Bearer 认证请求"
+      ],
+      "tone": "gray"
+    },
+    {
+      "id": "F",
+      "x": 70,
+      "y": 340,
+      "w": 360,
+      "h": 180,
+      "title": "Vue / Vite · 5173",
+      "lines": [
+        "业务 API 与静态照片代理",
+        "本地设备入口在插件中",
+        "静态 dist 不提供设备启停"
+      ],
+      "tone": "blue"
+    },
+    {
+      "id": "L",
+      "x": 70,
+      "y": 620,
+      "w": 360,
+      "h": 150,
+      "title": "本地摄像头插件",
+      "lines": [
+        "身份 / 班次 / 活动会话核验",
+        "单个监控进程的生命周期"
+      ],
+      "tone": "blue"
+    },
+    {
+      "id": "P",
+      "x": 620,
+      "y": 620,
+      "w": 380,
+      "h": 150,
+      "title": "Python 视觉 · 8088",
+      "lines": [
+        "InsightFace / 认证传输",
+        "按班次加载人脸上下文"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "CAM",
+      "x": 620,
+      "y": 850,
+      "w": 380,
+      "h": 120,
+      "title": "摄像头与模型环境",
+      "lines": [
+        "原生设备 / CUDA 与模型缓存"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "B",
+      "x": 1110,
+      "y": 355,
+      "w": 400,
+      "h": 140,
+      "title": "Spring Boot · 8080",
+      "lines": [
+        "Java21 / 业务权限 / 文件接口",
+        "数据库重载账号授权"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "DB",
+      "x": 1100,
+      "y": 560,
+      "w": 220,
+      "h": 120,
+      "title": "MySQL8.0",
+      "lines": [
+        "宿主3308 → 3306"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "R",
+      "x": 1340,
+      "y": 560,
+      "w": 200,
+      "h": 120,
+      "title": "Redis7.2",
+      "lines": [
+        "6379 / AOF"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "O",
+      "x": 1110,
+      "y": 780,
+      "w": 400,
+      "h": 110,
+      "title": "LibreOffice / 镜像内部",
+      "lines": [
+        "Office 转 PDF，不是独立服务"
+      ],
+      "tone": "gray"
+    },
+    {
+      "id": "FILES",
+      "x": 70,
+      "y": 860,
+      "w": 380,
+      "h": 110,
+      "title": "runtime/uploads",
+      "lines": [
+        "faces / resources / micro"
+      ],
+      "tone": "amber"
+    }
+  ],
+  "edges": [
+    {
+      "a": "U",
+      "b": "F",
+      "label": "页面与请求",
+      "points": [
+        [
+          560,
+          205
+        ],
+        [
+          250,
+          205
+        ],
+        [
+          250,
+          340
+        ]
+      ],
+      "labelpos": [
+        390,
+        190
+      ],
+      "logic": false
+    },
+    {
+      "a": "F",
+      "b": "B",
+      "label": "业务 API 代理",
+      "points": [
+        [
+          430,
+          420
+        ],
+        [
+          1110,
+          420
+        ]
+      ],
+      "labelpos": [
+        740,
+        403
+      ],
+      "logic": false
+    },
+    {
+      "a": "F",
+      "b": "L",
+      "label": "本地设备入口",
+      "points": [
+        [
+          250,
+          520
+        ],
+        [
+          250,
+          620
+        ]
+      ],
+      "labelpos": [
+        330,
+        565
+      ],
+      "logic": false
+    },
+    {
+      "a": "L",
+      "b": "P",
+      "label": "启动 / 停止",
+      "points": [
+        [
+          430,
+          695
+        ],
+        [
+          620,
+          695
+        ]
+      ],
+      "labelpos": [
+        525,
+        674
+      ],
+      "logic": false
+    },
+    {
+      "a": "P",
+      "b": "B",
+      "label": "认证上下文 / 指标上报",
+      "points": [
+        [
+          1000,
+          700
+        ],
+        [
+          1035,
+          700
+        ],
+        [
+          1035,
+          450
+        ],
+        [
+          1110,
+          450
+        ]
+      ],
+      "labelpos": [
+        825,
+        500
+      ],
+      "logic": false
+    },
+    {
+      "a": "P",
+      "b": "F",
+      "label": "视频流经插件代理",
+      "points": [
+        [
+          810,
+          620
+        ],
+        [
+          810,
+          565
+        ],
+        [
+          460,
+          565
+        ],
+        [
+          460,
+          490
+        ],
+        [
+          430,
+          490
+        ]
+      ],
+      "labelpos": [
+        650,
+        549
+      ],
+      "logic": false
+    },
+    {
+      "a": "CAM",
+      "b": "P",
+      "label": "画面与推理",
+      "points": [
+        [
+          810,
+          850
+        ],
+        [
+          810,
+          770
+        ]
+      ],
+      "labelpos": [
+        897,
+        814
+      ],
+      "logic": false
+    },
+    {
+      "a": "B",
+      "b": "DB",
+      "label": "",
+      "points": [
+        [
+          1210,
+          495
+        ],
+        [
+          1210,
+          560
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "B",
+      "b": "R",
+      "label": "",
+      "points": [
+        [
+          1415,
+          495
+        ],
+        [
+          1440,
+          530
+        ],
+        [
+          1440,
+          560
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "B",
+      "b": "O",
+      "label": "文件转换",
+      "points": [
+        [
+          1510,
+          460
+        ],
+        [
+          1552,
+          460
+        ],
+        [
+          1552,
+          732
+        ],
+        [
+          1310,
+          732
+        ],
+        [
+          1310,
+          780
+        ]
+      ],
+      "labelpos": [
+        1390,
+        720
+      ],
+      "logic": false
+    },
+    {
+      "a": "B",
+      "b": "FILES",
+      "label": "数据库元数据与本地文件分别交接",
+      "points": [
+        [
+          1110,
+          480
+        ],
+        [
+          1025,
+          480
+        ],
+        [
+          1025,
+          995
+        ],
+        [
+          260,
+          995
+        ],
+        [
+          260,
+          970
+        ]
+      ],
+      "labelpos": [
+        630,
+        1022
+      ],
+      "logic": false
+    }
+  ],
+  "groups": [
+    {
+      "x": 1070,
+      "y": 290,
+      "w": 500,
+      "h": 650,
+      "title": "Docker Compose / 本机 Docker"
+    }
+  ]
+}

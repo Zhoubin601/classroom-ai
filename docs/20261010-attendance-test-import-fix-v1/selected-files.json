@@ -1,0 +1,17 @@
+[
+  "backend/src/test/java/com/classroom/ai/modules/course/AssociationMysqlTest.java",
+  "docs/source-notes.md",
+  "docs/analysis-notes.md",
+  "docs/plan.md",
+  "docs/questions.md",
+  "output/20261010-attendance-test-import-check-v1.md",
+  "output/20261010-attendance-test-import-fix-v1.md",
+  "docs/20261010-attendance-test-import-check-v1/summary.json",
+  "docs/20261010-attendance-test-import-check-v1/sources-before.json",
+  "docs/20261010-attendance-test-import-check-v1/temporary-fix.patch",
+  "docs/20261010-attendance-test-import-fix-v1/run.ps1",
+  "docs/20261010-attendance-test-import-fix-v1/summarize.py",
+  "docs/20261010-attendance-test-import-fix-v1/summary.json",
+  "docs/20261010-attendance-test-import-fix-v1/run-results.json",
+  "docs/20261010-attendance-test-import-fix-v1/cleanup.json"
+]

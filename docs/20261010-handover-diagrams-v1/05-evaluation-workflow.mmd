@@ -1,0 +1,6 @@
+flowchart LR
+  D[DRAFT：督导暂存] -->|督导正式提交| P[PENDING_REVIEW：待主任审核]
+  P -->|主任驳回| R[REJECTED：退回]
+  R -->|督导修改并重提| P
+  P -->|主任通过| A[APPROVED_PENDING：等待发布时间]
+  A -->|到达配置的发布时间| F[PUBLISHED：教师可见匿名反馈]

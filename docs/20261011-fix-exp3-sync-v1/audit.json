@@ -1,0 +1,307 @@
+{
+  "candidateFiles": 594,
+  "candidateBytes": 237917130,
+  "physicalCameraImagesLocalOnly": [
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-10.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-11.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-4.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-5.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-9.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/frozen-camera-visible-error.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/real-camera-archive.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/frozen-camera-visible-error.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/real-camera-archive.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/real-camera-connected.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-trend/continuous-real-camera-trend.png"
+  ],
+  "credentialMatches": [],
+  "credentialFieldMetadata": [
+    {
+      "path": "docs/20261007-role-recheck-evidence-v2/role-boundaries.cjs",
+      "line": 17,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261007-role-recheck-evidence-v2/setup.ps1",
+      "line": 29,
+      "field": "password",
+      "valueLength": 17,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261007-role-recheck-evidence-v2/verify-daily.cjs",
+      "line": 8,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261007-role-recheck-evidence-v2/verify-fixes.cjs",
+      "line": 14,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261007-role-recheck-evidence-v2/verify-fixes.cjs",
+      "line": 174,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261007-sprint2-readiness-evidence-v1/setup.ps1",
+      "line": 29,
+      "field": "password",
+      "valueLength": 17,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-micro-scope-evidence-v1/setup.ps1",
+      "line": 29,
+      "field": "password",
+      "valueLength": 17,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-radar-proof-evidence-v1/radar-proof.cjs",
+      "line": 10,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-radar-proof-evidence-v1/setup.ps1",
+      "line": 29,
+      "field": "password",
+      "valueLength": 17,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v1/role-boundaries.cjs",
+      "line": 17,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v1/setup.ps1",
+      "line": 29,
+      "field": "password",
+      "valueLength": 17,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v1/verify-fixes.cjs",
+      "line": 14,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v1/verify-fixes.cjs",
+      "line": 174,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v2/daily-readonly.cjs",
+      "line": 21,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v2/daily-readonly.cjs",
+      "line": 32,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v2/role-boundaries.cjs",
+      "line": 17,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v2/setup.ps1",
+      "line": 29,
+      "field": "password",
+      "valueLength": 17,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v2/verify-fixes.cjs",
+      "line": 14,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v2/verify-fixes.cjs",
+      "line": 174,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "output/20260921-第二组-Sprint1源代码-v3.zip::backend/src/main/java/com/classroom/ai/modules/auth/security/JwtTokenProvider.java",
+      "line": 23,
+      "field": "SECRET",
+      "valueLength": 72,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "output/20260921-第二组-Sprint1源代码-v3.zip::backend/src/main/java/com/classroom/ai/modules/auth/security/JwtTokenProvider.java",
+      "line": 30,
+      "field": "secret",
+      "valueLength": 20,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "output/20260921-第二组-Sprint1源代码-v3.zip::scripts/tests/us02-us03-real-browser.cjs",
+      "line": 35,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    },
+    {
+      "path": "output/20260922-第二组-Sprint1源代码-v4.zip::backend/src/main/java/com/classroom/ai/modules/auth/security/JwtTokenProvider.java",
+      "line": 23,
+      "field": "SECRET",
+      "valueLength": 72,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "output/20260922-第二组-Sprint1源代码-v4.zip::backend/src/main/java/com/classroom/ai/modules/auth/security/JwtTokenProvider.java",
+      "line": 30,
+      "field": "secret",
+      "valueLength": 20,
+      "placeholder": false,
+      "demoLiteral": false
+    },
+    {
+      "path": "output/20260922-第二组-Sprint1源代码-v4.zip::scripts/tests/us02-us03-real-browser.cjs",
+      "line": 35,
+      "field": "Authorization",
+      "valueLength": 7,
+      "placeholder": true,
+      "demoLiteral": false
+    }
+  ],
+  "archives": [
+    {
+      "path": "output/20260921-第二组-Sprint1源代码-v3.zip",
+      "entries": 1168,
+      "notable_paths": [
+        ".git/COMMIT_EDITMSG",
+        ".git/config",
+        ".git/description",
+        ".git/FETCH_HEAD",
+        ".git/HEAD",
+        ".git/index",
+        ".git/ORIG_HEAD",
+        ".git/REBASE_HEAD",
+        ".git/hooks/applypatch-msg.sample",
+        ".git/hooks/commit-msg.sample",
+        ".git/hooks/fsmonitor-watchman.sample",
+        ".git/hooks/post-update.sample",
+        ".git/hooks/pre-applypatch.sample",
+        ".git/hooks/pre-commit.sample",
+        ".git/hooks/pre-merge-commit.sample",
+        ".git/hooks/pre-push.sample",
+        ".git/hooks/pre-rebase.sample",
+        ".git/hooks/pre-receive.sample",
+        ".git/hooks/prepare-commit-msg.sample",
+        ".git/hooks/push-to-checkout.sample",
+        ".git/hooks/sendemail-validate.sample",
+        ".git/hooks/update.sample",
+        ".git/info/exclude",
+        ".git/info/refs",
+        ".git/logs/HEAD",
+        ".git/logs/refs/heads/main",
+        ".git/logs/refs/heads/feat/exp2-supplement-auth-fix",
+        ".git/logs/refs/heads/feat/foundation-auth",
+        ".git/logs/refs/heads/feat/us01-us02-course-content",
+        ".git/logs/refs/heads/feat/us03-us04-us06-schedule-query",
+        ".git/logs/refs/remotes/origin/HEAD",
+        ".git/logs/refs/remotes/origin/main",
+        ".git/logs/refs/remotes/origin/feat/exp2-supplement-auth-fix",
+        ".git/logs/refs/remotes/origin/feat/foundation-auth",
+        ".git/logs/refs/remotes/origin/feat/us01-us02-course-content",
+        ".git/objects/00/3beb62665465b37c9f53603ff1b25d46d6f18a",
+        ".git/objects/02/2465886579dafe805aa3525e0b10fbf635c5e6",
+        ".git/objects/03/151facd4afcadaec2406045bf12f8fca327bec",
+        ".git/objects/03/2b032f6edfe88ee8fe41732e272d3490b2c3e5",
+        ".git/objects/03/c2de561ec9bfd63a61ade67a4ca6246d9b0028",
+        ".git/objects/03/d1847c57ef4f3dafc3b21fd8587d8c89dcfa1d",
+        ".git/objects/04/07b19ffb8be9a715d8cb649981610da4106c07",
+        ".git/objects/04/39b32c85200120ec2944b677a8158ac61c767d",
+        ".git/objects/04/4a38369b68d11b1fd9d2598aacd01db028f3d5",
+        ".git/objects/04/615cb2271e455fb31a82bfd5b90b32fe253516",
+        ".git/objects/04/ec02529b6a6e7763d3813a0b0f79df6523cbff",
+        ".git/objects/04/f00ef250f2041cfd751489ca4866e107665cdc",
+        ".git/objects/05/079aba56130c8448dddabcb0a77d4904d5d5ac",
+        ".git/objects/05/2cf352949e118de7d5af370f94d1e9c9b1fccb",
+        ".git/objects/05/5db036a9cdf45cda98b3942461d7bc9122f93b"
+      ],
+      "notable_count": 622
+    },
+    {
+      "path": "output/20260922-第二组-Sprint1源代码-v4.zip",
+      "entries": 376,
+      "notable_paths": [
+        "runtime/uploads/faces/STU2026001_snapshot.jpg",
+        "runtime/uploads/faces/STU20260092_snapshot.jpg",
+        "runtime/uploads/faces/STU20260093_snapshot.jpg",
+        "runtime/uploads/resources/1789718386823_b1cbbee4.pptx",
+        "runtime/uploads/resources/1789718888020_5b4217bc.docx",
+        "runtime/uploads/resources/ai3001_intro.pptx",
+        "runtime/uploads/resources/ch1_overview.docx",
+        "runtime/uploads/resources/ch1_overview.pdf",
+        "runtime/uploads/resources/ch3_wbs.pptx",
+        "runtime/uploads/resources/ch5_scrum.pptx",
+        "runtime/uploads/resources/cs2002_intro.pdf",
+        "runtime/uploads/temp/verify_28ad6bce49fc.jpg",
+        "runtime/uploads/temp/verify_60e6015b3a7e.jpg",
+        "runtime/uploads/temp/verify_d8a61038dcaf.jpg",
+        "scripts/deploy/.env.example"
+      ],
+      "notable_count": 15
+    },
+    {
+      "path": "output/20261010-developer-handover-materials-v1.zip",
+      "entries": 22,
+      "notable_paths": [],
+      "notable_count": 0
+    }
+  ]
+}

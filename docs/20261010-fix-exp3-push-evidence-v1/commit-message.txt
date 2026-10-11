@@ -1,0 +1,5 @@
+fix: connect camera attendance and scoped micro teaching playback
+
+Bind native camera reports to authenticated offerings and active attendance sessions, expose transport failures, and stop monitoring on exit or freezing. Add scoped micro video upload/playback and reject media authorization bypasses.
+
+Include backend/frontend/Python regression coverage, real browser evidence, and the original Sprint 2 acceptance review. Keep physical-camera screenshots local.

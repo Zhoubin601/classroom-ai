@@ -1,0 +1,25 @@
+flowchart LR
+  U[浏览器：三个角色] --> F
+  subgraph HOST[Windows 本机演示环境]
+    F[Vue 前端与 Vite 服务 5173]
+    L[本地摄像头启动插件]
+    P[Python 视觉进程 8088]
+    CAM[摄像头与视觉模型]
+    FILES[runtime/uploads 上传文件]
+    subgraph DOCKER[Docker Compose]
+      B[Spring Boot 后端 8080]
+      DB[(MySQL：业务数据)]
+      R[(Redis：实时状态与缓存)]
+      O[LibreOffice：Office 转 PDF]
+    end
+  end
+  F -->|业务 API 代理| B
+  F -->|摄像头启停| L
+  L -->|本地进程管理| P
+  CAM -->|画面 / 推理输入| P
+  P -->|认证 / 班次与会话绑定上报| B
+  F -->|视频流代理| P
+  B --> DB
+  B --> R
+  B --> O
+  B --> FILES

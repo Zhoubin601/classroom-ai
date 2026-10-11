@@ -31,3 +31,10 @@ docs/archive/
 *.sqlite
 *.sqlite3
 
+# Local physical-camera evidence and historical packages with face data
+docs/20261010-camera-integration-evidence-v1/camera-micro/*.png
+docs/20261010-camera-integration-evidence-v1/camera-micro-attempt*/*.png
+docs/20261010-camera-integration-evidence-v1/camera-trend/*.png
+output/20260921-第二组-Sprint1源代码-v3.zip
+output/20260922-第二组-Sprint1源代码-v4.zip
+

@@ -1,0 +1,8 @@
+Unhandled exception: System.IO.FileNotFoundException: 
+File name: 'System.Private.Xml, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'
+   at OfficeCli.CommandBuilder.WriteError(Exception ex, Boolean json)
+   at OfficeCli.CommandBuilder.WriteError(Exception ex, Boolean json)
+   at OfficeCli.CommandBuilder.SafeRun(Func`1 action, Boolean json)
+   at OfficeCli.CommandBuilder.<>c__DisplayClass129_0.<BuildViewCommand>b__0(ParseResult result)
+   at System.CommandLine.Invocation.AnonymousSynchronousCommandLineAction.Invoke(ParseResult parseResult)
+   at System.CommandLine.Invocation.InvocationPipeline.Invoke(ParseResult parseResult)

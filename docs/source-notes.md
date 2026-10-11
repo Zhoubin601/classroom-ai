@@ -392,3 +392,42 @@
 
 ## 2026-10-10 AttendanceAccessService修复验证通过
 原项目仅修改AssociationMysqlTest的Java导入及Spring @Import。真实MySQL7/7通过、0跳过；默认回归223项，其中176通过、47条件跳过、0失败/错误。193个backend/src文件比对，仅该测试变化；生产源码不变。临时MySQL已清理。交付output/20261010-attendance-test-import-fix-v1.md；准备按用户授权提交并推送fix-exp3。
+
+## 2026-10-10 开发维护交接描述与图示草稿
+
+- 来源名称：用户本轮请求与接手对象确认；链接或文件名：当前会话；引用日期：2026-10-10。用户希望说明项目并以图示展示结构和角色权限，接手对象为开发维护人员；最终载体未指定。
+- 来源名称：项目原始资料目录；链接或文件名：raw/README.md；引用日期：2026-10-10。目录只有说明文件，业务原始资料未提供；不改写、移动或重命名原件。
+- 来源名称：项目使用说明、已确认背景与专业规则；链接或文件名：README.md、memory-bank/project-context.md、docs/20261006-major-department-rules-v1.md；引用日期：2026-10-10。部分历史状态已被后续确认取代，交接采用最新明确口径并核对源码。
+- 来源名称：本地源码；链接或文件名：frontend/package.json、frontend/vite.config.ts、frontend/dev/camera-plugin.mjs、backend/pom.xml、scripts/deploy/docker-compose.yml、vision/classroom_monitor.py、vision/monitor_transport.py、vision/face_recognition.py、vision/paths.py；引用日期：2026-10-10。确认技术栈、运行边界、视觉依赖与端口。
+- 来源名称：业务授权与数据实体；链接或文件名：backend/src/main/java/com/classroom/ai/modules/ 下 auth/entity/RoleEnum.java、course/service/CourseAuthorizationService.java、attendance/service/AttendanceAccessService.java、resource/service/ResourceAccessService.java、resource/service/impl/MicroTeachingServiceImpl.java、supervision/service/impl/SupervisionServiceImpl.java、course/entity/CourseOffering.java、course/entity/CourseSyllabus.java、course/entity/TrainingIndicator.java、course/entity/OfferingStudentEnrollment.java；引用日期：2026-10-10。确认三个业务角色、课程/班次范围、三角色考勤例外、共享规则、版本与评价状态。
+- 来源名称：既有本日软件验收报告；链接或文件名：output/20261010-camera-integration-fix-v1.md、output/20261010-sprint2-readiness-check-v1.md；引用日期：2026-10-10。本轮引用已有验收，不宣称重新实跑；没有读取项目外原始DOCX或含人脸数据文件。Sprint2正式批准和现场多人效果分开说明。
+- 来源名称：Git只读检查与既有推送记录；链接或文件名：本地git分支/HEAD、docs/20261010-fix-exp3-push-evidence-v1/push-result.json、docs/20261010-attendance-test-import-fix-v1/push-result.json；引用日期：2026-10-10。本地fix-exp3为7464f9cf5875ec3e416d313e11c9838f5a2bec15；既有记录证明当时推送成功，本轮没有联网重验远端或核验服务运行版本。
+- 本轮未使用外部网络资料、未改业务代码、未启动摄像头或部署、未读取凭据及人脸向量。交接草稿与图示源码放docs，正式文件尚未生成。
+
+## 2026-10-10 正式开发维护交接材料制作
+
+来源名称：用户当前生成授权；链接或文件名：当前会话；引用日期：2026-10-10。用户明确要求生成此前交接说明、五图与权限矩阵，并严格对齐当前项目。受众保持为开发维护接手者；按已确认结构直接制作HTML/Markdown、SVG/PNG/Mermaid、权限及索引CSV和ZIP。
+来源名称：当前本地源码和配置；链接或文件名：output/20261010-source-index-v1.csv（57处文件/行号/SHA256索引）；引用日期：2026-10-10。当前fix-exp3/7464f9cf5875ec3e416d313e11c9838f5a2bec15；读SecurityConfig、JWT过滤器、课程/资源/考勤授权服务、各控制器/服务、JPA实体、Vite插件、Compose、启动停止与视觉入口。不保存配置中的凭据，不读取人脸数据或真人截图。
+来源名称：既有本日功能、摄像头、Sprint2与测试修复报告；链接或文件名：output/20261010-camera-integration-fix-v1.md、output/20261010-sprint2-readiness-check-v1.md、output/20261010-attendance-test-import-fix-v1.md；引用日期：2026-10-10。仅转引有日期的已有实测，本轮未重新执行业务测试，也未重新读取项目外原始DOCX。
+来源名称：当前原始资料目录；链接或文件名：raw/README.md；引用日期：2026-10-10。业务原始资料未提供；原件SHA256仍为9fff72bcec428d473107fc01f04e5204d0fa60c45c301d3df68e10e201059269。
+来源名称：本地UI设计技能；链接或文件名：C:/Users/a3185/.agents/skills/ui-ux-pro-max/SKILL.md与其本地documentation检索结果；引用日期：2026-10-10。采用适合Web文档的导航、表格溢出控制、可见焦点、响应式和离线系统字体；无外部网络资料。项目约定minimax-*和ppt-master当前未提供，已告知并采用HTML/Markdown等可执行交付形式。
+来源名称：本轮代码索引与文件/浏览器验证；链接或文件名：docs/20261010-handover-build-v1/code-inventory.json、alignment-summary.json、visual-qa.json、delivery-check.json；引用日期：2026-10-10。38类关键操作全部路由存在；97个后端映射注解、8个Vite本地入口、24个源码实体；57个来源行标记及哈希验证。299个原件/源码/配置文件指纹一致。五图查看与SVG/PNG完整性、HTML375/768/812/1024/1440宽度、目录与来源锚点、筛选、离线请求检查通过。首轮SVG原生页截图超时及一处文本高度不足已修正，最终稳定渲染检查通过；该问题属于材料生成过程，不是产品缺陷。
+
+## 2026-10-10 Sprint 2 仅代码范围复核
+- 来源名称：用户本轮明确说明；链接或文件名：本聊天当前消息；引用日期：2026-10-10。Sprint 2 评审、回顾和自然人交付批准在指导书下发之后再做，本轮仅核对代码，不作为代码完成的阻塞项。
+- 来源名称：实验一规划只读摘录；链接或文件名：docs/20261010-sprint2-readiness-evidence-v1/original-tables.txt（原件为D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx）；引用日期：2026-10-10。本轮使用已核验摘录，未重新读取或编辑DOCX；代码范围为US-05、07、08、09、10、13、14、15。
+- 来源名称：当前源码与既有同日测试；链接或文件名：backend/src/main、frontend/src、backend/src/main/resources/application.yml、docs/20261010-role-recheck-evidence-v1/sources-before.json、docs/20261010-sprint2-readiness-evidence-v1/summary.json、docs/20261010-attendance-test-import-fix-v1/summary.json；引用日期：2026-10-10。本轮静态核查及SHA256比对259项，仅AssociationMysqlTest.java不同，其哈希与后续7/7通过记录一致。未重新执行测试，未使用外部资料。
+
+
+## 2026-10-10 项目文件清理来源
+来源名称：用户当前清理授权；链接或文件名：当前聊天；引用日期：2026-10-10。范围为过期和重复文件。
+来源名称：本地目录、Git与既有过程记录；链接或文件名：AGENTS.md、raw/README.md、docs/目录整理说明.md、docs/20261009-workspace-switch-v1.md、docs/20261010-handover-build-v1/delivery-check.json、docs/20261010-attendance-test-import-check-v1/summary.json、memory-bank/project-context.md；引用日期：2026-10-10。raw只有说明文件，额外业务原始资料未提供；本轮无需外部资料。
+核验依据：SHA256一致副本、工作区提交可从当前HEAD追溯、未提交及忽略文件检查、进程/PID检查。不同内容备份与各期正式交付物保留。
+
+
+
+## 2026-10-10 项目清理执行结果
+已完成：删除19,757个过期/重复文件，逻辑大小约821.50 MiB；343个相同切换备份已去重，64个不同内容备份保留，2份独有证据转存docs。清理完成时1,565项保护指纹一致，Git HEAD/分支/refs/stash及原有已跟踪修改状态一致。正式output与raw保留。明细docs/20261010-project-cleanup-v1.md及同名目录；本轮无已核验清理项未完成。
+
+## 2026-10-11 本地资料同步授权
+用户明确授权提交并push到fix-exp3。提交本地交接、验收、清理记录、正式交接材料与设计说明；11张真人摄像头截图和两个含人脸数据的历史源码包保留本地，新增精确.gitignore规则。业务源码无改动；raw未改写，main不变。来源为当前用户请求、本地Git及文件/ZIP只读核验，引用日期2026-10-11。明细docs/20261011-fix-exp3-sync-v1.md；最终提交与推送结果以Git实时远端核验为准。

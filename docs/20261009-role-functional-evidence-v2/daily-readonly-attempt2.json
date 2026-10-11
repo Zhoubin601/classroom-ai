@@ -1,0 +1,110 @@
+{
+  "observedAt": "2026-10-09T07:10:45.322Z",
+  "frontend": "http://127.0.0.1:5173",
+  "backend": "http://127.0.0.1:8080",
+  "mode": "Real Chrome UI login and read-only requests through daily Vite proxy",
+  "roles": [
+    {
+      "role": "director",
+      "requests": [
+        {
+          "route": "/api/v1/courses",
+          "http": 200,
+          "code": 200,
+          "count": 12
+        },
+        {
+          "route": "/api/v1/courses/offerings",
+          "http": 200,
+          "code": 200,
+          "count": 5
+        },
+        {
+          "route": "/api/v1/resources/micro-slices/course/10",
+          "http": 403,
+          "code": 403
+        },
+        {
+          "route": "/api/visual/overview?offeringId=10",
+          "http": 403,
+          "code": 403
+        },
+        {
+          "route": "/api/v1/attendance/offering/10",
+          "http": 403,
+          "code": 403
+        }
+      ],
+      "login": "PASS"
+    },
+    {
+      "role": "guojun",
+      "requests": [
+        {
+          "route": "/api/v1/courses",
+          "http": 200,
+          "code": 200,
+          "count": 4
+        },
+        {
+          "route": "/api/v1/courses/offerings",
+          "http": 200,
+          "code": 200,
+          "count": 4
+        },
+        {
+          "route": "/api/v1/resources/micro-slices/course/10",
+          "http": 403,
+          "code": 403
+        },
+        {
+          "route": "/api/visual/overview?offeringId=10",
+          "http": 403,
+          "code": 403
+        },
+        {
+          "route": "/api/v1/attendance/offering/10",
+          "http": 403,
+          "code": 403
+        }
+      ],
+      "login": "PASS"
+    },
+    {
+      "role": "supervisor",
+      "requests": [
+        {
+          "route": "/api/v1/courses",
+          "http": 200,
+          "code": 200,
+          "count": 24
+        },
+        {
+          "route": "/api/v1/courses/offerings",
+          "http": 200,
+          "code": 200,
+          "count": 18
+        },
+        {
+          "route": "/api/v1/resources/micro-slices/course/10",
+          "http": 200,
+          "code": 200,
+          "count": 0
+        },
+        {
+          "route": "/api/visual/overview?offeringId=10",
+          "http": 200,
+          "code": 200
+        },
+        {
+          "route": "/api/v1/attendance/offering/10",
+          "http": 200,
+          "code": 200,
+          "count": 1
+        }
+      ],
+      "login": "PASS"
+    }
+  ],
+  "pageErrors": []
+}

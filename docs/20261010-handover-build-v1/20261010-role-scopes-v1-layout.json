@@ -1,0 +1,292 @@
+{
+  "slug": "role-scopes",
+  "title": "03 / 角色、数据范围与关键操作",
+  "subtitle": "权限由角色 + 操作 + 数据范围 + 状态共同决定；完整细节见权限矩阵。",
+  "width": 1560,
+  "height": 1030,
+  "sources": "SecurityConfig；CourseAuthorizationService；ResourceAccessService；AttendanceAccessService",
+  "nodes": [
+    {
+      "id": "D",
+      "x": 60,
+      "y": 160,
+      "w": 440,
+      "h": 90,
+      "title": "教研室主任 / DIRECTOR",
+      "lines": [],
+      "tone": "blue"
+    },
+    {
+      "id": "DS",
+      "x": 60,
+      "y": 325,
+      "w": 440,
+      "h": 145,
+      "title": "数据范围",
+      "lines": [
+        "账号 department 对应本室",
+        "牵头 / 显式参与专业管理范围"
+      ],
+      "tone": "blue"
+    },
+    {
+      "id": "DW",
+      "x": 60,
+      "y": 545,
+      "w": 440,
+      "h": 230,
+      "title": "关键操作",
+      "lines": [
+        "课程建档、班次排课与名单",
+        "大纲锁定 / 本室评价审核",
+        "微格与课件维护",
+        "学生底库 / 质量CSV全量Demo"
+      ],
+      "tone": "blue"
+    },
+    {
+      "id": "T",
+      "x": 560,
+      "y": 160,
+      "w": 440,
+      "h": 90,
+      "title": "任课教师 / TEACHER",
+      "lines": [],
+      "tone": "green"
+    },
+    {
+      "id": "TS",
+      "x": 560,
+      "y": 325,
+      "w": 440,
+      "h": 145,
+      "title": "数据范围",
+      "lines": [
+        "主讲工号或协同教师关联",
+        "班次可读不自动扩到其他班次"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "TW",
+      "x": 560,
+      "y": 545,
+      "w": 440,
+      "h": 230,
+      "title": "关键操作",
+      "lines": [
+        "教学内容草稿与正式发布",
+        "本人课程大纲、课件与微格",
+        "同室共享课件可预览",
+        "原文件下载仍要求课程写权"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "S",
+      "x": 1060,
+      "y": 160,
+      "w": 440,
+      "h": 90,
+      "title": "教学督导 / SUPERVISOR",
+      "lines": [],
+      "tone": "purple"
+    },
+    {
+      "id": "SS",
+      "x": 1060,
+      "y": 325,
+      "w": 440,
+      "h": 145,
+      "title": "数据范围",
+      "lines": [
+        "authorizedMajors 授权专业",
+        "缺专业 / 无授权默认拒绝"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "SW",
+      "x": 1060,
+      "y": 545,
+      "w": 440,
+      "h": 230,
+      "title": "关键操作",
+      "lines": [
+        "课程、大纲、资源只读审查",
+        "授权班次评价暂存与提交",
+        "微格视频授权预览",
+        "不能维护课程、课件与微格"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "A",
+      "x": 60,
+      "y": 855,
+      "w": 1440,
+      "h": 100,
+      "title": "三角色共同：可读且未冻结的班次，允许开启 / 更新 / 结束考勤",
+      "lines": [
+        "结束单次考勤 ≠ 主任结课归档；督导的“课程只读”不等于所有业务只读。"
+      ],
+      "tone": "amber"
+    }
+  ],
+  "edges": [
+    {
+      "a": "D",
+      "b": "DS",
+      "label": "",
+      "points": [
+        [
+          280,
+          250
+        ],
+        [
+          280,
+          325
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "DS",
+      "b": "DW",
+      "label": "",
+      "points": [
+        [
+          280,
+          470
+        ],
+        [
+          280,
+          545
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "DW",
+      "b": "A",
+      "label": "",
+      "points": [
+        [
+          280,
+          775
+        ],
+        [
+          280,
+          855
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "T",
+      "b": "TS",
+      "label": "",
+      "points": [
+        [
+          780,
+          250
+        ],
+        [
+          780,
+          325
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "TS",
+      "b": "TW",
+      "label": "",
+      "points": [
+        [
+          780,
+          470
+        ],
+        [
+          780,
+          545
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "TW",
+      "b": "A",
+      "label": "",
+      "points": [
+        [
+          780,
+          775
+        ],
+        [
+          780,
+          855
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "S",
+      "b": "SS",
+      "label": "",
+      "points": [
+        [
+          1280,
+          250
+        ],
+        [
+          1280,
+          325
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "SS",
+      "b": "SW",
+      "label": "",
+      "points": [
+        [
+          1280,
+          470
+        ],
+        [
+          1280,
+          545
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "SW",
+      "b": "A",
+      "label": "",
+      "points": [
+        [
+          1280,
+          775
+        ],
+        [
+          1280,
+          855
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    }
+  ],
+  "groups": []
+}

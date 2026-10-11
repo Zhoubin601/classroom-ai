@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "delivered_files": 22,
+  "zip_entries": 22,
+  "zip_bytes": 716109,
+  "protected_files_unchanged": 299,
+  "raw_hash": "9fff72bcec428d473107fc01f04e5204d0fa60c45c301d3df68e10e201059269",
+  "zip_sha256": "dceb2798b8b7a287da89a7f0167f9c090d9b4f3beb47b5c8abd62da9d5da2236",
+  "output": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output",
+  "head": "7464f9cf5875ec3e416d313e11c9838f5a2bec15"
+}

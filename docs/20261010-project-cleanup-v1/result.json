@@ -1,0 +1,3234 @@
+{
+  "removedFiles": 19757,
+  "actions": [
+    {
+      "bytes": 647073,
+      "type": "file",
+      "keep": "initialize.sql",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/initialize.sql",
+      "sha256": "d37a91b7416b3e29af5941db4467cc052e0faf6e5b19a76efeea16249b3398f8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2675,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "sha256": "a411c176c0363189b54456466340c861ba6f05a89ae90f448ea5598a7a16e91d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2135,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "sha256": "5b1c1d3cc7e7c02a2c47fbf1cc8c9d29c237ba8fe9dcaa552286a72cf614deb3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 737,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceService.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceService.java",
+      "sha256": "a1bec3b1e97a8f75c1e114744f2106f3eaeb4d1973e5900af1acbdec4df8df5e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 4094,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+      "sha256": "0a34f2108eef68457a20074322bb583c322bcf58e01cc174ef97e781ac2c0e6c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 5201,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/auth/security/JwtAuthenticationFilter.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/auth/security/JwtAuthenticationFilter.java",
+      "sha256": "5575df64169956d2c4a1649c98cf4c0c66c0ca95e260bceb9c558883873b62fb",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 13127,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "sha256": "1ecec01368a9c91241c9f1525733925b05f57ded14c956b9ce7c3d00af21e364",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2494,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseRepository.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/repository/CourseRepository.java",
+      "sha256": "646d6432622897bcd415a1cc58b056deea02cb384207e940ecce392147802288",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1074,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseSyllabusRepository.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/repository/CourseSyllabusRepository.java",
+      "sha256": "9cd716a9bc51f6b9fa485ac8e36de6da70e57895046fdaf64863fad077418449",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1215,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/repository/MajorRepository.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/repository/MajorRepository.java",
+      "sha256": "adc524ae6ce4c42f96cce9217bdeae4778d33b5169f73f09368893a8bfe9120e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 8871,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseArchiveRules.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/service/CourseArchiveRules.java",
+      "sha256": "7600895027eccdaa14a5f93e3b22bca205313b81ee91351be289c13817e6b936",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 14385,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java",
+      "sha256": "49fc2ef4cb64a1d09a291335690a3565092ecd2eb1d76340fcbb9b9ff9ac8337",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 9268,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java",
+      "sha256": "18a34cffefa5e0556064fe365215032b1701b65284207641bca7dcb23836d70a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1701,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/service/RecommendedIndicatorTemplate.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/service/RecommendedIndicatorTemplate.java",
+      "sha256": "29a73fc8966a8685a063882cae320be306274e88e6e327f66a3472799d565059",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 27530,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java",
+      "sha256": "08b78b1cea63d70929837412f381cb20fda54379bc85d038030b197192dc74dc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 14604,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java",
+      "sha256": "9c542f6a5187cf9ca38414d218a3dad0da2f8afede88d72f7189c9edb1a76690",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 16817,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java",
+      "sha256": "48e0ee97fa819371a78610a093839f7a4115f9023e0df56ea7bb7d8f046b3510",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 10522,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "sha256": "ad242b40d27f71223f7dc68dac6926330fe2b3c05a46867a6a8f03c898b15d43",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1303,
+      "type": "file",
+      "keep": "backend/src/main/java/com/classroom/ai/service/VisualDashboardService.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/main/java/com/classroom/ai/service/VisualDashboardService.java",
+      "sha256": "30c6093a95a50c8291bc78c4dd31cbc130759ee6ec415256268fd866c6790d25",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 16693,
+      "type": "file",
+      "keep": "backend/src/test/java/com/classroom/ai/modules/Sprint2MysqlTest.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/test/java/com/classroom/ai/modules/Sprint2MysqlTest.java",
+      "sha256": "949e0e0cd91fed916d3a1bcd421f22279b5d340139c83a196ff795769ac3f7d0",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 7148,
+      "type": "file",
+      "keep": "backend/src/test/java/com/classroom/ai/modules/auth/AuthControllerTest.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/backend/src/test/java/com/classroom/ai/modules/auth/AuthControllerTest.java",
+      "sha256": "dcc325e182b60253724b0fc09f37e264996cccd7e4282f527843af458e9a29d9",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 6946,
+      "type": "file",
+      "keep": "design-system/classroomai/MASTER.md",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/design-system/classroomai/MASTER.md",
+      "sha256": "97db5c12972e439da9cc15c080b53624702f5df0fedf04847c1427db558e3244",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 7933,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-recheck-v1.md",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-recheck-v1.md",
+      "sha256": "d2089b33b99176c15c8e580435490ce4eb8cfab1318f53ab9d57da0430af325d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1242,
+      "type": "file",
+      "keep": "docs/20261009-role-test-plan-v1.md",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-test-plan-v1.md",
+      "sha256": "50c3d7ddf1e52bebec8c9069897e51a1e6d66a2ceb7bd31f3b14085639b2f500",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 17001,
+      "type": "file",
+      "keep": "docs/20261007-association-audit-evidence-v1/AssociationAudit.java",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-association-audit-evidence-v1/AssociationAudit.java",
+      "sha256": "6adc182332095a1704cb4849553ec6f3410b919293ef8a65550748b4980c8192",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2417,
+      "type": "file",
+      "keep": "docs/20261007-association-audit-evidence-v1/diagnostics.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-association-audit-evidence-v1/diagnostics.json",
+      "sha256": "17bbf282a1e7da8ff5f86993538dc4eeeef72d17defb019dbbd828c642e1f497",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 215574,
+      "type": "file",
+      "keep": "docs/20261007-association-fixes-evidence-v1/attendance-selection.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-association-fixes-evidence-v1/attendance-selection.png",
+      "sha256": "2abe073dcda7dd7f61b707ca04e9557e0ddc42a1c7545e87737c58a8fea42990",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 4698,
+      "type": "file",
+      "keep": "docs/20261007-association-fixes-evidence-v1/backend-full-suite.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-association-fixes-evidence-v1/backend-full-suite.json",
+      "sha256": "20bfd04811359518ed57b4e896e73240c18f0c189dfa81da10b8a5534a3964c1",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 341,
+      "type": "file",
+      "keep": "docs/20261007-association-fixes-evidence-v1/deployment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-association-fixes-evidence-v1/deployment.json",
+      "sha256": "9722b17ad4efb366e0174819d21020a1724aaee6cfeea9c163c5a50316cde650",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 937,
+      "type": "file",
+      "keep": "docs/20261007-association-fixes-evidence-v1/targeted-tests.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-association-fixes-evidence-v1/targeted-tests.json",
+      "sha256": "4525faccf5315f97a6ff32f7086081c5fcb8baf9c1e8e38ed46637146d2b6d0b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 33565,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy.cjs",
+      "sha256": "82c21fc3aca0633a4660656d37f0c41f9ba10ac88ab35f55d83f3e48631d24ed",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 643,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/changed-sources-since-audit.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/changed-sources-since-audit.json",
+      "sha256": "c12e2dad2f47e93fddaac17c0d4a41f2fc61ca480e4cca66d4db9e85b6b9137b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 268,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/cleanup.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/cleanup.json",
+      "sha256": "3808f1e3f1a6021b6325977cb5e91d1a9e68923b1382c80bfc2b77464aaada0a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 276,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/commit-result.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/commit-result.json",
+      "sha256": "308c11d16dd7994a874886e59356019a3ea6570e53552639af58bea260fcb91d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 8650,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/commit-source.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/commit-source.json",
+      "sha256": "90c390c3a4faff10749eb8c1fbada089d5b8683944e9200c0994ca85b5e8c677",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2363,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/daily-business-after.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/daily-business-after.json",
+      "sha256": "c832e27d0fb45049a4a2115952c657b28d4e67da64b3d4e7414a67332e7060e6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2363,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/daily-business-before.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/daily-business-before.json",
+      "sha256": "c832e27d0fb45049a4a2115952c657b28d4e67da64b3d4e7414a67332e7060e6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 533,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/deployment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/deployment.json",
+      "sha256": "18a5e7438c7ee4c416dea6f45f7a7a34aea62d228f809e145ab9c5b0b1ceb982",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 265017,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/director-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/director-frozen-readonly.png",
+      "sha256": "190b2a4bbbd2ec198934b43145d540a3e0917a473fda3d363874703207199c9f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 282863,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/director-roster-management.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/director-roster-management.png",
+      "sha256": "49b5d313cc375d4d81cc4d48c64fb252107d26aae3e4e1a6d75f232ed21ca42b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 313,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/environment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/environment.json",
+      "sha256": "d5d396b1b2cf31bcfaa61f008ec3ae75f0f99c0e45d5c0db14a45b7ee869eaff",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 263359,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/failed-start-stopped.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/failed-start-stopped.png",
+      "sha256": "9b20fbab32f5ad6089d4eff13a2115c43fc017efd487533891ee434cd6fa02cd",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 13567,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/fix-exp3-acceptance.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/fix-exp3-acceptance.cjs",
+      "sha256": "fa4c2c17cdd79d489c60642a8b8b70ade6c09e5f9900334a1f90005ce3a3a09e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 262777,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/guojun-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/guojun-frozen-readonly.png",
+      "sha256": "f72082676d72a6bedf10f414c015b6aea262fb48acd27cdc4c4793eb21660043",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 219562,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/guojun-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/guojun-roster-readonly.png",
+      "sha256": "a8c1c3b64e02ae555acef95b13bc576213ba48e4863ba2760d206e37c0617c94",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 5441,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/java-test-summary.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/java-test-summary.json",
+      "sha256": "686e4aac236913011cda6ff274ef35513579f37f0933b1f3fb7bb4bc0f99c9c0",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2523,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/prepare-commit.py",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/prepare-commit.py",
+      "sha256": "321f593fd147252f09afb92a045561419a907f221ada58b384f3e0cf846fdefc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 174,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/raw-after.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/raw-after.json",
+      "sha256": "82372e00ba28456db24cfb7929471af29002737ee6044c36d6672dc2dcb3e5f2",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 6434,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/resolve-branch.py",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/resolve-branch.py",
+      "sha256": "5d418dd9127096c6dbdfdd6ade053577b341aec76b7850c2ce57991056b6f300",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 313,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/setup-attempt1-environment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/setup-attempt1-environment.json",
+      "sha256": "1acee7d3295a6b0db6cdc9c3170cb45bc854c3a7cb02e644c6bf4ef3a7ff9a0c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1206,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/summary.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/summary.json",
+      "sha256": "513693bd910054e83923a0102346a38efc5b415fef45775fc245e40936e2df95",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 264240,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/supervisor-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/supervisor-frozen-readonly.png",
+      "sha256": "b943bc28b84606dd07889cb45cd95e9b3c1c2e33a89589e74664bddb4efe5b22",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 221059,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/supervisor-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/supervisor-roster-readonly.png",
+      "sha256": "56db0c1ee6fb4afa642a0737dd27bcc7e827fd7b74f4ce03c87b73bf32471099",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 290430,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/teacher-simulation-live.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/teacher-simulation-live.png",
+      "sha256": "2a8063f5c22d0cf5f1fe59c56906e3eb1b0f485224278695305c05150a0d9bbb",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 51351,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/tested-file-hashes.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/tested-file-hashes.json",
+      "sha256": "2a5b1e055d38e63d7aa31ddded296d9bd9930a368638e46fb6eae78b8bec4c60",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 462510,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/01_auth_error_intercept.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/01_auth_error_intercept.png",
+      "sha256": "47627c12964662eab14d84c2860630731abb01094ecdbcc62373d41484ad1808",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 185021,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/02_director_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/02_director_rbac_tabs.png",
+      "sha256": "cdd558cd32b2e29b3db5ca1fa03e441d341f00b7c55f74225e6a0892bdc3b112",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 427511,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/03_teacher_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/03_teacher_rbac_tabs.png",
+      "sha256": "23d8716371c310785cd4c1f7627ba8b40dd8d83d3bb60854987297cbbcae9f89",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377612,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "sha256": "a9305ccbd8f5bd2e20908291e04e58a9e0be7998023d27b8c6a1a03caf8b7de6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 215191,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/05_director_import_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/05_director_import_preview.png",
+      "sha256": "31d969ba732d69340ae0d599e5a670a3f96738d16eaeeb3a263d338e3b4cfc2f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 290342,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/06_director_schedules_overview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/06_director_schedules_overview.png",
+      "sha256": "664b6aeabd0ea3e3b6cb858d74c1d265eb7b56fa2c0e0a8fdaa5189597987d6a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 257093,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/07_director_plan_catalog_imported.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/07_director_plan_catalog_imported.png",
+      "sha256": "ceb61f3ebeca57b589ce5950878a76f7afbe0fabfd9e7ab9d1ccbbdcc5db01d8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 139763,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/08_director_supervisors_auth.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/08_director_supervisors_auth.png",
+      "sha256": "42da38e4ab5d6c78e0a2ae5088cfbfa59545aebea32c9d5f53fc86254dbf0a52",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 135060,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/09_director_supervision_reviews.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/09_director_supervision_reviews.png",
+      "sha256": "c5baa8c59b512e4de7d9a39b85bf003e59bf072c778c6579aedc42d528c73cbc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 429229,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/10_teacher_draft_saved.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/10_teacher_draft_saved.png",
+      "sha256": "9b06a5d7f572c1cc5a17c6f97ce3642f070b1eaef37832f0aea6df9251b49358",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 442577,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/11_teacher_resource_uploaded.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/11_teacher_resource_uploaded.png",
+      "sha256": "5d74900bcbc531d2870fe832fb8ba21567f101495e3e9c628e457e724a0d9fb1",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 439199,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/12_teacher_watermark_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/12_teacher_watermark_preview.png",
+      "sha256": "a0b92e92c93a5e9d97bb9fb1b8dd2859591a53b26bc6c6ca8fbdbc4efbbceb22",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 455844,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/13_teacher_radar_chart.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/13_teacher_radar_chart.png",
+      "sha256": "4c044331231d8fc366519e4bab2cc62719f34b50977f544e25b8bdde73a83c22",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377795,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "sha256": "d6526758df1020fee284023f23f081b45d2fa3f2141becff63cd15177b2c034d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 157913,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/15_supervisor_course_search.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/15_supervisor_course_search.png",
+      "sha256": "5a7c4a0b535dd83d7ea572bae0a99ff8778a83a383dcd1e009cf40e7fab59431",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 154764,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "sha256": "3dd1f152dc296aa05767c06af424c82fde151e2831d6973350fab70a22d5c1db",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 196344,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/17_supervisor_evaluation_form.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/17_supervisor_evaluation_form.png",
+      "sha256": "ce84164c71b02bb4aceaa40f538ac818f7551941ce58a6e2eecfef14dfc45a0c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 160678,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "sha256": "f062511aa50095881b1302226514a27ec12f4b168aa032aef7bdb19b383e194a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 285834,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/19_supervisor_alerts_center.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/19_supervisor_alerts_center.png",
+      "sha256": "ef901db06634ca867f9b1bddf9e57d816df771fc3aabbe25644f33f3a692a921",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 221627,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/20_attendance_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/20_attendance_dashboard.png",
+      "sha256": "5cf4804b82a705168d75bb00a4b4c40a4104cc5b1abbf3baa263674d489b1171",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 179451,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/all-features-proxy/21_student_face_database.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/all-features-proxy/21_student_face_database.png",
+      "sha256": "a7db80128d2fdc2bdf4276c003d0d913da51b99d0d89fc8e795b25a3f6a898a3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 265050,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/attempt1/director-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/attempt1/director-frozen-readonly.png",
+      "sha256": "8974f5022e4f01ae4bd2f178a57a1c4524e551a7174035a5ce625496d7857817",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 263401,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/attempt1/failed-start-stopped.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/attempt1/failed-start-stopped.png",
+      "sha256": "685aa8beaf51a00d80a21148c29d2c81512ad4673a06b84b90436c1fa2109074",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 262774,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/attempt1/guojun-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/attempt1/guojun-frozen-readonly.png",
+      "sha256": "8dbacb102b42ca9592fa5959dc0ad1c44f581fa78318277f697da8a23883d630",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 219453,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/attempt1/guojun-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/attempt1/guojun-roster-readonly.png",
+      "sha256": "db450d845125fc4483c4eea4e5ad45ce6ac4874f562a327f341330d4ec0b3dd9",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 264364,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/attempt1/supervisor-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/attempt1/supervisor-frozen-readonly.png",
+      "sha256": "8106706a0383a3dc5293c10ed2b4096209c6b7e0f86cfa846dd4dc5027ce0e9b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 221866,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/attempt1/supervisor-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/attempt1/supervisor-roster-readonly.png",
+      "sha256": "885f5de66aa43ddfc963c83405e492487bac24f2372913139e1e04cd4a547c29",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 287372,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/attempt1/teacher-simulation-live.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/attempt1/teacher-simulation-live.png",
+      "sha256": "1ec48830dcf5e8f8fa656eefec24b9f219cfe1c92db04155d6556f2a506e8a77",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 34323,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/office-strict/protected-docx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/office-strict/protected-docx.pdf",
+      "sha256": "a3714ec3726aaa1f6bf9dd3204947dae526ed87b4f8aab0051a2fbb0665da88d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 146862,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/office-strict/protected-docx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/office-strict/protected-docx.png",
+      "sha256": "3b022937380c9e415f5cc0a0a0163400ad360c2f0a4594a23ba5b5736c3f88ea",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 35310,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/office-strict/protected-pptx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/office-strict/protected-pptx.pdf",
+      "sha256": "8b5a84bebacd153195fffd527eb7b7a41be479568ff957766ffcf2e52ce673c5",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 176323,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/office-strict/protected-pptx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/office-strict/protected-pptx.png",
+      "sha256": "cd35919f122a593524bc1db8a856aa5472243174416a17b21546cce8b82cd892",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 174442,
+      "type": "file",
+      "keep": "docs/20261007-role-fixes-evidence-v1/office-strict/protected-supervisor.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-fixes-evidence-v1/office-strict/protected-supervisor.png",
+      "sha256": "f753cbe99a5833750375ac7ed83e0bd2c8326364a69cb20d6c2f584395ee7116",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 33568,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-playwright.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-playwright.cjs",
+      "sha256": "0840ce6cb57cc44b91b9618360d0709f027882fc129e6fac03d2381a8f5f28e2",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 33565,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy.cjs",
+      "sha256": "82c21fc3aca0633a4660656d37f0c41f9ba10ac88ab35f55d83f3e48631d24ed",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 268,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/cleanup.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/cleanup.json",
+      "sha256": "8d978fdc721c962f7abdb8fd8b5fd4598cdc302134a18e7aaee34805460f53f3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 314,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/environment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/environment.json",
+      "sha256": "9387784ebaf04d863e12287afd9fbe60998e9f2080b353b3e7e6974d5c4de394",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 23649,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/exp3-real-browser.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/exp3-real-browser.cjs",
+      "sha256": "090243101f8b8760eb29ba308174222ef6344bd68b6dec1b0adca589fe3e2db2",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 13566,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/fix-exp3-acceptance-attempt1.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/fix-exp3-acceptance-attempt1.cjs",
+      "sha256": "358c0631681fb8139567101265e9991f5b20d0379de2c316b126d2e48b994cc1",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 13567,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/fix-exp3-acceptance.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/fix-exp3-acceptance.cjs",
+      "sha256": "fa4c2c17cdd79d489c60642a8b8b70ade6c09e5f9900334a1f90005ce3a3a09e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2965,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/git-status-before.txt",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/git-status-before.txt",
+      "sha256": "c837eb6e1f61162bcb9c850bb7b7be4ce71e2ab1643747a91b4dba2045b2cc07",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 576,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/metadata.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/metadata.json",
+      "sha256": "f13c6aa33eb9326d0780ef8523260827c2a9be8f98690199c396d603c13daeeb",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 162,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/raw-after.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/raw-after.json",
+      "sha256": "2a1278f216b0c7c511645c5b040199c1ddb2ebd11cf2e424f6297d2574876da3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 162,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/raw-before.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/raw-before.json",
+      "sha256": "2a1278f216b0c7c511645c5b040199c1ddb2ebd11cf2e424f6297d2574876da3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 242721,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/supervisor-roster-candidates.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/supervisor-roster-candidates.png",
+      "sha256": "bd187d2b5b3563ac0ee5b6b7ac844af79278dfa14a77239531e98b7274a4f6d0",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 43596,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/tested-file-hashes.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/tested-file-hashes.json",
+      "sha256": "1bbec664a9cf2d99ca4e5372c1bffdd538610f5ad50d1c7bb475d7b57de682ba",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 462510,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/01_auth_error_intercept.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/01_auth_error_intercept.png",
+      "sha256": "47627c12964662eab14d84c2860630731abb01094ecdbcc62373d41484ad1808",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 185036,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/02_director_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/02_director_rbac_tabs.png",
+      "sha256": "0138cd50510e470133bf07759e843f10ff1a76c171bc262bb39fa0960505271b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 367630,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/03_teacher_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/03_teacher_rbac_tabs.png",
+      "sha256": "3a9a1fe22ddc3a06ca9c69ae461cb8aa8383e89fc2252ddf068bad5e712e068d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377834,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/04_supervisor_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/04_supervisor_rbac_tabs.png",
+      "sha256": "26bc00c9b52879f67aaec6dda540887070ace16a9fe43bf7e24f221d0785894f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 215213,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/05_director_import_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/05_director_import_preview.png",
+      "sha256": "aaa40d4465409cc0aa8f2ddd8da1f07fa5794dab8994171d41db7234a9c90883",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 224396,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/06_director_schedules_overview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/06_director_schedules_overview.png",
+      "sha256": "76a0d4f53117ffd78c645af3f66540c8274f4a3a593e6fbda9cd7ba673ed73e5",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 257153,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/07_director_plan_catalog_imported.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/07_director_plan_catalog_imported.png",
+      "sha256": "173d53240ae0c47183242592538237b85526c31842ca5d6d86a03ad40f0e3f92",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 139829,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/08_director_supervisors_auth.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/08_director_supervisors_auth.png",
+      "sha256": "d4597c36566b1742311b7ff79149aac2ba71ca5f0c1b705fe89e2ddec7b319ba",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 135066,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/09_director_supervision_reviews.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/09_director_supervision_reviews.png",
+      "sha256": "d38ce1a10f2027fd4f17a1701d9222ba871c2b7ac9988814eb18fc916a59219d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 362378,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/10_teacher_draft_saved.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/10_teacher_draft_saved.png",
+      "sha256": "30fae4cf1a599b42121fd62774ac09beb9132f3dde9f299bcf70fd3d177d5e9c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 383952,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/11_teacher_resource_uploaded.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/11_teacher_resource_uploaded.png",
+      "sha256": "8ab0d78987432bacc81d79496f332a79677a33e9a4a987e1b4ce1af9f568bcd8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 369034,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features/12_teacher_watermark_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features/12_teacher_watermark_preview.png",
+      "sha256": "277cbbdcf1050b010a9523204b13def9d8ef81b81acf4eeecb5e44aa90eceac7",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 462510,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/01_auth_error_intercept.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/01_auth_error_intercept.png",
+      "sha256": "47627c12964662eab14d84c2860630731abb01094ecdbcc62373d41484ad1808",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 185009,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/02_director_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/02_director_rbac_tabs.png",
+      "sha256": "f1d264b54251a82074084791adc517197b38ba13eeb73de9f0aef5e4bd6fa476",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 389020,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/03_teacher_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/03_teacher_rbac_tabs.png",
+      "sha256": "0761dc403f37ad86927803dd00b8568a334a7a1e15625739b7db9e381138c270",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377868,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/04_supervisor_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/04_supervisor_rbac_tabs.png",
+      "sha256": "867ac8b5b135ad117ca5114103c1200c7353f4bf1e96aeac7eeb494efc585d74",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 215128,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/05_director_import_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/05_director_import_preview.png",
+      "sha256": "759bcd85962c7c270497fc2ea3b03ed4fd0fdf90727b8e5e99d38af22dff91c6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 224405,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/06_director_schedules_overview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/06_director_schedules_overview.png",
+      "sha256": "d5ae920fd2728b7ce85df9d0ff80bdc2a53f5224c5e8852fa32577e9707a66cf",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 257089,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/07_director_plan_catalog_imported.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/07_director_plan_catalog_imported.png",
+      "sha256": "4f94625c3b8a1f25214b752b9b126a03ad261bc69df6b98f46305fb3f32d5e62",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 139765,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/08_director_supervisors_auth.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/08_director_supervisors_auth.png",
+      "sha256": "a53110f8c588da451b6c46bec2244d17150032ebb501c460bdf9d419af85bdf3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 135118,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/09_director_supervision_reviews.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/09_director_supervision_reviews.png",
+      "sha256": "897d937e55f8baef6a2abbf851703d21ab6773465542ae46ab8df939aa9f3b94",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 380504,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/10_teacher_draft_saved.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/10_teacher_draft_saved.png",
+      "sha256": "f5fd3be11e46cdeaf022f74329c1533b2c6f7dde4c3a4fdf7f77034992c9d783",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 412504,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/11_teacher_resource_uploaded.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/11_teacher_resource_uploaded.png",
+      "sha256": "36945854634d4b4e1ae61b85a681c7cb2824d145bb65c316beaf04901264de8c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 393413,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/12_teacher_watermark_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/12_teacher_watermark_preview.png",
+      "sha256": "3f359d85a321aca459b7ae97777867031c8e6972bae980ffbcc21f2a6f140614",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 404191,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/13_teacher_radar_chart.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/13_teacher_radar_chart.png",
+      "sha256": "101a0e84d2c860122d75cb95b22eecf737e740c4a160f73aa450cdeaee6a3d51",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377913,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/14_supervisor_timetable_matrix.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/14_supervisor_timetable_matrix.png",
+      "sha256": "7c536d92aa4d23f0d74b020d6ad987bcd1e3a6a9a8788ad697f8c1797efc411b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 157986,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/15_supervisor_course_search.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/15_supervisor_course_search.png",
+      "sha256": "9762799273f4db26af46c7a097c467b7863a0258184cb63cf1f1d7532936fee8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 154813,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/16_supervisor_resource_audit_modal.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/16_supervisor_resource_audit_modal.png",
+      "sha256": "15fe33e8a9ffada6f8ac9c12234617e79471490e97048c0ea08f5b6d31afa75d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 196390,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/17_supervisor_evaluation_form.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/17_supervisor_evaluation_form.png",
+      "sha256": "9bad03e6dbc4c2ca86a54e9ee9836cca04f7d978f223be89ca7bcddeb7a42359",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 175084,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/18_supervisor_coverage_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/18_supervisor_coverage_dashboard.png",
+      "sha256": "bafd6e26afaff54def4251c89bb3d69dd920e5eaf069d93fee51a345f1bcbe85",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 300102,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/19_supervisor_alerts_center.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/19_supervisor_alerts_center.png",
+      "sha256": "5368d6b47173f4369f251d4a226fada4f1fcf60b6cdd87d67dfc25daaa5e49dd",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 240398,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/20_attendance_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/20_attendance_dashboard.png",
+      "sha256": "80b88c7f751d1a37679cfbdf76ddebcbecb6bc37a55442131086a2cc9d69694e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 186279,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-attempt2/21_student_face_database.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-attempt2/21_student_face_database.png",
+      "sha256": "02133821e60c5321a99d3298bae137de213b18c28d1a88d64922763a2be81589",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 462510,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/01_auth_error_intercept.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/01_auth_error_intercept.png",
+      "sha256": "47627c12964662eab14d84c2860630731abb01094ecdbcc62373d41484ad1808",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 185201,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/02_director_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/02_director_rbac_tabs.png",
+      "sha256": "ff40290e014f07e82080838f5ee0e4aec6fd05c44c4e1dc50f8bcf13f6d98bf7",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 548962,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/03_teacher_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/03_teacher_rbac_tabs.png",
+      "sha256": "b1466e2f4006f22c3d850d9dd8e78f2175ee2939f67ff4685c54c6611b180c50",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 425706,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "sha256": "1fd83d36d112ebc5089c2d3c759cccc9a0b69ae03a6728200bac2aa0e9e500fc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 221020,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/05_director_import_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/05_director_import_preview.png",
+      "sha256": "c1b2ca324524d340c774d7979a80e3ad36c95920f4fc5258e5376b046d063cc8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 264177,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/06_director_schedules_overview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/06_director_schedules_overview.png",
+      "sha256": "f3cd3fcf726d701dd4a8f3aa9798e4760d1f3f9bd5286188f16c1246563fcf37",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 257057,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/07_director_plan_catalog_imported.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/07_director_plan_catalog_imported.png",
+      "sha256": "ce0a979660b8a3b2cc90ede982e9faf411818b678bf29cb8f880c0eab202495b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 157709,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/08_director_supervisors_auth.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/08_director_supervisors_auth.png",
+      "sha256": "1c072cd5e1d33a426ee853a2ef1e70788e15e5076f18830c054c48ed30073f77",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 140708,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/09_director_supervision_reviews.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/09_director_supervision_reviews.png",
+      "sha256": "5d32d2b9fb333d2fd6cc18ca73ac2e62e1e73345b2369116f320a73680c82083",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 546142,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/10_teacher_draft_saved.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/10_teacher_draft_saved.png",
+      "sha256": "fa00b17a5e2a19018d4b5ebffc5e55e23c12199dcf7c4482b2164d9daea1f94c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 570016,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/11_teacher_resource_uploaded.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/11_teacher_resource_uploaded.png",
+      "sha256": "db8bc4e391d3647e50472581fecfcdf649bad48ddf7601b7e3395a801dcd1141",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 559622,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/12_teacher_watermark_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/12_teacher_watermark_preview.png",
+      "sha256": "782ddeb594e53e14d7799f42d3d2768a8fbd7ec7ea9cc1b839b71591e4a92933",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 597933,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/13_teacher_radar_chart.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/13_teacher_radar_chart.png",
+      "sha256": "c27d44e559e3d14c6075cac7594f4924e0d18a5987ec4f00af1448cde02afaca",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 425888,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "sha256": "48218757037c8f9f7f9b629747d2bf7dca5eab664767ca1dcd07382c4789b69b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 158741,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/15_supervisor_course_search.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/15_supervisor_course_search.png",
+      "sha256": "46fbd8da7089d8459d6d73398c65fe3683d5c8f88f5e563cabb54e0bb91b0f10",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 155073,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "sha256": "d04519746756c955642cff0127f9c322c60ffeffece9605845e72e255f5f6d2a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 198276,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/17_supervisor_evaluation_form.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/17_supervisor_evaluation_form.png",
+      "sha256": "a906e7fab3322b9f2d1457b0191d356d17f25df958a28f876da58ca154f51a8d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 162252,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "sha256": "6cb682ed9ed1b480fdfadbc773987a1997ec2890b2561cf1d3417bd689207761",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 274105,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/19_supervisor_alerts_center.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/19_supervisor_alerts_center.png",
+      "sha256": "fb65a1c60237aba98584b874cbbd4d042a2a312a31a5b3b851acbebc5ccfa0c8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 229511,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/20_attendance_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/20_attendance_dashboard.png",
+      "sha256": "e183e509dec87ee5837d956ba98e59d43adbd9659f33e993f36f02708f82fe0c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 179433,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/21_student_face_database.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/21_student_face_database.png",
+      "sha256": "1c7f7093979a1c18ede9f6e9b53ac5b53112e33fe6b367af39be2cc3f918370d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 549638,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/all-features-proxy/22_teacher_office_pdf_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/all-features-proxy/22_teacher_office_pdf_preview.png",
+      "sha256": "f00a1c6cffe6c77fc0b965fe57f4b2a601303e9cb51f407d4d51280be0f0ead1",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 404473,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/anonymous-feedback-and-word-cloud.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/anonymous-feedback-and-word-cloud.png",
+      "sha256": "b9ca83a42cbdb64f7b89d169d11eb43bcff77f5a1bdb470eb8903a33746d2845",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 292002,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/attendance-persisted-history.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/attendance-persisted-history.png",
+      "sha256": "c99b722669dd80778b507e82f1b1363d9ea9f48a6aa90bfcc6394e0a1a4ca3cd",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 290517,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/attendance-real-simulation.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/attendance-real-simulation.png",
+      "sha256": "388a593098c97b4efd3dd1393ca1c610edfe9759538fda8f5be942c6a82af3e7",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 265898,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/failure-23.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/failure-23.png",
+      "sha256": "3257e2cc6ae6c810d87c465f414515713d4954f629bbfe01668e9f2a1c8ee958",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 265916,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/failure-24.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/failure-24.png",
+      "sha256": "d0e5d1d11791214570e10a67de67e5ec504c2471daaab282d089438077a2327b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 265919,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/failure-25.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/failure-25.png",
+      "sha256": "7db42048704be6d0e70c133dd43d4af031a6c51735ed4aa58fdfa7c9fb1914ee",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 265919,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/failure-26.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/failure-26.png",
+      "sha256": "cf0a388034cdd115636838052d07154bd0cb48c35f7834bf832ee4065cbef895",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 393720,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries/teacher-published-content.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries/teacher-published-content.png",
+      "sha256": "f8cdefe5bdbca2459f2a6f289b68aad4a2ca21edcac4c9a43f957756908f9e13",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 421116,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/anonymous-feedback-and-word-cloud.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/anonymous-feedback-and-word-cloud.png",
+      "sha256": "b57d0250f06a1875468b2ef1440b95250e60fa080682db4b0c197b0a9fbd1cdd",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 292405,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/attendance-persisted-history.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/attendance-persisted-history.png",
+      "sha256": "dc25a382f3b049dc7791db111ea9606901590df3f501ad3298a3f8369513a054",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 290111,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/attendance-real-simulation.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/attendance-real-simulation.png",
+      "sha256": "d54c533a16edd8ae68a5013d3e2302211759dbfdb7fa2bad3229172f8606a027",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 266678,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-19.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-19.png",
+      "sha256": "df05c6ab06898e80ca2449f8bff35862cd2d140007f990a5cd557403f74e739c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 267020,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-23.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-23.png",
+      "sha256": "3a59d4adca98d902ddff91024e94f282518a1d58aed9a1ce0b7b80176ca866b0",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 292731,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-24.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-24.png",
+      "sha256": "f1cb2315cc827eed5fcea018a6742eb31ccbe56a786916c0d3865cd22589d863",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 292695,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-25.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-25.png",
+      "sha256": "91a50456ddf9cc93f2ffac80eab6596bed75555cf8fab21ea4a6465cee3c7d54",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 292714,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-26.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/failure-26.png",
+      "sha256": "2b326468fbf76a60563186cdc9eef998be5c0501d0183847736ad9c6c1933655",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 213896,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/frozen-offering-controls.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/frozen-offering-controls.png",
+      "sha256": "7cef0bd7f4be7edac098e4fefdece71160326b42dd034f416b2e57838c65a7c4",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 266807,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/frozen-simulation-running.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/frozen-simulation-running.png",
+      "sha256": "eb028add30acde633c93b4e07f8eabb85c8fa183468639a1d781d3a9b2a15fe0",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 409647,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/boundaries-attempt2/teacher-published-content.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/boundaries-attempt2/teacher-published-content.png",
+      "sha256": "cc8dce1446f127cb2700b2f93584ed8c6a06e1beda94f96b6486bac9991c1fd9",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 169574,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/cross-role/00-director-plan-import.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/cross-role/00-director-plan-import.png",
+      "sha256": "56ce15f2cd0ffbe4f106efb4bf2422fa64b6b2a9c8c8ac35dc8519b7c36ec62f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 389423,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/cross-role/00-teacher-syllabus-mapping.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/cross-role/00-teacher-syllabus-mapping.png",
+      "sha256": "15e79344fff3ee8224b73680306307887062b94a83e2c8789981618cd78d4612",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 312121,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/cross-role/01-cross-teacher-shared-search.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/cross-role/01-cross-teacher-shared-search.png",
+      "sha256": "3d4792bacbf0d10c6d58093a97f142450bdfb8b952bcc5163b4681fb95599366",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 402063,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/cross-role/02-edit-tags-and-sharing.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/cross-role/02-edit-tags-and-sharing.png",
+      "sha256": "181dabda3acf349c1fb133b161c383b5ce8157eb45e90ed4d6811107e7d10a30",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 500051,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/cross-role/03-teacher-published-feedback.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/cross-role/03-teacher-published-feedback.png",
+      "sha256": "fa8a3a4e49c14fdb23eb1dff03c4904a0c68b7709fc3afdab1ac1995f5d8f5ae",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 34323,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict/protected-docx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict/protected-docx.pdf",
+      "sha256": "053522d364327fa2629315cee1565d70cde27754893323d5b628c969a3df5bca",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 150382,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict/protected-docx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict/protected-docx.png",
+      "sha256": "6df6a4e2de3d3d198c10b365002094221b477e1087aa960d90a7eea06fd742a6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 35310,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict/protected-pptx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict/protected-pptx.pdf",
+      "sha256": "dbbe9580e9f01dd5abba989a7514573f46fb49f7ab63894815f7b442aea57d21",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 176769,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict/protected-pptx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict/protected-pptx.png",
+      "sha256": "0d2513d227b9a3ffdeb57ad77ba032b682abe75098c87616ca6bbb59496d34e3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 162151,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict/protected-supervisor.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict/protected-supervisor.png",
+      "sha256": "6d78a09cb76730835ea028c0d68cb6533b117a44a44b69a9a875ee6f4a71d037",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 34323,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-docx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-docx.pdf",
+      "sha256": "22d9177e87e5e474037a8e5cfc57a2b52d656627a933a260d962c05a2282354d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 148527,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-docx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-docx.png",
+      "sha256": "4bc9ed7755c041afa361a01575c927a17edd075efc2ff0403e855d3de19b3735",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 35310,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-pptx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-pptx.pdf",
+      "sha256": "d00f517dd23d0daaedd5ec94e8a73bf8db19f9772ab53382149bdc7a979808ed",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 177353,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-pptx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-pptx.png",
+      "sha256": "83662815d10ca2691a2eecafa4f9485e474462f02b0acd1e5c18744ceb4c5b5c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 161404,
+      "type": "file",
+      "keep": "docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-supervisor.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-functional-evidence-v1/office-strict-attempt2/protected-supervisor.png",
+      "sha256": "de3530bef3e069f3cdd84da897d99784d609b1442d8a2998f15dd3db52f62db8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 33566,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy.cjs",
+      "sha256": "7a25d433196ee131f96632c9090dbf9d9edf07bb7f832d151b7d86800da0e1bc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 268,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/cleanup.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/cleanup.json",
+      "sha256": "d658422fb6a469648162d3f1f73b6f0730d63b2fa755828e85591a3928e67932",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1822,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/cleanup.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/cleanup.ps1",
+      "sha256": "ed8e44f1774f81292417c850526b082dcf2adec23290fc572588514de846573f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2103,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/daily-readonly-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/daily-readonly-results.json",
+      "sha256": "d0899001cde7efddb831f9a8f68aed03118ff3b711273f13c78cf19f2f65f893",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 264904,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/director-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/director-frozen-readonly.png",
+      "sha256": "2277a0cc953e24b479ecf02e05400fe91e7de5b1e0bd9fb00c2287c17b6b377b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 230173,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/director-roster-management.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/director-roster-management.png",
+      "sha256": "1075db0d310bebf4b437ff925e0ec2a53dd72199ffea6e583152cb1dd6888881",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 314,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/environment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/environment.json",
+      "sha256": "8740ef6e9871bfbfbaa61bc6bf8267f3d40b67c9690957547f565c9197c6efe2",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 263278,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/failed-start-stopped.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/failed-start-stopped.png",
+      "sha256": "de72c88884289723be8dc37091d5fc0cec7b3e1e2357e3a773e2c00d41f48458",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 13567,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/fix-exp3-acceptance.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/fix-exp3-acceptance.cjs",
+      "sha256": "fa4c2c17cdd79d489c60642a8b8b70ade6c09e5f9900334a1f90005ce3a3a09e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 22882,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/fix-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/fix-results.json",
+      "sha256": "53aef779afd6c5080d2d528ff764fd37e9696f653f4047e668131708756f7377",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 3693,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/git-status-after.txt",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/git-status-after.txt",
+      "sha256": "8b3a3b79c827b875a2458aab174d2f8ae7d0dea7f9602a18a615f8e19c4c7e6f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 3693,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/git-status-before.txt",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/git-status-before.txt",
+      "sha256": "8b3a3b79c827b875a2458aab174d2f8ae7d0dea7f9602a18a615f8e19c4c7e6f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 262619,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/guojun-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/guojun-frozen-readonly.png",
+      "sha256": "07c74372e8c6e66ba210798f61b5728945298184d14cbd447a04e2e849fbfaae",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 271804,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/guojun-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/guojun-roster-readonly.png",
+      "sha256": "a57db4eaf2fa92bd6d7a9a3c3778039dc099f1181b069d8d6ce429ad05b410b8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 5641,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/java-test-summary.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/java-test-summary.json",
+      "sha256": "9f5c74a5d3dbc9b2a4937462cda9e9f99037a872a1c948fcc029616b380a29ca",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 127,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/raw-after.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/raw-after.json",
+      "sha256": "dba837756579140c9545c903d5d33035582fe7ac0f6ccf5e1022045da3b8ab3c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 127,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/raw-before.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/raw-before.json",
+      "sha256": "dba837756579140c9545c903d5d33035582fe7ac0f6ccf5e1022045da3b8ab3c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 29004,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/role-boundaries.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/role-boundaries.cjs",
+      "sha256": "73b2dc527a3e197487a8738fe27b2674f48904afe99135bec1114c65a0482329",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 261,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/run-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/run-results.json",
+      "sha256": "bd9cf81344c8abbe3ecb6937c5cb46a041a9cead922b1b850b26850540f67c96",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2254,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/run.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/run.ps1",
+      "sha256": "269c80bdaa3fdb7125ee9cf0d9ed5d5c287e685347761284f96fd466d926f384",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 5137,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/setup.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/setup.ps1",
+      "sha256": "a4b809ae1141dedb0d9bec220d3ff6fb7ab8df2c79b8222524b855ca9b023fdf",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 40490,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/sources-before.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/sources-before.json",
+      "sha256": "6e4cb1858cc5ed6268fe3c2b82b5195a430d139e658cc4658beeaddede071489",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1935,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/summary.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/summary.json",
+      "sha256": "a917eb35b205def3f0bb9eafb9f1e88f247c4263d888e8048341d4c9317a142b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 264072,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/supervisor-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/supervisor-frozen-readonly.png",
+      "sha256": "45d6e7d5e48b8168bd63fa062ff6ee44290a07375252332df6ad29f1bfca0707",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 273424,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/supervisor-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/supervisor-roster-readonly.png",
+      "sha256": "3a7b3c0e0bd8af18852702dae3af79723ad7a0df0676148403c4f40cb5b34a28",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 291825,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/teacher-simulation-live.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/teacher-simulation-live.png",
+      "sha256": "95bdd346be2bf232442ccacc32b8b8c4756a6aa56996134d2bd6cb71f20e2b67",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2995,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/verify-daily.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/verify-daily.cjs",
+      "sha256": "f7f4239fe4fc0fc95b6219c1e52c2e2b3d1f8fbca79e716410c6e9ed628e8233",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 16377,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/verify-fixes.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/verify-fixes.cjs",
+      "sha256": "034ddd1fce2da69a717e48632ff255666658d0bc2397ff43d227841deb6b187d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2438,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/vision-transport-probe.py",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/vision-transport-probe.py",
+      "sha256": "fabb86faf22c91e041f9ebd31bb06715aba4f3712b286a94fc7b58de17bfc04c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1027,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/vision-transport-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/vision-transport-results.json",
+      "sha256": "ad9cd1a0280db13ac12f6b0c50e90bd3694983e89036bc95e85f2e6218ecab4a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 462510,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/01_auth_error_intercept.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/01_auth_error_intercept.png",
+      "sha256": "47627c12964662eab14d84c2860630731abb01094ecdbcc62373d41484ad1808",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 184942,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/02_director_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/02_director_rbac_tabs.png",
+      "sha256": "da4f0ea27264caa0fe453d00e83f8a601f358afc25853dc6966e16771767bb08",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 332747,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/03_teacher_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/03_teacher_rbac_tabs.png",
+      "sha256": "0b131b4b1ad5d1aad747d878b9929f49ec10bab78da19db04544a128490a0e96",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377712,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "sha256": "4ab79fd5f0d708118ff10968ca07839e64667015627ec4235151f07a816f281a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 215120,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/05_director_import_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/05_director_import_preview.png",
+      "sha256": "884abd45fa393d18b9eb7599dc33653e4506e70dd8cff2c0fd766335269904d3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 224281,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/06_director_schedules_overview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/06_director_schedules_overview.png",
+      "sha256": "cd086ddb012dee7b959f80d6bdc96e514f824bc9a91a98c36b068931ed60cd66",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 256968,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/07_director_plan_catalog_imported.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/07_director_plan_catalog_imported.png",
+      "sha256": "4345eeaf51ae6baf558cbba7aa00d9eea8e969d51e1b2ab59146d821edc3de20",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 139695,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/08_director_supervisors_auth.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/08_director_supervisors_auth.png",
+      "sha256": "3e6764da8055d20cc9566b138ff781263d5cdf1a906fef2d1a9d3ef0c1f4c03c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 135038,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/09_director_supervision_reviews.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/09_director_supervision_reviews.png",
+      "sha256": "9bfda9e3db2eefe62b39850c622e7502cad62a0043271558843496095d17d298",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 362378,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/10_teacher_draft_saved.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/10_teacher_draft_saved.png",
+      "sha256": "6af9e6f77a746291f8cb607d3043c6b156c71b5edecfadcbd08428ec6d5718c0",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 384015,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/11_teacher_resource_uploaded.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/11_teacher_resource_uploaded.png",
+      "sha256": "d27d610adf20ed9d5935be2025071b544173afea7f1d26230505ed03d27e3d4b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 368980,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/12_teacher_watermark_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/12_teacher_watermark_preview.png",
+      "sha256": "dcce3372e71b0bda42f298dc34876b2e831416746f18204a414755e505fd7cd5",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 373290,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/13_teacher_radar_chart.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/13_teacher_radar_chart.png",
+      "sha256": "2b8b1a15ce19e2276bf0766f6c9309a09101bf00311bf3072f5e9b5f0546f80c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377901,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "sha256": "bc0793ddd827502b8b69ed605e66c9066553781645f3e97fa1b095b498e18bfe",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 158033,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/15_supervisor_course_search.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/15_supervisor_course_search.png",
+      "sha256": "a407fd492a70048c7ee0a37bd10dcd83008b706de5e44d97eeed2ed69c1cc839",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 154853,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "sha256": "1fd07ab831aff5e184456f5370a8f2025909ec65cf7c555e67f3564297306df3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 196424,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/17_supervisor_evaluation_form.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/17_supervisor_evaluation_form.png",
+      "sha256": "b0d5c615511f25b2cfd17b85e337c77ef334910b97f975928d49d1b5078d95e4",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 175027,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "sha256": "4eff6e15d030240f4066c58008dea283e72744d6af23be0f54da05a805b9a48b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 299999,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/19_supervisor_alerts_center.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/19_supervisor_alerts_center.png",
+      "sha256": "b795e0cc99f3de68f1f99e719e1e5111722a2ebb51b129539d29831ec7eca3e9",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 240266,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/20_attendance_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/20_attendance_dashboard.png",
+      "sha256": "458d6f9b99636d7f8dc6f4c92f6ddbf748cc1a0efd277f204399e9b9d38dda87",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 179269,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/21_student_face_database.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/21_student_face_database.png",
+      "sha256": "f4b4a4ced038fd5bc5a1a6e19b01295d529748552ad51dbbdb9b73f8a603e3c9",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 4640,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/all-features-proxy/results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/all-features-proxy/results.json",
+      "sha256": "cabd8307ac9fc3ca5aab0bedf188e9d998515687b1ceef8c0beca6899663cc65",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 384872,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/boundaries/anonymous-feedback-and-word-cloud.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/boundaries/anonymous-feedback-and-word-cloud.png",
+      "sha256": "3c62ac136c7ca40b3e79f50e54a8ee75f8b666f3136138c05bc71d406c106ad4",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 291109,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/boundaries/attendance-persisted-history.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/boundaries/attendance-persisted-history.png",
+      "sha256": "536c3544f969445da186a117b1d1b268ea31552b996a6e1fbf2bd8739f1e60ae",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 290532,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/boundaries/attendance-real-simulation.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/boundaries/attendance-real-simulation.png",
+      "sha256": "57bbd9362aac95c6df437e0853559bc177d5ceb180a022cf58089d8a544ad97d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 241759,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/boundaries/frozen-offering-controls.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/boundaries/frozen-offering-controls.png",
+      "sha256": "f71ce4dc7ec610872b55f7986d855f35b990af5c1e2bec3393acbf898b5e7a56",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 45545,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/boundaries/results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/boundaries/results.json",
+      "sha256": "7038eb0355a7169e133da171d03325b111060e5dcb80cf674ecbe1c23e24fd69",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 379482,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/boundaries/teacher-published-content.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/boundaries/teacher-published-content.png",
+      "sha256": "a83a901031b0bb467f43a1e14d98960292f9b3815d41181c8eebe92c3956e8b8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 821,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/office-strict/fix-acceptance-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/office-strict/fix-acceptance-results.json",
+      "sha256": "8881487f41afb45310277925a8d518fe97111a3dc41464654ab11d82d90acf13",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 34323,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/office-strict/protected-docx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/office-strict/protected-docx.pdf",
+      "sha256": "a6ac8790c129e5eba65b07f22fca21a44a81a17b0db461db7b6330b34c333517",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 145893,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/office-strict/protected-docx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/office-strict/protected-docx.png",
+      "sha256": "cb70854dfff958ed3783bc7e8aa448d54ec4d63e9236ebb6817510fe8593ca59",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 35310,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/office-strict/protected-pptx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/office-strict/protected-pptx.pdf",
+      "sha256": "f8e99ece10c011e76b8b121486b4869881390d741320af23c9a594e9922b4c1d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 175809,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/office-strict/protected-pptx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/office-strict/protected-pptx.png",
+      "sha256": "1989e2102307e9df8fea6abb393e2926ba27de66f7b606dc464cde1c1eeaf551",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 163141,
+      "type": "file",
+      "keep": "docs/20261007-role-recheck-evidence-v2/office-strict/protected-supervisor.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-role-recheck-evidence-v2/office-strict/protected-supervisor.png",
+      "sha256": "1c6a4fa2b3aba1839d69d2154ff6da832f029917cbd874dfd9e128a01d212710",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 81,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/browser-result.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/browser-result.json",
+      "sha256": "04a855a9ae425997720af49414523b23d6e4436be995f2143be591688174a591",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 268,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/cleanup.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/cleanup.json",
+      "sha256": "38a4f8f6eba726b72c686ed7523e11f143ef17c7c158c214a1e98aeeddb3222e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1825,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/cleanup.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/cleanup.ps1",
+      "sha256": "12345bc620bc8d1c37baf096c53bb03a3343b318533915ce71f36d9b0002eff8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 314,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/environment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/environment.json",
+      "sha256": "a220e9bfa544fd1c7d185a49a71b95b99bb80110093c986f601686fd497cb966",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 5143,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/setup.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/setup.ps1",
+      "sha256": "c61d14e07f7f28e674b0549cde75b71e6c9280193b9db0ce1824b97b020a422c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 375,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/source-verification.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/source-verification.json",
+      "sha256": "f38eb32cb26d0350fc78922b7d704a7deffbd2027eed64a75856efcf450f43b9",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 23701,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/sprint2-browser.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/sprint2-browser.cjs",
+      "sha256": "a63d9fb1202d576a7c6fceedfd255fb5bb1d24e0695cb72982d081b657c33871",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1552,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/summary.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/summary.json",
+      "sha256": "1db6192505f0e4427119c65500c4a816c9e035a9998f415f94dce13e46b0176c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2466,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/vision-transport-probe.py",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/vision-transport-probe.py",
+      "sha256": "cd913357fb74b8356ce9791a97aecbddc0e5ba1603fc79b1758de853a2271d12",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1027,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/vision-transport-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/vision-transport-results.json",
+      "sha256": "38e2d56bff05e45166805bd0cf9472d9ae38fa2fa95fcda06b791a1ef0a1143e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 169115,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/browser/00-director-plan-import.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/browser/00-director-plan-import.png",
+      "sha256": "859399dd50cb43743249d5bca447dd3d183b9bac4e88524cdc7d17c9f6c48181",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 337421,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/browser/00-teacher-syllabus-mapping.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/browser/00-teacher-syllabus-mapping.png",
+      "sha256": "b652c2b977f97f331631e14b3692ca3a30f4631758616272d6c452ce73d8321b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 311922,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/browser/01-cross-teacher-shared-search.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/browser/01-cross-teacher-shared-search.png",
+      "sha256": "d38d6ea310d7e541d0022248d313365d68fa7f14d6f307a97804bba381c8a0df",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 352136,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/browser/02-edit-tags-and-sharing.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/browser/02-edit-tags-and-sharing.png",
+      "sha256": "86f66377fbaea0d2c6394a625ffd61bbf9892cbc40accedaeb52c44ac2c910b3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 366314,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/browser/03-teacher-published-feedback.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/browser/03-teacher-published-feedback.png",
+      "sha256": "2d23c02f947640b9db949ab6838e28a15375125e2bb6e76f1bdb1aa7842064e1",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 821,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/office/fix-acceptance-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/office/fix-acceptance-results.json",
+      "sha256": "8881487f41afb45310277925a8d518fe97111a3dc41464654ab11d82d90acf13",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 34323,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/office/protected-docx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/office/protected-docx.pdf",
+      "sha256": "8ae28b53915cba998d8ed61cc36657583273cfa22155ccd7c7f82a7f495e6f16",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 136603,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/office/protected-docx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/office/protected-docx.png",
+      "sha256": "9e15b3c4aa368b693363bdabdd884b58a90f98393b5648d1dae6e6b87d7a9b77",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 35310,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/office/protected-pptx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/office/protected-pptx.pdf",
+      "sha256": "f7c18e88d52187238e9b59d3b4c12e1fe2b03d49360434d98127d1073b04275a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 183498,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/office/protected-pptx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/office/protected-pptx.png",
+      "sha256": "9904af5629defbc97d465779b1473af55f3062ef14d4e4788553ab35d44bea08",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 162426,
+      "type": "file",
+      "keep": "docs/20261007-sprint2-readiness-evidence-v1/office/protected-supervisor.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261007-sprint2-readiness-evidence-v1/office/protected-supervisor.png",
+      "sha256": "b8021c8caa2979530576b1aab14d98294b1b1a6fc14c6ef9641e39cdcdfacff5",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 33566,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy.cjs",
+      "sha256": "7a25d433196ee131f96632c9090dbf9d9edf07bb7f832d151b7d86800da0e1bc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 875,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/browser-version.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/browser-version.cjs",
+      "sha256": "c1a64eba63d398c0c93ee5a857175089bee3ac53129192727a7090c5781de0e0",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 231,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/browser-version.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/browser-version.json",
+      "sha256": "a13c8581a5aed9f91196428a02bd272443d6625f129c865ed017b1291e19b44a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 242,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/cleanup.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/cleanup.json",
+      "sha256": "4c0be158e5c775c1bb08ba12a93c7a1c1ffd69647dd14cd688954e00dd06eb92",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1822,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/cleanup.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/cleanup.ps1",
+      "sha256": "ed8e44f1774f81292417c850526b082dcf2adec23290fc572588514de846573f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 4087,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/collect-evidence.py",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/collect-evidence.py",
+      "sha256": "03323364ca8d166ac666ebacb9366dd23ca1b4adc4162be88b0f5d159ee92f28",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 265007,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/director-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/director-frozen-readonly.png",
+      "sha256": "510b9a46de6222945ab66d4cbcd7c22a8b0a01056bddec40f51b3c414eacd384",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 230074,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/director-roster-management.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/director-roster-management.png",
+      "sha256": "8b3c68f16ec7498b6ee8daa91ca5fac8fc9f84ebbf85cd3163b249e3b9a08038",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 314,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/environment.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/environment.json",
+      "sha256": "5f5536b88ec2fa6268c7bd0c647883960a2830a06f10d64bc6945c0598885596",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 263269,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/failed-start-stopped.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/failed-start-stopped.png",
+      "sha256": "16ed065f539d1f349e8d3850df268b2725fdbbed9e74644a9a0e1f4cbed0fe12",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 13567,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/fix-exp3-acceptance.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/fix-exp3-acceptance.cjs",
+      "sha256": "fa4c2c17cdd79d489c60642a8b8b70ade6c09e5f9900334a1f90005ce3a3a09e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 22882,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/fix-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/fix-results.json",
+      "sha256": "e93b83afcbc2d7fd9c4237f6da6e124f6f8510f060c6ddfc3793ce40f5392177",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 4029,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/git-status-after.txt",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/git-status-after.txt",
+      "sha256": "4502cb6e81635c9e0f8a35453f375b8739b36aadb0a16dfe01a53c7dbeb65f4a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 3980,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/git-status-before.txt",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/git-status-before.txt",
+      "sha256": "ade1ca0129749deb8869dea2f42978edc25ad6b9d3b847dff9f900bf7ea16831",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 262734,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/guojun-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/guojun-frozen-readonly.png",
+      "sha256": "61a832899c0e57382c4627bf9e6df6d3b1433e03e4be69667a7352cd17f64db6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 219417,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/guojun-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/guojun-roster-readonly.png",
+      "sha256": "bf4781b99a66b6b6e637c6c9a3e0c3b7f4c1e1d9618dcb514169fa04654651a6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 29006,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/role-boundaries.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/role-boundaries.cjs",
+      "sha256": "39f4ca94b00e4d33d3dbd1233f0dc91993f33178e4925d0a67ab2a1a69ebdd82",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 261,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/run-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/run-results.json",
+      "sha256": "bd9cf81344c8abbe3ecb6937c5cb46a041a9cead922b1b850b26850540f67c96",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2508,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/run.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/run.ps1",
+      "sha256": "4c02187daee571c78706c60d5aa8f7f393a0b5e1d8baa1895194a3510d71ae9c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 5137,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/setup.ps1",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/setup.ps1",
+      "sha256": "a4b809ae1141dedb0d9bec220d3ff6fb7ab8df2c79b8222524b855ca9b023fdf",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 55468,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/sources-before.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/sources-before.json",
+      "sha256": "c9a4567c9844a781596f9de21007946fdca90d139f0b288239310f5358b3c925",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 3928,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/summary.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/summary.json",
+      "sha256": "463c6669b31b1099a5a3daf1cb629df81d551e5cf8edd2954ac09bf52200076c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 264279,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/supervisor-frozen-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/supervisor-frozen-readonly.png",
+      "sha256": "f8ae0a1c4b247b825ff71a3dbd8724c375cfefe284a1b46206dbd8c482cfa3c2",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 220900,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/supervisor-roster-readonly.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/supervisor-roster-readonly.png",
+      "sha256": "c5a7ac1f0bda7acbe394b3de4206d5a61f87090d5d8649ac8404a62bdeb6a3ad",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 290303,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/teacher-simulation-live.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/teacher-simulation-live.png",
+      "sha256": "694dd2145b97b500b6734e4503a34007aa7f656667331329e24990813b41a3bc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 16377,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/verify-fixes.cjs",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/verify-fixes.cjs",
+      "sha256": "034ddd1fce2da69a717e48632ff255666658d0bc2397ff43d227841deb6b187d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 2438,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/vision-transport-probe.py",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/vision-transport-probe.py",
+      "sha256": "fabb86faf22c91e041f9ebd31bb06715aba4f3712b286a94fc7b58de17bfc04c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 1027,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/vision-transport-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/vision-transport-results.json",
+      "sha256": "1daa32f0563aac1d7cdf62fa05a84824f6cb9775e9339aa555195abf43297e5c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 462510,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/01_auth_error_intercept.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/01_auth_error_intercept.png",
+      "sha256": "47627c12964662eab14d84c2860630731abb01094ecdbcc62373d41484ad1808",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 184988,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/02_director_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/02_director_rbac_tabs.png",
+      "sha256": "7996909b1901f10e0a598361c8f3570bc5c463abf7210da0710aa6c901e9e59d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 344612,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/03_teacher_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/03_teacher_rbac_tabs.png",
+      "sha256": "5a3f74aaacd8f43f9e4ca18f0b9a859a4787c249e7d3c2b4b191e8e808a7d7de",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377718,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/04_supervisor_rbac_tabs.png",
+      "sha256": "101ef1370c65aadeff11c98fcce235c81cac69c29474050be56e7b1b2fe8afb3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 215158,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/05_director_import_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/05_director_import_preview.png",
+      "sha256": "3e791c0cc1c3d3b1488544c2e6b76eb1fa17092f4ca026b79abb61145bd20064",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 224388,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/06_director_schedules_overview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/06_director_schedules_overview.png",
+      "sha256": "9d0af700da16a5f5eeef7bf969e534456b2ef4f44293851a81761e04ee8b0cd9",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 257063,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/07_director_plan_catalog_imported.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/07_director_plan_catalog_imported.png",
+      "sha256": "14084467256763930a8b9a830addb1b5068a4c02441ae1104bb4e657f17d356d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 139643,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/08_director_supervisors_auth.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/08_director_supervisors_auth.png",
+      "sha256": "1f65da7a7da18ebdb15a7ae5307d4dbc200495e10288b32be56d97b90f265f67",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 134994,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/09_director_supervision_reviews.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/09_director_supervision_reviews.png",
+      "sha256": "da40f6e2245e13a5bbc220a49e3fb6d7fc3b22cfb1ec42df446e8446fd7eaa96",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 362425,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/10_teacher_draft_saved.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/10_teacher_draft_saved.png",
+      "sha256": "e0ca2b59e71ddd3f0c882d8979cc3c148c2a0085332310b6b8a3d253f5920a56",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 383726,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/11_teacher_resource_uploaded.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/11_teacher_resource_uploaded.png",
+      "sha256": "eeff6feebd497eca521953813de77264016c4f46b27acfe18fc8167567d8af8f",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 368042,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/12_teacher_watermark_preview.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/12_teacher_watermark_preview.png",
+      "sha256": "e8ccec3fe2e5b7c8914efa1b583d96bf55f0a5ac6d0e8915a0342d9eb84b57d3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 372950,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/13_teacher_radar_chart.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/13_teacher_radar_chart.png",
+      "sha256": "f16169b7fbce0c8e683a46e0c65298c560e9b3d522bb7859ec0b066f92dce9b6",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 377924,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/14_supervisor_timetable_matrix.png",
+      "sha256": "fe2710ed724292712406706395aa6cb4dad0916d8206b22f50969ff32e657806",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 158046,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/15_supervisor_course_search.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/15_supervisor_course_search.png",
+      "sha256": "074a1dd97f6ad47063e9f139f9fa87ee7a5b6b649373b9db32a056f8f5c80d64",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 154875,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/16_supervisor_resource_audit_modal.png",
+      "sha256": "f4d3a34a400ca124a53d79843388c0fc4d4c474639853851b015f5718669c589",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 196522,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/17_supervisor_evaluation_form.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/17_supervisor_evaluation_form.png",
+      "sha256": "04f0c26d4d0498bcb1c9cd86266fdff417f5cfe4adbd1ebe281f2a87e48fc47b",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 175067,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/18_supervisor_coverage_dashboard.png",
+      "sha256": "ac97f1905381891db5b9f521f958e91aa5b6988f61dcc01fba2cadebe6337c3c",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 300037,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/19_supervisor_alerts_center.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/19_supervisor_alerts_center.png",
+      "sha256": "f1d5a173aec7d792cb1ce16be3b0056f2843b5c02908529a35e1e973e358fe8d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 240419,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/20_attendance_dashboard.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/20_attendance_dashboard.png",
+      "sha256": "71fca9f43e8ed597a63f8c4c1df79f534afa4d4d0f0daea0e6ae0581aefa5813",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 179339,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/21_student_face_database.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/21_student_face_database.png",
+      "sha256": "526303679fc446a7a6dfc59f39d296f60352d18dfb3550d1a72383c252964b99",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 4640,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/all-features-proxy/results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/all-features-proxy/results.json",
+      "sha256": "280b6b2accfffe0a83839d64ba162096e03c8bf2b9686f57b7216eec29484cb4",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 384840,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/boundaries/anonymous-feedback-and-word-cloud.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/boundaries/anonymous-feedback-and-word-cloud.png",
+      "sha256": "e6c7cdee8c2a1031db5fd101ea0f0b995ee1ad9e0234996e05c4c11bd8a0df36",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 291919,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/boundaries/attendance-persisted-history.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/boundaries/attendance-persisted-history.png",
+      "sha256": "e21393c4823029a46cac0f01032ed2d365cc4ec52a5228a626dd9da09eccabc2",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 290669,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/boundaries/attendance-real-simulation.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/boundaries/attendance-real-simulation.png",
+      "sha256": "1946ed0dc2ee7efd1a6521448e98de471f9691b471532dfce9cd16bda3ee7bf5",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 262555,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/boundaries/frozen-offering-controls.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/boundaries/frozen-offering-controls.png",
+      "sha256": "8e034cb5c4dd82793f79755c20b663b1050b63049939f1bd5f6cfcfc87da4b19",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 45543,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/boundaries/results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/boundaries/results.json",
+      "sha256": "c36af40036adb0148033261c96a16e71004300cb5fbe28fa7c74e98bb0f66648",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 370002,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/boundaries/teacher-published-content.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/boundaries/teacher-published-content.png",
+      "sha256": "24e365ae51b3cf2a0eb5db46199c5c34f585a684919cd2030f78ac616f84973d",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 821,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/office-strict/fix-acceptance-results.json",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/office-strict/fix-acceptance-results.json",
+      "sha256": "8881487f41afb45310277925a8d518fe97111a3dc41464654ab11d82d90acf13",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 34323,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/office-strict/protected-docx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/office-strict/protected-docx.pdf",
+      "sha256": "5b2e77d7c6dbfe959b46bc2669df1d5e7773261dea6bcd9d0add4933d0ec492a",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 145494,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/office-strict/protected-docx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/office-strict/protected-docx.png",
+      "sha256": "be2572c0101cc0903a9d329eb6d0781ab63c755550d8496703a1a5c7657143bc",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 35310,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/office-strict/protected-pptx.pdf",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/office-strict/protected-pptx.pdf",
+      "sha256": "4258ec39ddbce4969ffce9e57cd155a1119bef11f19f9a4380ba79dc2c15d671",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 175702,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/office-strict/protected-pptx.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/office-strict/protected-pptx.png",
+      "sha256": "5891de8887f1ae8d4f868056f66fd37ef89a50f2c2b9e5da60d99fee28c9ed0e",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 162952,
+      "type": "file",
+      "keep": "docs/20261009-role-functional-evidence-v1/office-strict/protected-supervisor.png",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/docs/20261009-role-functional-evidence-v1/office-strict/protected-supervisor.png",
+      "sha256": "11df43e09e0c08f5d8e0918c5991c341fbf3629bf8e379ff20cf278e080d3967",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 364,
+      "type": "file",
+      "keep": "frontend/src/views/DashboardView.vue",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/frontend/src/views/DashboardView.vue",
+      "sha256": "331b6a19d4d2e0836ddbaa8e92a881ed9c81c7ec64f99a3f889a2aaeee4355ab",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 67905148,
+      "type": "file",
+      "keep": "output/20260921-第二组-Sprint1源代码-v3.zip",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/output/20260921-第二组-Sprint1源代码-v3.zip",
+      "sha256": "0813d65199dd970e6245eb79a00816e52a226355d5abfc2605dff7160acc90cf",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 76328000,
+      "type": "file",
+      "keep": "output/20260922-第二组-Sprint1源代码-v4.zip",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/output/20260922-第二组-Sprint1源代码-v4.zip",
+      "sha256": "6113be782016efcb1245df54b6a99753c0c9392828931fb947d8d00e025cebc3",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 9191,
+      "type": "file",
+      "keep": "output/20261007-role-integration-check-v2.md",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/output/20261007-role-integration-check-v2.md",
+      "sha256": "77de7d2444aa8cdba129330cafbe2735bdeed051116e584c2e74e410ea4065b4",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 9069,
+      "type": "file",
+      "keep": "output/20261009-role-integration-check-v1.md",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/output/20261009-role-integration-check-v1.md",
+      "sha256": "d19de1fd73b7fff23eae8bab0adca040357b61e195629149b7c60eea33b37800",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "bytes": 647073,
+      "type": "file",
+      "keep": "scripts/deploy/mysql/init/initialize.sql",
+      "path": "runtime/branch-switch-backups/20261009-143732/files/scripts/deploy/mysql/init/initialize.sql",
+      "sha256": "d37a91b7416b3e29af5941db4467cc052e0faf6e5b19a76efeea16249b3398f8",
+      "files": 1,
+      "reason": "SHA256 identical backup; main copy retained"
+    },
+    {
+      "type": "worktree",
+      "head": "84ae720870c9c6145cabfed383266d7ac752527a",
+      "path": "runtime/worktrees/fix-exp3-local-check-20261006",
+      "bytes": 371589895,
+      "files": 9687,
+      "reason": "Completed isolated test worktree; commit reachable from current HEAD"
+    },
+    {
+      "type": "worktree",
+      "head": "a3a63c1237a4b6c13492f0fb9a7e6f9ead5c860a",
+      "path": "runtime/worktrees/main-startup-check-20261006",
+      "bytes": 282102585,
+      "files": 9207,
+      "reason": "Completed isolated test worktree; commit reachable from current HEAD"
+    },
+    {
+      "files": 22,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 907174,
+      "path": "docs/20261010-handover-build-v1/staging"
+    },
+    {
+      "files": 385,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 1884790,
+      "path": "docs/20261010-attendance-test-import-check-v1/temporary-module"
+    },
+    {
+      "files": 4,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 99359,
+      "path": "docs/20261010-handover-build-v1/__pycache__"
+    },
+    {
+      "files": 11,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 99037,
+      "path": "vision/__pycache__"
+    },
+    {
+      "files": 5,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 28121,
+      "path": "vision/tests/__pycache__"
+    },
+    {
+      "files": 1,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 30263,
+      "path": "docs/archive/root-cleanup-20260918/root-pycache"
+    },
+    {
+      "files": 90,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 688877,
+      "path": "runtime/browser-tests"
+    },
+    {
+      "files": 0,
+      "type": "directory",
+      "reason": "Generated temporary copy/cache, expired isolated tests, or empty obsolete folder",
+      "bytes": 0,
+      "path": "docker"
+    },
+    {
+      "type": "file",
+      "sha256": "2626fcc3386eac51f9f3ba41ba2c9eea756b849f543b1e79a53d0ba06585810f",
+      "path": "error.log",
+      "bytes": 6011,
+      "files": 1,
+      "reason": "Old root diagnostic log or PID for nonexistent process"
+    },
+    {
+      "type": "file",
+      "sha256": "49f9517681b49400d6ccf060e107cb132377ee5c89013526becaa61669e7a802",
+      "path": "runtime/logs/frontend.pid",
+      "bytes": 7,
+      "files": 1,
+      "reason": "Old root diagnostic log or PID for nonexistent process"
+    },
+    {
+      "type": "file",
+      "sha256": "fd533f10aa7bbfbb3686a34fed7de5ccd0d89efc2c03982584c4da77508f3f03",
+      "path": "docs/runtime/backend.pid",
+      "bytes": 6,
+      "files": 1,
+      "reason": "Old root diagnostic log or PID for nonexistent process"
+    },
+    {
+      "type": "file",
+      "sha256": "86c589c96c5769b83eec124e6f47118d6ecce8f59964199ccdd9188c04af9b20",
+      "path": "docs/runtime/frontend.pid",
+      "bytes": 7,
+      "files": 1,
+      "reason": "Old root diagnostic log or PID for nonexistent process"
+    }
+  ],
+  "gitRefsAndStashesUnchanged": true,
+  "differentBackupsRetained": 64,
+  "duplicateBackupsRemoved": 343,
+  "branch": "fix-exp3",
+  "removedWorktrees": [
+    "runtime/worktrees/fix-exp3-local-check-20261006",
+    "runtime/worktrees/main-startup-check-20261006"
+  ],
+  "trackedChangesUnchanged": true,
+  "freedBytes": 861402314,
+  "preservedEvidence": [
+    {
+      "from": "runtime/worktrees/fix-exp3-local-check-20261006/docs/sprint2-chrome-evidence/03-teacher-published-feedback.png",
+      "sha256": "eceb6877d4f4d2c0ff4ddf51f69e6d4d21c6251e8ec1248ca46ff540cc6b5ae5",
+      "bytes": 367509,
+      "to": "docs/20261010-project-cleanup-v1/recovered-evidence/fix-exp3-local-check-20261006-teacher-published-feedback.png"
+    },
+    {
+      "from": "docs/20261010-attendance-test-import-check-v1/temporary-module/target/surefire-reports/2026-10-10T13-44-07_298.dumpstream",
+      "sha256": "e5cd8960bee29fde7991417e653b89b2c6496df8b62cd62e58e522e751949d5b",
+      "bytes": 334,
+      "to": "docs/20261010-project-cleanup-v1/recovered-evidence/2026-10-10T13-44-07_298.dumpstream"
+    }
+  ],
+  "remainingWorktrees": [
+    "worktree D:/2026Autumn Semester File/classroom-ai-demo",
+    "HEAD 7464f9cf5875ec3e416d313e11c9838f5a2bec15",
+    "branch refs/heads/fix-exp3",
+    "",
+    "worktree C:/Users/a3185/.codex/worktrees/8810/classroom-ai-demo",
+    "HEAD fa387b87023eef5a1b7ab7a0a8d754ff1833de75",
+    "detached",
+    ""
+  ],
+  "passed": true,
+  "freedMiB": 821.5,
+  "protectedFilesUnchanged": 1565,
+  "head": "7464f9cf5875ec3e416d313e11c9838f5a2bec15"
+}

@@ -1,0 +1,40 @@
+{
+  "branch": "fix-exp3",
+  "head": "7464f9cf5875ec3e416d313e11c9838f5a2bec15",
+  "main": "68255ad9a4ebe5b52df9b7a7f18eba32db97cf78",
+  "stashes": [
+    "2697b78f154e480e0646cd027d5519e54a006556",
+    "694534f868b836ea1470fbe3569f351c6fdc3519"
+  ],
+  "protectedFiles": {
+    "raw/README.md": "9fff72bcec428d473107fc01f04e5204d0fa60c45c301d3df68e10e201059269",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-10.png": "e9f36c17933ee81231c051e0477578a527119ef140e6dc93f4a8431463371381",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-11.png": "365e56bb6d4b4e1c3cea4216c70b27b8ef037da0be64e6a3ac0365c42deb3e51",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-4.png": "28c66b93bea03793d8a4490fd548d1dd125a61a0da3fb95f8b3ce67067c0303e",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-5.png": "05a890bf654d5aad2fdb47678159696846e193ec43858ab9ba0cc9005b5dafae",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-9.png": "138c20f6344fd15c1a211eb0a2debde1f867e38d263f08a56eeb017ce589286b",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/frozen-camera-visible-error.png": "4cbf6af27eb54a54cfec69e81258948537aa94f466c1e667a8bdd949d5122ba7",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/real-camera-archive.png": "fe8e029908c48348d6799578e0673d1e946a6461d2eb56a5578f6b2a1cae812a",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/frozen-camera-visible-error.png": "4f17501535119852f3d132de3454560d5f9deb4f77203c5830cdc2fd60add411",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/real-camera-archive.png": "0857f411e66447f0a6b1ae620b57d9d9bf5cee391fad8ad7f23f47b5f7ec09e0",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/real-camera-connected.png": "8419114461a99edce1dc5f07b50ef1360f4825fc766cf618e552fc105e533e67",
+    "docs/20261010-camera-integration-evidence-v1/camera-trend/continuous-real-camera-trend.png": "508c6ab1b0e298582f550588f832a125bd1dce19520b6cf2301971d9f290a408",
+    "output/20260921-第二组-Sprint1源代码-v3.zip": "0813d65199dd970e6245eb79a00816e52a226355d5abfc2605dff7160acc90cf",
+    "output/20260922-第二组-Sprint1源代码-v4.zip": "6113be782016efcb1245df54b6a99753c0c9392828931fb947d8d00e025cebc3"
+  },
+  "localOnlyFiles": [
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-10.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-11.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-4.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-5.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/failure-9.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/frozen-camera-visible-error.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro-attempt2/real-camera-archive.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/frozen-camera-visible-error.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/real-camera-archive.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-micro/real-camera-connected.png",
+    "docs/20261010-camera-integration-evidence-v1/camera-trend/continuous-real-camera-trend.png",
+    "output/20260921-第二组-Sprint1源代码-v3.zip",
+    "output/20260922-第二组-Sprint1源代码-v4.zip"
+  ]
+}

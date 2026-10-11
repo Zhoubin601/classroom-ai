@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-09",
+  "timezone": "Asia/Shanghai",
+  "branch": "fix-exp3",
+  "baseCommit": "fa387b87023eef5a1b7ab7a0a8d754ff1833de75",
+  "testedVersion": "fix-exp3 working tree with current micro-slice authorization patch",
+  "browser": {
+    "checks": 11,
+    "passed": 11,
+    "failed": 0,
+    "pageErrors": [],
+    "chromeVersion": "154.0.8037.99"
+  },
+  "httpScopeRegression": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "javaRegression": {
+    "tests": 214,
+    "passed": 167,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 47
+  },
+  "backendJarSha256": "06d56520e3597f6c491508e9d875a7dae3558c79527b9f7152879ce0e0e2a408",
+  "sourceSha256": {
+    "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/MicroTeachingServiceImpl.java": "c9cce96c07f1beb046fcf736760b6b1c20d19b61b5d4bd562203f46cce50efbe",
+    "backend/src/main/java/com/classroom/ai/modules/resource/repository/MicroTeachingSliceRepository.java": "b52e859bcd2ed216e6b0bf85fcb3d9774a4b1c9b874315d515d0fe17f8c197af",
+    "backend/src/test/java/com/classroom/ai/modules/resource/MicroTeachingHttpAuthorizationTest.java": "9e13b14e52e2fa0e7509c5ae113c61316827e7397f9a39a2c793d536f25eb231",
+    "scripts/tests/micro-scope-browser.cjs": "beda53b9d502efe39399d57ebe41600c258667dbf98d67de411cb3932046dd36",
+    "scripts/tests/role-connectivity-browser.cjs": "93dc7eb9f05e874abf378ddf67c2af9cef469a5f6607a7303d7e6e2ed4bb2e28"
+  },
+  "rawSha256": {
+    "raw\\README.md": "9fff72bcec428d473107fc01f04e5204d0fa60c45c301d3df68e10e201059269"
+  },
+  "cleanup": {
+    "testNetworkRemoved": true,
+    "cleanedAt": "2026-10-09T14:58:43.5615840+08:00",
+    "testContainersRemoved": true,
+    "originalProjectContainers": [
+      "classroom-mysql",
+      "classroom-redis"
+    ],
+    "testFrontendStopped": true
+  },
+  "confirmedDemoPolicies": [
+    "Director CSV remains global",
+    "Director student archive remains global",
+    "Micro-slice metadata follows role and course scope"
+  ],
+  "notTested": [
+    "Real camera inference",
+    "Actual micro-slice video playback"
+  ],
+  "deployment": "No deployment or daily-database writes"
+}

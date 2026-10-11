@@ -1,0 +1,10 @@
+{
+  "branch": "fix-exp3",
+  "frontendPassed": 11,
+  "worktree": "C:/Users/a3185/.codex/worktrees/8810/classroom-ai-demo",
+  "realChromePassed": 13,
+  "pushed": false,
+  "commit": "fa387b87023eef5a1b7ab7a0a8d754ff1833de75",
+  "javaSkipped": 47,
+  "javaPassed": 159
+}

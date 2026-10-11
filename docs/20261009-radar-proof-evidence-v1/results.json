@@ -1,0 +1,19 @@
+{
+  "observedAt": "2026-10-09T07:14:43.209Z",
+  "mode": "Real Chrome, real server, isolated MySQL; asymmetric published scores compared with canvas pixels after animation",
+  "pageErrors": [],
+  "scores": [
+    10,
+    15,
+    20,
+    25
+  ],
+  "pixels": {
+    "width": 513,
+    "height": 256,
+    "count": 728,
+    "spanX": 158,
+    "spanY": 119
+  },
+  "status": "PASS"
+}

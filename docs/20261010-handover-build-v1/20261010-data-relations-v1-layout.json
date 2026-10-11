@@ -1,0 +1,619 @@
+{
+  "slug": "data-relations",
+  "title": "04 / 核心数据关系",
+  "subtitle": "源码实体关系摘要：实线为 JPA 关联，虚线为 ID / 编码 / 版本逻辑关联。",
+  "width": 1900,
+  "height": 1410,
+  "sources": "course/entity；resource/entity；supervision/entity；attendance/entity；代码实体索引CSV",
+  "nodes": [
+    {
+      "id": "M",
+      "x": 60,
+      "y": 165,
+      "w": 330,
+      "h": 110,
+      "title": "专业 Major",
+      "lines": [
+        "t_major / 牵头 department"
+      ],
+      "tone": "blue"
+    },
+    {
+      "id": "MD",
+      "x": 60,
+      "y": 355,
+      "w": 330,
+      "h": 110,
+      "title": "参与教研室关联",
+      "lines": [
+        "t_major_department"
+      ],
+      "tone": "blue"
+    },
+    {
+      "id": "PL",
+      "x": 540,
+      "y": 165,
+      "w": 430,
+      "h": 140,
+      "title": "培养方案示例指标目录",
+      "lines": [
+        "t_training_indicator",
+        "majorCode + planVersion"
+      ],
+      "tone": "blue"
+    },
+    {
+      "id": "C",
+      "x": 1060,
+      "y": 165,
+      "w": 370,
+      "h": 110,
+      "title": "课程档案 Course",
+      "lines": [
+        "t_course / department"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "CR",
+      "x": 1510,
+      "y": 165,
+      "w": 330,
+      "h": 110,
+      "title": "教学内容修订",
+      "lines": [
+        "t_course_content_revision"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "SY",
+      "x": 1040,
+      "y": 445,
+      "w": 360,
+      "h": 130,
+      "title": "大纲版本",
+      "lines": [
+        "t_course_syllabus",
+        "version / planVersion"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "GI",
+      "x": 560,
+      "y": 445,
+      "w": 390,
+      "h": 130,
+      "title": "课程指标映射",
+      "lines": [
+        "t_graduation_indicator",
+        "course_id / syllabus_id"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "RE",
+      "x": 1510,
+      "y": 445,
+      "w": 330,
+      "h": 130,
+      "title": "教学课件",
+      "lines": [
+        "t_course_resource",
+        "course_id"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "MI",
+      "x": 1510,
+      "y": 665,
+      "w": 330,
+      "h": 130,
+      "title": "微格切片 / 上传视频",
+      "lines": [
+        "t_micro_teaching_slice",
+        "course_id / sliceUrl"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "O",
+      "x": 1040,
+      "y": 885,
+      "w": 360,
+      "h": 140,
+      "title": "开课班次",
+      "lines": [
+        "t_course_offering",
+        "course_id / 学期 / 主讲"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "OT",
+      "x": 560,
+      "y": 885,
+      "w": 390,
+      "h": 140,
+      "title": "班次教师关联",
+      "lines": [
+        "t_course_offering_teacher",
+        "offeringId / teacherId"
+      ],
+      "tone": "amber"
+    },
+    {
+      "id": "EN",
+      "x": 60,
+      "y": 885,
+      "w": 400,
+      "h": 140,
+      "title": "班次选课名单",
+      "lines": [
+        "t_offering_student_enrollment",
+        "offeringId / studentNumber"
+      ],
+      "tone": "amber"
+    },
+    {
+      "id": "SC",
+      "x": 60,
+      "y": 1145,
+      "w": 400,
+      "h": 120,
+      "title": "排课时段",
+      "lines": [
+        "t_course_schedule / offering_id"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "AT",
+      "x": 560,
+      "y": 1145,
+      "w": 390,
+      "h": 120,
+      "title": "考勤会话",
+      "lines": [
+        "t_attendance_session / offering_id"
+      ],
+      "tone": "green"
+    },
+    {
+      "id": "EV",
+      "x": 1040,
+      "y": 1145,
+      "w": 360,
+      "h": 120,
+      "title": "督导评价",
+      "lines": [
+        "t_supervision_evaluation",
+        "offering_id"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "AU",
+      "x": 1510,
+      "y": 1145,
+      "w": 330,
+      "h": 120,
+      "title": "评价审核日志",
+      "lines": [
+        "t_evaluation_audit_log",
+        "evaluationId"
+      ],
+      "tone": "purple"
+    },
+    {
+      "id": "NOTE",
+      "x": 60,
+      "y": 665,
+      "w": 850,
+      "h": 125,
+      "title": "模型边界",
+      "lines": [
+        "标量ID/编码关系不等于已核验的数据库外键。",
+        "student、face_feature、classroom_record等见完整实体索引。"
+      ],
+      "tone": "gray"
+    }
+  ],
+  "edges": [
+    {
+      "a": "M",
+      "b": "MD",
+      "label": "major_id",
+      "points": [
+        [
+          225,
+          275
+        ],
+        [
+          225,
+          355
+        ]
+      ],
+      "labelpos": [
+        310,
+        318
+      ],
+      "logic": false
+    },
+    {
+      "a": "M",
+      "b": "PL",
+      "label": "majorCode",
+      "points": [
+        [
+          390,
+          235
+        ],
+        [
+          540,
+          235
+        ]
+      ],
+      "labelpos": [
+        465,
+        215
+      ],
+      "logic": true
+    },
+    {
+      "a": "M",
+      "b": "C",
+      "label": "majorId / majorCode",
+      "points": [
+        [
+          225,
+          165
+        ],
+        [
+          225,
+          135
+        ],
+        [
+          1245,
+          135
+        ],
+        [
+          1245,
+          165
+        ]
+      ],
+      "labelpos": null,
+      "logic": true
+    },
+    {
+      "a": "C",
+      "b": "CR",
+      "label": "courseId",
+      "points": [
+        [
+          1430,
+          220
+        ],
+        [
+          1510,
+          220
+        ]
+      ],
+      "labelpos": null,
+      "logic": true
+    },
+    {
+      "a": "C",
+      "b": "SY",
+      "label": "course_id",
+      "points": [
+        [
+          1245,
+          275
+        ],
+        [
+          1245,
+          445
+        ]
+      ],
+      "labelpos": [
+        1320,
+        355
+      ],
+      "logic": false
+    },
+    {
+      "a": "PL",
+      "b": "SY",
+      "label": "按专业与方案版本匹配",
+      "points": [
+        [
+          755,
+          305
+        ],
+        [
+          755,
+          355
+        ],
+        [
+          1000,
+          355
+        ],
+        [
+          1000,
+          510
+        ],
+        [
+          1040,
+          510
+        ]
+      ],
+      "labelpos": [
+        815,
+        338
+      ],
+      "logic": true
+    },
+    {
+      "a": "SY",
+      "b": "GI",
+      "label": "syllabus_id",
+      "points": [
+        [
+          1040,
+          525
+        ],
+        [
+          950,
+          525
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "C",
+      "b": "GI",
+      "label": "course_id",
+      "points": [
+        [
+          1130,
+          275
+        ],
+        [
+          1130,
+          310
+        ],
+        [
+          980,
+          310
+        ],
+        [
+          980,
+          475
+        ],
+        [
+          950,
+          475
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "C",
+      "b": "RE",
+      "label": "course_id",
+      "points": [
+        [
+          1430,
+          250
+        ],
+        [
+          1465,
+          250
+        ],
+        [
+          1465,
+          510
+        ],
+        [
+          1510,
+          510
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "C",
+      "b": "MI",
+      "label": "course_id",
+      "points": [
+        [
+          1405,
+          275
+        ],
+        [
+          1438,
+          275
+        ],
+        [
+          1438,
+          730
+        ],
+        [
+          1510,
+          730
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "C",
+      "b": "O",
+      "label": "course_id",
+      "points": [
+        [
+          1060,
+          260
+        ],
+        [
+          1020,
+          260
+        ],
+        [
+          1020,
+          955
+        ],
+        [
+          1040,
+          955
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "O",
+      "b": "OT",
+      "label": "offeringId",
+      "points": [
+        [
+          1040,
+          960
+        ],
+        [
+          950,
+          960
+        ]
+      ],
+      "labelpos": null,
+      "logic": true
+    },
+    {
+      "a": "O",
+      "b": "EN",
+      "label": "offeringId",
+      "points": [
+        [
+          1245,
+          1025
+        ],
+        [
+          1245,
+          1080
+        ],
+        [
+          260,
+          1080
+        ],
+        [
+          260,
+          1025
+        ]
+      ],
+      "labelpos": [
+        650,
+        1060
+      ],
+      "logic": true
+    },
+    {
+      "a": "O",
+      "b": "SC",
+      "label": "offering_id",
+      "points": [
+        [
+          1060,
+          1025
+        ],
+        [
+          1000,
+          1025
+        ],
+        [
+          1000,
+          1110
+        ],
+        [
+          260,
+          1110
+        ],
+        [
+          260,
+          1145
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "O",
+      "b": "AT",
+      "label": "offering_id",
+      "points": [
+        [
+          1140,
+          1025
+        ],
+        [
+          1140,
+          1050
+        ],
+        [
+          755,
+          1050
+        ],
+        [
+          755,
+          1145
+        ]
+      ],
+      "labelpos": null,
+      "logic": false
+    },
+    {
+      "a": "O",
+      "b": "EV",
+      "label": "offering_id",
+      "points": [
+        [
+          1320,
+          1025
+        ],
+        [
+          1320,
+          1145
+        ]
+      ],
+      "labelpos": [
+        1410,
+        1100
+      ],
+      "logic": false
+    },
+    {
+      "a": "EV",
+      "b": "AU",
+      "label": "evaluationId",
+      "points": [
+        [
+          1400,
+          1215
+        ],
+        [
+          1510,
+          1215
+        ]
+      ],
+      "labelpos": null,
+      "logic": true
+    }
+  ],
+  "groups": []
+}

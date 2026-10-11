@@ -1,0 +1,1822 @@
+{
+  "date": "2026-10-10",
+  "head": "7464f9cf5875ec3e416d313e11c9838f5a2bec15",
+  "branch": "fix-exp3",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/visual/monitor-context",
+      "source": "backend/src/main/java/com/classroom/ai/controller/CameraMonitorController.java",
+      "line": 25
+    },
+    {
+      "method": "POST",
+      "path": "/api/face/register",
+      "source": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "line": 38
+    },
+    {
+      "method": "POST",
+      "path": "/api/face/upload",
+      "source": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "line": 47
+    },
+    {
+      "method": "GET",
+      "path": "/api/face/all",
+      "source": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "line": 78
+    },
+    {
+      "method": "POST",
+      "path": "/api/face/search",
+      "source": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "line": 87
+    },
+    {
+      "method": "GET",
+      "path": "/api/face/{studentId}",
+      "source": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "line": 96
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/face/{studentId}",
+      "source": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "line": 108
+    },
+    {
+      "method": "POST",
+      "path": "/api/face/launch-register",
+      "source": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "line": 117
+    },
+    {
+      "method": "GET",
+      "path": "/api/student/list",
+      "source": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+      "line": 22
+    },
+    {
+      "method": "GET",
+      "path": "/api/student/{studentId}",
+      "source": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+      "line": 31
+    },
+    {
+      "method": "POST",
+      "path": "/api/student",
+      "source": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+      "line": 43
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/student/{studentId}",
+      "source": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+      "line": 52
+    },
+    {
+      "method": "PUT",
+      "path": "/api/student/{studentId}/class",
+      "source": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+      "line": 61
+    },
+    {
+      "method": "GET",
+      "path": "/api/visual/overview",
+      "source": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "line": 26
+    },
+    {
+      "method": "GET",
+      "path": "/api/visual/trend",
+      "source": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "line": 35
+    },
+    {
+      "method": "GET",
+      "path": "/api/visual/students/status",
+      "source": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "line": 44
+    },
+    {
+      "method": "POST",
+      "path": "/api/visual/report/stream",
+      "source": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "line": 53
+    },
+    {
+      "method": "POST",
+      "path": "/api/visual/reset",
+      "source": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "line": 62
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/attendance/start",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "line": 21
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/attendance/finish",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "line": 26
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/attendance/current",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "line": 31
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/attendance/offering/{offeringId}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "line": 36
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/attendance/live-update",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "line": 41
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+      "line": 35
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+      "line": 73
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+      "line": 79
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/csrf",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+      "line": 90
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/director/managed-majors",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java",
+      "line": 46
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/director/supervisors",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java",
+      "line": 56
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/director/supervisors",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java",
+      "line": 75
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/director/supervisors/{id}/majors",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java",
+      "line": 118
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/content/draft",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+      "line": 27
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/courses/{courseId}/content/draft",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+      "line": 44
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/content/publish",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+      "line": 58
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/content/published",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+      "line": 91
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/export",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 57
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 70
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 85
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 95
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/courses/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 101
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/offerings/{id}/students",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 141
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses/offerings/{id}/students/add",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 155
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses/offerings/{id}/students/remove/{studentId}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "line": 161
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/import/template",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseImportController.java",
+      "line": 36
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses/import/preview",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseImportController.java",
+      "line": 46
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses/import/confirm",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseImportController.java",
+      "line": 55
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/offerings/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+      "line": 16
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses/offerings",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+      "line": 18
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/courses/offerings/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+      "line": 20
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/courses/offerings/{id}/archive",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+      "line": 22
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/courses/offerings/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+      "line": 24
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/offerings/history",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingHistoryController.java",
+      "line": 43
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/courses/offerings",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingQueryController.java",
+      "line": 14
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/schedules",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+      "line": 23
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/schedules",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+      "line": 41
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/schedules/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+      "line": 46
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/schedules/check-conflict",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+      "line": 52
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/majors",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/MajorController.java",
+      "line": 19
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/syllabus/course/{courseId}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 29
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/syllabus/course/{courseId}/latest",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 35
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/syllabus/course/{courseId}/indicators",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 41
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/syllabus",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 48
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/syllabus/{id}/lock",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 58
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/syllabus/course/{courseId}/indicators",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 66
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/syllabus/indicators/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 74
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/syllabus/indicators/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 82
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/syllabus/plans/{majorCode}/{version}/indicators",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 89
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/syllabus/plans/{majorCode}/versions",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 98
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/syllabus/plans/{majorCode}/{version}/indicators",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 105
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/syllabus/course/{courseId}/from-plan",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "line": 152
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/teachers",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/controller/TeacherController.java",
+      "line": 19
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources/upload",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 45
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 118
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 132
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 139
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/resources/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 167
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources/{id}/preview-ticket",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 174
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources/preview/{ticket}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 180
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources/{id}/download",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "line": 188
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources/micro-slices/course/{courseId}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingController.java",
+      "line": 23
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources/micro-slices/stage/{stage}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingController.java",
+      "line": 28
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources/micro-slices",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingController.java",
+      "line": 33
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/resources/micro-slices/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingController.java",
+      "line": 38
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/resources/micro-slices/upload",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingVideoController.java",
+      "line": 18
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/resources/micro-slices/{id}/video",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingVideoController.java",
+      "line": 23
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/analytics/dashboard",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+      "line": 26
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/analytics/coverage",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+      "line": 33
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/analytics/alerts",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+      "line": 41
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/analytics/radar",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+      "line": 48
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/analytics/export-report",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+      "line": 57
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/weights",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "line": 26
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "line": 32
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "line": 44
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/supervisions",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "line": 49
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/supervisions/{id}",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "line": 60
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/supervisions/{id}/review",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "line": 68
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/supervisions/{id}/audit",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "line": 73
+    }
+  ],
+  "entities": [
+    {
+      "entity": "ClassroomRecord",
+      "table": "classroom_record",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "sessionId"
+        ],
+        [
+          "String",
+          "courseName"
+        ],
+        [
+          "String",
+          "className"
+        ],
+        [
+          "Integer",
+          "totalExpected"
+        ],
+        [
+          "Integer",
+          "actualPresent"
+        ],
+        [
+          "Double",
+          "attendanceRate"
+        ],
+        [
+          "Double",
+          "lookupRate"
+        ],
+        [
+          "Integer",
+          "lookDownCount"
+        ],
+        [
+          "LocalDateTime",
+          "recordTime"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "entity": "FaceFeature",
+      "table": "face_feature",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "studentId"
+        ],
+        [
+          "Integer",
+          "featureDim"
+        ],
+        [
+          "String",
+          "featureVector"
+        ],
+        [
+          "String",
+          "imagePath"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "entity": "Student",
+      "table": "student",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "studentId"
+        ],
+        [
+          "String",
+          "name"
+        ],
+        [
+          "String",
+          "gender"
+        ],
+        [
+          "String",
+          "className"
+        ],
+        [
+          "String",
+          "avatarUrl"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "entity": "AttendanceSession",
+      "table": "t_attendance_session",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "CourseOffering",
+          "offering"
+        ],
+        [
+          "Integer",
+          "weekNumber"
+        ],
+        [
+          "String",
+          "classroom"
+        ],
+        [
+          "Integer",
+          "expectedCount"
+        ],
+        [
+          "Integer",
+          "actualCount"
+        ],
+        [
+          "Double",
+          "attendanceRate"
+        ],
+        [
+          "Double",
+          "avgLookupRate"
+        ],
+        [
+          "String",
+          "status"
+        ],
+        [
+          "String",
+          "operatorName"
+        ],
+        [
+          "String",
+          "operatorRole"
+        ],
+        [
+          "String",
+          "operatorTitle"
+        ],
+        [
+          "LocalDateTime",
+          "startTime"
+        ],
+        [
+          "LocalDateTime",
+          "endTime"
+        ],
+        [
+          "String",
+          "absentStudentIds"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [
+        [
+          "offering_id",
+          "CourseOffering",
+          "offering"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "entity": "UserAccount",
+      "table": "t_user_account",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "username"
+        ],
+        [
+          "String",
+          "password"
+        ],
+        [
+          "String",
+          "realName"
+        ],
+        [
+          "RoleEnum",
+          "role"
+        ],
+        [
+          "String",
+          "department"
+        ],
+        [
+          "String",
+          "teacherCode"
+        ],
+        [
+          "String",
+          "authorizedMajors"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "entity": "AcademicTermLock",
+      "table": "t_academic_term_lock",
+      "fields": [
+        [
+          "String",
+          "academicTerm"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/AcademicTermLock.java"
+    },
+    {
+      "entity": "Course",
+      "table": "t_course",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "courseCode"
+        ],
+        [
+          "String",
+          "courseName"
+        ],
+        [
+          "String",
+          "department"
+        ],
+        [
+          "String",
+          "teacherName"
+        ],
+        [
+          "Long",
+          "majorId"
+        ],
+        [
+          "String",
+          "majorCode"
+        ],
+        [
+          "Double",
+          "credits"
+        ],
+        [
+          "Integer",
+          "hours"
+        ],
+        [
+          "Integer",
+          "theoryHours"
+        ],
+        [
+          "Integer",
+          "practiceHours"
+        ],
+        [
+          "String",
+          "courseType"
+        ],
+        [
+          "String",
+          "prerequisites"
+        ],
+        [
+          "String",
+          "description"
+        ],
+        [
+          "String",
+          "objectives"
+        ],
+        [
+          "String",
+          "assessmentMethod"
+        ],
+        [
+          "String",
+          "createdBy"
+        ],
+        [
+          "String",
+          "updatedBy"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "entity": "CourseContentRevision",
+      "table": "t_course_content_revision",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Long",
+          "courseId"
+        ],
+        [
+          "String",
+          "description"
+        ],
+        [
+          "String",
+          "assessmentMethod"
+        ],
+        [
+          "String",
+          "objectives"
+        ],
+        [
+          "Integer",
+          "publishVersion"
+        ],
+        [
+          "Integer",
+          "lockVersion"
+        ],
+        [
+          "Integer",
+          "version"
+        ],
+        [
+          "String",
+          "status"
+        ],
+        [
+          "String",
+          "editorName"
+        ],
+        [
+          "String",
+          "publisherName"
+        ],
+        [
+          "String",
+          "publisherCode"
+        ],
+        [
+          "LocalDateTime",
+          "publishedAt"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "entity": "CourseImportLog",
+      "table": "t_course_import_log",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "batchId"
+        ],
+        [
+          "String",
+          "operator"
+        ],
+        [
+          "String",
+          "fileName"
+        ],
+        [
+          "Integer",
+          "totalRows"
+        ],
+        [
+          "Integer",
+          "successCount"
+        ],
+        [
+          "Integer",
+          "errorCount"
+        ],
+        [
+          "String",
+          "status"
+        ],
+        [
+          "String",
+          "message"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "entity": "CourseOffering",
+      "table": "t_course_offering",
+      "fields": [
+        [
+          "java.util.List<CourseOfferingTeacher>",
+          "teachers"
+        ],
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Course",
+          "course"
+        ],
+        [
+          "String",
+          "academicTerm"
+        ],
+        [
+          "String",
+          "teacherName"
+        ],
+        [
+          "String",
+          "teacherCode"
+        ],
+        [
+          "String",
+          "className"
+        ],
+        [
+          "Long",
+          "majorId"
+        ],
+        [
+          "String",
+          "majorCode"
+        ],
+        [
+          "Integer",
+          "studentCount"
+        ],
+        [
+          "Integer",
+          "snapshotStudentCount"
+        ],
+        [
+          "Boolean",
+          "isSnapshotFrozen"
+        ],
+        [
+          "String",
+          "status"
+        ],
+        [
+          "LocalDateTime",
+          "archivedAt"
+        ],
+        [
+          "String",
+          "archivedBy"
+        ],
+        [
+          "String",
+          "historySnapshot"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [
+        [
+          "course_id",
+          "Course",
+          "course"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "entity": "CourseOfferingTeacher",
+      "table": "t_course_offering_teacher",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Long",
+          "offeringId"
+        ],
+        [
+          "Long",
+          "teacherId"
+        ],
+        [
+          "String",
+          "teacherCode"
+        ],
+        [
+          "String",
+          "teacherName"
+        ],
+        [
+          "String",
+          "roleInOffering"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "entity": "CourseSchedule",
+      "table": "t_course_schedule",
+      "fields": [
+        [
+          "java.util.List<String>",
+          "conflictReasons"
+        ],
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "CourseOffering",
+          "offering"
+        ],
+        [
+          "String",
+          "classroom"
+        ],
+        [
+          "String",
+          "weekRange"
+        ],
+        [
+          "Integer",
+          "startWeek"
+        ],
+        [
+          "Integer",
+          "endWeek"
+        ],
+        [
+          "Integer",
+          "dayOfWeek"
+        ],
+        [
+          "Integer",
+          "startPeriod"
+        ],
+        [
+          "Integer",
+          "endPeriod"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [
+        [
+          "offering_id",
+          "CourseOffering",
+          "offering"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "entity": "CourseSyllabus",
+      "table": "t_course_syllabus",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Course",
+          "course"
+        ],
+        [
+          "String",
+          "version"
+        ],
+        [
+          "String",
+          "planVersion"
+        ],
+        [
+          "String",
+          "status"
+        ],
+        [
+          "String",
+          "authorTeacher"
+        ],
+        [
+          "String",
+          "lockedBy"
+        ],
+        [
+          "String",
+          "courseGoals"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [
+        [
+          "course_id",
+          "Course",
+          "course"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "entity": "GraduationIndicator",
+      "table": "t_graduation_indicator",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Course",
+          "course"
+        ],
+        [
+          "CourseSyllabus",
+          "syllabus"
+        ],
+        [
+          "String",
+          "indicatorCode"
+        ],
+        [
+          "String",
+          "requirementCategory"
+        ],
+        [
+          "String",
+          "indicatorDescription"
+        ],
+        [
+          "String",
+          "supportWeight"
+        ],
+        [
+          "String",
+          "targetGoal"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [
+        [
+          "course_id",
+          "Course",
+          "course"
+        ],
+        [
+          "syllabus_id",
+          "CourseSyllabus",
+          "syllabus"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "entity": "Major",
+      "table": "t_major",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "majorCode"
+        ],
+        [
+          "String",
+          "majorName"
+        ],
+        [
+          "String",
+          "department"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java"
+    },
+    {
+      "entity": "MajorDepartment",
+      "table": "t_major_department",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Major",
+          "major"
+        ],
+        [
+          "String",
+          "department"
+        ]
+      ],
+      "joins": [
+        [
+          "major_id",
+          "Major",
+          "major"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/MajorDepartment.java"
+    },
+    {
+      "entity": "OfferingStudentEnrollment",
+      "table": "t_offering_student_enrollment",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Long",
+          "offeringId"
+        ],
+        [
+          "Long",
+          "studentId"
+        ],
+        [
+          "String",
+          "studentNumber"
+        ],
+        [
+          "String",
+          "studentName"
+        ],
+        [
+          "String",
+          "adminClassName"
+        ],
+        [
+          "LocalDateTime",
+          "enrolledAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "entity": "Teacher",
+      "table": "t_teacher",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "teacherCode"
+        ],
+        [
+          "String",
+          "teacherName"
+        ],
+        [
+          "String",
+          "department"
+        ],
+        [
+          "String",
+          "title"
+        ],
+        [
+          "Long",
+          "userId"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "entity": "TrainingIndicator",
+      "table": "t_training_indicator",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "String",
+          "majorCode"
+        ],
+        [
+          "String",
+          "planVersion"
+        ],
+        [
+          "String",
+          "indicatorCode"
+        ],
+        [
+          "String",
+          "requirementCategory"
+        ],
+        [
+          "String",
+          "indicatorDescription"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java"
+    },
+    {
+      "entity": "CourseResource",
+      "table": "t_course_resource",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Course",
+          "course"
+        ],
+        [
+          "String",
+          "chapter"
+        ],
+        [
+          "String",
+          "resourceName"
+        ],
+        [
+          "String",
+          "fileType"
+        ],
+        [
+          "String",
+          "fileUrl"
+        ],
+        [
+          "String",
+          "fileSize"
+        ],
+        [
+          "Long",
+          "fileSizeBytes"
+        ],
+        [
+          "String",
+          "tag"
+        ],
+        [
+          "String",
+          "tagCsv"
+        ],
+        [
+          "String",
+          "version"
+        ],
+        [
+          "Boolean",
+          "isPublic"
+        ],
+        [
+          "String",
+          "dynamicWatermark"
+        ],
+        [
+          "String",
+          "uploaderTeacher"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [
+        [
+          "course_id",
+          "Course",
+          "course"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "entity": "MicroTeachingSlice",
+      "table": "t_micro_teaching_slice",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Course",
+          "course"
+        ],
+        [
+          "String",
+          "videoTitle"
+        ],
+        [
+          "String",
+          "bopppsStage"
+        ],
+        [
+          "Integer",
+          "durationSeconds"
+        ],
+        [
+          "String",
+          "sliceUrl"
+        ],
+        [
+          "String",
+          "coverUrl"
+        ],
+        [
+          "String",
+          "recordedDate"
+        ],
+        [
+          "String",
+          "classroom"
+        ],
+        [
+          "String",
+          "sourceAgent"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ]
+      ],
+      "joins": [
+        [
+          "course_id",
+          "Course",
+          "course"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "entity": "ResourceAccessLog",
+      "table": "t_resource_access_log",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Long",
+          "resourceId"
+        ],
+        [
+          "Long",
+          "viewerId"
+        ],
+        [
+          "String",
+          "viewerUsername"
+        ],
+        [
+          "String",
+          "action"
+        ],
+        [
+          "LocalDateTime",
+          "accessedAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java"
+    },
+    {
+      "entity": "EvaluationAuditLog",
+      "table": "t_evaluation_audit_log",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "Long",
+          "evaluationId"
+        ],
+        [
+          "Long",
+          "actorId"
+        ],
+        [
+          "String",
+          "actorUsername"
+        ],
+        [
+          "String",
+          "action"
+        ],
+        [
+          "String",
+          "fromStatus"
+        ],
+        [
+          "String",
+          "toStatus"
+        ],
+        [
+          "LocalDateTime",
+          "occurredAt"
+        ]
+      ],
+      "joins": [],
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "entity": "SupervisionEvaluation",
+      "table": "t_supervision_evaluation",
+      "fields": [
+        [
+          "Long",
+          "id"
+        ],
+        [
+          "CourseOffering",
+          "offering"
+        ],
+        [
+          "String",
+          "supervisorName"
+        ],
+        [
+          "Long",
+          "supervisorUserId"
+        ],
+        [
+          "String",
+          "evaluateDate"
+        ],
+        [
+          "String",
+          "listenTopic"
+        ],
+        [
+          "Double",
+          "scoreAttitude"
+        ],
+        [
+          "Double",
+          "scoreContent"
+        ],
+        [
+          "Double",
+          "scoreMethod"
+        ],
+        [
+          "Double",
+          "scoreEffect"
+        ],
+        [
+          "Double",
+          "totalScore"
+        ],
+        [
+          "String",
+          "highlights"
+        ],
+        [
+          "String",
+          "suggestions"
+        ],
+        [
+          "String",
+          "status"
+        ],
+        [
+          "LocalDateTime",
+          "submitTime"
+        ],
+        [
+          "LocalDateTime",
+          "publishTime"
+        ],
+        [
+          "Long",
+          "reviewedBy"
+        ],
+        [
+          "LocalDateTime",
+          "reviewedAt"
+        ],
+        [
+          "String",
+          "reviewNote"
+        ],
+        [
+          "LocalDateTime",
+          "createdAt"
+        ],
+        [
+          "LocalDateTime",
+          "updatedAt"
+        ]
+      ],
+      "joins": [
+        [
+          "offering_id",
+          "CourseOffering",
+          "offering"
+        ]
+      ],
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    }
+  ]
+}

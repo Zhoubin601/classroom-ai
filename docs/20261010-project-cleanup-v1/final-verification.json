@@ -1,0 +1,16 @@
+{
+  "resultPassed": true,
+  "outputFiles": 42,
+  "rawFiles": 1,
+  "reportExists": true,
+  "gitBaselineUnchanged": true,
+  "recoveredEvidenceHashesMatch": true,
+  "passed": true,
+  "allCleanupTargetsAbsent": true,
+  "intentionallyAppendedProcessNotes": [
+    "docs/plan.md",
+    "docs/analysis-notes.md",
+    "docs/source-notes.md"
+  ],
+  "protectedFilesRechecked": 1562
+}

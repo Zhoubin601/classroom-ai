@@ -1,0 +1,10 @@
+[
+  {
+    "exitCode": 1,
+    "suite": "camera-micro-browser"
+  },
+  {
+    "exitCode": 0,
+    "suite": "verify-fixes"
+  }
+]

@@ -1,0 +1,31 @@
+const fs=require('node:fs'),path=require('node:path');
+const {chromium}=require('C:/Users/a3185/.vscode/extensions/vscjava.migrate-java-to-azure-1.24.0-win32-x64/node_modules/playwright');
+const dir=path.join(__dirname,'20261009-ui-review-evidence-v1'),results=[];
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+try{const ctx=await browser.newContext({viewport:{width:1440,height:900},timezoneId:'Asia/Shanghai'});
+await ctx.route('**/api/**',async route=>{const r=route.request();if(['GET','HEAD','OPTIONS'].includes(r.method())||/\/auth\/(login|logout)$/.test(new URL(r.url()).pathname))return route.continue();results.push({name:'blocked-business-write',method:r.method(),path:new URL(r.url()).pathname});return route.abort('blockedbyclient');});
+const page=await ctx.newPage();page.setDefaultTimeout(10000);page.on('dialog',async d=>{results.push({name:'native-dialog',type:d.type()});await d.dismiss();});
+await page.goto('http://127.0.0.1:5173');
+async function login(username){await page.locator('input[autocomplete="username"]').fill(username);const el=page.locator('input[autocomplete="current-password"]'),hint=await el.getAttribute('placeholder');const credential=process.env.UI_DEMO_PASSWORD||hint?.match(/默认\s+(\S+)\)/)?.[1];if(!credential)throw Error('缺少演示凭据');await el.fill(credential);await page.getByRole('button',{name:'立即验证并登录',exact:true}).click();await page.getByRole('button',{name:'退出登录',exact:true}).waitFor();await page.waitForTimeout(700);}
+await login('director');
+results.push({name:'table-action-size',...await page.getByRole('button',{name:'大纲',exact:true}).first().evaluate(e=>{const r=e.getBoundingClientRect();return {width:r.width,height:r.height,fontSize:getComputedStyle(e).fontSize};})});
+await page.getByRole('button',{name:'新增专业课程档案',exact:true}).click();await page.waitForTimeout(300);await page.keyboard.press('Tab');
+results.push({name:'modal-tab-leaves-background',...await page.locator('div.fixed.inset-0').last().evaluate(e=>({inside:e.contains(document.activeElement),focusTag:document.activeElement.tagName,focusText:document.activeElement.textContent.trim().slice(0,30)}))});
+await page.setViewportSize({width:375,height:812});await page.evaluate(()=>scrollTo(0,0));await page.waitForTimeout(300);await page.screenshot({path:path.join(dir,'director-modal-375.png')});
+await page.setViewportSize({width:1440,height:900});await page.getByRole('button',{name:'取消',exact:true}).last().click();
+await page.route('**/api/v1/courses?*',route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({code:503,message:'UI review synthetic read failure'})}));
+await page.route('**/api/v1/courses',route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({code:503,message:'UI review synthetic read failure'})}));
+await page.reload();await page.getByRole('button',{name:'退出登录',exact:true}).waitFor();await page.waitForTimeout(900);
+results.push({name:'courses-simulated-503',emptyShown:await page.getByText('未找到符合条件的课程档案',{exact:true}).count(),visibleAlerts:await page.getByRole('alert').count(),retryButtons:await page.getByRole('button',{name:/重试/}).count()});
+await page.unroute('**/api/v1/courses?*');await page.unroute('**/api/v1/courses');
+await page.getByRole('button',{name:'退出登录',exact:true}).click();await login('guojun');
+const subtitle=page.getByText('历年开课班次快照归档与教学规模人次核算看板',{exact:true});
+results.push({name:'history-subtitle-color',...await subtitle.evaluate(e=>({foreground:getComputedStyle(e).color,background:getComputedStyle(e.closest('section')).backgroundColor,fontSize:getComputedStyle(e).fontSize}))});
+const actualIntro=page.getByPlaceholder('请输入课程背景、学科定位、主要授课内容概括...');
+await actualIntro.fill('UI_REVIEW_UNSAVED_LOCAL_ONLY');await page.getByRole('button',{name:'课堂智能考勤大屏',exact:true}).click();await page.waitForTimeout(400);await page.getByRole('button',{name:'任课教师工作台',exact:true}).click();await actualIntro.waitFor();await page.waitForTimeout(700);
+results.push({name:'unsaved-course-intro-switch',retained:(await actualIntro.inputValue())==='UI_REVIEW_UNSAVED_LOCAL_ONLY',navigationPromptShown:results.some(x=>x.name==='native-dialog')});
+await page.getByRole('button',{name:'上传新课件/教案',exact:true}).click();await page.waitForTimeout(300);
+const zone=page.locator('div.border-dashed').last();results.push({name:'upload-dropzone-semantics',...await zone.evaluate(e=>({tag:e.tagName,tabIndex:e.tabIndex,role:e.getAttribute('role'),hiddenFileInput:getComputedStyle(e.previousElementSibling).display}))});
+await page.getByRole('button',{name:'取消',exact:true}).last().click();await page.getByRole('button',{name:'退出登录',exact:true}).click();
+}catch(e){results.push({name:'supplement-error',message:e.message});process.exitCode=1;}
+finally{fs.writeFileSync(path.join(dir,'supplement.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(results));await browser.close();}})();

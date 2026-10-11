@@ -1,0 +1,11 @@
+{
+  "head": "7464f9cf5875ec3e416d313e11c9838f5a2bec15",
+  "permission_operations": 38,
+  "backend_annotation_entries": 97,
+  "local_plugin_entries": 8,
+  "entities": 24,
+  "source_locations": 57,
+  "all_matrix_routes_exist": true,
+  "source_markers_exist": true,
+  "scope": "源码核对；非运行测试"
+}
