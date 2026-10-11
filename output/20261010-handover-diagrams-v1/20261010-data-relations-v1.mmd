@@ -1,0 +1,38 @@
+%% 2026-10-10 / fix-exp3 / 7464f9c / v1
+%% 源码实体关系摘要：实线为 JPA 关联，虚线为 ID / 编码 / 版本逻辑关联。
+flowchart TB
+  M["专业 Major<br/>t_major / 牵头 department"]
+  MD["参与教研室关联<br/>t_major_department"]
+  PL["培养方案示例指标目录<br/>t_training_indicator<br/>majorCode + planVersion"]
+  C["课程档案 Course<br/>t_course / department"]
+  CR["教学内容修订<br/>t_course_content_revision"]
+  SY["大纲版本<br/>t_course_syllabus<br/>version / planVersion"]
+  GI["课程指标映射<br/>t_graduation_indicator<br/>course_id / syllabus_id"]
+  RE["教学课件<br/>t_course_resource<br/>course_id"]
+  MI["微格切片 / 上传视频<br/>t_micro_teaching_slice<br/>course_id / sliceUrl"]
+  O["开课班次<br/>t_course_offering<br/>course_id / 学期 / 主讲"]
+  OT["班次教师关联<br/>t_course_offering_teacher<br/>offeringId / teacherId"]
+  EN["班次选课名单<br/>t_offering_student_enrollment<br/>offeringId / studentNumber"]
+  SC["排课时段<br/>t_course_schedule / offering_id"]
+  AT["考勤会话<br/>t_attendance_session / offering_id"]
+  EV["督导评价<br/>t_supervision_evaluation<br/>offering_id"]
+  AU["评价审核日志<br/>t_evaluation_audit_log<br/>evaluationId"]
+  NOTE["模型边界<br/>标量ID/编码关系不等于已核验的数据库外键。<br/>student、face_feature、classroom_record等见完整实体索引。"]
+  M -->|"major_id"| MD
+  M -.->|"majorCode"| PL
+  M -.->|"majorId / majorCode"| C
+  C -.->|"courseId"| CR
+  C -->|"course_id"| SY
+  PL -.->|"按专业与方案版本匹配"| SY
+  SY -->|"syllabus_id"| GI
+  C -->|"course_id"| GI
+  C -->|"course_id"| RE
+  C -->|"course_id"| MI
+  C -->|"course_id"| O
+  O -.->|"offeringId"| OT
+  O -.->|"offeringId"| EN
+  O -->|"offering_id"| SC
+  O -->|"offering_id"| AT
+  O -->|"offering_id"| EV
+  EV -.->|"evaluationId"| AU
+%% 来源：course/entity；resource/entity；supervision/entity；attendance/entity；代码实体索引CSV

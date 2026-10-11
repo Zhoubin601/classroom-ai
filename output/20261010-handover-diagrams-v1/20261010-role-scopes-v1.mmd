@@ -1,0 +1,23 @@
+%% 2026-10-10 / fix-exp3 / 7464f9c / v1
+%% 权限由角色 + 操作 + 数据范围 + 状态共同决定；完整细节见权限矩阵。
+flowchart TB
+  D["教研室主任 / DIRECTOR"]
+  DS["数据范围<br/>账号 department 对应本室<br/>牵头 / 显式参与专业管理范围"]
+  DW["关键操作<br/>课程建档、班次排课与名单<br/>大纲锁定 / 本室评价审核<br/>微格与课件维护<br/>学生底库 / 质量CSV全量Demo"]
+  T["任课教师 / TEACHER"]
+  TS["数据范围<br/>主讲工号或协同教师关联<br/>班次可读不自动扩到其他班次"]
+  TW["关键操作<br/>教学内容草稿与正式发布<br/>本人课程大纲、课件与微格<br/>同室共享课件可预览<br/>原文件下载仍要求课程写权"]
+  S["教学督导 / SUPERVISOR"]
+  SS["数据范围<br/>authorizedMajors 授权专业<br/>缺专业 / 无授权默认拒绝"]
+  SW["关键操作<br/>课程、大纲、资源只读审查<br/>授权班次评价暂存与提交<br/>微格视频授权预览<br/>不能维护课程、课件与微格"]
+  A["三角色共同：可读且未冻结的班次，允许开启 / 更新 / 结束考勤<br/>结束单次考勤 ≠ 主任结课归档；督导的“课程只读”不等于所有业务只读。"]
+  D --> DS
+  DS --> DW
+  DW --> A
+  T --> TS
+  TS --> TW
+  TW --> A
+  S --> SS
+  SS --> SW
+  SW --> A
+%% 来源：SecurityConfig；CourseAuthorizationService；ResourceAccessService；AttendanceAccessService

@@ -1,0 +1,15 @@
+%% 2026-10-10 / fix-exp3 / 7464f9c / v1
+%% 按 SupervisionServiceImpl 实际状态转换绘制；反馈延迟默认 24 小时、可配置。
+flowchart TB
+  D["DRAFT / 草稿<br/>督导暂存 / 可编辑删除"]
+  P["PENDING_REVIEW<br/>待主任审核"]
+  R["REJECTED / 退回<br/>本人可修改、重提或删除"]
+  A["APPROVED_PENDING<br/>审核通过 / 设置发布时间"]
+  F["PUBLISHED / 已发布<br/>教师读取匿名反馈"]
+  NOTE["审核通过、计入覆盖、教师可见是不同条件<br/>覆盖率可计入审核通过待发布评价；教师反馈只读PUBLISHED；当前没有独立定时发布调度器。"]
+  D -->|"督导正式提交"| P
+  P -->|"主任通过"| A
+  P -->|"主任驳回"| R
+  R -->|"修改并重提"| P
+  A -->|"到期后读取刷新"| F
+%% 来源：SupervisionServiceImpl；SupervisionController；application.yml

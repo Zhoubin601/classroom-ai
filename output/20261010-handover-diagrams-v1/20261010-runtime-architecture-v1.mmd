@@ -1,0 +1,25 @@
+%% 2026-10-10 / fix-exp3 / 7464f9c / v1
+%% 默认 Windows 本机 Vite + Python，Docker Compose 运行 Java / MySQL / Redis。
+flowchart TB
+  U["浏览器 / 三个角色<br/>JWT Bearer 认证请求"]
+  F["Vue / Vite · 5173<br/>业务 API 与静态照片代理<br/>本地设备入口在插件中<br/>静态 dist 不提供设备启停"]
+  L["本地摄像头插件<br/>身份 / 班次 / 活动会话核验<br/>单个监控进程的生命周期"]
+  P["Python 视觉 · 8088<br/>InsightFace / 认证传输<br/>按班次加载人脸上下文"]
+  CAM["摄像头与模型环境<br/>原生设备 / CUDA 与模型缓存"]
+  B["Spring Boot · 8080<br/>Java21 / 业务权限 / 文件接口<br/>数据库重载账号授权"]
+  DB["MySQL8.0<br/>宿主3308 → 3306"]
+  R["Redis7.2<br/>6379 / AOF"]
+  O["LibreOffice / 镜像内部<br/>Office 转 PDF，不是独立服务"]
+  FILES["runtime/uploads<br/>faces / resources / micro"]
+  U -->|"页面与请求"| F
+  F -->|"业务 API 代理"| B
+  F -->|"本地设备入口"| L
+  L -->|"启动 / 停止"| P
+  P -->|"认证上下文 / 指标上报"| B
+  P -->|"视频流经插件代理"| F
+  CAM -->|"画面与推理"| P
+  B --> DB
+  B --> R
+  B -->|"文件转换"| O
+  B -->|"数据库元数据与本地文件分别交接"| FILES
+%% 来源：Vite配置与camera-plugin；Compose；backend/Dockerfile；视觉传输

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1410" viewBox="0 0 1900 1410" role="img" aria-labelledby="data-relations-title data-relations-desc">
+<title id="data-relations-title">04 / 核心数据关系</title>
+<desc id="data-relations-desc">源码实体关系摘要：实线为 JPA 关联，虚线为 ID / 编码 / 版本逻辑关联。</desc>
+<defs><marker id="data-relations-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1900" height="1410" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">04 / 核心数据关系</text>
+<text class="sub" x="65" y="106">源码实体关系摘要：实线为 JPA 关联，虚线为 ID / 编码 / 版本逻辑关联。</text>
+<polyline points="225,275 225,355" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="310" y="318">major_id</text>
+<polyline points="390,235 540,235" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="465" y="215">majorCode</text>
+<polyline points="225,165 225,135 1245,135 1245,165" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1430,220 1510,220" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1245,275 1245,445" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="1320" y="355">course_id</text>
+<polyline points="755,305 755,355 1000,355 1000,510 1040,510" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="815" y="338">按专业与方案版本匹配</text>
+<polyline points="1040,525 950,525" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1130,275 1130,310 980,310 980,475 950,475" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1430,250 1465,250 1465,510 1510,510" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1405,275 1438,275 1438,730 1510,730" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1060,260 1020,260 1020,955 1040,955" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1040,960 950,960" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1245,1025 1245,1080 260,1080 260,1025" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="650" y="1060">offeringId</text>
+<polyline points="1060,1025 1000,1025 1000,1110 260,1110 260,1145" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1140,1025 1140,1050 755,1050 755,1145" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1320,1025 1320,1145" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="1410" y="1100">offering_id</text>
+<polyline points="1400,1215 1510,1215" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<g data-node="M" data-x="60" data-y="165" data-w="330" data-h="110">
+<rect x="60" y="165" width="330" height="110" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="203">专业 Major</text>
+<text class="node-line" x="82" y="237">t_major / 牵头 department</text>
+</g>
+<g data-node="MD" data-x="60" data-y="355" data-w="330" data-h="110">
+<rect x="60" y="355" width="330" height="110" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="393">参与教研室关联</text>
+<text class="node-line" x="82" y="427">t_major_department</text>
+</g>
+<g data-node="PL" data-x="540" data-y="165" data-w="430" data-h="140">
+<rect x="540" y="165" width="430" height="140" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="562" y="203">培养方案示例指标目录</text>
+<text class="node-line" x="562" y="237">t_training_indicator</text>
+<text class="node-line" x="562" y="268">majorCode + planVersion</text>
+</g>
+<g data-node="C" data-x="1060" data-y="165" data-w="370" data-h="110">
+<rect x="1060" y="165" width="370" height="110" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="203">课程档案 Course</text>
+<text class="node-line" x="1082" y="237">t_course / department</text>
+</g>
+<g data-node="CR" data-x="1510" data-y="165" data-w="330" data-h="110">
+<rect x="1510" y="165" width="330" height="110" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="203">教学内容修订</text>
+<text class="node-line" x="1532" y="237">t_course_content_revision</text>
+</g>
+<g data-node="SY" data-x="1040" data-y="445" data-w="360" data-h="130">
+<rect x="1040" y="445" width="360" height="130" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1062" y="483">大纲版本</text>
+<text class="node-line" x="1062" y="517">t_course_syllabus</text>
+<text class="node-line" x="1062" y="548">version / planVersion</text>
+</g>
+<g data-node="GI" data-x="560" data-y="445" data-w="390" data-h="130">
+<rect x="560" y="445" width="390" height="130" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="483">课程指标映射</text>
+<text class="node-line" x="582" y="517">t_graduation_indicator</text>
+<text class="node-line" x="582" y="548">course_id / syllabus_id</text>
+</g>
+<g data-node="RE" data-x="1510" data-y="445" data-w="330" data-h="130">
+<rect x="1510" y="445" width="330" height="130" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="483">教学课件</text>
+<text class="node-line" x="1532" y="517">t_course_resource</text>
+<text class="node-line" x="1532" y="548">course_id</text>
+</g>
+<g data-node="MI" data-x="1510" data-y="665" data-w="330" data-h="130">
+<rect x="1510" y="665" width="330" height="130" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="703">微格切片 / 上传视频</text>
+<text class="node-line" x="1532" y="737">t_micro_teaching_slice</text>
+<text class="node-line" x="1532" y="768">course_id / sliceUrl</text>
+</g>
+<g data-node="O" data-x="1040" data-y="885" data-w="360" data-h="140">
+<rect x="1040" y="885" width="360" height="140" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1062" y="923">开课班次</text>
+<text class="node-line" x="1062" y="957">t_course_offering</text>
+<text class="node-line" x="1062" y="988">course_id / 学期 / 主讲</text>
+</g>
+<g data-node="OT" data-x="560" data-y="885" data-w="390" data-h="140">
+<rect x="560" y="885" width="390" height="140" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="582" y="923">班次教师关联</text>
+<text class="node-line" x="582" y="957">t_course_offering_teacher</text>
+<text class="node-line" x="582" y="988">offeringId / teacherId</text>
+</g>
+<g data-node="EN" data-x="60" data-y="885" data-w="400" data-h="140">
+<rect x="60" y="885" width="400" height="140" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="82" y="923">班次选课名单</text>
+<text class="node-line" x="82" y="957">t_offering_student_enrollment</text>
+<text class="node-line" x="82" y="988">offeringId / studentNumber</text>
+</g>
+<g data-node="SC" data-x="60" data-y="1145" data-w="400" data-h="120">
+<rect x="60" y="1145" width="400" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="82" y="1183">排课时段</text>
+<text class="node-line" x="82" y="1217">t_course_schedule / offering_id</text>
+</g>
+<g data-node="AT" data-x="560" data-y="1145" data-w="390" data-h="120">
+<rect x="560" y="1145" width="390" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="1183">考勤会话</text>
+<text class="node-line" x="582" y="1217">t_attendance_session / offering_id</text>
+</g>
+<g data-node="EV" data-x="1040" data-y="1145" data-w="360" data-h="120">
+<rect x="1040" y="1145" width="360" height="120" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1062" y="1183">督导评价</text>
+<text class="node-line" x="1062" y="1217">t_supervision_evaluation</text>
+<text class="node-line" x="1062" y="1248">offering_id</text>
+</g>
+<g data-node="AU" data-x="1510" data-y="1145" data-w="330" data-h="120">
+<rect x="1510" y="1145" width="330" height="120" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="1183">评价审核日志</text>
+<text class="node-line" x="1532" y="1217">t_evaluation_audit_log</text>
+<text class="node-line" x="1532" y="1248">evaluationId</text>
+</g>
+<g data-node="NOTE" data-x="60" data-y="665" data-w="850" data-h="125">
+<rect x="60" y="665" width="850" height="125" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="82" y="703">模型边界</text>
+<text class="node-line" x="82" y="737">标量ID/编码关系不等于已核验的数据库外键。</text>
+<text class="node-line" x="82" y="768">student、face_feature、classroom_record等见完整实体索引。</text>
+</g>
+<line x1="60" y1="1336" x2="1840" y2="1336" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="1366">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：course/entity；resource/entity；supervision/entity；attendance/entity；代码实体索引CSV</text>
+</svg>

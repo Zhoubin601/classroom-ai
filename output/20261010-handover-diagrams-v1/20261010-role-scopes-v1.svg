@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1030" viewBox="0 0 1560 1030" role="img" aria-labelledby="role-scopes-title role-scopes-desc">
+<title id="role-scopes-title">03 / 角色、数据范围与关键操作</title>
+<desc id="role-scopes-desc">权限由角色 + 操作 + 数据范围 + 状态共同决定；完整细节见权限矩阵。</desc>
+<defs><marker id="role-scopes-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1560" height="1030" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">03 / 角色、数据范围与关键操作</text>
+<text class="sub" x="65" y="106">权限由角色 + 操作 + 数据范围 + 状态共同决定；完整细节见权限矩阵。</text>
+<polyline points="280,250 280,325" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="280,470 280,545" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="280,775 280,855" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="780,250 780,325" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="780,470 780,545" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="780,775 780,855" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="1280,250 1280,325" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="1280,470 1280,545" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="1280,775 1280,855" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<g data-node="D" data-x="60" data-y="160" data-w="440" data-h="90">
+<rect x="60" y="160" width="440" height="90" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="198">教研室主任 / DIRECTOR</text>
+</g>
+<g data-node="DS" data-x="60" data-y="325" data-w="440" data-h="145">
+<rect x="60" y="325" width="440" height="145" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="363">数据范围</text>
+<text class="node-line" x="82" y="397">账号 department 对应本室</text>
+<text class="node-line" x="82" y="428">牵头 / 显式参与专业管理范围</text>
+</g>
+<g data-node="DW" data-x="60" data-y="545" data-w="440" data-h="230">
+<rect x="60" y="545" width="440" height="230" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="583">关键操作</text>
+<text class="node-line" x="82" y="617">课程建档、班次排课与名单</text>
+<text class="node-line" x="82" y="648">大纲锁定 / 本室评价审核</text>
+<text class="node-line" x="82" y="679">微格与课件维护</text>
+<text class="node-line" x="82" y="710">学生底库 / 质量CSV全量Demo</text>
+</g>
+<g data-node="T" data-x="560" data-y="160" data-w="440" data-h="90">
+<rect x="560" y="160" width="440" height="90" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="198">任课教师 / TEACHER</text>
+</g>
+<g data-node="TS" data-x="560" data-y="325" data-w="440" data-h="145">
+<rect x="560" y="325" width="440" height="145" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="363">数据范围</text>
+<text class="node-line" x="582" y="397">主讲工号或协同教师关联</text>
+<text class="node-line" x="582" y="428">班次可读不自动扩到其他班次</text>
+</g>
+<g data-node="TW" data-x="560" data-y="545" data-w="440" data-h="230">
+<rect x="560" y="545" width="440" height="230" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="583">关键操作</text>
+<text class="node-line" x="582" y="617">教学内容草稿与正式发布</text>
+<text class="node-line" x="582" y="648">本人课程大纲、课件与微格</text>
+<text class="node-line" x="582" y="679">同室共享课件可预览</text>
+<text class="node-line" x="582" y="710">原文件下载仍要求课程写权</text>
+</g>
+<g data-node="S" data-x="1060" data-y="160" data-w="440" data-h="90">
+<rect x="1060" y="160" width="440" height="90" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="198">教学督导 / SUPERVISOR</text>
+</g>
+<g data-node="SS" data-x="1060" data-y="325" data-w="440" data-h="145">
+<rect x="1060" y="325" width="440" height="145" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="363">数据范围</text>
+<text class="node-line" x="1082" y="397">authorizedMajors 授权专业</text>
+<text class="node-line" x="1082" y="428">缺专业 / 无授权默认拒绝</text>
+</g>
+<g data-node="SW" data-x="1060" data-y="545" data-w="440" data-h="230">
+<rect x="1060" y="545" width="440" height="230" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="583">关键操作</text>
+<text class="node-line" x="1082" y="617">课程、大纲、资源只读审查</text>
+<text class="node-line" x="1082" y="648">授权班次评价暂存与提交</text>
+<text class="node-line" x="1082" y="679">微格视频授权预览</text>
+<text class="node-line" x="1082" y="710">不能维护课程、课件与微格</text>
+</g>
+<g data-node="A" data-x="60" data-y="855" data-w="1440" data-h="100">
+<rect x="60" y="855" width="1440" height="100" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="82" y="893">三角色共同：可读且未冻结的班次，允许开启 / 更新 / 结束考勤</text>
+<text class="node-line" x="82" y="927">结束单次考勤 ≠ 主任结课归档；督导的“课程只读”不等于所有业务只读。</text>
+</g>
+<line x1="60" y1="956" x2="1500" y2="956" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="986">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：SecurityConfig；CourseAuthorizationService；ResourceAccessService；AttendanceAccessService</text>
+</svg>

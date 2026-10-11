@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="940" viewBox="0 0 1560 940" role="img" aria-labelledby="business-overview-title business-overview-desc">
+<title id="business-overview-title">01 / 业务全景</title>
+<desc id="business-overview-desc">按当前页面与业务实现整理；教学 Demo，不代表学校正式制度。</desc>
+<defs><marker id="business-overview-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1560" height="940" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">01 / 业务全景</text>
+<text class="sub" x="65" y="106">按当前页面与业务实现整理；教学 Demo，不代表学校正式制度。</text>
+<polyline points="780,265 780,320 220,320 220,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<polyline points="780,265 780,320 590,320 590,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<polyline points="780,265 780,320 960,320 960,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<polyline points="780,265 780,320 1330,320 1330,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<g data-node="P" data-x="480" data-y="155" data-w="600" data-h="110">
+<rect x="480" y="155" width="600" height="110" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="502" y="193">爱教学 / Classroom AI Demo</text>
+<text class="node-line" x="502" y="227">三个业务角色 · 课程档案与开课班次</text>
+</g>
+<g data-node="C" data-x="60" data-y="375" data-w="320" data-h="260">
+<rect x="60" y="375" width="320" height="260" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="413">课程与开课管理</text>
+<text class="node-line" x="82" y="447">课程建档与 CSV 导入</text>
+<text class="node-line" x="82" y="478">主讲 / 协同教师与选课名单</text>
+<text class="node-line" x="82" y="509">排课时段和冲突检查</text>
+<text class="node-line" x="82" y="540">结课快照与历史统计</text>
+</g>
+<g data-node="T" data-x="430" data-y="375" data-w="320" data-h="260">
+<rect x="430" y="375" width="320" height="260" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="452" y="413">教学内容与资源</text>
+<text class="node-line" x="452" y="447">内容草稿 / 正式发布</text>
+<text class="node-line" x="452" y="478">目录版本 / 大纲指标映射</text>
+<text class="node-line" x="452" y="509">课件标签与同室共享</text>
+<text class="node-line" x="452" y="540">授权水印预览与访问日志</text>
+</g>
+<g data-node="Q" data-x="800" data-y="375" data-w="320" data-h="260">
+<rect x="800" y="375" width="320" height="260" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="822" y="413">督导评价与质量</text>
+<text class="node-line" x="822" y="447">授权专业组合检索</text>
+<text class="node-line" x="822" y="478">评价暂存 / 提交 / 主任审核</text>
+<text class="node-line" x="822" y="509">延迟匿名反馈与雷达</text>
+<text class="node-line" x="822" y="540">学期覆盖率与评价明细</text>
+</g>
+<g data-node="V" data-x="1170" data-y="375" data-w="320" data-h="260">
+<rect x="1170" y="375" width="320" height="260" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="1192" y="413">课堂辅助</text>
+<text class="node-line" x="1192" y="447">班次摄像头与考勤会话</text>
+<text class="node-line" x="1192" y="478">人脸 / 姿态与实时指标</text>
+<text class="node-line" x="1192" y="509">单次考勤结束与归档</text>
+<text class="node-line" x="1192" y="540">微格上传 / 挂载 / 播放</text>
+</g>
+<g data-node="NOTE" data-x="60" data-y="735" data-w="1440" data-h="100">
+<rect x="60" y="735" width="1440" height="100" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="82" y="773">阅读顺序：业务 → 运行 → 权限 → 数据 → 状态</text>
+<text class="node-line" x="82" y="807">功能入口、数据范围、业务状态分别核对；软件验收记录与正式批准证据分别说明。</text>
+</g>
+<line x1="60" y1="866" x2="1500" y2="866" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="896">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：App.vue；course / resource / supervision / attendance；视觉控制器</text>
+</svg>

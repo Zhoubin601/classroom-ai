@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="1130" viewBox="0 0 1640 1130" role="img" aria-labelledby="runtime-architecture-title runtime-architecture-desc">
+<title id="runtime-architecture-title">02 / 技术与本机运行结构</title>
+<desc id="runtime-architecture-desc">默认 Windows 本机 Vite + Python，Docker Compose 运行 Java / MySQL / Redis。</desc>
+<defs><marker id="runtime-architecture-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1640" height="1130" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">02 / 技术与本机运行结构</text>
+<text class="sub" x="65" y="106">默认 Windows 本机 Vite + Python，Docker Compose 运行 Java / MySQL / Redis。</text>
+<rect x="1070" y="290" width="500" height="650" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+<text class="group-label" x="1092" y="322">Docker Compose / 本机 Docker</text>
+<polyline points="560,205 250,205 250,340" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="390" y="190">页面与请求</text>
+<polyline points="430,420 1110,420" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="740" y="403">业务 API 代理</text>
+<polyline points="250,520 250,620" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="330" y="565">本地设备入口</text>
+<polyline points="430,695 620,695" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="525" y="674">启动 / 停止</text>
+<polyline points="1000,700 1035,700 1035,450 1110,450" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="825" y="500">认证上下文 / 指标上报</text>
+<polyline points="810,620 810,565 460,565 460,490 430,490" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="650" y="549">视频流经插件代理</text>
+<polyline points="810,850 810,770" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="897" y="814">画面与推理</text>
+<polyline points="1210,495 1210,560" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<polyline points="1415,495 1440,530 1440,560" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<polyline points="1510,460 1552,460 1552,732 1310,732 1310,780" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="1390" y="720">文件转换</text>
+<polyline points="1110,480 1025,480 1025,995 260,995 260,970" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="630" y="1022">数据库元数据与本地文件分别交接</text>
+<g data-node="U" data-x="560" data-y="155" data-w="450" data-h="100">
+<rect x="560" y="155" width="450" height="100" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="582" y="193">浏览器 / 三个角色</text>
+<text class="node-line" x="582" y="227">JWT Bearer 认证请求</text>
+</g>
+<g data-node="F" data-x="70" data-y="340" data-w="360" data-h="180">
+<rect x="70" y="340" width="360" height="180" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="92" y="378">Vue / Vite · 5173</text>
+<text class="node-line" x="92" y="412">业务 API 与静态照片代理</text>
+<text class="node-line" x="92" y="443">本地设备入口在插件中</text>
+<text class="node-line" x="92" y="474">静态 dist 不提供设备启停</text>
+</g>
+<g data-node="L" data-x="70" data-y="620" data-w="360" data-h="150">
+<rect x="70" y="620" width="360" height="150" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="92" y="658">本地摄像头插件</text>
+<text class="node-line" x="92" y="692">身份 / 班次 / 活动会话核验</text>
+<text class="node-line" x="92" y="723">单个监控进程的生命周期</text>
+</g>
+<g data-node="P" data-x="620" data-y="620" data-w="380" data-h="150">
+<rect x="620" y="620" width="380" height="150" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="642" y="658">Python 视觉 · 8088</text>
+<text class="node-line" x="642" y="692">InsightFace / 认证传输</text>
+<text class="node-line" x="642" y="723">按班次加载人脸上下文</text>
+</g>
+<g data-node="CAM" data-x="620" data-y="850" data-w="380" data-h="120">
+<rect x="620" y="850" width="380" height="120" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="642" y="888">摄像头与模型环境</text>
+<text class="node-line" x="642" y="922">原生设备 / CUDA 与模型缓存</text>
+</g>
+<g data-node="B" data-x="1110" data-y="355" data-w="400" data-h="140">
+<rect x="1110" y="355" width="400" height="140" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1132" y="393">Spring Boot · 8080</text>
+<text class="node-line" x="1132" y="427">Java21 / 业务权限 / 文件接口</text>
+<text class="node-line" x="1132" y="458">数据库重载账号授权</text>
+</g>
+<g data-node="DB" data-x="1100" data-y="560" data-w="220" data-h="120">
+<rect x="1100" y="560" width="220" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1122" y="598">MySQL8.0</text>
+<text class="node-line" x="1122" y="632">宿主3308 → 3306</text>
+</g>
+<g data-node="R" data-x="1340" data-y="560" data-w="200" data-h="120">
+<rect x="1340" y="560" width="200" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1362" y="598">Redis7.2</text>
+<text class="node-line" x="1362" y="632">6379 / AOF</text>
+</g>
+<g data-node="O" data-x="1110" data-y="780" data-w="400" data-h="110">
+<rect x="1110" y="780" width="400" height="110" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="1132" y="818">LibreOffice / 镜像内部</text>
+<text class="node-line" x="1132" y="852">Office 转 PDF，不是独立服务</text>
+</g>
+<g data-node="FILES" data-x="70" data-y="860" data-w="380" data-h="110">
+<rect x="70" y="860" width="380" height="110" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="92" y="898">runtime/uploads</text>
+<text class="node-line" x="92" y="932">faces / resources / micro</text>
+</g>
+<line x1="60" y1="1056" x2="1580" y2="1056" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="1086">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：Vite配置与camera-plugin；Compose；backend/Dockerfile；视觉传输</text>
+</svg>

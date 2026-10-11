@@ -1,0 +1,676 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>爱教学｜开发维护交接材料</title><style>
+:root{--ink:#1e293b;--muted:#475569;--line:#e2e8f0;--paper:#fff;--bg:#f8fafc;--blue:#2563eb}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 "Microsoft YaHei","PingFang SC",system-ui,sans-serif}a{color:#1d4ed8;text-underline-offset:4px}a:hover{color:#1e40af}a:focus-visible,input:focus-visible,button:focus-visible,.table-wrap:focus-visible{outline:3px solid #2563eb;outline-offset:4px}.skip{position:fixed;left:20px;top:-80px;z-index:20;background:#fff;padding:12px}.skip:focus{top:12px}aside{position:fixed;inset:0 auto 0 0;width:250px;padding:28px 22px;border-right:1px solid var(--line);overflow:auto;background:#fff}.brand{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px}.meta{font-size:13px;line-height:1.7;color:var(--muted);word-break:break-all}.badge{display:inline-block;color:#1e40af;background:#eff6ff;border:1px solid #bfdbfe;padding:3px 9px;border-radius:6px;margin:14px 0 20px;font-size:12px}nav a{display:block;padding:10px 8px;border-radius:6px;text-decoration:none;font-size:14px;line-height:1.55;color:var(--muted)}nav a:hover{background:#eff6ff;color:#1d4ed8}main{margin-left:250px;padding:56px 44px 90px;max-width:1600px}.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px}.tools a,button{font:inherit;font-size:14px;display:inline-block;border:1px solid #cbd5e1;border-radius:7px;background:#fff;color:#334155;padding:8px 13px;text-decoration:none;cursor:pointer}h1{font-size:40px;line-height:1.35;letter-spacing:-1px;margin:0 0 16px}h2{font-size:26px;line-height:1.5;margin:0 0 20px;border-bottom:1px solid var(--line);padding-bottom:15px}section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:30px;margin:28px 0;scroll-margin-top:24px}p,ul{margin:15px 0}li{margin:9px 0}code{font:13px/1.7 Consolas,"Microsoft YaHei",monospace;background:#f1f5f9;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#0f172a;color:#e2e8f0;padding:20px;border-radius:8px;overflow:auto;line-height:1.7}pre code{color:inherit;background:none;padding:0;white-space:pre}.table-wrap{overflow:auto;max-width:100%;margin:22px 0;border:1px solid var(--line);border-radius:8px}table{border-collapse:collapse;width:100%;min-width:660px;font-size:14px;line-height:1.8}th,td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f1f5f9;font-weight:700;white-space:nowrap}tbody tr:nth-child(even){background:#fafcff}tbody tr:hover{background:#eff6ff}#permission-table{min-width:1150px}#permission-table td:first-child{min-width:185px}#permission-table td:nth-child(5){min-width:260px}#permission-table td:last-child{min-width:100px}tr[hidden]{display:none}figure{margin:24px 0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}figure svg{display:block;width:100%;height:auto}figcaption{padding:10px 18px;background:#f8fafc;font-size:13px;color:var(--muted)}.source-ref{white-space:nowrap;font-size:12px}label.filter{display:block;margin-top:20px;font-size:14px;font-weight:700}input[type=search]{display:block;width:100%;max-width:470px;min-height:44px;margin-top:9px;border:1px solid #94a3b8;border-radius:7px;padding:9px 13px;font:inherit;font-weight:400}#filter-result{font-size:13px;color:var(--muted)}footer{color:var(--muted);font-size:13px;margin:30px 0 0}@media(max-width:1000px){aside{position:static;width:auto;border-right:0;border-bottom:1px solid var(--line)}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}main{margin-left:0;padding:28px 20px 60px}}@media(max-width:600px){h1{font-size:28px}h2{font-size:21px}section{padding:18px;margin:20px 0}main{padding:25px 12px 50px}aside{padding:20px 14px}nav a{font-size:12px}body{font-size:15px}figure{border-radius:4px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}@media print{aside,.tools,.skip,label.filter,#filter-result{display:none}main{margin:0;padding:0;max-width:none}body{background:#fff;font-size:10pt}h1{font-size:22pt}h2{font-size:16pt}section{border:0;padding:0;margin:24px 0;break-before:auto}figure{break-inside:avoid}.table-wrap{overflow:visible;border:0}table,#permission-table{min-width:0;font-size:8pt}th,td{padding:5px;overflow-wrap:anywhere}pre{white-space:pre-wrap}a{color:inherit}section h2{break-after:avoid}}
+</style></head><body><a class="skip" href="#main">跳到正文</a><aside><div class="brand">爱教学 · 开发交接</div><div class="meta">Classroom AI Demo<br>2026-10-10 / v1<br>fix-exp3 / 7464f9c</div><span class="badge">当前源码核对版</span><nav aria-label="交接目录"><a href="#section-01">01 项目定位与交接基线</a><a href="#section-02">02 业务全景与现有页面</a><a href="#section-03">03 技术结构与本机部署</a><a href="#section-04">04 角色权限与接口依据</a><a href="#section-05">05 核心数据关系与统计口径</a><a href="#section-06">06 评价流程与版本状态</a><a href="#section-07">07 目录与维护入口</a><a href="#section-08">08 启动、数据恢复与接手验证</a><a href="#section-09">09 已有验证、限制与复核事项</a><a href="#section-10">10 来源与可编辑附件</a></nav></aside><main id="main"><div class="tools"><a href="20261010-developer-handover-v1.md">Markdown说明</a><a href="20261010-permission-matrix-v1.csv">权限CSV</a><a href="20261010-handover-diagrams-v1/20261010-runtime-architecture-v1.svg">架构原图</a><button type="button" onclick="window.print()">打印</button></div><h1>爱教学｜开发维护交接材料</h1>
+<p>2026-10-10 · 当前源码基线 fix-exp3 / 7464f9c · v1</p>
+<section id="section-01"><h2>01 项目定位与交接基线</h2>
+<p>“爱教学（Classroom AI Demo）”是面向教研室主任、任课教师和教学督导的教学管理与课堂辅助演示系统。项目围绕课程档案和学期内的开课班次，提供课程导入、排课和历史归档，教学内容草稿与发布，大纲指标映射，课件标签、共享和水印预览，督导评价审核、延迟匿名反馈与学期覆盖率统计，以及摄像头考勤和微格视频。前端采用 Vue 3 / TypeScript / Vite，后端采用 Java 21 / Spring Boot 3.3.4，Python 处理视觉和原生设备，MySQL、Redis 与本地文件承担不同的数据存储职责。<a class="source-ref" href="#S43">[S43]</a>、<a class="source-ref" href="#S42">[S42]</a>、<a class="source-ref" href="#S32">[S32]</a>、<a class="source-ref" href="#S35">[S35]</a>、<a class="source-ref" href="#S34">[S34]</a></p>
+<ul>
+<li>材料对象：接手开发与维护的人。范围：本轮当前本地工作区实现，非学校正式制度说明。</li>
+<li>版本：<code>fix-exp3</code>，<code>7464f9cf5875ec3e416d313e11c9838f5a2bec15</code>；核对日期 2026-10-10，Asia/Shanghai。</li>
+<li>既有推送记录记载该提交当时已同步远端，本轮未重新联网核验远端。<a class="source-ref" href="#S49">[S49]</a></li>
+<li>工作区存在既有过程文档修改与本地未跟踪材料；不能把 HEAD 当作全部本地资料的打包清单。本次建立源码指纹并在交付前比对。</li>
+<li>本轮重新核对源码、配置、实体和既有验收报告；未重跑业务测试、未操作摄像头、未重启日常服务，未验证当前运行 JAR/镜像与 HEAD 一致。</li>
+<li>当前为教学 Demo。已确认没有真实培养方案；合成指标只能作为示例，不作为正式认证或真实培养方案材料。负责人、交接验收日期、目标机器配置：资料未提供。</li>
+</ul>
+<p>本包包括说明、五张可阅读图示及其源文件、关键操作权限矩阵、接口/实体索引和源码依据索引；不包含应用源码副本、数据库、人脸向量、真人摄像头截图、模型或运行环境安装包。</p>
+</section>
+<section id="section-02"><h2>02 业务全景与现有页面</h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" width="1560" height="940" viewBox="0 0 1560 940" role="img" aria-labelledby="business-overview-title business-overview-desc">
+<title id="business-overview-title">01 / 业务全景</title>
+<desc id="business-overview-desc">按当前页面与业务实现整理；教学 Demo，不代表学校正式制度。</desc>
+<defs><marker id="business-overview-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1560" height="940" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">01 / 业务全景</text>
+<text class="sub" x="65" y="106">按当前页面与业务实现整理；教学 Demo，不代表学校正式制度。</text>
+<polyline points="780,265 780,320 220,320 220,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<polyline points="780,265 780,320 590,320 590,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<polyline points="780,265 780,320 960,320 960,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<polyline points="780,265 780,320 1330,320 1330,375" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#business-overview-arrow)"/>
+<g data-node="P" data-x="480" data-y="155" data-w="600" data-h="110">
+<rect x="480" y="155" width="600" height="110" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="502" y="193">爱教学 / Classroom AI Demo</text>
+<text class="node-line" x="502" y="227">三个业务角色 · 课程档案与开课班次</text>
+</g>
+<g data-node="C" data-x="60" data-y="375" data-w="320" data-h="260">
+<rect x="60" y="375" width="320" height="260" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="413">课程与开课管理</text>
+<text class="node-line" x="82" y="447">课程建档与 CSV 导入</text>
+<text class="node-line" x="82" y="478">主讲 / 协同教师与选课名单</text>
+<text class="node-line" x="82" y="509">排课时段和冲突检查</text>
+<text class="node-line" x="82" y="540">结课快照与历史统计</text>
+</g>
+<g data-node="T" data-x="430" data-y="375" data-w="320" data-h="260">
+<rect x="430" y="375" width="320" height="260" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="452" y="413">教学内容与资源</text>
+<text class="node-line" x="452" y="447">内容草稿 / 正式发布</text>
+<text class="node-line" x="452" y="478">目录版本 / 大纲指标映射</text>
+<text class="node-line" x="452" y="509">课件标签与同室共享</text>
+<text class="node-line" x="452" y="540">授权水印预览与访问日志</text>
+</g>
+<g data-node="Q" data-x="800" data-y="375" data-w="320" data-h="260">
+<rect x="800" y="375" width="320" height="260" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="822" y="413">督导评价与质量</text>
+<text class="node-line" x="822" y="447">授权专业组合检索</text>
+<text class="node-line" x="822" y="478">评价暂存 / 提交 / 主任审核</text>
+<text class="node-line" x="822" y="509">延迟匿名反馈与雷达</text>
+<text class="node-line" x="822" y="540">学期覆盖率与评价明细</text>
+</g>
+<g data-node="V" data-x="1170" data-y="375" data-w="320" data-h="260">
+<rect x="1170" y="375" width="320" height="260" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="1192" y="413">课堂辅助</text>
+<text class="node-line" x="1192" y="447">班次摄像头与考勤会话</text>
+<text class="node-line" x="1192" y="478">人脸 / 姿态与实时指标</text>
+<text class="node-line" x="1192" y="509">单次考勤结束与归档</text>
+<text class="node-line" x="1192" y="540">微格上传 / 挂载 / 播放</text>
+</g>
+<g data-node="NOTE" data-x="60" data-y="735" data-w="1440" data-h="100">
+<rect x="60" y="735" width="1440" height="100" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="82" y="773">阅读顺序：业务 → 运行 → 权限 → 数据 → 状态</text>
+<text class="node-line" x="82" y="807">功能入口、数据范围、业务状态分别核对；软件验收记录与正式批准证据分别说明。</text>
+</g>
+<line x1="60" y1="866" x2="1500" y2="866" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="896">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：App.vue；course / resource / supervision / attendance；视觉控制器</text>
+</svg><figcaption>业务全景图 · <a href="20261010-handover-diagrams-v1/20261010-business-overview-v1.svg">打开可缩放SVG</a></figcaption></figure>
+<p>当前顶层导航有六类入口：主任工作台、教师工作台、督导工作台、微格教学视频、课堂智能考勤大屏、学生人脸档案库。三角色各显示自己的工作台；微格和考勤共享入口；学生档案仅主任。前端以 <code>activeTab</code> 切换组件，不应描述为已经采用 Vue Router 的多路由应用。<a class="source-ref" href="#S32">[S32]</a></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="资料表格"><table><thead><tr><th scope="col">页面入口</th><th scope="col">主要实现文件</th><th scope="col">业务职责</th></tr></thead><tbody>
+<tr><td>主任工作台</td><td><code>frontend/src/views/DirectorDeskView.vue</code></td><td>课程建档/导入、班次/排课/名单、专业授权、大纲审查和评价审核</td></tr>
+<tr><td>教师工作台</td><td><code>frontend/src/views/TeacherDeskView.vue</code></td><td>本人课程内容发布、课件管理、大纲映射、历史和反馈</td></tr>
+<tr><td>督导工作台</td><td><code>frontend/src/views/SupervisorDeskView.vue</code></td><td>授权课程检索、资源审查、评价和统计</td></tr>
+<tr><td>考勤大屏</td><td><code>frontend/src/views/AttendanceDashboardView.vue</code></td><td>班次/会话选择、模拟或真实摄像头、实时状态和会话归档</td></tr>
+<tr><td>微格视频</td><td><code>frontend/src/views/MicroTeachingView.vue</code></td><td>环节筛选、外部地址挂载、平台视频上传和授权播放</td></tr>
+<tr><td>学生人脸档案</td><td><code>frontend/src/views/StudentManageView.vue</code></td><td>主任维护学生、照片与人脸特征</td></tr>
+</tbody></table></div>
+<p>页面入口与后端授权分别维护；能看到入口不等于能够操作任意数据。业务故事编号和软件验收范围见既有本日报告，不根据页面数量推算已完成故事数。<a class="source-ref" href="#S47">[S47]</a></p>
+</section>
+<section id="section-03"><h2>03 技术结构与本机部署</h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" width="1640" height="1130" viewBox="0 0 1640 1130" role="img" aria-labelledby="runtime-architecture-title runtime-architecture-desc">
+<title id="runtime-architecture-title">02 / 技术与本机运行结构</title>
+<desc id="runtime-architecture-desc">默认 Windows 本机 Vite + Python，Docker Compose 运行 Java / MySQL / Redis。</desc>
+<defs><marker id="runtime-architecture-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1640" height="1130" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">02 / 技术与本机运行结构</text>
+<text class="sub" x="65" y="106">默认 Windows 本机 Vite + Python，Docker Compose 运行 Java / MySQL / Redis。</text>
+<rect x="1070" y="290" width="500" height="650" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+<text class="group-label" x="1092" y="322">Docker Compose / 本机 Docker</text>
+<polyline points="560,205 250,205 250,340" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="390" y="190">页面与请求</text>
+<polyline points="430,420 1110,420" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="740" y="403">业务 API 代理</text>
+<polyline points="250,520 250,620" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="330" y="565">本地设备入口</text>
+<polyline points="430,695 620,695" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="525" y="674">启动 / 停止</text>
+<polyline points="1000,700 1035,700 1035,450 1110,450" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="825" y="500">认证上下文 / 指标上报</text>
+<polyline points="810,620 810,565 460,565 460,490 430,490" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="650" y="549">视频流经插件代理</text>
+<polyline points="810,850 810,770" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="897" y="814">画面与推理</text>
+<polyline points="1210,495 1210,560" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<polyline points="1415,495 1440,530 1440,560" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<polyline points="1510,460 1552,460 1552,732 1310,732 1310,780" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="1390" y="720">文件转换</text>
+<polyline points="1110,480 1025,480 1025,995 260,995 260,970" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#runtime-architecture-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="630" y="1022">数据库元数据与本地文件分别交接</text>
+<g data-node="U" data-x="560" data-y="155" data-w="450" data-h="100">
+<rect x="560" y="155" width="450" height="100" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="582" y="193">浏览器 / 三个角色</text>
+<text class="node-line" x="582" y="227">JWT Bearer 认证请求</text>
+</g>
+<g data-node="F" data-x="70" data-y="340" data-w="360" data-h="180">
+<rect x="70" y="340" width="360" height="180" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="92" y="378">Vue / Vite · 5173</text>
+<text class="node-line" x="92" y="412">业务 API 与静态照片代理</text>
+<text class="node-line" x="92" y="443">本地设备入口在插件中</text>
+<text class="node-line" x="92" y="474">静态 dist 不提供设备启停</text>
+</g>
+<g data-node="L" data-x="70" data-y="620" data-w="360" data-h="150">
+<rect x="70" y="620" width="360" height="150" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="92" y="658">本地摄像头插件</text>
+<text class="node-line" x="92" y="692">身份 / 班次 / 活动会话核验</text>
+<text class="node-line" x="92" y="723">单个监控进程的生命周期</text>
+</g>
+<g data-node="P" data-x="620" data-y="620" data-w="380" data-h="150">
+<rect x="620" y="620" width="380" height="150" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="642" y="658">Python 视觉 · 8088</text>
+<text class="node-line" x="642" y="692">InsightFace / 认证传输</text>
+<text class="node-line" x="642" y="723">按班次加载人脸上下文</text>
+</g>
+<g data-node="CAM" data-x="620" data-y="850" data-w="380" data-h="120">
+<rect x="620" y="850" width="380" height="120" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="642" y="888">摄像头与模型环境</text>
+<text class="node-line" x="642" y="922">原生设备 / CUDA 与模型缓存</text>
+</g>
+<g data-node="B" data-x="1110" data-y="355" data-w="400" data-h="140">
+<rect x="1110" y="355" width="400" height="140" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1132" y="393">Spring Boot · 8080</text>
+<text class="node-line" x="1132" y="427">Java21 / 业务权限 / 文件接口</text>
+<text class="node-line" x="1132" y="458">数据库重载账号授权</text>
+</g>
+<g data-node="DB" data-x="1100" data-y="560" data-w="220" data-h="120">
+<rect x="1100" y="560" width="220" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1122" y="598">MySQL8.0</text>
+<text class="node-line" x="1122" y="632">宿主3308 → 3306</text>
+</g>
+<g data-node="R" data-x="1340" data-y="560" data-w="200" data-h="120">
+<rect x="1340" y="560" width="200" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1362" y="598">Redis7.2</text>
+<text class="node-line" x="1362" y="632">6379 / AOF</text>
+</g>
+<g data-node="O" data-x="1110" data-y="780" data-w="400" data-h="110">
+<rect x="1110" y="780" width="400" height="110" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="1132" y="818">LibreOffice / 镜像内部</text>
+<text class="node-line" x="1132" y="852">Office 转 PDF，不是独立服务</text>
+</g>
+<g data-node="FILES" data-x="70" data-y="860" data-w="380" data-h="110">
+<rect x="70" y="860" width="380" height="110" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="92" y="898">runtime/uploads</text>
+<text class="node-line" x="92" y="932">faces / resources / micro</text>
+</g>
+<line x1="60" y1="1056" x2="1580" y2="1056" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="1086">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：Vite配置与camera-plugin；Compose；backend/Dockerfile；视觉传输</text>
+</svg><figcaption>技术运行结构图 · <a href="20261010-handover-diagrams-v1/20261010-runtime-architecture-v1.svg">打开可缩放SVG</a></figcaption></figure>
+<p>默认启动方式为 Windows 本机 Vite + Python 原生进程，以及 Docker Compose 中的后端、MySQL、Redis。LibreOffice 在后端镜像内，承担 Office 转 PDF，不是独立服务或微服务。<a class="source-ref" href="#S33">[S33]</a>、<a class="source-ref" href="#S34">[S34]</a>、<a class="source-ref" href="#S35">[S35]</a>、<a class="source-ref" href="#S44">[S44]</a></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="资料表格"><table><thead><tr><th scope="col">组件</th><th scope="col">默认位置/端口</th><th scope="col">说明与来源</th></tr></thead><tbody>
+<tr><td>Vue/Vite</td><td><code>127.0.0.1:5173</code></td><td>端口严格占用检查；业务代理默认8080 <a class="source-ref" href="#S33">[S33]</a></td></tr>
+<tr><td>Java业务后端</td><td>Docker发布 <code>8080</code></td><td>Java21、Spring Boot3.3.4 <a class="source-ref" href="#S35">[S35]</a>、<a class="source-ref" href="#S42">[S42]</a></td></tr>
+<tr><td>Python摄像头进程</td><td>本机 <code>8088</code></td><td>插件按需启动；<code>CLASSROOM_MONITOR_PORT</code>可覆盖 <a class="source-ref" href="#S34">[S34]</a></td></tr>
+<tr><td>MySQL</td><td>宿主默认 <code>3308</code> → 容器 <code>3306</code></td><td><code>MYSQL_PORT</code>可覆盖；卷 <code>classroom_mysql_data</code> <a class="source-ref" href="#S35">[S35]</a></td></tr>
+<tr><td>Redis</td><td>宿主/容器 <code>6379</code></td><td>Redis7.2-alpine、AOF；卷 <code>classroom_redis_data</code> <a class="source-ref" href="#S35">[S35]</a></td></tr>
+<tr><td>LibreOffice</td><td>后端容器内部</td><td>DOC/DOCX/PPT/PPTX转换；直接运行Windows JAR需另装或配置 <a class="source-ref" href="#S44">[S44]</a>、<a class="source-ref" href="#S13">[S13]</a></td></tr>
+</tbody></table></div>
+<p>认证主链路为 JWT Bearer：前端请求附加令牌；过滤器每次从账号库加载最新角色和专业授权，再填充 <code>SecurityContext</code> / <code>AuthContext</code>。项目仍保留旧会话拦截器代码，但没有理由把当前主链路表述为会话登录。<a class="source-ref" href="#S31">[S31]</a>、<a class="source-ref" href="#S01">[S01]</a></p>
+<p>Vite 本地插件提供摄像头启动、停止、状态、视频流和人脸登记/验证入口。它先向后端核验身份；摄像头启动还核验班次与活动考勤会话。静态 <code>dist</code> 不提供这组本地进程管理接口。插件管理一个监控进程，会核对使用者；这不是已实现的多教室并发调度服务。<a class="source-ref" href="#S34">[S34]</a>、<a class="source-ref" href="#S26">[S26]</a></p>
+<p>运行中视频流由浏览器经 Vite 插件代理读取；视觉指标则由 Python 经认证传输上报 Java。摄像头上下文只读取所选班次已选学生的有效512维特征，不需要教师/督导调用主任全量底库接口。通用 <code>/api/visual/report/stream</code> 的 <code>attendanceSessionId</code> 当前仍为可选字段，不能将本地摄像头启动约束写成该接口所有调用都强制要求会话。<a class="source-ref" href="#S26">[S26]</a>、<a class="source-ref" href="#S27">[S27]</a></p>
+<p>视觉依赖按 <code>vision/requirements.txt</code> 安装：NumPy1.x、OpenCV、InsightFace0.7.3、ONNX Runtime GPU1.21.1、Pillow。监控使用 <code>buffalo_l</code> 并配置CUDA/CPU provider；独立 <code>face_recognition.py</code> 对CUDA有严格检查。两种入口的回退行为不同，不宣称所有入口均可无GPU运行。模型缓存与 <code>vision/models/</code> 的实际位置需要在新机器按入口核对。<a class="source-ref" href="#S38">[S38]</a>、<a class="source-ref" href="#S39">[S39]</a>、<a class="source-ref" href="#S40">[S40]</a></p>
+</section>
+<section id="section-04"><h2>04 角色权限与接口依据</h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1030" viewBox="0 0 1560 1030" role="img" aria-labelledby="role-scopes-title role-scopes-desc">
+<title id="role-scopes-title">03 / 角色、数据范围与关键操作</title>
+<desc id="role-scopes-desc">权限由角色 + 操作 + 数据范围 + 状态共同决定；完整细节见权限矩阵。</desc>
+<defs><marker id="role-scopes-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1560" height="1030" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">03 / 角色、数据范围与关键操作</text>
+<text class="sub" x="65" y="106">权限由角色 + 操作 + 数据范围 + 状态共同决定；完整细节见权限矩阵。</text>
+<polyline points="280,250 280,325" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="280,470 280,545" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="280,775 280,855" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="780,250 780,325" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="780,470 780,545" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="780,775 780,855" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="1280,250 1280,325" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="1280,470 1280,545" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<polyline points="1280,775 1280,855" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#role-scopes-arrow)"/>
+<g data-node="D" data-x="60" data-y="160" data-w="440" data-h="90">
+<rect x="60" y="160" width="440" height="90" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="198">教研室主任 / DIRECTOR</text>
+</g>
+<g data-node="DS" data-x="60" data-y="325" data-w="440" data-h="145">
+<rect x="60" y="325" width="440" height="145" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="363">数据范围</text>
+<text class="node-line" x="82" y="397">账号 department 对应本室</text>
+<text class="node-line" x="82" y="428">牵头 / 显式参与专业管理范围</text>
+</g>
+<g data-node="DW" data-x="60" data-y="545" data-w="440" data-h="230">
+<rect x="60" y="545" width="440" height="230" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="583">关键操作</text>
+<text class="node-line" x="82" y="617">课程建档、班次排课与名单</text>
+<text class="node-line" x="82" y="648">大纲锁定 / 本室评价审核</text>
+<text class="node-line" x="82" y="679">微格与课件维护</text>
+<text class="node-line" x="82" y="710">学生底库 / 质量CSV全量Demo</text>
+</g>
+<g data-node="T" data-x="560" data-y="160" data-w="440" data-h="90">
+<rect x="560" y="160" width="440" height="90" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="198">任课教师 / TEACHER</text>
+</g>
+<g data-node="TS" data-x="560" data-y="325" data-w="440" data-h="145">
+<rect x="560" y="325" width="440" height="145" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="363">数据范围</text>
+<text class="node-line" x="582" y="397">主讲工号或协同教师关联</text>
+<text class="node-line" x="582" y="428">班次可读不自动扩到其他班次</text>
+</g>
+<g data-node="TW" data-x="560" data-y="545" data-w="440" data-h="230">
+<rect x="560" y="545" width="440" height="230" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="583">关键操作</text>
+<text class="node-line" x="582" y="617">教学内容草稿与正式发布</text>
+<text class="node-line" x="582" y="648">本人课程大纲、课件与微格</text>
+<text class="node-line" x="582" y="679">同室共享课件可预览</text>
+<text class="node-line" x="582" y="710">原文件下载仍要求课程写权</text>
+</g>
+<g data-node="S" data-x="1060" data-y="160" data-w="440" data-h="90">
+<rect x="1060" y="160" width="440" height="90" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="198">教学督导 / SUPERVISOR</text>
+</g>
+<g data-node="SS" data-x="1060" data-y="325" data-w="440" data-h="145">
+<rect x="1060" y="325" width="440" height="145" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="363">数据范围</text>
+<text class="node-line" x="1082" y="397">authorizedMajors 授权专业</text>
+<text class="node-line" x="1082" y="428">缺专业 / 无授权默认拒绝</text>
+</g>
+<g data-node="SW" data-x="1060" data-y="545" data-w="440" data-h="230">
+<rect x="1060" y="545" width="440" height="230" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="583">关键操作</text>
+<text class="node-line" x="1082" y="617">课程、大纲、资源只读审查</text>
+<text class="node-line" x="1082" y="648">授权班次评价暂存与提交</text>
+<text class="node-line" x="1082" y="679">微格视频授权预览</text>
+<text class="node-line" x="1082" y="710">不能维护课程、课件与微格</text>
+</g>
+<g data-node="A" data-x="60" data-y="855" data-w="1440" data-h="100">
+<rect x="60" y="855" width="1440" height="100" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="82" y="893">三角色共同：可读且未冻结的班次，允许开启 / 更新 / 结束考勤</text>
+<text class="node-line" x="82" y="927">结束单次考勤 ≠ 主任结课归档；督导的“课程只读”不等于所有业务只读。</text>
+</g>
+<line x1="60" y1="956" x2="1500" y2="956" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="986">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：SecurityConfig；CourseAuthorizationService；ResourceAccessService；AttendanceAccessService</text>
+</svg><figcaption>角色范围图 · <a href="20261010-handover-diagrams-v1/20261010-role-scopes-v1.svg">打开可缩放SVG</a></figcaption></figure>
+<p>权限要同时看角色、操作、数据范围和状态。主任管理本教研室课程；教师按班次主讲/协同关系获得访问范围；督导按授权专业访问。课程范围与班次范围分别校验，课程可读不等于可读该课程所有班次。<a class="source-ref" href="#S02">[S02]</a>、<a class="source-ref" href="#S03">[S03]</a></p>
+<p>主任的专业管理范围来自牵头或显式参与关联；课程管理仍限本室。公共培养方案目录写入仅牵头主任，参与主任不因此获得跨室课程写权限。账号授权变更保留其他主任授予的专业。<a class="source-ref" href="#S54">[S54]</a>、<a class="source-ref" href="#S10">[S10]</a>、<a class="source-ref" href="#S28">[S28]</a></p>
+<p>下表逐项列出关键操作。对应CSV还包含实际HTTP方法、路径、执行层和完整源码行号。表中“拒绝”是当前实现规则，不是建议政策。</p>
+<label class="filter" for="permission-filter">筛选权限操作、角色或范围<input id="permission-filter" type="search" placeholder="例如：草稿、原文件、考勤" autocomplete="off"></label><p id="filter-result" aria-live="polite"></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="权限矩阵"><table id="permission-table"><thead><tr><th scope="col">编号 / 操作</th><th scope="col">主任</th><th scope="col">教师</th><th scope="col">督导</th><th scope="col">状态与边界</th><th scope="col">依据</th></tr></thead><tbody>
+<tr><td>P01 课程列表、详情与课程CSV导出</td><td>本室</td><td>本人关联课程</td><td>授权专业</td><td>课程CSV按课程可读范围过滤；不同于全量质量报告CSV</td><td><a class="source-ref" href="#S02">[S02]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+<tr><td>P02 课程建档、编辑和删除</td><td>本室</td><td>拒绝</td><td>拒绝</td><td>编辑仍使用POST；编码不可原地改；已有教学关联不能原地换专业</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S05">[S05]</a></td></tr>
+<tr><td>P03 课程CSV模板、预检和确认导入</td><td>本室及关联专业</td><td>拒绝</td><td>拒绝</td><td>主任身份与专业/教研室业务校验共同生效</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S56">[S56]</a>、<a class="source-ref" href="#S05">[S05]</a></td></tr>
+<tr><td>P04 开课查询、详情与历史</td><td>本室</td><td>本人主讲/协同班次</td><td>授权专业</td><td>在读人数按名单；冻结班次按快照；班次专业缺失时可回退课程专业</td><td><a class="source-ref" href="#S02">[S02]</a>、<a class="source-ref" href="#S03">[S03]</a>、<a class="source-ref" href="#S53">[S53]</a></td></tr>
+<tr><td>P05 创建、编辑、删除班次</td><td>本室</td><td>拒绝</td><td>拒绝</td><td>冻结拒绝编辑；变更教师/学期须检查排课冲突</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S06">[S06]</a></td></tr>
+<tr><td>P06 结课归档</td><td>本室</td><td>拒绝</td><td>拒绝</td><td>冻结名单、人数及历史快照；不等于结束单次考勤</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S07">[S07]</a></td></tr>
+<tr><td>P07 读取班次选课名单</td><td>本室</td><td>本人关联班次</td><td>授权专业班次</td><td>enrolled按班次；available仅未冻结本室主任返回未选学生，其他角色为空</td><td><a class="source-ref" href="#S02">[S02]</a>、<a class="source-ref" href="#S57">[S57]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+<tr><td>P08 增删选课名单</td><td>本室</td><td>拒绝</td><td>拒绝</td><td>冻结班次拒绝写入</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S07">[S07]</a></td></tr>
+<tr><td>P09 读取排课</td><td>本室</td><td>本人关联班次</td><td>授权专业班次</td><td>按关联班次权限过滤</td><td><a class="source-ref" href="#S02">[S02]</a>、<a class="source-ref" href="#S08">[S08]</a></td></tr>
+<tr><td>P10 排课创建、删除与冲突检查</td><td>本室</td><td>拒绝</td><td>拒绝</td><td>冻结限制、教师/教室时段冲突与学期锁</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S08">[S08]</a></td></tr>
+<tr><td>P11 读取、保存教学内容草稿</td><td>拒绝</td><td>本人关联课程</td><td>拒绝</td><td>草稿GET也是教师专属；校验草稿ID、锁版本、发布基线版本</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S04">[S04]</a>、<a class="source-ref" href="#S03">[S03]</a></td></tr>
+<tr><td>P12 发布与读取正式教学内容</td><td>只读本室正式版</td><td>本人关联课程发布/读取</td><td>只读授权正式版</td><td>简介、考核、目标必填；POST仅教师；读者看正式发布版</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S04">[S04]</a>、<a class="source-ref" href="#S02">[S02]</a></td></tr>
+<tr><td>P13 大纲和指标映射读取</td><td>本室</td><td>本人关联课程</td><td>授权专业</td><td>最新大纲与对应映射；历史版本保留</td><td><a class="source-ref" href="#S09">[S09]</a>、<a class="source-ref" href="#S02">[S02]</a></td></tr>
+<tr><td>P14 大纲保存与从目录创建</td><td>本室</td><td>本人关联课程</td><td>拒绝</td><td>创建绑定方案版本；新建为DRAFT；保存仅DRAFT/SUBMITTED；LOCKED创建新版本</td><td><a class="source-ref" href="#S09">[S09]</a>、<a class="source-ref" href="#S11">[S11]</a></td></tr>
+<tr><td>P15 新增、编辑、删除指标映射</td><td>本室</td><td>本人关联课程</td><td>拒绝</td><td>仅最新未锁大纲；编号类别一致；支撑权重H/M/L</td><td><a class="source-ref" href="#S09">[S09]</a>、<a class="source-ref" href="#S11">[S11]</a></td></tr>
+<tr><td>P16 审查锁定大纲</td><td>本室</td><td>拒绝</td><td>拒绝</td><td>独立主任接口；锁定记录操作者；不要求绘制未实现的APPROVED审批流程</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S09">[S09]</a>、<a class="source-ref" href="#S11">[S11]</a></td></tr>
+<tr><td>P17 培养方案目录和版本读取</td><td>牵头/参与专业</td><td>本室关联专业或本人授课专业</td><td>授权专业</td><td>与GET /majors的教师空列表不同；推荐模板与导入目录分开</td><td><a class="source-ref" href="#S10">[S10]</a>、<a class="source-ref" href="#S03">[S03]</a>、<a class="source-ref" href="#S54">[S54]</a></td></tr>
+<tr><td>P18 公共培养方案目录导入</td><td>仅牵头专业</td><td>拒绝</td><td>拒绝</td><td>被大纲引用的版本不可变更内容；相同内容幂等</td><td><a class="source-ref" href="#S10">[S10]</a>、<a class="source-ref" href="#S09">[S09]</a></td></tr>
+<tr><td>P19 专业选项列表</td><td>牵头/参与专业</td><td>返回空列表</td><td>授权专业</td><td>教师不能按目录读取权限推断此接口会返回专业选项</td><td><a class="source-ref" href="#S29">[S29]</a>、<a class="source-ref" href="#S54">[S54]</a></td></tr>
+<tr><td>P20 教师字典列表</td><td>登录可读全量</td><td>登录可读全量</td><td>登录可读全量</td><td>当前控制器findAll；不扩大课程、班次写权限</td><td><a class="source-ref" href="#S30">[S30]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+<tr><td>P21 督导账号列表、创建和专业授权</td><td>主任专属</td><td>拒绝</td><td>拒绝</td><td>列表为督导全量；只授权自身牵头/参与专业；保留其他主任授予的专业</td><td><a class="source-ref" href="#S28">[S28]</a>、<a class="source-ref" href="#S54">[S54]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+<tr><td>P22 课件列表、详情及授权预览</td><td>本室</td><td>本人课程或同室共享资源</td><td>授权专业</td><td>登录、申请人绑定、5分钟默认有效期、访问时重新校验范围</td><td><a class="source-ref" href="#S12">[S12]</a>、<a class="source-ref" href="#S13">[S13]</a>、<a class="source-ref" href="#S41">[S41]</a></td></tr>
+<tr><td>P23 课件上传、元数据编辑与删除</td><td>本室</td><td>本人关联课程</td><td>拒绝</td><td>元数据POST须已有ID；不可更换课程/文件；上传类型和大小可配置</td><td><a class="source-ref" href="#S15">[S15]</a>、<a class="source-ref" href="#S12">[S12]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+<tr><td>P24 课件原文件下载</td><td>本室可写课程</td><td>本人关联可写课程</td><td>拒绝</td><td>校验课程写权限；共享预览不授予原文件下载权</td><td><a class="source-ref" href="#S14">[S14]</a>、<a class="source-ref" href="#S12">[S12]</a></td></tr>
+<tr><td>P25 微格按课程、环节检索与平台视频播放</td><td>本室</td><td>本人关联课程</td><td>授权专业</td><td>环节检索过滤可读课程；平台视频读取校验实际课程；外部URL另走播放器</td><td><a class="source-ref" href="#S16">[S16]</a>、<a class="source-ref" href="#S17">[S17]</a>、<a class="source-ref" href="#S02">[S02]</a></td></tr>
+<tr><td>P26 微格挂载、上传与删除</td><td>本室</td><td>本人关联课程</td><td>拒绝</td><td>上传MP4/WebM、100MB固定上限；元数据不可重挂平台受控路径；删除不回收磁盘视频</td><td><a class="source-ref" href="#S16">[S16]</a>、<a class="source-ref" href="#S17">[S17]</a></td></tr>
+<tr><td>P27 评价列表与详情</td><td>本室各状态</td><td>本人班次PUBLISHED且脱敏</td><td>授权范围内本人各状态及已发布评价</td><td>读取前刷新到期状态；教师隐藏督导身份及审核备注</td><td><a class="source-ref" href="#S19">[S19]</a>、<a class="source-ref" href="#S18">[S18]</a></td></tr>
+<tr><td>P28 评价暂存、提交、修改与删除</td><td>拒绝</td><td>拒绝</td><td>本人授权班次评价</td><td>已有记录仅本人DRAFT/REJECTED可修改删除；正式提交校验评分和必填</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S18">[S18]</a>、<a class="source-ref" href="#S19">[S19]</a></td></tr>
+<tr><td>P29 评价审核与审计日志</td><td>本室</td><td>拒绝</td><td>拒绝</td><td>审核仅PENDING_REVIEW；通过进入APPROVED_PENDING，默认24小时后可发布</td><td><a class="source-ref" href="#S20">[S20]</a>、<a class="source-ref" href="#S41">[S41]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+<tr><td>P30 质量看板、覆盖明细和预警</td><td>本室有效班次</td><td>拒绝</td><td>授权专业有效班次</td><td>覆盖按学期课程去重；审核通过待发布评价也可计入覆盖</td><td><a class="source-ref" href="#S21">[S21]</a>、<a class="source-ref" href="#S22">[S22]</a></td></tr>
+<tr><td>P31 教学质量雷达</td><td>本室有效班次评价</td><td>本人姓名且工号匹配班次主讲</td><td>授权专业有效班次评价</td><td>雷达按主讲工号，非一般协同班次规则；PUBLISHED或审核通过且到期的评价</td><td><a class="source-ref" href="#S21">[S21]</a>、<a class="source-ref" href="#S55">[S55]</a></td></tr>
+<tr><td>P32 年度质量报告CSV</td><td>全量Demo</td><td>拒绝</td><td>拒绝</td><td>用户已确认的演示范围；不同于课程CSV按范围过滤</td><td><a class="source-ref" href="#S21">[S21]</a>、<a class="source-ref" href="#S23">[S23]</a>、<a class="source-ref" href="#S51">[S51]</a></td></tr>
+<tr><td>P33 学生与人脸底库管理</td><td>全量Demo</td><td>拒绝</td><td>拒绝</td><td>主任角色专属；具体97项后端接口见接口清单</td><td><a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S51">[S51]</a></td></tr>
+<tr><td>P34 考勤当前会话与历史读取</td><td>可读班次</td><td>可读班次</td><td>可读班次</td><td>未指定班次时只找最新可见活动会话；冻结班次无活动会话</td><td><a class="source-ref" href="#S24">[S24]</a>、<a class="source-ref" href="#S25">[S25]</a></td></tr>
+<tr><td>P35 开启、实时更新与结束单次考勤</td><td>可读未冻结班次</td><td>可读未冻结班次</td><td>可读未冻结班次</td><td>三角色都可写；结束的是考勤会话，不冻结开课班次</td><td><a class="source-ref" href="#S24">[S24]</a>、<a class="source-ref" href="#S25">[S25]</a></td></tr>
+<tr><td>P36 摄像头班次上下文与视觉指标</td><td>可读班次</td><td>可读班次</td><td>可读班次</td><td>monitor-context要求活动会话；写入拒绝冻结；本地摄像头上报绑定会话，通用stream DTO会话字段仍可选</td><td><a class="source-ref" href="#S26">[S26]</a>、<a class="source-ref" href="#S27">[S27]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+<tr><td>P37 本地摄像头启停、状态与视频流</td><td>允许</td><td>允许</td><td>允许</td><td>Vite插件身份核验；启动须合法班次与活动会话；单进程占用与视频授权</td><td><a class="source-ref" href="#S34">[S34]</a>、<a class="source-ref" href="#S26">[S26]</a></td></tr>
+<tr><td>P38 本地人脸登记与验证入口</td><td>允许</td><td>拒绝</td><td>拒绝</td><td>由Vite插件先核验主任身份再启动本地Python</td><td><a class="source-ref" href="#S34">[S34]</a>、<a class="source-ref" href="#S01">[S01]</a></td></tr>
+</tbody></table></div>
+<p>需要保留的接口差异：</p>
+<ul>
+<li>教学内容草稿的GET和PUT均仅教师；主任只能通过正式版读取入口查阅，不能代教师发布。<a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S04">[S04]</a></li>
+<li>共享资源可允许同室其他教师预览，原文件下载却要求课程写权限；督导不能下载原文件。<a class="source-ref" href="#S12">[S12]</a>、<a class="source-ref" href="#S14">[S14]</a></li>
+<li>督导可提交评价、操作可读未冻结班次的考勤，但不能维护课程、课件或微格。<a class="source-ref" href="#S24">[S24]</a>、<a class="source-ref" href="#S18">[S18]</a>、<a class="source-ref" href="#S16">[S16]</a></li>
+<li>教师 <code>GET /api/v1/majors</code> 返回空列表；培养方案目录接口另允许本室关联专业或本人授课专业。教师字典列表当前则是登录后的全量 <code>findAll()</code>。<a class="source-ref" href="#S29">[S29]</a>、<a class="source-ref" href="#S10">[S10]</a>、<a class="source-ref" href="#S30">[S30]</a></li>
+<li>主任质量报告CSV和学生底库全量访问是已确认Demo规则；课程CSV导出仍按课程范围过滤。<a class="source-ref" href="#S51">[S51]</a>、<a class="source-ref" href="#S23">[S23]</a>、<a class="source-ref" href="#S02">[S02]</a></li>
+<li><code>/uploads/resources/**</code> 与 <code>/uploads/micro/**</code> 被直接路径拒绝；<code>/uploads/faces/**</code> 在当前SecurityConfig公开放行，Vite也有照片静态读取。不能把所有上传文件都描述成统一鉴权。<a class="source-ref" href="#S01">[S01]</a>、<a class="source-ref" href="#S34">[S34]</a></li>
+</ul>
+<p>课程/班次/资源等业务接口须登录；登录、csrf、OPTIONS和配置中列出的静态/API文档入口有公开规则，不能笼统说所有URL均需认证。<a class="source-ref" href="#S01">[S01]</a></p>
+</section>
+<section id="section-05"><h2>05 核心数据关系与统计口径</h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1410" viewBox="0 0 1900 1410" role="img" aria-labelledby="data-relations-title data-relations-desc">
+<title id="data-relations-title">04 / 核心数据关系</title>
+<desc id="data-relations-desc">源码实体关系摘要：实线为 JPA 关联，虚线为 ID / 编码 / 版本逻辑关联。</desc>
+<defs><marker id="data-relations-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1900" height="1410" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">04 / 核心数据关系</text>
+<text class="sub" x="65" y="106">源码实体关系摘要：实线为 JPA 关联，虚线为 ID / 编码 / 版本逻辑关联。</text>
+<polyline points="225,275 225,355" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="310" y="318">major_id</text>
+<polyline points="390,235 540,235" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="465" y="215">majorCode</text>
+<polyline points="225,165 225,135 1245,135 1245,165" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1430,220 1510,220" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1245,275 1245,445" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="1320" y="355">course_id</text>
+<polyline points="755,305 755,355 1000,355 1000,510 1040,510" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="815" y="338">按专业与方案版本匹配</text>
+<polyline points="1040,525 950,525" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1130,275 1130,310 980,310 980,475 950,475" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1430,250 1465,250 1465,510 1510,510" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1405,275 1438,275 1438,730 1510,730" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1060,260 1020,260 1020,955 1040,955" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1040,960 950,960" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1245,1025 1245,1080 260,1080 260,1025" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="650" y="1060">offeringId</text>
+<polyline points="1060,1025 1000,1025 1000,1110 260,1110 260,1145" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1140,1025 1140,1050 755,1050 755,1145" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<polyline points="1320,1025 1320,1145" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data-relations-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="1410" y="1100">offering_id</text>
+<polyline points="1400,1215 1510,1215" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#data-relations-arrow)"/>
+<g data-node="M" data-x="60" data-y="165" data-w="330" data-h="110">
+<rect x="60" y="165" width="330" height="110" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="203">专业 Major</text>
+<text class="node-line" x="82" y="237">t_major / 牵头 department</text>
+</g>
+<g data-node="MD" data-x="60" data-y="355" data-w="330" data-h="110">
+<rect x="60" y="355" width="330" height="110" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="82" y="393">参与教研室关联</text>
+<text class="node-line" x="82" y="427">t_major_department</text>
+</g>
+<g data-node="PL" data-x="540" data-y="165" data-w="430" data-h="140">
+<rect x="540" y="165" width="430" height="140" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="562" y="203">培养方案示例指标目录</text>
+<text class="node-line" x="562" y="237">t_training_indicator</text>
+<text class="node-line" x="562" y="268">majorCode + planVersion</text>
+</g>
+<g data-node="C" data-x="1060" data-y="165" data-w="370" data-h="110">
+<rect x="1060" y="165" width="370" height="110" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1082" y="203">课程档案 Course</text>
+<text class="node-line" x="1082" y="237">t_course / department</text>
+</g>
+<g data-node="CR" data-x="1510" data-y="165" data-w="330" data-h="110">
+<rect x="1510" y="165" width="330" height="110" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="203">教学内容修订</text>
+<text class="node-line" x="1532" y="237">t_course_content_revision</text>
+</g>
+<g data-node="SY" data-x="1040" data-y="445" data-w="360" data-h="130">
+<rect x="1040" y="445" width="360" height="130" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1062" y="483">大纲版本</text>
+<text class="node-line" x="1062" y="517">t_course_syllabus</text>
+<text class="node-line" x="1062" y="548">version / planVersion</text>
+</g>
+<g data-node="GI" data-x="560" data-y="445" data-w="390" data-h="130">
+<rect x="560" y="445" width="390" height="130" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="483">课程指标映射</text>
+<text class="node-line" x="582" y="517">t_graduation_indicator</text>
+<text class="node-line" x="582" y="548">course_id / syllabus_id</text>
+</g>
+<g data-node="RE" data-x="1510" data-y="445" data-w="330" data-h="130">
+<rect x="1510" y="445" width="330" height="130" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="483">教学课件</text>
+<text class="node-line" x="1532" y="517">t_course_resource</text>
+<text class="node-line" x="1532" y="548">course_id</text>
+</g>
+<g data-node="MI" data-x="1510" data-y="665" data-w="330" data-h="130">
+<rect x="1510" y="665" width="330" height="130" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="703">微格切片 / 上传视频</text>
+<text class="node-line" x="1532" y="737">t_micro_teaching_slice</text>
+<text class="node-line" x="1532" y="768">course_id / sliceUrl</text>
+</g>
+<g data-node="O" data-x="1040" data-y="885" data-w="360" data-h="140">
+<rect x="1040" y="885" width="360" height="140" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1062" y="923">开课班次</text>
+<text class="node-line" x="1062" y="957">t_course_offering</text>
+<text class="node-line" x="1062" y="988">course_id / 学期 / 主讲</text>
+</g>
+<g data-node="OT" data-x="560" data-y="885" data-w="390" data-h="140">
+<rect x="560" y="885" width="390" height="140" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="582" y="923">班次教师关联</text>
+<text class="node-line" x="582" y="957">t_course_offering_teacher</text>
+<text class="node-line" x="582" y="988">offeringId / teacherId</text>
+</g>
+<g data-node="EN" data-x="60" data-y="885" data-w="400" data-h="140">
+<rect x="60" y="885" width="400" height="140" rx="14" fill="#fffbeb" stroke="#a16207" stroke-width="1.6"/>
+<text class="node-title" x="82" y="923">班次选课名单</text>
+<text class="node-line" x="82" y="957">t_offering_student_enrollment</text>
+<text class="node-line" x="82" y="988">offeringId / studentNumber</text>
+</g>
+<g data-node="SC" data-x="60" data-y="1145" data-w="400" data-h="120">
+<rect x="60" y="1145" width="400" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="82" y="1183">排课时段</text>
+<text class="node-line" x="82" y="1217">t_course_schedule / offering_id</text>
+</g>
+<g data-node="AT" data-x="560" data-y="1145" data-w="390" data-h="120">
+<rect x="560" y="1145" width="390" height="120" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="582" y="1183">考勤会话</text>
+<text class="node-line" x="582" y="1217">t_attendance_session / offering_id</text>
+</g>
+<g data-node="EV" data-x="1040" data-y="1145" data-w="360" data-h="120">
+<rect x="1040" y="1145" width="360" height="120" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1062" y="1183">督导评价</text>
+<text class="node-line" x="1062" y="1217">t_supervision_evaluation</text>
+<text class="node-line" x="1062" y="1248">offering_id</text>
+</g>
+<g data-node="AU" data-x="1510" data-y="1145" data-w="330" data-h="120">
+<rect x="1510" y="1145" width="330" height="120" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="1532" y="1183">评价审核日志</text>
+<text class="node-line" x="1532" y="1217">t_evaluation_audit_log</text>
+<text class="node-line" x="1532" y="1248">evaluationId</text>
+</g>
+<g data-node="NOTE" data-x="60" data-y="665" data-w="850" data-h="125">
+<rect x="60" y="665" width="850" height="125" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="82" y="703">模型边界</text>
+<text class="node-line" x="82" y="737">标量ID/编码关系不等于已核验的数据库外键。</text>
+<text class="node-line" x="82" y="768">student、face_feature、classroom_record等见完整实体索引。</text>
+</g>
+<line x1="60" y1="1336" x2="1840" y2="1336" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="1366">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：course/entity；resource/entity；supervision/entity；attendance/entity；代码实体索引CSV</text>
+</svg><figcaption>核心数据关系图 · <a href="20261010-handover-diagrams-v1/20261010-data-relations-v1.svg">打开可缩放SVG</a></figcaption></figure>
+<p>图中实线为源码中的JPA实体关联，虚线为ID、编码或版本的逻辑关联。本轮读取实体，没有查询目标运行数据库的实际外键DDL。完整实体索引包含24个 <code>@Entity</code>，只表示当前源码实体数量，不等于运行数据库表数量。</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="资料表格"><table><thead><tr><th scope="col">核心对象</th><th scope="col">实体对应表</th><th scope="col">维护时必须知道</th></tr></thead><tbody>
+<tr><td>课程</td><td><code>t_course</code></td><td>课程档案；专业用majorId/majorCode标识，教研室用department</td></tr>
+<tr><td>开课班次</td><td><code>t_course_offering</code></td><td>课程+学期+教学班+主讲；归档快照独立保存</td></tr>
+<tr><td>班次教师关联</td><td><code>t_course_offering_teacher</code></td><td>标量offeringId/teacherId；PRIMARY/ASSISTANT；访问按工号关联</td></tr>
+<tr><td>班次选课名单</td><td><code>t_offering_student_enrollment</code></td><td>offeringId+studentNumber；studentId允许空；行政班级只是属性</td></tr>
+<tr><td>排课</td><td><code>t_course_schedule</code></td><td>JPA关联班次；周次、星期、节次、教室和冲突校验</td></tr>
+<tr><td>大纲</td><td><code>t_course_syllabus</code></td><td>syllabus.version和planVersion分别记录；不是内容发布号</td></tr>
+<tr><td>映射</td><td><code>t_graduation_indicator</code></td><td>关联课程和大纲；历史无大纲记录另作兼容</td></tr>
+<tr><td>专业目录</td><td><code>t_training_indicator</code></td><td>majorCode+planVersion+indicatorCode唯一；不是课程映射表</td></tr>
+<tr><td>内容修订</td><td><code>t_course_content_revision</code></td><td>courseId、draftId、lockVersion、publishVersion共同作用</td></tr>
+<tr><td>课件/微格</td><td><code>t_course_resource</code> / <code>t_micro_teaching_slice</code></td><td>数据库存元数据；实际文件另在上传目录</td></tr>
+<tr><td>评价/考勤</td><td><code>t_supervision_evaluation</code> / <code>t_attendance_session</code></td><td>通过JPA关联班次；两种状态机分别管理</td></tr>
+</tbody></table></div>
+<p>统计和历史口径：</p>
+<ul>
+<li>开课列表/历史的在读人数来自选课名单，冻结人数取快照；累计人次按班次累加，同班次多教师不重复。<a class="source-ref" href="#S53">[S53]</a></li>
+<li>考勤服务应到人数优先名单，名单计数为0时仍兼容回退班次 <code>studentCount</code>；视觉上报按实际名单判断本班出勤，未匹配者不计入本班出勤。两段代码口径要分别维护。<a class="source-ref" href="#S25">[S25]</a>、<a class="source-ref" href="#S27">[S27]</a></li>
+<li>结束考勤把会话设为FINISHED；主任结课归档把班次设为FINISHED并冻结快照。两者不是同一个操作。<a class="source-ref" href="#S25">[S25]</a>、<a class="source-ref" href="#S07">[S07]</a></li>
+<li>覆盖率分母为选定学期、可见范围内IN_PROGRESS/FINISHED班次对应的去重课程；分子为存在符合审核状态评价的课程。APPROVED_PENDING也可计入覆盖，教师反馈仍须PUBLISHED。<a class="source-ref" href="#S22">[S22]</a>、<a class="source-ref" href="#S19">[S19]</a></li>
+<li><code>classroom_record</code> 存视觉指标、字符串sessionId等，没有本轮图示中可宣称的offering_id/attendance_session_id实体外键；视觉服务更新考勤会话和该记录是业务链路关联，不能伪造数据库关系。<a class="source-ref" href="#S27">[S27]</a></li>
+</ul>
+<p>完整表名、字段与JPA关联见实体索引CSV；这是一份源码模型索引，不含业务数据。</p>
+</section>
+<section id="section-06"><h2>06 评价流程与版本状态</h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1010" viewBox="0 0 1600 1010" role="img" aria-labelledby="evaluation-workflow-title evaluation-workflow-desc">
+<title id="evaluation-workflow-title">05 / 督导评价状态与角色协作</title>
+<desc id="evaluation-workflow-desc">按 SupervisionServiceImpl 实际状态转换绘制；反馈延迟默认 24 小时、可配置。</desc>
+<defs><marker id="evaluation-workflow-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#64748b"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;fill:#1e293b}.head{font-size:36px;font-weight:700}.sub{font-size:20px;fill:#475569}.node-title{font-size:24px;font-weight:700}.node-line{font-size:19px;fill:#475569}.edge-label{font-size:18px;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:8px;stroke-linejoin:round}.footer{font-size:16px;fill:#64748b}.group-label{font-size:20px;fill:#475569;font-weight:700}</style>
+<rect width="1600" height="1010" fill="#fff"/>
+<rect x="40" y="40" width="5" height="54" rx="2" fill="#2563eb"/>
+<text class="head" x="65" y="70">05 / 督导评价状态与角色协作</text>
+<text class="sub" x="65" y="106">按 SupervisionServiceImpl 实际状态转换绘制；反馈延迟默认 24 小时、可配置。</text>
+<rect x="60" y="160" width="500" height="630" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+<text class="group-label" x="82" y="192">教学督导 / 本人授权班次评价</text>
+<rect x="620" y="160" width="400" height="630" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+<text class="group-label" x="642" y="192">教研室主任 / 本室审核</text>
+<rect x="1080" y="160" width="460" height="630" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+<text class="group-label" x="1102" y="192">到期状态刷新 / 教师读取</text>
+<polyline points="450,325 670,325" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#evaluation-workflow-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="560" y="300">督导正式提交</text>
+<polyline points="820,390 820,530" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#evaluation-workflow-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="885" y="485">主任通过</text>
+<polyline points="670,360 540,360 540,600 450,600" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#evaluation-workflow-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="535" y="514">主任驳回</text>
+<polyline points="280,530 280,440 760,440 760,390" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#evaluation-workflow-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="470" y="423">修改并重提</text>
+<polyline points="970,600 1150,600" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#evaluation-workflow-arrow)"/>
+<text class="edge-label" text-anchor="middle" x="1060" y="575">到期后读取刷新</text>
+<g data-node="D" data-x="130" data-y="270" data-w="320" data-h="120">
+<rect x="130" y="270" width="320" height="120" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="152" y="308">DRAFT / 草稿</text>
+<text class="node-line" x="152" y="342">督导暂存 / 可编辑删除</text>
+</g>
+<g data-node="P" data-x="670" data-y="270" data-w="300" data-h="120">
+<rect x="670" y="270" width="300" height="120" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="692" y="308">PENDING_REVIEW</text>
+<text class="node-line" x="692" y="342">待主任审核</text>
+</g>
+<g data-node="R" data-x="130" data-y="530" data-w="320" data-h="145">
+<rect x="130" y="530" width="320" height="145" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text class="node-title" x="152" y="568">REJECTED / 退回</text>
+<text class="node-line" x="152" y="602">本人可修改、重提或删除</text>
+</g>
+<g data-node="A" data-x="670" data-y="530" data-w="300" data-h="145">
+<rect x="670" y="530" width="300" height="145" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text class="node-title" x="692" y="568">APPROVED_PENDING</text>
+<text class="node-line" x="692" y="602">审核通过 / 设置发布时间</text>
+</g>
+<g data-node="F" data-x="1150" data-y="530" data-w="300" data-h="145">
+<rect x="1150" y="530" width="300" height="145" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+<text class="node-title" x="1172" y="568">PUBLISHED / 已发布</text>
+<text class="node-line" x="1172" y="602">教师读取匿名反馈</text>
+</g>
+<g data-node="NOTE" data-x="60" data-y="830" data-w="1480" data-h="100">
+<rect x="60" y="830" width="1480" height="100" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="1.6"/>
+<text class="node-title" x="82" y="868">审核通过、计入覆盖、教师可见是不同条件</text>
+<text class="node-line" x="82" y="902">覆盖率可计入审核通过待发布评价；教师反馈只读PUBLISHED；当前没有独立定时发布调度器。</text>
+</g>
+<line x1="60" y1="936" x2="1540" y2="936" stroke="#e2e8f0"/>
+<text class="footer" x="60" y="966">源码基线：fix-exp3 / 7464f9c　·　2026-10-10　·　来源：SupervisionServiceImpl；SupervisionController；application.yml</text>
+</svg><figcaption>评价状态流程图 · <a href="20261010-handover-diagrams-v1/20261010-evaluation-workflow-v1.svg">打开可缩放SVG</a></figcaption></figure>
+<p>督导可暂存DRAFT，正式提交进入PENDING_REVIEW；主任只审核待审记录，通过后进入APPROVED_PENDING并设置发布时间，驳回为REJECTED。督导只能修改或删除本人DRAFT/REJECTED。<a class="source-ref" href="#S18">[S18]</a>、<a class="source-ref" href="#S20">[S20]</a></p>
+<p>默认延迟24小时，可配置。到期状态刷新由评价读取方法调用 <code>refreshDesensitizeStatus()</code>，当前未发现独立定时发布调度器；图示写“到期后读取刷新”，不能写成精确定时自动推送。教师看到PUBLISHED且脱敏后的班次评价。<a class="source-ref" href="#S19">[S19]</a>、<a class="source-ref" href="#S20">[S20]</a>、<a class="source-ref" href="#S41">[S41]</a></p>
+<p>版本约束另行区分：</p>
+<ul>
+<li>内容草稿/正式发布：草稿读取可创建新草稿；保存与发布核验草稿ID、锁版本和基线发布号；发布生成正式版本，旧草稿退休。<a class="source-ref" href="#S04">[S04]</a></li>
+<li>大纲保存：服务只接受DRAFT或SUBMITTED；LOCKED由独立主任锁定接口产生，锁定/历史大纲不可原地编辑。实体遗留APPROVED默认值不能据此画出未实现的完整审批链。<a class="source-ref" href="#S09">[S09]</a>、<a class="source-ref" href="#S11">[S11]</a></li>
+<li>专业目录：被课程大纲引用后不可覆盖为不同内容，要用新目录版本；目录版本、大纲版本和教学内容发布号不是同一个字段。<a class="source-ref" href="#S10">[S10]</a>、<a class="source-ref" href="#S09">[S09]</a></li>
+</ul>
+</section>
+<section id="section-07"><h2>07 目录与维护入口</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="资料表格"><table><thead><tr><th scope="col">目录/文件</th><th scope="col">当前职责</th><th scope="col">接手先看</th></tr></thead><tbody>
+<tr><td><code>frontend/</code></td><td>Vue页面、组件、API、测试、Vite本地插件</td><td><code>src/App.vue</code>、<code>src/api/index.ts</code>、<code>dev/camera-plugin.mjs</code></td></tr>
+<tr><td><code>backend/</code></td><td>Java配置、实体、业务接口和测试</td><td><code>src/main/java/com/classroom/ai/modules/</code></td></tr>
+<tr><td><code>vision/</code></td><td>Python监控、人脸登记/验证、传输、诊断和依赖</td><td><code>classroom_monitor.py</code>、<code>monitor_transport.py</code>、<code>backend_auth.py</code></td></tr>
+<tr><td><code>scripts/</code></td><td>实际启动、Compose封装、验证与部署</td><td><code>start_project.ps1</code>、<code>compose.ps1</code>、<code>deploy/</code>、<code>tests/</code></td></tr>
+<tr><td><code>runtime/</code></td><td>上传文件、日志、PID、本地运行材料</td><td><code>uploads/</code>、<code>logs/</code>；Git忽略，不随clone恢复</td></tr>
+<tr><td><code>raw/</code></td><td>原始资料</td><td>当前只有README目录说明；保持原样</td></tr>
+<tr><td><code>docs/</code></td><td>分析、方案、取证与历史</td><td>本轮源码对齐与材料验证记录</td></tr>
+<tr><td><code>memory-bank/</code></td><td>已确认的长期口径</td><td><code>project-context.md</code>；读最新更正，区分历史状态</td></tr>
+<tr><td><code>assets/</code></td><td>复用素材</td><td>按实际使用检查</td></tr>
+<tr><td><code>output/</code></td><td>最终交付</td><td>本交接材料与既有验收报告</td></tr>
+<tr><td>根目录启动/停止脚本</td><td>用户入口</td><td>启动ps1转调scripts实现；停止ps1保留根目录实现</td></tr>
+</tbody></table></div>
+<p>传统视觉/学生接口仍在 <code>backend/src/main/java/com/classroom/ai/controller/</code>、<code>service/impl/</code>、<code>entity/</code>、<code>repository/</code>，不能只搜索modules。权限重点是SecurityConfig、JwtAuthenticationFilter、CourseAuthorizationService、ResourceAccessService、AttendanceAccessService。</p>
+<p>根目录现有 <code>docker/</code>、<code>initialize.sql</code>、<code>design-system/</code> 与历史资料保持原位。当前Compose实际入口是 <code>scripts/deploy/docker-compose.yml</code>，MySQL基线来自该目录下 <code>mysql/init/initialize.sql</code>，不是把根目录SQL当默认初始化入口。未替这些目录编造“可删除”结论。</p>
+<p>维护角色建议分别覆盖前端交互、Java业务与权限、Python视觉与设备、部署/数据恢复、验收与资料。这是交接职责建议；具体负责人姓名与职责分配资料未提供。</p>
+</section>
+<section id="section-08"><h2>08 启动、数据恢复与接手验证</h2>
+<p>接手机器先具备 Node/npm、Java21、Maven、Docker，以及单独配置的Python环境和视觉依赖。锁定前端依赖优先使用项目锁文件；已有 <code>.venv1</code> 是本机环境，不能视为跨机器安装包。摄像头与GPU条件要按使用入口检查。</p>
+<p>从项目根目录运行：</p>
+<pre><code class="language-powershell">.\start_project.ps1 -Rebuild
+.\scripts\compose.ps1 ps</code></pre>
+<p>启动实现先启动MySQL/Redis，检查已有库，再运行可重复的Sprint2迁移，构建后端JAR/镜像并启动后端、Vite。新数据卷按Compose基线初始化；已有库不重导基线。<code>-SkipBuild</code>只复用已有产物，不证明已运行最新源码。根启动入口实际调用 <code>scripts/start_project.ps1</code>。<a class="source-ref" href="#S36">[S36]</a>、<a class="source-ref" href="#S35">[S35]</a></p>
+<p>停止：</p>
+<pre><code class="language-powershell">.\stop_project.ps1
+# 需要一起停止数据库服务时使用既有参数
+.\stop_project.ps1 -StopDocker</code></pre>
+<p>停止脚本停止前端/后端进程及后端容器，<code>-StopDocker</code>另外停止MySQL/Redis；脚本不删除数据卷。摄像头正常从页面停止，Vite服务关闭时插件也有进程释放钩子。<a class="source-ref" href="#S37">[S37]</a>、<a class="source-ref" href="#S34">[S34]</a></p>
+<p>数据交接与恢复需要分开做：</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="资料表格"><table><thead><tr><th scope="col">对象</th><th scope="col">现有存放位置</th><th scope="col">恢复要求</th></tr></thead><tbody>
+<tr><td>MySQL业务数据</td><td>卷 <code>classroom_mysql_data</code></td><td>按实际数据库配置导出/恢复；带上课程、账号、班次、名单、版本和评价等关联数据</td></tr>
+<tr><td>Redis</td><td>卷 <code>classroom_redis_data</code></td><td>保存运行状态；实时指标有TTL，重启恢复不能当作正在上课</td></tr>
+<tr><td>照片/课件/视频</td><td><code>runtime/uploads/faces</code>、<code>resources</code>、<code>micro</code></td><td>与数据库元数据保持一致；课件资源路径与人脸路径有不同解析逻辑</td></tr>
+<tr><td>视觉模型与环境</td><td><code>vision/models/</code>及InsightFace当前环境缓存</td><td>按入口和机器核对，不随Git恢复</td></tr>
+<tr><td>配置</td><td>Compose、application.yml、环境变量、可选本地env</td><td>单独配置连接和凭据；交接材料不保存凭据</td></tr>
+</tbody></table></div>
+<p>本包提供恢复对象和步骤说明，未执行备份或恢复，也没有数据库备份文件。恢复建议在隔离环境完成：固定版本 → 恢复数据库与对应上传文件 → 配置依赖/模型 → 核对账号范围与数据一致性 → 运行核心流程。不能用“clone成功”代替数据恢复验收。<a class="source-ref" href="#S35">[S35]</a>、<a class="source-ref" href="#S45">[S45]</a></p>
+<p>既有验证入口：</p>
+<pre><code class="language-powershell"># 常规后端、前端测试/构建与Python测试；Offline要求Maven依赖已缓存
+.\scripts\run-tests.ps1 -Offline
+# 真MySQL与真实浏览器的专项，按runner要求准备Docker/Chrome/Playwright
+.\scripts\run-exp3-mysql-tests.ps1
+.\scripts\run-exp3-browser-tests.ps1</code></pre>
+<p>应检查Python测试实际使用的解释器。浏览器runner可用 <code>PLAYWRIGHT_MODULE</code> 和 <code>EXP3_CHROMIUM_PATH</code> 指定已有安装；测试脚本和过程记录是可复现入口，不把条件跳过记成通过。<a class="source-ref" href="#S52">[S52]</a>、<a class="source-ref" href="#S46">[S46]</a>、<a class="source-ref" href="#S48">[S48]</a></p>
+<p>建议接手验收：三个角色分别登录 → 主任建档/排课/名单 → 教师发布/课件 → 督导检索/评价 → 主任审核 → 教师发布后反馈；再检查越权、过期票据、共享撤销、锁定大纲、冻结班次和摄像头/微格。仅在隔离测试库进行写入验收，按runner实际清理要求操作。该验收是接手执行清单，不宣称本轮已重新执行。</p>
+</section>
+<section id="section-09"><h2>09 已有验证、限制与复核事项</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="资料表格"><table><thead><tr><th scope="col">事项</th><th scope="col">当前依据</th><th scope="col">交接表述</th></tr></thead><tbody>
+<tr><td>Sprint2八故事软件功能</td><td>本日既有复核报告 <a class="source-ref" href="#S47">[S47]</a></td><td>报告记录满足验收标准；本轮引用，不重复宣称实跑</td></tr>
+<tr><td>正式Sprint2收尾</td><td>同报告</td><td>评审/回顾及自然人交付批准证据仍缺；不以功能通过推断正式批准</td></tr>
+<tr><td>摄像头链路</td><td>本日已有单人现场报告 <a class="source-ref" href="#S46">[S46]</a></td><td>已有单人现场与连续上报证据；不等于多人/光照总体准确率评估</td></tr>
+<tr><td>微格播放</td><td>同报告</td><td>平台合成视频已验证解码；旧外部视频地址有效性另需复核</td></tr>
+<tr><td>测试导入修复</td><td>本日测试修复报告 <a class="source-ref" href="#S48">[S48]</a></td><td>真实MySQL专项7/7通过；常规回归存在条件跳过；以各自报告为准</td></tr>
+<tr><td>平台视频删除</td><td>当前MicroTeachingServiceImpl <a class="source-ref" href="#S16">[S16]</a></td><td>删除数据库切片记录；磁盘视频回收尚未实现</td></tr>
+<tr><td>预览票据</td><td>当前ResourceFileService <a class="source-ref" href="#S13">[S13]</a></td><td>进程内Map，默认5分钟；后端重启票据失效；未实现跨实例共享票据</td></tr>
+<tr><td>运行实例版本</td><td>本轮未查询服务</td><td>待确认：实际部署JAR/镜像是否与本文源码基线一致</td></tr>
+<tr><td>接手责任与环境</td><td>资料未提供</td><td>待确认：负责人、验收日期、新机器摄像头/GPU和模型配置</td></tr>
+</tbody></table></div>
+<p>本轮交付完成的是与当前源码对齐的材料制作，不是一次新增部署或全量业务验收。未修改业务源码、raw原件、数据卷、上传文件或长期背景；未读取/复制凭据、人脸向量和真人截图。</p>
+<p>README存在早于后续修复的目录数量和历史待办描述，本材料以当前源码、最新明确口径和有日期的验收报告分别说明；历史报告中的“未提交”状态不覆盖当前本地Git与已有推送证据。</p>
+</section>
+<section id="section-10"><h2>10 来源与可编辑附件</h2>
+<p>当前项目 <code>raw/</code> 只有目录说明，业务原始资料未提供。<a class="source-ref" href="#S50">[S50]</a> 本轮只使用本地源码、配置、现有文档和用户已确认背景；未联网查外部资料，也未重新读取项目外原始DOCX。Sprint原始要求仅通过既有复核报告转引，不能说本轮重新验过原件。<a class="source-ref" href="#S47">[S47]</a>、<a class="source-ref" href="#S51">[S51]</a></p>
+<p>交接页所有 <code>[Sxx]</code> 对应下面的真实文件与本轮核对行号。源码索引只保存路径、行号和SHA256，不保存文件中的凭据或业务个人数据。文件路径相对于项目根目录；迁移项目目录后仍可定位。</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="资料表格"><table><thead><tr><th scope="col">来源编号</th><th scope="col">文件路径与行号</th></tr></thead><tbody>
+<tr id="S01"><td>S01</td><td><code>backend/src/main/java/com/classroom/ai/modules/auth/security/SecurityConfig.java:59</code></td></tr>
+<tr id="S02"><td>S02</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java:45</code></td></tr>
+<tr id="S03"><td>S03</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java:268</code></td></tr>
+<tr id="S04"><td>S04</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java:27</code></td></tr>
+<tr id="S05"><td>S05</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java:46</code></td></tr>
+<tr id="S06"><td>S06</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java:41</code></td></tr>
+<tr id="S07"><td>S07</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java:106</code></td></tr>
+<tr id="S08"><td>S08</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseScheduleServiceImpl.java:58</code></td></tr>
+<tr id="S09"><td>S09</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java:49</code></td></tr>
+<tr id="S10"><td>S10</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java:173</code></td></tr>
+<tr id="S11"><td>S11</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java:230</code></td></tr>
+<tr id="S12"><td>S12</td><td><code>backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceAccessService.java:17</code></td></tr>
+<tr id="S13"><td>S13</td><td><code>backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java:56</code></td></tr>
+<tr id="S14"><td>S14</td><td><code>backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java:177</code></td></tr>
+<tr id="S15"><td>S15</td><td><code>backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java:46</code></td></tr>
+<tr id="S16"><td>S16</td><td><code>backend/src/main/java/com/classroom/ai/modules/resource/service/impl/MicroTeachingServiceImpl.java:43</code></td></tr>
+<tr id="S17"><td>S17</td><td><code>backend/src/main/java/com/classroom/ai/modules/resource/service/MicroTeachingVideoService.java:30</code></td></tr>
+<tr id="S18"><td>S18</td><td><code>backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java:87</code></td></tr>
+<tr id="S19"><td>S19</td><td><code>backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java:213</code></td></tr>
+<tr id="S20"><td>S20</td><td><code>backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java:183</code></td></tr>
+<tr id="S21"><td>S21</td><td><code>backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java:27</code></td></tr>
+<tr id="S22"><td>S22</td><td><code>backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java:55</code></td></tr>
+<tr id="S23"><td>S23</td><td><code>backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java:223</code></td></tr>
+<tr id="S24"><td>S24</td><td><code>backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceAccessService.java:31</code></td></tr>
+<tr id="S25"><td>S25</td><td><code>backend/src/main/java/com/classroom/ai/modules/attendance/service/impl/AttendanceServiceImpl.java:97</code></td></tr>
+<tr id="S26"><td>S26</td><td><code>backend/src/main/java/com/classroom/ai/controller/CameraMonitorController.java:27</code></td></tr>
+<tr id="S27"><td>S27</td><td><code>backend/src/main/java/com/classroom/ai/service/impl/VisualDashboardServiceImpl.java:115</code></td></tr>
+<tr id="S28"><td>S28</td><td><code>backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java:120</code></td></tr>
+<tr id="S29"><td>S29</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/controller/MajorController.java:20</code></td></tr>
+<tr id="S30"><td>S30</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/controller/TeacherController.java:20</code></td></tr>
+<tr id="S31"><td>S31</td><td><code>backend/src/main/java/com/classroom/ai/modules/auth/security/JwtAuthenticationFilter.java:38</code></td></tr>
+<tr id="S32"><td>S32</td><td><code>frontend/src/App.vue:168</code></td></tr>
+<tr id="S33"><td>S33</td><td><code>frontend/vite.config.ts:10</code></td></tr>
+<tr id="S34"><td>S34</td><td><code>frontend/dev/camera-plugin.mjs:124</code></td></tr>
+<tr id="S35"><td>S35</td><td><code>scripts/deploy/docker-compose.yml:2</code></td></tr>
+<tr id="S36"><td>S36</td><td><code>scripts/start_project.ps1:1</code></td></tr>
+<tr id="S37"><td>S37</td><td><code>stop_project.ps1:1</code></td></tr>
+<tr id="S38"><td>S38</td><td><code>vision/requirements.txt:1</code></td></tr>
+<tr id="S39"><td>S39</td><td><code>vision/classroom_monitor.py:197</code></td></tr>
+<tr id="S40"><td>S40</td><td><code>vision/face_recognition.py:36</code></td></tr>
+<tr id="S41"><td>S41</td><td><code>backend/src/main/resources/application.yml:54</code></td></tr>
+<tr id="S42"><td>S42</td><td><code>backend/pom.xml:21</code></td></tr>
+<tr id="S43"><td>S43</td><td><code>frontend/package.json:12</code></td></tr>
+<tr id="S44"><td>S44</td><td><code>backend/Dockerfile:2</code></td></tr>
+<tr id="S45"><td>S45</td><td><code>.gitignore:22</code></td></tr>
+<tr id="S46"><td>S46</td><td><code>output/20261010-camera-integration-fix-v1.md:25</code></td></tr>
+<tr id="S47"><td>S47</td><td><code>output/20261010-sprint2-readiness-check-v1.md:5</code></td></tr>
+<tr id="S48"><td>S48</td><td><code>output/20261010-attendance-test-import-fix-v1.md:1</code></td></tr>
+<tr id="S49"><td>S49</td><td><code>docs/20261010-attendance-test-import-fix-v1/push-result.json:4</code></td></tr>
+<tr id="S50"><td>S50</td><td><code>raw/README.md:1</code></td></tr>
+<tr id="S51"><td>S51</td><td><code>memory-bank/project-context.md:145</code></td></tr>
+<tr id="S52"><td>S52</td><td><code>scripts/run-tests.ps1:1</code></td></tr>
+<tr id="S53"><td>S53</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingHistoryController.java:44</code></td></tr>
+<tr id="S54"><td>S54</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/repository/MajorRepository.java:17</code></td></tr>
+<tr id="S55"><td>S55</td><td><code>backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java:150</code></td></tr>
+<tr id="S56"><td>S56</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java:35</code></td></tr>
+<tr id="S57"><td>S57</td><td><code>backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java:188</code></td></tr>
+</tbody></table></div>
+<p>附件：五张SVG和PNG可直接插入文档；Mermaid源文件可编辑逻辑图；HTML离线可读并内嵌全部SVG；Markdown通过相对路径引用图示；权限CSV含操作/角色/状态/接口/依据；接口CSV区分Java后端与Vite本地入口；实体CSV为源码模型索引；manifest记录制作版本、文件哈希和验证范围。整个材料包不依赖网络字体、CDN或在线Mermaid渲染。</p>
+</section><footer>本材料离线可读；正文内嵌SVG。未包含账号凭据、数据库、人脸向量和真人摄像头截图。</footer></main><script>const q=document.getElementById("permission-filter"),rows=[...document.querySelectorAll("#permission-table tbody tr")],result=document.getElementById("filter-result");function filter(){const word=q.value.trim().toLowerCase();let count=0;rows.forEach(row=>{row.hidden=!row.textContent.toLowerCase().includes(word);if(!row.hidden)count++});result.textContent="显示 "+count+" / "+rows.length+" 项操作"}q.addEventListener("input",filter);filter();</script></body></html>

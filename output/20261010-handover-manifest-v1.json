@@ -1,0 +1,155 @@
+{
+  "title": "爱教学开发维护交接材料",
+  "date": "2026-10-10",
+  "timezone": "Asia/Shanghai",
+  "version": "v1",
+  "branch": "fix-exp3",
+  "head": "7464f9cf5875ec3e416d313e11c9838f5a2bec15",
+  "scope": "当前本地源码、配置、已确认口径与有日期的既有验收报告",
+  "counts": {
+    "diagrams": 5,
+    "permission_operations": 38,
+    "backend_mapping_annotations": 97,
+    "vite_local_route_entries": 8,
+    "source_entities": 24,
+    "source_locations": 57
+  },
+  "verification": {
+    "source_routes_and_line_markers": true,
+    "source_index_hashes": true,
+    "protected_project_files_unchanged": 299,
+    "raw_unchanged": true,
+    "svg_xml_and_png_integrity": true,
+    "offline_html_browser_checked": true,
+    "html_external_requests": 0,
+    "widths_checked": [
+      375,
+      768,
+      812,
+      1024,
+      1440
+    ],
+    "filter_and_anchor_checks": true,
+    "diagrams_visually_reviewed": true
+  },
+  "not_executed": [
+    "本轮业务测试",
+    "服务运行版本查询",
+    "部署",
+    "数据库备份/恢复",
+    "多人识别准确率评估"
+  ],
+  "review_items": [
+    "实际运行版本与源码基线一致性",
+    "接手负责人、验收日期与目标机器配置",
+    "多人光照识别效果、历史外部微格地址",
+    "Sprint2正式评审/回顾与自然人批准证据"
+  ],
+  "files": [
+    {
+      "path": "20261010-developer-handover-v1.html",
+      "bytes": 92384,
+      "sha256": "faeefffc032ec9eaa1e19facdb26e7f28d81d61343e652c74e98517b1eef5eac"
+    },
+    {
+      "path": "20261010-developer-handover-v1.md",
+      "bytes": 32618,
+      "sha256": "8ae567abc7eaf7275a5910b8d944ae7934253d73ed03b36339148d030fac1bfe"
+    },
+    {
+      "path": "20261010-endpoint-index-v1.csv",
+      "bytes": 14211,
+      "sha256": "c788e985ec0b9014f88cbd516feaa831e2e65cbd7c33f2d7bac3fa36f915a337"
+    },
+    {
+      "path": "20261010-entity-index-v1.csv",
+      "bytes": 7961,
+      "sha256": "6b07076679b252cae753196a548311088019b639ec7f5ee7c2c3b6094bb97eb4"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-business-overview-v1.mmd",
+      "bytes": 1219,
+      "sha256": "eec1190c672e83c25593e51a7b962bfd69d9ef5616ab182ff542fbc381ee3a53"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-business-overview-v1.png",
+      "bytes": 111250,
+      "sha256": "3cb56478f50f806d048e4e6528b0f42a595e1c1d494d345c69d1ec59252867b5"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-business-overview-v1.svg",
+      "bytes": 5305,
+      "sha256": "ab0c56aa2fa2eb19160c3fa25cdb88eb28fa5d1cfae15189a180dd9fec96452a"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-data-relations-v1.mmd",
+      "bytes": 2025,
+      "sha256": "962e781a2c313be80a91fdd989934df9dfae09a128563851772a8aac54847160"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-data-relations-v1.png",
+      "bytes": 167705,
+      "sha256": "b9c12b415702c24b7b90cc49fbae70364bc3bf929c756bc3e8be2185f9291aca"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-data-relations-v1.svg",
+      "bytes": 11429,
+      "sha256": "7bf023c9892a6bb8948cd82322867c80a7160094728a3ff260feb5cbb6355a28"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-evaluation-workflow-v1.mmd",
+      "bytes": 869,
+      "sha256": "1b366c74aa573c20141cfaf04898e3e28669a1cd9f970657c1227c92809fe28a"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-evaluation-workflow-v1.png",
+      "bytes": 113597,
+      "sha256": "d95daf012769a8e2b49b983f19a8f8ae2d3853c37be96834852b2329e47632ce"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-evaluation-workflow-v1.svg",
+      "bytes": 5531,
+      "sha256": "2f5798b567ccfab863f79d0bec4da9768bdebcbb350e9bfe9ac85bfca7313a2a"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-role-scopes-v1.mmd",
+      "bytes": 1480,
+      "sha256": "149dc9426aad85e86b3f0768e649382a0fa8f0d7fec9aee77cb31f1ffcdf13d1"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-role-scopes-v1.png",
+      "bytes": 143003,
+      "sha256": "d4b0e183f710a2237615680e44c290fceb1051d17493d74770154fef3438a193"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-role-scopes-v1.svg",
+      "bytes": 7127,
+      "sha256": "8fa0c7d0a91044b2c463d53442641072802374111c55cd8d3da79a064182e3a6"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-runtime-architecture-v1.mmd",
+      "bytes": 1370,
+      "sha256": "fede54e4ba6d0131a16f8681285ec4328c5d9368164cc8d73e871b787d7e6c64"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-runtime-architecture-v1.png",
+      "bytes": 145318,
+      "sha256": "44fb65ee1182c0cd952ab03cbfbcbbd6543fc39837cd4ff20fbe4d89dbd7f239"
+    },
+    {
+      "path": "20261010-handover-diagrams-v1/20261010-runtime-architecture-v1.svg",
+      "bytes": 8158,
+      "sha256": "7f589fa7f85dfce520a0e75eba438ed4bdcc5f4041be4a970099f7e6d7b59e05"
+    },
+    {
+      "path": "20261010-permission-matrix-v1.csv",
+      "bytes": 20255,
+      "sha256": "865126fefbcec7d8020f76b755fed56db5bcad5cc2972086390e00c569876123"
+    },
+    {
+      "path": "20261010-source-index-v1.csv",
+      "bytes": 8861,
+      "sha256": "a4ad890d3bc0545be42bb13a89c2edb6eb6d8008f80866ab07f606e3a3409117"
+    }
+  ]
+}
