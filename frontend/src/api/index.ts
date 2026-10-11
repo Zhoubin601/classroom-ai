@@ -12,7 +12,8 @@ import type {
   FaceMatchVO,
   ClassroomStreamDTO,
   CourseSchedule,
-  CourseContentRevision
+  CourseContentRevision,
+  CourseSyllabus
 } from './types'
 
 // 在开发环境下通过 Vite 代理连接后端，也可直连 localhost:8080
@@ -339,15 +340,21 @@ export const scheduleApi = {
 }
 
 export const syllabusApi = {
+  getVersions: async (courseId: number): Promise<CourseSyllabus[]> => {
+    const res = await client.get<ApiResponse<CourseSyllabus[]>>(`/api/v1/syllabus/course/${courseId}`)
+    return res.data.data
+  },
   // 获取课程最新大纲
   getLatest: async (courseId: number): Promise<any> => {
     const res = await client.get<ApiResponse<any>>(`/api/v1/syllabus/course/${courseId}/latest`)
     return res.data.data
   },
 
-  // 获取当前大纲版本的毕业要求指标点映射矩阵
-  getIndicators: async (courseId: number): Promise<any[]> => {
-    const res = await client.get<ApiResponse<any[]>>(`/api/v1/syllabus/course/${courseId}/indicators`)
+  // 按大纲ID读取映射，省略ID时读取最新版本
+  getIndicators: async (courseId: number, syllabusId?: number): Promise<any[]> => {
+    const res = await client.get<ApiResponse<any[]>>(`/api/v1/syllabus/course/${courseId}/indicators`, {
+      params: { syllabusId }
+    })
     return res.data.data
   },
   getPlanIndicators: async (majorCode: string, version: string): Promise<any[]> => {

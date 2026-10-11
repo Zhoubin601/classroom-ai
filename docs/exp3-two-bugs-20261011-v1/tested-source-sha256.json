@@ -1,0 +1,13 @@
+{
+  "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java": "31921f815eed02ef6732b5c6115f1b7061e6c4c07be259bfa1ab85985f2b4a0d",
+  "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java": "792ca2a331773db7a41923c7ae56c1976e15ca2ebff3b7cc1f94766eb2caf889",
+  "frontend/src/api/index.ts": "522764282f108db5d2581f2ed1985d23157dceb93dc8315d03a9fae9b0764f47",
+  "frontend/src/views/TeacherDeskView.vue": "068de4a90b15d0e6f92c4c39faa9e763facf9e09f6a9c46399575fac17cf0533",
+  "frontend/src/views/DirectorDeskView.vue": "be2c53dd9e4fa17c46dcf4bba57edc743073fa4b550840e858f557c2182a7de5",
+  "scripts/tests/exp3-history-scores.cjs": "5c74c6c616c64d9070f3a00182da1943afc861605055dc65194c9cfb1fe08b06",
+  "backend/src/test/java/com/classroom/ai/modules/course/SyllabusHistoryHttpTest.java": "98fd85ec22cafec70326f6598e03c9c6ea3912a3715ccd38fdb2c5645b855320",
+  "backend/src/test/java/com/classroom/ai/modules/supervision/SupervisionServiceTest.java": "afc70d254e55175e6e2347bf0770ee3be8be4a9809e50be4b1f71f88c007549d",
+  "backend/src/test/java/com/classroom/ai/modules/Sprint2MysqlTest.java": "6de5f93461812e216bd6c6a1030d09c902c1e2faba28b6096ae0134aea33eba5",
+  "backend/src/test/java/com/classroom/ai/RegressionTest.java": "938a4d74f6c1dffa11f092d5a81e2744f2d65bcc6a21258884c3f8d8357947ae",
+  "scripts/run-exp3-browser-tests.ps1": "339725d320576d38ada80d837fcac26f9c9522373173a45197a04685b09ea297"
+}

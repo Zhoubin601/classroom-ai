@@ -123,6 +123,8 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Sprint 2 real-browser acceptance failed' }
     & node (Join-Path $projectRoot 'scripts/tests/fix-exp3-acceptance.cjs')
     if ($LASTEXITCODE -ne 0) { throw 'Sprint 2 strict acceptance additions failed' }
+    & node (Join-Path $projectRoot 'scripts/tests/exp3-history-scores.cjs')
+    if ($LASTEXITCODE -ne 0) { throw 'Sprint 2 history and required-score regression failed' }
 } finally {
     $env:EXP3_FRONTEND_URL = $previousFrontendUrl
     $env:CLASSROOM_API_PROXY = $previousApiProxy

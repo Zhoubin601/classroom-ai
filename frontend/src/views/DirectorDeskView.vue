@@ -224,7 +224,7 @@
               <span class="text-xs text-slate-500 font-medium">选择审查课程:</span>
               <select
                 v-model="selectedCourseIdForIndicator"
-                @change="loadIndicatorsForSelectedCourse"
+                @change="loadIndicatorsForSelectedCourse()"
                 class="bg-transparent text-xs text-indigo-700 font-bold focus:outline-none min-w-[200px] cursor-pointer"
               >
                 <option v-if="courseList.length === 0" value="" disabled class="text-slate-400">
@@ -247,19 +247,26 @@
             </button>
 
             <!-- 审查锁定按钮 -->
-            <button @click="lockCurrentSyllabus" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-amber-600/20 transition flex items-center gap-1.5 cursor-pointer">
+            <button @click="lockCurrentSyllabus" :disabled="indicatorLoading || !!indicatorLoadError || !selectedSyllabus || isHistoricalSyllabus || selectedSyllabus.status === 'LOCKED'" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-amber-600/20 transition flex items-center gap-1.5 cursor-pointer">
               <Lock class="w-3.5 h-3.5" /> 审查锁定本版大纲
             </button>
           </div>
         </div>
 
         <div class="border border-indigo-100 bg-indigo-50/30 rounded-2xl p-4 mb-5 space-y-3 text-xs">
+          <div v-if="syllabusVersions.length" class="flex flex-wrap items-center gap-3">
+            <label for="director-syllabus-version" class="font-semibold">查看大纲版本</label>
+            <select id="director-syllabus-version" v-model="selectedSyllabusId" aria-label="查看大纲版本" :disabled="indicatorLoading" @change="loadIndicatorsForSelectedCourse(selectedSyllabusId ?? undefined)" class="border border-slate-200 rounded-xl px-3 py-2 bg-white">
+              <option v-for="version in syllabusVersions" :key="version.id" :value="version.id">{{ version.version }}{{ version.id === latestSyllabusId ? '（当前版）' : '（历史版）' }}</option>
+            </select>
+            <span v-if="isHistoricalSyllabus" role="status" class="text-amber-700">历史版本只读，可查看当时的指标、支撑权重和课程目标。</span>
+          </div>
           <p v-if="indicatorLoading" role="status">正在加载课程指标与目录...</p>
           <div v-else-if="indicatorLoadError" role="alert" class="text-rose-700">
-            {{ indicatorLoadError }} <button @click="loadIndicatorsForSelectedCourse" class="underline ml-2">重试加载</button>
+            {{ indicatorLoadError }} <button @click="loadIndicatorsForSelectedCourse()" class="underline ml-2">重试加载</button>
           </div>
           <template v-else>
-            <p v-if="selectedSyllabus">当前大纲：{{ selectedSyllabus.version }} · 目录版本：{{ selectedSyllabus.planVersion || selectedSyllabus.version }} · {{ selectedSyllabus.status === 'LOCKED' ? '已锁定，请创建新版本后修改' : '可维护课程映射' }}</p>
+            <p v-if="selectedSyllabus">当前大纲：{{ selectedSyllabus.version }} · 目录版本：{{ selectedSyllabus.planVersion || selectedSyllabus.version }} · {{ isHistoricalSyllabus ? '历史版本只读' : selectedSyllabus.status === 'LOCKED' ? '已锁定，请创建新版本后修改' : '可维护课程映射' }}</p>
             <p v-else>该课程尚未创建大纲，请先选择目录并创建大纲，再新增指标映射。</p>
             <p v-if="catalogVersion === 'RECOMMENDED-12'" class="text-amber-700" role="status">当前目录为推荐示例模板，供实验演示；请按课程内容修订，不代表专业正式培养方案。</p>
             <p v-else-if="planCatalog.length === 0" class="text-amber-700">目录版本 {{ catalogVersion || '未绑定' }} 尚无指标，请联系牵头教研室导入，或选择已有目录创建新大纲。</p>
@@ -306,7 +313,7 @@
                 <td colspan="6" class="py-12 text-center text-slate-400">
                   <div class="flex flex-col items-center justify-center gap-2">
                     <FileText class="w-6 h-6 text-slate-300" />
-                    <span>{{ selectedSyllabus ? '该版大纲暂无课程指标映射；目录加载后可新增指标点' : '该课程尚无大纲，请先创建大纲并绑定目录' }}</span>
+                    <span>{{ isHistoricalSyllabus ? '该历史版本暂无指标映射' : selectedSyllabus ? '该版大纲暂无课程指标映射；目录加载后可新增指标点' : '该课程尚无大纲，请先创建大纲并绑定目录' }}</span>
                   </div>
                 </td>
               </tr>
@@ -321,7 +328,7 @@
                     {{ ind.supportWeight }} ({{ ind.supportWeight === 'H' ? '强支撑' : (ind.supportWeight === 'M' ? '中等' : '弱支撑') }})
                   </span>
                 </td>
-                <td class="py-3.5 px-4 text-slate-500 font-mono">{{ ind.targetGoal || '目标1' }}</td>
+                <td class="py-3.5 px-4 text-slate-500 font-mono">{{ ind.targetGoal || '未设置' }}</td>
                 <td class="py-3.5 px-4 text-right space-x-2">
                   <button @click="openEditIndicatorModal(ind)" :disabled="!canAddIndicator" class="text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer disabled:opacity-50">编辑</button>
                   <button @click="confirmDeleteIndicator(ind)" :disabled="!canAddIndicator" class="text-rose-600 hover:text-rose-800 font-semibold cursor-pointer disabled:opacity-50">删除</button>
@@ -1244,6 +1251,10 @@ const indicatorForm = ref<any>({
 
 const planCatalog = ref<GraduationIndicator[]>([])
 const selectedSyllabus = ref<CourseSyllabus | null>(null)
+const syllabusVersions = ref<CourseSyllabus[]>([])
+const selectedSyllabusId = ref<number | null>(null)
+const latestSyllabusId = ref<number | null>(null)
+const isHistoricalSyllabus = computed(() => !!selectedSyllabusId.value && selectedSyllabusId.value !== latestSyllabusId.value)
 const indicatorLoading = ref(false)
 const indicatorLoadError = ref('')
 const catalogVersion = ref('')
@@ -1253,7 +1264,7 @@ const newSyllabusVersion = ref('')
 const creatingSyllabus = ref(false)
 let indicatorRequest = 0
 const canAddIndicator = computed(() => !indicatorLoading.value && !indicatorLoadError.value &&
-  !!selectedSyllabus.value && selectedSyllabus.value.status !== 'LOCKED' && planCatalog.value.length > 0)
+  !!selectedSyllabus.value && !isHistoricalSyllabus.value && selectedSyllabus.value.status !== 'LOCKED' && planCatalog.value.length > 0)
 const standardIndicatorCategories = computed(() => Array.from(new Set(planCatalog.value.map(i => i.requirementCategory))))
 
 const loadCourses = async () => {
@@ -1274,7 +1285,7 @@ const loadCourses = async () => {
   }
 }
 
-const loadIndicatorsForSelectedCourse = async () => {
+const loadIndicatorsForSelectedCourse = async (versionId?: number) => {
   const request = ++indicatorRequest
   const courseId = Number(selectedCourseIdForIndicator.value)
   indicatorList.value = []
@@ -1286,18 +1297,26 @@ const loadIndicatorsForSelectedCourse = async () => {
   availablePlanVersions.value = []
   showIndicatorModal.value = false
   if (!selectedCourseIdForIndicator.value) {
-    indicatorList.value = []
+    syllabusVersions.value = []
+    selectedSyllabusId.value = null
+    latestSyllabusId.value = null
     return
   }
   try {
     indicatorLoading.value = true
-    const [res, latest] = await Promise.all([syllabusApi.getIndicators(courseId), syllabusApi.getLatest(courseId)])
+    const [syllabi, latest] = await Promise.all([syllabusApi.getVersions(courseId), syllabusApi.getLatest(courseId)])
+    const selected = versionId ? syllabi.find(v => v.id === versionId) : latest
+    if (versionId && !selected) throw new Error('所选大纲版本不存在，请重新加载')
+    const res = await syllabusApi.getIndicators(courseId, selected?.id)
     if (request !== indicatorRequest) return
+    syllabusVersions.value = syllabi
+    latestSyllabusId.value = latest?.id ?? null
+    selectedSyllabusId.value = selected?.id ?? null
     indicatorList.value = Array.isArray(res) ? res : []
-    selectedSyllabus.value = latest
+    selectedSyllabus.value = selected
     const course = courseList.value.find(c => c.id === courseId)
     if (!course?.majorCode) throw new Error('课程尚未关联专业，请先修正课程档案')
-    catalogVersion.value = latest?.planVersion || latest?.version || 'RECOMMENDED-12'
+    catalogVersion.value = selected?.planVersion || selected?.version || 'RECOMMENDED-12'
     const [catalog, versions] = await Promise.all([
       syllabusApi.getPlanIndicators(course.majorCode, catalogVersion.value), syllabusApi.getPlanVersions(course.majorCode)
     ])
@@ -1469,6 +1488,7 @@ const openEditIndicatorModal = (ind: GraduationIndicator) => {
 }
 
 const handleSaveIndicator = async () => {
+  if (!canAddIndicator.value) return
   if (!indicatorForm.value.indicatorCode || !indicatorForm.value.indicatorDescription) {
     alert('请填写指标点编号与分解表述！')
     return
@@ -1488,6 +1508,7 @@ const handleSaveIndicator = async () => {
 }
 
 const confirmDeleteIndicator = async (ind: GraduationIndicator) => {
+  if (!canAddIndicator.value) return
   if (confirm(`确认删除指标点【${ind.indicatorCode}】？此操作将直接同步删除 MySQL 中的数据。`)) {
     try {
       await syllabusApi.deleteIndicator(ind.id)
@@ -1505,10 +1526,12 @@ const lockCurrentSyllabus = async () => {
     return
   }
   try {
-    const latest = await syllabusApi.getLatest(Number(selectedCourseIdForIndicator.value))
-    if (latest) {
-      await syllabusApi.lock(latest.id, '')
-      alert(`《${latest.course?.courseName || '该课程'}》大纲版本审查完成并成功锁定！`)
+    const selected = selectedSyllabus.value
+    if (indicatorLoading.value || indicatorLoadError.value || isHistoricalSyllabus.value || selected?.status === 'LOCKED') return
+    if (selected) {
+      await syllabusApi.lock(selected.id, '')
+      await loadIndicatorsForSelectedCourse()
+      alert(`《${selected.course?.courseName || '该课程'}》大纲版本审查完成并成功锁定！`)
     } else {
       alert('该课程暂未发布教学大纲，无法进行审查锁定')
     }

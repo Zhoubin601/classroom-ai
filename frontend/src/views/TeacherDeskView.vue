@@ -458,7 +458,15 @@
         </div>
       </div>
 
-      <p v-if="indicatorError" class="text-xs text-rose-700" role="alert">{{ indicatorError }} <button @click="loadIndicators" class="underline">重试加载</button></p>
+      <div v-if="syllabusVersions.length" class="flex flex-wrap items-center gap-3 text-xs">
+        <label for="teacher-syllabus-version" class="font-semibold">查看大纲版本</label>
+        <select id="teacher-syllabus-version" v-model="selectedSyllabusId" aria-label="查看大纲版本" :disabled="loadingIndicators" @change="loadIndicators(selectedSyllabusId ?? undefined)" class="border border-slate-200 rounded-xl px-3 py-2 bg-white">
+          <option v-for="version in syllabusVersions" :key="version.id" :value="version.id">{{ version.version }}{{ version.id === latestSyllabusId ? '（当前版）' : '（历史版）' }}</option>
+        </select>
+        <span v-if="isHistoricalSyllabus" role="status" class="text-amber-700">历史版本只读，可查看当时的指标、支撑权重和课程目标。</span>
+        <span v-else-if="currentSyllabus?.status === 'LOCKED'" class="text-amber-700">当前大纲已锁定，请创建新版本后修改。</span>
+      </div>
+      <p v-if="indicatorError" class="text-xs text-rose-700" role="alert">{{ indicatorError }} <button @click="loadIndicators()" class="underline">重试加载</button></p>
       <p v-else-if="!loadingIndicators && !currentSyllabus" class="text-xs text-amber-700">当前课程尚未创建大纲，请填写新大纲版本，从已导入目录创建或套用推荐示例模板。</p>
       <p v-else-if="!loadingIndicators && planIndicators.length === 0" class="text-xs text-amber-700">当前大纲目录暂无指标，请联系专业牵头教研室导入，或选择已有目录创建新大纲版本。</p>
       <p v-if="planVersion === 'RECOMMENDED-12'" class="text-xs text-amber-700" role="status">当前为推荐示例草案，供实验演示；请按课程内容修订，不代表专业正式培养方案。</p>
@@ -480,7 +488,7 @@
               <td colspan="6" class="py-12 text-center text-slate-400 bg-white">
                 <div class="flex flex-col items-center justify-center gap-2">
                   <FileText class="w-6 h-6 text-slate-300" />
-                  <span>该课程暂未录入毕业要求指标点，请点击右上角【从培养方案创建大纲】或【新增认证指标点】录入</span>
+                  <span>{{ isHistoricalSyllabus ? '该历史版本暂无指标映射' : '该课程暂未录入毕业要求指标点，请点击右上角【从培养方案创建大纲】或【新增认证指标点】录入' }}</span>
                 </div>
               </td>
             </tr>
@@ -497,10 +505,10 @@
                   {{ ind.supportWeight }} ({{ ind.supportWeight === 'H' ? '强支撑' : (ind.supportWeight === 'M' ? '中等' : '弱支撑') }})
                 </span>
               </td>
-              <td class="py-3.5 px-4 text-slate-600 font-mono">{{ ind.targetGoal || '目标1' }}</td>
+              <td class="py-3.5 px-4 text-slate-600 font-mono">{{ ind.targetGoal || '未设置' }}</td>
               <td class="py-3.5 px-4 text-right space-x-3">
-                <button @click="openEditIndicatorModal(ind)" class="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer">修改</button>
-                <button @click="confirmDeleteIndicator(ind)" class="text-rose-600 hover:text-rose-800 font-bold cursor-pointer">删除</button>
+                <button @click="openEditIndicatorModal(ind)" :disabled="!canEditIndicators" class="text-indigo-600 hover:text-indigo-800 font-bold cursor-pointer">修改</button>
+                <button @click="confirmDeleteIndicator(ind)" :disabled="!canEditIndicators" class="text-rose-600 hover:text-rose-800 font-bold cursor-pointer">删除</button>
               </td>
             </tr>
           </tbody>
@@ -746,7 +754,7 @@ import {
 } from 'lucide-vue-next'
 import * as echarts from 'echarts'
 import { resourceApi, supervisionApi, courseApi, syllabusApi, scheduleApi, courseContentApi } from '../api'
-import type { CourseResource, CourseOffering, CourseSchedule, TeacherQualityRadarVO, GraduationIndicator, CourseContentRevision } from '../api/types'
+import type { CourseSyllabus, CourseResource, CourseOffering, CourseSchedule, TeacherQualityRadarVO, GraduationIndicator, CourseContentRevision } from '../api/types'
 
 const props = defineProps<{
   loggedInUser?: any
@@ -779,6 +787,11 @@ const currentOffering = ref<CourseOffering | null>(null)
 const currentCourse = ref<any>(null)
 const currentSchedule = ref<CourseSchedule | null>(null)
 const currentSyllabus = ref<any>(null)
+const syllabusVersions = ref<CourseSyllabus[]>([])
+const selectedSyllabusId = ref<number | null>(null)
+const latestSyllabusId = ref<number | null>(null)
+const isHistoricalSyllabus = computed(() => !!selectedSyllabusId.value && selectedSyllabusId.value !== latestSyllabusId.value)
+let indicatorRequest = 0
 const selectedTag = ref('')
 const myResources = ref<CourseResource[]>([])
 const sharedResources = ref<CourseResource[]>([])
@@ -809,7 +822,7 @@ const indicatorForm = ref({
 const planIndicators = ref<GraduationIndicator[]>([])
 const indicatorError = ref('')
 const canEditIndicators = computed(() => !loadingIndicators.value && !indicatorError.value &&
-  !!currentSyllabus.value && currentSyllabus.value.status !== 'LOCKED' && planIndicators.value.length > 0)
+  !!currentSyllabus.value && !isHistoricalSyllabus.value && currentSyllabus.value.status !== 'LOCKED' && planIndicators.value.length > 0)
 const planVersion = ref('')
 const syllabusVersion = ref('')
 const standardIndicatorCategories = computed(() => Array.from(new Set(planIndicators.value.map(i => i.requirementCategory))))
@@ -935,26 +948,47 @@ const loadCourse = async () => {
   }
 }
 
-const loadIndicators = async () => {
+const loadIndicators = async (versionId?: number) => {
+  const request = ++indicatorRequest
+  const course = currentCourse.value
   planIndicators.value = []
+  indicators.value = []
   indicatorError.value = ''
-  if (!currentCourse.value?.id) {
-    indicators.value = []
-    return
-  }
+  showIndicatorModal.value = false
+  currentSyllabus.value = null
   loadingIndicators.value = true
   try {
-    indicators.value = await syllabusApi.getIndicators(currentCourse.value.id)
-    currentSyllabus.value = await syllabusApi.getLatest(currentCourse.value.id)
-    planVersion.value = currentSyllabus.value?.planVersion || currentSyllabus.value?.version || ''
-    syllabusVersion.value = ''
-    planIndicators.value = planVersion.value && currentCourse.value.majorCode
-      ? await syllabusApi.getPlanIndicators(currentCourse.value.majorCode, planVersion.value) : []
+    if (!course?.id) {
+      syllabusVersions.value = []
+      selectedSyllabusId.value = null
+      latestSyllabusId.value = null
+      return
+    }
+    const [versions, latest] = await Promise.all([
+      syllabusApi.getVersions(course.id), syllabusApi.getLatest(course.id)
+    ])
+    const selected = versionId ? versions.find(v => v.id === versionId) : latest
+    if (versionId && !selected) throw new Error('所选大纲版本不存在，请重新加载')
+    const selectedPlan = selected?.planVersion || selected?.version || ''
+    const [mappings, catalog] = await Promise.all([
+      syllabusApi.getIndicators(course.id, selected?.id),
+      selectedPlan && course.majorCode ? syllabusApi.getPlanIndicators(course.majorCode, selectedPlan) : Promise.resolve([])
+    ])
+    if (request !== indicatorRequest) return
+    syllabusVersions.value = versions
+    latestSyllabusId.value = latest?.id ?? null
+    selectedSyllabusId.value = selected?.id ?? null
+    currentSyllabus.value = selected
+    indicators.value = mappings
+    planIndicators.value = catalog
+    planVersion.value = selectedPlan
+    if (versionId === undefined) syllabusVersion.value = ''
   } catch (e: any) {
-    indicatorError.value = e.response?.data?.message || '加载指标目录失败'
+    if (request !== indicatorRequest) return
+    indicatorError.value = e.response?.data?.message || e.message || '加载指标目录失败'
     console.error('加载指标点失败', e)
   } finally {
-    loadingIndicators.value = false
+    if (request === indicatorRequest) loadingIndicators.value = false
   }
 }
 
@@ -1003,6 +1037,7 @@ const openEditIndicatorModal = (ind: GraduationIndicator) => {
 }
 
 const handleSaveIndicator = async () => {
+  if (!canEditIndicators.value) return
   if (!currentCourse.value?.id) {
     alert('当前未关联有效课程')
     return
@@ -1028,6 +1063,7 @@ const handleSaveIndicator = async () => {
 }
 
 const confirmDeleteIndicator = async (ind: GraduationIndicator) => {
+  if (!canEditIndicators.value) return
   if (!confirm(`确定要从 MySQL 中移除指标点 [${ind.indicatorCode}] 吗？`)) return
   try {
     await syllabusApi.deleteIndicator(ind.id)

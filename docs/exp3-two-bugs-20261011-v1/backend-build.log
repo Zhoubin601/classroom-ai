@@ -1,0 +1,404 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.classroom.ai:classroom-backend >-----------------
+[INFO] Building classroom-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ classroom-backend ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO]
+[INFO] --- compiler:3.13.0:compile (default-compile) @ classroom-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 155 source files with javac [debug parameters release 21] to target/classes
+[INFO] /workspace/exp3-review-20261011/backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java: /workspace/exp3-review-20261011/backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java uses or overrides a deprecated API.
+[INFO] /workspace/exp3-review-20261011/backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java: Recompile with -Xlint:deprecation for details.
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ classroom-backend ---
+[INFO] skip non existing resourceDirectory /workspace/exp3-review-20261011/backend/src/test/resources
+[INFO]
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ classroom-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 37 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java uses or overrides a deprecated API.
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java uses unchecked or unsafe operations.
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: Recompile with -Xlint:unchecked for details.
+[INFO]
+[INFO] --- surefire:3.2.5:test (default-test) @ classroom-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.classroom.ai.modules.supervision.SupervisionAnalyticsTest
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/workspace/.cache/maven/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.279 s -- in com.classroom.ai.modules.supervision.SupervisionAnalyticsTest
+[INFO] Running com.classroom.ai.modules.supervision.SupervisionServiceTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.292 s -- in com.classroom.ai.modules.supervision.SupervisionServiceTest
+[INFO] Running com.classroom.ai.modules.course.CourseOfferingHistoryTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.507 s -- in com.classroom.ai.modules.course.CourseOfferingHistoryTest
+[INFO] Running com.classroom.ai.modules.course.CourseAuthorizationServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 s -- in com.classroom.ai.modules.course.CourseAuthorizationServiceTest
+[INFO] Running com.classroom.ai.modules.course.service.CourseImportServiceTest
+05:58:31.557 [main] INFO com.classroom.ai.modules.course.service.impl.CourseImportServiceImpl -- 【课程导入预览】操作人: director_test, 批次: 4b7376ad-5aea-4afd-94d1-8732258cdfb1, 总行数: 7, 有效行: 1, 错误行: 6
+05:58:31.620 [main] INFO com.classroom.ai.modules.course.service.impl.CourseImportServiceImpl -- 【课程导入预览】操作人: director_test, 批次: 353229a1-8f00-4c49-babd-bc574acf100c, 总行数: 1, 有效行: 1, 错误行: 0
+05:58:31.627 [main] INFO com.classroom.ai.modules.course.service.impl.CourseImportServiceImpl -- 【课程导入预览】操作人: director_test, 批次: 0ad72bfd-991f-49b4-b049-a88d90786fa0, 总行数: 2, 有效行: 2, 错误行: 0
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.522 s -- in com.classroom.ai.modules.course.service.CourseImportServiceTest
+[INFO] Running com.classroom.ai.modules.course.CourseContentRevisionTest
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+05:58:33.097 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+05:58:33.097 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+05:58:33.103 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 3 ms
+05:58:33.605 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+05:58:33.605 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+05:58:33.605 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+05:58:33.629 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+05:58:33.630 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+05:58:33.630 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+05:58:33.706 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+05:58:33.706 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+05:58:33.706 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+05:58:33.723 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+05:58:33.723 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+05:58:33.723 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+05:58:33.739 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+05:58:33.739 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+05:58:33.739 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+05:58:33.798 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+05:58:33.798 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+05:58:33.799 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.144 s -- in com.classroom.ai.modules.course.CourseContentRevisionTest
+[INFO] Running com.classroom.ai.modules.course.util.CsvParserUtilTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in com.classroom.ai.modules.course.util.CsvParserUtilTest
+[INFO] Running com.classroom.ai.modules.course.CourseSchedulingMysqlTest
+[WARNING] Tests run: 21, Failures: 0, Errors: 0, Skipped: 21, Time elapsed: 0.003 s -- in com.classroom.ai.modules.course.CourseSchedulingMysqlTest
+[INFO] Running com.classroom.ai.modules.course.SyllabusHistoryHttpTest
+05:58:34.010 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.classroom.ai.modules.course.SyllabusHistoryHttpTest]: SyllabusHistoryHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+05:58:34.224 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.course.SyllabusHistoryHttpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:34.862Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.course.SyllabusHistoryHttpTest   : Starting SyllabusHistoryHttpTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:34.863Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.course.SyllabusHistoryHttpTest   : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:36.850Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:36.896Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:37.717Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:37.717Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:37.718Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-11T05:58:37.740Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.course.SyllabusHistoryHttpTest   : Started SyllabusHistoryHttpTest in 3.427 seconds (process running for 11.625)
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.085 s -- in com.classroom.ai.modules.course.SyllabusHistoryHttpTest
+[INFO] Running com.classroom.ai.modules.course.CourseBrowserMysqlTest
+[WARNING] Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0 s -- in com.classroom.ai.modules.course.CourseBrowserMysqlTest
+[INFO] Running com.classroom.ai.modules.course.CourseScheduleConflictTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in com.classroom.ai.modules.course.CourseScheduleConflictTest
+[INFO] Running com.classroom.ai.modules.course.AssociationMysqlTest
+[WARNING] Tests run: 7, Failures: 0, Errors: 0, Skipped: 7, Time elapsed: 0 s -- in com.classroom.ai.modules.course.AssociationMysqlTest
+[INFO] Running com.classroom.ai.modules.course.CourseSupervisorRbacTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.075 s -- in com.classroom.ai.modules.course.CourseSupervisorRbacTest
+[INFO] Running com.classroom.ai.modules.course.CourseWorkflowMysqlTest
+[WARNING] Tests run: 11, Failures: 0, Errors: 0, Skipped: 11, Time elapsed: 0 s -- in com.classroom.ai.modules.course.CourseWorkflowMysqlTest
+[INFO] Running com.classroom.ai.modules.course.AssociationIntegrityTest
+[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.277 s -- in com.classroom.ai.modules.course.AssociationIntegrityTest
+[INFO] Running com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest
+[INFO] Running com.classroom.ai.modules.course.CourseAcceptanceRegressionTest
+2026-10-11T05:58:38.404Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.c.s.i.CourseImportServiceImpl    : 【课程导入预览】操作人: review_director, 批次: b6eb64c7-3ff6-495b-a8da-9aeffbc62185, 总行数: 1, 有效行: 1, 错误行: 0
+2026-10-11T05:58:38.405Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.c.s.i.CourseImportServiceImpl    : 【课程导入预览】操作人: review_director, 批次: d6ca297c-eae3-47f2-9879-fef419694a6e, 总行数: 1, 有效行: 0, 错误行: 1
+2026-10-11T05:58:38.407Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.c.s.i.CourseImportServiceImpl    : 【课程导入预览】操作人: review_director, 批次: d73e3391-8ec2-470c-8352-bfc31889f91a, 总行数: 1, 有效行: 1, 错误行: 0
+2026-10-11T05:58:38.409Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.c.s.i.CourseImportServiceImpl    : 【课程导入预览】操作人: review_director, 批次: be38ec5b-89ee-46e9-85cc-f21aa5f32695, 总行数: 1, 有效行: 1, 错误行: 0
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.030 s -- in com.classroom.ai.modules.course.CourseAcceptanceRegressionTest
+[INFO] Running com.classroom.ai.modules.course.MajorDepartmentMysqlTest
+[WARNING] Tests run: 3, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0 s -- in com.classroom.ai.modules.course.MajorDepartmentMysqlTest
+[INFO] Running com.classroom.ai.modules.course.CourseHttpAuthorizationTest
+2026-10-11T05:58:38.421Z  INFO 5580 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.modules.course.CourseHttpAuthorizationTest]: CourseHttpAuthorizationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T05:58:38.429Z  INFO 5580 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.course.CourseHttpAuthorizationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:38.466Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.c.CourseHttpAuthorizationTest    : Starting CourseHttpAuthorizationTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:38.466Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.c.CourseHttpAuthorizationTest    : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:38.822Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:38.822Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:38.952Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:38.953Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:38.953Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:38.961Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.c.CourseHttpAuthorizationTest    : Started CourseHttpAuthorizationTest in 0.528 seconds (process running for 12.847)
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.613 s -- in com.classroom.ai.modules.course.CourseHttpAuthorizationTest
+[INFO] Running com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest
+[INFO] Running com.classroom.ai.modules.course.CourseImportTest
+2026-10-11T05:58:39.046Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:39.046Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:39.046Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:39.061Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:39.061Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:39.061Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:39.098Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:39.098Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:39.098Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:39.107Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:39.107Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:39.107Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s -- in com.classroom.ai.modules.course.CourseImportTest
+[INFO] Running com.classroom.ai.modules.Sprint2MysqlTest
+[WARNING] Tests run: 4, Failures: 0, Errors: 0, Skipped: 4, Time elapsed: 0 s -- in com.classroom.ai.modules.Sprint2MysqlTest
+[INFO] Running com.classroom.ai.modules.resource.MicroVideoHttpTest
+2026-10-11T05:58:39.120Z  INFO 5580 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.modules.resource.MicroVideoHttpTest]: MicroVideoHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T05:58:39.144Z  INFO 5580 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.resource.MicroVideoHttpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:39.160Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.resource.MicroVideoHttpTest      : Starting MicroVideoHttpTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:39.160Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.resource.MicroVideoHttpTest      : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:39.427Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:39.428Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:39.534Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:39.535Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:39.535Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:39.544Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.resource.MicroVideoHttpTest      : Started MicroVideoHttpTest in 0.398 seconds (process running for 13.43)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.518 s -- in com.classroom.ai.modules.resource.MicroVideoHttpTest
+[INFO] Running com.classroom.ai.modules.resource.CourseResourceServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.090 s -- in com.classroom.ai.modules.resource.CourseResourceServiceTest
+[INFO] Running com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest
+2026-10-11T05:58:39.741Z  INFO 5580 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest]: MicroTeachingHttpAuthorizationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T05:58:39.751Z  INFO 5580 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:39.777Z  INFO 5580 --- [classroom-backend] [           main] a.m.r.MicroTeachingHttpAuthorizationTest : Starting MicroTeachingHttpAuthorizationTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:39.777Z  INFO 5580 --- [classroom-backend] [           main] a.m.r.MicroTeachingHttpAuthorizationTest : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:40.007Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:40.008Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:40.149Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:40.149Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:40.150Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-11T05:58:40.157Z  INFO 5580 --- [classroom-backend] [           main] a.m.r.MicroTeachingHttpAuthorizationTest : Started MicroTeachingHttpAuthorizationTest in 0.402 seconds (process running for 14.043)
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.602 s -- in com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest
+[INFO] Running com.classroom.ai.modules.auth.DirectorSupervisorManagementTest
+2026-10-11T05:58:40.413Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.a.controller.DirectorController  : 【主任创建督导成功】主任: 李主任, 新督导: new_sup, 授权专业: SE
+2026-10-11T05:58:40.419Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.a.controller.DirectorController  : 【主任更新督导专业授权】主任: 李主任, 督导: sup.test, 最新授权: CS;SE
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.083 s -- in com.classroom.ai.modules.auth.DirectorSupervisorManagementTest
+[INFO] Running com.classroom.ai.modules.auth.AuthControllerTest
+2026-10-11T05:58:40.438Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:40.438Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:40.438Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:40.440Z  WARN 5580 --- [classroom-backend] [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /api/v1/auth/register-supervisor
+2026-10-11T05:58:40.441Z  WARN 5580 --- [classroom-backend] [           main] o.s.web.servlet.PageNotFound             : No endpoint POST /api/v1/auth/register-supervisor.
+2026-10-11T05:58:40.450Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:40.450Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:40.450Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:40.461Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:40.461Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:40.461Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:40.468Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.auth.controller.AuthController   : 【密码安全迁移】账号 [guojun] 的明文密码已成功透明升级为 BCrypt 哈希
+2026-10-11T05:58:40.499Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:40.499Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:40.499Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:40.509Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:40.509Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:40.509Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.085 s -- in com.classroom.ai.modules.auth.AuthControllerTest
+[INFO] Running com.classroom.ai.modules.auth.JwtAccountIntegrityTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in com.classroom.ai.modules.auth.JwtAccountIntegrityTest
+[INFO] Running com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest
+2026-10-11T05:58:40.527Z  INFO 5580 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest]: AttendanceHttpAuthorizationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T05:58:40.539Z  INFO 5580 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:40.554Z  INFO 5580 --- [classroom-backend] [           main] .c.a.m.a.AttendanceHttpAuthorizationTest : Starting AttendanceHttpAuthorizationTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:40.554Z  INFO 5580 --- [classroom-backend] [           main] .c.a.m.a.AttendanceHttpAuthorizationTest : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:40.809Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:40.810Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:40.911Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:40.911Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:40.911Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:40.917Z  INFO 5580 --- [classroom-backend] [           main] .c.a.m.a.AttendanceHttpAuthorizationTest : Started AttendanceHttpAuthorizationTest in 0.375 seconds (process running for 14.803)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.500 s -- in com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest
+[INFO] Running com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest
+2026-10-11T05:58:41.028Z  INFO 5580 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest]: FaceHttpAuthorizationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T05:58:41.031Z  INFO 5580 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:41.044Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.a.FaceHttpAuthorizationTest      : Starting FaceHttpAuthorizationTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:41.044Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.a.FaceHttpAuthorizationTest      : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:41.237Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:41.237Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:41.332Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:41.332Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:41.333Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-11T05:58:41.337Z  INFO 5580 --- [classroom-backend] [           main] c.c.a.m.a.FaceHttpAuthorizationTest      : Started FaceHttpAuthorizationTest in 0.304 seconds (process running for 15.223)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.331 s -- in com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest
+[INFO] Running com.classroom.ai.modules.attendance.AttendanceServiceTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 s -- in com.classroom.ai.modules.attendance.AttendanceServiceTest
+[INFO] Running com.classroom.ai.CameraMonitorHttpTest
+2026-10-11T05:58:41.402Z  INFO 5580 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.CameraMonitorHttpTest]: CameraMonitorHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T05:58:41.410Z  INFO 5580 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.CameraMonitorHttpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:41.423Z  INFO 5580 --- [classroom-backend] [           main] com.classroom.ai.CameraMonitorHttpTest   : Starting CameraMonitorHttpTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:41.424Z  INFO 5580 --- [classroom-backend] [           main] com.classroom.ai.CameraMonitorHttpTest   : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:41.636Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:41.636Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:41.739Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:41.739Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:41.739Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:41.746Z  INFO 5580 --- [classroom-backend] [           main] com.classroom.ai.CameraMonitorHttpTest   : Started CameraMonitorHttpTest in 0.334 seconds (process running for 15.631)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.434 s -- in com.classroom.ai.CameraMonitorHttpTest
+[INFO] Running com.classroom.ai.VisualHttpAuthorizationTest
+2026-10-11T05:58:41.839Z  INFO 5580 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.VisualHttpAuthorizationTest]: VisualHttpAuthorizationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T05:58:41.854Z  INFO 5580 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.VisualHttpAuthorizationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T05:58:41.902Z  INFO 5580 --- [classroom-backend] [           main] c.c.ai.VisualHttpAuthorizationTest       : Starting VisualHttpAuthorizationTest using Java 21.0.7 with PID 5580 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T05:58:41.902Z  INFO 5580 --- [classroom-backend] [           main] c.c.ai.VisualHttpAuthorizationTest       : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T05:58:42.284Z  WARN 5580 --- [classroom-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: [REDACTED]
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-11T05:58:42.285Z  INFO 5580 --- [classroom-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-11T05:58:42.362Z  INFO 5580 --- [classroom-backend] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:42.362Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:42.362Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:42.368Z  INFO 5580 --- [classroom-backend] [           main] c.c.ai.VisualHttpAuthorizationTest       : Started VisualHttpAuthorizationTest in 0.51 seconds (process running for 16.253)
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.609 s -- in com.classroom.ai.VisualHttpAuthorizationTest
+[INFO] Running com.classroom.ai.ApiExceptionHandlerTest
+2026-10-11T05:58:42.460Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:42.460Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:42.460Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:42.518Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:42.519Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:42.519Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-11T05:58:42.546Z  INFO 5580 --- [classroom-backend] [           main] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2026-10-11T05:58:42.546Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-11T05:58:42.546Z  INFO 5580 --- [classroom-backend] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s -- in com.classroom.ai.ApiExceptionHandlerTest
+[INFO] Running com.classroom.ai.UploadPathsTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.classroom.ai.UploadPathsTest
+[INFO] Running com.classroom.ai.RegressionTest
+2026-10-11T05:58:42.885Z  INFO 5580 --- [classroom-backend] [           main] c.c.ai.service.impl.FaceServiceImpl      : Cache miss or empty, loading face features from MySQL...
+[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.471 s -- in com.classroom.ai.RegressionTest
+[INFO] Running com.classroom.ai.CameraStreamSessionTest
+2026-10-11T05:58:43.044Z  WARN 5580 --- [classroom-backend] [           main] c.c.a.s.impl.VisualDashboardServiceImpl  : Failed to update realtime cache in Redis: cache unavailable
+2026-10-11T05:58:43.046Z ERROR 5580 --- [classroom-backend] [           main] c.c.a.s.impl.VisualDashboardServiceImpl  : Failed to save classroom record to MySQL: database unavailable
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.classroom.ai.CameraStreamSessionTest
+[INFO]
+[INFO] Results:
+[INFO]
+[WARNING] Tests run: 237, Failures: 0, Errors: 0, Skipped: 47
+[INFO]
+[INFO]
+[INFO] --- jar:3.4.2:jar (default-jar) @ classroom-backend ---
+[INFO] Building jar: /workspace/exp3-review-20261011/backend/target/classroom-backend-0.0.1-SNAPSHOT.jar
+[INFO]
+[INFO] --- spring-boot:3.3.4:repackage (repackage) @ classroom-backend ---
+[INFO] Replacing main artifact /workspace/exp3-review-20261011/backend/target/classroom-backend-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/exp3-review-20261011/backend/target/classroom-backend-0.0.1-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  35.439 s
+[INFO] Finished at: 2026-10-11T05:58:43Z
+[INFO] ------------------------------------------------------------------------

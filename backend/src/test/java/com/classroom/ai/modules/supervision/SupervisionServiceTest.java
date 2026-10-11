@@ -103,10 +103,47 @@ class SupervisionServiceTest {
     void formalSubmissionRequiresThreeDistinctNonemptyHighlights(String highlights) {
         when(offeringRepository.findById(10L)).thenReturn(Optional.of(mockOffering));
         var dto = EvaluationSubmitDTO.builder().offeringId(10L).listenTopic("主题")
+                .scoreAttitude(0.0).scoreContent(0.0).scoreMethod(0.0).scoreEffect(0.0)
                 .highlights(highlights).suggestions("BOPPPS互动改进").isDraft(false).build();
         var ex = assertThrows(IllegalArgumentException.class, () -> supervisionService.submitEvaluation(dto));
         assertTrue(ex.getMessage().contains("至少3条"));
         verify(evaluationRepository, never()).save(any());
+    }
+
+    private EvaluationSubmitDTO validZeroScoreSubmission() {
+        return EvaluationSubmitDTO.builder().offeringId(10L).listenTopic("主题")
+                .scoreAttitude(0.0).scoreContent(0.0).scoreMethod(0.0).scoreEffect(0.0)
+                .highlights("讲解清晰\n组织有序\n互动充分").suggestions("增加练习").build();
+    }
+
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(strings = {"all", "attitude", "content", "method", "effect"})
+    void formalSubmissionRejectsMissingScores(String missing) {
+        when(offeringRepository.findById(10L)).thenReturn(Optional.of(mockOffering));
+        var dto = validZeroScoreSubmission();
+        if (missing.equals("all") || missing.equals("attitude")) dto.setScoreAttitude(null);
+        if (missing.equals("all") || missing.equals("content")) dto.setScoreContent(null);
+        if (missing.equals("all") || missing.equals("method")) dto.setScoreMethod(null);
+        if (missing.equals("all") || missing.equals("effect")) dto.setScoreEffect(null);
+        var ex = assertThrows(IllegalArgumentException.class, () -> supervisionService.submitEvaluation(dto));
+        assertTrue(ex.getMessage().contains("全部四维评分"));
+        verify(evaluationRepository, never()).save(any());
+    }
+
+    @Test void explicitZeroScoresCanBeSubmitted() {
+        when(offeringRepository.findById(10L)).thenReturn(Optional.of(mockOffering));
+        when(evaluationRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+        var saved = supervisionService.submitEvaluation(validZeroScoreSubmission());
+        assertEquals("PENDING_REVIEW", saved.getStatus());
+        assertEquals(0.0, saved.getTotalScore());
+    }
+
+    @Test void incompleteDraftCanStillBeSaved() {
+        when(offeringRepository.findById(10L)).thenReturn(Optional.of(mockOffering));
+        when(evaluationRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+        var saved = supervisionService.submitEvaluation(EvaluationSubmitDTO.builder().offeringId(10L).isDraft(true).build());
+        assertEquals("DRAFT", saved.getStatus());
+        assertNull(saved.getSubmitTime());
     }
 
     @Test

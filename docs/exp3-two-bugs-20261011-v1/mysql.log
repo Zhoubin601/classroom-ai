@@ -1,0 +1,142 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.classroom.ai:classroom-backend >-----------------
+[INFO] Building classroom-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ classroom-backend ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO]
+[INFO] --- compiler:3.13.0:compile (default-compile) @ classroom-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ classroom-backend ---
+[INFO] skip non existing resourceDirectory /workspace/exp3-review-20261011/backend/src/test/resources
+[INFO]
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ classroom-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 37 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java uses or overrides a deprecated API.
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java uses unchecked or unsafe operations.
+[INFO] /workspace/exp3-review-20261011/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: Recompile with -Xlint:unchecked for details.
+[INFO]
+[INFO] --- surefire:3.2.5:test (default-test) @ classroom-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.classroom.ai.modules.course.AssociationMysqlTest
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+05:59:59.003 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.classroom.ai.modules.course.AssociationMysqlTest]: AssociationMysqlTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+05:59:59.400 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.course.AssociationMysqlTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T06:00:00.797Z  INFO 6575 --- [classroom-backend] [           main] c.c.a.m.course.AssociationMysqlTest      : Starting AssociationMysqlTest using Java 21.0.7 with PID 6575 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T06:00:00.799Z  INFO 6575 --- [classroom-backend] [           main] c.c.a.m.course.AssociationMysqlTest      : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T06:00:02.548Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-11T06:00:02.552Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-11T06:00:03.442Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 839 ms. Found 22 JPA repository interfaces.
+2026-10-11T06:00:04.330Z  INFO 6575 --- [classroom-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-11T06:00:04.427Z  INFO 6575 --- [classroom-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-10-11T06:00:04.505Z  INFO 6575 --- [classroom-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-11T06:00:05.002Z  INFO 6575 --- [classroom-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-11T06:00:05.023Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.HikariDataSource       : ClassroomHikariCP - Starting...
+2026-10-11T06:00:05.226Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : ClassroomHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@6eabe718
+2026-10-11T06:00:05.230Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.HikariDataSource       : ClassroomHikariCP - Start completed.
+2026-10-11T06:00:05.301Z  WARN 6575 --- [classroom-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-10-11T06:00:07.202Z  INFO 6575 --- [classroom-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-11T06:00:08.553Z  INFO 6575 --- [classroom-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-11T06:00:09.159Z  INFO 6575 --- [classroom-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-11T06:00:12.120Z  INFO 6575 --- [classroom-backend] [           main] c.c.a.m.course.AssociationMysqlTest      : Started AssociationMysqlTest in 12.406 seconds (process running for 14.87)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/workspace/.cache/maven/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.30 s -- in com.classroom.ai.modules.course.AssociationMysqlTest
+[INFO] Running com.classroom.ai.modules.course.MajorDepartmentMysqlTest
+2026-10-11T06:00:15.006Z  INFO 6575 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.modules.course.MajorDepartmentMysqlTest]: MajorDepartmentMysqlTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T06:00:15.043Z  INFO 6575 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.course.MajorDepartmentMysqlTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T06:00:15.124Z  INFO 6575 --- [classroom-backend] [           main] c.c.a.m.course.MajorDepartmentMysqlTest  : Starting MajorDepartmentMysqlTest using Java 21.0.7 with PID 6575 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T06:00:15.124Z  INFO 6575 --- [classroom-backend] [           main] c.c.a.m.course.MajorDepartmentMysqlTest  : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T06:00:15.406Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-11T06:00:15.407Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-11T06:00:15.505Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 97 ms. Found 22 JPA repository interfaces.
+2026-10-11T06:00:15.647Z  INFO 6575 --- [classroom-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-11T06:00:15.650Z  INFO 6575 --- [classroom-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-11T06:00:15.657Z  INFO 6575 --- [classroom-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-11T06:00:15.657Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.HikariDataSource       : ClassroomHikariCP - Starting...
+2026-10-11T06:00:15.713Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : ClassroomHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@67114807
+2026-10-11T06:00:15.718Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.HikariDataSource       : ClassroomHikariCP - Start completed.
+2026-10-11T06:00:15.720Z  WARN 6575 --- [classroom-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-10-11T06:00:16.452Z  INFO 6575 --- [classroom-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-11T06:00:16.896Z  INFO 6575 --- [classroom-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-11T06:00:17.417Z  INFO 6575 --- [classroom-backend] [           main] c.c.a.m.course.MajorDepartmentMysqlTest  : Started MajorDepartmentMysqlTest in 2.37 seconds (process running for 20.167)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.751 s -- in com.classroom.ai.modules.course.MajorDepartmentMysqlTest
+[INFO] Running com.classroom.ai.modules.Sprint2MysqlTest
+2026-10-11T06:00:17.760Z  INFO 6575 --- [classroom-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.classroom.ai.modules.Sprint2MysqlTest]: Sprint2MysqlTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-11T06:00:17.806Z  INFO 6575 --- [classroom-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.classroom.ai.ClassroomBackendApplication for test class com.classroom.ai.modules.Sprint2MysqlTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-11T06:00:17.825Z  INFO 6575 --- [classroom-backend] [           main] c.classroom.ai.modules.Sprint2MysqlTest  : Starting Sprint2MysqlTest using Java 21.0.7 with PID 6575 (started by agent in /workspace/exp3-review-20261011/backend)
+2026-10-11T06:00:17.825Z  INFO 6575 --- [classroom-backend] [           main] c.classroom.ai.modules.Sprint2MysqlTest  : No active profile set, falling back to 1 default profile: "default"
+2026-10-11T06:00:17.904Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-11T06:00:17.904Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-11T06:00:17.926Z  INFO 6575 --- [classroom-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 22 JPA repository interfaces.
+2026-10-11T06:00:17.997Z  INFO 6575 --- [classroom-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-11T06:00:17.998Z  INFO 6575 --- [classroom-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-11T06:00:18.003Z  INFO 6575 --- [classroom-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-11T06:00:18.003Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.HikariDataSource       : ClassroomHikariCP - Starting...
+2026-10-11T06:00:18.007Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : ClassroomHikariCP - Added connection com.mysql.cj.jdbc.ConnectionImpl@27bfff74
+2026-10-11T06:00:18.007Z  INFO 6575 --- [classroom-backend] [           main] com.zaxxer.hikari.HikariDataSource       : ClassroomHikariCP - Start completed.
+2026-10-11T06:00:18.009Z  WARN 6575 --- [classroom-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-10-11T06:00:18.541Z  INFO 6575 --- [classroom-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-11T06:00:18.828Z  INFO 6575 --- [classroom-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-11T06:00:19.542Z  INFO 6575 --- [classroom-backend] [           main] c.classroom.ai.modules.Sprint2MysqlTest  : Started Sprint2MysqlTest in 1.734 seconds (process running for 22.292)
+2026-10-11T06:00:21.926Z  WARN 6575 --- [classroom-backend] [           main] o.a.pdfbox.pdmodel.font.PDType1Font      : Using fallback font LiberationSans for base font Symbol
+2026-10-11T06:00:21.929Z  WARN 6575 --- [classroom-backend] [           main] o.a.pdfbox.pdmodel.font.PDType1Font      : Using fallback font LiberationSans for base font ZapfDingbats
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.645 s -- in com.classroom.ai.modules.Sprint2MysqlTest
+[INFO] Running com.classroom.ai.RegressionTest
+2026-10-11T06:00:26.553Z  INFO 6575 --- [classroom-backend] [           main] c.c.ai.service.impl.FaceServiceImpl      : Cache miss or empty, loading face features from MySQL...
+[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.097 s -- in com.classroom.ai.RegressionTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 32, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  43.312 s
+[INFO] Finished at: 2026-10-11T06:00:27Z
+[INFO] ------------------------------------------------------------------------

@@ -40,7 +40,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest(showSql = false, properties = {"spring.jpa.hibernate.ddl-auto=update", "spring.sql.init.mode=never"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({CourseAuthorizationService.class, SyllabusServiceImpl.class, ResourceAccessService.class,
-        ResourceFileService.class, SupervisionServiceImpl.class, SupervisionAnalyticsServiceImpl.class})
+        ResourceFileService.class, SupervisionServiceImpl.class, SupervisionAnalyticsServiceImpl.class,
+        com.classroom.ai.modules.course.controller.SyllabusController.class})
 @EnabledIfEnvironmentVariable(named = "EXP3_MYSQL_URL", matches = "jdbc:mysql://127\\.0\\.0\\.1:13317/exp3_test.*")
 class Sprint2MysqlTest {
     @DynamicPropertySource
@@ -60,6 +61,7 @@ class Sprint2MysqlTest {
     @Autowired GraduationIndicatorRepository mappings;
     @Autowired TrainingIndicatorRepository catalog;
     @Autowired SyllabusServiceImpl syllabusService;
+    @Autowired com.classroom.ai.modules.course.controller.SyllabusController syllabusController;
     @Autowired CourseResourceRepository resources;
     @Autowired ResourceAccessService resourceAccess;
     @Autowired ResourceFileService files;
@@ -108,6 +110,11 @@ class Sprint2MysqlTest {
         assertEquals(1, mappings.findBySyllabusId(v1.getId()).size());
         assertEquals("1-1", mappings.findBySyllabusId(v1.getId()).get(0).getIndicatorCode());
         assertEquals("2-1", mappings.findBySyllabusId(v2.getId()).get(0).getIndicatorCode());
+        AuthContext.setCurrentUser(user(RoleEnum.SUPERVISOR, 22));
+        assertEquals("1-1", syllabusController.getIndicators(c.getId(), v1.getId()).getData().get(0).getIndicatorCode());
+        assertEquals("H", syllabusController.getIndicators(c.getId(), v1.getId()).getData().get(0).getSupportWeight());
+        assertEquals("2-1", syllabusController.getIndicators(c.getId(), v2.getId()).getData().get(0).getIndicatorCode());
+        assertEquals("2-1", syllabusController.getIndicators(c.getId(), null).getData().get(0).getIndicatorCode());
         assertThrows(IllegalArgumentException.class, () -> syllabusService.saveSyllabus(SyllabusDTO.builder()
                 .courseId(c.getId()).version("v3").planVersion("plan-2026")
                 .indicators(List.of(SyllabusDTO.IndicatorDTO.builder().indicatorCode("99-1").build())).build()));

@@ -93,6 +93,11 @@ public class SupervisionServiceImpl implements SupervisionService {
         if (authorization != null) authorization.validateOfferingRead(offering);
         validateWeightConfiguration();
 
+        boolean isDraft = Boolean.TRUE.equals(dto.getIsDraft());
+        if (!isDraft && (dto.getScoreAttitude() == null || dto.getScoreContent() == null
+                || dto.getScoreMethod() == null || dto.getScoreEffect() == null))
+            throw new IllegalArgumentException("正式提交须填写全部四维评分，允许填写0分");
+
         // 校验四维打分 (各 0-25 分)
         double attitude = dto.getScoreAttitude() != null ? dto.getScoreAttitude() : 0.0;
         double content = dto.getScoreContent() != null ? dto.getScoreContent() : 0.0;
@@ -109,7 +114,6 @@ public class SupervisionServiceImpl implements SupervisionService {
                 || (dto.getSuggestions() != null && dto.getSuggestions().length() > 500)) {
             throw new IllegalArgumentException("教学亮点和改进建议每项不能超过500字");
         }
-        boolean isDraft = Boolean.TRUE.equals(dto.getIsDraft());
         if (!isDraft && (dto.getListenTopic() == null || dto.getListenTopic().isBlank()
                 || dto.getHighlights() == null || dto.getHighlights().isBlank()
                 || dto.getSuggestions() == null || dto.getSuggestions().isBlank()))

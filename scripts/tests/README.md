@@ -27,3 +27,7 @@
 - 真浏览器：先构建并启动 15173 端口前端 preview，配置 `PLAYWRIGHT_MODULE`、`US0102_CHROMIUM_PATH` 后设置 `$env:US0203_BROWSER='true'`，运行 `./scripts/run-us0102-mysql-tests.ps1 -Tests 'CourseBrowserMysqlTest,CourseSchedulingMysqlTest,CourseWorkflowMysqlTest'`。完成后移除 `US0203_BROWSER` 环境变量。
 - CourseBrowserMysqlTest 在随机端口启动真实 Spring HTTP 服务，调用 `us02-us03-real-browser.cjs`。现在使用真实登录页面和生产 JWT 链，不再注入身份。三角色覆盖五条故事及两窗口并发，合成名单 95 人，包含导入模板鉴权、归档历史、专业 AND 筛选及直接详情越权；额外执行 20 次本地顺序查询记录耗时。字典测试控制器读取真实库，大纲指标仅提供空测试列表，其他模块不计入验收。
 - 证据：`docs/us0203-real-browser.log`、`docs/us0203-schedule-sample.png`、`docs/us0203-mysql-final.log`。专用容器绑定 127.0.0.1:13316，退出自动清理，不连接业务库。
+
+## 大纲历史与评分必填专项
+
+`exp3-history-scores.cjs` 使用真实登录、API和页面，验证历史矩阵快照、教师/主任的版本切换和只读状态、权限隔离，以及正式评价缺少评分拒绝、明确0分允许、不完整草稿允许。它已接入 `scripts/run-exp3-browser-tests.ps1`，沿用该入口的隔离服务和清理流程；单独运行时须配置 `EXP3_FRONTEND_URL`、`EXP3_BACKEND_URL`、Playwright/Chromium路径，可用 `EXP3_FIX_EVIDENCE_DIR` 指定新证据目录。

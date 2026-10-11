@@ -1,0 +1,47 @@
+[
+  {
+    "story": "US07/09",
+    "format": "docx",
+    "result": "PASS",
+    "realPdfBytes": 34165,
+    "renderedPixels": true,
+    "guards": true
+  },
+  {
+    "story": "US07/09",
+    "format": "pptx",
+    "result": "PASS",
+    "realPdfBytes": 45559,
+    "renderedPixels": true,
+    "guards": true
+  },
+  {
+    "story": "US09",
+    "role": "supervisor",
+    "result": "PASS",
+    "originalDownload": 403
+  },
+  {
+    "story": "US07",
+    "case": "corrupt DOCX with working converter",
+    "result": "PASS"
+  },
+  {
+    "story": "US05",
+    "result": "PASS",
+    "templateItems": 12,
+    "weights": [
+      "H",
+      "L"
+    ],
+    "crud": true,
+    "lockedEdit": 409
+  },
+  {
+    "story": "US13/14",
+    "result": "PASS",
+    "insufficientOrDuplicate": 400,
+    "draft": "DRAFT",
+    "submitted": "PENDING_REVIEW"
+  }
+]

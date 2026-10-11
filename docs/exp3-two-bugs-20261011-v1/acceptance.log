@@ -1,0 +1,9 @@
+DIALOG guojun 课件《FIX-EXP3-1791698452404.docx》上传成功，可通过授权预览查看水印
+PASS DOCX: real upload/conversion, rendered canvas, protection, two-page navigation
+DIALOG guojun 课件《FIX-EXP3-1791698454531.pptx》上传成功，可通过授权预览查看水印
+PASS PPTX: real upload/conversion, rendered canvas, protection
+PASS US07: corrupt DOCX rejected with working LibreOffice, real >100MB upload rejected
+DIALOG guojun 已创建12项推荐草案，请按课程实际情况修订并交主任审核
+PASS US05: real template button, 12 draft items, goal/weight CRUD, invalid weight, director lock, reserved plan separation
+DIALOG supervisor 督导评价已提交，等待教研室主任审核
+PASS US13/14: short/empty/duplicate highlights rejected, incomplete draft allowed, three distinct highlights submitted

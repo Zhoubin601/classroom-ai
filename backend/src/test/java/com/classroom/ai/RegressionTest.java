@@ -124,8 +124,8 @@ class RegressionTest {
     @Test void commentsOver500CharactersAndNanScoresAreRejected() {
         when(offerings.findById(1L)).thenReturn(Optional.of(new CourseOffering()));
         var service = new SupervisionServiceImpl(evaluations, offerings);
-        assertThrows(IllegalArgumentException.class, () -> service.submitEvaluation(EvaluationSubmitDTO.builder().offeringId(1L).highlights("字".repeat(501)).build()));
-        assertThrows(IllegalArgumentException.class, () -> service.submitEvaluation(EvaluationSubmitDTO.builder().offeringId(1L).scoreAttitude(Double.NaN).build()));
+        assertThrows(IllegalArgumentException.class, () -> service.submitEvaluation(EvaluationSubmitDTO.builder().offeringId(1L).scoreAttitude(0.0).scoreContent(0.0).scoreMethod(0.0).scoreEffect(0.0).highlights("字".repeat(501)).build()));
+        assertThrows(IllegalArgumentException.class, () -> service.submitEvaluation(EvaluationSubmitDTO.builder().offeringId(1L).scoreAttitude(Double.NaN).scoreContent(0.0).scoreMethod(0.0).scoreEffect(0.0).build()));
         verify(evaluations, never()).save(any());
     }
 

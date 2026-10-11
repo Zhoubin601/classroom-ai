@@ -1,0 +1,4 @@
+PASS scores: omitted/null/partial scores rejected, explicit four zeros accepted, incomplete draft preserved
+PASS history API: independent snapshots readable by authorized roles; anonymous/foreign/mismatched reads and old edits rejected
+PASS teacher UI: default latest, historical snapshot switch/read-only, return to editable current version
+PASS director UI: default latest, historical snapshot switch/read-only, return to editable current version

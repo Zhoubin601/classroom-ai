@@ -1,0 +1,19 @@
+{
+  "final_evidence_recorded_utc": "2026-10-11T06:05:16.296454+00:00",
+  "baseline_commit": "2c76376c12cebd5296536b660e165861228e8ded",
+  "backend_unique_results": {
+    "tests": 237,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 33,
+    "passed": 204
+  },
+  "tested_jar_sha256": "9b35ba599fe3a55e5c2647dba1b807ce821e95c3df399de56e301f08703498b5",
+  "frontend_tests_passed": 13,
+  "browser_suite_results": [
+    "Eight stories: PASS",
+    "Office and protections: PASS",
+    "History and scores: PASS (including final empty-goal label recheck)"
+  ],
+  "unrun": "33 other conditional backend cases, Windows launcher, hardware/load/deployment"
+}

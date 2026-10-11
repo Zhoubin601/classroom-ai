@@ -39,8 +39,16 @@ public class SyllabusController {
     }
 
     @GetMapping("/course/{courseId}/indicators")
-    public ApiResponse<List<GraduationIndicator>> getIndicators(@PathVariable Long courseId) {
+    public ApiResponse<List<GraduationIndicator>> getIndicators(@PathVariable Long courseId,
+            @RequestParam(required = false) Long syllabusId) {
         authorizationService.validateCourseRead(courseId);
+        if (syllabusId != null) {
+            CourseSyllabus syllabus = syllabusRepository.findById(syllabusId)
+                    .orElseThrow(() -> new IllegalArgumentException("大纲不存在"));
+            if (!syllabus.getCourse().getId().equals(courseId))
+                throw new IllegalArgumentException("大纲与课程不匹配");
+            return ApiResponse.success(indicatorRepository.findBySyllabusId(syllabusId));
+        }
         return ApiResponse.success(syllabusService.getIndicatorsByCourseId(courseId));
     }
 
