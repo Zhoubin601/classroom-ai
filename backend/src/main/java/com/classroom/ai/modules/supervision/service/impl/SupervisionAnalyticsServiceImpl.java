@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsService {
 
+    @org.springframework.beans.factory.annotation.Autowired private com.classroom.ai.modules.sprint3.QualityStatisticsService quality;
     private final CourseRepository courseRepository;
     private final CourseOfferingRepository offeringRepository;
     private final SupervisionEvaluationRepository evaluationRepository;
@@ -35,6 +36,7 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
 
     @Override
     public SupervisionDashboardVO getDashboardMetrics(String requestedTerm) {
+        if(quality!=null){var v=quality.coverage(new com.classroom.ai.modules.sprint3.QualityStatisticsService.Filter(requestedTerm,null,null,null,false));int total=((Number)v.get("total")).intValue(),covered=((Number)v.get("covered")).intValue();return SupervisionDashboardVO.builder().academicTerm(v.get("term").toString()).totalCourses(total).supervisedCourses(covered).coverageRate(((Number)v.get("rate")).doubleValue()).totalEvaluations(((Number)v.get("evaluationCount")).intValue()).collegeAvgScore(null).pendingCourses(total-covered).build();}
         List<com.classroom.ai.modules.course.entity.CourseOffering> offerings = validOfferings();
         String term = chosenTerm(offerings, requestedTerm);
         List<CoverageDetailVO> details = getCoverageDetails(term);
@@ -53,6 +55,7 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
 
     @Override
     public List<CoverageDetailVO> getCoverageDetails(String requestedTerm) {
+        if(quality!=null){var v=quality.coverage(new com.classroom.ai.modules.sprint3.QualityStatisticsService.Filter(requestedTerm,null,null,null,false));return ((java.util.List<java.util.Map<String,Object>>)v.get("details")).stream().map(d->new CoverageDetailVO(((Number)d.get("courseId")).longValue(),d.get("courseCode").toString(),d.get("courseName").toString(),v.get("term").toString(),(Boolean)d.get("covered"),(java.util.List<Long>)d.get("evaluationIds"))).toList();}
         List<com.classroom.ai.modules.course.entity.CourseOffering> all = validOfferings();
         String term = chosenTerm(all, requestedTerm);
         if (term == null) return List.of();
@@ -94,6 +97,7 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
 
     @Override
     public List<SupervisionAlertVO> getAlertList() {
+        if(quality!=null)return quality.alerts(new com.classroom.ai.modules.sprint3.QualityStatisticsService.Filter(null,null,null,null,false)).stream().map(d->SupervisionAlertVO.builder().courseId(d.get("courseId") instanceof Number n?n.longValue():null).courseName(java.util.Objects.toString(d.get("courseName"),"所选范围")).courseCode(java.util.Objects.toString(d.get("courseCode"),"" )).alertLevel(d.get("alertLevel").toString()).alertType(d.get("alertType").toString()).alertMessage(d.get("alertMessage").toString()).evaluationCount(((Number)d.get("evaluationCount")).intValue()).currentScore(d.get("currentScore") instanceof Number n?n.doubleValue():null).suggestAction("需人工复核，不作为考核结论").build()).toList();
         List<SupervisionAlertVO> alerts = new ArrayList<>();
         Set<Long> visibleCourseIds = validOfferings().stream().map(o -> o.getCourse().getId()).collect(Collectors.toSet());
         List<Course> allCourses = courseRepository.findAll().stream()
@@ -148,6 +152,7 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
 
     @Override
     public TeacherQualityRadarVO getTeacherRadar(String teacherName) {
+        if(quality!=null){var d=quality.radar(new com.classroom.ai.modules.sprint3.QualityStatisticsService.Filter(null,null,null,null,false));var axes=(java.util.List<java.util.Map<String,Object>>)d.get("axes");var detail=(java.util.List<java.util.Map<String,Object>>)d.get("details");Double[] values=axes.stream().map(a->a.get("value") instanceof Number n?n.doubleValue()/4:null).toArray(Double[]::new);return TeacherQualityRadarVO.builder().teacherName(teacherName).courseName("本人授权课程").evaluationCount(((Number)d.get("sampleCount")).intValue()).overallScore(null).attitudeScore(values[0]).contentScore(values[1]).methodScore(values[2]).effectScore(values[3]).highlightList(detail.stream().map(x->java.util.Objects.toString(x.get("highlights"),"")).filter(x->!x.isBlank()).toList()).suggestionList(detail.stream().map(x->java.util.Objects.toString(x.get("suggestions"),"")).filter(x->!x.isBlank()).toList()).wordCloud(java.util.List.of()).build();}
         Set<Long> visibleOfferingIds = validOfferings().stream().map(o -> o.getId()).collect(Collectors.toSet());
         var currentUser = AuthContext.getCurrentUser();
         List<SupervisionEvaluation> evals = evaluationRepository.findByTeacherName(teacherName).stream()
@@ -221,6 +226,7 @@ public class SupervisionAnalyticsServiceImpl implements SupervisionAnalyticsServ
 
     @Override
     public String generateAnnualQualityReportCsv() {
+        if(quality!=null){try{return new String(quality.export(new com.classroom.ai.modules.sprint3.QualityStatisticsService.Filter(null,null,null,null,false),"csv"),java.nio.charset.StandardCharsets.UTF_8);}catch(java.io.IOException e){throw new IllegalStateException(e);}}
         StringBuilder sb = new StringBuilder();
         // UTF-8 BOM
         sb.append("\uFEFF");

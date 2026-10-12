@@ -21,6 +21,8 @@ public class CourseResourceServiceImpl implements CourseResourceService {
 
     private final CourseResourceRepository resourceRepository;
     private final CourseRepository courseRepository;
+    @org.springframework.beans.factory.annotation.Autowired private com.classroom.ai.modules.sprint3.ResourceVersionService versions;
+    @org.springframework.beans.factory.annotation.Autowired private com.classroom.ai.modules.resource.service.ResourceAccessService access;
 
     @Override
     public List<CourseResource> getResourcesByCourseId(Long courseId) {
@@ -52,10 +54,13 @@ public class CourseResourceServiceImpl implements CourseResourceService {
 
         Course course = courseRepository.findById(dto.getCourseId())
                 .orElseThrow(() -> new IllegalArgumentException("未找到课程ID为 " + dto.getCourseId() + " 的记录"));
+        if(access!=null)access.requireCourseWrite(course.getId());
 
         CourseResource resource;
         if (dto.getId() != null) {
             resource = getResourceById(dto.getId());
+            if(!resource.getCourse().getId().equals(course.getId()))throw new IllegalArgumentException("不可改变资源课程");
+            if(!java.util.Objects.equals(resource.getFileUrl(),dto.getFileUrl())||!java.util.Objects.equals(resource.getFileType(),dto.getFileType()))throw new IllegalArgumentException("历史版本文件不可修改，请上传新版本");
         } else {
             resource = new CourseResource();
             resource.setCourse(course);
@@ -82,6 +87,11 @@ public class CourseResourceServiceImpl implements CourseResourceService {
                     (dto.getUploaderTeacher() != null ? dto.getUploaderTeacher() : "系统"));
         }
 
+        if (versions != null) {
+            if (dto.getId() == null) return versions.attach(resource, dto.getSeriesId(), dto.getExpectedVersion());
+            if (!versions.current(resource)) throw new IllegalStateException("历史版本只读，请先切换当前版本");
+            versions.sharing(resource, resource.getIsPublic());
+        }
         return resourceRepository.save(resource);
     }
 
@@ -91,21 +101,7 @@ public class CourseResourceServiceImpl implements CourseResourceService {
     @Override
     @Transactional
     public void deleteResource(Long id) {
-        resourceRepository.findById(id).ifPresent(res -> {
-            if (res.getFileUrl() != null && res.getFileUrl().startsWith("/uploads/resources/")) {
-                try {
-                    String filename = res.getFileUrl().substring("/uploads/resources/".length());
-                    if (!filename.contains("/") && !filename.contains("\\") && !filename.equals(".") && !filename.equals("..")
-                            && !filename.startsWith("ch1_") && !filename.startsWith("ch3_") && !filename.startsWith("ch5_")
-                            && !filename.startsWith("cs2002_") && !filename.startsWith("ai3001_")) {
-                        java.nio.file.Path root = com.classroom.ai.config.UploadPaths.resolveResources(uploadDir).toAbsolutePath().normalize();
-                        java.nio.file.Path path = root.resolve(filename).normalize();
-                        if (path.startsWith(root)) java.nio.file.Files.deleteIfExists(path);
-                    }
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        resourceRepository.deleteById(id);
+        if (versions == null) throw new IllegalStateException("版本服务不可用");
+        versions.remove(id);
     }
 }

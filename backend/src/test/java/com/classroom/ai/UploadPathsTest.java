@@ -26,5 +26,6 @@ class UploadPathsTest {
         Path custom = project.resolve("custom");
         assertEquals(custom, UploadPaths.resolve(project, custom.toString()));
         assertEquals(custom, UploadPaths.resolve(project, "custom"));
+        assertEquals(project.resolve("resources"),UploadPaths.resolveResources(project,"custom"));
     }
 }

@@ -51,14 +51,14 @@ public class ResourceFileService {
 
     @Value("${classroom.resource.watermark-organization:东北大学软件学院}") private String organization = "东北大学软件学院";
 
-    private record Ticket(Long resourceId, Long viewerId, String username, LocalDateTime expiresAt) {}
+    private record Ticket(Long resourceId, Long viewerId, String username, LocalDateTime expiresAt, long epoch) {}
 
     public String createTicket(Long id, UserVO viewer) {
         CourseResource resource = resources.findById(id).orElseThrow(() -> new IllegalArgumentException("资源不存在"));
         access.requireRead(resource);
         tickets.entrySet().removeIf(e -> e.getValue().expiresAt().isBefore(LocalDateTime.now()));
         String token = UUID.randomUUID().toString() + UUID.randomUUID().toString();
-        tickets.put(token, new Ticket(id, viewer.getId(), viewer.getUsername(), LocalDateTime.now().plusMinutes(previewMinutes)));
+        tickets.put(token, new Ticket(id, viewer.getId(), viewer.getUsername(), LocalDateTime.now().plusMinutes(previewMinutes), access.epoch(resource)));
         return token;
     }
 
@@ -73,6 +73,7 @@ public class ResourceFileService {
             throw new ForbiddenException("预览链接仅限申请人使用");
         CourseResource resource = resources.findById(ticket.resourceId()).orElseThrow(() -> new IllegalArgumentException("资源不存在"));
         access.requireRead(resource);
+        if(ticket.epoch()!=access.epoch(resource)) throw new ForbiddenException("共享授权已变化，请重新申请预览");
         Path file = resolveStored(resource);
         Path temp = Files.createTempDirectory("classroom-preview-");
         try {
@@ -140,6 +141,8 @@ public class ResourceFileService {
                 protection.setEncryptionKeyLength(256);
                 document.protect(protection);
                 document.save(out);
+                access.requireRead(resource);
+                if(ticket.epoch()!=access.epoch(resource)) throw new ForbiddenException("共享授权已变化");
                 audit(resource.getId(), ticket.viewerId(), ticket.username(), "PREVIEW");
                 return out.toByteArray();
             }
@@ -176,6 +179,7 @@ public class ResourceFileService {
 
     public Path download(Long id, UserVO viewer) {
         CourseResource resource = resources.findById(id).orElseThrow(() -> new IllegalArgumentException("资源不存在"));
+        access.requireRead(resource);
         access.requireCourseWrite(resource.getCourse().getId());
         Path path = resolveStored(resource);
         audit(id, viewer.getId(), viewer.getUsername(), "DOWNLOAD");
@@ -192,6 +196,7 @@ public class ResourceFileService {
         Path root = UploadPaths.resolveResources(uploadDir).toAbsolutePath().normalize();
         Path path = root.resolve(name).normalize();
         if (!path.startsWith(root) || !Files.isRegularFile(path)) throw new IllegalArgumentException("资源文件不存在");
+        if(resource.getContentHash()!=null)try{if(!resource.getContentHash().equals(com.classroom.ai.modules.sprint3.ResourceVersionService.hash(path)))throw new IllegalStateException("历史版本文件已变化，请上传新版本");}catch(IOException ex){throw new IllegalStateException("无法校验资源文件",ex);}
         return path;
     }
 

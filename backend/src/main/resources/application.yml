@@ -53,6 +53,12 @@ spring:
 
 classroom:
   upload-dir: ${CLASSROOM_UPLOAD_DIR:}
+  admin:
+    bootstrap-enabled: ${CLASSROOM_ADMIN_BOOTSTRAP_ENABLED:false}
+    username: ${CLASSROOM_ADMIN_USERNAME:}
+    password: ${CLASSROOM_ADMIN_PASSWORD:}
+  video:
+    ffprobe: ${CLASSROOM_FFPROBE:ffprobe}
   resource:
     max-file-bytes: ${CLASSROOM_RESOURCE_MAX_FILE_BYTES:104857600}
     allowed-extensions: ${CLASSROOM_RESOURCE_ALLOWED_EXTENSIONS:ppt,pptx,doc,docx,pdf}
@@ -60,6 +66,8 @@ classroom:
     soffice: ${CLASSROOM_SOFFICE:soffice}
   supervision:
     feedback-delay-hours: ${CLASSROOM_FEEDBACK_DELAY_HOURS:24}
+    low-score-threshold: ${CLASSROOM_LOW_SCORE_THRESHOLD:75}
+    low-coverage-threshold: ${CLASSROOM_LOW_COVERAGE_THRESHOLD:30}
     weights:
       attitude: ${CLASSROOM_WEIGHT_ATTITUDE:25}
       content: ${CLASSROOM_WEIGHT_CONTENT:25}

@@ -436,3 +436,27 @@
 ## 2026-10-11 云端修复两处功能缺口
 
 用户于2026-10-11授权在云端修复两处缺口、验收后推送fix-exp3，并更新README。依据：本会话上一轮云端核验及其独立证据（原工作区）、实验一规划摘录、当前fix-exp3源码及本轮回归。0分合法；仅正式提交缺失评分需拒绝。
+
+## 2026-10-11 最新 fix-exp3 本机验收来源
+来源名称：用户当前验收要求及已确认范围；文件名：当前消息、memory-bank/project-context.md“2026-10-10 用户确认的 Sprint 2 检查范围”；引用日期：2026-10-11。
+来源名称：实验一正式项目规划；文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx；引用日期：2026-10-11；OfficeCLI只读读取，重点表6/11/16。项目raw目录只有README.md，额外原始业务资料未提供。培养方案使用已确认合成示例范围。
+来源名称：当前源码与历史过程；文件名：Git fix-exp3 f6c741f、scripts/run-exp3-mysql-tests.ps1、scripts/run-exp3-browser-tests.ps1、docs/20261011-exp3-two-bugs-fix-v1.md、docs/20261006-sprint2-original-tables-v1.txt；引用日期：2026-10-11。历史报告只作范围与方法参考，本机结果另记，不沿用历史PASS作为新测试。
+
+本轮新增实测来源：docs/20261011-sprint2-local-evidence-v1/，引用日期2026-10-11。原规划OfficeCLI只读读取成功，摘录original-table6/11/16.txt；关键测试计数依据backend-counts.json，最终缺陷依据history-diagnostic-final/history-scores-results.json与teacher-failed-history.json/png，环境保护依据protection.json和cleanup.json。旧报告只作方法参考。
+
+
+## 2026-10-11 Sprint 3 实施
+来源名称：实验一正式项目规划；文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx；引用日期：2026-10-11。前轮OfficeCLI只读核对表7/12/16，SHA256=299CD2D510E7A8DA609EC2FE513E3810E616D3562673BCE09EE16E81688437BB。raw仅README，新增真实业务资料未提供。当前用户确认完整修订计划及US19类别、US12来源/标签/角色补充；本轮不使用外部业务资料。
+
+### Sprint 3 视频探测依赖（2026-10-11）
+来源名称：FFmpeg Windows essentials build（Gyan 分发）
+链接：https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-9.0.2-essentials_build.zip
+引用日期：2026-10-11
+用途：本地服务端 ffprobe 探测，不用于补充项目业务事实。下载的 ZIP 条目已校验解压长度及 CRC；Docker 使用系统 ffmpeg 包。
+
+## 2026-10-12 exp4 Sprint 3 独立验证来源
+来源名称：用户验证要求、当前exp4工作区和既有Sprint3验收；链接或文件名：本聊天、output/20261012-sprint3-acceptance-v2.md、docs/20261011-sprint3-implementation.md、docs/20261011-sprint3-evidence-v1/；引用日期：2026-10-12。
+来源名称：原始实验一项目规划；链接或文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx；引用日期：2026-10-12。项目raw仅README；本次不使用外部联网资料。
+
+
+本轮实测来源：docs/20261012-exp4-sprint3-verification-v1/verification-summary.json、backend-final.log、supplemental-xml/、browser-results.json、upgrade-results.json、protection-final.json；引用日期2026-10-12。后端282项登记，本轮281项执行通过（完整235+补跑46）；剩余既有浏览器1项仅采用已核验历史证据。原始DOCX表7/12/16只读摘录在同目录，347项保护哈希一致。

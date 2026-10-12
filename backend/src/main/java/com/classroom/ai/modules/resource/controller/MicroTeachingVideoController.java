@@ -14,12 +14,17 @@ import java.io.IOException;
 @RequestMapping("/api/v1/resources/micro-slices")
 @RequiredArgsConstructor
 public class MicroTeachingVideoController {
-    private final MicroTeachingVideoService videos;
+    private final com.classroom.ai.modules.sprint3.VideoAssetService assets;
     @PostMapping("/upload")
-    public ApiResponse<MicroTeachingSlice> upload(@RequestParam Long courseId, @RequestParam String title,
-            @RequestParam String stage, @RequestParam Integer durationSeconds, @RequestParam MultipartFile file) throws IOException {
-        return ApiResponse.success("微格视频上传成功", videos.upload(courseId, title, stage, durationSeconds, file));
+    public ApiResponse<MicroTeachingSlice> upload(@RequestParam Long courseId,@RequestParam String title,@RequestParam String stage,
+      @RequestParam(required=false) Integer durationSeconds,@RequestParam MultipartFile file,
+      @RequestParam(required=false) String sourceType,@RequestParam(required=false) String sourceDescription,
+      @RequestParam(required=false) String sourceReference,@RequestParam(required=false) String authorizationDeclaration) throws IOException {
+        com.classroom.ai.modules.sprint3.Sprint3Policy.stage(stage);
+        var a=assets.upload(courseId,file,new com.classroom.ai.modules.sprint3.VideoAssetService.Source(sourceType,sourceDescription,sourceReference,authorizationDeclaration),stage);
+        var d=new com.classroom.ai.modules.resource.dto.MicroTeachingSliceDTO();d.setCourseId(courseId);d.setVideoTitle(title);d.setBopppsStage(stage);d.setAssetId(a.getId());d.setStartMs(0L);d.setEndMs(a.getDurationMs());
+        return ApiResponse.success("视频已验证并挂载",assets.mount(d));
     }
     @GetMapping("/{id}/video")
-    public ResponseEntity<FileSystemResource> video(@PathVariable Long id) throws IOException { return videos.video(id); }
+    public ResponseEntity<FileSystemResource> video(@PathVariable Long id) {return assets.video(id);}
 }

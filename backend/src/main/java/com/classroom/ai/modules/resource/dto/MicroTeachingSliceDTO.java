@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MicroTeachingSliceDTO {
+    private Long assetId;
+    private Long startMs;
+    private Long endMs;
+    private Long expectedVersion;
+    private com.fasterxml.jackson.databind.JsonNode analysisMetadata;
     private Long id;
     private Long courseId;
     private String videoTitle;

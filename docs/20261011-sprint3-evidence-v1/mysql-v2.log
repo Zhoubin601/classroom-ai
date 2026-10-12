@@ -1,0 +1,60 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.classroom.ai:classroom-backend >-----------------
+[INFO] Building classroom-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ classroom-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ classroom-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 174 source files with javac [debug parameters release 21] to target\classes
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java: D:\2026Autumn Semester File\classroom-ai-demo\backend\src\main\java\com\classroom\ai\modules\resource\service\ResourceFileService.java使用或覆盖了已过时的 API。
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java: D:\2026Autumn Semester File\classroom-ai-demo\backend\src\main\java\com\classroom\ai\modules\supervision\service\impl\SupervisionAnalyticsServiceImpl.java使用了未经检查或不安全的操作。
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ classroom-backend ---
+[INFO] skip non existing resourceDirectory D:\2026Autumn Semester File\classroom-ai-demo\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ classroom-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 39 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: D:\2026Autumn Semester File\classroom-ai-demo\backend\src\test\java\com\classroom\ai\modules\course\CourseSupervisorRbacTest.java使用或覆盖了已过时的 API。
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/course/CourseSupervisorRbacTest.java: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: 某些输入文件使用了未经检查或不安全的操作。
+[INFO] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/course/service/CourseImportServiceTest.java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/sprint3/Sprint3MysqlTest.java:[104,184] 找不到符号
+  符号:   方法 getStatus()
+  位置: 类型为com.classroom.ai.modules.sprint3.HttpFailure的变量 failure
+[ERROR] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/sprint3/Sprint3MysqlTest.java:[105,266] 找不到符号
+  符号:   方法 getStatus()
+  位置: 类 com.classroom.ai.modules.sprint3.HttpFailure
+[INFO] 2 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.284 s
+[INFO] Finished at: 2026-10-11T20:45:06+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:testCompile (default-testCompile) on project classroom-backend: Compilation failure: Compilation failure: 
+[ERROR] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/sprint3/Sprint3MysqlTest.java:[104,184] 找不到符号
+[ERROR]   符号:   方法 getStatus()
+[ERROR]   位置: 类型为com.classroom.ai.modules.sprint3.HttpFailure的变量 failure
+[ERROR] /D:/2026Autumn Semester File/classroom-ai-demo/backend/src/test/java/com/classroom/ai/modules/sprint3/Sprint3MysqlTest.java:[105,266] 找不到符号
+[ERROR]   符号:   方法 getStatus()
+[ERROR]   位置: 类 com.classroom.ai.modules.sprint3.HttpFailure
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

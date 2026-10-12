@@ -1,0 +1,62 @@
+ M backend/Dockerfile
+ M backend/src/main/java/com/classroom/ai/common/ApiExceptionHandler.java
+ M backend/src/main/java/com/classroom/ai/config/UploadPaths.java
+ M backend/src/main/java/com/classroom/ai/modules/auth/entity/RoleEnum.java
+ M backend/src/main/java/com/classroom/ai/modules/auth/security/JwtAuthenticationFilter.java
+ M backend/src/main/java/com/classroom/ai/modules/auth/security/SecurityConfig.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingVideoController.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/dto/CourseResourceDTO.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/dto/MicroTeachingSliceDTO.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceAccessService.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/service/impl/CourseResourceServiceImpl.java
+ M backend/src/main/java/com/classroom/ai/modules/resource/service/impl/MicroTeachingServiceImpl.java
+ M backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java
+ M backend/src/main/java/com/classroom/ai/modules/supervision/dto/EvaluationSubmitDTO.java
+ M backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java
+ M backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java
+ M backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java
+ M backend/src/main/resources/application.yml
+ M backend/src/test/java/com/classroom/ai/RegressionTest.java
+ M backend/src/test/java/com/classroom/ai/UploadPathsTest.java
+ M backend/src/test/java/com/classroom/ai/modules/Sprint2MysqlTest.java
+ M backend/src/test/java/com/classroom/ai/modules/course/AssociationIntegrityTest.java
+ M backend/src/test/java/com/classroom/ai/modules/resource/MicroTeachingHttpAuthorizationTest.java
+ M backend/src/test/java/com/classroom/ai/modules/resource/MicroVideoHttpTest.java
+ M backend/src/test/java/com/classroom/ai/modules/supervision/SupervisionServiceTest.java
+ M docs/analysis-notes.md
+ M docs/plan.md
+ M docs/questions.md
+ M docs/source-notes.md
+ M docs/us0406-query-performance.json
+ M frontend/src/App.vue
+ M frontend/src/api/index.ts
+ M frontend/src/api/types.ts
+ M frontend/src/views/MicroTeachingView.vue
+ M frontend/src/views/SupervisorDeskView.vue
+ M frontend/src/views/TeacherDeskView.vue
+ M memory-bank/project-context.md
+ M scripts/deploy/docker-compose.yml
+ M stop_project.ps1
+?? backend/src/main/java/com/classroom/ai/modules/sprint3/
+?? backend/src/test/java/com/classroom/ai/modules/sprint3/
+?? docs/20261011-sprint2-local-evidence-v1/
+?? docs/20261011-sprint3-evidence-v1/
+?? docs/20261011-sprint3-implementation.md
+?? docs/20261012-exp4-sprint3-verification-v1/
+?? docs/20261012-sprint3-delivery-record.md
+?? frontend/src/components/ResourceVersionsPanel.vue
+?? frontend/src/components/Sprint3Workspace.vue
+?? output/20261011-sprint2-local-acceptance-v1.md
+?? output/20261012-sprint3-acceptance-v1.md
+?? output/20261012-sprint3-acceptance-v2.md
+?? output/20261012-sprint3-user-guide-v1.md
+?? output/20261012-sprint3-user-guide-v2.md
+?? scripts/run-exp4-acceptance.ps1
+?? scripts/run-exp4-legacy-browser.ps1
+?? scripts/setup-video-tools.ps1
+?? scripts/tests/exp4-browser.cjs
+?? scripts/tests/exp4-legacy-schema.py

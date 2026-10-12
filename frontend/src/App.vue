@@ -69,7 +69,7 @@
             <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold"
               :class="currentUser?.role === 'DIRECTOR' ? 'bg-amber-100 text-amber-800 border border-amber-200' : (currentUser?.role === 'TEACHER' ? 'bg-indigo-100 text-indigo-800 border border-indigo-200' : 'bg-emerald-100 text-emerald-800 border border-emerald-200')"
             >
-              {{ currentUser?.role === 'DIRECTOR' ? '教研室主任' : (currentUser?.role === 'TEACHER' ? '任课教师' : '教学督导') }}
+              {{ currentUser?.role === 'ADMIN' ? '系统管理员' : currentUser?.role === 'DIRECTOR' ? '教研室主任' : (currentUser?.role === 'TEACHER' ? '任课教师' : '教学督导') }}
             </span>
             <span v-if="currentUser?.department" class="text-slate-400 text-[11px] hidden lg:inline">({{ currentUser.department }})</span>
             <span v-if="currentUser?.authorizedMajors" class="text-amber-700 bg-amber-50 text-[10px] px-2 py-0.5 rounded-full border border-amber-200 font-mono font-medium">授权:{{ currentUser.authorizedMajors }}</span>
@@ -99,7 +99,8 @@
 
     <!-- 主体内容区 (带平滑过渡与自适应宽度) -->
     <main class="flex-1 max-w-[1720px] w-full mx-auto p-4 sm:p-6 lg:p-7 animate-fade-in">
-      <DirectorDeskView v-if="activeTab === 'director' && currentUser?.role === 'DIRECTOR'" :department="currentUser.department" />
+      <Sprint3Workspace v-if="activeTab === 'sprint3'" :role="currentUser.role" />
+      <DirectorDeskView v-else-if="activeTab === 'director' && currentUser?.role === 'DIRECTOR'" :department="currentUser.department" />
       <TeacherDeskView v-else-if="activeTab === 'teacher' && currentUser?.role === 'TEACHER'" :logged-in-user="currentUser" />
       <SupervisorDeskView v-else-if="activeTab === 'supervisor' && currentUser?.role === 'SUPERVISOR'" @jump-to-attendance="handleJumpToAttendance" />
       <AttendanceDashboardView v-else-if="activeTab === 'attendance'" :initial-offering-id="targetOfferingId" :logged-in-user="currentUser" />
@@ -143,8 +144,9 @@ import SupervisorDeskView from './views/SupervisorDeskView.vue'
 import AttendanceDashboardView from './views/AttendanceDashboardView.vue'
 import StudentManageView from './views/StudentManageView.vue'
 import MicroTeachingView from './views/MicroTeachingView.vue'
+import Sprint3Workspace from './components/Sprint3Workspace.vue'
 
-type TabKey = 'director' | 'teacher' | 'supervisor' | 'attendance' | 'students' | 'micro'
+type TabKey = 'sprint3' | 'director' | 'teacher' | 'supervisor' | 'attendance' | 'students' | 'micro'
 
 const runMode = ref<'full'>('full')
 const activeTab = ref<TabKey>('director')
@@ -157,6 +159,7 @@ const handleJumpToAttendance = (offeringId: number) => {
 }
 
 const allNavTabs = [
+  { key: 'sprint3' as TabKey, label: '统计与反馈', iconComp: ShieldCheck },
   { key: 'director' as TabKey, label: '教研室主任工作台', iconComp: Briefcase },
   { key: 'teacher' as TabKey, label: '任课教师工作台', iconComp: BookOpen },
   { key: 'supervisor' as TabKey, label: '教学督导工作台', iconComp: ShieldCheck },
@@ -171,32 +174,27 @@ const visibleNavTabs = computed(() => {
   const tabs = allNavTabs
 
   // 严格按用户角色隔离工作台
+  if (role === 'ADMIN') return tabs.filter(t => t.key === 'sprint3' || t.key === 'micro')
   if (role === 'SUPERVISOR') {
-    return tabs.filter(t => t.key === 'supervisor' || t.key === 'attendance' || t.key === 'micro')
+    return tabs.filter(t => t.key === 'sprint3' || t.key === 'supervisor' || t.key === 'attendance' || t.key === 'micro')
   } else if (role === 'TEACHER') {
-    return tabs.filter(t => t.key === 'teacher' || t.key === 'attendance' || t.key === 'micro')
+    return tabs.filter(t => t.key === 'sprint3' || t.key === 'teacher' || t.key === 'attendance' || t.key === 'micro')
   } else if (role === 'DIRECTOR') {
-    return tabs.filter(t => t.key === 'director' || t.key === 'attendance' || t.key === 'students' || t.key === 'micro')
+    return tabs.filter(t => t.key === 'sprint3' || t.key === 'director' || t.key === 'attendance' || t.key === 'students' || t.key === 'micro')
   }
-  return tabs
+  return []
 })
 
 // 防越权看门狗：若非法篡改 activeTab，强制拦截重置
 watch(activeTab, (newTab) => {
   if (!currentUser.value) return
-  const role = currentUser.value.role
-  if (role === 'SUPERVISOR' && (newTab === 'teacher' || newTab === 'director' || newTab === 'students')) {
-    alert('【安全拦截】教学督导专家严禁访问学生人脸档案库、任课教师或教研室主任工作台！学生档案库归教研室主任统一管辖。系统已自动重置回督导工作台。')
-    activeTab.value = 'supervisor'
-  } else if (role === 'TEACHER' && (newTab === 'director' || newTab === 'supervisor' || newTab === 'students')) {
-    alert('【安全拦截】任课教师严禁访问学生人脸档案库、教研室主任或督导工作台！系统已自动重置回教师工作台。')
-    activeTab.value = 'teacher'
-  }
+  if (!visibleNavTabs.value.some(t => t.key === newTab)) setInitialTab(currentUser.value)
 })
 
 const setInitialTab = (user: any) => {
   if (!user) return
-  if (user.role === 'DIRECTOR') {
+  if (user.role === 'ADMIN') { activeTab.value='sprint3'
+  } else if (user.role === 'DIRECTOR') {
     activeTab.value = 'director'
   } else if (user.role === 'TEACHER') {
     activeTab.value = 'teacher'

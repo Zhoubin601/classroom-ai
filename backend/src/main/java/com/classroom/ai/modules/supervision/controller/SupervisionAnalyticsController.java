@@ -22,6 +22,7 @@ import java.util.List;
 public class SupervisionAnalyticsController {
 
     private final SupervisionAnalyticsService analyticsService;
+    private final com.classroom.ai.modules.sprint3.QualityStatisticsService quality;
 
     @GetMapping("/dashboard")
     public ApiResponse<SupervisionDashboardVO> getDashboard(@RequestParam(required = false) String term) {
@@ -55,14 +56,9 @@ public class SupervisionAnalyticsController {
     }
 
     @GetMapping("/export-report")
-    public void exportAnnualQualityReport(HttpServletResponse response) throws IOException {
-        com.classroom.ai.modules.auth.context.AuthContext.requireRole(com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR);
-        String csvContent = analyticsService.generateAnnualQualityReportCsv();
-        String filename = "2026-Northeastern-University-Teaching-Quality-Report.csv";
-
-        response.setContentType("text/csv; charset=UTF-8");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
-        response.getOutputStream().write(csvContent.getBytes(StandardCharsets.UTF_8));
-        response.getOutputStream().flush();
+    public org.springframework.http.ResponseEntity<byte[]> exportAnnualQualityReport(@RequestParam(required=false) String term,@RequestParam(required=false) String courseType,@RequestParam(required=false) String keyword,@RequestParam(required=false) String teacher,@RequestParam(defaultValue="false") boolean uncategorized,@RequestParam(defaultValue="csv") String format) throws IOException {
+        com.classroom.ai.modules.sprint3.Sprint3Policy.roles(com.classroom.ai.modules.auth.entity.RoleEnum.DIRECTOR);
+        if(!java.util.Set.of("csv","xlsx").contains(format))throw new IllegalArgumentException("格式须为csv/xlsx");
+        return com.classroom.ai.modules.sprint3.Sprint3Controller.exportResponse(quality.export(new com.classroom.ai.modules.sprint3.QualityStatisticsService.Filter(term,courseType,keyword,teacher,uncategorized),format),format);
     }
 }

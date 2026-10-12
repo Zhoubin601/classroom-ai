@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import({SecurityConfig.class, JwtAuthenticationFilter.class, CourseAuthorizationService.class, MicroTeachingServiceImpl.class})
 class MicroTeachingHttpAuthorizationTest {
     @Autowired MockMvc mvc;
+    @MockBean com.classroom.ai.modules.sprint3.VideoAssetService assets;
     @MockBean JwtTokenProvider tokens;
     @MockBean UserAccountRepository accounts;
     @MockBean CourseRepository courses;
@@ -37,6 +38,9 @@ class MicroTeachingHttpAuthorizationTest {
     MicroTeachingSlice ownSlice, foreignSlice;
 
     @BeforeEach void setup() {
+        when(assets.view(any())).thenAnswer(i->i.getArgument(0));
+        when(assets.mount(any())).thenAnswer(i->{var d=(com.classroom.ai.modules.resource.dto.MicroTeachingSliceDTO)i.getArgument(0);return slices.save(MicroTeachingSlice.builder().course(courses.findById(d.getCourseId()).orElseThrow()).build());});
+        doAnswer(i->{slices.delete(slices.findById(i.getArgument(0)).orElseThrow());return null;}).when(assets).remove(anyLong());
         own = Course.builder().id(1L).courseName("本室课程").department("A").majorCode("SE").build();
         foreign = Course.builder().id(2L).courseName("未授权课程").department("B").majorCode("AI").build();
         collaborative = Course.builder().id(3L).courseName("跨室协同课程").department("B").majorCode("CS").build();

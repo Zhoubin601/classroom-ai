@@ -1,0 +1,32 @@
+{
+  "registeredBackendCases": 282,
+  "allPassedAcrossRuns": 282,
+  "fullRun": {
+    "executed": 235,
+    "skippedForMissingConditions": 47,
+    "failures": 0,
+    "errors": 0,
+    "source": "backend-final.log"
+  },
+  "supplemental": [
+    {
+      "cases": 32,
+      "source": "sprint1-mysql.log"
+    },
+    {
+      "cases": 14,
+      "source": "association-regression.log"
+    },
+    {
+      "cases": 1,
+      "source": "legacy-browser-regression.log",
+      "realBrowserSubflows": 10
+    }
+  ],
+  "sprint3Specific": {
+    "mysql": 29,
+    "boundary": 16
+  },
+  "realSprint3BrowserGroups": 8,
+  "pageErrors": 0
+}

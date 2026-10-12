@@ -41,13 +41,15 @@ public class CourseResourceController {
     private final com.classroom.ai.modules.course.service.CourseAuthorizationService authorizationService;
     private final ResourceAccessService accessService;
     private final ResourceFileService fileService;
+    private final com.classroom.ai.modules.sprint3.ResourceVersionService versions;
 
     @PostMapping("/upload")
     public ApiResponse<CourseResource> uploadResourceFile(@RequestParam("file") MultipartFile file,
             @RequestParam Long courseId, @RequestParam String chapter,
             @RequestParam(required = false) String resourceName,
             @RequestParam(required = false) String tags,
-            @RequestParam(defaultValue = "false") Boolean isPublic) {
+            @RequestParam(defaultValue = "false") Boolean isPublic,
+            @RequestParam(required=false) Long seriesId, @RequestParam(required=false) Long expectedVersion) {
         accessService.requireCourseWrite(courseId);
         if (chapter == null || chapter.isBlank()) return ApiResponse.error(400, "请选择所属章节");
         if (tags != null && !tags.isBlank() && java.util.Arrays.stream(tags.split(","))
@@ -104,7 +106,7 @@ public class CourseResourceController {
                         .fileType(fileType).fileUrl("/uploads/resources/" + safeName)
                         .fileSize(formattedSize).fileSizeBytes(bytes)
                         .tags(tags == null || tags.isBlank() ? List.of() : java.util.Arrays.stream(tags.split(",")).map(String::trim).toList())
-                        .isPublic(isPublic).uploaderTeacher(user.getRealName()).build();
+                        .isPublic(isPublic).seriesId(seriesId).expectedVersion(expectedVersion).uploaderTeacher(user.getRealName()).build();
                 return ApiResponse.success("课件上传成功", resourceService.saveResource(dto));
             } catch (RuntimeException ex) {
                 Files.deleteIfExists(dest.toPath());
@@ -123,7 +125,9 @@ public class CourseResourceController {
         authorizationService.requireCurrentUser();
         String cleanTag = (tag != null && !tag.trim().isEmpty()) ? tag.trim() : null;
         String cleanKeyword = (keyword != null && !keyword.trim().isEmpty()) ? keyword.trim() : null;
-        return ApiResponse.success(resourceService.searchResources(courseId, null, isPublic, cleanKeyword).stream()
+        return ApiResponse.success(resourceService.searchResources(courseId, null, null, cleanKeyword).stream()
+                .filter(versions::current)
+                .filter(r -> isPublic==null || java.util.Objects.equals(isPublic,r.getSeriesId()==null?r.getIsPublic():versions.policy(r.getSeriesId()).getShared()))
                 .filter(accessService::canRead)
                 .filter(r -> cleanTag == null || ("未标注".equals(cleanTag) ? r.getTags().isEmpty() : r.getTags().contains(cleanTag)))
                 .toList());

@@ -95,6 +95,9 @@ public class SecurityConfig {
                     "/swagger-ui/**"
                 ).permitAll()
                 .requestMatchers("/uploads/resources/**", "/uploads/micro/**").denyAll()
+                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/auth/me", "/api/v1/auth/logout").authenticated()
+                .requestMatchers("/api/v1/sprint3/**").hasAnyRole("DIRECTOR", "TEACHER", "SUPERVISOR", "ADMIN")
                 // 主任专属管理路由：督导建档授权与学生底库管理
                 .requestMatchers("/api/v1/director/**").hasRole("DIRECTOR")
                 .requestMatchers("/api/student/**").hasRole("DIRECTOR")
@@ -129,6 +132,12 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/resources/**").authenticated()
                 .requestMatchers("/api/v1/attendance/**").authenticated()
                 .requestMatchers("/api/visual/**").authenticated()
+                .requestMatchers("/api/v1/**", "/api/**").access((authentication, context) -> {
+                    var a = authentication.get();
+                    boolean admin = a != null && a.getAuthorities().stream().anyMatch(x -> x.getAuthority().equals("ROLE_ADMIN"));
+                    if (admin) return new org.springframework.security.authorization.AuthorizationDecision(false);
+                    return new org.springframework.security.authorization.AuthorizationDecision(a != null && a.isAuthenticated() && !a.getName().equals("anonymousUser"));
+                })
                 // 默认策略：其余任何请求均须登录认证通过
                 .anyRequest().authenticated()
             )

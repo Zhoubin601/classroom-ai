@@ -78,6 +78,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     return;
                 }
 
+                if (user.getRole() == com.classroom.ai.modules.auth.entity.RoleEnum.ADMIN) {
+                    String path = request.getRequestURI();
+                    if (!path.startsWith("/api/v1/admin/") && !path.startsWith("/api/v1/sprint3/") && !path.startsWith("/api/v1/auth/")) {
+                        response.setStatus(403); response.setContentType("application/json;charset=UTF-8");
+                        response.getWriter().write("{\"code\":403,\"message\":\"管理员无权访问该业务入口\"}"); return;
+                    }
+                }
                 AuthContext.setCurrentUser(user);
 
                 List<SimpleGrantedAuthority> authorities = Collections.emptyList();

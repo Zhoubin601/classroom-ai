@@ -1,0 +1,87 @@
+{
+  "deliveryDate": "2026-10-12",
+  "files": {
+    "backend-final.log": {
+      "bytes": 68795,
+      "sha256": "9047d462d64ef2146597f8cd58f830e09d2e72af293c628f81faf38d06756202"
+    },
+    "sprint1-mysql.log": {
+      "bytes": 206823,
+      "sha256": "77b924385e07e51a3c35c9f4aa7e325960265128e12af1350e658ac1164fd1f4"
+    },
+    "sprint2-mysql.log": {
+      "bytes": 8108,
+      "sha256": "a4c8faa51baefb127f69feeba5069b01e645f6a37bd4bad54161689fcbe1c2cd"
+    },
+    "frontend-test.log": {
+      "bytes": 1222,
+      "sha256": "c67281b530456758f8c05a0978060f305cb8afd69acecb26dd10a835f00e875d"
+    },
+    "vision-regression.log": {
+      "bytes": 514,
+      "sha256": "a5cea177e4d5bd6e2ff95470701f38668bea4b79197fd362b80b0f34f024d44a"
+    },
+    "browser-results.json": {
+      "bytes": 965,
+      "sha256": "70fc2f55a1daba0e6e7fe7a35e734583b80af76145b07cff7c3409a38910751a"
+    },
+    "upgrade-results.json": {
+      "bytes": 283,
+      "sha256": "fe9ed1fcc32bc02307aa97f09ad4ae4627bc8b6aa014b9812d1f569eb3da56a6"
+    },
+    "snapshot-export.xlsx": {
+      "bytes": 3000,
+      "sha256": "a92eed2b32080effd7060d3f234da173cec11162ff51dc4e0427ce2ad53c1515"
+    },
+    "snapshot-export.csv": {
+      "bytes": 513,
+      "sha256": "0fe3c705d9af45a637fec96157b2721eec2c36ec5d726ef24302b8424bb632b1"
+    },
+    "export-reader-results.json": {
+      "bytes": 237,
+      "sha256": "1b607059ca56c108e08d8933dafbb6c477ed2018153a7a03b5d4726559c79809"
+    },
+    "legacy-browser-regression.log": {
+      "bytes": 314565,
+      "sha256": "f1547deb317a67f7b4868381440b43513601031ab39d73d4205e74406a02fa9c"
+    },
+    "legacy-browser-workflows.txt": {
+      "bytes": 1048,
+      "sha256": "995a8c91859d0a0d9d53a7c52f33e5d52b15b968b423662dfa1a65748aafafaf"
+    },
+    "combined-results.json": {
+      "bytes": 643,
+      "sha256": "9d7e9b3d6926d543b86cbda9c1dff9feaf8f9e50e125f7abc6f4581a7cf3a59d"
+    },
+    "association-regression.log": {
+      "bytes": 13106,
+      "sha256": "f9d02ca0d72465247ecb56539fb4d9b6f9130d2712ede4112358aba7ec32a86c"
+    },
+    "legacy-query-performance.json": {
+      "bytes": 998,
+      "sha256": "07d51862bf8ac6fdbdef5c717c92949f6699842b738e03bd5005733ea7b56674"
+    },
+    "legacy-schedule-sample.png": {
+      "bytes": 143991,
+      "sha256": "27e3f4943a47a733d2235279949765c26ab052b96a2f3448536ea78626a47603"
+    },
+    "legacy-history.png": {
+      "bytes": 297169,
+      "sha256": "55a5507e44e998e4612a31922736c4ddb791551c3daca4409148b407e30cb9d0"
+    },
+    "legacy-supervisor.png": {
+      "bytes": 154802,
+      "sha256": "18c622468843b26ac6fd62441f03debd2b81a80bff24ae683b9355bec65e307f"
+    }
+  },
+  "deliverables": [
+    {
+      "path": "output\\20261012-sprint3-acceptance-v2.md",
+      "sha256": "62f9ac4c9f4de9e57c142c29fd747e4cb58080612882489fd2f0c25458fc16e8"
+    },
+    {
+      "path": "output\\20261012-sprint3-user-guide-v2.md",
+      "sha256": "e6f53404e96becacb3ee7ab80ada5ea633ed515070a7c68053eee004030bddcd"
+    }
+  ]
+}

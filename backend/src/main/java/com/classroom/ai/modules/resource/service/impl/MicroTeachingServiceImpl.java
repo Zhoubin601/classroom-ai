@@ -20,12 +20,13 @@ public class MicroTeachingServiceImpl implements MicroTeachingService {
     private final MicroTeachingSliceRepository sliceRepository;
     private final CourseRepository courseRepository;
     private final CourseAuthorizationService authorizationService;
+    private final com.classroom.ai.modules.sprint3.VideoAssetService assets;
 
     @Override
     @Transactional(readOnly = true)
     public List<MicroTeachingSlice> getSlicesByCourseId(Long courseId) {
         authorizationService.validateCourseRead(courseId);
-        return sliceRepository.findByCourseId(courseId);
+        return sliceRepository.findByCourseId(courseId).stream().map(assets::view).toList();
     }
 
     @Override
@@ -35,44 +36,23 @@ public class MicroTeachingServiceImpl implements MicroTeachingService {
         List<Long> courseIds = authorizationService.filterCourses(courseRepository.findAll())
                 .stream().map(Course::getId).toList();
         if (courseIds.isEmpty()) return List.of();
-        return sliceRepository.findByBopppsStageAndCourse_IdIn(stage, courseIds);
+        return sliceRepository.findByBopppsStageAndCourse_IdIn(stage, courseIds).stream().map(assets::view).toList();
     }
 
     @Override
     @Transactional
     public MicroTeachingSlice mountSlice(MicroTeachingSliceDTO dto) {
         authorizationService.requireCurrentUser();
-        if (dto == null || dto.getCourseId() == null) {
-            throw new IllegalArgumentException("挂载微格切片必须指定课程ID");
-        }
-        Course course = courseRepository.findById(dto.getCourseId())
-                .orElseThrow(() -> new IllegalArgumentException("未找到课程ID为 " + dto.getCourseId() + " 的记录"));
-        authorizationService.validateCourseWrite(course);
-        if (dto.getSliceUrl() != null && dto.getSliceUrl().startsWith("/uploads/micro/"))
-            throw new IllegalArgumentException("平台视频请使用上传接口，不能重新挂载受控文件路径");
-
-        MicroTeachingSlice slice = MicroTeachingSlice.builder()
-                .course(course)
-                .videoTitle(dto.getVideoTitle())
-                .bopppsStage(dto.getBopppsStage() != null ? dto.getBopppsStage() : "P (参与式学习)")
-                .durationSeconds(dto.getDurationSeconds() != null ? dto.getDurationSeconds() : 300)
-                .sliceUrl(dto.getSliceUrl())
-                .coverUrl(dto.getCoverUrl())
-                .recordedDate(dto.getRecordedDate())
-                .classroom(dto.getClassroom())
-                .sourceAgent(dto.getSourceAgent() != null ? dto.getSourceAgent() : "Agent-Edge")
-                .build();
-
-        return sliceRepository.save(slice);
+        if(dto==null||dto.getCourseId()==null)throw new IllegalArgumentException("请指定课程");
+        authorizationService.validateCourseWrite(dto.getCourseId());
+        return assets.mount(dto);
     }
 
     @Override
     @Transactional
     public void deleteSlice(Long id) {
-        authorizationService.requireCurrentUser();
-        MicroTeachingSlice slice = sliceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("未找到微格切片ID为 " + id + " 的记录"));
+        var slice=sliceRepository.findById(id).orElseThrow(()->new IllegalArgumentException("片段不存在"));
         authorizationService.validateCourseWrite(slice.getCourse());
-        sliceRepository.delete(slice);
+        assets.remove(id);
     }
 }

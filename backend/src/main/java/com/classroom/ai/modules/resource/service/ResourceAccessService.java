@@ -13,14 +13,20 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ResourceAccessService {
     private final CourseAuthorizationService authorization;
+    @org.springframework.beans.factory.annotation.Autowired private jakarta.persistence.EntityManager em;
+    @org.springframework.beans.factory.annotation.Autowired(required=false) private com.classroom.ai.modules.sprint3.ResourceGrantReader grants;
+
+    public long epoch(CourseResource r) { if(r.getSeriesId()==null)return 0; var s=(grants==null?em.find(com.classroom.ai.modules.sprint3.ResourceSeries.class,r.getSeriesId()):grants.read(r.getSeriesId()));return s.getAccessEpoch(); }
 
     public boolean canRead(CourseResource resource) {
         var user = authorization.requireCurrentUser();
+        Boolean shared=resource.getIsPublic();
+        if(resource.getSeriesId()!=null){var s=(grants==null?em.find(com.classroom.ai.modules.sprint3.ResourceSeries.class,resource.getSeriesId()):grants.read(resource.getSeriesId()));if(s==null||Boolean.TRUE.equals(s.getRemoved()))return false;shared=s.getShared();}
         try {
             authorization.validateCourseRead(resource.getCourse());
             return true;
         } catch (ForbiddenException ex) {
-            return Boolean.TRUE.equals(resource.getIsPublic())
+            return Boolean.TRUE.equals(shared)
                     && (user.getRole() == RoleEnum.TEACHER || user.getRole() == RoleEnum.DIRECTOR)
                     && user.getDepartment() != null && !user.getDepartment().isBlank()
                     && Objects.equals(user.getDepartment().trim(), resource.getCourse().getDepartment());

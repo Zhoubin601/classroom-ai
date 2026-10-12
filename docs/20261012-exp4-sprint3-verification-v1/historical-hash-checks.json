@@ -1,0 +1,82 @@
+[
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\backend-final.log",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\sprint1-mysql.log",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\sprint2-mysql.log",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\frontend-test.log",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\vision-regression.log",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\browser-results.json",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\upgrade-results.json",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\snapshot-export.xlsx",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\snapshot-export.csv",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\export-reader-results.json",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\legacy-browser-regression.log",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\legacy-browser-workflows.txt",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\combined-results.json",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\association-regression.log",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\legacy-query-performance.json",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\legacy-schedule-sample.png",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\legacy-history.png",
+    "matches": true
+  },
+  {
+    "file": "docs\\20261011-sprint3-evidence-v1\\legacy-supervisor.png",
+    "matches": true
+  },
+  {
+    "file": "output\\20261012-sprint3-acceptance-v2.md",
+    "matches": true
+  },
+  {
+    "file": "output\\20261012-sprint3-user-guide-v2.md",
+    "matches": true
+  }
+]

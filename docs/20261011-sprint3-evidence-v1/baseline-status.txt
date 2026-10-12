@@ -1,0 +1,7 @@
+ M docs/analysis-notes.md
+ M docs/plan.md
+ M docs/questions.md
+ M docs/source-notes.md
+ M stop_project.ps1
+?? docs/20261011-sprint2-local-evidence-v1/
+?? output/20261011-sprint2-local-acceptance-v1.md

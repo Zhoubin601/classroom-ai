@@ -220,7 +220,7 @@ class AssociationIntegrityTest {
         when(f.offerings.findById(100L)).thenReturn(Optional.of(off));when(f.offerings.findForUpdate(100L)).thenReturn(Optional.of(off));when(sessions.save(any())).thenAnswer(inv->inv.getArgument(0));
         when(sessions.findOfferingId(50L)).thenReturn(Optional.of(100L));
         var service=new AttendanceServiceImpl(sessions,f.offerings,null,null,f.auth);
-        for(RoleEnum role:RoleEnum.values()) {
+        for(RoleEnum role:List.of(RoleEnum.DIRECTOR,RoleEnum.TEACHER,RoleEnum.SUPERVISOR)) {
             user(role, "A", "T1");
             var result=service.startSession(StartAttendanceDTO.builder().offeringId(100L).operatorName("冒用人").operatorRole("DIRECTOR").operatorTitle("假身份").build());
             assertEquals("诊断用户",result.getOperatorName());assertEquals(role.name(),result.getOperatorRole());

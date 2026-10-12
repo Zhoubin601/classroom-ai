@@ -5,7 +5,7 @@ WORKDIR /app
 # Install tzdata for proper Shanghai timezone inside container
 RUN sed -i '/jammy-updates/d; /jammy-backports/d; s|http://|https://|g' /etc/apt/sources.list && \
     apt-get update -o Acquire::Retries=5 && \
-    apt-get install -y --no-install-recommends libreoffice-writer libreoffice-impress tzdata fonts-noto-cjk && \
+    apt-get install -y --no-install-recommends ffmpeg libreoffice-writer libreoffice-impress tzdata fonts-noto-cjk && \
     rm -rf /var/lib/apt/lists/* && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone

@@ -112,9 +112,9 @@ class RegressionTest {
     }
 
     @Test void teacherSeesPublishedAnonymousCopiesOnly() {
-        var published = SupervisionEvaluation.builder().status("PUBLISHED").supervisorName("Reviewer").build();
+        var published = SupervisionEvaluation.builder().status("PUBLISHED").reviewedBy(999L).reviewedAt(LocalDateTime.now().minusDays(1)).publishTime(LocalDateTime.now().minusHours(1)).supervisorName("Reviewer").build();
         var pending = SupervisionEvaluation.builder().status("PENDING_DESENSITIZE").publishTime(LocalDateTime.now().plusHours(1)).build();
-        when(evaluations.findByTeacherName("Teacher")).thenReturn(List.of(published, pending, SupervisionEvaluation.builder().status("DRAFT").build()));
+        when(evaluations.findAll()).thenReturn(List.of(published, pending, SupervisionEvaluation.builder().status("DRAFT").build()));
         var result = new SupervisionServiceImpl(evaluations, offerings).getEvaluationsByTeacher("Teacher");
         assertEquals(1, result.size());
         assertEquals("匿名督导", result.get(0).getSupervisorName());

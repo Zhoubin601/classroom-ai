@@ -348,20 +348,20 @@
           <!-- 4 维均分指标条 -->
           <div class="grid grid-cols-2 gap-2.5 text-xs mt-3 pt-3 border-t border-slate-100">
             <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
-              <span class="text-slate-500 block text-[10px]">教学态度 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.attitudeScore ?? 0 }} 分</span>
+              <span class="text-slate-500 block text-[10px]">教学态度 (归一化25分刻度)</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.attitudeScore ?? '暂无' }} 分</span>
             </div>
             <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
-              <span class="text-slate-500 block text-[10px]">教学内容 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.contentScore ?? 0 }} 分</span>
+              <span class="text-slate-500 block text-[10px]">教学内容 (归一化25分刻度)</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.contentScore ?? '暂无' }} 分</span>
             </div>
             <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
-              <span class="text-slate-500 block text-[10px]">教学方法 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.methodScore ?? 0 }} 分</span>
+              <span class="text-slate-500 block text-[10px]">教学方法 (归一化25分刻度)</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.methodScore ?? '暂无' }} 分</span>
             </div>
             <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 hover:border-indigo-200 transition">
-              <span class="text-slate-500 block text-[10px]">教学效果 (25分满分)</span>
-              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.effectScore ?? 0 }} 分</span>
+              <span class="text-slate-500 block text-[10px]">教学效果 (归一化25分刻度)</span>
+              <span class="text-sm font-bold text-indigo-700 font-mono tracking-tight">{{ radarData?.effectScore ?? '暂无' }} 分</span>
             </div>
           </div>
         </div>
@@ -858,8 +858,10 @@ const previewModalVisible = ref(false)
 const currentPreviewRes = ref<CourseResource | null>(null)
 const previewUrl = ref('')
 let previewRequest = 0
+let previewTimer: ReturnType<typeof setInterval> | undefined
 const closePreview = () => {
   previewRequest++
+  if (previewTimer) clearInterval(previewTimer); previewTimer = undefined
   if (previewUrl.value.startsWith('blob:')) URL.revokeObjectURL(previewUrl.value)
   previewUrl.value = ''
   previewModalVisible.value = false
@@ -1130,6 +1132,7 @@ const renderRadarChart = () => {
   }
 
   const d = radarData.value
+  if (!d || [d.attitudeScore,d.contentScore,d.methodScore,d.effectScore].some(v=>v==null)) { radarChart.clear(); return }
   const option: echarts.EChartsOption = {
     backgroundColor: 'transparent',
     radar: {
@@ -1264,6 +1267,7 @@ const previewResource = async (res: CourseResource) => {
     const pdf = await resourceApi.getPreviewPdf(res.id)
     if (request !== previewRequest || !previewModalVisible.value) return
     previewUrl.value = URL.createObjectURL(pdf)
+    previewTimer = setInterval(async () => { try { await resourceApi.checkAccess(res.id) } catch { if(request === previewRequest) closePreview() } }, 5000)
   } catch (e: any) {
     if (request !== previewRequest) return
     closePreview()

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+    @ExceptionHandler(com.classroom.ai.modules.sprint3.HttpFailure.class)
+    public ResponseEntity<ApiResponse<Void>> sprintFailure(com.classroom.ai.modules.sprint3.HttpFailure error) { return ResponseEntity.status(error.status).body(ApiResponse.error(error.status,error.getMessage())); }
     @ExceptionHandler(java.io.IOException.class)
     public ResponseEntity<ApiResponse<Void>> ioFailure(java.io.IOException error) {
         return ResponseEntity.status(422).body(ApiResponse.error(422,

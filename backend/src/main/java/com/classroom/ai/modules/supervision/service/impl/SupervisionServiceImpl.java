@@ -33,6 +33,10 @@ public class SupervisionServiceImpl implements SupervisionService {
     private EvaluationAuditLogRepository auditRepository;
     @org.springframework.beans.factory.annotation.Value("${classroom.supervision.feedback-delay-hours:24}")
     private long feedbackDelayHours = 24;
+    @org.springframework.beans.factory.annotation.Autowired private com.classroom.ai.modules.sprint3.EvaluationTemplateService templates;
+    @org.springframework.beans.factory.annotation.Autowired private com.classroom.ai.modules.sprint3.AdviceService advice;
+    @org.springframework.beans.factory.annotation.Autowired private jakarta.persistence.EntityManager em;
+    @org.springframework.beans.factory.annotation.Autowired private com.fasterxml.jackson.databind.ObjectMapper json;
     @org.springframework.beans.factory.annotation.Value("${classroom.supervision.weights.attitude:25}")
     private double attitudeWeight = 25;
     @org.springframework.beans.factory.annotation.Value("${classroom.supervision.weights.content:25}")
@@ -54,23 +58,19 @@ public class SupervisionServiceImpl implements SupervisionService {
 
     @Override
     public List<SupervisionEvaluation> getAllEvaluations() {
-        refreshDesensitizeStatus();
         return visible(evaluationRepository.findAll());
     }
 
     @Override
     public List<SupervisionEvaluation> getEvaluationsByOffering(Long offeringId) {
-        refreshDesensitizeStatus();
         return visible(evaluationRepository.findByOfferingId(offeringId));
     }
 
     @Override
     public List<SupervisionEvaluation> getEvaluationsByTeacher(String teacherName) {
-        refreshDesensitizeStatus();
         UserVO user = AuthContext.getCurrentUser();
-        if (user != null && user.getRole() == RoleEnum.TEACHER && !teacherName.equals(user.getRealName()))
-            throw new ForbiddenException("只能查看本人评价反馈");
-        return visible(evaluationRepository.findByTeacherName(teacherName));
+        if(user != null && user.getRole()==RoleEnum.ADMIN)throw new ForbiddenException("管理员无权访问评价");
+        return visible(evaluationRepository.findAll());
     }
 
     @Override
@@ -94,22 +94,26 @@ public class SupervisionServiceImpl implements SupervisionService {
         validateWeightConfiguration();
 
         boolean isDraft = Boolean.TRUE.equals(dto.getIsDraft());
-        if (!isDraft && (dto.getScoreAttitude() == null || dto.getScoreContent() == null
-                || dto.getScoreMethod() == null || dto.getScoreEffect() == null))
-            throw new IllegalArgumentException("正式提交须填写全部四维评分，允许填写0分");
-
-        // 校验四维打分 (各 0-25 分)
-        double attitude = dto.getScoreAttitude() != null ? dto.getScoreAttitude() : 0.0;
-        double content = dto.getScoreContent() != null ? dto.getScoreContent() : 0.0;
-        double method = dto.getScoreMethod() != null ? dto.getScoreMethod() : 0.0;
-        double effect = dto.getScoreEffect() != null ? dto.getScoreEffect() : 0.0;
-
-        if (!Double.isFinite(attitude) || !Double.isFinite(content) || !Double.isFinite(method) || !Double.isFinite(effect)
-                || attitude < 0 || attitude > attitudeWeight || content < 0 || content > contentWeight ||
-            method < 0 || method > methodWeight || effect < 0 || effect > effectWeight) {
-            throw new IllegalArgumentException("BOPPPS 四维评分必须在各自配置权重范围内");
+        com.classroom.ai.modules.sprint3.TemplateVersion template = null;
+        if (templates != null) {
+            Long selected=dto.getTemplateVersionId();
+            if(dto.getId()!=null) {
+                SupervisionEvaluation old=em.find(SupervisionEvaluation.class,dto.getId(),jakarta.persistence.LockModeType.PESSIMISTIC_WRITE);
+                if(old==null)throw new IllegalArgumentException("评价不存在");
+                com.classroom.ai.modules.sprint3.Sprint3Policy.version(old.getRecordVersion(),dto.getExpectedVersion());
+                if(selected==null)selected=old.getTemplateVersionId();
+            }
+            template=templates.resolve(selected);
         }
-
+        Double attitude=dto.getScoreAttitude(), content=dto.getScoreContent(), method=dto.getScoreMethod(), effect=dto.getScoreEffect();
+        Double totalScore;
+        if(template!=null) totalScore=com.classroom.ai.modules.sprint3.EvaluationTemplateService.total(new Double[]{attitude,content,method,effect},template,isDraft);
+        else {
+            if(!isDraft&&(attitude==null||content==null||method==null||effect==null))throw new IllegalArgumentException("正式提交须填写全部四维评分");
+            Double[] scores={attitude,content,method,effect};double[] weights={attitudeWeight,contentWeight,methodWeight,effectWeight};
+            for(int i=0;i<4;i++)if(scores[i]!=null&&(!Double.isFinite(scores[i])||scores[i]<0||scores[i]>weights[i]))throw new IllegalArgumentException("评分超出权重范围");
+            totalScore=java.util.Arrays.stream(scores).anyMatch(java.util.Objects::isNull)?null:attitude+content+method+effect;
+        }
         if ((dto.getHighlights() != null && dto.getHighlights().length() > 500)
                 || (dto.getSuggestions() != null && dto.getSuggestions().length() > 500)) {
             throw new IllegalArgumentException("教学亮点和改进建议每项不能超过500字");
@@ -124,7 +128,6 @@ public class SupervisionServiceImpl implements SupervisionService {
                 .filter(line -> !line.isBlank()).distinct().count() < 3)
             throw new IllegalArgumentException("正式提交须填写至少3条不同的教学亮点，每条单独一行");
 
-        double totalScore = attitude + content + method + effect;
 
         SupervisionEvaluation evaluation;
         if (dto.getId() != null) {
@@ -140,6 +143,7 @@ public class SupervisionServiceImpl implements SupervisionService {
             evaluation.setOffering(offering);
         }
 
+        evaluation.setTouchedAt(LocalDateTime.now());
         String oldStatus = evaluation.getStatus();
         evaluation.setSupervisorName(actor != null ? (actor.getRealName() == null ? actor.getUsername() : actor.getRealName()) :
                 (dto.getSupervisorName() != null ? dto.getSupervisorName() : "特邀督导专家"));
@@ -151,6 +155,14 @@ public class SupervisionServiceImpl implements SupervisionService {
         evaluation.setScoreMethod(method);
         evaluation.setScoreEffect(effect);
         evaluation.setTotalScore(totalScore);
+        if(template!=null) {
+            evaluation.setTemplateVersionId(template.getId());
+            try {evaluation.setWeightSnapshot(json.writeValueAsString(templates.weights(template)));}
+            catch(Exception ex){throw new IllegalStateException(ex);}
+            try {evaluation.setProblemTagsJson(json.writeValueAsString(com.classroom.ai.modules.sprint3.Sprint3Policy.problems(dto.getProblemTags())));}
+            catch(java.io.IOException ex){throw new IllegalStateException(ex);}
+            evaluation.setProblemClassificationVersion("示例分类-v1");
+        }
         evaluation.setHighlights(dto.getHighlights());
         evaluation.setSuggestions(dto.getSuggestions());
 
@@ -161,10 +173,12 @@ public class SupervisionServiceImpl implements SupervisionService {
             evaluation.setPublishTime(null);
         } else {
             evaluation.setStatus("PENDING_REVIEW");
+            evaluation.setReviewedBy(null);evaluation.setReviewedAt(null);evaluation.setReviewNote(null);
             evaluation.setSubmitTime(LocalDateTime.now());
             evaluation.setPublishTime(null);
         }
         SupervisionEvaluation saved = evaluationRepository.save(evaluation);
+        if(advice!=null)advice.syncDefault(saved);
         audit(saved, actor, oldStatus, isDraft ? "SAVE_DRAFT" : "SUBMIT");
         return saved;
     }
@@ -226,11 +240,11 @@ public class SupervisionServiceImpl implements SupervisionService {
                 }
                 if (user.getRole() == RoleEnum.SUPERVISOR) {
                     authorization.validateOfferingRead(e.getOffering());
-                    return "PUBLISHED".equals(e.getStatus()) || java.util.Objects.equals(user.getId(), e.getSupervisorUserId());
+                    return com.classroom.ai.modules.sprint3.Sprint3Policy.feedbackOpen(e,LocalDateTime.now()) || java.util.Objects.equals(user.getId(), e.getSupervisorUserId());
                 }
                 if (user.getRole() == RoleEnum.TEACHER) {
                     authorization.validateOfferingRead(e.getOffering());
-                    return "PUBLISHED".equals(e.getStatus());
+                    return com.classroom.ai.modules.sprint3.Sprint3Policy.feedbackOpen(e,LocalDateTime.now());
                 }
             } catch (ForbiddenException ex) { return false; }
             return false;
@@ -244,6 +258,7 @@ public class SupervisionServiceImpl implements SupervisionService {
         view.setSupervisorUserId(null);
         view.setReviewedBy(null);
         view.setReviewNote(null);
+        view.setReviewedAt(null);
         return view;
     }
 

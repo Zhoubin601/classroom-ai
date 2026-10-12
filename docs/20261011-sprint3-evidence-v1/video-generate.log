@@ -1,0 +1,44 @@
+ffmpeg version 9.0.2-essentials_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 16.2.0 (Rev3, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-cairo --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-openal --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      61.  1.102 / 61.  1.102
+  libavcodec     63.  1.102 / 63.  1.102
+  libavformat    63.  1.102 / 63.  1.102
+  libavdevice    63.  1.102 / 63.  1.102
+  libavfilter    12.  1.102 / 12.  1.102
+  libswscale     10.  1.102 / 10.  1.102
+  libswresample   7.  1.102 /  7.  1.102
+Input #0, lavfi, from 'color=c=navy:s=160x120:r=10:d=2':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 160x120 [SAR 1:1 DAR 4:3], 10 fps, 10 tbr, 10 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 00000232b9ace000] using SAR=1/1
+[libx264 @ 00000232b9ace000] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 00000232b9ace000] profile High, level 1.0, 4:2:0, 8-bit
+[libx264 @ 00000232b9ace000] 264 - core 165 r3223 0480cb0 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=4 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=10 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'docs/20261011-sprint3-evidence-v1/synthetic-video.mp4':
+  Metadata:
+    encoder         : Lavf63.1.102
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 160x120 [SAR 1:1 DAR 4:3], q=2-31, 10 fps, 10240 tbn
+    Metadata:
+      encoder         : Lavc63.1.102 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[mp4 @ 00000232b9abef00] Starting second pass: moving the moov atom to the beginning of the file
+[out#0/mp4 @ 00000232b9a63080] video:1KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 106.340058%
+frame=   20 fps=0.0 q=-1.0 Lsize=       2KiB time=00:00:01.80 bitrate=   9.5kbits/s speed= 300x elapsed=0:00:00.00    
+[libx264 @ 00000232b9ace000] frame I:1     Avg QP: 6.00  size:    58
+[libx264 @ 00000232b9ace000] frame P:5     Avg QP: 7.40  size:    21
+[libx264 @ 00000232b9ace000] frame B:14    Avg QP: 9.71  size:    14
+[libx264 @ 00000232b9ace000] consecutive B-frames:  5.0%  0.0% 15.0% 80.0%
+[libx264 @ 00000232b9ace000] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 00000232b9ace000] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 00000232b9ace000] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 00000232b9ace000] 8x8 transform intra:0.0%
+[libx264 @ 00000232b9ace000] coded y,uvDC,uvAC intra: 0.0% 1.2% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 00000232b9ace000] i16 v,h,dc,p: 88%  0% 12%  0%
+[libx264 @ 00000232b9ace000] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 00000232b9ace000] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 00000232b9ace000] kb/s:1.41

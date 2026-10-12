@@ -27,10 +27,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(MicroTeachingVideoController.class)
-@Import({SecurityConfig.class,JwtAuthenticationFilter.class,CourseAuthorizationService.class,MicroTeachingVideoService.class})
+@Import({SecurityConfig.class,JwtAuthenticationFilter.class,CourseAuthorizationService.class,MicroTeachingVideoService.class,com.classroom.ai.modules.sprint3.VideoAssetService.class})
 class MicroVideoHttpTest {
     @Autowired MockMvc mvc;
     @Autowired MicroTeachingVideoService videos;
+    @org.springframework.boot.test.mock.mockito.SpyBean com.classroom.ai.modules.sprint3.VideoAssetService assets;
+    @MockBean jakarta.persistence.EntityManager em;
     @MockBean JwtTokenProvider tokens;
     @MockBean UserAccountRepository accounts;
     @MockBean CourseRepository courses;
@@ -40,7 +42,13 @@ class MicroVideoHttpTest {
     @TempDir Path directory;
     Course own=Course.builder().id(2L).department("A").majorCode("SE").build();
     Course foreign=Course.builder().id(10L).department("B").majorCode("AI").build();
-    @BeforeEach void setup(){
+    @BeforeEach void setup() throws Exception {
+        ReflectionTestUtils.setField(assets,"uploadDir",directory.resolve("faces").toString());
+        doReturn(2000L).when(assets).probe(any(Path.class));
+        java.util.concurrent.atomic.AtomicReference<com.classroom.ai.modules.sprint3.VideoAsset> stored=new java.util.concurrent.atomic.AtomicReference<>();
+        doAnswer(i->{if(i.getArgument(0) instanceof com.classroom.ai.modules.sprint3.VideoAsset a){a.setId(7L);stored.set(a);}return null;}).when(em).persist(any());
+        when(em.find(eq(com.classroom.ai.modules.sprint3.VideoAsset.class),eq(7L))).thenAnswer(i->stored.get());
+        when(em.find(eq(MicroTeachingSlice.class),eq(8L))).thenReturn(MicroTeachingSlice.builder().id(8L).course(foreign).build());
         ReflectionTestUtils.setField(videos,"uploadDir",directory.resolve("faces").toString());
         when(tokens.validateToken("test-token")).thenReturn(true);
         when(tokens.parseUserFromToken("test-token")).thenReturn(UserVO.builder().id(900L).username("test").role(RoleEnum.DIRECTOR).build());
@@ -53,7 +61,7 @@ class MicroVideoHttpTest {
     MockMultipartFile video(){return new MockMultipartFile("file","sample.webm","video/webm",new byte[]{0x1a,0x45,(byte)0xdf,(byte)0xa3,0,0,0,0});}
     @Test void supervisorCannotUploadAndForeignCourseCannotBeRead() throws Exception {
         account(RoleEnum.SUPERVISOR);
-        mvc.perform(multipart("/api/v1/resources/micro-slices/upload").file(video()).param("courseId","2").param("title","合成视频").param("stage","P2").param("durationSeconds","2").header("Authorization","Bearer test-token")).andExpect(status().isForbidden());
+        mvc.perform(multipart("/api/v1/resources/micro-slices/upload").file(video()).param("courseId","2").param("title","合成视频").param("stage","P2").param("durationSeconds","2").param("sourceType","PLATFORM_UPLOAD").param("sourceDescription","Platform-Upload").param("authorizationDeclaration","自主合成授权样例").header("Authorization","Bearer test-token")).andExpect(status().isForbidden());
         for(var role:List.of(RoleEnum.DIRECTOR,RoleEnum.TEACHER,RoleEnum.SUPERVISOR)){
             account(role);mvc.perform(get("/api/v1/resources/micro-slices/8/video").header("Authorization","Bearer test-token")).andExpect(status().isForbidden());
         }
@@ -65,8 +73,8 @@ class MicroVideoHttpTest {
         verifyNoInteractions(slices);
     }
     @Test void validUploadUsesPrivateGeneratedPathAndDisguisedFilesAreRejected() throws Exception {
-        mvc.perform(multipart("/api/v1/resources/micro-slices/upload").file(video()).param("courseId","2").param("title","合成视频").param("stage","P2").param("durationSeconds","2").header("Authorization","Bearer test-token"))
+        mvc.perform(multipart("/api/v1/resources/micro-slices/upload").file(video()).param("courseId","2").param("title","合成视频").param("stage","P2").param("durationSeconds","2").param("sourceType","PLATFORM_UPLOAD").param("sourceDescription","Platform-Upload").param("authorizationDeclaration","自主合成授权样例").header("Authorization","Bearer test-token"))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.data.sourceAgent").value("Platform-Upload"));
-        mvc.perform(multipart("/api/v1/resources/micro-slices/upload").file(new MockMultipartFile("file","bad.webm","video/webm","fake".getBytes())).param("courseId","2").param("title","合成视频").param("stage","P2").param("durationSeconds","2").header("Authorization","Bearer test-token")).andExpect(status().isBadRequest());
+        mvc.perform(multipart("/api/v1/resources/micro-slices/upload").file(new MockMultipartFile("file","bad.webm","video/webm","fake".getBytes())).param("courseId","2").param("title","合成视频").param("stage","P2").param("durationSeconds","2").param("sourceType","PLATFORM_UPLOAD").param("sourceDescription","Platform-Upload").param("authorizationDeclaration","自主合成授权样例").header("Authorization","Bearer test-token")).andExpect(status().isBadRequest());
     }
 }

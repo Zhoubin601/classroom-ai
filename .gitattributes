@@ -1,0 +1,7 @@
+# Preserve exact artifact bytes so recorded SHA256 values survive checkout.
+docs/20261011-sprint3-evidence-v1/** -text
+docs/20261012-exp4-sprint3-verification-v1/** -text
+output/20261012-sprint3-acceptance-v1.md -text
+output/20261012-sprint3-acceptance-v2.md -text
+output/20261012-sprint3-user-guide-v1.md -text
+output/20261012-sprint3-user-guide-v2.md -text

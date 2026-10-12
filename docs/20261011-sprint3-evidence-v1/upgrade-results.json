@@ -1,0 +1,16 @@
+[
+  {
+    "unknownWeightEvaluations": 1,
+    "pass": 1,
+    "independentSeries": 2,
+    "wholeTextAdvice": 1,
+    "resources": 2
+  },
+  {
+    "unknownWeightEvaluations": 1,
+    "pass": 2,
+    "independentSeries": 2,
+    "wholeTextAdvice": 1,
+    "resources": 2
+  }
+]

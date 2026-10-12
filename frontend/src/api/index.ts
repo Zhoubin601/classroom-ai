@@ -408,6 +408,7 @@ export const syllabusApi = {
 
 // ==================== 5. 教学资源与微格切片 API ====================
 export const resourceApi = {
+  checkAccess: async (id: number): Promise<void> => { await client.get(`/api/v1/resources/${id}`) },
   // 检索课件与教案资源
   search: async (params: { courseId?: number; tag?: string; isPublic?: boolean; keyword?: string }): Promise<any[]> => {
     const cleanParams: Record<string, any> = {}
@@ -725,4 +726,14 @@ export const microTeachingApi = {
   },
   video: async (id: number): Promise<Blob> => (await client.get('/api/v1/resources/micro-slices/' + id + '/video', { responseType: 'blob', timeout: 120000 })).data,
   remove: async (id: number): Promise<void> => { await client.delete('/api/v1/resources/micro-slices/' + id) }
+}
+
+// Sprint 3 uses the same JWT/error handling client as existing business APIs.
+export const sprint3Api = {
+ get: async (url:string,params?:any):Promise<any> => (await client.get(url,{params})).data.data,
+ post: async (url:string,data?:any):Promise<any> => (await client.post(url,data)).data.data,
+ put: async (url:string,data?:any):Promise<any> => (await client.put(url,data)).data.data,
+ remove: async (url:string):Promise<void> => {await client.delete(url)},
+ upload: async (url:string,data:FormData):Promise<any> => (await client.post(url,data,{headers:{'Content-Type':'multipart/form-data'},timeout:120000})).data.data,
+ blob: async (url:string,params?:any):Promise<Blob> => (await client.get(url,{params,responseType:'blob',timeout:120000})).data
 }

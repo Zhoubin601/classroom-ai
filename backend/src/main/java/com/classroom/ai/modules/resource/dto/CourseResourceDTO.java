@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseResourceDTO {
+    private Long seriesId;
+    private Long expectedVersion;
     private Long id;
     private Long courseId;
     private String chapter;

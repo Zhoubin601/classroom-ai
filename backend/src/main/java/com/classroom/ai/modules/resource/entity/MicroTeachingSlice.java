@@ -21,6 +21,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MicroTeachingSlice {
+ private java.time.LocalDateTime touchedAt;
+    @Builder.Default @Version private Long recordVersion=0L;
+    private Long assetId;
+    private Long startMs;
+    private Long endMs;
+    @Column(columnDefinition="TEXT") private String analysisJson;
+    private Long analysisReviewedBy;
+    private java.time.LocalDateTime analysisReviewedAt;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

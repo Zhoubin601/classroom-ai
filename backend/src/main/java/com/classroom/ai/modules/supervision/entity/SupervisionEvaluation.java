@@ -22,6 +22,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SupervisionEvaluation {
+ private java.time.LocalDateTime touchedAt;
+    @Builder.Default @Version private Long recordVersion = 0L;
+    private Long templateVersionId;
+    @Column(columnDefinition="TEXT") private String weightSnapshot;
+    @Column(columnDefinition="TEXT") private String problemTagsJson;
+    private String problemClassificationVersion;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,23 +54,23 @@ public class SupervisionEvaluation {
 
     // --- BOPPPS 四维 100 分制评分 (各 25 分) ---
     /** 1. 教学态度 (0-25) */
-    @Column(nullable = false)
+    @Column
     private Double scoreAttitude;
 
     /** 2. 教学内容 (0-25) */
-    @Column(nullable = false)
+    @Column
     private Double scoreContent;
 
     /** 3. 教学方法 (0-25) */
-    @Column(nullable = false)
+    @Column
     private Double scoreMethod;
 
     /** 4. 教学效果 (0-25) */
-    @Column(nullable = false)
+    @Column
     private Double scoreEffect;
 
     /** 综合总分 (0-100)，自动计算四维之和 */
-    @Column(nullable = false)
+    @Column
     private Double totalScore;
 
     // --- 质性评价文本 (US-14) ---

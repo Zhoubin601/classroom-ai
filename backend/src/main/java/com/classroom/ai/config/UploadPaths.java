@@ -29,6 +29,7 @@ public final class UploadPaths {
     }
 
     public static Path resolveResources(Path workingDirectory, String configured) {
+        if(configured!=null&&!configured.isBlank())return resolve(workingDirectory,configured).resolveSibling("resources");
         Path root = workingDirectory.toAbsolutePath().normalize();
         if (root.getFileName() != null && root.getFileName().toString().equals("backend")
                 && root.getParent() != null && Files.isDirectory(root.getParent().resolve("vision"))) {

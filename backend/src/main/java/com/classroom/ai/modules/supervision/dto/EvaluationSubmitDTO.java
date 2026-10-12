@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvaluationSubmitDTO {
+    private Long templateVersionId;
+    private Long expectedVersion;
+    private java.util.List<String> problemTags;
+    @com.fasterxml.jackson.annotation.JsonAnySetter
+    public void rejectUnknown(String name, Object value) { throw new IllegalArgumentException("不允许客户端提供字段: " + name); }
     private Long id;
     private Long offeringId;
     private String supervisorName;

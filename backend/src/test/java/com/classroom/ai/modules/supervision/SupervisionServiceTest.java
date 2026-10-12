@@ -66,7 +66,7 @@ class SupervisionServiceTest {
             supervisionService.submitEvaluation(dto);
         });
 
-        assertTrue(ex.getMessage().contains("配置权重范围内"));
+        assertTrue(ex.getMessage().contains("权重范围"));
         verify(evaluationRepository, never()).save(any());
     }
 

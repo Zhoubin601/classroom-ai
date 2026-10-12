@@ -1,0 +1,389 @@
+{
+  "registeredCurrentBackendCases": 282,
+  "passedCurrentBackendCasesAcrossRuns": 281,
+  "notRerunCurrentCases": [
+    [
+      "com.classroom.ai.modules.course.CourseBrowserMysqlTest",
+      "realBrowserWorkflow",
+      1
+    ]
+  ],
+  "badCases": [],
+  "suites": [
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.ApiExceptionHandlerTest",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.CameraMonitorHttpTest",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.CameraStreamSessionTest",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+      "tests": 6,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+      "tests": 10,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.auth.AuthControllerTest",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+      "tests": 4,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+      "tests": 20,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+      "tests": 7,
+      "skipped": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+      "tests": 13,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+      "tests": 4,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseBrowserMysqlTest",
+      "tests": 1,
+      "skipped": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+      "tests": 7,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+      "tests": 7,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseImportTest",
+      "tests": 4,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseOfferingHistoryTest",
+      "tests": 2,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+      "tests": 4,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest",
+      "tests": 2,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+      "tests": 21,
+      "skipped": 21,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+      "tests": 4,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+      "tests": 11,
+      "skipped": 11,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+      "tests": 3,
+      "skipped": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+      "tests": 12,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+      "tests": 7,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+      "tests": 2,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+      "tests": 8,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.resource.MicroVideoHttpTest",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.Sprint2MysqlTest",
+      "tests": 4,
+      "skipped": 4,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+      "tests": 16,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+      "tests": 29,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+      "tests": 15,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.RegressionTest",
+      "tests": 18,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.UploadPathsTest",
+      "tests": 2,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "backend-full-xml",
+      "class": "com.classroom.ai.VisualHttpAuthorizationTest",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "supplemental-xml",
+      "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+      "tests": 7,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "supplemental-xml",
+      "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+      "tests": 21,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "supplemental-xml",
+      "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+      "tests": 11,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "supplemental-xml",
+      "class": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "run": "supplemental-xml",
+      "class": "com.classroom.ai.modules.Sprint2MysqlTest",
+      "tests": 4,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "historicalHashMatches": 20,
+  "browserGroups": 8,
+  "browserPageErrors": [],
+  "upgradePasses": 2,
+  "export": {
+    "sheets": [
+      {
+        "name": "xl/worksheets/sheet1.xml",
+        "formulaCells": 0,
+        "timestamps": [
+          "2026-10-12T09:09:28.385868300"
+        ]
+      },
+      {
+        "name": "xl/worksheets/sheet2.xml",
+        "formulaCells": 0,
+        "timestamps": [
+          "2026-10-12T09:09:28.385868300"
+        ]
+      }
+    ],
+    "csvRows": 5
+  }
+}

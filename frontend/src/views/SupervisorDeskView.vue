@@ -786,6 +786,10 @@
           </div>
         </div>
 
+        <div class="p-4 space-y-3">
+          <label class="block text-sm">已发布评价模板<select v-model="selectedTemplate" @change="chooseTemplate" aria-label="已发布评价模板" class="border rounded-lg p-2 ml-3"><option v-for="t in templateVersions" :key="t.id" :value="t.id">{{ t.name }} · 版本{{ t.id }}</option></select></label>
+          <fieldset><legend class="text-sm">问题标签（可多选，随评价审核）</legend><label v-for="tag in problemChoices" :key="tag" class="mr-4"><input type="checkbox" v-model="problemTags" :value="tag" />{{ tag }}</label></fieldset>
+        </div>
         <!-- 24 小时脱敏流转规则提醒 (US-14) -->
         <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] flex items-center gap-2">
           <ShieldCheck class="w-4 h-4 text-amber-600 flex-shrink-0" />
@@ -860,7 +864,7 @@ import {
   MapPin,
   Lock
 } from 'lucide-vue-next'
-import { courseApi, supervisionApi, resourceApi, scheduleApi, majorApi, teacherApi, authApi } from '../api'
+import { courseApi, supervisionApi, resourceApi, scheduleApi, majorApi, teacherApi, authApi, sprint3Api } from '../api'
 import type { CourseOffering, SupervisionDashboardVO, SupervisionAlertVO, CourseResource, CourseSchedule, Major, Teacher, UserVO } from '../api/types'
 import { isScheduleInSession } from '../utils/scheduleTime'
 
@@ -1086,8 +1090,10 @@ const showPreviewModal = ref(false)
 const courseResources = ref<CourseResource[]>([])
 const previewUrl = ref('')
 let previewRequest = 0
+let previewTimer: ReturnType<typeof setInterval> | undefined
 const clearPreviewPdf = () => {
   previewRequest++
+  if (previewTimer) clearInterval(previewTimer); previewTimer = undefined
   if (previewUrl.value.startsWith('blob:')) URL.revokeObjectURL(previewUrl.value)
   previewUrl.value = ''
 }
@@ -1143,12 +1149,20 @@ const previewResource = async (resource: CourseResource) => {
     const pdf = await resourceApi.getPreviewPdf(resource.id)
     if (request !== previewRequest || !showPreviewModal.value) return
     previewUrl.value = URL.createObjectURL(pdf)
+    previewTimer = setInterval(async () => { try { await resourceApi.checkAccess(resource.id) } catch { if(request === previewRequest) closePreview() } }, 5000)
   } catch (e: any) {
     if (request === previewRequest) alert(e.message || '预览失败')
   }
 }
 
 const evaluationDraftId = ref<number | undefined>()
+const templateVersions = ref<any[]>([])
+const selectedTemplate = ref<number>()
+const problemTags = ref<string[]>([])
+const evaluationVersion = ref<number>()
+const problemChoices = ['目标说明','内容组织','教学互动','教学方法','学习效果','其他']
+function chooseTemplate(){const t=templateVersions.value.find(v=>v.id===selectedTemplate.value);if(t)scoreWeights.value={attitude:t.attitude,content:t.content,method:t.method,effect:t.effect}}
+
 let evaluationRequest = 0
 const openEvaluateForm = async (off: CourseOffering) => {
   const request = ++evaluationRequest
@@ -1166,12 +1180,18 @@ const openEvaluateForm = async (off: CourseOffering) => {
     suggestions: ''
   }
   try {
+    templateVersions.value=await sprint3Api.get('/api/v1/sprint3/templates')
+    selectedTemplate.value=templateVersions.value[0]?.id
+    evaluationVersion.value=undefined;problemTags.value=[];chooseTemplate()
     const evaluations = await supervisionApi.getAll({offeringId: off.id})
     if (request !== evaluationRequest) return
     const draft = evaluations.sort((a, b) => b.id - a.id)
       .find(item => item.status === 'DRAFT' || item.status === 'REJECTED')
     if (draft) {
       evaluationDraftId.value = draft.id
+      evaluationVersion.value=draft.recordVersion
+      selectedTemplate.value=draft.templateVersionId || selectedTemplate.value
+      problemTags.value=JSON.parse(draft.problemTagsJson || '[]');chooseTemplate()
       evalForm.value = {
         listenTopic: draft.listenTopic || '',
         evaluateDate: draft.evaluateDate || evalForm.value.evaluateDate,
@@ -1197,6 +1217,9 @@ const handleSaveEvaluation = async (isDraft: boolean) => {
   try {
     const payload = {
       id: evaluationDraftId.value,
+      expectedVersion:evaluationVersion.value,
+      templateVersionId:selectedTemplate.value,
+      problemTags:problemTags.value,
       offeringId: currentOfferingForEval.value?.id,
       evaluateDate: evalForm.value.evaluateDate,
       listenTopic: evalForm.value.listenTopic,

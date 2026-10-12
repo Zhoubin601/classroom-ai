@@ -41,7 +41,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({CourseAuthorizationService.class, SyllabusServiceImpl.class, ResourceAccessService.class,
         ResourceFileService.class, SupervisionServiceImpl.class, SupervisionAnalyticsServiceImpl.class,
-        com.classroom.ai.modules.course.controller.SyllabusController.class})
+        com.classroom.ai.modules.course.controller.SyllabusController.class,
+        com.classroom.ai.modules.sprint3.EvaluationTemplateService.class,
+        com.classroom.ai.modules.sprint3.AdviceService.class,
+        com.classroom.ai.modules.sprint3.VideoAssetService.class,
+        com.classroom.ai.modules.sprint3.QualityStatisticsService.class,
+        org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration.class})
 @EnabledIfEnvironmentVariable(named = "EXP3_MYSQL_URL", matches = "jdbc:mysql://127\\.0\\.0\\.1:13317/exp3_test.*")
 class Sprint2MysqlTest {
     @DynamicPropertySource
@@ -71,6 +76,11 @@ class Sprint2MysqlTest {
     @Autowired EvaluationAuditLogRepository auditLogs;
     @Autowired SupervisionAnalyticsServiceImpl analytics;
 
+    @Autowired jakarta.persistence.EntityManager em;
+    Long templateId;
+    @org.junit.jupiter.api.BeforeEach void publishedTemplate(){
+        var v=new com.classroom.ai.modules.sprint3.TemplateVersion();v.setFamilyId(0L);v.setDraftId(0L);v.setNumber(1);v.setName("Synthetic default");v.setScenario("Classroom");v.setDescriptions("Four axes");v.setAttitude(new java.math.BigDecimal("25"));v.setContent(new java.math.BigDecimal("25"));v.setMethod(new java.math.BigDecimal("25"));v.setEffect(new java.math.BigDecimal("25"));em.persist(v);em.flush();templateId=v.getId();
+    }
     @AfterEach void clear() { AuthContext.clear(); }
 
     private Course course(String code) {
@@ -223,7 +233,7 @@ class Sprint2MysqlTest {
         offering(a, "2026秋", "FINISHED"); offering(b, "2026秋", "IN_PROGRESS");
         offering(b, "2025秋", "FINISHED"); CourseOffering pending = offering(b, "2026秋", "PENDING");
         AuthContext.setCurrentUser(user(RoleEnum.SUPERVISOR, 22));
-        EvaluationSubmitDTO input = EvaluationSubmitDTO.builder().offeringId(oa.getId()).listenTopic("章节讲解")
+        EvaluationSubmitDTO input = EvaluationSubmitDTO.builder().templateVersionId(templateId).offeringId(oa.getId()).listenTopic("章节讲解")
                 .scoreAttitude(20.0).scoreContent(20.0).scoreMethod(20.0).scoreEffect(20.0)
                 .highlights("讲解清晰\n组织有序\n互动充分").suggestions("增加练习").build();
         SupervisionEvaluation submitted = evaluations.submitEvaluation(input);

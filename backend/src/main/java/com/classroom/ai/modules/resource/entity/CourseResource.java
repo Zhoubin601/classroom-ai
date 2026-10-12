@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseResource {
+    private Long seriesId;
+    private Integer versionNumber;
+    private String contentHash;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

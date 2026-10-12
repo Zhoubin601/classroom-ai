@@ -261,7 +261,7 @@ export interface UserVO {
   id: number
   username: string
   realName: string
-  role: 'DIRECTOR' | 'TEACHER' | 'SUPERVISOR'
+  role: 'DIRECTOR' | 'TEACHER' | 'SUPERVISOR' | 'ADMIN'
   department?: string
   teacherCode?: string
   authorizedMajors?: string
