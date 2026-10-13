@@ -54,12 +54,12 @@ client.interceptors.response.use(response => {
   const trackedConfig = response.config as any
   trackedConfig.__releaseCancellation?.()
   try { return checkApiResponse(response) } catch(error) {
-    if(response.data?.code===401 && !String(response.config.url).includes('/auth/login'))window.dispatchEvent(new Event('ui:auth-expired'))
+    if(response.data?.code===401 && !trackedConfig.__sessionProbe && !String(response.config.url).includes('/auth/login'))window.dispatchEvent(new Event('ui:auth-expired'))
     throw error
   }
 }, error => {
   error.config?.__releaseCancellation?.()
-  if(error.response?.status===401 && !String(error.config?.url).includes('/auth/login'))window.dispatchEvent(new Event('ui:auth-expired'))
+  if(error.response?.status===401 && !error.config?.__sessionProbe && !String(error.config?.url).includes('/auth/login'))window.dispatchEvent(new Event('ui:auth-expired'))
   return rejectApiError(error)
 })
 
@@ -624,8 +624,8 @@ export const authApi = {
     localStorage.removeItem('jwtToken')
     sessionStorage.removeItem('csrfToken')
   },
-  getMe: async (): Promise<UserVO> => {
-    const res = await client.get<ApiResponse<UserVO>>('/api/v1/auth/me')
+  getMe: async (sessionProbe = false): Promise<UserVO> => {
+    const res = await client.get<ApiResponse<UserVO>>('/api/v1/auth/me', { __sessionProbe: sessionProbe } as any)
     return res.data.data
   },
   getCsrf: async (): Promise<{ csrfToken: string }> => {
@@ -754,7 +754,7 @@ export const microTeachingApi = {
 
 // Sprint 3 uses the same JWT/error handling client as existing business APIs.
 export const sprint3Api = {
- get: async (url:string,params?:any):Promise<any> => (await client.get(url,{params})).data.data,
+ get: async (url:string,params?:any,signal?:AbortSignal):Promise<any> => (await client.get(url,{params,signal})).data.data,
  post: async (url:string,data?:any):Promise<any> => (await client.post(url,data)).data.data,
  put: async (url:string,data?:any):Promise<any> => (await client.put(url,data)).data.data,
  remove: async (url:string):Promise<void> => {await client.delete(url)},

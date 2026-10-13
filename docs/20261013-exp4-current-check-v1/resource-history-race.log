@@ -1,0 +1,45 @@
+CONFIRMED: resource 201 selected; delayed resource 101 overwrites series and writes series 10 [{"path":"/api/v1/resources/series/10/current","body":{"versionId":102,"expectedVersion":0}}]
+��学院
+统计与反馈
+服务在线
+合
+合成主任
+统计与反馈
+
+统计以课程权限和评价可见状态为依据；预警需人工复核。
+
+学期
+课程类别
+课程关键词
+教师姓名（筛选）
+查询
+工作功能
+收起功能说明
+质量汇总
+筛选与导出课程质量数据
+质量预警
+查看待人工复核的提醒
+资源版本
+追溯课件历史与共享范围
+当前功能
+资源历史版本
+当前资源
+请选择资源
+合成课程901 · 合成资源101 · v1
+合成课程902 · 合成资源201 · v1
+刷新资源
+
+系列20 · 当前版本ID 201 · 系列记录版本 0
+
+固定资源ID	版本	上传时间	操作
+201	v1 （当前）		授权水印预览
+202	v2		授权水印预览设为当前版
+上传此系列的新版本上传新版并设为当前
+爱教学 · 教学质量持续改进
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByText('系列10 · 当前版本ID 101 · 系列记录版本 0', { exact: true }) to be visible[22m
+
+    at /workspace/classroom-ai/docs/20261013-exp4-current-check-v1/resource-history-race.cjs:38:69 {
+  name: 'TimeoutError'
+}

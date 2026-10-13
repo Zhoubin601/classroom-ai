@@ -31,3 +31,11 @@
 ## 大纲历史与评分必填专项
 
 `exp3-history-scores.cjs` 使用真实登录、API和页面，验证历史矩阵快照、教师/主任的版本切换和只读状态、权限隔离，以及正式评价缺少评分拒绝、明确0分允许、不完整草稿允许。它已接入 `scripts/run-exp3-browser-tests.ps1`，沿用该入口的隔离服务和清理流程；单独运行时须配置 `EXP3_FRONTEND_URL`、`EXP3_BACKEND_URL`、Playwright/Chromium路径，可用 `EXP3_FIX_EVIDENCE_DIR` 指定新证据目录。
+
+## exp4 交互与登录竞态回归
+
+- `resource-versions-browser.cjs` 使用本地 API 夹具验证记忆资源恢复、慢/失败响应、卸载取消、写入上下文、历史ID保留和待上传文件保护，不连接业务库。
+- `login-probe-browser.cjs` 使用本地 API 夹具验证启动身份探测不取消在途登录、不覆盖新身份，正式业务401仍撤销页面。
+- 两个脚本均支持 `UI_URL`、`PLAYWRIGHT_MODULE`、`EXP3_CHROMIUM_PATH`；证据目录分别由 `RESOURCE_VERSIONS_EVIDENCE`、`LOGIN_PROBE_EVIDENCE` 指定，可用 Vite dev 或生产 preview 验证。
+- `exp4-browser.cjs` 的真实业务验收使用当前角色入口、功能页签与模板卡片。可设置 `EXP4_EVIDENCE_DIR` 为新证据目录、`EXP4_VIDEO_FIXTURE` 为合成视频路径；默认视频取已有两秒合成夹具。
+- `us02-us03-real-browser.cjs` 及 `CourseBrowserMysqlTest` 支持 `US0203_EVIDENCE_DIR`，将日志、截图和查询计时写入本轮目录；默认仍使用 `docs/`。该脚本实际操作账号菜单、班次/排课表单、未保存提示和归档确认，不跳过业务断言。

@@ -492,3 +492,9 @@ UI重构验收来源：docs/20261012-ui-redesign-evidence-v1/interaction/results
 
 ## 2026-10-13 exp4 提交推送来源
 来源名称：用户发布授权、当前Git和已验证修复；文件名或链接：本聊天“提交至exp4，push到远端”、origin远端refs/heads/exp4、docs/20261013-exp4-fix-verification-v1.md与verified-source-hashes.json；引用日期：2026-10-13。提交范围见docs/20261013-exp4-push-record-v1.md。未联网补充业务事实；Git远端查询仅用于执行用户明确要求的推送任务。
+
+## 2026-10-13 当前运行检查后修复（基准5900488）
+
+来源名称：当前用户修复授权、最新运行检查及源码；文件名：docs/20261013-exp4-current-check-v1.md、frontend/src/components/ResourceVersionsPanel.vue、frontend/src/App.vue、frontend/src/api/index.ts、scripts/tests/exp4-browser.cjs、scripts/tests/us02-us03-real-browser.cjs；引用日期：2026-10-13。用户当前“修复”授权用于本地修复及验证，本轮未提交或推送。
+实测来源：docs/20261013-exp4-current-fix-v1/ 的最终XML汇总、真实业务浏览器与资源/登录定向回归结果。后端284、前端23、Python9通过；真实Sprint3八组、实验二三角色五故事、资源7组、登录3组、既有8与15组通过。基于隔离MySQL/Redis及合成输入，不将模拟接口回归解释为业务数据库或真实摄像头效果。
+媒体来源：既有 docs/20261012-exp4-sprint3-verification-v1/synthetic-video.mp4；引用日期：2026-10-13。raw仅README，未使用个人或客户原始资料；未补充外部业务资料。修复与验证详情见docs/20261013-exp4-current-fix-v1.md。

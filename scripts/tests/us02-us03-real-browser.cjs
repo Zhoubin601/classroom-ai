@@ -4,6 +4,9 @@ const assert = require('node:assert/strict');
 const preview = process.env.US0102_PREVIEW_URL || 'http://127.0.0.1:15173';
 const backend = process.env.US0203_BACKEND_URL;
 const courseId = process.env.US0203_COURSE_ID;
+const fs = require('node:fs'), path = require('node:path');
+const evidence = path.resolve(process.env.US0203_EVIDENCE_DIR || path.join(__dirname,'../../docs'));
+fs.mkdirSync(evidence,{recursive:true});
 const intro = '请输入课程背景、学科定位、主要授课内容概括...';
 const assessment = '例如：平时作业与实验 30% + 课程答辩与大作业 30% + 期末闭卷考试 40%';
 const objectives = '明确说明本门课程培养的知识目标、工程能力目标以及价值素质目标...';
@@ -16,6 +19,7 @@ const objectives = '明确说明本门课程培养的知识目标、工程能力
       page.on('dialog', d => d.accept()); page.on('pageerror', e => console.log('PAGE ERROR',e.message));
       await page.route('**/api/**', async route => {
         const u = new URL(route.request().url());
+        if (!u.pathname.startsWith('/api/')) return route.continue();
         const response = await route.fetch({ url: backend + u.pathname + u.search, headers: { ...route.request().headers() } });
         await route.fulfill({ response });
       });
@@ -23,7 +27,10 @@ const objectives = '明确说明本门课程培养的知识目标、工程能力
       await page.getByPlaceholder('如 guojun, director, supervisor 等').fill('browser_'+role);
       await page.getByPlaceholder('请输入登录密码 (默认 123456)').fill(process.env.US0203_TEST_PASSWORD);
       await page.getByRole('button',{name:'立即验证并登录',exact:true}).click();
+      await page.locator('.account-button').waitFor();
+      await page.locator('.account-button').click();
       await page.getByRole('button',{name:'退出登录',exact:true}).waitFor();
+      await page.locator('.account-button').click();
       return page;
     }
     const a = await open('TEACHER'), b = await open('TEACHER');
@@ -64,43 +71,44 @@ const objectives = '明确说明本门课程培养的知识目标、工程能力
     await d.waitForFunction(()=>[...document.querySelectorAll('button')].some(b=>b.innerText.includes('确认导入并整批入库')&&!b.disabled));
     await confirm.click();await d.getByText('浏览器导入课程',{exact:true}).first().waitFor();
     console.log('PASS US01 director login, JWT template download, CSV preview and confirm in full UI');
-    await d.getByRole('button',{name:/开课排课统筹看板/}).click();
-    const board=d.getByRole('region',{name:'开课与排课'});
+    await d.getByRole('tab',{name:/开课排课/}).click();
+    const board=d.locator('#director-panel-schedules');
     await board.getByRole('button',{name:'编辑班次'}).click();
-    let dialog=d.getByRole('dialog',{name:'维护班次'});
+    let dialog=d.getByRole('form',{name:'维护班次'});
     await dialog.getByText('选课名单 · 已选 95 人').waitFor();
     await dialog.getByRole('checkbox',{name:/协同教师/}).check();
     assert.equal((await write(d,'/courses/offerings/1',()=>dialog.getByRole('button',{name:'保存',exact:true}).click())).status(),200);
     await d.waitForFunction(()=>!document.querySelector('[role=dialog]'));
     await board.getByText('测试教师（主讲）、协同教师（协同）',{exact:true}).waitFor();
     console.log('PASS US03 edit team, retain 95 selected students and display both teachers');
-    await board.getByRole('button',{name:'新增排课',exact:true}).click(); dialog=d.getByRole('dialog',{name:'维护排课'});
+    await board.getByRole('button',{name:'新增排课',exact:true}).click(); dialog=d.getByRole('form',{name:'维护排课'});
     await dialog.getByLabel('开课班次').selectOption({index:1}); await dialog.getByLabel('教室',{exact:true}).fill('文管 A447');
     await dialog.getByLabel('星期',{exact:true}).selectOption('3'); await dialog.getByLabel('起始节').fill('3'); await dialog.getByLabel('结束节').fill('4');
     assert.equal((await write(d,'/schedules',()=>dialog.getByRole('button',{name:'保存',exact:true}).click())).status(),200);
     await board.locator('article').filter({hasText:'文管 A447'}).waitFor();
     assert.match(await board.locator('article').first().innerText(),/95 人/);
-    await d.screenshot({path:require('node:path').resolve(__dirname,'../../docs/us0203-schedule-sample.png'),fullPage:true});
+    await d.screenshot({path:path.join(evidence,'us0203-schedule-sample.png'),fullPage:true});
     console.log('PASS US03 文管 A447 / 95 students / both teachers / week and period ranges displayed');
-    await board.getByRole('button',{name:'新增排课',exact:true}).click(); dialog=d.getByRole('dialog',{name:'维护排课'});
+    await board.getByRole('button',{name:'新增排课',exact:true}).click(); dialog=d.getByRole('form',{name:'维护排课'});
     await dialog.getByLabel('开课班次').selectOption({index:1}); await dialog.getByLabel('教室',{exact:true}).fill('信息馆 B201');
     await dialog.getByLabel('星期',{exact:true}).selectOption('3'); await dialog.getByLabel('起始节').fill('3'); await dialog.getByLabel('结束节').fill('4');
     assert.equal((await write(d,'/schedules',()=>dialog.getByRole('button',{name:'保存',exact:true}).click())).status(),409);
     const conflict=dialog.locator('[aria-label="冲突详情"]'); await conflict.waitFor();
     assert.match(await conflict.innerText(),/教师冲突/); assert.match(await conflict.innerText(),/文管 A447/); assert.match(await conflict.innerText(),/协同教师/);
     await dialog.getByRole('button',{name:'取消'}).click();
+    await d.getByRole('dialog',{name:'有未保存的修改'}).getByRole('button',{name:'放弃修改',exact:true}).click();
     console.log('PASS US03 same offering across rooms blocked HTTP 409; UI displays reasons, course, teachers, room and ranges');
     await board.getByLabel('学期',{exact:true}).fill('2026秋季'); await board.getByLabel('教师',{exact:true}).selectOption('BROWSER-T2');
     await board.getByLabel('周次',{exact:true}).fill('16'); await board.getByLabel('教室',{exact:true}).fill('文管A447');
     await board.getByRole('button',{name:'筛选排课'}).click(); await board.locator('article').filter({hasText:'文管 A447'}).waitFor();
-    await board.getByRole('button',{name:'编辑排课',exact:true}).click(); dialog=d.getByRole('dialog',{name:'维护排课'});
+    await board.getByRole('button',{name:'编辑排课',exact:true}).click(); dialog=d.getByRole('form',{name:'维护排课'});
     await dialog.getByLabel('教室',{exact:true}).fill('文管 A448');
     assert.equal((await write(d,'/schedules',()=>dialog.getByRole('button',{name:'保存',exact:true}).click())).status(),200);
     await d.waitForFunction(()=>!document.querySelector('[role=dialog]')); await board.getByRole('button',{name:'重置',exact:true}).click();
     await board.locator('article').filter({hasText:'文管 A448'}).waitFor();
     console.log('PASS US03 combined semester/collaborator/week/room filter, edit excludes its own record');
     // Create a new offering using dictionary selections and the complete roster.
-    await board.getByRole('button',{name:'新增班次',exact:true}).click(); dialog=d.getByRole('dialog',{name:'维护班次'});
+    await board.getByRole('button',{name:'新增班次',exact:true}).click(); dialog=d.getByRole('form',{name:'维护班次'});
     await dialog.getByLabel('课程',{exact:true}).selectOption({index:1}); await dialog.getByLabel('学期',{exact:true}).fill('2027春季');
     await dialog.getByLabel('教学班',{exact:true}).fill('新建教学班'); await dialog.getByLabel('主讲教师',{exact:true}).selectOption({index:2});
     await dialog.getByRole('button',{name:'全选筛选结果'}).click();
@@ -108,7 +116,7 @@ const objectives = '明确说明本门课程培养的知识目标、工程能力
     await board.getByText('新建教学班',{exact:true}).waitFor();
     console.log('PASS US03 new offering with dictionary teacher and selected 95-student roster');
     const supervisor=await open('SUPERVISOR');
-    await supervisor.getByRole('button',{name:/待督导目标课程多维检索/}).click();
+    await supervisor.getByRole('tab',{name:/课程检索/}).click();
     const majorOptions=await supervisor.getByLabel('授权专业',{exact:true}).locator('option').allTextContents();
     assert.deepEqual(majorOptions,['全部授权专业','软件工程']);
     await supervisor.getByText('测试教师（授权 SE）',{exact:true}).waitFor();
@@ -130,11 +138,13 @@ const objectives = '明确说明本门课程培养的知识目标、工程能力
     assert.ok(scopedHistory.items.every(item=>String(item.offeringId)!==process.env.US0406_OUTSIDE_OFFERING_ID));
     assert.equal((await supervisor.request.get(backend+'/api/v1/courses/offerings/history')).status(),401);
     console.log('PASS US06 supervisor real login, authorized major options, collaborator + term + keyword AND, clear/empty and forbidden query');
-    await d.reload();await d.getByRole('button',{name:/开课排课统筹看板/}).click();
+    await d.reload();await d.getByRole('tab',{name:/开课排课/}).click();
     const archiveRow=d.locator('tr').filter({hasText:'样例教学班'});
-    await archiveRow.getByRole('button',{name:'结课归档'}).click();await archiveRow.getByText('已归档',{exact:true}).waitFor();
+    await archiveRow.getByRole('button',{name:'结课归档'}).click();
+    await d.getByRole('dialog',{name:'确认操作'}).getByRole('button',{name:'确认',exact:true}).click();
+    await archiveRow.getByText('已归档',{exact:true}).waitFor();
     assert.equal(await archiveRow.getByRole('button',{name:'编辑班次'}).count(),0);
-    await a.reload();const hist=a.getByRole('region',{name:'历史开课与人次'});await hist.getByText('已归档',{exact:true}).waitFor();
+    await a.reload();await a.getByRole('tab',{name:/开课历史/}).click();const hist=a.getByRole('region',{name:'历史开课与人次'});await hist.getByText('已归档',{exact:true}).waitFor();
     assert.match(await hist.innerText(),/累计人次 95/);
     const historyTerm=hist.getByLabel('历史学期');
     if (await historyTerm.evaluate(el=>el.tagName)==='SELECT') {
@@ -151,10 +161,16 @@ const objectives = '明确说明本门课程培养的知识目标、工程能力
     const timings=[];
     for(let i=0;i<20;i++){const begin=performance.now();const result=await api(supervisor,'/api/v1/courses/offerings?term=2026%E7%A7%8B%E5%AD%A3&teacherId=2&majorId=1&keyword=%E8%BD%AF%E4%BB%B6');assert.equal(result.status(),200);timings.push(performance.now()-begin)}
     const sorted=[...timings].sort((a,b)=>a-b);
-    require('node:fs').writeFileSync(require('node:path').resolve(__dirname,'../../docs/us0406-query-performance.json'),JSON.stringify({measuredAt:new Date().toISOString(),scope:'local HTTP + JWT + Spring + isolated MySQL; 20 sequential requests; no concurrency/load claim',environment:{os:process.platform,node:process.version,mysql:'8.0.36',browser:browser.version()},data:{courses:3,offerings:3,teachers:2,students:95,majors:2},milliseconds:timings,median:sorted[10],p95:sorted[18],min:sorted[0],max:sorted[19]},null,2));
-    await supervisor.screenshot({path:require('node:path').resolve(__dirname,'../../docs/us0406-supervisor.png'),fullPage:true});
-    await a.screenshot({path:require('node:path').resolve(__dirname,'../../docs/us0406-history.png'),fullPage:true});
+    require('node:fs').writeFileSync(path.join(evidence,'us0406-query-performance.json'),JSON.stringify({measuredAt:new Date().toISOString(),scope:'local HTTP + JWT + Spring + isolated MySQL; 20 sequential requests; no concurrency/load claim',environment:{os:process.platform,node:process.version,mysql:'8.0.36',browser:browser.version()},data:{courses:3,offerings:3,teachers:2,students:95,majors:2},milliseconds:timings,median:sorted[10],p95:sorted[18],min:sorted[0],max:sorted[19]},null,2));
+    await supervisor.screenshot({path:path.join(evidence,'us0406-supervisor.png'),fullPage:true});
+    await a.screenshot({path:path.join(evidence,'us0406-history.png'),fullPage:true});
     console.log('SUMMARY: three real-login roles and all five stories passed; measured query timings saved.');
+  } catch(error) {
+    let index=0;
+    for (const context of browser.contexts()) for (const page of context.pages()) {
+      if (!page.isClosed()) await page.screenshot({path:path.join(evidence,`failure-${++index}.png`),fullPage:true});
+    }
+    throw error;
   } finally {
     for (const context of browser.contexts()) for (const page of context.pages()) await page.unrouteAll({behavior:'wait'});
     await browser.close();

@@ -1,0 +1,10 @@
+usage: __main__.py [-h] {monitor,register,verify,recognize,analyze} ...
+
+Classroom Python vision tools
+
+positional arguments:
+  {monitor,register,verify,recognize,analyze}
+  arguments
+
+options:
+  -h, --help            show this help message and exit

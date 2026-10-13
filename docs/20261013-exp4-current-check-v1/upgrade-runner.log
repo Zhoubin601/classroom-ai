@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/classroom-ai/docs/20261013-exp4-current-check-v1/check-upgrade.py", line 29, in <module>
+    assert result=='2\t2\n1\n1',result
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0	2
+0
+1

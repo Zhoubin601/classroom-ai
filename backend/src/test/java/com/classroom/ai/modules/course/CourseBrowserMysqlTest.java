@@ -86,9 +86,13 @@ class CourseBrowserMysqlTest {
         builder.environment().put("US0203_COURSE_ID",course.getId().toString());
         builder.environment().put("US0406_OUTSIDE_COURSE_ID",outside.getId().toString());
         builder.environment().put("US0406_OUTSIDE_OFFERING_ID",outsideOffering.getId().toString());
-        builder.redirectErrorStream(true).redirectOutput(root.resolve("docs/us0203-real-browser.log").toFile());
+        String evidenceDir = System.getenv("US0203_EVIDENCE_DIR");
+        Path evidence = evidenceDir == null || evidenceDir.isBlank() ? root.resolve("docs") : Path.of(evidenceDir).toAbsolutePath();
+        Files.createDirectories(evidence);
+        Path browserLog = evidence.resolve("us0203-real-browser.log");
+        builder.redirectErrorStream(true).redirectOutput(browserLog.toFile());
         Process process=builder.start();
-        try {assertTrue(process.waitFor(150,TimeUnit.SECONDS),"浏览器验收超时");assertEquals(0,process.exitValue(),Files.readString(root.resolve("docs/us0203-real-browser.log")));}
+        try {assertTrue(process.waitFor(150,TimeUnit.SECONDS),"浏览器验收超时");assertEquals(0,process.exitValue(),Files.readString(browserLog));}
         finally {if(process.isAlive())process.destroyForcibly();}
     }
 }

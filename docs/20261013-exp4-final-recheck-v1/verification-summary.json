@@ -1,0 +1,39 @@
+{
+  "resource-browser": {
+    "passed": 7,
+    "pageErrors": 0
+  },
+  "login-browser": {
+    "passed": 3,
+    "pageErrors": 0
+  },
+  "login-business401": {
+    "passed": 3,
+    "pageErrors": 0
+  },
+  "ui-browser": {
+    "passed": 15,
+    "pageErrors": 0
+  },
+  "fixes-browser": {
+    "passed": 8,
+    "pageErrors": 0
+  },
+  "business-browser": {
+    "passed": 8,
+    "pageErrors": 0
+  },
+  "backend": {
+    "tests": 284,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "upgrade": {
+    "passed": 2
+  },
+  "sourceConsistency": {
+    "checkedFiles": 313,
+    "changedFiles": []
+  }
+}
