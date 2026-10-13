@@ -38,3 +38,17 @@ docs/20261010-camera-integration-evidence-v1/camera-trend/*.png
 output/20260921-第二组-Sprint1源代码-v3.zip
 output/20260922-第二组-Sprint1源代码-v4.zip
 
+# Local-only evidence and delivery files from the 2026-10-13 selective sync
+/docs/20261011-sprint2-local-evidence-v1/
+/docs/20261012-data-completeness-evidence-v1/
+/docs/20261012-data-completeness-plan-v1.md
+/docs/20261012-exp4-startup-v1.md
+/docs/20261013-exp4-pull-review-evidence-v1/
+/docs/20261013-exp4-pull-review-plan-v1.md
+/docs/20261013-exp4-pull-review-v1.md
+/output/20261011-sprint2-local-acceptance-v1.md
+/output/20261012-database-audit-v1.docx
+/output/20261012-database-completeness-v1.xlsx
+/output/20261012-demo-data-operation-v1.md
+/output/20261012-demo-data-package-v1.zip
+/scripts/create-data-completeness-report.py
