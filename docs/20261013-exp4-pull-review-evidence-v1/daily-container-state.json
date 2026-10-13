@@ -1,0 +1,14 @@
+{
+  "name": "classroom-mysql",
+  "startedAt": "2026-10-13T08:27:36.206830891Z",
+  "status": "exited",
+  "existingContainers": [
+    "classroom-backend Exited (143) 11 minutes ago",
+    "classroom-redis Exited (0) 11 minutes ago",
+    "classroom-mysql Exited (137) 11 minutes ago"
+  ],
+  "exitCode": 137,
+  "oomKilled": false,
+  "finishedAt": "2026-10-13T08:27:58.157493008Z",
+  "cause": "not established"
+}

@@ -1,0 +1,12 @@
+{
+  "TemporaryListeningPorts": [],
+  "BusinessDatabaseWrites": "none by this task; all writes used disposable containers",
+  "CapturedEnvironmentStates": [
+    "environment.json",
+    "config-environment.json",
+    "diagnostic-environment.json",
+    "environment-final.json"
+  ],
+  "OriginalContainerIdsUnchanged": true,
+  "RemainingTemporaryContainers": []
+}

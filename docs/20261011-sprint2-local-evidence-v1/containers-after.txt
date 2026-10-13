@@ -1,0 +1,3 @@
+classroom-backend 41cc99665029 classroom-ai-demo-classroom-backend
+classroom-mysql 78aecef6bd84 mysql:8.0
+classroom-redis 4aac75faa279 redis:7.2-alpine

@@ -498,3 +498,16 @@ UI重构验收来源：docs/20261012-ui-redesign-evidence-v1/interaction/results
 来源名称：当前用户修复授权、最新运行检查及源码；文件名：docs/20261013-exp4-current-check-v1.md、frontend/src/components/ResourceVersionsPanel.vue、frontend/src/App.vue、frontend/src/api/index.ts、scripts/tests/exp4-browser.cjs、scripts/tests/us02-us03-real-browser.cjs；引用日期：2026-10-13。用户当前“修复”授权用于本地修复及验证，本轮未提交或推送。
 实测来源：docs/20261013-exp4-current-fix-v1/ 的最终XML汇总、真实业务浏览器与资源/登录定向回归结果。后端284、前端23、Python9通过；真实Sprint3八组、实验二三角色五故事、资源7组、登录3组、既有8与15组通过。基于隔离MySQL/Redis及合成输入，不将模拟接口回归解释为业务数据库或真实摄像头效果。
 媒体来源：既有 docs/20261012-exp4-sprint3-verification-v1/synthetic-video.mp4；引用日期：2026-10-13。raw仅README，未使用个人或客户原始资料；未补充外部业务资料。修复与验证详情见docs/20261013-exp4-current-fix-v1.md。
+
+
+## 2026-10-13 最新 exp4 拉取本机复验来源
+来源名称：用户当前拉取/检查请求及 Docker 启动后的继续验证授权；链接或文件名：本聊天；引用日期：2026-10-13。
+来源名称：Git远端最新提交；链接或文件名：origin/exp4，20de6a85f6a475d8e67b9fcd2690aa8c3a833a46（基准5900488）；引用日期：2026-10-13。网络仅用于授权的Git fetch，没有新增外部业务资料。
+原始资料：raw/README.md，仅目录说明；业务原始资料未提供。背景：memory-bank/project-context.md、云端更新附带的current-fix和final-recheck记录；本轮测试以直接执行为准，不以云端结果代替。
+实测来源：docs/20261013-exp4-pull-review-evidence-v1/ 的 backend-summary.json、backend-full.log、frontend-tests.log、frontend-build.log、vision-tests.log、legacy-browser/、business-browser/、resource-browser/、login-browser/、fixes-browser/、ui-browser-wait/、login-authenticated-dev/、login-authenticated-production/、protection-final.json、cleanup.json。合成视频沿用docs/20261012-exp4-sprint3-verification-v1/synthetic-video.mp4。ui-ux-pro-max Skill用于交互检查；未生成Office正式文件。
+
+## 2026-10-13 过期文档和验证资料清理来源
+用户授权：清理本地过期 docs、output、验证资料，并明确允许批量删除、要求同步清理相关 ignore 规则。来源文件：各报告版本说明、docs/20261013-exp4-final-recheck-v1.md、docs/20261013-exp4-pull-review-v1.md、当前脚本的实际文件读取路径；引用日期：2026-10-13。raw/README.md 仅目录说明，未使用新增外部资料。
+执行来源：runtime/local-cleanup-20261013-v1/plan.json、result.json、link-updates.json。已删除53个目标、1231个文件、312417292字节；旧的已跟踪附件可从5f8c682提交查阅，历史裸路径保留当时来源含义。最新登录缺陷、硬件资料、合成视频、业务回滚清单及正式成品保留，未将本次文件检查写成业务测试通过。
+
+后续来源：用户当前提交远端授权及“以上12项全部提交、只要不涉及隐私”的范围确认；引用日期2026-10-13。发布检查见本地runtime/local-cleanup-20261013-v1/publish-scan.json、privacy-redactions.json及68份不同内容的图片核验。已对审计JSON中的私密表及个人记录行摘要进行明确标记的省略，原件留本地备份；操作指南/操作包README说明该发布副本的校验限制。当前发布精简清单docs/20261013-local-cleanup-manifest-v1.json。没有修改raw、应用源码或数据库，没有重跑业务验收。

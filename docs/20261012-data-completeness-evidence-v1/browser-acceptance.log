@@ -1,0 +1,18 @@
+locator.click: Timeout 20000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: '回看片段', exact: true }).first()
+    - locator resolved to <button disabled data-v-89362fd9="">回看片段</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    35 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+

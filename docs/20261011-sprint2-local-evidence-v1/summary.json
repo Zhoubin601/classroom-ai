@@ -1,0 +1,26 @@
+{
+  "Date": "2026-10-11",
+  "Branch": "fix-exp3",
+  "Commit": "f6c741fa9edccd71d801405779eab3a0679cbfa3",
+  "Conclusion": "Not all accepted: intermittent teacher historical syllabus selection overwritten by current-version loading",
+  "CoreEightStoriesBrowserPassed": true,
+  "OrdinaryBackendPassed": 190,
+  "OrdinaryBackendSkipped": 47,
+  "Sprint2MysqlPassed": 4,
+  "BackendDeduplicatedPassed": 194,
+  "OtherDedicatedEnvironmentTestsNotRun": 43,
+  "FrontendPassed": 13,
+  "VisionHardwareFreePassed": 9,
+  "FrontendBackendBuildsSucceeded": true,
+  "OfficeResultRecordsPassed": 6,
+  "ConfigurableGroupsPassed": 3,
+  "HistoryDiagnostic": {
+    "DirectorUiAfterReadinessWait": "PASS",
+    "HistoryApi": "PASS",
+    "TeacherUi": "FAIL",
+    "Scores": "PASS"
+  },
+  "DailyDeploymentUpdated": false,
+  "BusinessSourceChanged": false,
+  "Report": "output/20261011-sprint2-local-acceptance-v1.md"
+}

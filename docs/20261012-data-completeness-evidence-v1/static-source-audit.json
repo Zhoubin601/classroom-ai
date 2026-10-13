@@ -1,0 +1,5023 @@
+{
+  "entity_tables": [
+    "classroom_record",
+    "face_feature",
+    "student",
+    "t_attendance_session",
+    "t_user_account",
+    "t_academic_term_lock",
+    "t_course",
+    "t_course_content_revision",
+    "t_course_import_log",
+    "t_course_offering",
+    "t_course_offering_teacher",
+    "t_course_schedule",
+    "t_course_syllabus",
+    "t_graduation_indicator",
+    "t_major",
+    "t_major_department",
+    "t_offering_student_enrollment",
+    "t_teacher",
+    "t_training_indicator",
+    "t_course_resource",
+    "t_micro_teaching_slice",
+    "t_resource_access_log",
+    "s3_action_feedback",
+    "s3_advice",
+    "s3_feedback_revision",
+    "s3_resource_series",
+    "s3_template_draft",
+    "s3_template_version",
+    "s3_video_asset",
+    "t_evaluation_audit_log",
+    "t_supervision_evaluation"
+  ],
+  "no_entity_tables": [
+    "t_app_data_migration"
+  ],
+  "mapping": [
+    {
+      "table": "classroom_record",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "sessionId",
+      "column": "session_id",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "courseName",
+      "column": "course_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "className",
+      "column": "class_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "totalExpected",
+      "column": "total_expected",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "actualPresent",
+      "column": "actual_present",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "attendanceRate",
+      "column": "attendance_rate",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "lookupRate",
+      "column": "lookup_rate",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "lookDownCount",
+      "column": "look_down_count",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "classroom_record",
+      "field": "recordTime",
+      "column": "record_time",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java"
+    },
+    {
+      "table": "face_feature",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "table": "face_feature",
+      "field": "studentId",
+      "column": "student_id",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "table": "face_feature",
+      "field": "featureDim",
+      "column": "feature_dim",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "table": "face_feature",
+      "field": "featureVector",
+      "column": "feature_vector",
+      "java_type": "String",
+      "expected": "mediumtext",
+      "actual": "mediumtext",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "table": "face_feature",
+      "field": "imagePath",
+      "column": "image_path",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "table": "face_feature",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "table": "face_feature",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java"
+    },
+    {
+      "table": "student",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "student",
+      "field": "studentId",
+      "column": "student_id",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "student",
+      "field": "name",
+      "column": "name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "student",
+      "field": "gender",
+      "column": "gender",
+      "java_type": "String",
+      "expected": "varchar(16)",
+      "actual": "varchar(16)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "student",
+      "field": "className",
+      "column": "class_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "student",
+      "field": "avatarUrl",
+      "column": "avatar_url",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "student",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "student",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/entity/Student.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "offering",
+      "column": "offering_id",
+      "java_type": "CourseOffering",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "weekNumber",
+      "column": "week_number",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "classroom",
+      "column": "classroom",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "expectedCount",
+      "column": "expected_count",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "actualCount",
+      "column": "actual_count",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "attendanceRate",
+      "column": "attendance_rate",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "avgLookupRate",
+      "column": "avg_lookup_rate",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "status",
+      "column": "status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "operatorName",
+      "column": "operator_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "operatorRole",
+      "column": "operator_role",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "operatorTitle",
+      "column": "operator_title",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "startTime",
+      "column": "start_time",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "endTime",
+      "column": "end_time",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "absentStudentIds",
+      "column": "absent_student_ids",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_attendance_session",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "username",
+      "column": "username",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "password",
+      "column": "password",
+      "java_type": "String",
+      "expected": "varchar(128)",
+      "actual": "varchar(128)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "realName",
+      "column": "real_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "role",
+      "column": "role",
+      "java_type": "RoleEnum",
+      "expected": "enum",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "department",
+      "column": "department",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "teacherCode",
+      "column": "teacher_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "authorizedMajors",
+      "column": "authorized_majors",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_user_account",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java"
+    },
+    {
+      "table": "t_academic_term_lock",
+      "field": "academicTerm",
+      "column": "academic_term",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/AcademicTermLock.java"
+    },
+    {
+      "table": "t_course",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "courseCode",
+      "column": "course_code",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "courseName",
+      "column": "course_name",
+      "java_type": "String",
+      "expected": "varchar(128)",
+      "actual": "varchar(128)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "department",
+      "column": "department",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "teacherName",
+      "column": "teacher_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "majorId",
+      "column": "major_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "majorCode",
+      "column": "major_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "credits",
+      "column": "credits",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "hours",
+      "column": "hours",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "theoryHours",
+      "column": "theory_hours",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "practiceHours",
+      "column": "practice_hours",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "courseType",
+      "column": "course_type",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "prerequisites",
+      "column": "prerequisites",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "description",
+      "column": "description",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "objectives",
+      "column": "objectives",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "assessmentMethod",
+      "column": "assessment_method",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "createdBy",
+      "column": "created_by",
+      "java_type": "String",
+      "expected": "varchar(128)",
+      "actual": "varchar(128)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "updatedBy",
+      "column": "updated_by",
+      "java_type": "String",
+      "expected": "varchar(128)",
+      "actual": "varchar(128)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "courseId",
+      "column": "course_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "description",
+      "column": "description",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "assessmentMethod",
+      "column": "assessment_method",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "objectives",
+      "column": "objectives",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "publishVersion",
+      "column": "publish_version",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "lockVersion",
+      "column": "lock_version",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "version",
+      "column": "version",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "status",
+      "column": "status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "editorName",
+      "column": "editor_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "publisherName",
+      "column": "publisher_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "publisherCode",
+      "column": "publisher_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "publishedAt",
+      "column": "published_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_content_revision",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "batchId",
+      "column": "batch_id",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "operator",
+      "column": "operator",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "fileName",
+      "column": "file_name",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "totalRows",
+      "column": "total_rows",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "successCount",
+      "column": "success_count",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "errorCount",
+      "column": "error_count",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "status",
+      "column": "status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "message",
+      "column": "message",
+      "java_type": "String",
+      "expected": "varchar(512)",
+      "actual": "varchar(512)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_import_log",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "course",
+      "column": "course_id",
+      "java_type": "Course",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "academicTerm",
+      "column": "academic_term",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "teacherName",
+      "column": "teacher_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "teacherCode",
+      "column": "teacher_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "className",
+      "column": "class_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "majorId",
+      "column": "major_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "majorCode",
+      "column": "major_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "studentCount",
+      "column": "student_count",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "snapshotStudentCount",
+      "column": "snapshot_student_count",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "isSnapshotFrozen",
+      "column": "is_snapshot_frozen",
+      "java_type": "Boolean",
+      "expected": "bit(1)",
+      "actual": "bit(1)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "status",
+      "column": "status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "archivedAt",
+      "column": "archived_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "archivedBy",
+      "column": "archived_by",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "historySnapshot",
+      "column": "history_snapshot",
+      "java_type": "String",
+      "expected": "longtext",
+      "actual": "longtext",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "field": "offeringId",
+      "column": "offering_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "field": "teacherId",
+      "column": "teacher_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "field": "teacherCode",
+      "column": "teacher_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "field": "teacherName",
+      "column": "teacher_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "field": "roleInOffering",
+      "column": "role_in_offering",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "offering",
+      "column": "offering_id",
+      "java_type": "CourseOffering",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "classroom",
+      "column": "classroom",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "weekRange",
+      "column": "week_range",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "startWeek",
+      "column": "start_week",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "endWeek",
+      "column": "end_week",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "dayOfWeek",
+      "column": "day_of_week",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "startPeriod",
+      "column": "start_period",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "endPeriod",
+      "column": "end_period",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_schedule",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "course",
+      "column": "course_id",
+      "java_type": "Course",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "version",
+      "column": "version",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "planVersion",
+      "column": "plan_version",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "status",
+      "column": "status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "authorTeacher",
+      "column": "author_teacher",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "lockedBy",
+      "column": "locked_by",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "courseGoals",
+      "column": "course_goals",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_course_syllabus",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "course",
+      "column": "course_id",
+      "java_type": "Course",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "syllabus",
+      "column": "syllabus_id",
+      "java_type": "CourseSyllabus",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "indicatorCode",
+      "column": "indicator_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "requirementCategory",
+      "column": "requirement_category",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "indicatorDescription",
+      "column": "indicator_description",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "supportWeight",
+      "column": "support_weight",
+      "java_type": "String",
+      "expected": "varchar(8)",
+      "actual": "varchar(8)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "targetGoal",
+      "column": "target_goal",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_graduation_indicator",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java"
+    },
+    {
+      "table": "t_major",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java"
+    },
+    {
+      "table": "t_major",
+      "field": "majorCode",
+      "column": "major_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java"
+    },
+    {
+      "table": "t_major",
+      "field": "majorName",
+      "column": "major_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java"
+    },
+    {
+      "table": "t_major",
+      "field": "department",
+      "column": "department",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java"
+    },
+    {
+      "table": "t_major",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java"
+    },
+    {
+      "table": "t_major_department",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/MajorDepartment.java"
+    },
+    {
+      "table": "t_major_department",
+      "field": "major",
+      "column": "major_id",
+      "java_type": "Major",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/MajorDepartment.java"
+    },
+    {
+      "table": "t_major_department",
+      "field": "department",
+      "column": "department",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/MajorDepartment.java"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "field": "offeringId",
+      "column": "offering_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "field": "studentId",
+      "column": "student_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "field": "studentNumber",
+      "column": "student_number",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "field": "studentName",
+      "column": "student_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "field": "adminClassName",
+      "column": "admin_class_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "field": "enrolledAt",
+      "column": "enrolled_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java"
+    },
+    {
+      "table": "t_teacher",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "table": "t_teacher",
+      "field": "teacherCode",
+      "column": "teacher_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "table": "t_teacher",
+      "field": "teacherName",
+      "column": "teacher_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "table": "t_teacher",
+      "field": "department",
+      "column": "department",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "table": "t_teacher",
+      "field": "title",
+      "column": "title",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "table": "t_teacher",
+      "field": "userId",
+      "column": "user_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "table": "t_teacher",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime",
+      "difference": "type_or_length_diff",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java"
+    },
+    {
+      "table": "t_training_indicator",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java"
+    },
+    {
+      "table": "t_training_indicator",
+      "field": "majorCode",
+      "column": "major_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java"
+    },
+    {
+      "table": "t_training_indicator",
+      "field": "planVersion",
+      "column": "plan_version",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java"
+    },
+    {
+      "table": "t_training_indicator",
+      "field": "indicatorCode",
+      "column": "indicator_code",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java"
+    },
+    {
+      "table": "t_training_indicator",
+      "field": "requirementCategory",
+      "column": "requirement_category",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java"
+    },
+    {
+      "table": "t_training_indicator",
+      "field": "indicatorDescription",
+      "column": "indicator_description",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "seriesId",
+      "column": "series_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "versionNumber",
+      "column": "version_number",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "contentHash",
+      "column": "content_hash",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "course",
+      "column": "course_id",
+      "java_type": "Course",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "chapter",
+      "column": "chapter",
+      "java_type": "String",
+      "expected": "varchar(128)",
+      "actual": "varchar(128)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "resourceName",
+      "column": "resource_name",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "fileType",
+      "column": "file_type",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "fileUrl",
+      "column": "file_url",
+      "java_type": "String",
+      "expected": "varchar(512)",
+      "actual": "varchar(512)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "fileSize",
+      "column": "file_size",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "fileSizeBytes",
+      "column": "file_size_bytes",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "tag",
+      "column": "tag",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "tagCsv",
+      "column": "tags",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "version",
+      "column": "version",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "isPublic",
+      "column": "is_public",
+      "java_type": "Boolean",
+      "expected": "bit(1)",
+      "actual": "bit(1)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "dynamicWatermark",
+      "column": "dynamic_watermark",
+      "java_type": "String",
+      "expected": "varchar(128)",
+      "actual": "varchar(128)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "uploaderTeacher",
+      "column": "uploader_teacher",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_course_resource",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "touchedAt",
+      "column": "touched_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "recordVersion",
+      "column": "record_version",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "assetId",
+      "column": "asset_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "startMs",
+      "column": "start_ms",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "endMs",
+      "column": "end_ms",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "analysisJson",
+      "column": "analysis_json",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "analysisReviewedBy",
+      "column": "analysis_reviewed_by",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "analysisReviewedAt",
+      "column": "analysis_reviewed_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "course",
+      "column": "course_id",
+      "java_type": "Course",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "videoTitle",
+      "column": "video_title",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "bopppsStage",
+      "column": "boppps_stage",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "durationSeconds",
+      "column": "duration_seconds",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "sliceUrl",
+      "column": "slice_url",
+      "java_type": "String",
+      "expected": "varchar(512)",
+      "actual": "varchar(512)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "coverUrl",
+      "column": "cover_url",
+      "java_type": "String",
+      "expected": "varchar(512)",
+      "actual": "varchar(512)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "recordedDate",
+      "column": "recorded_date",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "classroom",
+      "column": "classroom",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "sourceAgent",
+      "column": "source_agent",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java"
+    },
+    {
+      "table": "t_resource_access_log",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java"
+    },
+    {
+      "table": "t_resource_access_log",
+      "field": "resourceId",
+      "column": "resource_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java"
+    },
+    {
+      "table": "t_resource_access_log",
+      "field": "viewerId",
+      "column": "viewer_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java"
+    },
+    {
+      "table": "t_resource_access_log",
+      "field": "viewerUsername",
+      "column": "viewer_username",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java"
+    },
+    {
+      "table": "t_resource_access_log",
+      "field": "action",
+      "column": "action",
+      "java_type": "String",
+      "expected": "varchar(16)",
+      "actual": "varchar(16)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java"
+    },
+    {
+      "table": "t_resource_access_log",
+      "field": "accessedAt",
+      "column": "accessed_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "touchedAt",
+      "column": "touched_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "revision",
+      "column": "revision",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "suggestionId",
+      "column": "suggestion_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "teacherUserId",
+      "column": "teacher_user_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "decision",
+      "column": "decision",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "actionText",
+      "column": "action_text",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "feedbackText",
+      "column": "feedback_text",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "evidenceJson",
+      "column": "evidence_json",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_action_feedback",
+      "field": "stageTagsJson",
+      "column": "stage_tags_json",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "touchedAt",
+      "column": "touched_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "revision",
+      "column": "revision",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "evaluationId",
+      "column": "evaluation_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "text",
+      "column": "text",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "evidenceJson",
+      "column": "evidence_json",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "stageTagsJson",
+      "column": "stage_tags_json",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "createdBy",
+      "column": "created_by",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_advice",
+      "field": "defaultGenerated",
+      "column": "default_generated",
+      "java_type": "boolean",
+      "expected": "bit(1)",
+      "actual": "bit(1)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "field": "feedbackId",
+      "column": "feedback_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "field": "recordVersion",
+      "column": "record_version",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "field": "actorId",
+      "column": "actor_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "field": "occurredAt",
+      "column": "occurred_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "field": "snapshotJson",
+      "column": "snapshot_json",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "touchedAt",
+      "column": "touched_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "revision",
+      "column": "revision",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "courseId",
+      "column": "course_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "currentVersionId",
+      "column": "current_version_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "shared",
+      "column": "shared",
+      "java_type": "Boolean",
+      "expected": "bit(1)",
+      "actual": "bit(1)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "accessEpoch",
+      "column": "access_epoch",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "nextNumber",
+      "column": "next_number",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_resource_series",
+      "field": "removed",
+      "column": "removed",
+      "java_type": "Boolean",
+      "expected": "bit(1)",
+      "actual": "bit(1)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "touchedAt",
+      "column": "touched_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "revision",
+      "column": "revision",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "name",
+      "column": "name",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "scenario",
+      "column": "scenario",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "descriptions",
+      "column": "descriptions",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "attitude",
+      "column": "attitude",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "content",
+      "column": "content",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "method",
+      "column": "method",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "effect",
+      "column": "effect",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "basedOnVersionId",
+      "column": "based_on_version_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_draft",
+      "field": "publishedId",
+      "column": "published_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "familyId",
+      "column": "family_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "draftId",
+      "column": "draft_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "number",
+      "column": "number",
+      "java_type": "Integer",
+      "expected": "int",
+      "actual": "int",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "name",
+      "column": "name",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "scenario",
+      "column": "scenario",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "descriptions",
+      "column": "descriptions",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "attitude",
+      "column": "attitude",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "content",
+      "column": "content",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "method",
+      "column": "method",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "effect",
+      "column": "effect",
+      "java_type": "java.math.BigDecimal",
+      "expected": "decimal(7,3)",
+      "actual": "decimal(7,3)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "publishedBy",
+      "column": "published_by",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_template_version",
+      "field": "publishedAt",
+      "column": "published_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "courseId",
+      "column": "course_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "storedName",
+      "column": "stored_name",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "sha256",
+      "column": "sha256",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "durationMs",
+      "column": "duration_ms",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "sourceType",
+      "column": "source_type",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "bopppsStage",
+      "column": "boppps_stage",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "sourceDescription",
+      "column": "source_description",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "sourceReference",
+      "column": "source_reference",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "authorizationDeclaration",
+      "column": "authorization_declaration",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "submittedBy",
+      "column": "submitted_by",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "s3_video_asset",
+      "field": "submittedAt",
+      "column": "submitted_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "evaluationId",
+      "column": "evaluation_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "actorId",
+      "column": "actor_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "actorUsername",
+      "column": "actor_username",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "action",
+      "column": "action",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "fromStatus",
+      "column": "from_status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "toStatus",
+      "column": "to_status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "field": "occurredAt",
+      "column": "occurred_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "touchedAt",
+      "column": "touched_at",
+      "java_type": "java.time.LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "recordVersion",
+      "column": "record_version",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "templateVersionId",
+      "column": "template_version_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "weightSnapshot",
+      "column": "weight_snapshot",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "problemTagsJson",
+      "column": "problem_tags_json",
+      "java_type": "String",
+      "expected": "text",
+      "actual": "text",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "problemClassificationVersion",
+      "column": "problem_classification_version",
+      "java_type": "String",
+      "expected": "varchar(255)",
+      "actual": "varchar(255)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "id",
+      "column": "id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "offering",
+      "column": "offering_id",
+      "java_type": "CourseOffering",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "supervisorName",
+      "column": "supervisor_name",
+      "java_type": "String",
+      "expected": "varchar(64)",
+      "actual": "varchar(64)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "supervisorUserId",
+      "column": "supervisor_user_id",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "evaluateDate",
+      "column": "evaluate_date",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "listenTopic",
+      "column": "listen_topic",
+      "java_type": "String",
+      "expected": "varchar(128)",
+      "actual": "varchar(128)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "scoreAttitude",
+      "column": "score_attitude",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "scoreContent",
+      "column": "score_content",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "scoreMethod",
+      "column": "score_method",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "scoreEffect",
+      "column": "score_effect",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "totalScore",
+      "column": "total_score",
+      "java_type": "Double",
+      "expected": "double",
+      "actual": "double",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "highlights",
+      "column": "highlights",
+      "java_type": "String",
+      "expected": "varchar(1000)",
+      "actual": "varchar(1000)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "suggestions",
+      "column": "suggestions",
+      "java_type": "String",
+      "expected": "varchar(1000)",
+      "actual": "varchar(1000)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "status",
+      "column": "status",
+      "java_type": "String",
+      "expected": "varchar(32)",
+      "actual": "varchar(32)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "submitTime",
+      "column": "submit_time",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "publishTime",
+      "column": "publish_time",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "reviewedBy",
+      "column": "reviewed_by",
+      "java_type": "Long",
+      "expected": "bigint",
+      "actual": "bigint",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "reviewedAt",
+      "column": "reviewed_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "reviewNote",
+      "column": "review_note",
+      "java_type": "String",
+      "expected": "varchar(500)",
+      "actual": "varchar(500)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "createdAt",
+      "column": "created_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "field": "updatedAt",
+      "column": "updated_at",
+      "java_type": "LocalDateTime",
+      "expected": "datetime(6)",
+      "actual": "datetime(6)",
+      "difference": "",
+      "source": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java"
+    }
+  ],
+  "backend_sources": [
+    {
+      "path": "backend/src/main/java/com/classroom/ai/ClassroomBackendApplication.java",
+      "sha256": "d83026adfadfd4c8571010af8c725562ae90d90287a91fc4d2e7cc91f4cc3576",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/common/ApiExceptionHandler.java",
+      "sha256": "f606eb04a0c9ad57882dea63e488f4a8e151981aa6e41c020955d1ec5a238795",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/common/ApiResponse.java",
+      "sha256": "c3beeab18939cb0417678aacef7e6d6793f1fdca857ed84df98e1355dd83c510",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/common/exception/ForbiddenException.java",
+      "sha256": "304f6288e6ea4cb6a7c8c4e5d8c819875b013f5cf6bbe1db2ffa6c4cd681e34a",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/common/exception/UnauthorizedException.java",
+      "sha256": "fc8135216a2ef682aa5bc07e8be9fce1fe1bea4295b7070321855ddc54a92cd0",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/config/CorsConfig.java",
+      "sha256": "ed725c7e49aa92c053303e4e1819697e3d25290cb1eb4d413dbed0876deafa1f",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/config/RedisConfig.java",
+      "sha256": "4b9609f153ea78e7d7b393ef97be659af2a9f6d4c22369c8887572174ad26018",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/config/UploadPaths.java",
+      "sha256": "bb3989e85568d92081c9db21013a5d6506a1e6d49bea1481293880db50c3c482",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/controller/CameraMonitorController.java",
+      "sha256": "7e940286bfe5d403c6df33d08239ad8940d518c05e44c052e019bf187d400bba",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/controller/FaceController.java",
+      "sha256": "01ccf4bdda00c7df9ef53a2d50f0a6309797ec4b5781c5a251a8b7d9103cccf3",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/controller/StudentController.java",
+      "sha256": "a0b357d3adfdbe40aba1f1f166fb83c2c5c49433e2f28f63e87abbc5ab6db2c9",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/controller/VisualDashboardController.java",
+      "sha256": "a411c176c0363189b54456466340c861ba6f05a89ae90f448ea5598a7a16e91d",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/dto/ClassroomStreamDTO.java",
+      "sha256": "addac7ccaf27ac7535afa288486effbc17f4a5e8bd1c5add90a6609cfad8aa38",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/dto/FaceRegisterDTO.java",
+      "sha256": "7365809bd8b6e3718ee0bbe92ce1de86c830ccafab75d277450a8e5a5387bfbc",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/dto/FaceSearchDTO.java",
+      "sha256": "1ab9051a37cabe357904d634e3c4f412ef1fc8859dfd814491a614b2c75170fb",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/dto/StudentDTO.java",
+      "sha256": "a099d06d32c6c99b3bfc1a2989f5d4f317d4b72ac3da97e119410b944aee7fe4",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/entity/ClassroomRecord.java",
+      "sha256": "5c42411a394a31d416709693f18dc2b1abea555b3d21277cff993c195461f257",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/entity/FaceFeature.java",
+      "sha256": "7aac2e4b131c5875555e3456449e8883ec781d40d95cd3ef373325e380b38e30",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/entity/Student.java",
+      "sha256": "5941ed480174ecacd99eccfc1c6b5046f996585f0176793644e294f42a8c47ed",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/controller/AttendanceController.java",
+      "sha256": "5b1c1d3cc7e7c02a2c47fbf1cc8c9d29c237ba8fe9dcaa552286a72cf614deb3",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/dto/FinishAttendanceDTO.java",
+      "sha256": "cb4f9db9ea99d64cd1c216a0b060d3e4f063be6a434087a0cfbc2cbd45eabad9",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/dto/StartAttendanceDTO.java",
+      "sha256": "aa729ee1a45c184bd7e830a475cff267c61e70328fc3fa1438b7d97e42690435",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/entity/AttendanceSession.java",
+      "sha256": "85108fd50c94d7923c8d332b68e6acf3bce3bc2522a39e8a2e6979a32c6e671d",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/repository/AttendanceSessionRepository.java",
+      "sha256": "be1f2cda48f34abcb7b9de3800be7e4d86e478bf82578bf48857f99472f7d082",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceAccessService.java",
+      "sha256": "ebdb910ea5316d944ab51e2b20bac3d995aa99ba8b65c6db824f51278159d3ce",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/AttendanceService.java",
+      "sha256": "a1bec3b1e97a8f75c1e114744f2106f3eaeb4d1973e5900af1acbdec4df8df5e",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/attendance/service/impl/AttendanceServiceImpl.java",
+      "sha256": "3917c2c62f9a8b9d3c2768cca39a981e58fbd16711126a769b33114a6c6de360",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/context/AuthContext.java",
+      "sha256": "ae79ce785d567bbbeef7bbaec9971656fceeb534ca045eb3eb87d985dd653525",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/controller/AuthController.java",
+      "sha256": "0a34f2108eef68457a20074322bb583c322bcf58e01cc174ef97e781ac2c0e6c",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/controller/DirectorController.java",
+      "sha256": "205879a6eb108f9da8a0e0d09a6a909325bff6be3e02cda16a6bdfc5caa1cc1c",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/dto/LoginDTO.java",
+      "sha256": "f440b8e9e69b4e4fdec56fb3c7c5a0fbfb8b568dc930634b8f4f8744dd68aa87",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/dto/SupervisorRegisterDTO.java",
+      "sha256": "3296c6dfc4d73f05ba686063348a31cf8ead274f4c57d56e7c8837720187242c",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/entity/RoleEnum.java",
+      "sha256": "7ae0c3e7d03c7c9fad3efb626a16b6675f01dfc4441a7abb992c55de5f949eb4",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/entity/UserAccount.java",
+      "sha256": "9ff03bd0f530a3059b6c9181320090c70fe0436fc14e4b2c449e2fe2cc3b475c",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/interceptor/AuthInterceptor.java",
+      "sha256": "4ff9c95733f50ffba7ee026f00d0abc309eaa881982829e18c9fb731d5767bb5",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/repository/UserAccountRepository.java",
+      "sha256": "79d5b69d83d50a61321e4b0bf796cee689afc81b40295483b45abba7301c9933",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/security/JwtAuthenticationFilter.java",
+      "sha256": "25d2dfc0afcd4ff4a6407154e4673f24320a65f6cb94efafb4249a8ac9c5e5bf",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/security/JwtTokenProvider.java",
+      "sha256": "27146f34262ff1ef4fa655ff165bdda6be96ab69bd58b0e6bc4246ffd56f71c8",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/security/SecurityConfig.java",
+      "sha256": "555233ceac600912fd5ae42c852e847ca31aa1a05028975b5715a90c8df380e0",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/auth/vo/UserVO.java",
+      "sha256": "136efd94f6c089bcbb5cff4a9823eaf6bd6f27cb1152d123b2169b02386526ea",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+      "sha256": "c0aa036bfb0ac88a60436354b3f64a3a384ae0344aca4b7f22d28c39a3327bf6",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseController.java",
+      "sha256": "ea16265bc55386682213707e9dbe00d26e0a3cbe684e7dcf4f1d34f48d24aa5b",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseImportController.java",
+      "sha256": "c35eec5ade89ad40c1431d788211d43ca9cd9fc4bd43f6e72c51a386e8585769",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingController.java",
+      "sha256": "1adb62b9f81bc22ae6f6efa3366f8512492449efcab16bc8f79e0dff4139857a",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingHistoryController.java",
+      "sha256": "081dc7fb4f0549c37cc440262ee11eb42fc98c0dc64227925ce9c09c49ed01be",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingQueryController.java",
+      "sha256": "18d9e5d9c71665edc89b68dd51250a0589e8e8c3bb13b35da9885149324e5117",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+      "sha256": "f20743766353b0d0a86360a8bb8aee9aac8d627294423ed84ba1fc6ae147881b",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/MajorController.java",
+      "sha256": "d94f3e30a4a2cb4c7f35c50794c5ddefce956d3a453ed6651f4718c530217532",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+      "sha256": "379bbf6102d44c0080e4430411103b06a944e19a6bd7fc0ca543c8f726ae59f3",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/controller/TeacherController.java",
+      "sha256": "fd2f5469e80d3f3782de780b53d116df336e31550e0fd855979ccdd4e0f9e895",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/ContentRevisionDTO.java",
+      "sha256": "55f686496d7b547a868fa8eb8534b9ca2975333ca3b5041059ec3329b1806066",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseDTO.java",
+      "sha256": "25a2a16eaa8f7e6ee7c2864548a489afa21a936db6440415b7f73a6c3384746a",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseImportRowDTO.java",
+      "sha256": "07481d4eb183c7e5b6116feeff82b7dcf8a68275fc93324a278d9ffaa5267860",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseOfferingDTO.java",
+      "sha256": "5c90304dfaf00422b949ce4bbe4169db2dbaf8652b7cd5534323926ab335f0a7",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/CourseScheduleDTO.java",
+      "sha256": "d6fd2691d01e810ead27bc324d5e76ab75a4f4eb33f1e66a68ff02c2b3e2dd44",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/ImportConfirmDTO.java",
+      "sha256": "41da83759ea00bb426533750cd5aeedd104e4b7fd8ae3f685995dc1762a5a864",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/IndicatorDTO.java",
+      "sha256": "cd2417214214a20f8dd704bce897edcc870e676d345e052b199224cfd6558857",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/dto/SyllabusDTO.java",
+      "sha256": "287f2b10a5766295a16e406947007a8e2b2fe22b257a9618aa2490c819a2445b",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/AcademicTermLock.java",
+      "sha256": "65a055c4f8939f129ca63cf1350772bc5fc05d94ee1bbd9d2ba245ca245b1794",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java",
+      "sha256": "77562566a00f1f6fb18763c0775cfb5d6ffc7be2c1a862c672213e60ecf4b715",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java",
+      "sha256": "0ac14f814852a667c59791b176167d9ebf1a946319297e58896bfa000fc58d5b",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java",
+      "sha256": "74cb292e5b2d59335a9e0e2adb46be3589dde1615a7e70d307dba04388cdaf17",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java",
+      "sha256": "b2629fef0d6e6a20723e6c2c899be8d1460638e8d47ca2b32f62518976ef6c6c",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java",
+      "sha256": "5aa62eb325543af1f837473e69d9e33fff8d2a38de0620ee157d782cd6911270",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java",
+      "sha256": "0f6e1d40b3275a70a4d21fdfb553093aa82aa3d89786b5ae8f4c04e9c89713a6",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java",
+      "sha256": "53b719d59e2b6c8ab29746cd2a8b97e3d21c39e67cf8b5919c7469b28fadf26e",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java",
+      "sha256": "8441b8d013016513e48710c2eeb1df99e61ca4094bba2f32eff5b24a8170c55d",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Major.java",
+      "sha256": "4a72f0c747801c935888b08fc722c8c8763241543c5b5df9f6637bf7acd7f486",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/MajorDepartment.java",
+      "sha256": "edb4d36750807b0ae74beecb4cdf1dbd7a2ab66ad7a76660bc0b23cc2c295d5a",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java",
+      "sha256": "e107d6d0fad9387a5992faaf0ffebd66cc37d49f3f7dcb96f74b5a4b235b1b3b",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/Teacher.java",
+      "sha256": "fe02188538f561e63b849611bb8952c493450a32c0213e1e870d78f05411d5c7",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java",
+      "sha256": "39ed07755d6e6b8741be4785294514f00a026ee7109cbef1578523ffb07ae5a7",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseContentRevisionRepository.java",
+      "sha256": "80ee9e9011a24fcec5ade3088269a83294ee8eb27e9c350f0613971ed0ef7316",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseImportLogRepository.java",
+      "sha256": "8e960fc8842ba9a4dee5e89ed349422a88222d4572478f29693d937ef31f34aa",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseOfferingRepository.java",
+      "sha256": "6c5e4e4091d3eba1319c231f200b59f3092c6e47aa6bc63c1d16a86aa5e9c784",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseOfferingTeacherRepository.java",
+      "sha256": "710a6f43a04a7cf2df901c439b311bd3bea386cd458a2147cba7f998c763dd73",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseRepository.java",
+      "sha256": "646d6432622897bcd415a1cc58b056deea02cb384207e940ecce392147802288",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseScheduleRepository.java",
+      "sha256": "aa6c7ad6bd72616be3747bbe210359311e15687a983fa8108792192d62e07022",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/CourseSyllabusRepository.java",
+      "sha256": "9cd716a9bc51f6b9fa485ac8e36de6da70e57895046fdaf64863fad077418449",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/GraduationIndicatorRepository.java",
+      "sha256": "d0eb38f2170d4b7b2b8c74fb955b3876840a279840a669df4db7529201e128d6",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/MajorRepository.java",
+      "sha256": "adc524ae6ce4c42f96cce9217bdeae4778d33b5169f73f09368893a8bfe9120e",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/OfferingStudentEnrollmentRepository.java",
+      "sha256": "c467d6100a8dc9c202e22fb89868a67117ee7ded5e6fa9420b1032565f8c0e35",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/TeacherRepository.java",
+      "sha256": "89ad7af64c959f724eccd2ccc2b5ee02ca9f97e06b293b94bcf9cc3d8e20a344",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/repository/TrainingIndicatorRepository.java",
+      "sha256": "e4b0573e5536a38c808d4b0bfbb8af99df48e39228feab2eed446a6be480bbf6",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/AcademicTermLockService.java",
+      "sha256": "52bd3485e988c7bee39dec0eadbb8e810af40ab4bc00bcd1b87eaf43b2094a6e",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseArchiveRules.java",
+      "sha256": "7600895027eccdaa14a5f93e3b22bca205313b81ee91351be289c13817e6b936",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java",
+      "sha256": "49fc2ef4cb64a1d09a291335690a3565092ecd2eb1d76340fcbb9b9ff9ac8337",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseImportService.java",
+      "sha256": "40c4bbdfb9a4e3ebb6d0af0f042e02932154299e3ae9933a10c279d166befe53",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java",
+      "sha256": "18a34cffefa5e0556064fe365215032b1701b65284207641bca7dcb23836d70a",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingQueryService.java",
+      "sha256": "9acb2fbde30a442fdc78de9788088b58a4bb9ded3b524e0eb9a2334c5b36da3a",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseScheduleService.java",
+      "sha256": "d9a8599171f997867c293c44d53e64e0b8c34b8a340853cde672257334ea7596",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseService.java",
+      "sha256": "dbeefc2ce05a24df4c5e3d6bec6eaa17df7bf12e63419b77995d42f1559a6253",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java",
+      "sha256": "08b78b1cea63d70929837412f381cb20fda54379bc85d038030b197192dc74dc",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseScheduleServiceImpl.java",
+      "sha256": "89e95dc476c9acafb6ff3f4b7cafa1c255e26b4f0550fd21fdcb686dad87f33a",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java",
+      "sha256": "9c542f6a5187cf9ca38414d218a3dad0da2f8afede88d72f7189c9edb1a76690",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java",
+      "sha256": "48e0ee97fa819371a78610a093839f7a4115f9023e0df56ea7bb7d8f046b3510",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/OfferingHistorySnapshot.java",
+      "sha256": "ee3076f9869263725494c61ea64627787cf8f307fe6e4c684447dd67d860cb37",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/RecommendedIndicatorTemplate.java",
+      "sha256": "29a73fc8966a8685a063882cae320be306274e88e6e327f66a3472799d565059",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/ScheduleConflictException.java",
+      "sha256": "60b239eb039aeb4faf2b9126ffcea0acc0e5c8d9d3cf7935eaeee33f7661d8a6",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/ScheduleConflictService.java",
+      "sha256": "2673840268c021c3d9566a7b2db893230633bd15649c359eab3a0d2f862f296a",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/service/SyllabusService.java",
+      "sha256": "965b1043f0704e517ea528d7779aeb14d9e875211bc4e656836509dcafa6a573",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/util/CsvParserUtil.java",
+      "sha256": "ad019c80e80ac1c762cf78ce3026e206f924e8611f227ac652951cd69f494ea0",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/ImportPreviewVO.java",
+      "sha256": "96612be95903782db4e48cc3c674756c2d0d7a37d972dcb1c2abda7c19ce9442",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/ImportRowError.java",
+      "sha256": "74fffc137a84a1946b58661c3f19fbecd8b7ec409de7d073f242163db9ed4553",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/OfferingHistoryItemVO.java",
+      "sha256": "b96df1cb576aadacd615a2f30726e51a2eb7b6131459abf2009d6939144f82bc",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/course/vo/OfferingHistoryVO.java",
+      "sha256": "96cee606fd00ececa4602af617ee7938a8aed8f2407a56b6b36ca4d8f03b702d",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+      "sha256": "f8566c72c23a29f97b2b3031cf73b1f41a2b1dc984a5c4082075da232dff5f83",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingController.java",
+      "sha256": "21989deff0ddc6e2f5252f7a4bfd29c8d79f2288b043d8f7fd91c15f0eddd03d",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/controller/MicroTeachingVideoController.java",
+      "sha256": "fc826dc8c62127a7b7897744dc08eca6da09f37249fe40be4c20066036b1d74a",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/dto/CourseResourceDTO.java",
+      "sha256": "2b01a5e40d2d86e1831426cc2ac39c149da27ad7b1bd03d8b5eeb9e3eaa6cb04",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/dto/MicroTeachingSliceDTO.java",
+      "sha256": "5e4799d9dcc2e3fb043046afd2db6ab148d94a5e3611565a8050034b71d9a873",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java",
+      "sha256": "e4e4bdeacfb7a39b3ad36158fb5a65d4ea01ad9c444e29bd5f8bd6c20ffafd33",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java",
+      "sha256": "7a4c9dfc3d6a83289b69ffdfabbf13b1641112ebec423b47428170027def6150",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java",
+      "sha256": "e9935c0b287eb8dc144326cc5544a53ecc195357c4e9d9cee704a83caf5575fe",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/CourseResourceRepository.java",
+      "sha256": "ece961ee13a767533f22c328372cf7927380dca1980ebda60bf751df71ca943d",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/MicroTeachingSliceRepository.java",
+      "sha256": "b52e859bcd2ed216e6b0bf85fcb3d9774a4b1c9b874315d515d0fe17f8c197af",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/repository/ResourceAccessLogRepository.java",
+      "sha256": "2d5b3c1040c560f4f8de5f5af0439be109e5605be8e07b94e81699f316f6573c",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/CourseResourceService.java",
+      "sha256": "53025b06dfe38cd129b50f50b166443ff9b4c0c721dc01d0eb70c5359a7207f9",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/CourseResourceServiceImpl.java",
+      "sha256": "ded69ec6abf7b7c97cae3ea811a6ef49cb66fe7ad656724dee097ef5abc01eca",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/MicroTeachingServiceImpl.java",
+      "sha256": "76a0999eb86e75c3a199e1913f136d8a66caded96af562560570b688506033af",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/MicroTeachingService.java",
+      "sha256": "b414596c4be2a5bcd5e0e5e568bfb05fab376efb8c6872556a44a797e411c993",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/MicroTeachingVideoService.java",
+      "sha256": "f2fe9704c50941e5480c1f7c902c6539f40c4cb763127f5fc104df336af9141c",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceAccessService.java",
+      "sha256": "4b658a93dff20ee4086fda7f7dabe5921c692c319f058635b357677c0d1b3e82",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java",
+      "sha256": "08fbdf69e740402271b15a21943a5c822fe4eecb395196a38e69b9b3acdc62ce",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java",
+      "sha256": "48557c89fd1ae3d1868c82f9195ec99e8bf27f1bddc0b266d06c085228c7d223",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/AdminBootstrap.java",
+      "sha256": "b1d33ee9e387042630661a829504a06165d6eaaa7c9ee77f5d99d71fcd9d3c0d",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java",
+      "sha256": "49f02d03ea67bd69dfdef40782a7e0176d0b33bf0d09180b8de12bb13f7846e9",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/AdviceService.java",
+      "sha256": "7341fd67d4fee1d88489bb0ec3bd501a73b52e807800a362afdc9ca02c9938ce",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/EvaluationTemplateService.java",
+      "sha256": "dd74101e954b23102f89e1615ccd53f551e58fe31168b8a62a215bc2a6004f9e",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java",
+      "sha256": "72f115662b30c073ee78fbc0a3460839238dfc12e663aad8cb74d853bfe01999",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/HttpFailure.java",
+      "sha256": "00945816dd6ddea0f51f771f717b5bd9fc707c0fc25660e7fb6921e3c163a05a",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityReportWriter.java",
+      "sha256": "7fc49348ca5f09dcb49619d9c5e2bdc4887995bd19f48d3f4131ddf5c1bf41d8",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityStatisticsService.java",
+      "sha256": "141317284c1d1f797dbb61129cb16f1f09e7af848c7a4be0becde73b4d1640c9",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceGrantReader.java",
+      "sha256": "1b06d427e16c22c22f67050c8f4acfc6facf66ca93dd7303c195dc829f1b0f81",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java",
+      "sha256": "e7dc6e21f70e6785d08fad708f69e442f2af37cd05bbbf1a5c9b3df63bee39da",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceVersionService.java",
+      "sha256": "bafc4a7139663846902513204dbdd7c45fc7aa8aa86a0745d0894fa51b9a10ae",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+      "sha256": "097b649d70214b4d1d28d8deb45f1e5073ace61cb5172ed30911da53dbce43f7",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Migration.java",
+      "sha256": "d3a1b31ce080f22864a00d037c9ded7d746aae88f20465874169f367230f3984",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Policy.java",
+      "sha256": "e9f746372b640c4ae1eb27b3e5723a9a79027ddc5885a17a58ba5c6210560191",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java",
+      "sha256": "7138b4f3f292fac3f9c3eb768afb9b17f0284f4dda08253c672ac90a7b8fce4e",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java",
+      "sha256": "04c44290889248c6770d555612c079fd3bc9640e18b6b0e6bdd6691b52045f95",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java",
+      "sha256": "fd24314618f677d6479e9f6c4905ec666bd8b6b870971a495765b89323845b72",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAssetService.java",
+      "sha256": "646710daf4e6de620f147e8ff588baed99867e8027472a917aced13ca652b6de",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoProbePreflight.java",
+      "sha256": "1fd67943b8a6c45bb087c0ac301eec52ba3ee1e4dc948b6df7d688f3db91913d",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+      "sha256": "8515d88a6c22744f245fb9658c64783c5b7f84b30579a7f1785232c6e7cc3054",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+      "sha256": "e9efd084d6d8a1c13b9256d8bd5f6b4c83bad9fd284b5640bab8642655ff0f16",
+      "kind": "controller"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/dto/EvaluationSubmitDTO.java",
+      "sha256": "4f93be392044f9805e179b05e5fe7cf24668bd9fb51cda7364c469165f5326c0",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java",
+      "sha256": "6809fc00b51d0feaadab989ad01c18064247d95e61ee649e521157d78560f171",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java",
+      "sha256": "98f227be38fb4b2ecd47d1deeccce7254c9b0d893407d4efd2fc6668adc9a459",
+      "kind": "entity"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/repository/EvaluationAuditLogRepository.java",
+      "sha256": "df8218a0f05a26332f0c150e34cf6caf1686237a3028fcf894135a5d161ac6a2",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/repository/SupervisionEvaluationRepository.java",
+      "sha256": "06e15ca27145e547bee57667998a7f0be642b46d84ad52304188df68e743053a",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java",
+      "sha256": "17f5e97fb1ed176b3537892cba2a7ee5151a2ee0672cb972607e9a362af9045a",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+      "sha256": "cc69552ef8770eb3ce8ba71e54d4d2ff40fa73dea522ce2afca626f396b2df18",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/SupervisionAnalyticsService.java",
+      "sha256": "a458f54b25ee26c1c7690c2ceb6e1e396f1c349bc04a02b340a7863c184705e6",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/service/SupervisionService.java",
+      "sha256": "c0ca80d9210372b026adddf48b860b79ff41cb23b9eeaccd8ce3032af68aed84",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/CoverageDetailVO.java",
+      "sha256": "dd9e1953e46e94dfac311935685dbc249d006970c063e6ec3dacd6b02343bf41",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/SupervisionAlertVO.java",
+      "sha256": "2348d0beae695cae848d186601a38b9562a2ca0cebf407b3aa839422a035d106",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/SupervisionDashboardVO.java",
+      "sha256": "934b04ce59d16720ad954209f3a11120f90e5e3aac0528db98ea352756644da5",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/modules/supervision/vo/TeacherQualityRadarVO.java",
+      "sha256": "0df5f2ca91cac3212288edec48a770eb710287371a40389c1d538299a385fb96",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/repository/ClassroomRecordRepository.java",
+      "sha256": "17d8411116776f73b2bf7f7e203dc2f52f7fbf4865c4e93477b5011fcd7012b2",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/repository/FaceFeatureRepository.java",
+      "sha256": "0820702f22ace11a42d28b866aa4c0122c98056fe9d6b58f62290ecb943de34b",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/repository/StudentRepository.java",
+      "sha256": "b3db6e3c57d525840c1fcd5e9d80e9b17f7005a9f000ffbdebb513ffdb2a3b20",
+      "kind": "repository"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/runner/MajorDepartmentMigration.java",
+      "sha256": "22dea3b33a33580bdca84d144830f5ae91da0823b748e643e423bec1a3801514",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/runner/RedisCacheWarmer.java",
+      "sha256": "906fcbb531d71f96898afbcbc30735c30d217de25de5abaf95de0ee443938d6b",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/runner/TeachingDataInitializer.java",
+      "sha256": "f9e5d2a1795711123040eabc0fef6fe139281d75ef1b6e7e82a0aaa99b916b9e",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/service/FaceService.java",
+      "sha256": "3d80106562425f397ac38f59d4a7b21d2ac444903659d41b14981b51065da86e",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/service/impl/FaceServiceImpl.java",
+      "sha256": "7a7046969dbedf860a3d73506c6bb893c7b41ca17f9ce4f31dada370bdbfd704",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/service/impl/StudentServiceImpl.java",
+      "sha256": "0b6773a83986f76f30bd4676e564c8b5c0cbeb886398dd9e9883468069ad97b3",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/service/impl/VisualDashboardServiceImpl.java",
+      "sha256": "337c5c3e1f208b3837d37b0e246c81798cb134b2d04cb5efa7557465572a52c4",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/service/StudentService.java",
+      "sha256": "c8ee287842a0b17b7786f3098113bbd75163b17e8099050b25d1e7cc63890a57",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/service/VisualDashboardService.java",
+      "sha256": "30c6093a95a50c8291bc78c4dd31cbc130759ee6ec415256268fd866c6790d25",
+      "kind": "service"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/vo/DashboardOverviewVO.java",
+      "sha256": "22efaf199fb937beaac0bb7ebca3bf17dc89c2c492bd3d399dc86d38cebe2f53",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/vo/FaceMatchVO.java",
+      "sha256": "005683bdf1b295e1770844c8fa913a6f3f0254bdf1c2e2e96a82b332c2961f29",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/vo/FocusTrendPointVO.java",
+      "sha256": "02ed6e644806208b2229c24d2d0ebf5972e3c89f713ee3ab513b5590690a5623",
+      "kind": "other"
+    },
+    {
+      "path": "backend/src/main/java/com/classroom/ai/vo/StudentRealtimeStatusVO.java",
+      "sha256": "61404717fbb97dc7e427d8457c37c364b6a649a4e35bc1d5f219526049cd6b30",
+      "kind": "other"
+    }
+  ],
+  "frontend_sources": [
+    {
+      "file": "frontend/src/api/index.ts",
+      "apis": [
+        "/api/face/${studentId}",
+        "/api/face/all",
+        "/api/face/launch-register",
+        "/api/face/launch-verify",
+        "/api/face/register",
+        "/api/face/register-webcam",
+        "/api/face/search",
+        "/api/face/upload",
+        "/api/face/verify-webcam",
+        "/api/student",
+        "/api/student/${studentId}",
+        "/api/student/${studentId}/class",
+        "/api/student/list",
+        "/api/v1/attendance/current",
+        "/api/v1/attendance/finish",
+        "/api/v1/attendance/offering/${offeringId}",
+        "/api/v1/attendance/start",
+        "/api/v1/auth/csrf",
+        "/api/v1/auth/login",
+        "/api/v1/auth/logout",
+        "/api/v1/auth/me",
+        "/api/v1/auth/register-supervisor",
+        "/api/v1/courses",
+        "/api/v1/courses/${courseId}/content/draft",
+        "/api/v1/courses/${courseId}/content/publish",
+        "/api/v1/courses/${courseId}/content/published",
+        "/api/v1/courses/${id}",
+        "/api/v1/courses/export",
+        "/api/v1/courses/import/confirm",
+        "/api/v1/courses/import/preview",
+        "/api/v1/courses/import/template",
+        "/api/v1/courses/offerings",
+        "/api/v1/courses/offerings/${id}",
+        "/api/v1/courses/offerings/${id}/archive",
+        "/api/v1/courses/offerings/${offeringId}/students",
+        "/api/v1/courses/offerings/${offeringId}/students/add",
+        "/api/v1/courses/offerings/${offeringId}/students/remove/${studentId}",
+        "/api/v1/courses/offerings/history",
+        "/api/v1/director/managed-majors",
+        "/api/v1/director/supervisors",
+        "/api/v1/director/supervisors/${id}/majors",
+        "/api/v1/majors",
+        "/api/v1/resources",
+        "/api/v1/resources/${id}",
+        "/api/v1/resources/${id}/download",
+        "/api/v1/resources/${id}/preview-ticket",
+        "/api/v1/resources/micro-slices",
+        "/api/v1/resources/micro-slices/",
+        "/api/v1/resources/micro-slices/course/",
+        "/api/v1/resources/micro-slices/course/${courseId}",
+        "/api/v1/resources/micro-slices/upload",
+        "/api/v1/resources/upload",
+        "/api/v1/schedules",
+        "/api/v1/schedules/${id}",
+        "/api/v1/schedules/check-conflict",
+        "/api/v1/supervisions",
+        "/api/v1/supervisions/${id}/review",
+        "/api/v1/supervisions/analytics/alerts",
+        "/api/v1/supervisions/analytics/coverage",
+        "/api/v1/supervisions/analytics/dashboard",
+        "/api/v1/supervisions/analytics/export-report",
+        "/api/v1/supervisions/analytics/radar",
+        "/api/v1/supervisions/weights",
+        "/api/v1/syllabus",
+        "/api/v1/syllabus/${syllabusId}/lock",
+        "/api/v1/syllabus/course/${courseId}",
+        "/api/v1/syllabus/course/${courseId}/from-plan",
+        "/api/v1/syllabus/course/${courseId}/indicators",
+        "/api/v1/syllabus/course/${courseId}/latest",
+        "/api/v1/syllabus/indicators/${id}",
+        "/api/v1/syllabus/plans/${encodeURIComponent",
+        "/api/v1/teachers",
+        "/api/visual/monitor-status",
+        "/api/visual/overview",
+        "/api/visual/report/stream",
+        "/api/visual/reset",
+        "/api/visual/start-monitor",
+        "/api/visual/stop-monitor",
+        "/api/visual/students/status",
+        "/api/visual/trend"
+      ],
+      "api_methods": [
+        [
+          "visualApi",
+          "getMonitorState"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/api/metrics.mjs",
+      "apis": [],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/api/response.mjs",
+      "apis": [],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/api/types.ts",
+      "apis": [],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/App.vue",
+      "apis": [],
+      "api_methods": [
+        [
+          "authApi",
+          "getCsrf"
+        ],
+        [
+          "authApi",
+          "getMe"
+        ],
+        [
+          "authApi",
+          "logout"
+        ],
+        [
+          "visualApi",
+          "stopMonitor"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/components/FocusTrendChart.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/components/MetricCard.vue",
+      "apis": [],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/components/OfferingHistoryPanel.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": [
+        [
+          "courseApi",
+          "getOfferings"
+        ],
+        [
+          "offeringHistoryApi",
+          "getHistory"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/components/OfferingScheduleBoard.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": [
+        [
+          "courseApi",
+          "archiveOffering"
+        ],
+        [
+          "courseApi",
+          "createOffering"
+        ],
+        [
+          "courseApi",
+          "getAll"
+        ],
+        [
+          "courseApi",
+          "getOfferingDetails"
+        ],
+        [
+          "courseApi",
+          "getOfferings"
+        ],
+        [
+          "courseApi",
+          "updateOffering"
+        ],
+        [
+          "scheduleApi",
+          "delete"
+        ],
+        [
+          "scheduleApi",
+          "getAll"
+        ],
+        [
+          "scheduleApi",
+          "save"
+        ],
+        [
+          "studentApi",
+          "getStudents"
+        ],
+        [
+          "teacherApi",
+          "getAll"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/components/ProtectedPdfPreview.vue",
+      "apis": [],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/components/ResourceVersionsPanel.vue",
+      "apis": [
+        "/api/v1/resources/",
+        "/api/v1/resources/series/",
+        "/api/v1/resources/upload"
+      ],
+      "api_methods": [
+        [
+          "courseApi",
+          "getAll"
+        ],
+        [
+          "resourceApi",
+          "getPreviewPdf"
+        ],
+        [
+          "resourceApi",
+          "search"
+        ],
+        [
+          "sprint3Api",
+          "get"
+        ],
+        [
+          "sprint3Api",
+          "put"
+        ],
+        [
+          "sprint3Api",
+          "upload"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/components/Sprint3Workspace.vue",
+      "apis": [
+        "/api/v1/admin/templates",
+        "/api/v1/admin/templates/",
+        "/api/v1/sprint3/alerts",
+        "/api/v1/sprint3/problems",
+        "/api/v1/sprint3/quality",
+        "/api/v1/sprint3/quality/export",
+        "/api/v1/sprint3/radar",
+        "/api/v1/sprint3/suggestions/mine",
+        "/api/v1/sprint3/templates",
+        "/api/v1/suggestions/",
+        "/api/v1/supervisions",
+        "/api/v1/supervisions/"
+      ],
+      "api_methods": [
+        [
+          "sprint3Api",
+          "blob"
+        ],
+        [
+          "sprint3Api",
+          "get"
+        ],
+        [
+          "sprint3Api",
+          "post"
+        ],
+        [
+          "sprint3Api",
+          "put"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/components/StudentStatusGrid.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/main.ts",
+      "apis": [],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/utils/scheduleTime.ts",
+      "apis": [],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/views/AttendanceDashboardView.vue",
+      "apis": [
+        "/api/metrics.mjs",
+        "/api/types",
+        "/api/visual/video-feed"
+      ],
+      "api_methods": [
+        [
+          "attendanceApi",
+          "finish"
+        ],
+        [
+          "attendanceApi",
+          "getByOffering"
+        ],
+        [
+          "attendanceApi",
+          "getCurrent"
+        ],
+        [
+          "attendanceApi",
+          "start"
+        ],
+        [
+          "authApi",
+          "getMe"
+        ],
+        [
+          "courseApi",
+          "addStudentsToOffering"
+        ],
+        [
+          "courseApi",
+          "getOfferingStudents"
+        ],
+        [
+          "courseApi",
+          "getOfferings"
+        ],
+        [
+          "courseApi",
+          "removeStudentFromOffering"
+        ],
+        [
+          "scheduleApi",
+          "getAll"
+        ],
+        [
+          "visualApi",
+          "getMonitorState"
+        ],
+        [
+          "visualApi",
+          "getOverview"
+        ],
+        [
+          "visualApi",
+          "getStudentsStatus"
+        ],
+        [
+          "visualApi",
+          "getTrend"
+        ],
+        [
+          "visualApi",
+          "reportStream"
+        ],
+        [
+          "visualApi",
+          "resetStream"
+        ],
+        [
+          "visualApi",
+          "startMonitor"
+        ],
+        [
+          "visualApi",
+          "stopMonitor"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/views/DashboardView.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": []
+    },
+    {
+      "file": "frontend/src/views/DirectorDeskView.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": [
+        [
+          "courseApi",
+          "delete"
+        ],
+        [
+          "courseApi",
+          "exportCourses"
+        ],
+        [
+          "courseApi",
+          "getAll"
+        ],
+        [
+          "courseApi",
+          "save"
+        ],
+        [
+          "courseImportApi",
+          "confirm"
+        ],
+        [
+          "courseImportApi",
+          "downloadTemplate"
+        ],
+        [
+          "courseImportApi",
+          "preview"
+        ],
+        [
+          "directorApi",
+          "createSupervisor"
+        ],
+        [
+          "directorApi",
+          "getManagedMajors"
+        ],
+        [
+          "directorApi",
+          "getSupervisors"
+        ],
+        [
+          "directorApi",
+          "updateSupervisorMajors"
+        ],
+        [
+          "majorApi",
+          "getAll"
+        ],
+        [
+          "supervisionApi",
+          "exportReport"
+        ],
+        [
+          "supervisionApi",
+          "getAll"
+        ],
+        [
+          "supervisionApi",
+          "review"
+        ],
+        [
+          "syllabusApi",
+          "addIndicator"
+        ],
+        [
+          "syllabusApi",
+          "deleteIndicator"
+        ],
+        [
+          "syllabusApi",
+          "getIndicators"
+        ],
+        [
+          "syllabusApi",
+          "getLatest"
+        ],
+        [
+          "syllabusApi",
+          "getPlanIndicators"
+        ],
+        [
+          "syllabusApi",
+          "getPlanVersions"
+        ],
+        [
+          "syllabusApi",
+          "getVersions"
+        ],
+        [
+          "syllabusApi",
+          "importPlanIndicators"
+        ],
+        [
+          "syllabusApi",
+          "lock"
+        ],
+        [
+          "syllabusApi",
+          "save"
+        ],
+        [
+          "syllabusApi",
+          "updateIndicator"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/views/LoginView.vue",
+      "apis": [],
+      "api_methods": [
+        [
+          "authApi",
+          "login"
+        ],
+        [
+          "authApi",
+          "registerSupervisor"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/views/MicroTeachingView.vue",
+      "apis": [
+        "/api/v1/admin",
+        "/api/v1/admin/courses",
+        "/api/v1/admin/micro-slices/",
+        "/api/v1/resources"
+      ],
+      "api_methods": [
+        [
+          "courseApi",
+          "getAll"
+        ],
+        [
+          "sprint3Api",
+          "blob"
+        ],
+        [
+          "sprint3Api",
+          "get"
+        ],
+        [
+          "sprint3Api",
+          "post"
+        ],
+        [
+          "sprint3Api",
+          "put"
+        ],
+        [
+          "sprint3Api",
+          "remove"
+        ],
+        [
+          "sprint3Api",
+          "upload"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/views/StudentManageView.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": [
+        [
+          "courseApi",
+          "addStudentsToOffering"
+        ],
+        [
+          "courseApi",
+          "getOfferingStudents"
+        ],
+        [
+          "courseApi",
+          "getOfferings"
+        ],
+        [
+          "courseApi",
+          "removeStudentFromOffering"
+        ],
+        [
+          "faceApi",
+          "getAllFaces"
+        ],
+        [
+          "faceApi",
+          "launchCameraRegister"
+        ],
+        [
+          "faceApi",
+          "launchCameraVerify"
+        ],
+        [
+          "faceApi",
+          "registerFace"
+        ],
+        [
+          "faceApi",
+          "registerWebcamFace"
+        ],
+        [
+          "faceApi",
+          "searchFace"
+        ],
+        [
+          "faceApi",
+          "uploadFaceImage"
+        ],
+        [
+          "faceApi",
+          "verifyWebcamFace"
+        ],
+        [
+          "studentApi",
+          "deleteStudent"
+        ],
+        [
+          "studentApi",
+          "getStudents"
+        ],
+        [
+          "studentApi",
+          "updateStudentClass"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/views/SupervisorDeskView.vue",
+      "apis": [
+        "/api/types",
+        "/api/v1/sprint3/templates"
+      ],
+      "api_methods": [
+        [
+          "authApi",
+          "getMe"
+        ],
+        [
+          "courseApi",
+          "getOfferings"
+        ],
+        [
+          "majorApi",
+          "getAll"
+        ],
+        [
+          "resourceApi",
+          "checkAccess"
+        ],
+        [
+          "resourceApi",
+          "getPreviewPdf"
+        ],
+        [
+          "resourceApi",
+          "search"
+        ],
+        [
+          "scheduleApi",
+          "getAll"
+        ],
+        [
+          "sprint3Api",
+          "get"
+        ],
+        [
+          "supervisionApi",
+          "getAlerts"
+        ],
+        [
+          "supervisionApi",
+          "getAll"
+        ],
+        [
+          "supervisionApi",
+          "getCoverage"
+        ],
+        [
+          "supervisionApi",
+          "getDashboard"
+        ],
+        [
+          "supervisionApi",
+          "getWeights"
+        ],
+        [
+          "supervisionApi",
+          "submit"
+        ],
+        [
+          "teacherApi",
+          "getAll"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/views/TeacherDeskView.vue",
+      "apis": [
+        "/api/types"
+      ],
+      "api_methods": [
+        [
+          "courseApi",
+          "getOfferings"
+        ],
+        [
+          "courseContentApi",
+          "getDraft"
+        ],
+        [
+          "courseContentApi",
+          "getPublished"
+        ],
+        [
+          "courseContentApi",
+          "publish"
+        ],
+        [
+          "courseContentApi",
+          "saveDraft"
+        ],
+        [
+          "resourceApi",
+          "checkAccess"
+        ],
+        [
+          "resourceApi",
+          "delete"
+        ],
+        [
+          "resourceApi",
+          "getPreviewPdf"
+        ],
+        [
+          "resourceApi",
+          "save"
+        ],
+        [
+          "resourceApi",
+          "search"
+        ],
+        [
+          "resourceApi",
+          "uploadFile"
+        ],
+        [
+          "scheduleApi",
+          "getAll"
+        ],
+        [
+          "supervisionApi",
+          "getRadar"
+        ],
+        [
+          "syllabusApi",
+          "addIndicator"
+        ],
+        [
+          "syllabusApi",
+          "createFromPlan"
+        ],
+        [
+          "syllabusApi",
+          "deleteIndicator"
+        ],
+        [
+          "syllabusApi",
+          "getIndicators"
+        ],
+        [
+          "syllabusApi",
+          "getLatest"
+        ],
+        [
+          "syllabusApi",
+          "getPlanIndicators"
+        ],
+        [
+          "syllabusApi",
+          "getVersions"
+        ],
+        [
+          "syllabusApi",
+          "updateIndicator"
+        ]
+      ]
+    },
+    {
+      "file": "frontend/src/vite-env.d.ts",
+      "apis": [],
+      "api_methods": []
+    }
+  ],
+  "initialization": {
+    "compose_only_baseline": "scripts/deploy/mysql/init/initialize.sql",
+    "standalone_schema": "scripts/deploy/mysql/init/01_schema.sql",
+    "sprint2_migration": "scripts/deploy/mysql/init/06_exp3_sprint2.sql",
+    "runtime_initializer": "TeachingDataInitializer skips course-related seeds when any course exists; initAuthAndMasterData still runs; default app.seed-demo=true",
+    "sprint3": "Sprint3Migration preserves unknown old evaluation weights and creates resource series/advice"
+  }
+}

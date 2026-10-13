@@ -1,0 +1,6 @@
+{
+  "source": "classroom-mysql",
+  "target": "classroom-data-test-recovery-20261012",
+  "in_memory_restore": true,
+  "plaintext_saved": false
+}

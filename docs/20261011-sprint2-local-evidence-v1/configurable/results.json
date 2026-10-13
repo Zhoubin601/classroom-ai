@@ -1,0 +1,30 @@
+[
+  {
+    "check": "US-13 nondefault weights",
+    "result": "PASS",
+    "weights": {
+      "attitude": 10,
+      "content": 20,
+      "method": 30,
+      "effect": 40
+    },
+    "uiMaximaCorrect": true,
+    "overLimitRejected": true,
+    "total": 100
+  },
+  {
+    "check": "US-14 configurable zero-hour delay and reject/edit/resubmit audit",
+    "result": "PASS",
+    "naturalPublication": true,
+    "anonymous": true,
+    "auditEntries": 5
+  },
+  {
+    "check": "US-07/08 configured PDF-only 1024-byte limit and untagged search/display",
+    "result": "PASS",
+    "extensionRejected": true,
+    "bytes1025Rejected": true,
+    "untaggedSearch": true,
+    "uiLabel": true
+  }
+]

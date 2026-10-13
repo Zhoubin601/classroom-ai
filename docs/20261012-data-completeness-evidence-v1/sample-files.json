@@ -1,0 +1,52 @@
+[
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-SE-v1.pdf",
+    "bytes": 90775,
+    "sha256": "4469c99acbfa4b306311c1ee35a03a29389802e2a45394c04b3b81e5ed6e36d4",
+    "authored_by": "officecli",
+    "synthetic": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-SE-v2.pdf",
+    "bytes": 95510,
+    "sha256": "3559318006da64ef0d0598e3f16bd2917ad24a2987ab70ba57dca9b1e72959c6",
+    "authored_by": "officecli",
+    "synthetic": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-CS-v1.pdf",
+    "bytes": 93488,
+    "sha256": "65a4fdf8335ebb78cf386b9021fa1397f07e745bbd00231221ed35addf2b8f48",
+    "authored_by": "officecli",
+    "synthetic": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-AI-v1.pdf",
+    "bytes": 93002,
+    "sha256": "d495fa632473a8f38d7a932d81bbf6fad78d36890fb89e76b2d59efad4375b94",
+    "authored_by": "officecli",
+    "synthetic": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-DS-v1.pdf",
+    "bytes": 90324,
+    "sha256": "c6f0b1591df34f7a9827a2652088ded6f0aea189962fa36b6cdf57ed4704431a",
+    "authored_by": "officecli",
+    "synthetic": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-SEC-v1.pdf",
+    "bytes": 92716,
+    "sha256": "c6572504adac0e04483f367d5d732ea0b8ff62d1fcfd9cdc795545e0408b064c",
+    "authored_by": "officecli",
+    "synthetic": true
+  },
+  {
+    "file": "runtime\\uploads\\micro\\DEMO-DATA-20261012-v1.mp4",
+    "bytes": 4925,
+    "sha256": "dd61e49d0754a66df8d99c5a51487c9834cfb1026b6ded4a85650d8b255e1bdd",
+    "duration_ms": 4000,
+    "synthetic": true,
+    "no_personal_imagery": true
+  }
+]

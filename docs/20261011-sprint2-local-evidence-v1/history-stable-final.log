@@ -1,0 +1,9 @@
+PASS scores: omitted/null/partial scores rejected, explicit four zeros accepted, incomplete draft preserved
+PASS history API: independent snapshots readable by authorized roles; anonymous/foreign/mismatched reads and old edits rejected
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('row').filter({ hasText: '历史核验-1791715963990-v1' }) to be visible
+
+    at D:\2026Autumn Semester File\classroom-ai-demo\docs\20261011-sprint2-local-evidence-v1\history-stable.cjs:128:20 {
+  name: 'TimeoutError'
+}

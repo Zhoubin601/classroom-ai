@@ -1,0 +1,7 @@
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('.account-button').filter({ hasText: '合成新教师' }) to be visible
+
+    at D:\2026Autumn Semester File\classroom-ai-demo\docs\20261013-exp4-pull-review-evidence-v1\login-early-success-reproduce.cjs:29:75 {
+  name: 'TimeoutError'
+}

@@ -1,0 +1,6 @@
+PASS scores: omitted/null/partial scores rejected, explicit four zeros accepted, incomplete draft preserved
+PASS history API: independent snapshots readable by authorized roles; anonymous/foreign/mismatched reads and old edits rejected
+FAIL teacher expected old 9 selected 10
+PASS director UI: default latest, historical snapshot switch/read-only, return to editable current version
+Error: Historical UI diagnostic reproduced failure
+    at D:\2026Autumn Semester File\classroom-ai-demo\docs\20261011-sprint2-local-evidence-v1\history-diagnostic-final.cjs:164:154

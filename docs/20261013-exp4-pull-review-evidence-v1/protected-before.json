@@ -1,0 +1,1638 @@
+[
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\stop_project.ps1",
+    "sha256": "9B7434185B85AF1E17E5616C8C987A1B8BC846257F4E017908CF5C523ECD2867"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\us0406-query-performance.json",
+    "sha256": "02F8B6871064F41F7D4ADB27B7610734513E7356C2D4C6961BBA6A2C8B1A6904"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\raw\\README.md",
+    "sha256": "9FFF72BCEC428D473107FC01F04E5204D0FA60C45C301D3DF68E10E201059269"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\audit.py",
+    "sha256": "D6A20CFF4400995F14F386C18F97AD7F95E245EC0574562B0AD9A6DFA7E905E7"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-counts.json",
+    "sha256": "E73EBE531E5A3B5CB9BDF5D632324F886E0A1508450B03A7280B69CC9C984604"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.ApiExceptionHandlerTest.xml",
+    "sha256": "4BBAB8EBEA761590ECA26F4B9064D61E31CFAD2B88B122914B0E6A50245BF1F1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.CameraMonitorHttpTest.xml",
+    "sha256": "5D7BBE79FEBE8FA1E0360705C06B3F5429B5D9F1FCCE82CEA7D44F106FF36F21"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.CameraStreamSessionTest.xml",
+    "sha256": "0D6D7D28FFF386C23FE71763A693C786185FCA638AC37F7845274B3B698946EE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.RegressionTest.xml",
+    "sha256": "6C35B6F1D72CF74AAE84A120DB311ADA05AFEBAF71996540E276FEF47B9D56A9"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.UploadPathsTest.xml",
+    "sha256": "DA2220559598389281076D151DBE210EE680FBF1065F34435CF210AE47C2A098"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml",
+    "sha256": "38C5C7369BD73C486A8DA56989E7215BDE92FAF66825BEF2E6B7C5BF9E6B9253"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml",
+    "sha256": "D6107DC9787A97EFD192890DA2B8A24089291218EE95E9BC7E78C575B36D1395"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml",
+    "sha256": "93BD7C694F235A8613FC2DB598916BEE50CCBAAF75778EC99CB0E1DD7727A006"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml",
+    "sha256": "DD80752959C30A643A3293258401B1A4D7AF42E2DFF08925A06AE900D2A93AAE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml",
+    "sha256": "5FF0F9BB396952E29469B9D2F7B58F861116EAFBF408F1A756590F3632F83439"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml",
+    "sha256": "E8B740721448FD010149B8D4F52B35CC4897EC712878FDA32650F66C6FA8F1B5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.auth.DirectorSupervisorManagementTest.xml",
+    "sha256": "4245ED7C2A80CBECFB0008585C065B2C4B16DCDDC8AB6308447725BA0801A0EF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml",
+    "sha256": "3BC1E0B77AF44238BBB19F6790D6467FEA5628DF036533522E0B7AF34AA72B0A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml",
+    "sha256": "55275F7E9D6D6F17FAFDA9A6022133BC8EF241AE1B51FD1A18CAEC33F143F484"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml",
+    "sha256": "E22BE1F997A71014BFE7AA8A18430EEE2B8CF7894E0542A8570D6EADD06F55A2"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml",
+    "sha256": "0429B7A45BED8841E67B2FA6F95BD2DBB3A236DF15F79A785C547A38D5495235"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest.xml",
+    "sha256": "17538DB5638A37A87C09DD219FE93A7EFE9B2E209C02405522AAB0436135B848"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseAuthorizationServiceTest.xml",
+    "sha256": "CC08719126D15F69CE960B0161949CB23E73ECA4C9E15600B7448D5D3E39C20B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseBrowserMysqlTest.xml",
+    "sha256": "8C2E401636A43478EB3D5EB1DE9E12D575AF4450F4B2BB3CBCAC5EA638218016"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml",
+    "sha256": "7ABDB42DB7A209B5FE6CFAD224552CC0744DCC6EC95BBCD2F4A5D5C982E0D114"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml",
+    "sha256": "974F3A620618128B3DD194011152C4141C793063C4DADDE18A8C10FA13FE4C46"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseImportTest.xml",
+    "sha256": "8940970C945FB6BDBE30AC0E7AF8121987C5FABE00C5277841D5CDE9452F431E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseOfferingHistoryTest.xml",
+    "sha256": "0AD162A0799B69E0B76CBA42873A7E84787F468CD1DCD2FFB5D79D29223BE55A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseScheduleConflictTest.xml",
+    "sha256": "DAAA882D1A882398BF89C39F8CF47F71387DA479544087182456452CDD514F0C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest.xml",
+    "sha256": "78EADCC57D39A40A5E00892055BAC4CF00A47A14D68DBA744CB85E32851B9F2D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml",
+    "sha256": "E84B86B85468DF05AA42146C56A6C1CFAB8D3A0475B34E8BCFCAC6F3FC871A3A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseSupervisorRbacTest.xml",
+    "sha256": "E71C2504369F869B8F0A4706CB938E721796D107371C60CD5980D8FF2EE2BA48"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml",
+    "sha256": "48D0A2FBCC58CC51C07BBCCF4D36ADAF62DD22CD102E6679E9C101AB52A5A948"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.MajorDepartmentMysqlTest.xml",
+    "sha256": "9F34B5B3C26CAB2D40AD0B97F110645D0723E7ACD402C74FBE1621F3210F68CD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml",
+    "sha256": "A0095132FE02C82B249F0203F631B0E771B86CB3FADBCF0A3748B1F01DCE1D13"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml",
+    "sha256": "6CEAA107FC770DE04658306F4DB0AE0A9BEED17609F7FE92A81C0ED7459CAC79"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml",
+    "sha256": "9760F4995443DA5B3693180B1E17FC22785E56D82C7AD9ABBDDFE25616B89504"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.resource.CourseResourceServiceTest.xml",
+    "sha256": "9A86A1036693822F2BA7D6F2E9A60680E2C3EA378E2FAEDA5B2E60CFC10FD040"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml",
+    "sha256": "DBC35886E0AAFFFEFFD26221BD42A422DB3F063D27906BEEE9788FE51B759A60"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml",
+    "sha256": "8275427B55252D2DC696EF9985C3013DE5B7F5ECC1E999AD813533737F256E1F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.supervision.SupervisionAnalyticsTest.xml",
+    "sha256": "57A4C973E6ACC8D353D53F823B4D94433A591750B55E396C561E6C07BEA0883B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\backend-ordinary\\TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml",
+    "sha256": "BD7CF1C9AC02D0D7A24B120464A927CAF21EAADCFD8F5E0B8CB7D3B2C68B28BB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser-exits.json",
+    "sha256": "CE0A1B5D3FD75A251BAC6903E0A68D18DDDA1DB79B28B0D835319001E94377AC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser-final-exits.json",
+    "sha256": "7297034AEA790511A0D479265B74085A619EDBDF7B56D7B57D7A5E81FA4F9B09"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser-final\\00-director-plan-import.png",
+    "sha256": "C769EB6140613DA23268143FF0939FBABCCFE55B8DB1236B6052C94A2A5F2244"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser-final\\00-teacher-syllabus-mapping.png",
+    "sha256": "862503B7F5F3B5D92F41A3CA27CD2EC092C29FD8193846BB8FA672E6B363B11F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser-final\\01-cross-teacher-shared-search.png",
+    "sha256": "8DD50B199209325509D2814BA6F39E8897F92E041F080A2A3E2C6C9C199F2916"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser-final\\02-edit-tags-and-sharing.png",
+    "sha256": "7170CC846F2BE72C5FB88CE932D8E28E0C9CE5A07F7CA189EB78F821B1579386"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser-final\\03-teacher-published-feedback.png",
+    "sha256": "B7EDF639F395691085A97F45E9D5E5D3FA1AC3C08E299B8DA31E55256E4E8425"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser\\00-director-plan-import.png",
+    "sha256": "A6B90B07ABD4F852AC91907BDAA9AF513AA69DC30DDE3B2BE24E3FAD202560F4"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser\\00-teacher-syllabus-mapping.png",
+    "sha256": "443A0922B3EE4500D9353E7F36D28A2C0EED68522606FFCFCC4634763DB7BB27"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser\\01-cross-teacher-shared-search.png",
+    "sha256": "48976A6DD5C355D6E87CEAE625E30DA89A3375C0E8EDB69464A4BD4ACD854753"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser\\02-edit-tags-and-sharing.png",
+    "sha256": "4ACE1554444AACE04BBBA23D31DDC1BF151DB965F3F8888C702576357614F5DF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\browser\\03-teacher-published-feedback.png",
+    "sha256": "2857B1CEC15AAA9C75CC12D34E1A6E82B0A292775AA07A7F648AAD5D0E2FF5A5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\build-sha256.json",
+    "sha256": "8403BF2D0EF7BC3D992FEA8091CA31BE38AB8EB9B8BE47A421CCE65BF2B1477B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\cleanup.json",
+    "sha256": "62BF67B801497BFFEC910A5C43330B6FF6D8561D2A7379A18D1D7A64E07B9A25"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\commit.txt",
+    "sha256": "1AC158656BF8D15431237914AA0BB89C0EAF72696DBD1A9EC35658A9ACC0D5CB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\config-environment.json",
+    "sha256": "74C19BB27F2F7F530DDB9B82BE33151226ED429F0354FF510332219CF0504E4A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\config-exits-attempt1.json",
+    "sha256": "ACEF1FBAEA6FD94C756B38C3097D0C5577CDD675C066FD6B9F3E923F6EF6F46A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\config-exits-attempt2.json",
+    "sha256": "ACEF1FBAEA6FD94C756B38C3097D0C5577CDD675C066FD6B9F3E923F6EF6F46A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\config-exits.json",
+    "sha256": "2687D5CE76665AEE7FB0A4CA5C4CB7E114605FEC6AAAEAF02B33159D85696A43"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\config-setup.ps1",
+    "sha256": "117F9B27074ED934E29650B73E145F562F0D82FF17EA2068EE83FA625B4D63CC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\configurable-ac.cjs",
+    "sha256": "2C144130F3A65D2A04FFF9556751A3EF367017FF2D1B08A5F77EFEC6053F4BE2"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\configurable\\custom-weights.png",
+    "sha256": "6D9ED16E7EA2CAB159AC4755DED239D372F937523BEC93E1279B23D487B4CE20"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\configurable\\results.json",
+    "sha256": "AB8B743A5C0D596861917D3D7FF1DD151CE56D5BC34F85526AB5168B642230C3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\configurable\\untagged-resource.png",
+    "sha256": "D9CA30FB9B8D07337DAAB342218987E64B233F172E7A2A4547828CB261B173A8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\containers-after.txt",
+    "sha256": "26221FCF4973A79FC66A6A1C1D6F3788A0BEC8FBDA1FD39480BA7E8839B751AD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\containers-before.txt",
+    "sha256": "26221FCF4973A79FC66A6A1C1D6F3788A0BEC8FBDA1FD39480BA7E8839B751AD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\diagnostic-environment.json",
+    "sha256": "4A9FC663FB4670ACDAEA3427DF7E322D5660FCB959F1273F928E1E973EAEBE62"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\diagnostic-exits.json",
+    "sha256": "7803279B123FB338D457DAF705D2CFF97F26F63359A03D4730155B1A7111D278"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\diagnostic-setup.ps1",
+    "sha256": "3DD375E0044FE4F3F2E6DC72E4B1EDF0729C8343F845F7F40B8E493650933029"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\environment-final.json",
+    "sha256": "8392D3B3FCD1797C41CF511F2B62F3E1C59B37F876B0CFD0DF7C5E4C6E8307BA"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\environment.json",
+    "sha256": "0C37D8D17CFA7FB3F455C6B2D734F04F9CE5EF70E4EF6708B05E09CAFF110F21"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\frontend-vision-exits.json",
+    "sha256": "228EE87CF11ABC41ABE4C9A8CB67E89783E63B8016EFC35959AFF7B41D7340E5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\git-before.txt",
+    "sha256": "BA6E84929E26D0FCFB4219F825CC18FE54E9230703874C5D7256AF1E6C9932EA"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic-final.cjs",
+    "sha256": "5117C7118601477B2256BB9D9AC55E097F37A8B599E30406C51D263B15C12E3F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic-final\\director-history-readonly.png",
+    "sha256": "C51DEB93B6B1DB2354A92078745C0F53ACFD3EE65AB1FA3AF3291ACAE7BD91E3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic-final\\history-scores-results.json",
+    "sha256": "64CCB6C35F7591886D784E322C9CE0E61A63BCF478281677873884F88BF66485"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic-final\\teacher-failed-history.json",
+    "sha256": "674F07BE91DD8BBF6A0BA0E9450CFF1951CE3EB2FCBDEF89F654F98FA595546A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic-final\\teacher-failed-history.png",
+    "sha256": "00EEB622A59CE1F74F84083D52C109C8EC3DB6EE37B29DB3B067B1DC0AF8786A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic.cjs",
+    "sha256": "545E9560EDC9A005E1E24944B647CA7CD774B3C0FCF647C84CE87C628F0CAF61"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic\\director-history-readonly.png",
+    "sha256": "10254D240B64C56B9F77A00C3F00298A0A00AB4F49CB8C68ED5E2A30D2BA0B90"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic\\teacher-failed-history.json",
+    "sha256": "6C674F3AE119A8A39A1CE58D367C21BB02FF9C7A1F93EB3E66ACCA8DC836FC2A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-diagnostic\\teacher-failed-history.png",
+    "sha256": "83DACD66FCD1972F40A4ABF7A1C8EA946DB09E76F836948C814DF016217EB009"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-scores-final\\director-history-readonly.png",
+    "sha256": "0F7CCE0BD28568593D71E7D1304D1B9FEA8F2C8C2729D04EC1B641EE286120AF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-scores-final\\teacher-history-readonly.png",
+    "sha256": "67DFBACF24CED5CF1BDBE4FEF850AE22D6BB9288D23B1A4F428EA9E2F3A9BFEC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\history-stable.cjs",
+    "sha256": "78F2FA5B1D9C00D92AD37240851FECB02C51A47240F03D8C234D03D90DC25ECF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict-final\\fix-acceptance-results.json",
+    "sha256": "8881487F41AFB45310277925A8D518FE97111A3DC41464654AB11D82D90ACF13"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict-final\\protected-docx.pdf",
+    "sha256": "F80008EE2C125EE4E270660E97E438DA5E86F6BB75B804CB3B46C687B3341937"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict-final\\protected-docx.png",
+    "sha256": "4E9012B6F6E7F1E67815EF31E23A8C3B4F095F2F716D5EE271E9D93D9FB71D5F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict-final\\protected-pptx.pdf",
+    "sha256": "089ECF798213097F21E81CF2F4950316C13E52990AB88543970851FC198EDD62"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict-final\\protected-pptx.png",
+    "sha256": "763E709EE535F22240644A2EB3EFE805BB7AA172353503C31347D263DF4A6B53"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict-final\\protected-supervisor.png",
+    "sha256": "203AE25885A39938E9DBD0DF41336AF5C4B00C2615CE7383994D809DFE5FCB17"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict\\fix-acceptance-results.json",
+    "sha256": "8881487F41AFB45310277925A8D518FE97111A3DC41464654AB11D82D90ACF13"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict\\protected-docx.pdf",
+    "sha256": "D3857674A28D9D8771F0A0F27406A04799D18924C28635C374830B1DCE4D6096"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict\\protected-docx.png",
+    "sha256": "12498CDC1E0B7F5A9E4DBA4A6D4823F3480EEA23B8056F9A8DADA0845D078A58"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict\\protected-pptx.pdf",
+    "sha256": "56B7F9F449C754F995E17264721B5694323DF7FBBFE24F29D4C78D692B85471C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict\\protected-pptx.png",
+    "sha256": "71C1597B58E8BF5E26CE27B04A9C75ACEF1058C1C95F3CC0832CFC491521BFDF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\office-strict\\protected-supervisor.png",
+    "sha256": "F8D1104121F0E07FB067B6641DD3DC5728E933478F8022564A1D0ED2A1E054D6"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\original-table11.txt",
+    "sha256": "D6EE8A27E924277F98519413476BC220DE51ABA53842C1707B6C7FCC146946F6"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\original-table16.txt",
+    "sha256": "BC449821162729B17FE4E0487F8EC31EE7FF0B2E6D3E5DD8AE4BE9EA8BB68E8F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\original-table6.txt",
+    "sha256": "0EDF1C1F7E65B4B6658A85EF76848D91A4D6E9B4C18BAAF54B808CFFE89226F8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\protected-before.json",
+    "sha256": "EA159A912715B2D02D329E5F7054884AA000ED7181226168B8E594396CBD6E2D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\protection.json",
+    "sha256": "A4D27077F82D3D2C3C3F1766DD4CFF74C88483B92BC524A47251B2151186A42E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\redactions.json",
+    "sha256": "9F48A751E4557D9C90E8C812878EA44E199B709A73D2108BD9B6B159714B913A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\run-browser-final.ps1",
+    "sha256": "C2013B2B622EE2B9A44F7C85A7F52467D17EA783AD1E2AF9E2E987952AAB947A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\run-browser.ps1",
+    "sha256": "1335E09653D330DC5DA83FA573D5A5BE0C9FC64D0E88665BDA4ADC233C2CDCC3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\run-config-final.ps1",
+    "sha256": "26E25629D83DAA38B47F917C149D25885AED59C34CD057DA8CA7CDFC00CFA77A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\run-config.ps1",
+    "sha256": "14BA96B995021E35A3AC41BDE1A30CABFC73ADA4ABF21EC5B46A376AE9BED42A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\run-diagnostic.ps1",
+    "sha256": "4AD473FEF115774F82AF0BC01A20BDC0A29C846B9E9CA1BE509AA340D0E1DED9"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\setup-final.ps1",
+    "sha256": "73ED4287F02E8730E953F2DFFAF29A2316D4886C15C5AC2AD474D305185BEFBC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\setup.ps1",
+    "sha256": "3ACF54921856ACCD3AFB75570CE7E020C0F69C0EDC53513D93CB59687BAE2A22"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\sprint2-mysql.xml",
+    "sha256": "973E685A958D4EB6114E64E5F37B3F923FCF96B6B05BB8BC547B2BE2AFD2C1EB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\summary.json",
+    "sha256": "44CE1871395ED3B7B2427602E28C03BBF0B87E864E08F664CBDD5A9D064E995E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\tested-source-sha256.json",
+    "sha256": "82393C2C8F99D3DA99B172126490F46D282F9712FD626B582EBAE477AA24B82D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261011-sprint2-local-evidence-v1\\versions.txt",
+    "sha256": "EC53FBEB0DCE197B36C294D6D3BC9A518710A31CC8C9790B033DAE5B1ABE8EA6"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\after-docker-restart.json",
+    "sha256": "DBAF2AD4055CA69CE2C8CFAD37EDF3BC7CA57E9931548D8EC019EFC509E03F16"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\backend-mysql-test-counts.json",
+    "sha256": "9AE5B3F46948484902078F6DF97B6DF9F7236A3C744B4D1E6E25D8C4ABFBDD81"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\backend-test-counts.json",
+    "sha256": "291A5891E7F7D5EC45467346C529D138E89406D6160F88F9DC81C03108EE42CD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\backup.json",
+    "sha256": "46157EE158E950AC3F142F2A515B1A67937A698CE0E52ADBCF63CAEF843FE7AE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\before.json",
+    "sha256": "E381FF5BD6C5AE56C0F44DD5DFAE88C8D2FEFE14263A6662584D1119D7509AB2"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-acceptance\\authorized-watermark-preview.pdf",
+    "sha256": "4BFC2988671E1544D5B99635FB2ECD9912A6E388F5BF1E28CD670F8A46A3F6B8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-acceptance\\director-quality.png",
+    "sha256": "3DF33574A69165C0B58968C33BC4BF23F594F3F7213EB833A31CCCAF3D4022B9"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-acceptance\\failure.json",
+    "sha256": "EBD76076821873634F4A9A377CF8245C7998D7EAA79243DA3B6621A088B03A61"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-acceptance\\resource-preview.png",
+    "sha256": "B244A9E6F7CD4256667CE58C0E655866683F481183B3EC98B520CDF64047C070"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-acceptance\\supervisor-statistics.png",
+    "sha256": "1E42263B48232CA825D95F3F95299913698C11490869DD3B5136440792161B48"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-acceptance\\teacher-feedback.png",
+    "sha256": "01A382C1B28969712EE018380D965E9D22F17267582C02652CE1D02C56144156"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\authorized-watermark-preview.pdf",
+    "sha256": "AFE6521527A41098B1206A69B1ABBF27B81CF41D53F7F7DC29B6B607AC34949A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\director-quality.png",
+    "sha256": "77A285C5BDAF17DFB37E4855471860E9A70F939E234CEBBDCC7F84185198079F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\micro-synthetic-video.png",
+    "sha256": "64539B5883CD1B07E0F345B3A3688A365BA5FC39025FD6790FD1802BD33A5EB1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\resource-preview.png",
+    "sha256": "C05BE4AF0BAA0A4F4380838E4BB60ACF80616745115D5822C6C603F5013D5D16"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\results.json",
+    "sha256": "74D9E2329CE869499E8CE4EF561E848F6E8CB7F737C6C0D9195F74AB1CF3B375"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\supervisor-statistics.png",
+    "sha256": "EA30FA25FBA5B031A376499ACDE770406200F17C6E196C54BC4451402EB13C81"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\synthetic-student-roster.png",
+    "sha256": "452338E8E7BDE80054D25B631677AA169A296277406CC2B704736616767DD558"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\teacher-feedback.png",
+    "sha256": "6C3D085FF7AD1FB2ED43EC0C0BD453336E751F75AC63CD6A8340365D64F827BD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\browser-final\\teacher-history.png",
+    "sha256": "D71AA2E76A056976342705CF495A001CEE46E148EF4276C6D8F64B6B4030C623"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\clone-revised.json",
+    "sha256": "05AADC506B3FD453331FDB94F53FB4B16EAC198458F6B943CFF1E98D40787414"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\clone.json",
+    "sha256": "05AADC506B3FD453331FDB94F53FB4B16EAC198458F6B943CFF1E98D40787414"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-audit-v1-issues.txt",
+    "sha256": "7A59A5B4D4727BBAF5286E53A53F8FB6583B2237B1CEC47335AE26970EBBAC8C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-audit-v1-outline.txt",
+    "sha256": "A1F3EA050FDF191F1176063E2101C9929E95A3AC0979F6C89A175D33DFFCFCDB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-audit-v1-text.txt",
+    "sha256": "258EB894E6E61D7F4C212366C5436614BEC7B512F5268FB01E64330F768F665E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-audit-v1-validate.txt",
+    "sha256": "6CAEDA19937F6031ACDC08BDC8767139D2864F45A1FC70342F6B694711B9714D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-audit-v1.docx",
+    "sha256": "ED68107E5BA3B025EDE2ABFD237E9796539AB4CCB0459959D920BF8CF89D3CBE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-audit-v1.html",
+    "sha256": "0F150F4C1C737B38299A6FF94E93B14124A7EFB401B529F3940D4F275B340494"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-completeness-v1-issues.txt",
+    "sha256": "282FF4976086242AC294C82CCEC12544802664F36DFAFFC196F5C02AD1052490"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-completeness-v1-outline.txt",
+    "sha256": "BBA81CB3BC0C44617BD2D0A77E90BD0274EEC9D97D06475C88CE1EE464E3ACC8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-completeness-v1-text.txt",
+    "sha256": "AA83A68AA65BD27A6DADD4501AE7E3CC010A5F7F07A72E1CEA1F189A52CD716E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-completeness-v1-validate.txt",
+    "sha256": "6CAEDA19937F6031ACDC08BDC8767139D2864F45A1FC70342F6B694711B9714D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-completeness-v1.html",
+    "sha256": "C8503131FF4E0A21BEC7E33B222C2A0FDF0F28758D029DF079E3C148B0A20FE1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-database-completeness-v1.xlsx",
+    "sha256": "582A3CE21C231951B3C14C7DD1BA2956CC8633698ABBCA8C5437063D1881D510"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\20261012-demo-data-operation-v1.md",
+    "sha256": "2C67FB575DC5C0A28509530E355C73A20F938E9625F60A3F1AFEB5EBE3FA5E4D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\final-workbook-update.txt",
+    "sha256": "3FA7348BABCE359296DBE51B1AE7BB082E19C4C269511A5CEB777DE86F35457D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\final-workbook.batch.json",
+    "sha256": "49A2543E53DB80D92CAB24FDB4E5E522982020622577C24EEDD6518722B466D1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\final-xlsx-annotated.txt",
+    "sha256": "328593E9553388E1A8C93D3BD7AD7E97250E080F4C5C2D416A26D56822EAF80B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\final-xlsx-issues.txt",
+    "sha256": "282FF4976086242AC294C82CCEC12544802664F36DFAFFC196F5C02AD1052490"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\footer-field.json",
+    "sha256": "9811EEA580220615B19981636AC06E44E824E438DBC74F5AE2491EBCE0850729"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review.json",
+    "sha256": "50FD56AFB719E5DBC8EF7F7EA9D8195FF47D378DDCB495A28BDF778FEFD4933C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\contact.png",
+    "sha256": "C880B6F42CF3FA47BE877EE6F357FD703B640133B09CC8A986E50FC94E8C6254"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\page-1.png",
+    "sha256": "8E908A090F19A13CF463947B0773EB71BDF8A1EEEE2724E2AD806846BA0D2B05"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\page-2.png",
+    "sha256": "55F17AA84B941826538250485BA6DF5F852BE4D47642817638D98E41B886F4A8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\page-3.png",
+    "sha256": "932299222F612A61D63DE8C40F767272DEA0BCAB01EE8EA5FE29B7179ADB900B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\page-4.png",
+    "sha256": "FFA65C1F793A0D8794157BCD605C1FA062EEFB6DF850C5AEDEB16E256B9CEA2A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\page-5.png",
+    "sha256": "EDB1D58C1184221221BB9E13AC3F5B4E703E3B5F65D546AF42CFDE05202F60C7"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\page-6.png",
+    "sha256": "A4F36F51F2A83927A05D7FDF76326BF8926CBA1F00C5B959D6B2333728C85A69"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\native-review\\page-7.png",
+    "sha256": "17342902B687275C9A1D69A0327780385D63BB29C8C4CE87296889F795AABA6A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\report-0.batch.json",
+    "sha256": "3042472FD9E93605C1CCD62698637461FE4DB6B0924D2DD809F4517BD99C08E1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\report-140.batch.json",
+    "sha256": "18CC6BC21FBBF2D6FCFA4B4E33D534A184473B996D231BC065FB431550C67D2D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\report-210.batch.json",
+    "sha256": "8E69ADFA54D70E35F9929A8954E46099CE6A0200A19EDE90F889E9E3EDD7E4C0"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\report-280.batch.json",
+    "sha256": "6861FAD6B37715625E54055789635FA3A7270BF2D6544225DE13C6574635AD7D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\report-350.batch.json",
+    "sha256": "C3602CB4401AEF698E9F9AA908CE6FB804FF05974BED732F80EAE487C437EB1D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\report-70.batch.json",
+    "sha256": "52F576EF8AAFEC3684FE428A66FBD9F16478CCFA9CC4295AD1F0218209F0F000"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\report-review.pdf",
+    "sha256": "EB3B66ABEB9510D6B56DAA8DEDEC15371230F6C924B62DB7852427B9FDCF8EC8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\toc-field.json",
+    "sha256": "A9D4BC2C03F8A242208BD20859A8D3F85BC6EC78EB60483EA7713F27BE999C76"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\word-contact.png",
+    "sha256": "793E9EEFBD1511D8090F14140B66709DF80A2F78C35DCB670B9063886398EFD9"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\word-last-pages.png",
+    "sha256": "36103C83E131A022951298B8F1C138475CDC72B436B9DC9214177BD5F3BDBE25"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\word-native-contact.png",
+    "sha256": "A2D2B70E318B7072EFD3BC88AB8C7718B6BAB78193F196F4F1ADE205FFC8BAD6"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\workbook-correct-test.batch.json",
+    "sha256": "D6D26B019271530D42214CBE1788BFDB33993941DB94C925D4FC873582C77757"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\workbook-last-content.batch.json",
+    "sha256": "4945632DBF12DD6DA98BB66F6024B830B803DBE870C91E41645838115726E6AD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\deliverable-staging\\xlsx-summary.png",
+    "sha256": "57461CF3735F3D833BC9FB586E588461A34624D8BF1ABB86BFDE96F1858716B0"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\delivery-verification.json",
+    "sha256": "4D43C56B0B8218666EBE46EEC3D3A8DD56A138E66D13244DCEC38CC0EA9D7BCD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit-counts.json",
+    "sha256": "E62C6ECFCD4104272AB02486AFB519BD7A512975A256BEABCD8CC932708EAA43"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.ApiExceptionHandlerTest.xml",
+    "sha256": "B5D193C20378DAFD7A042F8FF17A73DBCD188A820A05CBE73CC1516BC28237FE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.CameraMonitorHttpTest.xml",
+    "sha256": "398BC9A317AA4E54D8A1CE1FB31CAE0ED6166543D42E334A131A30C81D30A860"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.CameraStreamSessionTest.xml",
+    "sha256": "8D9FABCD81BB5E04B7CA217F5E152503E005915D4CB2F1BB1212B3E309DFAAC2"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.RegressionTest.xml",
+    "sha256": "581F9DB02240F5536CF7AA57AAC88A971ECEA1BAB72183D55CF90D40AF332FB1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.UploadPathsTest.xml",
+    "sha256": "6A7CEFC7C13D5E94F08895CDB4CDAC8612B76E9E042FE61CD7B9995C4E960C50"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml",
+    "sha256": "84675E25CBA3342FC0CCDC0943EE2DF1B07DAC1AF7A3AB315AA331826D4633D0"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml",
+    "sha256": "10197F38F937F2F4399F273F363E4D46E9D1103B426D05CAD001A5BBE6B100DA"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml",
+    "sha256": "F786780C67CC66791760672E85B12CF72C8E6CF78213391777016CD66E5D6D43"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml",
+    "sha256": "787202A32920EC0663D5F206685025E14F5D1D16E83096468E4F25531D08882B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml",
+    "sha256": "6D9428968F86EC637DA675CCC8EEF9D2D3B03C78041F5A3BE0723C9F63FC0BD8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml",
+    "sha256": "E07A2BA2D8BDDBBE70F127103D1F037654736DC801EA28AE8CFEBEF5EBCEC477"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.auth.DirectorSupervisorManagementTest.xml",
+    "sha256": "58419AFB99B52ED76E4CB5AA5D50AEF3677BAD817CCA072C4206672717685CBC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml",
+    "sha256": "5150D18F24C694CFE18685431099485F464FE639AEFF9F6148C7D6FE23AACD65"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml",
+    "sha256": "27B9807E74EE40F198619046371D5423FD4057A21889F96A62D14BB610744DE6"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml",
+    "sha256": "3BFCC78799E13D80B02B5C135242DB08C9E49B7FFD9BD96CBB649DC7DD7E33D1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml",
+    "sha256": "B4625F6D46C485DB64976BB3B009585D24DC05FCABEB06F298FD0F8D15B8531F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest.xml",
+    "sha256": "FE673475FB12A942EA240DBA625CC2CE578190EE04A0C57897A3ACC8DAD362FF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseAuthorizationServiceTest.xml",
+    "sha256": "2748FA4009D40E2F4198482EB6D300F4CC70662E3B355731A8D1BEC580359A18"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseBrowserMysqlTest.xml",
+    "sha256": "766BF3A4D43E9569C6A5BBBC04D229AF94A704A1E5AF3E3FDF83EFB5569AE407"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml",
+    "sha256": "8F7A5DA27647378E3EC38AFA578AB65100F398DFE7C718FF5EE9E6F21F5C705E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml",
+    "sha256": "06CFF71729E2178D8AA1729DE68939A1E436E07E60E1C21910D13AFD97F634DC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseImportTest.xml",
+    "sha256": "8C4EFE9B7679496A9BCC72F185A4AC77C40A4D7C4098BA629BAC29F32740E0F8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseOfferingHistoryTest.xml",
+    "sha256": "27DE1E00572060857DF3937B5499A90959DCF358D8E65B3FF61CAF0E753750AA"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseScheduleConflictTest.xml",
+    "sha256": "3E3FCB72F348AD243D43B0ADD82B51E9AEEED7F5DF3565A81AFE59FA33FBE5F0"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest.xml",
+    "sha256": "74D2645C00886D7AD59DFC6198D92126B11781C331C57B913D29F4AD5BCB9781"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml",
+    "sha256": "94E70E0DE065941F3AF43D4BD8C3A5A7D565BE6B5FF51DFE69102297730C6703"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseSupervisorRbacTest.xml",
+    "sha256": "1687489FED1779B1AA7F9F447AA309471DFF0D35A1D2717725D0BC7990517CF0"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml",
+    "sha256": "3D27DCA4A55A7E06E311E0AD2A87A7D5467C0573CF8F8BC264652652AE81BD4F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.MajorDepartmentMysqlTest.xml",
+    "sha256": "72E0A114E5658F2D49FA59850361C270445E8440B1899F8296EB5ED6B920D1F3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml",
+    "sha256": "79B2FAC94612A743BAE14639D7476655746083E53BC2C922E8BB5C2D52CC0A27"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml",
+    "sha256": "D254B43C974D690F3084B2BD4C9C19A6B745458F82C7459C65F47559958FB5A3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml",
+    "sha256": "41A8AC14AB7E60EC51795B4D6453715BED9D988B12D87657590A643B1126C25F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.resource.CourseResourceServiceTest.xml",
+    "sha256": "16A67AFA517A4A4DAE4B7FBDAC0B7418AE341DF0AE82B8DB8606720A4FABBB8A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml",
+    "sha256": "73A7AAE447E4B32F54CEBA1560C6F8CFDA3E6E18912EC8B9C601468963F5C58F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml",
+    "sha256": "64FFD562E7E20642807D99C848992469F138BE52D0F8E7189B9AB70B2F198DAC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml",
+    "sha256": "AA06929014376B09DF14EB59C4E0865ACC771977C8BD48B026FA3D890016B093"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml",
+    "sha256": "A102202705DDE108C1F435F7F8365396AF4A2B98E5FD58B6D37E86EA0CE4203A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.supervision.SupervisionAnalyticsTest.xml",
+    "sha256": "8B3FEA766C2FA754D244A2138EB211BFAE9F3AB61174A609FCCB9293CEDF9543"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-junit\\TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml",
+    "sha256": "9726514335F20D545FEC750EDFD9C876F7A301C3C07A8AC70C995D2F8584BD5C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\final-protection.json",
+    "sha256": "C3D6D6391D41DF48F220AFC450A82842CB56541F33433CA0A4898C54A4B63D3F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh-bootstrap.json",
+    "sha256": "DB79E08EDECE637611F94A244F68F0EDAA5C97E0180E65F4E8ECB914025218E3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh-repeat\\applied-manifest.json",
+    "sha256": "30E44A2803BC0B99C08024A038FB89168FBED63F37F66C780FA915AD809B7434"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh-repeat\\apply-after.json",
+    "sha256": "EDBEB186FFBCA03C995F13A20A4CC16CBAB360C35349E66EEAFCE71A8C1B151B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh-repeat\\apply-before.json",
+    "sha256": "02DBB5A6E18A803DFBC41B9C9EA945533F66BA7F56D715C58C733183FF510FA2"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh-repeat\\planned-seed.sql",
+    "sha256": "B90FE88E38F08934406FBF572E01ECB610E90FC385F07D4E7D8EB217B9C4D184"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh-repeat\\seed-plan.json",
+    "sha256": "B1BF5145351881B2596673CA21B8F81B9326BBE3D6DC4286B76646AFD1CFBC26"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh-results.json",
+    "sha256": "94ACDFB2476A8B70745E9F3431AF1E9DBFF8D49BA4A82F80E8A554379DBC0604"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh\\applied-manifest.json",
+    "sha256": "05343CF428765A9202EB9B0BA58A03036D4338372BB09B6FD20E43AC2CCC27EE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh\\apply-after.json",
+    "sha256": "5C4361A179B09520339E199E4B65A09C731B831D705C655C59F126D708871895"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh\\apply-before.json",
+    "sha256": "033EC6592C77CE3667FF0057F907C059EFD3B1F77E144E63F5F26B3EE94EBC32"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh\\planned-seed.sql",
+    "sha256": "4AC31B0BF1BC6B4A14D5106D18D8B460CE1FCAA4F2DD2F645E0D2B04D8736080"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\fresh\\seed-plan.json",
+    "sha256": "099DBA2A528418AED6BBC54A2A17C21B9F1CB82E93378DD96FE1EAC0AEA32569"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-complete\\authorized-watermark-preview.pdf",
+    "sha256": "683840D2D456BEB47F7939C9C60550A83BEFBB6C878BA5C9D7415CCF40AFBF77"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-complete\\director-quality.png",
+    "sha256": "D665D7F25D25F93CD9F5504811D09D56B26E21242A32A2BE1BEC7B77835A330D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-complete\\failure.json",
+    "sha256": "9E4F10DF8F8CC955149E2F4CCD25D8524561FBCB510D40894728A72399661E37"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-complete\\teacher-feedback.png",
+    "sha256": "15E98B4E11ECE10F7B12998A29E216FA7C9CB17EC125036551BE2B8EC175077E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-final-pass\\authorized-watermark-preview.pdf",
+    "sha256": "930250145236FF9FBEC92DF9226B3F2E6E8DF0A19018D63338146F4F12981387"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-final-pass\\director-quality.png",
+    "sha256": "AA9051A6B5B4CFA0021A1F989F1EDC773754457C6F6E1C1F45FE873BDBCC00D5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-final-pass\\failure.json",
+    "sha256": "0579D29C8B0E0C487952772579F2AC90784DD2C88FEDC1A33C8FBA18865B14EC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-final-pass\\supervisor-statistics.png",
+    "sha256": "FBF38A109EA311A476328CAF7420B9C8997ED79C4EBEC480D820C6971E27A745"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-final-pass\\teacher-feedback.png",
+    "sha256": "D1A98DC952F81BAB1988BC535D43D9FDA84BC35A28E8FF1110D2BAAD41CCA8AC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-final\\authorized-watermark-preview.pdf",
+    "sha256": "EFD0ED00F82F1108BE40917FA65A66CBFE3571E547D5586099678BBB7B147932"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-final\\failure.json",
+    "sha256": "855BAAF258025D703DF28CDB00F820C13EF498B9034E0CAE01846706DEB9E6A1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-passed\\authorized-watermark-preview.pdf",
+    "sha256": "6E126561088BB6E56307BF201F68DA39F6D8F5C497BB52444C6E3D09A791EF9D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-passed\\director-quality.png",
+    "sha256": "98AF9BB1891F7C3353FE865A32D09DF829F561D8340BE38406A13FA67104B2E7"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-passed\\failure.json",
+    "sha256": "743D92E9704836F4D7A1485AD44041E5276881B474DE2EC6D034B1E7A7D2DCDC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-passed\\teacher-feedback.png",
+    "sha256": "B3B17F9E344E510977CD40F83557553AA37B7F30E9E4C88377CAC2514010F114"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-verified\\authorized-watermark-preview.pdf",
+    "sha256": "0F5978EB39D8D3669CF40FEE6F6D11D6E30E77EB9F00D2AB1A4B9F0EC60103A4"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-verified\\failure.json",
+    "sha256": "00E48F60BB5530580B11F8AB7130E314F581CF7C43639049CECE7938D0D0ACD8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser-verified\\teacher-feedback.png",
+    "sha256": "C6EA8861D4C295F16C45C96F1983A387FF545A3EE07966F09C58B4EB931B86B1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser\\authorized-watermark-preview.pdf",
+    "sha256": "49CFAE6C1F90EF319C42DD2DB4322B27951B19D31728DD91201F46BFE70BEEAB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-browser\\failure.json",
+    "sha256": "8AB07E9F2647DD22E24D2EC3244D04C305345F1F26DAC83814C5411BB45BCAD2"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final-repeat\\applied-manifest.json",
+    "sha256": "EAAB93BF60B74B31B2838A221871F11143466764FC1E703EFEB2D4CF9D0A7CB1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final-repeat\\apply-after.json",
+    "sha256": "9AC9D7CB6FD5DE3575B36D8FFDC02F2AEEA603E388D6DB563FFC0366E20E020C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final-repeat\\apply-before.json",
+    "sha256": "3BA2D7518952E1488E8A061841AFB31166CC9F3151D0F11328D2B4D831D644FE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final-repeat\\planned-seed.sql",
+    "sha256": "4BF6500EB5ABE008A56C9A77E7821CFD508DF69BDDF2AB65DFE4FF5B3F50E515"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final-repeat\\seed-plan.json",
+    "sha256": "CEC2841853F63781A857D6023753B24EAB4377DD5FE7C1DAEB5EAC2A71FEF422"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final\\applied-manifest.json",
+    "sha256": "4314CE2ABF4B3B3020603B262E2CE890865C4CCBDC27124DC4DADEB9AC0C0B2A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final\\apply-after.json",
+    "sha256": "619F5D65B517A5C9C42FD3A85645904B2E7A7A497C80DC299AACD299E3C84082"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final\\apply-before.json",
+    "sha256": "03AEBD2DF0FEF75098FE56CACDF5B4C6ACE530EE1773F407E07ADF69607D3004"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final\\planned-seed.sql",
+    "sha256": "5BF1A81C63DE3B7AA145F00135B081F3ED8791AFAB3C98D6C41A9A910E2A8F1D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-final\\seed-plan.json",
+    "sha256": "74A637D1846A998485E19E20B15CD53E79573FD1EC30D6F0F4DDC694BEA80DA8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-repeat\\applied-manifest.json",
+    "sha256": "75BF875FD573EFAA5E888193753D25969F35EBF651E0F18FFB6BF206E0D81FB3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-repeat\\apply-after.json",
+    "sha256": "87681DB756C517806CA97C777E1FE819B99194DD7DEEEF8F7F7A8B2BC7569A97"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-repeat\\apply-before.json",
+    "sha256": "C753EFF8CFDAA76E75171ABE8B2BDCCB09CB69633F1AB767C047CB4E54CC16A3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-repeat\\planned-seed.sql",
+    "sha256": "26D2F0F41EC542DD4FFC2E6D7AF80AAF1A344CBF91A82E67DF3EFC17DC27CD5E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated-repeat\\seed-plan.json",
+    "sha256": "ECF2A656D32BE327CBB1C3E317AD6ED002A2F96D810C29DCD901FC50307C77B8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated\\applied-manifest.json",
+    "sha256": "EB7619635DB9C7B58CACF58E388358E41AD8476080A2A18FDBD295B78012E409"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated\\apply-after.json",
+    "sha256": "870D50A3DC8106D903BE878C5292E88ACC8DA9810AF895E7AE7C22761E5D172D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated\\apply-before.json",
+    "sha256": "C0C75FF1C929B6A7DB965F365D408478E18E74DE9593387F683D1B2C31FE56AB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated\\planned-seed.sql",
+    "sha256": "4FF9489B5D928F42CCE14D0A26EB83731FD29662C7F83C2936182598CF048B37"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\isolated\\seed-plan.json",
+    "sha256": "0964E1737BF9F81982694DD692A7EB21EAFACB863AFEE59F742A9FCD08D1142C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-api\\authorized-watermark-preview.pdf",
+    "sha256": "7F1B8081944ADA1B0466076694B2D138E9035FE00F0E33E4D6D36484649A2683"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-api\\results.json",
+    "sha256": "1C31785857A93BCC22EB998A4301B343308B33B30F7CB705BCD08EBCDAE9624C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-before.json",
+    "sha256": "4D6C2EBBBAC50848644A8DD91DF5BAD00DE48EEA3FCFB5EC2260DE35CF0340D3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-delivery-repeat\\applied-manifest.json",
+    "sha256": "2C26B9D9AB8D09B2B87E9F3A1AE1D83F0AA30899BB2992DB3E6C7BCB98A995B6"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-delivery-repeat\\apply-after.json",
+    "sha256": "851618AE8CC83A91A820DBA862E4B5F7C9B773A950A3097FF0261F3EE67C3999"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-delivery-repeat\\apply-before.json",
+    "sha256": "3EA807C94E2D5B6ACFC0EF0D58FF74BFECF023CE28856E0488C73A4E3A68B64C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-delivery-repeat\\planned-seed.sql",
+    "sha256": "98E09C2B6F9AB80F84329CAC59DD82789866DC50351D69E76A6E10B569BC30D1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-delivery-repeat\\seed-plan.json",
+    "sha256": "0DEC6F39860C6BC374FB05CEADA7EBCC2F9F3EFDBA23758CF5D8349B18F0DE93"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-final-initial.json",
+    "sha256": "53704DB12ABBE5BC3B92C83D53B3BAEDE696102906CCB635276A071492917E30"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-final-repeat\\applied-manifest.json",
+    "sha256": "B8583DE2430E14E02FD92CF23BB1F234FA362C0701F36929B61CD7A01A5E78E5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-final-repeat\\apply-after.json",
+    "sha256": "F8F16B99FD4911DBDEE15C21AD7406BCF49BA1CD950C88198B8DCB31A25ADC1E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-final-repeat\\apply-before.json",
+    "sha256": "E8E2CDD556B7A2F696E272A1C1EF2B9168B8CC9D07C3AD6C1633EE5CE867CBD3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-final-repeat\\planned-seed.sql",
+    "sha256": "98E09C2B6F9AB80F84329CAC59DD82789866DC50351D69E76A6E10B569BC30D1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-final-repeat\\seed-plan.json",
+    "sha256": "C4A60A38AC1319A32DF46303F9DB26785AC3134E6727F11921BAEC7F8624AC30"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-final.json",
+    "sha256": "6DEEC9491BF0973CB0E90EBA376F96048491925F94C6415868BEE945C4282F8A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-repeat\\applied-manifest.json",
+    "sha256": "EAAB93BF60B74B31B2838A221871F11143466764FC1E703EFEB2D4CF9D0A7CB1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-repeat\\apply-after.json",
+    "sha256": "CB24161A1252A7AAB16EB8EB8888F0BBEA1F92FF2811EBD54F2E43F8C578FB0D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-repeat\\apply-before.json",
+    "sha256": "D8E6FB84B4A1094E9394FB71EE97701BB718E0B4455F8597F68E589BD3E5C154"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-repeat\\planned-seed.sql",
+    "sha256": "4BF6500EB5ABE008A56C9A77E7821CFD508DF69BDDF2AB65DFE4FF5B3F50E515"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live-repeat\\seed-plan.json",
+    "sha256": "CEC2841853F63781A857D6023753B24EAB4377DD5FE7C1DAEB5EAC2A71FEF422"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\applied-manifest.json",
+    "sha256": "7434C39689384AA60E4CE73E7FFF488458A5FA794368380FC9E5398F18D1D2A5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\apply-after.json",
+    "sha256": "55EC61FD6B7B4F25F2F9D1FCE433CF156212679C7843DB585FC46B3B6EEB9008"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\apply-before.json",
+    "sha256": "0C99AE5E55753623722D2D952E064CE9B765BFBBCDF93B30630E11C41EB3B70A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\guarded-rollback-final.sql",
+    "sha256": "5B70E796722B4CA7F59B80F809D2DD100D1F3A4EEEE4E65736621317A3F86FA3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\guarded-rollback.sql",
+    "sha256": "B7599AED151D73343F5E8BD0D1834FA259296C1F9E10B849061DDD9330527677"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\planned-seed.sql",
+    "sha256": "5BF1A81C63DE3B7AA145F00135B081F3ED8791AFAB3C98D6C41A9A910E2A8F1D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\rollback-manifest.json",
+    "sha256": "7E77C8CDD65814454544312F6DD309111D0B7E23D8D2E48A2AAFF436380A1610"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\live\\seed-plan.json",
+    "sha256": "74A637D1846A998485E19E20B15CD53E79573FD1EC30D6F0F4DDC694BEA80DA8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\log-redactions.json",
+    "sha256": "73A779380E31DA40DFB0B60C0928B888C0D2369C1490AEAFA761E6395A6C95BD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\mysql-junit\\TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml",
+    "sha256": "48AF4CA59AA808541372499297362BA2BC0F3C08E784AE742F1EBA1F70DCA534"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\mysql-junit\\TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml",
+    "sha256": "8DC55B0D91C6778C4A85133AF5311D13B3DAFF4708212F221DF3F4F8C2B11D0F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\mysql-junit\\TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml",
+    "sha256": "954574C76686B3C27455A472F6CAE5B9119D2BE003A241BA2BB48D41DD5B6440"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\mysql-junit\\TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml",
+    "sha256": "71FC4C71AFE68F4453F07949F5525731F3B54CC0FDC79C37F63D7F9E9308B0FD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\mysql-junit\\TEST-com.classroom.ai.modules.course.MajorDepartmentMysqlTest.xml",
+    "sha256": "FD0131887AA85B690286FC777F3A5283D66DCF22D10803DFD88B3C33FD613979"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\mysql-junit\\TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml",
+    "sha256": "11DD3EDE46D1801C6191F90449539D1DA0141DB12DE75306011F19897A4EF991"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review.json",
+    "sha256": "5CB7DC25A6FC3833F7485E05B453311AADE214057C93085F84C412574706880B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review\\DEMO-DATA-20261012-v1-AI-v1-1.png",
+    "sha256": "63B91C1579CC71AF71157E2D2B09B6F160453230D07D0D5524206E280937D783"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review\\DEMO-DATA-20261012-v1-CS-v1-1.png",
+    "sha256": "DDA02EC60A4B5A5A08352F03EE89D5C6958273EE70826D486D4F00541ACC3F8A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review\\DEMO-DATA-20261012-v1-DS-v1-1.png",
+    "sha256": "3905A69842F3BA97050F8C023AF9A41EBFBA49A03C25ECC381D40E0C77EC9D8F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review\\DEMO-DATA-20261012-v1-SE-v1-1.png",
+    "sha256": "655F7F441F02DD9B92EC27149CC1FCF76347E04C5CB5C7800F762EB8C9A7084A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review\\DEMO-DATA-20261012-v1-SE-v2-1.png",
+    "sha256": "9239C7DF1FDB609518D34EC41C83ADB6C944D23DBCB6600B7B2423FED21DA216"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review\\DEMO-DATA-20261012-v1-SEC-v1-1.png",
+    "sha256": "3915F676358F6CA43903831772B117314A747C1E9C5A97731C58C244031909B0"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\pdf-review\\contact.png",
+    "sha256": "81991FBBF10BC9481A5C4E2D126A8ECD1215231927E924A11D564EEE28109636"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\protected-files.json",
+    "sha256": "61CD1DF8E727DD76BFD809F35B702E2EEDCCE0320413EB73656136B574EC57CA"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\baseline.json",
+    "sha256": "1D173AFF66B1C18069D045D0B023D4C391BF4F19D9427AB467D314EB02F0AE38"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\clone.json",
+    "sha256": "D856DA0F4CD9EA1C9A23B4A2C796B94C5CAB35DE1C0AA9A586A04E159E356CA4"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\encrypted-restore.json",
+    "sha256": "8D879276F1B2BAC3F1B45A2430679360F903B074479C3055762F3AF7EFA1400E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\first\\applied-manifest.json",
+    "sha256": "B9B0A9E72F3A191A3B13D53A260B84DDF07ACCE22969362CE5144AE6F306A4D4"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\first\\apply-after.json",
+    "sha256": "1E92D55356C99D0D56E3AAEDC165FFFB12199F483433305AAC94DABC86CAEAA1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\first\\apply-before.json",
+    "sha256": "AA28726924473AE3A8A534C01867669DF266C6A1FFB705CF931044732EB68643"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\first\\planned-seed.sql",
+    "sha256": "687A6AF75D5AA648DAE562BBACE11604C455DCD19022F90BD74FBA01F1FE3B69"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\first\\seed-plan.json",
+    "sha256": "EC25809707177D9E49BB5E5CA5EFC361CD1CC910AE2B52EAAF0753E2E9A6586D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\repeat\\applied-manifest.json",
+    "sha256": "2C26B9D9AB8D09B2B87E9F3A1AE1D83F0AA30899BB2992DB3E6C7BCB98A995B6"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\repeat\\apply-after.json",
+    "sha256": "9577FF2B1E9A9595CA4D29E88D89169C1328833B3EED0EE1E546AC6F9EFF1C35"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\repeat\\apply-before.json",
+    "sha256": "CEB9917C14EA9AD32C2ECC990818D042C70ED3DDEE1BF0E60213BB2806BDF8DE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\repeat\\planned-seed.sql",
+    "sha256": "98E09C2B6F9AB80F84329CAC59DD82789866DC50351D69E76A6E10B569BC30D1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\repeat\\seed-plan.json",
+    "sha256": "0DEC6F39860C6BC374FB05CEADA7EBCC2F9F3EFDBA23758CF5D8349B18F0DE93"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\restore-baseline.json",
+    "sha256": "8D879276F1B2BAC3F1B45A2430679360F903B074479C3055762F3AF7EFA1400E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\results.json",
+    "sha256": "6B702FEFAC7743B4A13EC1919B4FD923E6996082402FB55341156F4B66517EE7"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\rollback.json",
+    "sha256": "25D26C8EFE46492274168661B714A845225333AB48FF9F3F9C7DE96B849C2985"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-final\\rollback.sql",
+    "sha256": "49BFF68E86CB4CC42F37DA9CB188996F1AD5C6B0094C813135BFD673BC0BD2E0"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\baseline.json",
+    "sha256": "8013452BBAE9A081491A1CB0612176038918A68D7E96BE698F2541C1491C153C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\clone.json",
+    "sha256": "D856DA0F4CD9EA1C9A23B4A2C796B94C5CAB35DE1C0AA9A586A04E159E356CA4"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\encrypted-restore.json",
+    "sha256": "8D879276F1B2BAC3F1B45A2430679360F903B074479C3055762F3AF7EFA1400E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\first\\applied-manifest.json",
+    "sha256": "B4EAB90E908789653F4A4D309F38D9558A58901A6477462B7BB796948D6289C7"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\first\\apply-after.json",
+    "sha256": "EC1A8BD98221D2BB2F5A1F1FEB6E578D2AFA283BFC481788C5D47477F004C411"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\first\\apply-before.json",
+    "sha256": "41FF10BC6FC217FCC7922CE4712ED957C6ACD9F8FD39331C996B4D6783604428"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\first\\planned-seed.sql",
+    "sha256": "1925FC05DB96174C24B5F95BA8D9A2EF60BCE765A3AC5041662228829DAC475D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\first\\seed-plan.json",
+    "sha256": "CA3D3ECF78CF4E621AC396EDA7369F195A42691B61E95AE34E9D128B1B7DA795"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\repeat\\applied-manifest.json",
+    "sha256": "B8583DE2430E14E02FD92CF23BB1F234FA362C0701F36929B61CD7A01A5E78E5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\repeat\\apply-after.json",
+    "sha256": "5BBEB1F87C362D9DF4E39BDC28FB4C60B253BECCA779A9C997862750EE6C0C88"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\repeat\\apply-before.json",
+    "sha256": "F4CF3D0F65C721FBF6714084480C123BAE0ECCE9D5A05242336F6146A08926DB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\repeat\\planned-seed.sql",
+    "sha256": "98E09C2B6F9AB80F84329CAC59DD82789866DC50351D69E76A6E10B569BC30D1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\repeat\\seed-plan.json",
+    "sha256": "C4A60A38AC1319A32DF46303F9DB26785AC3134E6727F11921BAEC7F8624AC30"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\restore-baseline.json",
+    "sha256": "8D879276F1B2BAC3F1B45A2430679360F903B074479C3055762F3AF7EFA1400E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\results.json",
+    "sha256": "6B702FEFAC7743B4A13EC1919B4FD923E6996082402FB55341156F4B66517EE7"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\rollback.json",
+    "sha256": "25D26C8EFE46492274168661B714A845225333AB48FF9F3F9C7DE96B849C2985"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery-verified\\rollback.sql",
+    "sha256": "E680F6D38B2C966379326ED14D02A24547616FF1ABFC95CE96DC3DBB6643B4F3"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\baseline.json",
+    "sha256": "9614B2CEB57E1EDD3EE7EEF6C7225BBB8CF80B28D3B929B6950994977EEF2765"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\clone.json",
+    "sha256": "D856DA0F4CD9EA1C9A23B4A2C796B94C5CAB35DE1C0AA9A586A04E159E356CA4"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\encrypted-restore.json",
+    "sha256": "8D879276F1B2BAC3F1B45A2430679360F903B074479C3055762F3AF7EFA1400E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\first\\applied-manifest.json",
+    "sha256": "5D169DE269A62BC132A3D026EC6043C581BA75FD08794569D89BF235297A651D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\first\\apply-after.json",
+    "sha256": "7DCFD23C45457020B20674ED724448941EB89446127994B523C3B8809349BB87"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\first\\apply-before.json",
+    "sha256": "1D0C3C9E92E38AC0C27320BCA7A4C0FDCD21733EEBC741C95033A47EA52D676D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\first\\planned-seed.sql",
+    "sha256": "5BF1A81C63DE3B7AA145F00135B081F3ED8791AFAB3C98D6C41A9A910E2A8F1D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\first\\seed-plan.json",
+    "sha256": "74A637D1846A998485E19E20B15CD53E79573FD1EC30D6F0F4DDC694BEA80DA8"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\repeat\\applied-manifest.json",
+    "sha256": "EAAB93BF60B74B31B2838A221871F11143466764FC1E703EFEB2D4CF9D0A7CB1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\repeat\\apply-after.json",
+    "sha256": "AFEEA8973D00E483C7ED03CDCEB4B1883B6E3ABAFEF43F5495C1EF5910386525"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\repeat\\apply-before.json",
+    "sha256": "721A58AEB03FB3169B9157569CEFC9797F5DF9AC49D4E767FC758D68364536BF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\repeat\\planned-seed.sql",
+    "sha256": "4BF6500EB5ABE008A56C9A77E7821CFD508DF69BDDF2AB65DFE4FF5B3F50E515"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\repeat\\seed-plan.json",
+    "sha256": "CEC2841853F63781A857D6023753B24EAB4377DD5FE7C1DAEB5EAC2A71FEF422"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\restore-baseline.json",
+    "sha256": "8D879276F1B2BAC3F1B45A2430679360F903B074479C3055762F3AF7EFA1400E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\results.json",
+    "sha256": "6B702FEFAC7743B4A13EC1919B4FD923E6996082402FB55341156F4B66517EE7"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\rollback.json",
+    "sha256": "25D26C8EFE46492274168661B714A845225333AB48FF9F3F9C7DE96B849C2985"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\recovery\\rollback.sql",
+    "sha256": "F089CB2178772B388CFD8C4D3C0F816A95FEC3F675A2413C2F64DA4B639AB990"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\redis-before.json",
+    "sha256": "9BA16520A25F3E0A514DA5591B8E016FA7391CC71B1CA5FC281BA1C21D25BD2D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\redis-sync.json",
+    "sha256": "842D691435CDFB2097CA3C8C84E696B1F929D4C62A22452E5006DB592EC211DB"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\report-generation.json",
+    "sha256": "FA7BFE0426C4C2D7007A9D60CB642EAE83DA8D35B10367D74D182C49209E92CA"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\resource-size-repair\\applied-manifest.json",
+    "sha256": "06A4D540A90CA110E447BA771DF292ADD7F047CB89947AC36629CA15A91BBB09"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\resource-size-repair\\apply-after.json",
+    "sha256": "6DEEC9491BF0973CB0E90EBA376F96048491925F94C6415868BEE945C4282F8A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\resource-size-repair\\apply-before.json",
+    "sha256": "67C8957D399AED999AF9B30E6989161C3C7F70DCE63D9637778F4AC543723913"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\resource-size-repair\\planned-seed.sql",
+    "sha256": "6106AF27B8006A443D4AF8AEAFF92352B81E9334F48B68730C585555070B3A4E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\resource-size-repair\\seed-plan.json",
+    "sha256": "9218BFDD1CCBBE432073E08476133DBD6DCA586628378400B313BE9E35A49C23"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\restart-protection.json",
+    "sha256": "6F59389AA3C6EB11339F14B91357DEC4597913FDED91C988DF84D4A4C48B59DE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-files.json",
+    "sha256": "83EA7069CE6F79C2D1FF41F3D22CFE79CCB9AB72B4CEBA89B3B34B897D5E7748"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-AI-v1.batch.json",
+    "sha256": "D548018BC06F98C7A4A1E0062A66DE9D6C50D1227E1A5F2A97125C5CA21D0F8E"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-AI-v1.docx",
+    "sha256": "69FE1E2703743DD2BB4345C868F491DE31AF54DC223EA228CF691D829461F025"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-CS-v1.batch.json",
+    "sha256": "0205BBB0FD3904AAF13DEB14BF702F078248E47F80CA1736349B5E9D32D1B97F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-CS-v1.docx",
+    "sha256": "0CB2F48CA26E80C58B76E49C04955F8E350999FB43F133D3D5FCFFCAC00EC56D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-DS-v1.batch.json",
+    "sha256": "0B5498796CE592DC6A86903FAFCEAAB2953B3454B4F5B61B24DC203DD057E159"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-DS-v1.docx",
+    "sha256": "B47C0D1BC07ACBA3DDB79A666B954E2B95DFA5A516CD32D3A2221C685FEABF53"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-SE-v1.batch.json",
+    "sha256": "8EB234EEA86BEAF0E7F5AC77468E76F34E396D176F0100B466334A1861D6722D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-SE-v1.docx",
+    "sha256": "27B7E2290A8DFE7339E94B329AB0431A85B06859821718547CD22DF164F7C18F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-SE-v2.batch.json",
+    "sha256": "7CF71BAC7DE4037504BF7067B971C6D32A3E25FA3CEC75767B6D86DA83784705"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-SE-v2.docx",
+    "sha256": "F98CDA12A782BE8D0F5781C34975B8CB0C4D733F31444D51D8EAAF130699E733"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-SEC-v1.batch.json",
+    "sha256": "DBF1FF69CA4F27F9EF9DB62B140B42B493DF12CF5119217FA9E777B9048CF6AD"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\sample-handouts\\DEMO-DATA-20261012-v1-SEC-v1.docx",
+    "sha256": "B7A58E6E7B0DF04DD1542B0B376085749F9E0D29D61A3A08A0AEC711E33317C2"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\static-source-audit.json",
+    "sha256": "7B2FC03188ADF2BBEDCAA85FF201ABA73B7041104C1FB39A0DA5F06BFEAB60F9"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-evidence-v1\\test-cleanup.json",
+    "sha256": "A583E2512CF3FDC260FAC7CF06CC8A8FFBD6C9026B3F587426406C1A31F61E6F"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-data-completeness-plan-v1.md",
+    "sha256": "AD8CB7AC4950C0F6691A61C8508036AB090F48DE69F8AB1D26DCC45A1DF226B4"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261012-exp4-startup-v1.md",
+    "sha256": "EA9136176413EF0C1BCA5968F9BA6EA50E652734E09D468F0F3EBC82541A56FC"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\docs\\20261013-exp4-pull-review-evidence-v1\\git-status-before.txt",
+    "sha256": "A25EAEE54E266C7BE53846AC212325C7F1611FE5253FBBBD28A6107846FB205B"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261011-sprint2-local-acceptance-v1.md",
+    "sha256": "7ADAAB56011AC79EAD3724625150971C1A76ACD6329910B1FEB83E74A0093051"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-database-audit-v1.docx",
+    "sha256": "ED68107E5BA3B025EDE2ABFD237E9796539AB4CCB0459959D920BF8CF89D3CBE"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-database-completeness-v1.xlsx",
+    "sha256": "582A3CE21C231951B3C14C7DD1BA2956CC8633698ABBCA8C5437063D1881D510"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-demo-data-operation-v1.md",
+    "sha256": "2C67FB575DC5C0A28509530E355C73A20F938E9625F60A3F1AFEB5EBE3FA5E4D"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-demo-data-package-v1.zip",
+    "sha256": "EE1EC6AE1DA36B22F0CD6B8EFC749E0060F58EEDCE6863C0210BE7A44818250C"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\create-data-completeness-report.py",
+    "sha256": "34EC73FFE88E022D03454C47F8F8A4DEF5F10D225A73613739D6236857EE458A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\create-demo-office-assets.py",
+    "sha256": "9B48D3F2B3E9200F6185CCCF53B06B4B645FA6CDC6DC38AF0F03ABC93CDA95C1"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\data-completeness-backup.py",
+    "sha256": "0F4022E2F6DFE5FFFE070ABB1841C5B2D799A7A23F9EA553A4985584A00F3953"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\data-completeness.py",
+    "sha256": "69E581D11BBDD2FA3102AA04E596C92415879E5450066AC95E255EFD8C3529A5"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\rollback-complete-demo.py",
+    "sha256": "9A77B01A95C8F3EB7DDD4CD158A6D05094C754DDD9B455F8553899631504A00A"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\seed-complete-demo.py",
+    "sha256": "9C4FCFEAE0BB2077E590E0216E6A99CF386DBD4E5A56FE9FF4FC0582611080FF"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\sync-demo-face-cache.py",
+    "sha256": "9771F3A5B37929C7D53B74D605CD5EA5D788A3D969A80C30419EED4B2A9AC437"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\tests\\data-completeness-api-browser.cjs",
+    "sha256": "4B83C45A2259B2A7E3BBB6FA499FD69CAC83A7F146FDBB61FE375DB4F8362F31"
+  },
+  {
+    "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\scripts\\tests\\verify-data-completeness.py",
+    "sha256": "3AFAD8ADB1BAEEA1F41436AD3D5CD3AD08B47A05B27A8AD02B5687F700F001E9"
+  }
+]

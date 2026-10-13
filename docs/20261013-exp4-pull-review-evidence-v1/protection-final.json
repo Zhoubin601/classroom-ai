@@ -1,0 +1,19 @@
+{
+  "protectedFiles": 409,
+  "mismatches": [],
+  "trackedSourceDifferences": [],
+  "redactedFiles": [
+    "backend-full.log",
+    "backend-startup.log",
+    "backend-tests.log",
+    "backend-xml\\TEST-com.classroom.ai.CameraMonitorHttpTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml",
+    "backend-xml\\TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml"
+  ]
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "check": "scores",
+    "result": "PASS",
+    "missingRejected": 6,
+    "explicitZerosAccepted": true,
+    "incompleteDraftAllowed": true,
+    "failedSubmissionKeepsDraft": true
+  },
+  {
+    "check": "history-api",
+    "result": "PASS",
+    "roles": 3,
+    "snapshotWeights": [
+      "H",
+      "L"
+    ],
+    "unauthorizedRejected": true,
+    "mismatchedCourseRejected": true,
+    "historicalWriteRejected": true
+  },
+  {
+    "check": "teacher-history-ui",
+    "result": "FAIL",
+    "reason": "old goal not displayed after selection",
+    "selected": "10",
+    "expectedOldId": 9,
+    "historicalRequests": [
+      "/api/v1/syllabus/course/3",
+      "/api/v1/syllabus/course/3/latest",
+      "/api/v1/syllabus/course/3",
+      "/api/v1/syllabus/course/3/latest",
+      "/api/v1/syllabus/course/3/indicators?syllabusId=9",
+      "/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+      "/api/v1/syllabus/course/3/indicators?syllabusId=10",
+      "/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators"
+    ]
+  },
+  {
+    "check": "director-history-ui",
+    "result": "PASS",
+    "defaultLatest": true,
+    "historicalReadonly": true,
+    "currentEditable": true
+  }
+]

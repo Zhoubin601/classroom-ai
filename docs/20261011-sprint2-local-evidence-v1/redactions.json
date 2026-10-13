@@ -1,0 +1,86 @@
+[
+  {
+    "file": "backend-package.log",
+    "matches": 8
+  },
+  {
+    "file": "classroom-exp3-browser-2b782b0626-backend.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-2b782b0626-expired.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-33fd415c00-backend.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-33fd415c00-expired.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-4ec7f7c721-backend.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-4ec7f7c721-expired.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-af74e841bc-backend.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-af74e841bc-expired.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-c7ccb5797c-backend.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-c7ccb5797c-expired.log",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.CameraMonitorHttpTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "backend-ordinary\\TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-93e9ee2e48-backend.log",
+    "matches": 1
+  },
+  {
+    "file": "classroom-exp3-browser-93e9ee2e48-expired.log",
+    "matches": 1
+  }
+]

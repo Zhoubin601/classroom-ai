@@ -1,1 +1,0 @@
-CONFIRMED: resource 201 selected; delayed resource 101 overwrites series and writes series 10 [{"path":"/api/v1/resources/series/10/current","body":{"versionId":102,"expectedVersion":0}}]

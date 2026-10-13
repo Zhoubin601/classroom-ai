@@ -1,0 +1,34 @@
+Isolated real MySQL/Redis/current JAR/LibreOffice/Vue preview ready
+PASS US-05 Chrome: synthetic plan import, same-version replacement, duplicate rejection, course mapping
+PASS US-10 Chrome: same-department teacher finds and previews shared resource; foreign department cannot discover it
+PASS US-08/10 Chrome: tags editable, sharing revocation immediate, old ticket denied, protected metadata preserved, invalid tag rejected
+PASS teacher browser: upload, multiple tags, shared visibility, secure preview, invalid format, conversion failure, expired link
+PASS supervisor/director/teacher browser: submission, identity, review, delay, term coverage
+PASS US-14 Chrome: isolated publication clock advanced, anonymous feedback API and teacher feedback UI visible
+DIALOG guojun 课件《FIX-EXP3-1791716160283.docx》上传成功，可通过授权预览查看水印
+PASS DOCX: real upload/conversion, rendered canvas, protection, two-page navigation
+DIALOG guojun 课件《FIX-EXP3-1791716161781.pptx》上传成功，可通过授权预览查看水印
+PASS PPTX: real upload/conversion, rendered canvas, protection
+PASS US07: corrupt DOCX rejected with working LibreOffice, real >100MB upload rejected
+DIALOG guojun 已创建12项推荐草案，请按课程实际情况修订并交主任审核
+PASS US05: real template button, 12 draft items, goal/weight CRUD, invalid weight, director lock, reserved plan separation
+DIALOG supervisor 督导评价已提交，等待教研室主任审核
+PASS US13/14: short/empty/duplicate highlights rejected, incomplete draft allowed, three distinct highlights submitted
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at D:\2026Autumn Semester File\classroom-ai-demo\scripts\tests\exp3-history-scores.cjs:136:14 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+PASS scores: omitted/null/partial scores rejected, explicit four zeros accepted, incomplete draft preserved
+PASS history API: independent snapshots readable by authorized roles; anonymous/foreign/mismatched reads and old edits rejected
+FAIL teacher expected old 9 selected 10
+PASS director UI: default latest, historical snapshot switch/read-only, return to editable current version
+Error: Historical UI diagnostic reproduced failure
+    at D:\2026Autumn Semester File\classroom-ai-demo\docs\20261011-sprint2-local-evidence-v1\history-diagnostic-final.cjs:164:154

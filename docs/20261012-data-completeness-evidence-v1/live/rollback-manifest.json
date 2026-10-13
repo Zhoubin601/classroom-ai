@@ -1,0 +1,2171 @@
+{
+  "source": "DEMO-DATA-20261012-v1",
+  "synthetic": true,
+  "selected_courses": [
+    "CS1001",
+    "CS2002",
+    "AI3001",
+    "DS3001",
+    "SEC3001"
+  ],
+  "scenes": [
+    {
+      "major": "SE",
+      "course_code": "CS1001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-SE",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "CS",
+      "course_code": "CS2002",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-CS",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "AI",
+      "course_code": "AI3001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-AI",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "DS",
+      "course_code": "DS3001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-DS",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "SEC",
+      "course_code": "SEC3001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-SEC",
+      "term": "2026-2027秋季"
+    }
+  ],
+  "planned_repairs": [
+    {
+      "table": "t_teacher",
+      "operation": "补齐唯一工号且教研室一致的user_id"
+    },
+    {
+      "table": "t_course_offering",
+      "operation": "补齐未冻结在读班次专业和false冻结标记"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "operation": "依据已有主讲工号补齐PRIMARY关系"
+    }
+  ],
+  "existing_file_facts": [
+    {
+      "resource_id": 1,
+      "file_url": "/uploads/resources/ch1_overview.pdf",
+      "exists": true,
+      "bytes": 61857,
+      "sha256": "620f1c36bdf12421c49acae9dce5fee62939c96c9faf71b9571763a47c571300",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 2,
+      "file_url": "/uploads/resources/ch3_wbs.pptx",
+      "exists": true,
+      "bytes": 33164,
+      "sha256": "d52d4909734df2ac6e737190af833a8128e0c8c446196ec03ab23b4b5c772eae",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 3,
+      "file_url": "/uploads/resources/ch5_scrum.pptx",
+      "exists": true,
+      "bytes": 31794,
+      "sha256": "7be30a8b1e60eb97cafcf0b1a33a053e6f373597302f66865a1d7c054a0e60db",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 4,
+      "file_url": "/uploads/resources/cs2002_intro.pdf",
+      "exists": true,
+      "bytes": 61857,
+      "sha256": "620f1c36bdf12421c49acae9dce5fee62939c96c9faf71b9571763a47c571300",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 5,
+      "file_url": "/uploads/resources/ai3001_intro.pptx",
+      "exists": true,
+      "bytes": 33164,
+      "sha256": "d52d4909734df2ac6e737190af833a8128e0c8c446196ec03ab23b4b5c772eae",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 11,
+      "file_url": "/uploads/resources/1790153378307_576b4d96.docx",
+      "exists": true,
+      "bytes": 53688,
+      "sha256": "36e75458c80d41baa4f5a2e755b3cb683909f2b5cb90d997a1cf59adb923472f",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 12,
+      "file_url": "/uploads/resources/1790237517678_b01208ef.pdf",
+      "exists": true,
+      "bytes": 614,
+      "sha256": "3697581cc6ad69ab5444140209ad23e1247c068f5006d5296a89ca65bc214c50",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 13,
+      "file_url": "/uploads/resources/1790237675120_8293c1fa.pdf",
+      "exists": true,
+      "bytes": 614,
+      "sha256": "3697581cc6ad69ab5444140209ad23e1247c068f5006d5296a89ca65bc214c50",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 14,
+      "file_url": "/uploads/resources/1790237742172_cda65834.pdf",
+      "exists": true,
+      "bytes": 614,
+      "sha256": "3697581cc6ad69ab5444140209ad23e1247c068f5006d5296a89ca65bc214c50",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 15,
+      "file_url": "/uploads/resources/1790238028905_326ba03a.pdf",
+      "exists": true,
+      "bytes": 61857,
+      "sha256": "620f1c36bdf12421c49acae9dce5fee62939c96c9faf71b9571763a47c571300",
+      "existing_size_matches": true
+    }
+  ],
+  "no_new_accounts": true,
+  "no_biometric_data": true,
+  "no_existing_content_overwrite": true,
+  "synthetic_events_use_existing_scoped_account_ids": true,
+  "event_note": "All new evaluation/audit/feedback events are labelled synthetic snapshots; no claim of real human activity.",
+  "sql_sha256": "4a17ae9e975d90db89d015628a4b1755537e020655991dbbc14689f619c84e1d",
+  "changes": [
+    {
+      "table": "t_course_offering",
+      "key": "2",
+      "before_sha256": "48d8f574d4f8d582160aff5d0788ab94494f9e57d59e18c2b19188cb1d054887",
+      "after_sha256": "8d68c5e987c94fc9302bc859d4417ee20452e066a9cb66f39d170492752b98b9"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "3",
+      "before_sha256": "dcdd79eaee9d8f6d79fd1ecc3aeaa05bb417099d064a365d18f56336861f4895",
+      "after_sha256": "1e78d2daec7f1afa961027ca61a17d44072fbd83d4a6edd0b802a9c3cca6fc81"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "4",
+      "before_sha256": "d3ca78109562cbbafdb358cadfcb7595302f2447f612c7f6b3580d36c46dd48d",
+      "after_sha256": "b5aac22a823aa203b7ed949664183c454f00d30ad8f9c4388b1edb42f24057ce"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "5",
+      "before_sha256": "78de068536a8fc752869f1848ad2c08d738443db790c81059da100369110cfbf",
+      "after_sha256": "e0c142d87fe898043d6a8b1aa6d076bf2e8da766490a729dbbdced8476120956"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "6",
+      "before_sha256": "202e072a7ee2960fd7652d10599488261040d7b05a959a09df50d88ccdb3a44c",
+      "after_sha256": "eff82805ee3a5fee35a2edff1dceeaa37465c72cc1850dc82e063aeba736aa20"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "7",
+      "before_sha256": "e64e257ea46bda7bf37840d45bc7dc26cca56f4fb64b129a57a53b2844f9a126",
+      "after_sha256": "f5899436da16e8c76e78cdc9348750472dc90206f689d7df86401cc8648855c2"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "8",
+      "before_sha256": "a63086dba98219711d9813a40a6c47817f7ff06f0d92c14c46270a7b8e60651e",
+      "after_sha256": "141cb696ab58df7bc8f536bcce94dc5ee6ef36e7f231e7ac3e2c1e1064247757"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "9",
+      "before_sha256": "fd3ea9fa02fec2f6f1ec01ba2133c4ce4ac72da4996d7a96d41b3645b3b64726",
+      "after_sha256": "22eb0d3b7db1ad8bbb00fe960be46d9df196e330bccff5f1a678f32237b20542"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "10",
+      "before_sha256": "04cebf2590375a97928f3b1cabae1e1e3c6c34a7ff327de75b8911b9729e1893",
+      "after_sha256": "4e557d28779f55765bfb69f52206775b2e42e343b1f9b1ab675f9deb47dc28cc"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "11",
+      "before_sha256": "6bc4fe004ed53066375f2ee6f04494b1d7d83a35ac7a23934658729b97c742ee",
+      "after_sha256": "2a9ba2b768bbd1fb28a1f20b45bb99a3db962a59325ff3c183d82324d294eed5"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "12",
+      "before_sha256": "9b060a6644b11d0eaa4df98969c04689e82396ef30d46a49c9acda68ae5ea2e2",
+      "after_sha256": "0e7c7e06325e6c429e42019b9001f9c5226ee5e703d692301990b93ee108e310"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "13",
+      "before_sha256": "27cd51b8fb86897478541b5d8a71fdb83311a9e333c5ceba6f32ee3263d8a6d1",
+      "after_sha256": "cda0f97b5bad5ac1d8b42e287a8d8c4f9dcc5b54b18df59fb75fef296b989d83"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "14",
+      "before_sha256": "05f619ef9c035c51932e99b421d1e3d7ac72e4ba534133300d6817c5e8ad0e16",
+      "after_sha256": "292379c16011fce692a6a78a93fab158bcdb64c90b14051ddd49f842efb4f2cc"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "15",
+      "before_sha256": "1c4f279773775972c596237270d79745b92d26458c91d47fd31990e32f61e84d",
+      "after_sha256": "24d7c9b0c94ce3268139289c44b4cc4b5744cfbeb2b9e80505de4f847c763a17"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "16",
+      "before_sha256": "10e6f87f1d536ea1b6df75b825e7c1cc2c8219c0f5fef4002a7bc15096a048aa",
+      "after_sha256": "61364df282192d70fffce817a1799a16dbb5cb08ddf7eb1df580bbe792a7de0f"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "17",
+      "before_sha256": "eb7353827b5652b7ca7dfb4bf7f410a7f856987437703acd1939f670690eee17",
+      "after_sha256": "b3a27f19d83fb35656d1edebfd20a7f539c2e5f71bb7393522c1388a3355b404"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "1",
+      "before_sha256": "231a37ebad1450907b38a48be5a82fc900cfb09adc5416179f6c7221933933dd",
+      "after_sha256": "8f2a86fa35ff49cfdb77ffa0fec53deed7b94e46af202b2257da52e07cb58f3f"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "2",
+      "before_sha256": "d809463ac6f2bdede12a6b4596beddaab598becd1e8cf24be11c648266170ea0",
+      "after_sha256": "bf8922d90df46f853af4a9302704651d6cfbad921e6d128270b9c8c428ab32ed"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "3",
+      "before_sha256": "436ac45c603c65128059c2218875fcee44e35086ea46a8b3948201fc4f2a63e6",
+      "after_sha256": "c6f1848f6c0afaacdc7b34a7d02c23b6a5f0922c3169802a4482d42cad1b13c5"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "4",
+      "before_sha256": "59241548a6e4e8ec5e665e4cd284739b9b5cce1807d9f115bd424f244abb5211",
+      "after_sha256": "484b846ad987289388fc486409115fea3bc20677e7be5f4c420de025e747dec8"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "5",
+      "before_sha256": "fc89cb7b892a4fc60843ae8d25313039e388fe4d736d50fa9203b982291d0520",
+      "after_sha256": "563d7ef5550da8a943f6f472a6e42f17f5dccaccf5be4afca672155a4450f116"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "11",
+      "before_sha256": "73469d9b1cc1f34b4f09fb5433c88d6e00d2fa53aa75a3432feded2dfd0175fa",
+      "after_sha256": "78cf638e8aa18b12f90f6862f939adb70ab16b67172e94e25a18ccfe9cf99b69"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "12",
+      "before_sha256": "b257fe452f160e206e29549fbad074e2a7b0462b4da13e911152878e689cf53b",
+      "after_sha256": "dc2316c41b6db0e19502d3f0c947c8a1d0be9ba0e33c706cfb3dd423e7030b00"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "13",
+      "before_sha256": "0f11ad732622c26a992808f0f3cf373675b553826a4e81ccdfd0f7ae3d8f8e24",
+      "after_sha256": "d0cd100dd9608775ed1f77cd313bc27eed0fc27ee88575aaf499eff812c8fbbc"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "14",
+      "before_sha256": "7ab7edd9dee726ee1b1f8434c4182230b2cc3e6ab6df83f0ff0c6e2f8d790d9f",
+      "after_sha256": "2637ad2439acfef8fbbd51c479750039050d8ec27fb1bfeeb7c08176f0097e54"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "15",
+      "before_sha256": "b69730b728118d1db70bc38ff64e393ac393dc59e42cc402bf89ab7cafa47e98",
+      "after_sha256": "9f91372150117ae4a7f227959d3eac4e632d01d2ecb6c81abb7796c114385e61"
+    },
+    {
+      "table": "t_teacher",
+      "key": "1",
+      "before_sha256": "674058cebbff9f4ec4d46545cfde7256709851052b0f4bc8cc079764b1a2aeff",
+      "after_sha256": "c742a9d91cfe331a26f8c74e6249a9d298c9a64e779b5f87466c3fdb3ff64087"
+    },
+    {
+      "table": "t_teacher",
+      "key": "2",
+      "before_sha256": "7f1ffb29a39af8c74c9ccaee2720f1868caf8706a3f23d0820bce0661b69de9e",
+      "after_sha256": "3b2232f5a4e3209f587e521373c7f27b55073ce8858ec2f99e3915d2e4af9397"
+    },
+    {
+      "table": "t_teacher",
+      "key": "3",
+      "before_sha256": "10974621af07d2f9163ee951aeabe499ebcc59157fbbd40bbcddfca43f0e8efb",
+      "after_sha256": "df9a6d8ef5dff2527822952e7e3446a7ba1e02d8d5c8855455d834462bc4008a"
+    },
+    {
+      "table": "t_teacher",
+      "key": "4",
+      "before_sha256": "0f612e637c0623eb9d0c254848df74af87d0bd6ffbc6ec451ed93ee2aa7a96d1",
+      "after_sha256": "6ab3be7d313ac61238eb5cb3ab7a4db8e0ba087de2647b50dacc2ee6bc7bb4de"
+    },
+    {
+      "table": "t_teacher",
+      "key": "5",
+      "before_sha256": "6b01d65c4a3bd078ae218e4642bee23068dc3e52fc729f55a93e76d70555edb2",
+      "after_sha256": "f7602fc1e33d27e5292a43761ba327e0b38ad8cd033659b37a5a7da4d5d3c827"
+    },
+    {
+      "table": "t_teacher",
+      "key": "6",
+      "before_sha256": "e7dfb02dfc696413cb31910b1e07bd032dce106aeb62cdb0e07c40105aa87dce",
+      "after_sha256": "dec7e4e4ee1b50f00c32c208ecfed276e4ff6f9ad59803d9afb2bcc6d9ef9df4"
+    },
+    {
+      "table": "t_teacher",
+      "key": "7",
+      "before_sha256": "e031cf6bbdf78c53036cb22624136ae63b0b9e3b6c734e0b73ba7062de38d173",
+      "after_sha256": "225d187083b6e0b1dfa8b7a9dc9110dc80991f42f17e213fec582dcbad9f092c"
+    },
+    {
+      "table": "t_teacher",
+      "key": "8",
+      "before_sha256": "58f85f3f169ced9f8a149c74e6358f4432b748a9dada6adeb1859e7fb200c17b",
+      "after_sha256": "b18bc3a014658107209b8878ad7b561fc7687b74aa7f74ad35fba0619d43d94b"
+    }
+  ],
+  "added": [
+    {
+      "table": "classroom_record",
+      "key": "1150",
+      "sha256": "5a3307ad376d8efd026fcb6456d8be7d6677993c139182ebcad5768a836ae8f0"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1151",
+      "sha256": "d0ac2514e56258f38d6e1bf2874feb941169f30c1e4eff0348d107340f899553"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1152",
+      "sha256": "9161bde3f9df86994c02c1d0c82d4cec353d05ebdf92c4e07776d93b8b89aab6"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1153",
+      "sha256": "f5580a9e4b8cc46a4d2288eb95cef8ec8afd0d7f4de65e270b606c15f3a2e04e"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1154",
+      "sha256": "de55dec0fd97cd8e6b693ab8e7c7406d94b44007da9a1169a3ad719c5978ae86"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1155",
+      "sha256": "0a6d1660e182ad4b0caec8cf4eba4b5171985d4d32ae49a1dc5ab99221154128"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1156",
+      "sha256": "e9caaa9118bcc89ef1c51f62b3aae13f02bf36fa1c7de20f1ad798b7ee07ea81"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1157",
+      "sha256": "b1053c7b9029204782760c8518ef296aea6fe8e4ca38828f3d7d5642761bd271"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1158",
+      "sha256": "9233fddb3b5639b511c5bac14d64159b4a4dcf1214bda129a1c533c11ee04481"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1159",
+      "sha256": "e7958cbf9589b16c15377968af98a435c68d4fafd5bce995e8e72ac9fd1e2804"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1160",
+      "sha256": "d8245aa38006496347c3a03cb94b56d2d4e83f56335989d9ffe1af5480da974d"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1161",
+      "sha256": "5a27a0081f1f7578588e73972625ff6d17ca28e63d7c0bf71a4352efb94d3e99"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1162",
+      "sha256": "259d9d8e18d48f442c553938a1377269ead8f1b7302cdbdfcefdb603c94e9eaa"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1163",
+      "sha256": "7a4b36fd0e67f6f0a94be870ae693d55e1ea8b255cdd4b49508e7773989bbe32"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1164",
+      "sha256": "896195a084502cda05fa716c5a2ce0e878f07f92ce38d92240a26219d357c29a"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1165",
+      "sha256": "414793fb10fccc053fb9cd32f3628cbdcd0fb536c1dc6eaa342c6e39d1816009"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1166",
+      "sha256": "64cabec5164c03dccbe10c3c4be5a9d32fa0bcc710dc8a88a2b53c40466c4171"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1167",
+      "sha256": "84e24f9075c2a0ebb4143a7e913142114d19758969bbd981e4784184a7f2d594"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1168",
+      "sha256": "d0a164bac98a9f5a257f4831744e390723d033daed4e0455ba8ee82b584c57b0"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1169",
+      "sha256": "7f242cd7e71bc2d24f728f22d435f8becf148c87d623590895f98aada04ae9da"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1170",
+      "sha256": "9fd81368ecca7a39ae91e61b2627a5b6cfaafc2da095df6550cda89378e548f1"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1171",
+      "sha256": "16b842fa45e5a37a16a39d1556d036c631df3a4c750ff0afb8db313bd1223a9a"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1172",
+      "sha256": "76eaca860712f0e2204806a9fff3704f61af0ceddbdb1a84a28e8a85ed0cd56d"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1173",
+      "sha256": "ee55233d2731218f5ff73bc7b19c22cae45294bae8727c29c7cb8d2d764f973f"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1174",
+      "sha256": "7afdf969f9af3efc31c3fca04e725d313d44db25cdf0d6c14010b68b3e76be79"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1175",
+      "sha256": "aa048b8fdf6365191848c57f0c0c6b0ecf483cde8c5a8bcb495f8b5c8284d96a"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1176",
+      "sha256": "4cb26778f469ecf7872e68cfacfd342e3b34e9342f0bb281319fdd37c9deb8a4"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1177",
+      "sha256": "64e2329f71f0b9f4a7d2bead1e33d3761d526ab4b146d9e0a7b23ea33d98f233"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1178",
+      "sha256": "4ef8cd7db8f21946a32b257124cc262c5b2d0ab5f7954d9ab0208fca75a413aa"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1179",
+      "sha256": "4dfa4c8e70898b066076c6a18e69d2070c5db74ca06ad492897527f7c4ca3ccb"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1180",
+      "sha256": "a180c943130170f3642d0b7f3c237d680d6a679000bb71c72e032c11cbf09be8"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1181",
+      "sha256": "8ab9e361526fc2743d63ed653835cecc34715ba79bca76317d0355e281127e72"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1182",
+      "sha256": "f80a3a79c9bfb7130ab8fabbef6bcbda19c932ce2d4ada2cee9fd1889c060d6f"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1183",
+      "sha256": "ae26da3cf5ad79c120e211094b64e8a404924e5a627c757b23ae76539a386900"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1184",
+      "sha256": "ce67f5986f92f9f22dd0c445e0478047662b1d357be1f580a1ee7c093dd1a70e"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1185",
+      "sha256": "4593a3e5ff7e35bc136a81e737d1cacc5a263018a7c8450889780fe2354b0568"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1186",
+      "sha256": "8972c7cfc4ed6c0d59d9928a9ffe5e8385801fdbef2ad381222a93984b7d7537"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1187",
+      "sha256": "ccc732eab655f55f9e3fed2aaa166d453ab17077b4b96c8d246e6db4512ad9cd"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1188",
+      "sha256": "33058cf8ca800e836b6eaba6a472628949592a715e517acba8bd1a59691a5244"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1189",
+      "sha256": "a96932ea3a760ea3610f216c79e4422ebd88d7e3f905d6240c75301fb33253e4"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1190",
+      "sha256": "55d1a080e4c516b62f94e931594987fcb38a1e9faa90cef61358205c68704e5b"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1191",
+      "sha256": "97386354bc9a87ac2397c9c36ebdd437e11c11de099441976b5928251549e8b8"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1192",
+      "sha256": "f3929b60d9bcdfab76ae1d4721628588828009f5a55b58a883383b9d496ae83c"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1193",
+      "sha256": "df4f1c5c4ddaff994f3f21634eb767a96935855dbb7d7e8d9d2cb5777aeebdd4"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1194",
+      "sha256": "3340e699e47767f662e27112cc7429baf89edfbd49affa212da7caf119d6479b"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1195",
+      "sha256": "5ddfc7155cdf75feae6f245c8d4af7234fb4e517573b3cc1c6857adab6d136b1"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1196",
+      "sha256": "49b9d4695c40aa333f1c1e322031070e117050539cde9aa18bce14b40995ec4c"
+    },
+    {
+      "table": "classroom_record",
+      "key": "1197",
+      "sha256": "9a1620b23f50dfc1094649c5631b574e3d3bb9cea5eb035586ba1ad298b1cf0c"
+    },
+    {
+      "table": "s3_action_feedback",
+      "key": "1",
+      "sha256": "1dff8b0cfb4a5af0c056cf7ed0376eda185042cfd68f96cf04ece4c75f039b8d"
+    },
+    {
+      "table": "s3_action_feedback",
+      "key": "2",
+      "sha256": "d6e43534a3c985faf69e974183396113fa7da2efe1c0d434ea4014e14dd81467"
+    },
+    {
+      "table": "s3_advice",
+      "key": "7",
+      "sha256": "670b8d96d755fdef77f9175cf2227675e190d5b63dd126641ce9405b4ad1e80a"
+    },
+    {
+      "table": "s3_advice",
+      "key": "8",
+      "sha256": "8ff238a9f9cef7520e74963a0b4ff7610d3d89be3b5d0b5f0c865de796e68385"
+    },
+    {
+      "table": "s3_advice",
+      "key": "9",
+      "sha256": "d971db9ebaab3cd7bc0e19ab21db9260a9af69974d97de633f92cc8571fc3552"
+    },
+    {
+      "table": "s3_advice",
+      "key": "10",
+      "sha256": "68082b7bfd24e74ad735d905ec44de202ff65b254c2c9684bcb3c30347df6785"
+    },
+    {
+      "table": "s3_advice",
+      "key": "11",
+      "sha256": "727e294e298a6721838d181d8e0273c46f38524bfde0f510c644795e335504a5"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "key": "1",
+      "sha256": "0aca2aad9423e40a1271cb0ea93d9e4b2e58b52e71bd6459210ee0ad1ee819a0"
+    },
+    {
+      "table": "s3_feedback_revision",
+      "key": "2",
+      "sha256": "9748b86024be8b526cbd552f1f10052b9b2f222dc98ea45f8319a1f2fd71b2f5"
+    },
+    {
+      "table": "s3_resource_series",
+      "key": "11",
+      "sha256": "470cde0b4d757bf48380b3cc1a7209ba0225c8d9b45e91f1450fbc981e365b23"
+    },
+    {
+      "table": "s3_resource_series",
+      "key": "12",
+      "sha256": "dcf98cb9572f9987e8a9243d0545867d96b9b9a6fef30c5b357340958569f370"
+    },
+    {
+      "table": "s3_resource_series",
+      "key": "13",
+      "sha256": "14ac5c66b26e4ae5ba80cd0e169b4954ae674a61d87ff69a945f23a2d432ac15"
+    },
+    {
+      "table": "s3_resource_series",
+      "key": "14",
+      "sha256": "d482d7075b344fbf96002f2e4393cfdb9676a671b2e7ea0fb488dbf48cd56a21"
+    },
+    {
+      "table": "s3_resource_series",
+      "key": "15",
+      "sha256": "5c46f97196f49a43db285212a60c01ec366b2222f9dd60d6b3cf16453733f650"
+    },
+    {
+      "table": "s3_video_asset",
+      "key": "1",
+      "sha256": "063635cf21c3330071ed5c0dc9859f77ea55546f331320d16f604ad91bbafcf1"
+    },
+    {
+      "table": "student",
+      "key": "102",
+      "sha256": "a5bdbe0a310bfdc4f7d4903363db61f9056d9a92700947f7c51b9e368fb9788a"
+    },
+    {
+      "table": "student",
+      "key": "103",
+      "sha256": "cecb27ab86fd6a010bc5638dd8b785e1b0d9b29828ae3e357b344c41a73c8cfe"
+    },
+    {
+      "table": "student",
+      "key": "104",
+      "sha256": "662fc10585f97c3f5755c3d4c2eb55d979d845a07cf5004abf0f094125c27657"
+    },
+    {
+      "table": "student",
+      "key": "105",
+      "sha256": "1455cfa80d412c5dc9f5e1b8688335806a3948963b2ffcf45d07fc67ea20cfe6"
+    },
+    {
+      "table": "student",
+      "key": "106",
+      "sha256": "9a926d4113ff49d37743843d42c2ab60238cf81402cdac94a7761a1eaa22f73f"
+    },
+    {
+      "table": "student",
+      "key": "107",
+      "sha256": "bfd52f7e0f7e6e7464bcf3839316ee3bddd12600c454cf277cf3f2d905a8d076"
+    },
+    {
+      "table": "student",
+      "key": "108",
+      "sha256": "5338eeb4ca485dc68a9d9cddc413c53946b7d9e7ff94415a671a57cd6c3dd097"
+    },
+    {
+      "table": "student",
+      "key": "109",
+      "sha256": "80c7105dcfcaaa5f04e110ab4c0e29260e93369d5a790f8336830cd831d4a83a"
+    },
+    {
+      "table": "student",
+      "key": "110",
+      "sha256": "7875168a4d32a31674591c45def9f15356c7672283e3526be1e339fa114d7f58"
+    },
+    {
+      "table": "student",
+      "key": "111",
+      "sha256": "6628fa2e6add3bff45116ad0d202434bf3e731b68133c78dbb6d9ed65548ec53"
+    },
+    {
+      "table": "student",
+      "key": "112",
+      "sha256": "5460f0cec88b469650435362269c230bf10f818e2496d5a6f6e70fce6ff2ee29"
+    },
+    {
+      "table": "student",
+      "key": "113",
+      "sha256": "8454d4873da347f019ec9622f98fe5179adcd786cbc9510b46a2b96311e3ebe6"
+    },
+    {
+      "table": "student",
+      "key": "114",
+      "sha256": "8d512e538fc7b27834e750c5e8cba09da3b676a5121a2dd05a20d1ca6cafe048"
+    },
+    {
+      "table": "student",
+      "key": "115",
+      "sha256": "22c363a6523305460df4e007b8e54240e42809e260b30fd2fb1ddcc759973ff3"
+    },
+    {
+      "table": "student",
+      "key": "116",
+      "sha256": "4072b71a9bd0ecf173f647bf5f625be4a086dc14c4f76c73126fc9615be7f87f"
+    },
+    {
+      "table": "student",
+      "key": "117",
+      "sha256": "10271973132e7d6ff89b67ac9b55561fd0e7b0737cfaaf82535150c535444a6e"
+    },
+    {
+      "table": "student",
+      "key": "118",
+      "sha256": "e72f790d4b18813975f4c420c3d05d9f615103ce69ed419d5455c7ba690d4a04"
+    },
+    {
+      "table": "student",
+      "key": "119",
+      "sha256": "7b9c80feb087825b799f9e622efa371ff696efd1b1c889d8275cda155914213a"
+    },
+    {
+      "table": "student",
+      "key": "120",
+      "sha256": "dc803d6936ab2a45a911e2fd42ad1ae8cb5a8d5a8026d5591c95e585ce081aaa"
+    },
+    {
+      "table": "student",
+      "key": "121",
+      "sha256": "62aab299dbfde1b1732df02a79ca0226ab4b88ed9e7e92a1946452717a32e1f0"
+    },
+    {
+      "table": "student",
+      "key": "122",
+      "sha256": "ee5a26c9d4ac07c93f5d069e22afe9353d85a948ff0133ffb5da1faf530512f7"
+    },
+    {
+      "table": "student",
+      "key": "123",
+      "sha256": "b92df053cb0df09b6e45d4a6fd37d0538fb6be147e598076b4533de45c020d9d"
+    },
+    {
+      "table": "student",
+      "key": "124",
+      "sha256": "815f9dcb60701bbade38cb3ac547c7e2d742072fbd106a546c4adc22521f0da4"
+    },
+    {
+      "table": "student",
+      "key": "125",
+      "sha256": "2a8ba851af3cc98caaf0d1d17b1e2e7d36cc94640d3462bd9c14245681af2ef6"
+    },
+    {
+      "table": "student",
+      "key": "126",
+      "sha256": "84c471f26c9822b83b601f931fb05ae9631a03660bf85d399643465bf068b520"
+    },
+    {
+      "table": "student",
+      "key": "127",
+      "sha256": "98a4d4c4e9766448b2089e1c15db1ee9f63ffff84c3bf270b56f159ed4db77b9"
+    },
+    {
+      "table": "student",
+      "key": "128",
+      "sha256": "19912899b067f3b959c9c8ca51ab906aa9b4538604f1dda6e6b690ba0ce3bd45"
+    },
+    {
+      "table": "student",
+      "key": "129",
+      "sha256": "c29a1250893fd30e0eb276729c95323f20e0743352328b3cd43bfdaa59201461"
+    },
+    {
+      "table": "student",
+      "key": "130",
+      "sha256": "37bd3fe8eceb5bf52237d9a6765a9d0fa664f80ca282b2da220fbb9128030bc9"
+    },
+    {
+      "table": "student",
+      "key": "131",
+      "sha256": "af5230540da3e8e9c72e6c454f973f021afb7be9c22bbfa18355e55a710afc2a"
+    },
+    {
+      "table": "student",
+      "key": "132",
+      "sha256": "a56b9dbd2c7d632a093f1e820b200d50584cfec1823e099a92af0d2ad2dd2b1c"
+    },
+    {
+      "table": "student",
+      "key": "133",
+      "sha256": "a8788774e0959e7616342920033c1b648a1e4b2b916552cb5983b9a0014274af"
+    },
+    {
+      "table": "student",
+      "key": "134",
+      "sha256": "83d15373c910fda40b29cab722a51cb797d5669863294279b87e5374928e89bc"
+    },
+    {
+      "table": "student",
+      "key": "135",
+      "sha256": "b7b8b78b5003beeb32495a9bf2082a17bbc4ba3cd33907a3cbe2871645b05e43"
+    },
+    {
+      "table": "student",
+      "key": "136",
+      "sha256": "de936b3703cfb3d1ac8e740719a733326230c15f08e3588780b7bb50288265d2"
+    },
+    {
+      "table": "student",
+      "key": "137",
+      "sha256": "7bd7da69723538f4a00536035158cfc33c7ed96ce6d7080bb6be05fa21ead6fc"
+    },
+    {
+      "table": "student",
+      "key": "138",
+      "sha256": "3dc7b6831c761fb780e39c9645295bb90e57cad6f5ab371f589cf27053bc1b29"
+    },
+    {
+      "table": "student",
+      "key": "139",
+      "sha256": "30a33bdf84c53e057ceb31fb56252744a8966aa1e4ce56c0bdaa48de8dcdff96"
+    },
+    {
+      "table": "student",
+      "key": "140",
+      "sha256": "63ad03dd821bdbd1192c57bc489304aa4976d801749f80822f479fb76fe263b8"
+    },
+    {
+      "table": "student",
+      "key": "141",
+      "sha256": "84170e06b7337550203fab908ed9cec16d4584f6e014762b11c52a7925389110"
+    },
+    {
+      "table": "student",
+      "key": "142",
+      "sha256": "3487583fd399075a65ed9340ff0d926cc47a54a4647e484ef6fc10e5a0f0f16a"
+    },
+    {
+      "table": "student",
+      "key": "143",
+      "sha256": "047f0272b43e06330546753d438996e10a20e853a2da79ba920a9a0164430110"
+    },
+    {
+      "table": "student",
+      "key": "144",
+      "sha256": "8dba4e2a76cae6266bb1b05b5c4e37765b302aad37ef901ddf53fba505e43183"
+    },
+    {
+      "table": "student",
+      "key": "145",
+      "sha256": "904ad71861c58b36a889d1ece3155e6c8199f74607aef0ce95a2c2d5fcd7e5ae"
+    },
+    {
+      "table": "student",
+      "key": "146",
+      "sha256": "e9564a9f7042f90a25ad4b94b201a835dbb21030ba2cb46ce7c38c88f6f53aa3"
+    },
+    {
+      "table": "student",
+      "key": "147",
+      "sha256": "7a3bead67c3552749fced3f3ca6fda108baaab6cefbc83d9dc80f4bf397061e9"
+    },
+    {
+      "table": "student",
+      "key": "148",
+      "sha256": "78f5e03b124084c0185c090373182f0f797d3defa925d000e491780d7df89072"
+    },
+    {
+      "table": "student",
+      "key": "149",
+      "sha256": "6346d6612836cf222d6c402a3854ddf6ea89da2e4bc8b83cd9d00cfda61151b9"
+    },
+    {
+      "table": "student",
+      "key": "150",
+      "sha256": "6bcab838fb2d26bc64eab8fbf847c22e021076469f5f0e63efe7470af6d05b55"
+    },
+    {
+      "table": "student",
+      "key": "151",
+      "sha256": "3b6449ce17e546a312b7f7097db8071784bb8f7e68fbfabe8ecb94a7c31ef59a"
+    },
+    {
+      "table": "student",
+      "key": "152",
+      "sha256": "43d35996424b826f22d57085a51e063ce982f8f5bf02123b75b6e18e26adc35c"
+    },
+    {
+      "table": "student",
+      "key": "153",
+      "sha256": "8bfe2542dcf8bbe5db7d0686786c2488e1b5a542dcf623ae0685a34040053d6b"
+    },
+    {
+      "table": "student",
+      "key": "154",
+      "sha256": "b898e5f5b313f532760b96f1667aff8b1855159d9221f2b987f99315b4103bfb"
+    },
+    {
+      "table": "student",
+      "key": "155",
+      "sha256": "16351f396e0aa06973f5fa42837433a98da620d3ab9caa8ca9179a7c96ea8beb"
+    },
+    {
+      "table": "student",
+      "key": "156",
+      "sha256": "ad2f4bf2a8b4fcfca6bf036116fec66611a2b72d7e87f66364e7fad45c391b3d"
+    },
+    {
+      "table": "student",
+      "key": "157",
+      "sha256": "2595db76522247fef252bfed26cfbb72d20c3c86599d2720a19f6e86fe0230d0"
+    },
+    {
+      "table": "student",
+      "key": "158",
+      "sha256": "be3ea9400eaf40ef15298e533137e2afe139285e2907a2e3dcf44d6fc91ec3bf"
+    },
+    {
+      "table": "student",
+      "key": "159",
+      "sha256": "c6d0dfafefb9321294015acbe4484cfb7f258da61c73a0feabc4ba63f4e7802a"
+    },
+    {
+      "table": "student",
+      "key": "160",
+      "sha256": "a16487e3aa7569d7aa5739d797d351ca87ce84dba9eef2c2c91d022694f2f173"
+    },
+    {
+      "table": "student",
+      "key": "161",
+      "sha256": "aa3c6955b24da87997bcfee4ec8a28d0107bd08408b76155cb563219b03456c7"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "17",
+      "sha256": "cba75fe9620fa90c6e0c21efce0a094f8cfc7a5bb7a7b31313793c94865ec617"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "18",
+      "sha256": "608e8cb8aad36e3f5a0254b3e125ecf3b4cc558bc8c94a09a362f2c7c607bf15"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "19",
+      "sha256": "73753f3b004a37bb8e4d122ca55d9492ab380f1cd74bb6d91b747ee155040107"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "20",
+      "sha256": "897ad6e97330edd701f57243e7088d5e6211b33a91dbea2ea346880a5f8d0fc2"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "21",
+      "sha256": "14c25f612461d2e3c8a19dbe7393dfd715286daeb509fb22b0cc2b7adf9ad568"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "22",
+      "sha256": "407cb8ea8c44386ee57a9d811cbb172724270a4cafa90915072624fb329de07b"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "23",
+      "sha256": "d587f7df392f8cf23694f6a91b9344a2ce1e7193013ae55f952474dc711de3d6"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "24",
+      "sha256": "e7b974ce61f93458a25c11d3a3d85403426588e036f254c55e84a3744858174b"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "25",
+      "sha256": "60585c5b8053c5710e3f6571d3326bd8452595339588e3260f05a0b37d522b3a"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "26",
+      "sha256": "aab1707472d8febf19c0bfa83a0f08cad37e241658bf5f1b091ade968942b08d"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "27",
+      "sha256": "b0d047a7464e6cc18daecc15847b3cd1287b3b225ac676499da8e079c44ff605"
+    },
+    {
+      "table": "t_attendance_session",
+      "key": "28",
+      "sha256": "e8b3543f4c5c466b710f0aa09ee83fb93a56f2289c95dda22a76a942e35453e7"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "30",
+      "sha256": "03f721984e97f58d2b754d3fc7430ffea9b0e11489fa8cb4f6679f6d03acb0e1"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "31",
+      "sha256": "bbf2cf888f7e86403c10e3a55b0be25b9a194760baf18d9783bb73056b457604"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "32",
+      "sha256": "94234a746bf9c0dd2366727b0c2b77445c21a4e97b3e2e7073edcc428e4f7d6f"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "33",
+      "sha256": "d12befb231a0f1eab4b1419c0d4edb740ac795371b40c9f4a8ea94f6a016001a"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "34",
+      "sha256": "22d16f7df3fd4a8a9a672dfdaf8f9133fc5649074cabe7ad021d8b5089b986eb"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "35",
+      "sha256": "34adbdcf35d0504462349cbdf3abded0d063c1ad9e76c446052903745beadf01"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "36",
+      "sha256": "fed9b20af47cc7079ff7d5eb2268c5271478592ebae75a4ee47183fb3042281c"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "37",
+      "sha256": "878ef4a11a9750795a40b15247609662aeafd8093307b93bbcda579b4d62b501"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "38",
+      "sha256": "1f283686ed6e1a532bb8609c3d5d3568b0500315d489618fce5a862c6c45ee68"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "39",
+      "sha256": "1fb6960a6341a6de94bfb3aff1e5d2e231633dcf084ccaa0e9f8e1df053c8dd8"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "40",
+      "sha256": "b2918a8b99303f17135cdcfea3c40818d1e13ba735893865eb111ebd6d2c5190"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "41",
+      "sha256": "52764de81624536f617a4fb75c9e866968d235d40f69ba32703ad0082d6bab95"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "42",
+      "sha256": "96b7d0e222f28d3ffe73a60137c887333316fc18048f0d22639e0087126898d2"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "43",
+      "sha256": "97d197df165068ea490c4f5d56d989c80d7fb09a841e7a35e1da3eecae1492fd"
+    },
+    {
+      "table": "t_course_content_revision",
+      "key": "44",
+      "sha256": "a0ccc0fd8090ec5404af293c08dea6f9b4c550abcf4afaa83473771f3afd399d"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "19",
+      "sha256": "786480e76b62ee4df703bb2c4d8d6820fcd8caf10740e473d0c0a0dac1b6c31f"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "20",
+      "sha256": "a0ab9d72ad06360321cbe22e9d2a4ebcce89f4c45b1d569a29ccd8c024d6db8d"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "21",
+      "sha256": "6e2c054eb5ec46259d99beba8147cd8ff324229d7154122354700d4fc29edc24"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "22",
+      "sha256": "26f763008826d7b4c4a13d6a86dce7b404d47635ca0b4376cbc7dcbc38b380ed"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "23",
+      "sha256": "e7c1dd1f962af88013205af489637a6ee88170286a24302cbdca0fefe3bf29d0"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "24",
+      "sha256": "5fce8de05392d56f1d1a231f3db63f897a6605fa2b52bf8cbd574008fe8b935f"
+    },
+    {
+      "table": "t_course_offering",
+      "key": "25",
+      "sha256": "d5f3d73e1821a34edcd2655fb247b7aa34388b42313a4f58627f7510d691c38c"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "41",
+      "sha256": "29a08b73a67073f25c0ba46699dbfb13c69985c04c30befc0f0488cc23cb7dde"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "42",
+      "sha256": "9aee6f760b8fcde42a264c55a668a97f07735d74cfdfd091940a13ac98db3f24"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "43",
+      "sha256": "69c18c81ac5521e1a500db3da5f755a85c7543cf1cbd8b0c996bf934350eabd3"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "44",
+      "sha256": "3800820b0fd7c11992713d1db8b5a137e5e44db1410846c3ddf9be86d3335212"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "45",
+      "sha256": "6d12eb84e75c4a6715c2f8afb6762d1c04711b7eabd398d5fd36d69438051bf8"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "46",
+      "sha256": "cf2e4e730fc9b2af5c9115a2f71627b7668321b5f8bb44a9f28308ce6d84ac67"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "47",
+      "sha256": "d48dc05515363ee24b4d361815e4eece512720e7f39909b43e1004ab770c40fd"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "48",
+      "sha256": "0e686388b7cd91de6bb00dc8041653406c763db671621f77723b5c8ef51c6bf6"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "49",
+      "sha256": "75cb3484edd58e12a7ce3d82a77a628f0f5ba145a9f64c164821a31e8e25fb75"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "50",
+      "sha256": "14734d3b692a383dc6c7b2262dcc5ab3c1ac478fdfa4680da22551586907f485"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "51",
+      "sha256": "dc1e1e9e488e035c11031ce03641da66f1fb2349bad51fd1d7742249c32d8eb8"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "52",
+      "sha256": "b7b8adf0b8864e890309618fcbab9eb098086070973894c36f013c6edf4c973c"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "53",
+      "sha256": "d7c1934f7b73645f221a52f023298e8b0f3bbdce56d407dde6fd3d0f2ff9fbe3"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "56",
+      "sha256": "d9ba581e77d5c9f89102ead29b834b1e4fb8d6d0ff48993f54cd45931361962b"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "57",
+      "sha256": "87c9ea535dd125517ce95219a0b675e26e255f6db1ef57a6c55b4cc61df233d9"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "58",
+      "sha256": "d26089e4159b08092d6f2e1379d6dae28612c6ea2db0d00e0d36f0addba5af97"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "59",
+      "sha256": "ceb5779d21fbec567a9d8ce83705c2d070473ae34e63589130e40ab9bca01944"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "60",
+      "sha256": "da951b09b5441c179bc174ea6e7489d810f86c8fd39f6e404eb5cfdea5f54eba"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "61",
+      "sha256": "9df52d835282052302562a507fc5558656af9d677d77351626c519127d78ad35"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "62",
+      "sha256": "cdeeee91c97c861567541e87eb765166aeaa9a483031541182704b18a3f8b310"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "key": "63",
+      "sha256": "c235de2a65132cc18417be6fa7e577888bc54fd9977a4b813a7a4410885b2808"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "16",
+      "sha256": "2acc1c6c61b9fbbf08a6ee9b251520ce7f60315b20406b849f1a5ea23f699059"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "17",
+      "sha256": "39c14802c2127429798c37aa88a4c7fc17b46b714de3bb1ba5317ce53ddedf70"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "18",
+      "sha256": "5647df90b2989209cefabc17f74bb35a91f9ab63a4759e8e974788fbca6a90ff"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "19",
+      "sha256": "5916b2e6fa7e02699a2113852530040ef521ef838e64dc08c6f98b2e941fa9e8"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "20",
+      "sha256": "73e907f6c39ad73c5d860fa212a4896fdf54974c3183140c8a6ab3f12174042a"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "21",
+      "sha256": "884d77eb1227fc52b59224d9783b552f8c82afb11a776368ed8dcf944ea40355"
+    },
+    {
+      "table": "t_course_schedule",
+      "key": "22",
+      "sha256": "de3bb7f808f77b161719b388e16699c817a883c4328f7603a070d78af27e2aea"
+    },
+    {
+      "table": "t_course_schedule",
+      "key": "23",
+      "sha256": "5486535252c3cc424865a8c4c496fabba2d451963e2886415b1ce30619fced69"
+    },
+    {
+      "table": "t_course_schedule",
+      "key": "24",
+      "sha256": "e414106987942f449f379d0ebc905d7b7f22f4474fcce2cca5ca4001b87b8b9b"
+    },
+    {
+      "table": "t_course_schedule",
+      "key": "25",
+      "sha256": "47186598569effc48b8e77da672a774cc323ed9a1a7e7a4f09b85dcff6018d64"
+    },
+    {
+      "table": "t_course_schedule",
+      "key": "26",
+      "sha256": "94d6b3c98b244989fc9873ccd631fca6907aff227d3472aa364391689d1e4527"
+    },
+    {
+      "table": "t_course_schedule",
+      "key": "27",
+      "sha256": "f1a81aaeda8f1740c962fbddb40fa361ef9f75b41db8a251a0f4bf5360ae56a5"
+    },
+    {
+      "table": "t_course_schedule",
+      "key": "28",
+      "sha256": "6848975c75ad047aede5bb44dd090c1dd42d6e66c2adb6e6ed1292b039576710"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "5",
+      "sha256": "db7d097cb8dcb7a63c6388c79b4262ff8dd6041297b519f2073c6810c21e6561"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "6",
+      "sha256": "a0ee5ce36594f335134f9b25317645a3485ef347772877203e00b7aabbaed36a"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "7",
+      "sha256": "a1654bbd1a620e14112a117c7aba29782f1b21fc96f7484b65191393d8d199e5"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "8",
+      "sha256": "5dafddefde8bd177f308771e013be1ba2d7ba1c82d9bdf2a9b98a2407b8ed3c4"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "9",
+      "sha256": "6fbd04afc464b1e1d0db31ace1d87645cf32bf55a3d244a6e2e057410d7b6a8b"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "10",
+      "sha256": "c512ca62e0894b4caf0caa666e312d074e1be84b3327a520c7641a1ac009fce1"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "11",
+      "sha256": "08f847df614c400b83d1c7ae0f1c2d5a5c7d431ba1cac03af3b8966968238561"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "12",
+      "sha256": "b0fa2c644f31e15bc7d0b7ed55e1474999e602a22a42a69a69e6d6a246bab50b"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "13",
+      "sha256": "dac0de61a08c54faad014fd30ec80122d2bf82ea2b3f26cc30991f07677fbf59"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "14",
+      "sha256": "dbf1e485860b66b34e8c577861bb33bb03e4c88bf0a034a3bd50848d8aa42299"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "15",
+      "sha256": "4f9a64027b444840a44e9704ae5c7af9e642d6fdea2875184913e1a2e14ce4c4"
+    },
+    {
+      "table": "t_evaluation_audit_log",
+      "key": "16",
+      "sha256": "7d2372469104cf7537d9c734b834e21d69b6b850a9a1e7b43242481df134dc36"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "key": "7",
+      "sha256": "8e1eaeef31d03e264c26ab2e55dab884d358b78a2f1aefb99be8d9276162a71b"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "key": "8",
+      "sha256": "d645cb2650efbe98d45a61881d5de6abd43d41a03de4369795658143f81b6619"
+    },
+    {
+      "table": "t_micro_teaching_slice",
+      "key": "9",
+      "sha256": "b3ffd865ba1c7dbbf6094918a3a85ea8a0c9413f850f9e4a7b9ad9901abb40fd"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "923",
+      "sha256": "fb922febea1ea7af78296e4c221637cbcbbbfc9a35a80118be23b4c006278ddf"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "924",
+      "sha256": "74f481a443f3de5e8bbd27b7f5c652b2f022af8dbbd1526961d45b88b7d7bb2a"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "925",
+      "sha256": "53730c1ca01afa615715ad809d2aaae045852fab2ff4e98d9613f4655dc0b3ea"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "926",
+      "sha256": "d71d07ba7d5daa05279b31c61861d11164412723ca3ee666ff4d8763fd220533"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "927",
+      "sha256": "c256bffd7801155f0a0f839493fc0b6c3ea92321658f07552008fce7d10eef05"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "928",
+      "sha256": "a13d79826c6b320fc13724e52a20664825358734b716253b285227daedd4e050"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "929",
+      "sha256": "0b887b37ec945554110ec8cafe59281d120695b0c61d42ccdfd974d8f506302b"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "930",
+      "sha256": "7aa354ff47de6a5b0f031eec307403cb6a4f384e03c4e697ed31dab3cab33734"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "931",
+      "sha256": "0a013af048d1df4afdfd2b03dbfc6c4898512e01a8d39fd3986337f4e282df2b"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "932",
+      "sha256": "f72daa3892fe18427048ed843a1532a3a2281c7a3e9c1e89cef89512113c949b"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "933",
+      "sha256": "1cbd0338de26a27e09ccccab37184805e204912660811b5df195f540b8d29ca5"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "934",
+      "sha256": "0596a2b4ce437122216ba072e27045be656f7ad614b3bd1e556ea78eec6a819b"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "935",
+      "sha256": "1d9b20401d793372e41d186632837b5bd21fa15b7ec5c5236ba348d7d67fb782"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "936",
+      "sha256": "efe65c5b31466c6612b7b27d3b0441dbbc2a630ecff3c859d9f805ea0284daa2"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "937",
+      "sha256": "7b5e5643657478b68c992ecb3a6c6d0b21cd6da36dff5f63bb75c04da771a76a"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "938",
+      "sha256": "0090515fe53c647ab4a445f49506a4914979a1652c1fc9426a7cc001c14de1b3"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "939",
+      "sha256": "b1d256725cd235da2277182666fce2f3a34a831fc7f71c95a1ef8a27d90acf79"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "940",
+      "sha256": "e407fd07a4e3315c22379d759b2a1dc25bd48e60ace8f596ec39b8fc20e0b65b"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "941",
+      "sha256": "d1a194e4886f884ac0c91bfe3b9924a1357d8fc93fcf509d97dad100f651de70"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "942",
+      "sha256": "b6f5e344fcf5fe092a9023329f1c59f2c3af5c4af85d9453c660c3395d4d392d"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "943",
+      "sha256": "96b2f14f1aaf0b4797be578f567288d60b038d18cdae07b90b31e088611edf60"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "944",
+      "sha256": "48201e50316dd1f85c467c33e455bf71b42a9ea2c808a639904d78b5e50c12d0"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "945",
+      "sha256": "10bc61e618cdfb9e704c926bb1153f28fe642cb6abd7c434f900f804289e2669"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "946",
+      "sha256": "0e5ff519f77867a3143db39a2ef31d62cd6fa8e123cebedfb7c25c121719f2d3"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "947",
+      "sha256": "5fdf54e6f10cf8d8f1341fd0736ddc552c18d8a9fd46bbbb1da285f01f40837a"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "948",
+      "sha256": "6eef706dc4f41264867f15e999d37869609a503c35700e57b4b61f0b99060611"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "949",
+      "sha256": "eca0832c8c49bbfeca7be0999f56e61adfd3755c210b5dfe7d81adedb68a63a8"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "950",
+      "sha256": "ba59f85ec06fb7261dbc834185836027deeb5c48d282bcd5e6d4f505b8679952"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "951",
+      "sha256": "8c13fb44e1e90886380198f0082d9966563771874b6e23bf409d45ba70c593d1"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "952",
+      "sha256": "8660a7c3df769d78a2edb45299fd8f1cadab9a90077e6647a5dfda4caefa3cc3"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "953",
+      "sha256": "458b6a0588067aaeb28c6cde0c250506729f17e266a6788fdba85610be70e855"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "954",
+      "sha256": "bd5139af1163826771e9d9c8e945713964ce614b8563ed39654f39f3c466ba9a"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "955",
+      "sha256": "ea1c285321c37af6083f40be0216e8c100feb76e86166cbc18d9091b6a25fec0"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "956",
+      "sha256": "c11d802cc8ef08b075d7739ca5ed66699192a8cbadec5aff7b7d42189fb292f1"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "957",
+      "sha256": "cea0574fa93cfd51d0dd348dbcd07764161d249fb5d284ed59517ca77fc8f6e8"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "958",
+      "sha256": "1c3a0c746c175a1552df80578c7b4424ec5f3a0fbe4f5759da4870911123d9cf"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "959",
+      "sha256": "385b828e1a82d9c0680fce95c6010f1d0bba966e315e342fa5946064e3397481"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "960",
+      "sha256": "13052ede649969951e38553e3452cfdc4a9dce6bc9aa495c4cbdf5319458fdc1"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "961",
+      "sha256": "d7612789a4e6db364b6bc352940d5f9b1974460f31680740c827d6bc78bc2770"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "962",
+      "sha256": "81f3f2fc386d47b6e287dde32ca015672a0ec010554284356dc1890c65bec15f"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "963",
+      "sha256": "1d7a3c4ee9eb73cea6313a02dce177dbcc0ca3d62c35dee2ca4e37850840c32c"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "964",
+      "sha256": "7c70f998c127eef2ba9c19ae0b0ca8c10136711bd1c191d942137556fc40402f"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "965",
+      "sha256": "0d253f39b4d483856f7ebbf4000686e1ca6dca13b54fd512a50a92baf72eafe5"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "966",
+      "sha256": "d42e01fd6ce0a345f5d2f0333bbb05cc6022281cf3eb2ae785991474fa0566f7"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "967",
+      "sha256": "97e388415d5bad1473ea8205561239e1f0c4560d19e9b0ca00d11fda6262bd3a"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "968",
+      "sha256": "a0a57d3aeed759ba35562e9045cfb3bfdfbd926b08d4173473d56ec3a1f42157"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "969",
+      "sha256": "aa5751db4d794329032fa7ebda686ff781dcbb2278a0b4c2364482967a20c290"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "970",
+      "sha256": "2ae925f74ec07e5bd0e5e683e07adbf5ebbaf92c4e9f173a11cbed1df3dd2b23"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "971",
+      "sha256": "8fd25b2a5b18a439c6ca60dff0b0a20119544a1198b72a27cca18ae0d461dfbd"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "972",
+      "sha256": "df3d0a6cf55a806eb788e1e2a7513fdbf298433e4e476faa758685e2cf8955fd"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "973",
+      "sha256": "48100f12809bb6c0e46ace7d2e1a78cb0aa439e417b57fd9a22cc9c3016e89a4"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "974",
+      "sha256": "3ec5837b46747b34ddf31d56885233246c901b2f6fd219319205d62786391d9f"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "975",
+      "sha256": "7c2d5f40e88cfdb8392d59140ace1cfb7225c9b04d90a103db2a0da8ddc51663"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "976",
+      "sha256": "b91fd6a0b3cbc528eb7d7e46686e0bc795aa056ddba0a04a91e525aca7949324"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "977",
+      "sha256": "2d23a15ef7c11c087e5a17253906f6044aa77ff6495c95c4b97afa52541c9831"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "978",
+      "sha256": "1598e6cf09ecff2628011ed7fc1ac5de81d370b7f04553b2fd5c92f0b886a357"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "979",
+      "sha256": "e5a0d3045dfcf60a99adae96cd63bd6837d3eb016fc024148faa475cb70ce5e1"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "980",
+      "sha256": "c9e1fde278ced24efbf9589af199598f89f6a1e942da2e00900bcf7a50d451d1"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "981",
+      "sha256": "3e4537d8c8579ac6ec567f3556d1b0820385dabb2b159639d4cf79709e0ae9e9"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "982",
+      "sha256": "7d3ce6df3ee1ace4263b73267ae24f09eaa27582834328af4e0bd7df53228da4"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "983",
+      "sha256": "ed144d71c3c44781b3619dd45794745162d7edd6e4f897386af2b854ec822f30"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "984",
+      "sha256": "720bf2970462d337e869c79442ccff516b375041a3dd7c29cec22c0f5307891d"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "985",
+      "sha256": "e750af71ee92f3873ed5bf13e050bcf9a42bfb8f3210b14aa064103cdcb76029"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "986",
+      "sha256": "3d5a2b003689ebed6d2cfbba436cfc4a72e5fda74dc2d2684d07f807f5d4d658"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "987",
+      "sha256": "2f36635057bdb63ecfa08e66d0e8d70037b27b7d1d0346ffc9c2c563e4ce099b"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "988",
+      "sha256": "444f0d2830714b53a315a9b67ba9c094f2280641e8bf42773fe727f56087fe8f"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "989",
+      "sha256": "2fe2f8bc802192ef712ddaa76b0f13c61b5cedabc3f4b991c61d431e44275975"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "990",
+      "sha256": "211a9c9f943851e864cbfe29fd3ab1a207dcfa0b511f46875d4ca4c1fb87629b"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "991",
+      "sha256": "5d7f568d45257b740e8067cfa59c6161e4b1f07127aa069d3917be6358a74e22"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "992",
+      "sha256": "85ad1526669e5c882d805d1711a7d6704f2333180f2dc253709f25072c4fff5d"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "993",
+      "sha256": "73b421d352901377a990cce6adbbec359ab020d8397972499ded622737e2e613"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "994",
+      "sha256": "0780ad2ff84a1bd05de64bc1856ac71a5c55bacdc0064ae5567de3e7ce15eef0"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "995",
+      "sha256": "070d71890c96268b8a0c5316134a64ed4edc1c25697a4f145d831394109e233e"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "996",
+      "sha256": "5931d1e50208f28612a77773e142fb3af30d41f2e40fbc780fedf0c15a84dff8"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "997",
+      "sha256": "9c47a174d808fa9bbf75aff18cc6d8cd45fa3cde7e18465f74b38f6ba4fb419d"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "998",
+      "sha256": "682e288e0f374a6e6c01bb6a0a729078536f6e4a8a291ac2373ab363dd2b2da9"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "999",
+      "sha256": "ea5c0a07cfbceb627666e37737677d07e5c98a37c86b01ec2954fdb08d518745"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "1000",
+      "sha256": "94e698b53ee7866ce607378a0f58108ad6cd8f241da24414aaa28a49352614c7"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "1001",
+      "sha256": "ca8d77493e098dc16acfd1d73076edadb8d9eee3fbbf7ec8516729681e5781f1"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "1002",
+      "sha256": "70bbfad3bd9fe798a4e129cb273a799406e64d0ffc1190ec3ea7bdf70ad5efdc"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "1003",
+      "sha256": "6431e53288a17dff42feb22129e7202241ad62a79b73ed429a28ca78f4b50f7c"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "1004",
+      "sha256": "4b007cce6cad4c9fb5db6fdee84983d1de99f01a5c25a3b5924103c0016fcbad"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "1005",
+      "sha256": "d643109f1538d1f17970a957a16fceac5649aedb056b6980b88e2851a952079a"
+    },
+    {
+      "table": "t_offering_student_enrollment",
+      "key": "1006",
+      "sha256": "617d84c65a169c00b9579130142d705d126b7ef391a08531f72054a84bc22bad"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "key": "8",
+      "sha256": "e0a4d7e1caa2b5acb5fc35efb04388b5adc9a7b608ddbff906f5324156a010fa"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "key": "9",
+      "sha256": "4707a90baaea156db953181351156b2b55479476aae8c76cc8fce0e8f33d1cab"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "key": "10",
+      "sha256": "4b4386565a763516b8a5b19d0ce0293c1bb8fae2ef3ea7c47dd4720b1ed84f9a"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "key": "11",
+      "sha256": "ef808345a002f49cfc57102a640a69abd2dd1465b184d297c3f88dcbd6c0e90f"
+    },
+    {
+      "table": "t_supervision_evaluation",
+      "key": "12",
+      "sha256": "77a81ad675db8bb9c408ad9ca0efc783148548cc7479f933a1e8c6a12015e92f"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "94",
+      "sha256": "9771b89935ddd79bc26e39a7a53e62e878200d1d3f4a9cfa1a2913798620bf43"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "95",
+      "sha256": "43d02f42f0c7fa23d327fe3faa13cad2b49f01d956d0c5f28c05fbb48e014e89"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "96",
+      "sha256": "b7347d45994866725cd074ec8bf79b89d400d81707618f2f698d368694ac054c"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "97",
+      "sha256": "8cc294a91e6afd2086d4994e3953980766b25526aaf092bcac1a49974a487f91"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "98",
+      "sha256": "4896840fe9b7dff37a4a51a08ab0ca98627e5f3c268c7bff3f64f68f063f1aff"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "99",
+      "sha256": "b54d6631abe313e065878ffab24e15cc8c5d7530f9545e0dd66de04b38455964"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "100",
+      "sha256": "0caac9521a64e83a1f12e83e9896051b56b59cb9cd29d7ce91c646168128b669"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "101",
+      "sha256": "1eecfb70869268b6928662b989a2ecbbca5ea46c75d70bfeddbabb0bd04e9c09"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "102",
+      "sha256": "cc200fe63b6d9f01f2ab03132f8ddbf39e4fb6d4612287f656e75e1a532a6e5d"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "103",
+      "sha256": "a3c106ade9bd1e591a5dc24de9591dca1853898ea194df71413efcd8a614faca"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "104",
+      "sha256": "f130e301a9a0c9cea3fe88f53a302ba0440fb20da097ddbf46ec807f0e87b464"
+    },
+    {
+      "table": "t_training_indicator",
+      "key": "105",
+      "sha256": "1923043a86fa67085a10fb79c57f0d407102dab60876013d14a31c0095893393"
+    },
+    {
+      "table": "t_resource_access_log",
+      "key": "20",
+      "sha256": "8ecd22bb787ee8bd87fd4091627e74117398e5cff2ab98971126cb10a007bf85"
+    },
+    {
+      "table": "t_resource_access_log",
+      "key": "21",
+      "sha256": "320b7a79a1705aa3723f102ddb0599d8a7a562a84ed9d1a41611bde1c3447eeb"
+    }
+  ],
+  "repair_before_values": {
+    "t_teacher": {
+      "1": {
+        "id": 1,
+        "user_id": null
+      },
+      "2": {
+        "id": 2,
+        "user_id": null
+      },
+      "3": {
+        "id": 3,
+        "user_id": null
+      },
+      "4": {
+        "id": 4,
+        "user_id": null
+      },
+      "5": {
+        "id": 5,
+        "user_id": null
+      },
+      "6": {
+        "id": 6,
+        "user_id": null
+      },
+      "7": {
+        "id": 7,
+        "user_id": null
+      },
+      "8": {
+        "id": 8,
+        "user_id": null
+      }
+    },
+    "t_course_offering": {
+      "2": {
+        "id": 2,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "3": {
+        "id": 3,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "4": {
+        "id": 4,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "5": {
+        "id": 5,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "6": {
+        "id": 6,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "7": {
+        "id": 7,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "8": {
+        "id": 8,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "9": {
+        "id": 9,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "10": {
+        "id": 10,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "11": {
+        "id": 11,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "12": {
+        "id": 12,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "13": {
+        "id": 13,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "14": {
+        "id": 14,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "15": {
+        "id": 15,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      },
+      "16": {
+        "id": 16,
+        "major_id": 4,
+        "major_code": "DS",
+        "is_snapshot_frozen": null
+      },
+      "17": {
+        "id": 17,
+        "major_id": null,
+        "major_code": null,
+        "is_snapshot_frozen": null
+      }
+    },
+    "t_course_resource": {
+      "1": {
+        "id": 1,
+        "content_hash": null,
+        "file_size_bytes": null,
+        "file_size": "2.8 MB"
+      },
+      "2": {
+        "id": 2,
+        "content_hash": null,
+        "file_size_bytes": null,
+        "file_size": "14.5 MB"
+      },
+      "3": {
+        "id": 3,
+        "content_hash": null,
+        "file_size_bytes": null,
+        "file_size": "18.2 MB"
+      },
+      "4": {
+        "id": 4,
+        "content_hash": null,
+        "file_size_bytes": null,
+        "file_size": "5.1 MB"
+      },
+      "5": {
+        "id": 5,
+        "content_hash": null,
+        "file_size_bytes": null,
+        "file_size": "22.0 MB"
+      },
+      "11": {
+        "id": 11,
+        "content_hash": null,
+        "file_size_bytes": 53688
+      },
+      "12": {
+        "id": 12,
+        "content_hash": null,
+        "file_size_bytes": 614
+      },
+      "13": {
+        "id": 13,
+        "content_hash": null,
+        "file_size_bytes": 614
+      },
+      "14": {
+        "id": 14,
+        "content_hash": null,
+        "file_size_bytes": 614
+      },
+      "15": {
+        "id": 15,
+        "content_hash": null,
+        "file_size_bytes": 61857
+      }
+    }
+  },
+  "count_delta": {
+    "classroom_record": 48,
+    "face_feature": 0,
+    "s3_action_feedback": 2,
+    "s3_advice": 5,
+    "s3_feedback_revision": 2,
+    "s3_resource_series": 5,
+    "s3_template_draft": 0,
+    "s3_template_version": 0,
+    "s3_video_asset": 1,
+    "student": 60,
+    "t_academic_term_lock": 0,
+    "t_app_data_migration": 0,
+    "t_attendance_session": 12,
+    "t_course": 0,
+    "t_course_content_revision": 15,
+    "t_course_import_log": 0,
+    "t_course_offering": 7,
+    "t_course_offering_teacher": 21,
+    "t_course_resource": 6,
+    "t_course_schedule": 7,
+    "t_course_syllabus": 0,
+    "t_evaluation_audit_log": 12,
+    "t_graduation_indicator": 0,
+    "t_major": 0,
+    "t_major_department": 0,
+    "t_micro_teaching_slice": 3,
+    "t_offering_student_enrollment": 84,
+    "t_resource_access_log": 0,
+    "t_supervision_evaluation": 5,
+    "t_teacher": 0,
+    "t_training_indicator": 12,
+    "t_user_account": 0
+  },
+  "validation_no_new_issues": true,
+  "existing_accounts_and_biometrics_unchanged": true,
+  "verification_added": [
+    {
+      "table": "t_resource_access_log",
+      "key": "20",
+      "sha256": "8ecd22bb787ee8bd87fd4091627e74117398e5cff2ab98971126cb10a007bf85"
+    },
+    {
+      "table": "t_resource_access_log",
+      "key": "21",
+      "sha256": "320b7a79a1705aa3723f102ddb0599d8a7a562a84ed9d1a41611bde1c3447eeb"
+    }
+  ],
+  "verification_note": "Two access logs were emitted by the actual scripted download/preview checks. This manifest owns those checks only.",
+  "resource_display_size_repairs": [
+    {
+      "table": "t_course_resource",
+      "key": "1",
+      "before_sha256": "4186c3f5721ad807a15a9da65b56020a5025242a37228a01122d0c5b7e6f918e",
+      "after_sha256": "8f2a86fa35ff49cfdb77ffa0fec53deed7b94e46af202b2257da52e07cb58f3f"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "2",
+      "before_sha256": "6169cd6c6d7e1fc0db76a2d4723f45c8f4a39bf52b047f4806ff8eced24f5d41",
+      "after_sha256": "bf8922d90df46f853af4a9302704651d6cfbad921e6d128270b9c8c428ab32ed"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "3",
+      "before_sha256": "f311a376584364147cb66a71b1c7d32c10810aa73ca3dd396e09ddbdf0a58cdb",
+      "after_sha256": "c6f1848f6c0afaacdc7b34a7d02c23b6a5f0922c3169802a4482d42cad1b13c5"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "4",
+      "before_sha256": "2a6f08b2b0a261a812e857a778f01996e709e35cc5f03e03fdecf14c0b27b661",
+      "after_sha256": "484b846ad987289388fc486409115fea3bc20677e7be5f4c420de025e747dec8"
+    },
+    {
+      "table": "t_course_resource",
+      "key": "5",
+      "before_sha256": "696e6d8a97cc38ded651f90c239d90ca5a41a2e65aee1278d0e2ea016b2581bd",
+      "after_sha256": "563d7ef5550da8a943f6f472a6e42f17f5dccaccf5be4afca672155a4450f116"
+    }
+  ],
+  "resource_display_size_note": "5 materially misleading historical MB displays corrected from verified disk bytes; original display strings preserved for rollback."
+}

@@ -61,4 +61,4 @@ raw/README.md、stop_project.ps1、memory-bank/project-context.md及原有Attend
 
 资料来源：原检查记录、当前代码及memory-bank已确认范围；raw/只有README.md，业务原始资料未提供；视频来源为既有 `docs/20261012-exp4-sprint3-verification-v1/synthetic-video.mp4`，没有自然人人脸或真实课堂视频。
 
-证据目录：[20261013-exp4-fix-evidence-v1](20261013-exp4-fix-evidence-v1/)。
+证据目录：[20261013-exp4-fix-evidence-v1](https://github.com/Zhoubin601/classroom-ai/tree/5f8c682706ecb58341d59707e4014a9fad35c9bf/docs/20261013-exp4-fix-evidence-v1)。

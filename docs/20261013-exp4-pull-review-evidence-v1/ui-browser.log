@@ -1,0 +1,13 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'false' !== 'true'
+
+    at D:\2026Autumn Semester File\classroom-ai-demo\scripts\tests\ui-interaction-browser.cjs:37:248
+    at async main (D:\2026Autumn Semester File\classroom-ai-demo\scripts\tests\ui-interaction-browser.cjs:37:161) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'false',
+  expected: 'true',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

@@ -1,0 +1,10 @@
+{
+  "url": "http://127.0.0.1:25176",
+  "expectedAccount": "合成新教师",
+  "actualAccount": "合\n合成旧管理员",
+  "newTokenStored": true,
+  "adminNavigationVisible": true,
+  "newTeacherVisible": false,
+  "pageErrors": [],
+  "syntheticOnly": true
+}

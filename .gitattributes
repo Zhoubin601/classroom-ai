@@ -1,14 +1,13 @@
 # Preserve exact artifact bytes so recorded SHA256 values survive checkout.
 docs/20261011-sprint3-evidence-v1/** -text
 docs/20261012-exp4-sprint3-verification-v1/** -text
-output/20261012-sprint3-acceptance-v1.md -text
 output/20261012-sprint3-acceptance-v2.md -text
-output/20261012-sprint3-user-guide-v1.md -text
 output/20261012-sprint3-user-guide-v2.md -text
 docs/20261012-ui-redesign-evidence-v1/** -text
-docs/20261012-exp4-review-evidence-v1/** -text
-docs/20261013-exp4-fix-evidence-v1/** -text
 output/20261012-ui-redesign-acceptance-v1.md -text
-docs/20261013-exp4-current-check-v1/** -text -whitespace
-docs/20261013-exp4-current-fix-v1/** -text -whitespace
 docs/20261013-exp4-final-recheck-v1/** -text -whitespace
+
+# Published historical evidence keeps captured bytes and formatting.
+docs/20261011-sprint2-local-evidence-v1/** -text -whitespace
+docs/20261012-data-completeness-evidence-v1/** -text -whitespace
+docs/20261013-exp4-pull-review-evidence-v1/** -text -whitespace

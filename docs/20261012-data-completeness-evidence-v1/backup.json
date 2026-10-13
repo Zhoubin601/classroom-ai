@@ -1,0 +1,12 @@
+{
+  "encrypted_file": "D:\\2026Autumn Semester File\\classroom-ai-demo\\runtime\\backups\\20261012-data-completeness-v1.sql.dpapi",
+  "encrypted_sha256": "e22963d3879202e00dfbf9fe979d7ce3499191a88f069742c3997a69c27faed6",
+  "business_dump_sha256": "68f152ae050af5fcf772d5b5683e830c2b6f05d127c45c308406cac75558171a",
+  "excluded": [
+    "t_user_account",
+    "face_feature"
+  ],
+  "decrypt_roundtrip": true,
+  "encryption": "Windows DPAPI current user, compressed",
+  "source": "classroom-mysql"
+}

@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "D:\2026Autumn Semester File\classroom-ai-demo\scripts\tests\verify-data-completeness.py", line 70, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "D:\2026Autumn Semester File\classroom-ai-demo\scripts\tests\verify-data-completeness.py", line 56, in main
+    run(sys.executable,'scripts/rollback-complete-demo.py','--manifest',str(ev/'first/applied-manifest.json'),'--baseline',str(ev/'first/apply-before.json'),'--sql-file',str(ev/'rollback.sql'),'--container',name,'--environment','isolated-test','--apply','--evidence',str(ev/'rollback.json'))
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\2026Autumn Semester File\classroom-ai-demo\scripts\tests\verify-data-completeness.py", line 19, in run
+    if result.returncode:raise RuntimeError(result.stdout+result.stderr)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Traceback (most recent call last):
+  File "D:\2026Autumn Semester File\classroom-ai-demo\scripts\rollback-complete-demo.py", line 83, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "D:\2026Autumn Semester File\classroom-ai-demo\scripts\rollback-complete-demo.py", line 67, in main
+    raise FileExistsError('Rollback output already exists with different content')
+FileExistsError: Rollback output already exists with different content
+

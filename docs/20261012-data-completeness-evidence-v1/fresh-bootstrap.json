@@ -1,0 +1,7 @@
+{
+  "baseline_file": "scripts/deploy/mysql/init/initialize.sql",
+  "target_container": "classroom-data-test-20261012",
+  "database": "classroom_fresh",
+  "imported": true,
+  "source_file_not_changed": true
+}

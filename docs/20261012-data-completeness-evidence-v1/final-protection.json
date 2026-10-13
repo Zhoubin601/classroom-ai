@@ -1,0 +1,16 @@
+{
+  "protected_source_files": 266,
+  "source_files_unchanged": true,
+  "raw_unchanged": true,
+  "old_rows_modified": 34,
+  "old_rows_deleted": 0,
+  "original_accounts_and_faces_unchanged": true,
+  "new_seed_rows": 307,
+  "real_verification_access_logs": 2,
+  "no_history_realtime_keys": true,
+  "before_total": 1947,
+  "after_total": 2256,
+  "final_existing_rows_modified": 34,
+  "resource_size_display_fixed": 5,
+  "final_existing_rows_deleted": 0
+}

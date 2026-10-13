@@ -1,0 +1,13 @@
+{
+  "removed_only_created_test_containers": [
+    "classroom-data-test-fresh-backend-20261012",
+    "classroom-data-test-backend-20261012",
+    "classroom-data-test-redis-20261012",
+    "classroom-data-test-20261012",
+    "classroom-data-test-regression-redis-20261012",
+    "classroom-data-test-regression-20261012"
+  ],
+  "original_named_volumes_untouched": true,
+  "test_network_removed": true,
+  "upload_files_preserved": true
+}

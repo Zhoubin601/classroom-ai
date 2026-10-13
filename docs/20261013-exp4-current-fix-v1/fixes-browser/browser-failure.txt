@@ -1,2 +1,0 @@
-page.evaluate: TypeError: Failed to fetch dynamically imported module: http://127.0.0.1:15179/src/api/index.ts
-    at main (/workspace/classroom-ai/scripts/tests/exp4-fixes-browser.cjs:63:27)

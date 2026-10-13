@@ -1,0 +1,575 @@
+{
+  "date": "2026-10-13",
+  "baseline_commit": "5f8c682706ecb58341d59707e4014a9fad35c9bf",
+  "deleted_files": 1231,
+  "deleted_bytes": 312417292,
+  "tracked_deletions": 929,
+  "targets": [
+    {
+      "path": "docs/20261007-role-commit-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 17,
+      "tracked_files": 17
+    },
+    {
+      "path": "docs/20261007-role-fixes-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 94,
+      "tracked_files": 71
+    },
+    {
+      "path": "docs/20261007-role-functional-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 138,
+      "tracked_files": 121
+    },
+    {
+      "path": "docs/20261007-role-recheck-evidence-v2",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 76,
+      "tracked_files": 64
+    },
+    {
+      "path": "docs/20261007-sprint2-readiness-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 26,
+      "tracked_files": 21
+    },
+    {
+      "path": "docs/20261009-camera-integration-fix-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 8,
+      "tracked_files": 2
+    },
+    {
+      "path": "docs/20261009-micro-scope-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 20,
+      "tracked_files": 12
+    },
+    {
+      "path": "docs/20261009-radar-proof-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 13,
+      "tracked_files": 8
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 74,
+      "tracked_files": 62
+    },
+    {
+      "path": "docs/20261009-role-functional-evidence-v2",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 92,
+      "tracked_files": 74
+    },
+    {
+      "path": "docs/20261009-ui-review-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 9,
+      "tracked_files": 9
+    },
+    {
+      "path": "docs/20261010-attendance-test-import-check-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 13,
+      "tracked_files": 11
+    },
+    {
+      "path": "docs/20261010-role-recheck-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 96,
+      "tracked_files": 81
+    },
+    {
+      "path": "docs/20261010-sprint2-readiness-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 30,
+      "tracked_files": 23
+    },
+    {
+      "path": "docs/20261012-exp4-review-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 10,
+      "tracked_files": 9
+    },
+    {
+      "path": "docs/20261013-exp4-current-check-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 113,
+      "tracked_files": 113
+    },
+    {
+      "path": "docs/20261013-exp4-current-fix-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 164,
+      "tracked_files": 164
+    },
+    {
+      "path": "docs/20261013-exp4-fix-evidence-v1",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 42,
+      "tracked_files": 41
+    },
+    {
+      "path": "docs/review-20260921",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 9,
+      "tracked_files": 9
+    },
+    {
+      "path": "docs/review-us01-us02-20260919",
+      "reason": "Historical verification inputs, attempts and evidence superseded by retained final recheck/local pull review; dated narrative conclusions retained",
+      "replacement": [
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md"
+      ],
+      "files": 3,
+      "tracked_files": 2
+    },
+    {
+      "path": "docs/20261012-exp4-review-plan-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261012-exp4-review-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261013-exp4-current-check-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261013-exp4-fix-plan-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261013-exp4-pull-review-plan-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261009-ui-review-plan-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261009-ui-review-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261009-role-test-plan-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261009-role-test-plan-v2.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "docs/20261007-role-connectivity-plan-v1.md",
+      "reason": "Completed inspection/plan superseded by retained implementation, repair and final validation records",
+      "replacement": [
+        "docs/20261013-exp4-current-fix-v1.md",
+        "docs/20261013-exp4-final-recheck-v1.md",
+        "docs/20261013-exp4-pull-review-v1.md",
+        "docs/20261012-ui-redesign-implementation-v1.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "output/20261007-role-integration-check-v1.md",
+      "reason": "Earlier report edition explicitly superseded by retained v2",
+      "replacement": [
+        "output/20261007-role-integration-check-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "output/20261007-爱教学-功能实机测试结论-v1.md",
+      "reason": "Earlier report edition explicitly superseded by retained v2",
+      "replacement": [
+        "output/20261007-爱教学-功能实机测试结论-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "output/20261009-role-integration-check-v1.md",
+      "reason": "Earlier report edition explicitly superseded by retained v2",
+      "replacement": [
+        "output/20261009-role-integration-check-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "output/20261012-sprint3-acceptance-v1.md",
+      "reason": "Earlier report edition explicitly superseded by retained v2",
+      "replacement": [
+        "output/20261012-sprint3-acceptance-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "output/20261012-sprint3-user-guide-v1.md",
+      "reason": "Earlier report edition explicitly superseded by retained v2",
+      "replacement": [
+        "output/20261012-sprint3-user-guide-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "output/20260918-第二组-Sprint1源代码-v2.zip",
+      "reason": "Obsolete September Sprint1 application snapshot; current application is exp4 and source history retained in Git",
+      "replacement": [
+        "README.md",
+        "output/20261012-sprint3-user-guide-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 1
+    },
+    {
+      "path": "output/20260921-第二组-Sprint1源代码-v3.zip",
+      "reason": "Obsolete September Sprint1 application snapshot; current application is exp4 and source history retained in Git",
+      "replacement": [
+        "README.md",
+        "output/20261012-sprint3-user-guide-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 0
+    },
+    {
+      "path": "output/20260922-第二组-Sprint1源代码-v4.zip",
+      "reason": "Obsolete September Sprint1 application snapshot; current application is exp4 and source history retained in Git",
+      "replacement": [
+        "README.md",
+        "output/20261012-sprint3-user-guide-v2.md"
+      ],
+      "files": 1,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/deliverable-staging",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 82,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/isolated",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 5,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/isolated-repeat",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 5,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/isolated-browser",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 2,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/isolated-browser-complete",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 4,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/isolated-browser-final",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 2,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/isolated-browser-passed",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 4,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/isolated-browser-verified",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 3,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/live-repeat",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 5,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/recovery",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 17,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/recovery-verified",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 17,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261012-data-completeness-evidence-v1/browser-acceptance",
+      "reason": "Intermediate data-governance attempt or reproducible export staging superseded by retained final outcomes and deliverables",
+      "replacement": [
+        "docs/20261012-data-completeness-evidence-v1/browser-final/results.json",
+        "docs/20261012-data-completeness-evidence-v1/recovery-final/results.json",
+        "output/20261012-database-audit-v1.docx",
+        "output/20261012-database-completeness-v1.xlsx"
+      ],
+      "files": 6,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261011-sprint2-local-evidence-v1/browser",
+      "reason": "Earlier diagnostic/browser/Office attempt superseded by corresponding final evidence",
+      "replacement": [
+        "docs/20261011-sprint2-local-evidence-v1/browser-final"
+      ],
+      "files": 5,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261011-sprint2-local-evidence-v1/history-diagnostic",
+      "reason": "Earlier diagnostic/browser/Office attempt superseded by corresponding final evidence",
+      "replacement": [
+        "docs/20261011-sprint2-local-evidence-v1/history-diagnostic-final"
+      ],
+      "files": 3,
+      "tracked_files": 0
+    },
+    {
+      "path": "docs/20261011-sprint2-local-evidence-v1/office-strict",
+      "reason": "Earlier diagnostic/browser/Office attempt superseded by corresponding final evidence",
+      "replacement": [
+        "docs/20261011-sprint2-local-evidence-v1/office-strict-final"
+      ],
+      "files": 6,
+      "tracked_files": 0
+    }
+  ]
+}

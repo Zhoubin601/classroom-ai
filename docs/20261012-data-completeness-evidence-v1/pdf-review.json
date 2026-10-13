@@ -1,0 +1,32 @@
+[
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-SE-v1.pdf",
+    "pages": 1,
+    "contains_synthetic_label": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-SE-v2.pdf",
+    "pages": 1,
+    "contains_synthetic_label": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-CS-v1.pdf",
+    "pages": 1,
+    "contains_synthetic_label": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-AI-v1.pdf",
+    "pages": 1,
+    "contains_synthetic_label": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-DS-v1.pdf",
+    "pages": 1,
+    "contains_synthetic_label": true
+  },
+  {
+    "file": "runtime\\uploads\\resources\\DEMO-DATA-20261012-v1-SEC-v1.pdf",
+    "pages": 1,
+    "contains_synthetic_label": true
+  }
+]

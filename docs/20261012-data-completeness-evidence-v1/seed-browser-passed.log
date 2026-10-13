@@ -1,0 +1,4 @@
+locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+  - waiting for getByRole('heading', { name: '专业核心', exact: true }) to be visible
+

@@ -1,7 +1,0 @@
-locator.click: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByRole('button', { name: '统计与反馈', exact: true })[22m
-
-    at main (/workspace/classroom-ai/docs/20261013-exp4-current-check-v1/business-browser.cjs:19:397) {
-  name: 'TimeoutError'
-}

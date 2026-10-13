@@ -1,0 +1,9 @@
+{
+  "seed_passed": true,
+  "repeat_zero_changes": true,
+  "failure_injection_transaction_rolled_back": true,
+  "guarded_rollback_exact_row_hash_match": true,
+  "encrypted_restore_exact_row_hash_match": true,
+  "target": "classroom-data-test-recovery-20261012",
+  "source_database_not_modified": true
+}

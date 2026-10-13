@@ -1,0 +1,13 @@
+Isolated real MySQL/Redis/current JAR/LibreOffice/Vue preview ready
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at D:\2026Autumn Semester File\classroom-ai-demo\docs\20261011-sprint2-local-evidence-v1\history-diagnostic.cjs:148:14 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

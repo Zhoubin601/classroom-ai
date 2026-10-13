@@ -1,0 +1,10 @@
+AssertionError [ERR_ASSERTION]: fixture not reached
+    at waitFor (D:\2026Autumn Semester File\classroom-ai-demo\docs\20261013-exp4-pull-review-evidence-v1\login-early-success-diagnostic.cjs:20:111)
+    at async D:\2026Autumn Semester File\classroom-ai-demo\docs\20261013-exp4-pull-review-evidence-v1\login-early-success-diagnostic.cjs:23:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: undefined,
+  operator: 'fail',
+  diff: 'simple'
+}

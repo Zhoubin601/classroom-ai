@@ -1,0 +1,4 @@
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByTestId('offering-3').getByRole('button', { name: '随堂评价 (US-13)', exact: true })
+

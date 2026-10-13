@@ -1,8 +1,0 @@
-{
-  "mysql": "classroom-exp3-browser-fdbf8447bc",
-  "network": "classroom-exp3-browser-fdbf8447bc-net",
-  "backend": "classroom-exp3-browser-fdbf8447bc-backend",
-  "redis": "classroom-exp3-browser-fdbf8447bc-redis",
-  "expiredBackend": "classroom-exp3-browser-fdbf8447bc-expired",
-  "frontendPid": 27440
-}

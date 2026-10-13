@@ -1,0 +1,4 @@
+locator.selectOption: Timeout 20000ms exceeded.
+Call log:
+  - waiting for getByLabel('当前资源', { exact: true })
+

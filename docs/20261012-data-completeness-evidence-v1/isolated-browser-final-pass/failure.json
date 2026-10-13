@@ -1,0 +1,273 @@
+{
+  "error": "locator.selectOption: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('当前资源', { exact: true })\u001b[22m\n",
+  "passed": 11,
+  "proof": [
+    "五专业、三学期、三开课状态和12人选课名单",
+    "历史归档人数、冻结快照和联合授课",
+    "历史考勤应到、实到、缺勤与出勤率一致",
+    "评价状态、权重快照、24小时延迟和教师脱敏",
+    "质量统计、雷达、问题分类和行动反馈历史",
+    "真实课件、水印预览、两版历史及共享授权",
+    "微格纯色视频资产及三个有效片段",
+    "课程、大纲、专业目录与权限隔离",
+    "真实教师页面显示合成建议、反馈和雷达图",
+    "真实主任页面展示质量样本",
+    "真实督导页面展示已审核统计与课程类别"
+  ],
+  "requests": [
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings",
+      "status": 200,
+      "code": 200,
+      "bytes": 28100
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings/25",
+      "status": 200,
+      "code": 200,
+      "bytes": 1509
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings/24",
+      "status": 200,
+      "code": 200,
+      "bytes": 1514
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings/23",
+      "status": 200,
+      "code": 200,
+      "bytes": 1499
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings/22",
+      "status": 200,
+      "code": 200,
+      "bytes": 1495
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings/19",
+      "status": 200,
+      "code": 200,
+      "bytes": 1612
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings/21",
+      "status": 200,
+      "code": 200,
+      "bytes": 1464
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/courses/offerings/20",
+      "status": 200,
+      "code": 200,
+      "bytes": 1964
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/courses/offerings/history?term=2025-2026%E6%98%A5%E5%AD%A3",
+      "status": 200,
+      "code": 200,
+      "bytes": 538
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/attendance/offering/25",
+      "status": 200,
+      "code": 200,
+      "bytes": 2991
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/attendance/offering/24",
+      "status": 200,
+      "code": 200,
+      "bytes": 3020
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/attendance/offering/23",
+      "status": 200,
+      "code": 200,
+      "bytes": 2990
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/attendance/offering/22",
+      "status": 200,
+      "code": 200,
+      "bytes": 2982
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/attendance/offering/19",
+      "status": 200,
+      "code": 200,
+      "bytes": 2918
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/attendance/offering/20",
+      "status": 200,
+      "code": 200,
+      "bytes": 3928
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/supervisions",
+      "status": 200,
+      "code": 200,
+      "bytes": 15743
+    },
+    {
+      "role": "dongxm",
+      "route": "/api/v1/supervisions/10",
+      "status": 403,
+      "code": 403,
+      "bytes": 84
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/supervisions/8",
+      "status": 200,
+      "code": 200,
+      "bytes": 2066
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/sprint3/radar?term=2026-2027%E7%A7%8B%E5%AD%A3",
+      "status": 200,
+      "code": 200,
+      "bytes": 2224
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/sprint3/suggestions/mine",
+      "status": 200,
+      "code": 200,
+      "bytes": 1263
+    },
+    {
+      "role": "director",
+      "route": "/api/v1/sprint3/quality?term=2026-2027%E7%A7%8B%E5%AD%A3",
+      "status": 200,
+      "code": 200,
+      "bytes": 2009
+    },
+    {
+      "role": "supervisor",
+      "route": "/api/v1/sprint3/problems?term=2026-2027%E7%A7%8B%E5%AD%A3",
+      "status": 200,
+      "code": 200,
+      "bytes": 2198
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources?courseId=2",
+      "status": 200,
+      "code": 200,
+      "bytes": 1214
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/17/history",
+      "status": 200,
+      "code": 200,
+      "bytes": 2542
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/17/download",
+      "status": 200,
+      "bytes": 95510
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/17/preview-ticket",
+      "status": 200,
+      "code": 200,
+      "bytes": 174
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/preview/[REDACTED]",
+      "status": 200,
+      "bytes": 118216
+    },
+    {
+      "role": "chenlx",
+      "route": "/api/v1/resources/17",
+      "status": 403,
+      "code": 403,
+      "bytes": 90
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/micro-assets?courseId=2",
+      "status": 200,
+      "code": 200,
+      "bytes": 590
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/micro-slices/course/2",
+      "status": 200,
+      "code": 200,
+      "bytes": 4104
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/micro-slices/7/video",
+      "status": 200,
+      "bytes": 4925
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/micro-slices/8/video",
+      "status": 200,
+      "bytes": 4925
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/resources/micro-slices/9/video",
+      "status": 200,
+      "bytes": 4925
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/syllabus/course/2/indicators",
+      "status": 200,
+      "code": 200,
+      "bytes": 6962
+    },
+    {
+      "role": "guojun",
+      "route": "/api/v1/courses/2/content/draft",
+      "status": 200,
+      "code": 200,
+      "bytes": 1456
+    },
+    {
+      "role": "chenlx",
+      "route": "/api/v1/courses/2",
+      "status": 403,
+      "code": 403,
+      "bytes": 167
+    },
+    {
+      "role": "",
+      "route": "/api/v1/courses",
+      "status": 401,
+      "code": 401,
+      "bytes": 102
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "key": "9ed465546f65b8a22e31e86ca667a51619eb6ef931f97f11f5576847f896fbd0",
+    "key_group": "face",
+    "type": "string",
+    "ttl": -1,
+    "value_sha256": "2787bc3d6c515e92135cfa0827ee1667ca137237d2100b4d00ac70e415c01243"
+  },
+  {
+    "key": "5718d47a4171dd45037dc0d88cdb16d36c812e1f1f0282bcbdab93113ccf252b",
+    "key_group": "face",
+    "type": "string",
+    "ttl": -1,
+    "value_sha256": "b50374e7af6bf81dcfad3fe00c7e11f53a1ec26d160716e2246b8570500ee2df"
+  },
+  {
+    "key": "73cc0d5d7432ee733f9f9e63136aaab59b4c5c3dc98f6b6b291c1438d3906dde",
+    "key_group": "face",
+    "type": "string",
+    "ttl": -1,
+    "value_sha256": "23c9a57eceb19316f9bdc292a263f1d430a1246ae9d73a9637760c4e672c7a92"
+  },
+  {
+    "key": "8f3d54bafbc817028b0c41163567a4b971cc6e915d4bdde4653b2296a2f11518",
+    "key_group": "face",
+    "type": "set",
+    "ttl": -1,
+    "value_sha256": "ea6f5aa673693d667e6ab8dccc9a4390ddcb5acd6a390e5fd9f1dc97d3e2f589"
+  }
+]

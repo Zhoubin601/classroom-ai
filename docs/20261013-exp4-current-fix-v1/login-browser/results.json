@@ -1,8 +1,0 @@
-{
-  "proof": [
-    "初始401不撤销新的登录",
-    "初始旧身份成功响应不覆盖新的登录"
-  ],
-  "pageErrors": [],
-  "syntheticOnly": true
-}

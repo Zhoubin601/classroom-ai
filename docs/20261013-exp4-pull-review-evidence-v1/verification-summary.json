@@ -1,0 +1,30 @@
+{
+  "testIssues": [
+    "P3 immediate aria-selected assertion after asynchronous save/navigation"
+  ],
+  "date": "2026-10-13 Asia/Shanghai",
+  "head": "20de6a85f6a475d8e67b9fcd2690aa8c3a833a46",
+  "backend": {
+    "passed": 284,
+    "failed": 0,
+    "skipped": 0
+  },
+  "frontendPassed": 23,
+  "loginExistingGroups": 3,
+  "sourceModified": false,
+  "resourceGroups": 7,
+  "sprint3BusinessGroups": 8,
+  "remoteFinalSame": true,
+  "base": "5900488657a519821f31d22b5997d6cc4bb1ab62",
+  "uiWaitCopyGroups": 15,
+  "report": "docs/20261013-exp4-pull-review-v1.md",
+  "confirmedResidualIssues": [
+    "P2 startup old identity response before new login completes leaves old UI with new token"
+  ],
+  "protectedFilesUnchanged": 409,
+  "fixesGroups": 8,
+  "dailyDeploymentPerformed": false,
+  "visionPassed": 9,
+  "legacyBusinessSubflows": 10,
+  "productionAndDevReproduced": true
+}

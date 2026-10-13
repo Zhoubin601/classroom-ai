@@ -1,0 +1,32 @@
+{
+  "output_files": [
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-database-audit-v1.docx",
+      "bytes": 33882,
+      "sha256": "ed68107e5ba3b025ede2abfd237e9796539ab4ccb0459959d920bf8cf89d3cbe"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-database-completeness-v1.xlsx",
+      "bytes": 42853,
+      "sha256": "582a3ce21c231951b3c14c7dd1ba2956cc8633698abbca8c5437063d1881d510"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-demo-data-operation-v1.md",
+      "bytes": 8838,
+      "sha256": "2c67fb575dc5c0a28509530e355c73a20f938e9625f60a3f1afeb5ebe3fa5e4d"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261012-demo-data-package-v1.zip",
+      "bytes": 2256660,
+      "sha256": "ee1ec6ae1da36b22f0cd6b8efc749e0060f58eedce6863c0210be7a44818250c"
+    }
+  ],
+  "officecli_authoring": true,
+  "validated_openxml_and_zip": true,
+  "native_word_review_pages": 7,
+  "all_nine_workbook_sheets_previewed": true,
+  "protected_original_files_unchanged": true,
+  "raw_unchanged": true,
+  "new_biometrics": 0,
+  "frontend_http_status": 200
+}

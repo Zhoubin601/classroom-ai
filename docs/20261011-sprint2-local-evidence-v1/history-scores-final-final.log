@@ -1,0 +1,15 @@
+PASS scores: omitted/null/partial scores rejected, explicit four zeros accepted, incomplete draft preserved
+PASS history API: independent snapshots readable by authorized roles; anonymous/foreign/mismatched reads and old edits rejected
+PASS teacher UI: default latest, historical snapshot switch/read-only, return to editable current version
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at D:\2026Autumn Semester File\classroom-ai-demo\scripts\tests\exp3-history-scores.cjs:136:14 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

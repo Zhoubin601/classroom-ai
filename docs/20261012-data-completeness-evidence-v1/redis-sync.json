@@ -1,0 +1,13 @@
+{
+  "database_feature_count": 80,
+  "cache_index_count_before": 3,
+  "missing_cached_ids_before": 80,
+  "orphan_cached_ids_before": 3,
+  "synthetic_feature_count": 0,
+  "applied": true,
+  "vectors_saved": false,
+  "cache_index_count_after": 80,
+  "index_matches_mysql": true,
+  "synthetic_cache_entries": 0,
+  "mechanism": "evict derived index, invoke existing authenticated /api/face/all fallback; no core algorithm change"
+}

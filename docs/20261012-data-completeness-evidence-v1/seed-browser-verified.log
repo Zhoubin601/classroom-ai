@@ -1,0 +1,7 @@
+locator.waitFor: Error: strict mode violation: getByText('CS1001 软件工程导论', { exact: true }) resolved to 2 elements:
+    1) <td data-v-aefd44cc="">CS1001 软件工程导论</td> aka getByRole('cell', { name: 'CS1001 软件工程导论' }).first()
+    2) <td data-v-aefd44cc="">CS1001 软件工程导论</td> aka getByRole('cell', { name: 'CS1001 软件工程导论' }).nth(1)
+
+Call log:
+  - waiting for getByText('CS1001 软件工程导论', { exact: true }) to be visible
+

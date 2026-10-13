@@ -1,0 +1,5 @@
+Isolated real MySQL/Redis/current JAR/LibreOffice/Vue preview ready
+Expected values to be strictly equal:
+
+0 !== 4
+

@@ -1,0 +1,2 @@
+ M stop_project.ps1
+?? docs/20261011-sprint2-local-evidence-v1/

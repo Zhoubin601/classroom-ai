@@ -1,0 +1,236 @@
+{
+  "source": "DEMO-DATA-20261012-v1",
+  "synthetic": true,
+  "selected_courses": [
+    "CS1001",
+    "CS2002",
+    "AI3001",
+    "DS3001",
+    "SEC3001"
+  ],
+  "scenes": [
+    {
+      "major": "SE",
+      "course_code": "CS1001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-SE",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "CS",
+      "course_code": "CS2002",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-CS",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "AI",
+      "course_code": "AI3001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-AI",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "DS",
+      "course_code": "DS3001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-DS",
+      "term": "2026-2027秋季"
+    },
+    {
+      "major": "SEC",
+      "course_code": "SEC3001",
+      "class": "【合成演示】DEMO-DATA-20261012-v1-SEC",
+      "term": "2026-2027秋季"
+    }
+  ],
+  "planned_repairs": [
+    {
+      "table": "t_teacher",
+      "operation": "补齐唯一工号且教研室一致的user_id"
+    },
+    {
+      "table": "t_course_offering",
+      "operation": "补齐未冻结在读班次专业和false冻结标记"
+    },
+    {
+      "table": "t_course_offering_teacher",
+      "operation": "依据已有主讲工号补齐PRIMARY关系"
+    }
+  ],
+  "existing_file_facts": [
+    {
+      "resource_id": 1,
+      "file_url": "/uploads/resources/ch1_overview.pdf",
+      "exists": true,
+      "bytes": 61857,
+      "sha256": "620f1c36bdf12421c49acae9dce5fee62939c96c9faf71b9571763a47c571300",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 2,
+      "file_url": "/uploads/resources/ch3_wbs.pptx",
+      "exists": true,
+      "bytes": 33164,
+      "sha256": "d52d4909734df2ac6e737190af833a8128e0c8c446196ec03ab23b4b5c772eae",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 3,
+      "file_url": "/uploads/resources/ch5_scrum.pptx",
+      "exists": true,
+      "bytes": 31794,
+      "sha256": "7be30a8b1e60eb97cafcf0b1a33a053e6f373597302f66865a1d7c054a0e60db",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 4,
+      "file_url": "/uploads/resources/cs2002_intro.pdf",
+      "exists": true,
+      "bytes": 61857,
+      "sha256": "620f1c36bdf12421c49acae9dce5fee62939c96c9faf71b9571763a47c571300",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 5,
+      "file_url": "/uploads/resources/ai3001_intro.pptx",
+      "exists": true,
+      "bytes": 33164,
+      "sha256": "d52d4909734df2ac6e737190af833a8128e0c8c446196ec03ab23b4b5c772eae",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 11,
+      "file_url": "/uploads/resources/1790153378307_576b4d96.docx",
+      "exists": true,
+      "bytes": 53688,
+      "sha256": "36e75458c80d41baa4f5a2e755b3cb683909f2b5cb90d997a1cf59adb923472f",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 12,
+      "file_url": "/uploads/resources/1790237517678_b01208ef.pdf",
+      "exists": true,
+      "bytes": 614,
+      "sha256": "3697581cc6ad69ab5444140209ad23e1247c068f5006d5296a89ca65bc214c50",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 13,
+      "file_url": "/uploads/resources/1790237675120_8293c1fa.pdf",
+      "exists": true,
+      "bytes": 614,
+      "sha256": "3697581cc6ad69ab5444140209ad23e1247c068f5006d5296a89ca65bc214c50",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 14,
+      "file_url": "/uploads/resources/1790237742172_cda65834.pdf",
+      "exists": true,
+      "bytes": 614,
+      "sha256": "3697581cc6ad69ab5444140209ad23e1247c068f5006d5296a89ca65bc214c50",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 15,
+      "file_url": "/uploads/resources/1790238028905_326ba03a.pdf",
+      "exists": true,
+      "bytes": 61857,
+      "sha256": "620f1c36bdf12421c49acae9dce5fee62939c96c9faf71b9571763a47c571300",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 16,
+      "file_url": "/uploads/resources/DEMO-DATA-20261012-v1-SE-v1.pdf",
+      "exists": true,
+      "bytes": 90775,
+      "sha256": "4469c99acbfa4b306311c1ee35a03a29389802e2a45394c04b3b81e5ed6e36d4",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 17,
+      "file_url": "/uploads/resources/DEMO-DATA-20261012-v1-SE-v2.pdf",
+      "exists": true,
+      "bytes": 95510,
+      "sha256": "3559318006da64ef0d0598e3f16bd2917ad24a2987ab70ba57dca9b1e72959c6",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 18,
+      "file_url": "/uploads/resources/DEMO-DATA-20261012-v1-CS-v1.pdf",
+      "exists": true,
+      "bytes": 93488,
+      "sha256": "65a4fdf8335ebb78cf386b9021fa1397f07e745bbd00231221ed35addf2b8f48",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 19,
+      "file_url": "/uploads/resources/DEMO-DATA-20261012-v1-AI-v1.pdf",
+      "exists": true,
+      "bytes": 93002,
+      "sha256": "d495fa632473a8f38d7a932d81bbf6fad78d36890fb89e76b2d59efad4375b94",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 20,
+      "file_url": "/uploads/resources/DEMO-DATA-20261012-v1-DS-v1.pdf",
+      "exists": true,
+      "bytes": 90324,
+      "sha256": "c6f0b1591df34f7a9827a2652088ded6f0aea189962fa36b6cdf57ed4704431a",
+      "existing_size_matches": true
+    },
+    {
+      "resource_id": 21,
+      "file_url": "/uploads/resources/DEMO-DATA-20261012-v1-SEC-v1.pdf",
+      "exists": true,
+      "bytes": 92716,
+      "sha256": "c6572504adac0e04483f367d5d732ea0b8ff62d1fcfd9cdc795545e0408b064c",
+      "existing_size_matches": true
+    }
+  ],
+  "no_new_accounts": true,
+  "no_biometric_data": true,
+  "no_existing_content_overwrite": true,
+  "synthetic_events_use_existing_scoped_account_ids": true,
+  "event_note": "All new evaluation/audit/feedback events are labelled synthetic snapshots; no claim of real human activity.",
+  "sql_sha256": "4b4c5f30d1cf8a8ed007d41f6462cef0fa768e407ff2ff7ea77f6e17e46e8f67",
+  "changes": [],
+  "added": [],
+  "repair_before_values": {
+    "t_teacher": {},
+    "t_course_offering": {},
+    "t_course_resource": {}
+  },
+  "count_delta": {
+    "classroom_record": 0,
+    "face_feature": 0,
+    "s3_action_feedback": 0,
+    "s3_advice": 0,
+    "s3_feedback_revision": 0,
+    "s3_resource_series": 0,
+    "s3_template_draft": 0,
+    "s3_template_version": 0,
+    "s3_video_asset": 0,
+    "student": 0,
+    "t_academic_term_lock": 0,
+    "t_app_data_migration": 0,
+    "t_attendance_session": 0,
+    "t_course": 0,
+    "t_course_content_revision": 0,
+    "t_course_import_log": 0,
+    "t_course_offering": 0,
+    "t_course_offering_teacher": 0,
+    "t_course_resource": 0,
+    "t_course_schedule": 0,
+    "t_course_syllabus": 0,
+    "t_evaluation_audit_log": 0,
+    "t_graduation_indicator": 0,
+    "t_major": 0,
+    "t_major_department": 0,
+    "t_micro_teaching_slice": 0,
+    "t_offering_student_enrollment": 0,
+    "t_resource_access_log": 0,
+    "t_supervision_evaluation": 0,
+    "t_teacher": 0,
+    "t_training_indicator": 0,
+    "t_user_account": 0
+  },
+  "validation_no_new_issues": true,
+  "existing_accounts_and_biometrics_unchanged": true
+}

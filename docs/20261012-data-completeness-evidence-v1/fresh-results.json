@@ -1,0 +1,13 @@
+{
+  "existing_baseline": "scripts/deploy/mysql/init/initialize.sql",
+  "normal_application_bootstrap": true,
+  "authorized_majors_preserved": "SE;CS",
+  "full_five_major_seed_safely_refused": true,
+  "explicit_majors": "SE,CS",
+  "seed_succeeded": true,
+  "seed_added_rows": 229,
+  "repeat_zero_changes": true,
+  "supervisor_api_offerings": 4,
+  "no_privilege_expansion": true,
+  "tokens_saved": false
+}

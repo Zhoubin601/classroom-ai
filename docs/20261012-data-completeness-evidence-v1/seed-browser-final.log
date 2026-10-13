@@ -1,0 +1,5 @@
+locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+  - waiting for getByText(/该评语为脚本合成/).first() to be visible
+    44 × locator resolved to hidden <p data-v-aefd44cc="">评价8 · 模板1 · 原分[↵  22,↵  22,↵  21,↵  21↵] · 【合成演示】…</p>
+

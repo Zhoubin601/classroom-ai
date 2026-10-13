@@ -1,0 +1,14 @@
+[
+  {
+    "file": "backend-mysql-tests.log",
+    "matches": 1
+  },
+  {
+    "file": "backend-tests.log",
+    "matches": 8
+  },
+  {
+    "file": "mysql-junit/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml",
+    "matches": 1
+  }
+]
