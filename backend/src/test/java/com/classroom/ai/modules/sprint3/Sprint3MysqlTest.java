@@ -130,4 +130,18 @@ class Sprint3MysqlTest {
  @Test void lowScoreThresholdUsesUnroundedMean(){var e=approved(o1,"[]");e.setTotalScore(74.99);evals.saveAndFlush(e);as(director);assertTrue(quality.alerts(filter()).stream().anyMatch(a->"LOW_SCORE_WARNING".equals(a.get("alertType"))));}
  @Test void coTeachersMaintainIndependentFeedbackRows()throws Exception{as(supervisor);var e=supervision.submitEvaluation(draft(o1));var a=addAdvice(e);e=evals.findById(e.getId()).orElseThrow();e.setStatus("APPROVED_PENDING");e.setReviewedBy(director.getId());e.setReviewedAt(LocalDateTime.now());open(e);var in=new AdviceService.FeedbackInput(0L,"ACCEPTED","Independent action","Own practice",json.readTree("[]"),List.of());as(teacher);var first=advice.feedback(a.getId(),in);as(coTeacher);var second=advice.feedback(a.getId(),in);assertNotEquals(first.getId(),second.getId());assertNotEquals(first.getTeacherUserId(),second.getTeacherUserId());}
 
+ @Test void evidenceCandidatesRespectParentReleaseAndSameCourse()throws Exception{
+  as(supervisor);var e=supervision.submitEvaluation(draft(o1));var otherEvaluation=supervision.submitEvaluation(draft(o2));
+  var draftId=e.getId();var own=advice.candidates(e.getId(),"EVALUATION",null);assertTrue(own.stream().anyMatch(r->r.get("id").equals(draftId)));assertFalse(own.stream().anyMatch(r->r.get("id").equals(otherEvaluation.getId())));
+  as(teacher);assertThrows(RuntimeException.class,()->advice.candidates(draftId,"EVALUATION",null));
+  e=approved(o1,"[]");var released=e;assertThrows(RuntimeException.class,()->advice.candidates(released.getId(),"EVALUATION",null));open(e);
+  var visible=advice.candidates(e.getId(),"EVALUATION",null);assertTrue(visible.stream().anyMatch(r->r.get("id").equals(released.getId())));assertFalse(visible.stream().anyMatch(r->r.get("id").equals(otherEvaluation.getId())));assertTrue(visible.stream().allMatch(r->r.keySet().equals(Set.of("type","id","label"))));
+  assertTrue(advice.candidates(e.getId(),"MICRO_SLICE",null).isEmpty());assertThrows(IllegalArgumentException.class,()->advice.candidates(released.getId(),"INVALID",null));
+  as(other);assertThrows(RuntimeException.class,()->advice.candidates(released.getId(),"EVALUATION",null));
+ }
+ @Test void resourceCandidatesIncludeHistoryAndExcludeRevokedSeries(){
+  var e=approved(o1,"[]");open(e);as(teacher);var old=versions.attach(resource(c1,"Candidate original"),null,null);var series=versions.policy(old.getSeriesId());var newer=versions.attach(resource(c1,"Candidate latest"),series.getId(),series.getRevision());
+  var candidates=advice.candidates(e.getId(),"RESOURCE_VERSION","Candidate");assertEquals(Set.of(old.getId(),newer.getId()),candidates.stream().map(r->(Long)r.get("id")).collect(java.util.stream.Collectors.toSet()));
+  versions.remove(newer.getId());assertTrue(advice.candidates(e.getId(),"RESOURCE_VERSION","Candidate").isEmpty());
+ }
 }

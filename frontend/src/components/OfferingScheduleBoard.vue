@@ -106,7 +106,7 @@
     </div>
 
     <!-- 筛选排课表单 -->
-    <form aria-label="排课筛选" class="pro-card grid grid-cols-1 gap-3 p-4 items-end sm:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(8rem,0.6fr)_minmax(0,1.2fr)_auto]" @submit.prevent="loadSchedules">
+    <form aria-label="排课筛选" data-filter class="pro-card grid grid-cols-1 gap-3 p-4 items-end sm:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(8rem,0.6fr)_minmax(0,1.2fr)_auto]" @submit.prevent="loadSchedules">
       <div class="min-w-0">
         <label for="schedule-filter-term" class="block text-[11px] font-semibold text-slate-600 mb-1.5">学期</label>
         <input
@@ -235,11 +235,8 @@
     </div>
 
     <!-- 弹窗模态框 (维护班次 / 维护排课) -->
-    <div v-if="modal" class="fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-xs flex items-center justify-center p-4">
-      <form
+    <UiModal :open="!!(modal)" title="操作详情" @close="modal = ''"><form
         class="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 space-y-5 shadow-2xl border border-slate-200 animate-fade-in"
-        role="dialog"
-        aria-modal="true"
         :aria-label="modal === 'offering' ? '维护班次' : '维护排课'"
         @submit.prevent="save"
       >
@@ -247,7 +244,7 @@
           <h2 class="text-base font-bold text-slate-900">
             {{ modal === 'offering' ? (offeringForm.id ? '编辑班次' : '新增班次') : (scheduleForm.id ? '编辑排课' : '新增排课') }}
           </h2>
-          <button type="button" @click="modal = ''" class="text-slate-400 hover:text-slate-600 text-sm cursor-pointer">✕</button>
+          <button type="button" @click="nav.request(()=>{modal = ''})" class="text-slate-400 hover:text-slate-600 text-sm cursor-pointer">✕</button>
         </div>
 
         <fieldset :disabled="busy" class="space-y-4 text-xs">
@@ -471,7 +468,7 @@
           <button
             type="button"
             :disabled="busy"
-            @click="modal = ''"
+            @click="nav.request(()=>{modal = ''})"
             class="px-4 py-2 text-xs font-medium rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer border border-slate-200"
           >
             取消
@@ -483,12 +480,15 @@
             {{ busy ? '保存中…' : '保存' }}
           </button>
         </div>
-      </form>
-    </div>
+      </form></UiModal>
   </section>
 </template>
 
 <script setup lang="ts">
+import UiModal from './UiModal.vue'
+import {useNavigation,useEditGuard,useFeedback,usePreference} from '../ui/context'
+import type {SaveResult} from '../ui/context'
+
 import { computed, onMounted, ref } from 'vue'
 import { isAxiosError } from 'axios'
 import {
@@ -513,7 +513,7 @@ const busy = ref(false)
 const modal = ref('')
 const message = ref('')
 const conflictRows = ref<CourseSchedule[]>([])
-const filter = ref({ term: '', teacher: '', week: '', classroom: '' })
+const filter = usePreference('schedule','filter',{ term: '', teacher: '', week: '', classroom: '' })
 
 type OfferingForm = {
   id?: number
@@ -644,8 +644,9 @@ function selectVisible() {
   ]
 }
 
-async function save() {
-  if (busy.value) return
+async function save():Promise<SaveResult> {
+  if (busy.value) return {status:'invalid'}
+  const submitted=scheduleGuard.capture(),finishSaving=nav.startSaving()
   busy.value = true
   clearError()
   try {
@@ -667,17 +668,22 @@ async function save() {
         offeringId: Number(scheduleForm.value.offeringId)
       })
     }
+    scheduleGuard.saved(submitted)
+    if(scheduleGuard.dirty())return {status:'success'}
     modal.value = ''
     await refresh()
+    return {status:'success'}
   } catch (e) {
     fail(e)
+    return {status:(e as any).response?.status===409?'conflict':'failed'}
   } finally {
     busy.value = false
+    finishSaving()
   }
 }
 
 async function archive(o: CourseOffering) {
-  if (!confirm('结课归档将冻结人数、名单、教师、学期和排课，确认归档？')) return
+  if (!await confirm('结课归档将冻结人数、名单、教师、学期和排课，确认归档？')) return
   busy.value = true
   clearError()
   try {
@@ -691,7 +697,7 @@ async function archive(o: CourseOffering) {
 }
 
 async function removeSchedule(id: number) {
-  if (!confirm('确认删除这条排课？')) return
+  if (!await confirm('确认删除这条排课？')) return
   busy.value = true
   clearError()
   try {
@@ -703,6 +709,10 @@ async function removeSchedule(id: number) {
     busy.value = false
   }
 }
+
+
+const nav=useNavigation(),{notify,confirm}=useFeedback()
+const scheduleGuard=useEditGuard('班次与排课',()=>({offering:offeringForm.value,schedule:scheduleForm.value}),v=>{offeringForm.value=v.offering;scheduleForm.value=v.schedule},()=>!!modal.value,save)
 
 onMounted(async () => {
   try {

@@ -1,0 +1,4 @@
+export const stages:Record<string,string>={B:'导入',O:'目标',P1:'前测',P2:'参与式学习',P3:'后测',S:'总结'}
+export function stateLabel(value:string){return ({NO_EVALUATION:'暂无评价',ZERO_SUPERVISION:'尚未督导',LOW_COVERAGE:'覆盖率偏低',LOW_SCORE_WARNING:'评分偏低',LOW_SCORE:'评分偏低',DRAFT:'草稿',REJECTED:'已驳回',PUBLISHED:'已发布',APPROVED_PENDING:'审核通过，反馈待开放',PENDING_REVIEW:'待审核',PENDING:'待审核',SUBMITTED:'待审核'} as Record<string,string>)[value]||'未知状态'}
+export function timeLabel(value:any){if(!value)return '暂无';const date=new Date(value);return Number.isNaN(date.getTime())?'时间格式待核对':date.toLocaleString('zh-CN',{hour12:false})}
+export function evidenceArray(value:any):any[]{if(Array.isArray(value))return value;try{const rows=JSON.parse(value||'[]');return Array.isArray(rows)?rows:[{message:'证据不可访问'}]}catch{return [{message:'证据不可访问'}]}}

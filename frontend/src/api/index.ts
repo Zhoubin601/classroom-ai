@@ -1,6 +1,7 @@
 import type { Course, UserVO, CourseOffering, OfferingDetails, OfferingInput, OfferingQuery, OfferingHistory, ScheduleInput, ContentRevisionInput, Major, Teacher, ImportPreviewVO } from './types'
 import axios from 'axios'
 import { checkApiResponse, rejectApiError } from './response.mjs'
+import { linkCancellation, abortableDelay } from './cancellation.mjs'
 import type {
   ApiResponse,
   DashboardOverviewVO,
@@ -39,7 +40,28 @@ client.interceptors.request.use((config) => {
 })
 
 // Some legacy endpoints return HTTP 200 with a business error code.
-client.interceptors.response.use(checkApiResponse, rejectApiError)
+const requests = new Set<AbortController>()
+client.interceptors.request.use(config => {
+  const { controller, dispose } = linkCancellation(config.signal)
+  config.signal = controller.signal
+  const trackedConfig = config as any
+  trackedConfig.__releaseCancellation = () => { requests.delete(controller); dispose() }
+  requests.add(controller)
+  return config
+})
+window.addEventListener('ui:cancel-requests',()=>{requests.forEach(c=>c.abort());requests.clear()})
+client.interceptors.response.use(response => {
+  const trackedConfig = response.config as any
+  trackedConfig.__releaseCancellation?.()
+  try { return checkApiResponse(response) } catch(error) {
+    if(response.data?.code===401 && !String(response.config.url).includes('/auth/login'))window.dispatchEvent(new Event('ui:auth-expired'))
+    throw error
+  }
+}, error => {
+  error.config?.__releaseCancellation?.()
+  if(error.response?.status===401 && !String(error.config?.url).includes('/auth/login'))window.dispatchEvent(new Event('ui:auth-expired'))
+  return rejectApiError(error)
+})
 
 export interface MonitorStatus {
   running: boolean
@@ -85,6 +107,7 @@ export const visualApi = {
 
   // 启动桌面端 classroom_monitor.py 视觉督导推断流
   startMonitor: async (offeringId: number, sessionId: number, signal?: AbortSignal): Promise<MonitorStatus> => {
+    if (signal?.aborted) throw new Error('摄像头启动已取消')
     await client.post('/api/visual/start-monitor', { offeringId, sessionId }, { signal })
     for (let attempt = 0; attempt < 90; attempt++) {
       if (signal?.aborted) throw new Error('摄像头启动已取消')
@@ -93,7 +116,7 @@ export const visualApi = {
       if (status.error || status.fatal) throw new Error(status.error || '摄像头数据连接失败')
       if (status.running && status.reporting && status.offeringId === offeringId && status.sessionId === sessionId) return status
       if (!status.starting && !status.running) throw new Error('视觉进程已退出，请检查摄像头与服务状态')
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await abortableDelay(1000, signal)
     }
     throw new Error('摄像头或数据连接初始化超时，请重试')
   },
@@ -530,14 +553,15 @@ export const supervisionApi = {
     return res.data.data
   },
 
-  // 导出年度质量分析 CSV 报表下载链接
+  // 学期质量分析报表兼容入口
   getExportReportUrl: (): string => {
     return '/api/v1/supervisions/analytics/export-report'
   },
 
-  // 导出年度质量分析 CSV 报表（携带 JWT 鉴权头并下载 Blob）
-  exportReport: async (): Promise<Blob> => {
+  // 显式传入页面确认的学期，下载该学期全量汇总。
+  exportReport: async (term?: string): Promise<Blob> => {
     const res = await client.get('/api/v1/supervisions/analytics/export-report', {
+      params: { term },
       responseType: 'blob'
     })
     return res.data
@@ -735,5 +759,5 @@ export const sprint3Api = {
  put: async (url:string,data?:any):Promise<any> => (await client.put(url,data)).data.data,
  remove: async (url:string):Promise<void> => {await client.delete(url)},
  upload: async (url:string,data:FormData):Promise<any> => (await client.post(url,data,{headers:{'Content-Type':'multipart/form-data'},timeout:120000})).data.data,
- blob: async (url:string,params?:any):Promise<Blob> => (await client.get(url,{params,responseType:'blob',timeout:120000})).data
+ blob: async (url:string,params?:any,signal?:AbortSignal):Promise<Blob> => (await client.get(url,{params,signal,responseType:'blob',timeout:120000})).data
 }

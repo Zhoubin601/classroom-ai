@@ -124,3 +124,28 @@ test('camera lifecycle endpoints require authentication and never reuse public l
     }
   }finally{globalThis.fetch=previousFetch}
 })
+
+test('stop fences an authenticated start still waiting for offering validation', async () => {
+  const previousFetch=globalThis.fetch,root=path.join(os.tmpdir(),'camera-cancel-'+Date.now())
+  let validateReady,releaseValidation
+  const ready=new Promise(resolve=>validateReady=resolve)
+  try {
+    globalThis.fetch=async url=>{
+      if(url.includes('/monitor-context')){validateReady();await new Promise(resolve=>releaseValidation=resolve)}
+      return {ok:true,json:async()=>({code:200,data:{id:8,role:'TEACHER',offeringId:2,sessionId:7}})}
+    }
+    const handlers=[]
+    cameraLauncherPlugin(root).configureServer({httpServer:{once(){}},middlewares:{use(...args){if(args.length===1)handlers.push(args[0])}}})
+    const invoke=(url,data)=>{
+      const req=Readable.from([Buffer.from(JSON.stringify(data))]);Object.assign(req,{url,method:'POST',headers:{}})
+      let body;const res={setHeader(){},end(text){body=JSON.parse(text)}}
+      return handlers[0](req,res,()=>assert.fail('route bypassed')).then(()=>({status:res.statusCode,body}))
+    }
+    const starting=invoke('/api/visual/start-monitor',{offeringId:2,sessionId:7})
+    await ready
+    assert.equal((await invoke('/api/visual/stop-monitor',{})).status,200)
+    releaseValidation();const rejected=await starting
+    assert.equal(rejected.status,409);assert.match(rejected.body.message,/已取消/)
+    assert.equal(fs.existsSync(root),false,'cancelled start must not spawn or create logs')
+  }finally{releaseValidation?.();globalThis.fetch=previousFetch}
+})

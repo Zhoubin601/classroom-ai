@@ -9,7 +9,7 @@
         <div>
           <div class="flex items-center gap-2">
             <h2 class="text-base font-bold text-slate-800">历史开课与人数、人次</h2>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/60">US-04 课程归档</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/60">课程归档</span>
           </div>
           <p class="text-xs text-slate-400 mt-0.5">历年开课班次快照归档与教学规模人次核算看板</p>
         </div>

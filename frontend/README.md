@@ -1,6 +1,6 @@
 # 具身机器人智能课堂分析系统 - 前端可视化大屏与教师管理中心 (Classroom Frontend)
 
-本项目为智能课堂分析系统的前端大屏与管理应用，基于 **Vue 3 + Vite 5 + TypeScript + Tailwind CSS + Apache ECharts** 构建，直连 Spring Boot 3 后端微服务（默认 `http://localhost:8080`），提供暗黑科技风格的实时教学状态监控、时序专注度波形渲染与人脸库管理。
+本项目为智能课堂分析系统的前端大屏与管理应用，基于 **Vue 3 + Vite 5 + TypeScript + Tailwind CSS + Apache ECharts** 构建，直连 Spring Boot 3 后端微服务（默认 `http://localhost:8080`），提供浅色管理界面的实时教学状态监控、时序专注度波形渲染与人脸库管理。
 
 ---
 
@@ -51,3 +51,9 @@ npm run build
 Python 实现统一位于 ../vision/，dev/camera-plugin.mjs 仅负责本地调用适配。项目启动和各模块目录见 [项目说明](../README.md)。
 
 
+
+## 2026-10-12 交互重构
+
+全局使用224/72px侧栏，窄屏使用抽屉；工作台通过按内容区宽度排布的功能卡片切换。公共离开协调器保护课程/功能切换、退出和未保存输入，保存失败与409保留编辑。统计页提供权限内证据选择，两个雷达图保持各自25/100分口径。
+
+实现契约与测试入口：../docs/20261012-ui-redesign-implementation-v1.md。正式验收：../output/20261012-ui-redesign-acceptance-v1.md。未自动提交、推送或部署。

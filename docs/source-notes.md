@@ -460,3 +460,35 @@
 
 
 本轮实测来源：docs/20261012-exp4-sprint3-verification-v1/verification-summary.json、backend-final.log、supplemental-xml/、browser-results.json、upgrade-results.json、protection-final.json；引用日期2026-10-12。后端282项登记，本轮281项执行通过（完整235+补跑46）；剩余既有浏览器1项仅采用已核验历史证据。原始DOCX表7/12/16只读摘录在同目录，347项保护哈希一致。
+
+## 2026-10-12 exp4 项目启动来源
+来源名称：现有启动说明及当前工作区；链接或文件名：README.md、scripts/start_project.ps1、scripts/deploy/docker-compose.yml、output/20261012-sprint3-user-guide-v2.md；引用日期：2026-10-12。
+本次仅按用户要求启动项目，未使用 raw/ 业务资料。构建、服务状态、HTTP 连通与运行边界见 docs/20261012-exp4-startup-v1.md。
+
+## 2026-10-12 数据完整性治理来源
+来源名称：用户任务说明；链接或文件名：C:/Users/a3185/.codex/attachments/d5c41e14-fd50-460e-a994-61095e61f02c/已粘贴的文本.txt；引用日期：2026-10-12。raw/仅README.md，没有提供正式课程或个人资料。
+本次依据当前本地README.md、backend/README.md、AGENTS.md、memory-bank/project-context.md、Entity/Repository/Service/Controller、frontend业务页面及API、application.yml、scripts/deploy/mysql/init和Compose，使用本机MySQL实际只读查询；历史docs仅作背景，不代替本轮实测。未使用外部联网资料。
+
+本轮数据治理实测：live/apply-before.json、live-final.json、live/rollback-manifest.json、final-protection.json、redis-sync.json、browser-final/results.json、live-api/results.json、fresh-results.json、recovery-final/results.json，均在docs/20261012-data-completeness-evidence-v1/。资源显示大小依据runtime/uploads/resources真实字节（5条明显不符MB显示已纠正）；3条原ACTIVE会话状态依据实际查询，缺结束动作不推填。引用日期：2026-10-12。正式DOCX/XLSX由OfficeCLI生成；原始raw和业务源码保持。
+
+## 2026-10-12 UI交互重构来源
+来源：用户确认的修订计划；raw/README.md（无新增原始设计资料）；当前frontend/src、backend/src、design-system/classroomai/MASTER.md；docs/20261009-ui-review-v1.md和10月12日截图仅作历史参考。使用ui-ux-pro-max本地规则，未联网引入素材。
+
+UI重构验收来源：docs/20261012-ui-redesign-evidence-v1/interaction/results.json、business/browser-results.json、business/backend-tests.log、backend-unit-final.log、frontend-tests-final.log与frontend-build-final.log。引用日期：2026-10-12。真实业务验收仅使用脚本生成的合成数据，未将历史证据作为本次通过结果。
+
+## 2026-10-12 exp4 问题检查来源
+
+来源名称：当前用户“检查exp4存在的问题和不合理的地方”；文件名：本聊天、当前 exp4 工作区（HEAD 49ee777）中的 backend/src、frontend/src；引用日期：2026-10-12。
+来源名称：项目原始资料目录；文件名：raw/README.md；引用日期：2026-10-12。raw/ 仅目录说明，业务原件资料未提供。
+来源名称：实验一正式规划的历史只读摘录；文件名：docs/20261012-exp4-sprint3-verification-v1/original-table-cells.txt；引用日期：2026-10-12。本轮使用已存在的表7/12/16摘录，没有重新读取项目外原始DOCX。
+背景依据：docs/20261011-sprint3-implementation.md、docs/20261012-exp4-sprint3-verification-v1.md、docs/20261012-ui-redesign-implementation-v1.md、output/20261012-sprint3-user-guide-v2.md、memory-bank/project-context.md。已确认的demo全量CSV权限、小数据量和两个雷达图尺度保留，不另立业务政策。
+本轮实测来源：docs/20261012-exp4-review-evidence-v1/results.json、reproduce.cjs、validation.json。真实Chromium拦截全部业务API复现6项问题，无真实业务写入；前端18测试/构建和后端16边界测试通过，不代替全项目真实数据库回归。检查结果见docs/20261012-exp4-review-v1.md。使用本地ui-ux-pro-max Skill，未使用外部联网资料。
+
+## 2026-10-13 exp4 七问题修复来源
+
+来源名称：用户授权、前轮检查、当前代码；链接或文件名：本聊天“修复这些问题”、docs/20261012-exp4-review-v1.md、frontend/src与frontend/dev/camera-plugin.mjs；引用日期：2026-10-13。raw/README.md仅目录说明，业务原始资料未提供；保持不改写。
+来源名称：既有合成授权视频；文件名：docs/20261012-exp4-sprint3-verification-v1/synthetic-video.mp4；引用日期：2026-10-13。本轮用于模拟API下的真实浏览器解码与区间回看，没有真人课堂或人脸数据。
+本轮验证来源：docs/20261013-exp4-fix-evidence-v1/内frontend-tests-final.log、frontend-build-final.log、browser-results.json、ui-regression/results.json、backend-boundary-final.log、business-runner.log、protected-files.json。前端23、定向8组、既有UI15组及后端16边界通过；独立数据库回归因Docker Linux引擎不可连接未执行，不算通过。详细实现及来源边界见docs/20261013-exp4-fix-verification-v1.md。继续使用ui-ux-pro-max本地Skill，未联网。
+
+## 2026-10-13 exp4 提交推送来源
+来源名称：用户发布授权、当前Git和已验证修复；文件名或链接：本聊天“提交至exp4，push到远端”、origin远端refs/heads/exp4、docs/20261013-exp4-fix-verification-v1.md与verified-source-hashes.json；引用日期：2026-10-13。提交范围见docs/20261013-exp4-push-record-v1.md。未联网补充业务事实；Git远端查询仅用于执行用户明确要求的推送任务。

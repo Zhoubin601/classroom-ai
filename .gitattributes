@@ -5,3 +5,7 @@ output/20261012-sprint3-acceptance-v1.md -text
 output/20261012-sprint3-acceptance-v2.md -text
 output/20261012-sprint3-user-guide-v1.md -text
 output/20261012-sprint3-user-guide-v2.md -text
+docs/20261012-ui-redesign-evidence-v1/** -text
+docs/20261012-exp4-review-evidence-v1/** -text
+docs/20261013-exp4-fix-evidence-v1/** -text
+output/20261012-ui-redesign-acceptance-v1.md -text

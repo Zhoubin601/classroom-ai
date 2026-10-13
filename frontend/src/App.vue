@@ -1,260 +1,71 @@
 <template>
-  <!-- 未登录状态：展示全屏现代化教务登录界面 (从 MySQL 查验) -->
-  <LoginView v-if="!currentUser" @login-success="handleLoginSuccess" />
-
-  <!-- 已登录状态：展示平台主界面 -->
-  <div v-else class="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-indigo-100 selection:text-indigo-900">
-    <!-- 顶部状态提示条：学术深邃风格 -->
-    <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white px-6 py-2 text-xs flex flex-wrap items-center justify-between gap-3 border-b border-indigo-900/40">
-      <div class="flex items-center gap-2.5">
-        <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></div>
-        <span class="text-indigo-200 font-medium tracking-wide">
-          东北大学软件学院《软件项目管理》· 课程底座数字化管理平台
-        </span>
-      </div>
-      <div class="flex items-center gap-4 text-[11px] text-indigo-300/80">
-        <span class="hidden sm:inline">Spring Security 6.x + JJWT + RBAC 严格物理隔离就绪</span>
-        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-indigo-900/60 border border-indigo-700/50 text-indigo-200">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          实训教学基座
-        </span>
-      </div>
-    </div>
-
-    <!-- 顶部全局导航条 (现代浅色磨砂质感) -->
-    <header class="border-b border-slate-200/80 bg-white/95 backdrop-blur-md sticky top-0 z-40 px-6 py-3 flex flex-wrap items-center justify-between gap-4 shadow-subtle transition-all">
-      <!-- 左侧：系统品牌与标识 -->
-      <div class="flex items-center gap-3.5">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-700 text-white flex items-center justify-center shadow-md shadow-indigo-600/20 border border-indigo-500/30 transition-transform hover:scale-105">
-          <GraduationCap class="w-5 h-5" />
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-base font-bold tracking-tight text-slate-900">爱教学 · 教学质量数字化管理平台</h1>
-            <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 font-semibold tracking-wide">
-              东北大学软件学院
-            </span>
-          </div>
-          <p class="text-[11px] text-slate-400 hidden md:block">全流程可量化 · 持续改进 · 教学质量工程底座</p>
-        </div>
-      </div>
-
-      <!-- 中间：多角色工作台导航切换 Tab (现代悬浮胶囊控制器) -->
-      <nav class="flex items-center p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/80 shadow-inner">
-        <button
-          v-for="t in visibleNavTabs"
-          :key="t.key"
-          @click="activeTab = t.key"
-          :class="[
-            'px-3.5 py-1.5 rounded-xl text-xs transition-all flex items-center gap-2 cursor-pointer select-none font-medium',
-            activeTab === t.key
-              ? 'bg-white text-indigo-900 shadow-sm font-semibold scale-[1.02]'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-          ]"
-        >
-          <component :is="t.iconComp" class="w-3.5 h-3.5" :class="activeTab === t.key ? 'text-indigo-600' : 'text-slate-400'" />
-          {{ t.label }}
-        </button>
-      </nav>
-
-      <!-- 右侧：当前登录身份、时间、服务状态与登出 -->
-      <div class="flex items-center gap-3">
-        <!-- 登录用户信息卡片 -->
-        <div class="flex items-center gap-2.5 text-xs bg-white border border-slate-200 px-3.5 py-1.5 rounded-2xl shadow-subtle hover:border-slate-300 transition-colors">
-          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-            {{ currentUser?.realName?.substring(0, 1) || '用' }}
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="font-bold text-slate-900">{{ currentUser?.realName }}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold"
-              :class="currentUser?.role === 'DIRECTOR' ? 'bg-amber-100 text-amber-800 border border-amber-200' : (currentUser?.role === 'TEACHER' ? 'bg-indigo-100 text-indigo-800 border border-indigo-200' : 'bg-emerald-100 text-emerald-800 border border-emerald-200')"
-            >
-              {{ currentUser?.role === 'ADMIN' ? '系统管理员' : currentUser?.role === 'DIRECTOR' ? '教研室主任' : (currentUser?.role === 'TEACHER' ? '任课教师' : '教学督导') }}
-            </span>
-            <span v-if="currentUser?.department" class="text-slate-400 text-[11px] hidden lg:inline">({{ currentUser.department }})</span>
-            <span v-if="currentUser?.authorizedMajors" class="text-amber-700 bg-amber-50 text-[10px] px-2 py-0.5 rounded-full border border-amber-200 font-mono font-medium">授权:{{ currentUser.authorizedMajors }}</span>
-          </div>
-          <button
-            @click="handleLogout"
-            class="text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2.5 py-1 rounded-xl text-xs font-semibold ml-1 border-l border-slate-200 transition cursor-pointer"
-            title="退出当前教务会话并回到登录页"
-          >
-            退出登录
-          </button>
-        </div>
-
-        <div class="hidden sm:flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-600 shadow-subtle">
-          <Clock class="w-3.5 h-3.5 text-slate-400" />
-          <span>{{ currentTime }}</span>
-        </div>
-        <div
-          class="flex items-center gap-2 text-xs px-3 py-1.5 rounded-xl border font-medium shadow-subtle"
-          :class="serviceOnline ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-amber-50 border-amber-200 text-amber-700'"
-        >
-          <span class="w-2 h-2 rounded-full" :class="serviceOnline ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'"></span>
-          <span>{{ serviceOnline === null ? '检查连接中...' : serviceOnline ? '教务中枢在线' : '后端暂未连接' }}</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- 主体内容区 (带平滑过渡与自适应宽度) -->
-    <main class="flex-1 max-w-[1720px] w-full mx-auto p-4 sm:p-6 lg:p-7 animate-fade-in">
-      <Sprint3Workspace v-if="activeTab === 'sprint3'" :role="currentUser.role" />
-      <DirectorDeskView v-else-if="activeTab === 'director' && currentUser?.role === 'DIRECTOR'" :department="currentUser.department" />
-      <TeacherDeskView v-else-if="activeTab === 'teacher' && currentUser?.role === 'TEACHER'" :logged-in-user="currentUser" />
-      <SupervisorDeskView v-else-if="activeTab === 'supervisor' && currentUser?.role === 'SUPERVISOR'" @jump-to-attendance="handleJumpToAttendance" />
-      <AttendanceDashboardView v-else-if="activeTab === 'attendance'" :initial-offering-id="targetOfferingId" :logged-in-user="currentUser" />
-      <MicroTeachingView v-else-if="activeTab === 'micro'" :logged-in-user="currentUser" />
-      <StudentManageView v-else-if="activeTab === 'students' && currentUser?.role === 'DIRECTOR'" />
-      <div v-else class="minimal-card p-12 text-center text-rose-600 font-bold space-y-2 border-rose-200 bg-rose-50/30">
-        <p class="text-base flex items-center justify-center gap-2">
-          <span>403 权限拒绝：您当前角色 ({{ currentUser?.role }}) 无权进入该工作台</span>
-        </p>
-        <p class="text-xs text-slate-500 font-normal">系统已启用 Spring Security + JJWT 鉴权，角色间严格物理隔离</p>
-      </div>
-    </main>
-
-    <!-- 底部状态条 -->
-    <footer class="border-t border-slate-200/80 bg-white py-3 px-6 text-xs text-slate-500 flex flex-wrap justify-between items-center gap-2">
-      <div class="font-medium text-slate-600">东北大学软件学院《软件项目管理》· 第二组 “爱教学”数字化平台</div>
-      <div class="flex items-center gap-4 text-slate-500">
-        <span class="hidden sm:inline">架构: Spring Boot 3.3 + JPA + Redis + MySQL 8.0</span>
-        <span class="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-medium">Spring Security + JJWT 严格鉴权就绪</span>
-      </div>
-    </footer>
+ <LoginView v-if="!currentUser" @login-success="login" />
+ <div v-else :class="['app-shell',{collapsed:sidebarCollapsed}]">
+  <button v-if="drawer" class="drawer-scrim" aria-label="关闭导航" @click="drawer=false"></button>
+  <aside :class="['app-sidebar',{open:drawer}]" aria-label="平台导航" :role="drawer?'dialog':undefined" :aria-modal="drawer?'true':undefined" @keydown="drawerKey">
+   <div class="sidebar-brand"><GraduationCap aria-hidden="true"/><span>爱教学<small>教学质量管理平台</small></span></div>
+   <button class="sidebar-collapse" :aria-label="sidebarCollapsed?'展开导航':'折叠导航'" @click="sidebarCollapsed=!sidebarCollapsed"><PanelLeft aria-hidden="true"/></button>
+   <nav aria-label="工作台导航"><template v-for="group in navGroups" :key="group.label"><p class="nav-group">{{ group.label }}</p><button v-for="item in group.items" :key="item.key" type="button" :disabled="navigationBusy" :aria-label="item.label" :title="item.label" :aria-current="activeTab===item.key?'page':undefined" :class="['sidebar-link',{active:activeTab===item.key}]" @click="navigate(item.key)"><component :is="item.iconComp" aria-hidden="true"/><span>{{ item.label }}</span></button></template></nav>
+   <div class="sidebar-foot">东北大学软件学院</div>
+  </aside>
+  <div class="app-stage">
+   <header class="app-topbar" :aria-busy="navigationBusy"><div class="topbar-title"><button class="mobile-menu" aria-label="打开导航" :aria-expanded="drawer" @click="drawer=true"><Menu aria-hidden="true"/></button><h1>{{ pageTitle }}</h1></div><div class="topbar-tools"><span :class="['connection',{offline:!serviceOnline}]" role="status">{{ serviceOnline===null?'检查连接':serviceOnline?'服务在线':'连接中断' }}</span><button class="account-button" :aria-expanded="accountOpen" @click="accountOpen=!accountOpen"><span class="account-avatar">{{ currentUser.realName?.slice(0,1) }}</span><span>{{ currentUser.realName }}</span><ChevronDown aria-hidden="true"/></button></div></header>
+   <div v-if="accountOpen" class="account-menu"><b>{{ currentUser.realName }}</b><p>{{ roleName }} · {{ currentUser.department || '未设置部门' }}</p><p v-if="currentUser.authorizedMajors">授权专业：{{ currentUser.authorizedMajors }}</p><details><summary>系统信息</summary><p>Spring Boot · Vue · MySQL · Redis</p><p>{{ currentTime }}</p></details><button @click="logout">退出登录</button></div>
+   <main class="app-content" :key="sessionEpoch">
+    <Sprint3Workspace v-if="activeTab==='sprint3'" :role="currentUser.role" />
+    <DirectorDeskView v-else-if="activeTab==='director'" :department="currentUser.department" />
+    <TeacherDeskView v-else-if="activeTab==='teacher'" :logged-in-user="currentUser" />
+    <SupervisorDeskView v-else-if="activeTab==='supervisor'" @jump-to-attendance="jumpToAttendance" />
+    <AttendanceDashboardView v-else-if="activeTab==='attendance'" :initial-offering-id="targetOfferingId" :logged-in-user="currentUser" />
+    <MicroTeachingView v-else-if="activeTab==='micro'" :logged-in-user="currentUser" />
+    <StudentManageView v-else-if="activeTab==='students'" />
+   </main>
+   <footer class="app-footer">爱教学 · 教学质量持续改进</footer>
   </div>
+ </div>
+ <div v-if="notice" class="ui-toast" role="status"><span>{{ notice }}</span><button aria-label="关闭提示" @click="notice=''">×</button></div>
+ <UiModal :open="!!leaveEditor" title="有未保存的修改" unguarded @close="resolveLeave('cancel')"><p>{{ leaveEditor?.title }}尚未保存，离开前请选择处理方式。</p><template #footer><button @click="resolveLeave('cancel')">继续编辑</button><button @click="resolveLeave('discard')">放弃修改</button><button v-if="leaveEditor?.save" class="ui-primary" @click="resolveLeave('save')">保存后离开</button></template></UiModal>
+ <UiModal :open="!!confirmation" title="确认操作" unguarded @close="resolveConfirm(false)"><p>{{ confirmation }}</p><template #footer><button @click="resolveConfirm(false)">取消</button><button class="ui-primary" @click="resolveConfirm(true)">确认</button></template></UiModal>
 </template>
-
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import {
-  GraduationCap,
-  Briefcase,
-  BookOpen,
-  ShieldCheck,
-  Video,
-  Users,
-  Clock
-} from 'lucide-vue-next'
-import { visualApi, authApi } from './api'
+import {ref,computed,provide,onMounted,onUnmounted,watch,nextTick} from 'vue'
+import {GraduationCap,Briefcase,BookOpen,ShieldCheck,Video,Users,PanelLeft,Menu,ChevronDown,BarChart3} from 'lucide-vue-next'
+import {authApi,visualApi} from './api'
+import {createNavigationCoordinator} from './ui/navigation.mjs'
+import {navigationKey,navigationBusyKey,notificationKey,confirmKey,type Editor} from './ui/context'
 import LoginView from './views/LoginView.vue'
 import DirectorDeskView from './views/DirectorDeskView.vue'
 import TeacherDeskView from './views/TeacherDeskView.vue'
 import SupervisorDeskView from './views/SupervisorDeskView.vue'
 import AttendanceDashboardView from './views/AttendanceDashboardView.vue'
-import StudentManageView from './views/StudentManageView.vue'
 import MicroTeachingView from './views/MicroTeachingView.vue'
+import StudentManageView from './views/StudentManageView.vue'
 import Sprint3Workspace from './components/Sprint3Workspace.vue'
-
-type TabKey = 'sprint3' | 'director' | 'teacher' | 'supervisor' | 'attendance' | 'students' | 'micro'
-
-const runMode = ref<'full'>('full')
-const activeTab = ref<TabKey>('director')
-const targetOfferingId = ref<number | null>(null)
-const currentUser = ref<any>(null)
-
-const handleJumpToAttendance = (offeringId: number) => {
-  targetOfferingId.value = offeringId
-  activeTab.value = 'attendance'
-}
-
-const allNavTabs = [
-  { key: 'sprint3' as TabKey, label: '统计与反馈', iconComp: ShieldCheck },
-  { key: 'director' as TabKey, label: '教研室主任工作台', iconComp: Briefcase },
-  { key: 'teacher' as TabKey, label: '任课教师工作台', iconComp: BookOpen },
-  { key: 'supervisor' as TabKey, label: '教学督导工作台', iconComp: ShieldCheck },
-  { key: 'micro' as TabKey, label: '微格教学视频', iconComp: Video },
-  { key: 'attendance' as TabKey, label: '课堂智能考勤大屏', iconComp: Video },
-  { key: 'students' as TabKey, label: '学生人脸档案库', iconComp: Users }
-]
-
-const visibleNavTabs = computed(() => {
-  if (!currentUser.value) return []
-  const role = currentUser.value.role
-  const tabs = allNavTabs
-
-  // 严格按用户角色隔离工作台
-  if (role === 'ADMIN') return tabs.filter(t => t.key === 'sprint3' || t.key === 'micro')
-  if (role === 'SUPERVISOR') {
-    return tabs.filter(t => t.key === 'sprint3' || t.key === 'supervisor' || t.key === 'attendance' || t.key === 'micro')
-  } else if (role === 'TEACHER') {
-    return tabs.filter(t => t.key === 'sprint3' || t.key === 'teacher' || t.key === 'attendance' || t.key === 'micro')
-  } else if (role === 'DIRECTOR') {
-    return tabs.filter(t => t.key === 'sprint3' || t.key === 'director' || t.key === 'attendance' || t.key === 'students' || t.key === 'micro')
-  }
-  return []
-})
-
-// 防越权看门狗：若非法篡改 activeTab，强制拦截重置
-watch(activeTab, (newTab) => {
-  if (!currentUser.value) return
-  if (!visibleNavTabs.value.some(t => t.key === newTab)) setInitialTab(currentUser.value)
-})
-
-const setInitialTab = (user: any) => {
-  if (!user) return
-  if (user.role === 'ADMIN') { activeTab.value='sprint3'
-  } else if (user.role === 'DIRECTOR') {
-    activeTab.value = 'director'
-  } else if (user.role === 'TEACHER') {
-    activeTab.value = 'teacher'
-  } else if (user.role === 'SUPERVISOR') {
-    activeTab.value = 'supervisor'
-  }
-}
-
-const handleLoginSuccess = (user: any) => {
-  currentUser.value = user
-  setInitialTab(user)
-}
-
-const handleLogout = async () => {
-  await visualApi.stopMonitor().catch(() => {})
-  try {
-    await authApi.logout()
-  } catch {}
-  currentUser.value = null
-}
-
-const checkAuth = async () => {
-  try {
-    await authApi.getCsrf()
-    const me = await authApi.getMe()
-    currentUser.value = me
-    setInitialTab(me)
-  } catch {
-    currentUser.value = null
-  }
-}
-
-const currentTime = ref('')
-const updateTime = () => {
-  const now = new Date()
-  currentTime.value = now.toLocaleTimeString('zh-CN', { hour12: false })
-}
-
-let timer: number | null = null
-let healthTimer: number | null = null
-const serviceOnline = ref<boolean | null>(null)
-const checkService = async () => {
-  try {
-    await authApi.getCsrf()
-    serviceOnline.value = true
-  } catch {
-    serviceOnline.value = false
-  }
-}
-
-onMounted(() => {
-  updateTime()
-  timer = window.setInterval(updateTime, 1000)
-  checkService()
-  healthTimer = window.setInterval(checkService, 15000)
-  checkAuth()
-})
-
-onUnmounted(() => {
-  if (timer) clearInterval(timer)
-  if (healthTimer) clearInterval(healthTimer)
-})
+import UiModal from './components/UiModal.vue'
+type TabKey='director'|'teacher'|'supervisor'|'sprint3'|'micro'|'attendance'|'students'
+const currentUser=ref<any>(null),activeTab=ref<TabKey>('teacher'),targetOfferingId=ref<number|null>(null),sessionEpoch=ref(0),sidebarCollapsed=ref(false),drawer=ref(false),accountOpen=ref(false),serviceOnline=ref<boolean|null>(null),currentTime=ref(''),notice=ref('')
+const leaveEditor=ref<Editor>(),confirmation=ref('');let leaveResolve:(value:string)=>void,confirmResolve:(value:boolean)=>void
+const navigationBusy=ref(false)
+const nav=createNavigationCoordinator((editor:Editor)=>new Promise<string>(resolve=>{leaveEditor.value=editor;leaveResolve=resolve}),state=>{navigationBusy.value=state.pending||state.saving>0})
+provide(navigationKey,nav);provide(navigationBusyKey,navigationBusy);provide(notificationKey,text=>{notice.value=text});provide(confirmKey,text=>new Promise<boolean>(resolve=>{confirmation.value=text;confirmResolve=resolve}))
+function resolveLeave(choice:string){leaveEditor.value=undefined;leaveResolve?.(choice)}
+function resolveConfirm(value:boolean){confirmation.value='';confirmResolve?.(value)}
+const allTabs=[{key:'director',label:'教研室主任工作台',iconComp:Briefcase},{key:'teacher',label:'任课教师工作台',iconComp:BookOpen},{key:'supervisor',label:'教学督导工作台',iconComp:ShieldCheck},{key:'sprint3',label:'统计与反馈',iconComp:BarChart3},{key:'micro',label:'微格教学视频',iconComp:Video},{key:'attendance',label:'课堂智能考勤大屏',iconComp:Video},{key:'students',label:'学生人脸档案库',iconComp:Users}]
+const allowed:Record<string,string[]>={DIRECTOR:['director','sprint3','micro','attendance','students'],TEACHER:['teacher','sprint3','micro','attendance'],SUPERVISOR:['supervisor','sprint3','micro','attendance'],ADMIN:['sprint3','micro']}
+const visibleTabs=computed(()=>allTabs.filter(t=>allowed[currentUser.value?.role]?.includes(t.key)).map(t=>({...t,label:t.key==='sprint3'&&currentUser.value.role==='ADMIN'?'模板管理':t.label})))
+const navGroups=computed(()=>[{label:'工作管理',items:visibleTabs.value.filter(t=>['director','teacher','supervisor','sprint3'].includes(t.key))},{label:'教学支持',items:visibleTabs.value.filter(t=>['micro','attendance','students'].includes(t.key))}])
+const pageTitle=computed(()=>visibleTabs.value.find(t=>t.key===activeTab.value)?.label||'爱教学'),roleName=computed(()=>({DIRECTOR:'教研室主任',TEACHER:'任课教师',SUPERVISOR:'教学督导',ADMIN:'管理员'}[currentUser.value?.role]||''))
+async function navigate(key:string){if(!visibleTabs.value.some(t=>t.key===key)||key===activeTab.value)return;await nav.request(()=>{activeTab.value=key as TabKey;drawer.value=false;accountOpen.value=false;window.scrollTo(0,0)})}
+async function jumpToAttendance(id:number){if(!visibleTabs.value.some(t=>t.key==='attendance'))return;await nav.request(()=>{targetOfferingId.value=id;activeTab.value='attendance';drawer.value=false})}
+function login(user:any){nav.setIdentity(user);currentUser.value=user;sessionEpoch.value++;activeTab.value=(allowed[user.role]?.[0]||'sprint3') as TabKey;sidebarCollapsed.value=false;notice.value=''}
+function invalidate(){nav.clear();resolveLeave('cancel');resolveConfirm(false);currentUser.value=null;sessionEpoch.value++;accountOpen.value=false;drawer.value=false;targetOfferingId.value=null;window.dispatchEvent(new Event('ui:cancel-requests'));notice.value='登录会话已失效，请重新登录'}
+async function logout(){await nav.request(async()=>{await visualApi.stopMonitor().catch(()=>{});await authApi.logout().catch(()=>{});invalidate();notice.value=''})}
+function beforeUnload(event:BeforeUnloadEvent){if(nav.dirty){event.preventDefault();event.returnValue=''}}
+async function health(){try{await authApi.getCsrf();serviceOnline.value=true}catch{serviceOnline.value=false};currentTime.value=new Date().toLocaleTimeString('zh-CN',{hour12:false})}
+let healthTimer:ReturnType<typeof setInterval>
+let drawerPrevious:HTMLElement|null=null
+watch(drawer,async open=>{await nextTick();const stage=document.querySelector<HTMLElement>('.app-stage');if(stage)stage.inert=open;if(open){drawerPrevious=document.activeElement as HTMLElement;document.querySelector<HTMLElement>('.app-sidebar .sidebar-link')?.focus()}else if(drawerPrevious?.isConnected)drawerPrevious.focus()})
+function drawerKey(e:KeyboardEvent){if(!drawer.value)return;if(e.key==='Escape'){e.preventDefault();drawer.value=false}if(e.key==='Tab'){const buttons=[...document.querySelectorAll<HTMLButtonElement>('.app-sidebar button')].filter(b=>b.getClientRects().length>0);const index=buttons.indexOf(document.activeElement as HTMLButtonElement);if(e.shiftKey&&index<=0){e.preventDefault();buttons[buttons.length-1]?.focus()}else if(!e.shiftKey&&index===buttons.length-1){e.preventDefault();buttons[0]?.focus()}}}
+onMounted(async()=>{window.addEventListener('beforeunload',beforeUnload);window.addEventListener('ui:auth-expired',invalidate);health();healthTimer=setInterval(health,15000);try{await authApi.getCsrf();login(await authApi.getMe())}catch{}})
+onUnmounted(()=>{nav.clear();clearInterval(healthTimer);window.removeEventListener('beforeunload',beforeUnload);window.removeEventListener('ui:auth-expired',invalidate)})
 </script>

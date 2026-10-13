@@ -1,130 +1,92 @@
 <template>
-  <section class="space-y-5">
-    <div class="pro-card p-6"><h2 class="text-xl font-bold">统计与反馈 · Sprint 3</h2>
-      <p class="text-sm text-slate-600 mt-2">{{ role === 'ADMIN' ? '管理已发布模板和授权微格资产。' : '统计以课程权限和评价可见状态为依据；预警需人工复核。' }}</p>
-    </div>
-    <p v-if="error" role="alert" class="rounded-xl bg-rose-50 p-4 text-rose-800">{{ error }} <button @click="load" class="underline">重试</button></p>
-    <p v-if="message" role="status" class="rounded-xl bg-emerald-50 p-3 text-emerald-800">{{ message }}</p>
-    <p v-if="busy" role="status">正在处理…</p>
-    <template v-if="role === 'ADMIN'">
-      <div class="pro-card p-6 space-y-4">
-        <h3 class="font-bold">四维模板管理（US-20）</h3>
-        <form @submit.prevent="saveTemplate" class="grid sm:grid-cols-2 gap-4">
-          <label>模板名称<input v-model.trim="draft.name" required maxlength="128" /></label>
-          <label>适用场景<input v-model.trim="draft.scenario" required maxlength="128" /></label>
-          <label class="sm:col-span-2">四维说明<textarea v-model.trim="draft.descriptions" required maxlength="2000"></textarea></label>
-          <label v-for="axis in axes" :key="axis.key">{{ axis.label }}权重<input v-model.number="draft[axis.key]" type="number" min="0" max="100" step=".001" required /></label>
-          <p>权重合计：{{ axes.reduce((sum, a) => sum + Number(draft[a.key]), 0) }}%，必须为100%。</p>
-          <button :disabled="busy" class="primary">{{ draft.id ? '保存草稿修改' : '新建草稿' }}</button>
-        </form>
-        <div v-for="item in drafts" :key="item.id" class="border rounded-xl p-3 flex flex-wrap justify-between gap-3">
-          <span>{{ item.name }} · {{ item.scenario }} · 草稿版本 {{ item.revision }} · {{ item.publishedId ? '已发布（不可修改）' : '未发布' }}</span>
-          <button v-if="!item.publishedId" @click="editDraft(item)">编辑</button>
-          <button v-if="!item.publishedId" @click="publish(item)" :disabled="busy">发布不可变版本</button>
-        </div>
-      </div>
-      <div class="pro-card p-6"><h3 class="font-bold">已发布版本</h3><p v-for="item in templates" :key="item.id">{{ item.name }} · 版本ID {{ item.id }} · {{ item.attitude }}/{{ item.content }}/{{ item.method }}/{{ item.effect }}%
-        <button @click="copyTemplate(item)" class="ml-3 underline">基于此版本新建草稿</button></p></div>
-    </template>
-    <template v-else>
-      <form @submit.prevent="load" class="pro-card p-5 grid sm:grid-cols-4 gap-4">
-        <label>学期<input v-model.trim="filter.term" placeholder="留空采用最新可见学期" /></label>
-        <label v-if="role === 'SUPERVISOR'">课程类别<select v-model="category" aria-label="课程类别"><option value="">全部类别</option><option v-for="c in categories" :key="c" :value="c">{{ c }}</option></select></label>
-        <label v-else>课程类别<input v-model.trim="filter.courseType" placeholder="留空查询全部类别" /></label>
-        <label v-if="role !== 'SUPERVISOR'">课程关键词<input v-model.trim="filter.keyword" /></label>
-        <label v-if="role === 'DIRECTOR'">教师姓名（筛选）<input v-model.trim="filter.teacher" /></label>
-        <button class="primary" :disabled="busy">查询</button>
-      </form>
-      <template v-if="role === 'DIRECTOR'">
-        <div class="pro-card p-5 space-y-3">
-          <h3 class="font-bold">质量汇总（US-18）</h3><p>快照：{{ report?.asOf }} · 共 {{ report?.total ?? 0 }} 条。页面分页，下载全部筛选结果。</p>
-          <div class="flex gap-3"><button @click="download('xlsx')">下载Excel</button><button @click="download('csv')">下载CSV</button></div>
-          <div class="overflow-auto"><table><thead><tr><th>课程</th><th>类别</th><th>模板</th><th>审核样本</th><th>有效总分样本</th><th>均分</th><th>旧版原分</th><th>来源评价ID</th></tr></thead><tbody><tr v-for="(r,i) in report?.rows || []" :key="i"><td>{{ r.courseCode }} {{ r.courseName }}</td><td>{{ r.courseType }}</td><td>{{ r.template }}</td><td>{{ r.evaluationCount }}</td><td>{{ r.validTotalCount }}</td><td>{{ r.average ?? '暂无' }}</td><td>{{ r.legacyAverage ?? '暂无' }}</td><td>{{ r.evaluationIds.join(', ') }}</td></tr></tbody></table></div>
-          <p v-if="!report?.rows?.length">所选范围暂无数据。</p>
-          <div class="flex gap-4"><button :disabled="page <= 1" @click="page--; load()">上一页</button><span>第{{ page }}页</span><button :disabled="page * 20 >= (report?.total || 0)" @click="page++; load()">下一页</button></div>
-        </div>
-        <div class="pro-card p-5 space-y-3"><h3 class="font-bold">质量预警（US-16）</h3><p>演示配置触发，需人工复核，不作为考核结论。</p><p v-if="!alerts.length">所选范围暂无预警。</p><article v-for="(a,i) in alerts" :key="i" class="border rounded-xl p-3"><b>{{ a.courseName }} · {{ a.alertType }}</b><p>{{ a.alertMessage }} · 触发值 {{ a.currentScore ?? '无评分' }} · 样本 {{ a.evaluationCount }} · 阈值 {{ a.threshold ?? '零覆盖' }}</p><p>{{ a.thresholdSource }} · 评价ID {{ a.evaluationIds?.join(', ') || '无' }}</p></article></div>
-      </template>
-      <template v-if="role === 'SUPERVISOR'">
-        <div class="pro-card p-5 space-y-3"><h3 class="font-bold">维护独立建议（US-21）</h3><p>在督导工作台暂存评价草稿后，可添加多条建议。建议随父评价提交与审核。</p>
-          <label>本人可编辑评价<select v-model="adviceParent" @change="loadAdvice"><option value="">请选择草稿或驳回评价</option><option v-for="e in editableEvaluations" :key="e.id" :value="e.id">评价{{ e.id }} · {{ e.offering.course.courseName }} · {{ e.status }}</option></select></label>
-          <article v-for="a in editableAdvice" :key="a.id" class="border rounded p-3">建议{{ a.id }}：{{ a.text }}<button @click="editAdvice(a)" class="ml-3">编辑建议</button></article>
-          <form v-if="adviceParent" @submit.prevent="saveAdvice" class="space-y-3"><label>建议文本<textarea v-model.trim="adviceForm.text" required maxlength="2000"></textarea></label><label>证据引用JSON（评价、资源历史版本或微格片段）<textarea v-model="adviceForm.evidence"></textarea></label><div class="flex gap-3"><label v-for="stage in stages" :key="stage"><input type="checkbox" v-model="adviceForm.stageTags" :value="stage" />{{ stage }}</label></div><button :disabled="busy">{{ adviceForm.id ? '保存建议修改' : '新增独立建议' }}</button><button type="button" @click="resetAdvice">填写新建议</button></form>
-        </div>
-        <div class="pro-card p-5 space-y-4"><h3 class="font-bold">按课程类别查看问题分布（US-19）</h3><p>{{ problems?.rule }}</p>
-          <p v-if="!problems?.groups?.length">所选类别没有有效开课课程。</p>
-          <article v-for="group in problems?.groups || []" :key="group.courseType" class="border rounded-xl p-4 space-y-3">
-            <h4 class="font-bold">{{ group.courseType }}</h4><p>课程 {{ group.courseCount }} · 审核样本 {{ group.sampleCount }} · 已标注 {{ group.taggedCount }} · 未标注 {{ group.untaggedCount }}</p>
-            <p v-if="!group.sampleCount">本类别暂无审核评价样本。</p>
-            <div v-for="tag in group.tags" :key="tag.name" class="grid grid-cols-[6rem_1fr_6rem] gap-3 items-center"><span>{{ tag.name }}</span><div class="bg-slate-100 rounded"><div class="h-3 bg-blue-600 rounded" :style="{width: tag.percentage + '%'}"></div></div><span>{{ tag.count }} / {{ tag.percentage }}%</span></div>
-            <details><summary>查看数据表与来源明细</summary><table><thead><tr><th>标签</th><th>评价数</th><th>占比</th></tr></thead><tbody><tr v-for="tag in group.tags" :key="tag.name"><td>{{ tag.name }}</td><td>{{ tag.count }}</td><td>{{ tag.percentage }}%</td></tr></tbody></table><p v-for="d in group.details" :key="d.evaluationId">评价 {{ d.evaluationId }} · {{ d.courseCode }} · {{ d.courseType }} · {{ d.tags.join('、') || '未标注' }} · {{ d.classificationVersion }}</p></details>
-          </article>
-        </div>
-      </template>
-      <template v-if="role === 'TEACHER'">
-        <div class="pro-card p-5 space-y-4"><h3 class="font-bold">本人评价汇总（US-17）</h3><p>审核且反馈时间已到的样本：{{ radar?.sampleCount ?? 0 }}。未知权重单列，缺失项不补零。</p><div ref="radarElement" class="h-72"></div>
-          <table><thead><tr><th>维度</th><th>归一化得分</th><th>有效样本</th></tr></thead><tbody><tr v-for="a in radar?.axes || []" :key="a.name"><td>{{ axes.find(x=>x.key===a.name)?.label }}</td><td>{{ a.value ?? '暂无/不适用' }}</td><td>{{ a.sampleCount }}</td></tr></tbody></table>
-          <p v-for="(g,i) in radar?.groups || []" :key="i">{{ g.courseName }} · {{ g.template }} · 总分均值 {{ g.average ?? '暂无' }} · 旧版原分 {{ g.legacyAverage ?? '暂无' }} · 有效样本 {{ g.validTotalCount }}</p>
-          <details><summary>查看脱敏评价明细</summary><p v-for="d in radar?.details || []" :key="d.evaluationId">评价{{ d.evaluationId }} · 模板{{ d.templateVersionId ?? '旧版未知' }} · 原分{{ d.scores }} · {{ d.highlights }} · {{ d.suggestions }}</p></details>
-        </div>
-        <div class="pro-card p-5 space-y-4"><h3 class="font-bold">建议到行动（US-21）</h3><p v-if="!suggestions.length">暂无对本人开放的建议。</p>
-          <form v-for="s in suggestions" :key="s.id" @submit.prevent="saveFeedback(s)" class="border rounded-xl p-4 space-y-3">
-            <b>{{ s.courseName }} · 建议{{ s.id }}</b><p>{{ s.text }}</p><p>证据：{{ s.evidenceRefs }}</p>
-            <label>处理决定<select v-model="s.edit.decision"><option value="ACCEPTED">接受</option><option value="ADJUSTED">调整</option></select></label>
-            <label>行动内容<textarea v-model.trim="s.edit.actionText" required maxlength="2000"></textarea></label>
-            <label>实践反馈<textarea v-model.trim="s.edit.feedbackText" maxlength="4000"></textarea></label>
-            <label>证据引用JSON（可选）<textarea v-model="s.edit.evidence" placeholder='[{"type":"EVALUATION","id":1}]'></textarea></label>
-            <div class="flex flex-wrap gap-3"><label v-for="stage in stages" :key="stage"><input type="checkbox" v-model="s.edit.stageTags" :value="stage" />{{ stage }}</label></div>
-            <button class="primary" :disabled="busy">保存行动反馈</button><details><summary>修改历史（服务端追加）</summary><p v-for="h in s.history" :key="h.recordVersion">版本{{ h.recordVersion }} · {{ h.occurredAt }} · {{ h.snapshotJson }}</p></details>
-          </form>
-        </div>
-      </template>
-      <ResourceVersionsPanel v-if="role === 'DIRECTOR' || role === 'TEACHER'" :role="role" />
-    </template>
-  </section>
+ <section class="space-y-5">
+  <div class="pro-card p-6"><h2>{{ role==='ADMIN'?'评价模板管理':'统计与反馈' }}</h2><p class="text-slate-600 mt-2">{{ role==='ADMIN'?'维护模板草稿与不可变发布版本。':'统计以课程权限和评价可见状态为依据；预警需人工复核。' }}</p></div>
+  <p v-if="error" role="alert" class="ui-alert">{{ error }} <button @click="query">重试</button></p><p v-if="message" role="status" class="rounded-lg bg-emerald-50 p-3 text-emerald-800">{{ message }}</p><p v-if="busy" role="status">正在处理…</p>
+  <form v-if="role!=='ADMIN'" @submit.prevent="query" class="pro-card p-5 ui-filter-grid" data-filter>
+   <label>学期<input v-model.trim="filter.term" placeholder="留空采用最新可见学期" /></label>
+   <label v-if="role==='SUPERVISOR'">课程类别<select v-model="category" aria-label="课程类别"><option value="">全部类别</option><option v-for="c in categories" :key="c">{{ c }}</option></select></label><label v-else>课程类别<input v-model.trim="filter.courseType" placeholder="留空查询全部类别" /></label>
+   <label v-if="role!=='SUPERVISOR'">课程关键词<input v-model.trim="filter.keyword" /></label><label v-if="role==='DIRECTOR'">教师姓名（筛选）<input v-model.trim="filter.teacher" /></label><button class="primary" :disabled="busy">查询</button>
+  </form>
+  <FeatureSelector v-model="feature" :items="features" :id="panelId" label="统计工作功能" />
+  <div role="tabpanel" :id="`${panelId}-panel-${feature}`" :aria-labelledby="`${panelId}-tab-${feature}`" class="space-y-5">
+   <template v-if="role==='ADMIN'">
+    <div v-if="feature==='drafts'" class="pro-card p-6 space-y-4"><h3>模板草稿</h3><form @submit.prevent="saveTemplate" class="grid sm:grid-cols-2 gap-4"><label>模板名称<input v-model.trim="draft.name" required maxlength="128" /></label><label>适用场景<input v-model.trim="draft.scenario" required maxlength="128" /></label><label class="sm:col-span-2">四维说明<textarea v-model.trim="draft.descriptions" required maxlength="2000"></textarea></label><label v-for="axis in axes" :key="axis.key">{{ axis.label }}权重<input v-model.number="draft[axis.key]" type="number" min="0" max="100" step=".001" required /></label><p>权重合计：{{ weightTotal }}%，必须为100%。</p><button class="primary" :disabled="busy">{{ draft.id?'保存草稿修改':'新建草稿' }}</button></form><article v-for="item in drafts" :key="item.id" class="border rounded-xl p-4 flex flex-wrap gap-3"><span>{{ item.name }} · {{ item.scenario }} · 草稿版本{{ item.revision }} · {{ item.publishedId?'已发布（不可修改）':'未发布' }}</span><button v-if="!item.publishedId" @click="editDraft(item)">编辑</button><button v-if="!item.publishedId" @click="publish(item)" :disabled="busy">发布不可变版本</button></article></div>
+    <div v-else class="pro-card p-6 space-y-4"><h3>已发布版本</h3><article v-for="item in templates" :key="item.id" class="border rounded-xl p-4"><b>{{ item.name }}</b><p>版本{{ item.id }} · 四维权重{{ item.attitude }}/{{ item.content }}/{{ item.method }}/{{ item.effect }}%</p><button @click="copyTemplate(item)">基于此版本新建草稿</button></article></div>
+   </template>
+   <template v-if="role==='DIRECTOR'">
+    <div v-if="feature==='quality'" class="pro-card p-5 space-y-4"><h3>质量汇总</h3><div class="flex flex-wrap gap-4"><b>汇总记录 {{ report?.total??0 }} 条</b><span class="text-slate-600">更新时间：{{ timeLabel(report?.asOf) }}</span></div><p class="text-slate-600">当前学期：{{ report?.term || '暂无' }}。按课程与模板分组，页面分页；导出全部已生效筛选结果。</p><p v-if="filterPending" role="status" class="text-amber-800">筛选尚未应用，请先查询。</p><p v-else-if="!queryValid" role="status">当前查询未成功，请重试后导出。</p><div class="flex gap-3"><button @click="download('xlsx')" :disabled="!exportReady">下载Excel</button><button @click="download('csv')" :disabled="!exportReady">下载CSV</button></div><div class="ui-table-scroll"><table><thead><tr><th>课程</th><th>类别</th><th>评价模板</th><th>审核样本</th><th>有效总分样本</th><th>均分</th><th>旧版原分</th></tr></thead><tbody><tr v-for="(r,i) in report?.rows||[]" :key="i"><td>{{ r.courseCode }} {{ r.courseName }}</td><td>{{ r.courseType }}</td><td>{{ r.template==='NO_EVALUATION'?'暂无评价':r.template }}</td><td>{{ r.evaluationCount }}</td><td>{{ r.validTotalCount }}</td><td>{{ r.average??'暂无' }}</td><td>{{ r.legacyAverage??'暂无' }}</td></tr></tbody></table></div><p v-if="!report?.rows?.length" class="ui-empty">所选范围暂无数据。</p><div class="flex gap-4"><button :disabled="!exportReady||page<=1" @click="paginate(-1)">上一页</button><span>第{{ page }}页</span><button :disabled="!exportReady||page*20>=(report?.total||0)" @click="paginate(1)">下一页</button></div><details><summary>查看数据来源</summary><p v-for="(r,i) in report?.rows||[]" :key="i">{{ r.courseName }} · 来源评价：{{ r.evaluationIds.join('、')||'暂无' }}</p></details></div>
+    <div v-if="feature==='alerts'" class="pro-card p-5 space-y-4"><h3>质量预警</h3><p>演示配置触发，需人工复核，不作为考核结论。</p><p v-if="!alerts.length" class="ui-empty">所选范围暂无预警。</p><article v-for="(a,i) in alerts" :key="i" class="border rounded-xl p-4 space-y-2"><div class="flex flex-wrap gap-3"><b>{{ a.courseName }}</b><span :class="a.alertLevel==='RED'?'text-rose-700':'text-amber-800'">{{ stateLabel(a.alertType) }}</span></div><p>{{ a.alertMessage }}</p><p>触发值 {{ a.currentScore??'无评分' }} · 样本 {{ a.evaluationCount }} · 阈值 {{ a.threshold??'零覆盖' }}</p><details><summary>查看规则与来源</summary><p>{{ a.thresholdSource }} · {{ a.alertType }} · 评价ID {{ a.evaluationIds?.join(', ')||'无' }}</p></details></article></div>
+   </template>
+   <template v-if="role==='SUPERVISOR'">
+    <div v-if="feature==='advice'" class="pro-card p-5 space-y-4"><h3>督导建议</h3><p>在督导工作台暂存评价草稿后，可添加多条建议，随父评价提交与审核。</p><label>本人可编辑评价<select :value="adviceParent" aria-label="本人可编辑评价" @change="changeAdviceParent"><option value="">请选择草稿或驳回评价</option><option v-for="e in editableEvaluations" :key="e.id" :value="e.id">评价{{ e.id }} · {{ e.offering.course.courseName }} · {{ stateLabel(e.status) }}</option></select></label><article v-for="a in editableAdvice" :key="a.id" class="border rounded-lg p-3">建议{{ a.id }}：{{ a.text }} <button @click="editAdvice(a)">编辑建议</button></article><form v-if="adviceParent" @submit.prevent="saveAdvice" class="space-y-4"><label>建议文本<textarea v-model.trim="adviceForm.text" required maxlength="2000"></textarea></label><EvidencePicker v-model="adviceForm.evidence" :evaluation-id="adviceParent" /><fieldset><legend>教学环节</legend><label v-for="(name,stage) in stages" :key="stage" class="stage-choice"><input type="checkbox" v-model="adviceForm.stageTags" :value="stage" />{{ name }}（{{ stage }}）</label></fieldset><button class="primary" :disabled="busy||invalidEvidence(adviceForm.evidence)">{{ adviceForm.id?'保存建议修改':'新增独立建议' }}</button><button type="button" @click="newAdvice">填写新建议</button></form></div>
+    <div v-if="feature==='problems'" class="pro-card p-5 space-y-4"><h3>按课程类别查看问题分布</h3><p>{{ problems?.rule }}</p><p v-if="!problems?.groups?.length" class="ui-empty">所选类别没有有效开课课程。</p><article v-for="group in problems?.groups||[]" :key="group.courseType" class="border rounded-xl p-4 space-y-3"><h4 class="font-bold">{{ group.courseType }}</h4><p>课程 {{ group.courseCount }} · 审核样本 {{ group.sampleCount }} · 已标注 {{ group.taggedCount }} · 未标注 {{ group.untaggedCount }}</p><p v-if="!group.sampleCount" class="ui-empty">本类别暂无审核评价样本。</p><template v-else><div v-for="tag in group.tags" :key="tag.name" class="problem-row"><span>{{ tag.name }}</span><div class="bg-slate-100 rounded"><div class="h-3 bg-indigo-600 rounded" :style="{width:tag.percentage+'%'}"></div></div><span>{{ tag.count }} / {{ tag.percentage }}%</span></div></template><details><summary>查看数据表与来源明细</summary><div class="ui-table-scroll"><table><thead><tr><th>标签</th><th>评价数</th><th>占比</th></tr></thead><tbody><tr v-for="tag in group.tags" :key="tag.name"><td>{{ tag.name }}</td><td>{{ tag.count }}</td><td>{{ tag.percentage }}%</td></tr></tbody></table></div><p v-for="d in group.details" :key="d.evaluationId">评价{{ d.evaluationId }} · {{ d.courseCode }} · {{ d.tags.join('、')||'未标注' }} · {{ d.classificationVersion }}</p></details></article></div>
+   </template>
+   <template v-if="role==='TEACHER'">
+    <div v-if="feature==='radar'" class="pro-card p-5 space-y-4"><h3>本人评价汇总</h3><p>审核且反馈时间已到的样本：{{ radar?.sampleCount??0 }}。100分归一化维度均分；未知权重单列，缺失项不补零。</p><div ref="radarElement" class="h-72"></div><div class="ui-table-scroll"><table><thead><tr><th>维度</th><th>归一化得分</th><th>有效样本</th></tr></thead><tbody><tr v-for="a in radar?.axes||[]" :key="a.name"><td>{{ axes.find(x=>x.key===a.name)?.label }}</td><td>{{ a.value??'暂无/不适用' }}</td><td>{{ a.sampleCount }}</td></tr></tbody></table></div><details><summary>查看课程分组与脱敏评价明细</summary><p v-for="(g,i) in radar?.groups||[]" :key="i">{{ g.courseName }} · {{ g.template==='NO_EVALUATION'?'暂无评价':g.template }} · 总分均值 {{ g.average??'暂无' }} · 有效样本 {{ g.validTotalCount }}</p><p v-for="d in radar?.details||[]" :key="d.evaluationId">评价{{ d.evaluationId }} · 模板{{ d.templateVersionId??'旧版未知' }} · 原分{{ d.scores }} · {{ d.highlights }} · {{ d.suggestions }}</p></details></div>
+    <div v-if="feature==='actions'" class="pro-card p-5 space-y-4"><h3>建议到行动</h3><p v-if="!suggestions.length" class="ui-empty">暂无对本人开放的建议。</p><form v-for="s in suggestions" :key="s.id" @submit.prevent="saveFeedback(s)" class="border rounded-xl p-4 space-y-4"><b>{{ s.courseName }} · 建议{{ s.id }}</b><p>{{ s.text }}</p><details><summary>查看建议证据</summary><p v-for="(e,i) in s.evidenceRefs" :key="i">{{ e.message||e.type+' #'+e.id }}</p></details><label>处理决定<select v-model="s.edit.decision" aria-label="处理决定"><option value="ACCEPTED">接受</option><option value="ADJUSTED">调整</option></select></label><label>行动内容<textarea v-model.trim="s.edit.actionText" required maxlength="2000"></textarea></label><label>实践反馈<textarea v-model.trim="s.edit.feedbackText" maxlength="4000"></textarea></label><EvidencePicker v-model="s.edit.evidence" :evaluation-id="s.evaluationId" /><fieldset><legend>教学环节</legend><label v-for="(name,stage) in stages" :key="stage" class="stage-choice"><input type="checkbox" v-model="s.edit.stageTags" :value="stage" />{{ name }}（{{ stage }}）</label></fieldset><button class="primary" :disabled="busy||invalidEvidence(s.edit.evidence)">保存行动反馈</button><details><summary>修改历史</summary><p v-for="h in s.history" :key="h.recordVersion">版本{{ h.recordVersion }} · {{ timeLabel(h.occurredAt) }} · {{ h.snapshotJson }}</p></details></form></div>
+   </template>
+   <ResourceVersionsPanel v-if="feature==='versions'" :role="role" />
+  </div>
+ </section>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-import * as echarts from 'echarts'
-import { sprint3Api } from '../api'
+import {ref,computed,onMounted,onUnmounted} from 'vue'
+import {BarChart3,AlertTriangle,FileText,MessageSquare,Layers} from 'lucide-vue-next'
+import {sprint3Api} from '../api'
+import FeatureSelector from './FeatureSelector.vue'
+import EvidencePicker from './EvidencePicker.vue'
 import ResourceVersionsPanel from './ResourceVersionsPanel.vue'
-const props=defineProps<{role:string}>()
-const role=props.role
+import {useNavigation,usePreference,useEditGuard,type SaveResult} from '../ui/context'
+import {useRadar} from '../ui/useRadar'
+import {stages,stateLabel,timeLabel,evidenceArray} from '../ui/display'
+import {validateWeights} from '../ui/weights.mjs'
+const props=defineProps<{role:string}>(),role=props.role,nav=useNavigation(),panelId='statistics-'+role.toLowerCase()
 const axes=[{key:'attitude',label:'教学态度'},{key:'content',label:'教学内容'},{key:'method',label:'教学方法'},{key:'effect',label:'教学效果'}]
-const stages=['B','O','P1','P2','P3','S']
-const busy=ref(false),error=ref(''),message=ref(''),templates=ref<any[]>([]),drafts=ref<any[]>([])
-const draft=ref<any>({name:'',scenario:'随堂督导',descriptions:'教学态度、教学内容、教学方法、教学效果',attitude:25,content:25,method:25,effect:25})
-const filter=ref({term:'',courseType:'',keyword:'',teacher:''}),category=ref(''),categories=ref<string[]>([]),page=ref(1)
-const report=ref<any>(),radar=ref<any>(),problems=ref<any>(),alerts=ref<any[]>([]),suggestions=ref<any[]>([])
-const editableEvaluations=ref<any[]>([]),editableAdvice=ref<any[]>([]),adviceParent=ref<number|''>('')
-const adviceForm=ref<any>({text:'',evidence:'[]',stageTags:[]})
-const resetAdvice=()=>{adviceForm.value={text:'',evidence:'[]',stageTags:[]}}
-const loadAdvice=()=>run(async()=>{editableAdvice.value=adviceParent.value?await sprint3Api.get('/api/v1/supervisions/'+adviceParent.value+'/suggestions'):[];resetAdvice()})
-const editAdvice=(a:any)=>{adviceForm.value={id:a.id,expectedVersion:a.recordVersion,text:a.text,evidence:JSON.stringify(a.evidenceRefs),stageTags:a.stageTags||[]}}
-const saveAdvice=()=>run(async()=>{const a=adviceForm.value;await sprint3Api.post('/api/v1/supervisions/'+adviceParent.value+'/suggestions',{id:a.id,expectedVersion:a.expectedVersion,text:a.text,evidenceRefs:JSON.parse(a.evidence||'[]'),stageTags:a.stageTags});editableAdvice.value=await sprint3Api.get('/api/v1/supervisions/'+adviceParent.value+'/suggestions');resetAdvice();message.value='建议已保存；请重新打开评价草稿，以读取最新记录版本'})
-const radarElement=ref<HTMLDivElement>();let chart:echarts.ECharts|undefined
+const definitions:Record<string,any[]>={DIRECTOR:[['quality','质量汇总','筛选与导出课程质量数据',BarChart3],['alerts','质量预警','查看待人工复核的提醒',AlertTriangle],['versions','资源版本','追溯课件历史与共享范围',Layers]],TEACHER:[['radar','评价分析','查看100分归一化维度与样本',BarChart3],['actions','改进行动','将督导建议转化为行动反馈',MessageSquare],['versions','资源版本','查看课件历史并上传新版',Layers]],SUPERVISOR:[['problems','问题分布','分析课程类别内的评价问题',BarChart3],['advice','督导建议','维护评价草稿的独立建议',MessageSquare]],ADMIN:[['drafts','模板草稿','配置四维说明和评价权重',FileText],['published','已发布版本','查看不可变模板与派生草稿',Layers]]}
+const features=(definitions[role]||[]).map(([key,label,description,iconComp])=>({key,label,description,iconComp})),feature=usePreference(panelId,'feature',features[0]?.key||'')
+const busy=ref(false),error=ref(''),message=ref(''),templates=ref<any[]>([]),drafts=ref<any[]>([]),draft=ref<any>({name:'',scenario:'随堂督导',descriptions:'教学态度、教学内容、教学方法、教学效果',attitude:25,content:25,method:25,effect:25})
+const weightValidation=computed(()=>validateWeights(axes.map(a=>draft.value[a.key])))
+const weightTotal=computed(()=>weightValidation.value.total??'格式无效'),filter=usePreference(panelId,'filter',{term:'',courseType:'',keyword:'',teacher:''}),category=usePreference(panelId,'category',''),page=ref(1),categories=ref<string[]>([])
+const appliedForm=ref<any>(),appliedFilter=ref<any>(),queryValid=ref(false)
+const filterPending=computed(()=>!appliedForm.value||JSON.stringify(params())!==JSON.stringify(appliedForm.value))
+const exportReady=computed(()=>queryValid.value&&!filterPending.value&&!!appliedFilter.value&&!busy.value)
+const report=ref<any>(),radar=ref<any>(),problems=ref<any>(),alerts=ref<any[]>([]),suggestions=ref<any[]>([]),editableEvaluations=ref<any[]>([]),editableAdvice=ref<any[]>([]),adviceParent=ref<number|''>(''),adviceForm=ref<any>({text:'',evidence:[],stageTags:[]}),radarElement=ref<HTMLDivElement>()
+let disposed=false;const suggestionEditors=new Map<number,{baseline:string;unregister:()=>void}>()
+const templateGuard=useEditGuard('评价模板草稿',()=>draft.value,v=>{draft.value=v},()=>role==='ADMIN',saveTemplate)
+const adviceGuard=useEditGuard('独立督导建议',()=>adviceForm.value,v=>{adviceForm.value=v},()=>role==='SUPERVISOR',saveAdvice)
+const managedRadar=useRadar(radarElement,chart=>{const a=axes.map(x=>radar.value?.axes?.find((v:any)=>v.name===x.key));const valid=a.every(v=>v?.value!=null&&Number.isFinite(v.value));chart.setOption({animation:false,radar:{indicator:axes.map(x=>({name:x.label,max:100})),axisName:{color:'#475569',fontSize:12}},series:[{type:'radar',data:valid?[{value:a.map(v=>v.value),name:'归一化维度均分',areaStyle:{color:'#4f46e530'},lineStyle:{color:'#4f46e5'},itemStyle:{color:'#4f46e5'}}]:[]}],title:{text:valid?'':'缺少有效维度，请查看数据表',textStyle:{fontSize:12,color:'#475569'}}},true)})
 function params(){return {...filter.value,courseType:role==='SUPERVISOR'&&category.value!=='未分类'?category.value:filter.value.courseType,uncategorized:role==='SUPERVISOR'&&category.value==='未分类'}}
-async function run(fn:()=>Promise<void>){if(busy.value)return;busy.value=true;error.value='';message.value='';try{await fn()}catch(e:any){error.value=e.message||'操作失败'}finally{busy.value=false}}
-async function fetchData(){
- if(role==='ADMIN'){[templates.value,drafts.value]=await Promise.all([sprint3Api.get('/api/v1/sprint3/templates'),sprint3Api.get('/api/v1/admin/templates')]);return}
- if(role==='DIRECTOR'){[report.value,alerts.value]=await Promise.all([sprint3Api.get('/api/v1/sprint3/quality',{...params(),page:page.value}),sprint3Api.get('/api/v1/sprint3/alerts',params())])}
- if(role==='SUPERVISOR'){editableEvaluations.value=(await sprint3Api.get('/api/v1/supervisions')).filter((e:any)=>['DRAFT','REJECTED'].includes(e.status));problems.value=await sprint3Api.get('/api/v1/sprint3/problems',params());categories.value=problems.value.categories}
- if(role==='TEACHER'){
-  [radar.value,suggestions.value]=await Promise.all([sprint3Api.get('/api/v1/sprint3/radar',params()),sprint3Api.get('/api/v1/sprint3/suggestions/mine')])
-  suggestions.value.forEach(s=>{s.edit={decision:s.feedback?.decision||'ACCEPTED',actionText:s.feedback?.actionText||'',feedbackText:s.feedback?.feedbackText||'',evidence:s.feedback?.evidenceJson||'[]',stageTags:JSON.parse(s.feedback?.stageTagsJson||'[]')}})
-  await nextTick();if(radarElement.value){chart||=echarts.init(radarElement.value);const a=radar.value.axes;chart.setOption({radar:{indicator:axes.map(x=>({name:x.label,max:100}))},series:[{type:'radar',data:a.every((x:any)=>x.value!=null)?[{value:a.map((x:any)=>x.value),name:'归一化维度均分'}]:[]}],title:{text:a.some((x:any)=>x.value==null)?'缺少有效维度，请查看数据表':'',textStyle:{fontSize:12}}},true)}
+function invalidEvidence(refs:any){return evidenceArray(refs).some(e=>e.message)||evidenceArray(refs).length>10}
+async function run(fn:()=>Promise<void>):Promise<SaveResult>{if(busy.value||disposed)return {status:'invalid'};const finishSaving=nav.startSaving();busy.value=true;error.value='';message.value='';try{await fn();return {status:disposed?'stale':'success'}}catch(e:any){if(!disposed)error.value=e.message||'操作失败';return {status:e.response?.status===409||e.status===409?'conflict':'failed'}}finally{busy.value=false;finishSaving()}}
+function resetAdvice(){adviceForm.value={text:'',evidence:[],stageTags:[]};adviceGuard.reset()}
+function registerSuggestions(){suggestionEditors.forEach(e=>e.unregister());suggestionEditors.clear();for(const s of suggestions.value){s.edit={decision:s.feedback?.decision||'ACCEPTED',actionText:s.feedback?.actionText||'',feedbackText:s.feedback?.feedbackText||'',evidence:evidenceArray(s.feedback?.evidenceJson),stageTags:evidenceArray(s.feedback?.stageTagsJson)};const state={baseline:JSON.stringify(s.edit),unregister:()=>{}};state.unregister=nav.register(panelId+'-suggestion-'+s.id,{title:s.courseName+'行动反馈',dirty:()=>JSON.stringify(s.edit)!==state.baseline,discard:()=>{s.edit=JSON.parse(state.baseline)},save:()=>saveFeedback(s)});suggestionEditors.set(s.id,state)}}
+async function fetchData(directorFilter?:ReturnType<typeof params>){
+ if(role==='ADMIN'){const [t,d]=await Promise.all([sprint3Api.get('/api/v1/sprint3/templates'),sprint3Api.get('/api/v1/admin/templates')]);if(disposed)return;templates.value=t;drafts.value=d;return}
+ if(role==='DIRECTOR'){
+  const form={...params()},submitted={...(directorFilter??form)},requestedPage=page.value;queryValid.value=false
+  const [r,a]=await Promise.all([sprint3Api.get('/api/v1/sprint3/quality',{...submitted,page:requestedPage}),sprint3Api.get('/api/v1/sprint3/alerts',submitted)])
+  if(disposed)return;report.value=r;alerts.value=a;appliedForm.value=form;appliedFilter.value={...submitted,term:r.term??submitted.term};queryValid.value=true
  }
+ if(role==='SUPERVISOR'){const [e,p]=await Promise.all([sprint3Api.get('/api/v1/supervisions'),sprint3Api.get('/api/v1/sprint3/problems',params())]);if(disposed)return;editableEvaluations.value=e.filter((x:any)=>['DRAFT','REJECTED'].includes(x.status));problems.value=p;categories.value=p.categories||[]}
+ if(role==='TEACHER'){const [r,s]=await Promise.all([sprint3Api.get('/api/v1/sprint3/radar',params()),sprint3Api.get('/api/v1/sprint3/suggestions/mine')]);if(disposed)return;radar.value=r;suggestions.value=s;registerSuggestions();managedRadar.render()}
 }
-const load=()=>run(fetchData)
-const editDraft=(d:any)=>{draft.value={...d,expectedVersion:d.revision}}
-const copyTemplate=(d:any)=>{draft.value={name:d.name,scenario:d.scenario,descriptions:d.descriptions,attitude:d.attitude,content:d.content,method:d.method,effect:d.effect,basedOnVersionId:d.id}}
-const saveTemplate=()=>run(async()=>{const d=draft.value;const body={expectedVersion:d.expectedVersion,name:d.name,scenario:d.scenario,descriptions:d.descriptions,attitude:d.attitude,content:d.content,method:d.method,effect:d.effect,basedOnVersionId:d.basedOnVersionId};if(d.id)await sprint3Api.put('/api/v1/admin/templates/'+d.id,body);else await sprint3Api.post('/api/v1/admin/templates',body);await fetchData();message.value='模板草稿已保存'})
-const publish=(d:any)=>run(async()=>{await sprint3Api.post('/api/v1/admin/templates/'+d.id+'/publish',{expectedVersion:d.revision});await fetchData();message.value='已生成不可变发布版本'})
-const saveFeedback=(s:any)=>run(async()=>{await sprint3Api.put('/api/v1/suggestions/'+s.id+'/my-feedback',{expectedVersion:s.feedback?.revision||0,decision:s.edit.decision,actionText:s.edit.actionText,feedbackText:s.edit.feedbackText,evidenceRefs:JSON.parse(s.edit.evidence||'[]'),stageTags:s.edit.stageTags});await fetchData();message.value='行动反馈与修改历史已保存'})
-const download=(format:string)=>run(async()=>{const blob=await sprint3Api.blob('/api/v1/sprint3/quality/export',{...params(),format});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='teaching-quality.'+format;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)})
-onMounted(load);onUnmounted(()=>chart?.dispose())
+function query(){return nav.request(async()=>{const previous=page.value;page.value=1;const result=await run(fetchData);if(result.status!=='success')page.value=previous})}
+function paginate(delta:number){if(!exportReady.value)return;return nav.request(async()=>{const previous=page.value;page.value+=delta;const result=await run(()=>fetchData(appliedFilter.value));if(result.status!=='success')page.value=previous})}
+function changeAdviceParent(e:Event){const select=e.target as HTMLSelectElement,next=select.value?Number(select.value):'';select.value=String(adviceParent.value);return nav.request(async()=>{adviceParent.value=next;await run(async()=>{editableAdvice.value=next?await sprint3Api.get('/api/v1/supervisions/'+next+'/suggestions'):[];resetAdvice()})})}
+function editAdvice(a:any){return nav.request(()=>{adviceForm.value={id:a.id,expectedVersion:a.recordVersion,text:a.text,evidence:evidenceArray(a.evidenceRefs),stageTags:a.stageTags||[]};adviceGuard.reset()})}function newAdvice(){return nav.request(resetAdvice)}
+async function saveAdvice():Promise<SaveResult>{if(!adviceParent.value||!adviceForm.value.text.trim()||invalidEvidence(adviceForm.value.evidence))return {status:'invalid'};const a=structuredClone(JSON.parse(JSON.stringify(adviceForm.value))),submitted=adviceGuard.capture();return run(async()=>{const saved=await sprint3Api.post('/api/v1/supervisions/'+adviceParent.value+'/suggestions',{id:a.id,expectedVersion:a.expectedVersion,text:a.text,evidenceRefs:a.evidence,stageTags:a.stageTags});if(disposed)return;adviceGuard.saved(submitted);adviceForm.value.expectedVersion=saved.revision??saved.recordVersion;adviceForm.value.id=saved.id;adviceGuard.saved(JSON.stringify({...a,id:saved.id,expectedVersion:adviceForm.value.expectedVersion}));editableAdvice.value=await sprint3Api.get('/api/v1/supervisions/'+adviceParent.value+'/suggestions');message.value='建议已保存；重新打开父评价草稿可读取最新记录版本'})}
+async function saveFeedback(s:any):Promise<SaveResult>{if(!s.edit.actionText.trim()||invalidEvidence(s.edit.evidence))return {status:'invalid'};const submitted=JSON.stringify(s.edit),edit=JSON.parse(submitted);return run(async()=>{const result=await sprint3Api.put('/api/v1/suggestions/'+s.id+'/my-feedback',{expectedVersion:s.feedback?.revision||s.feedback?.recordVersion||0,decision:edit.decision,actionText:edit.actionText,feedbackText:edit.feedbackText,evidenceRefs:edit.evidence,stageTags:edit.stageTags});if(disposed)return;s.feedback=result;const state=suggestionEditors.get(s.id);if(state)state.baseline=submitted;message.value='行动反馈已保存，其他编辑保留'})}
+function editDraft(d:any){return nav.request(()=>{draft.value={...d,expectedVersion:d.revision};templateGuard.reset()})}function copyTemplate(d:any){return nav.request(()=>{draft.value={name:d.name,scenario:d.scenario,descriptions:d.descriptions,attitude:d.attitude,content:d.content,method:d.method,effect:d.effect,basedOnVersionId:d.id};feature.value='drafts'})}
+async function saveTemplate():Promise<SaveResult>{
+ if(!draft.value.name.trim()||!draft.value.scenario.trim()){error.value='请填写模板名称和适用场景';return {status:'invalid'}}
+ if(!weightValidation.value.valid){error.value=weightValidation.value.message;return {status:'invalid'}}
+ const submitted=templateGuard.capture(),d=JSON.parse(submitted),body={expectedVersion:d.expectedVersion,name:d.name,scenario:d.scenario,descriptions:d.descriptions,attitude:d.attitude,content:d.content,method:d.method,effect:d.effect,basedOnVersionId:d.basedOnVersionId}
+ return run(async()=>{const saved=d.id?await sprint3Api.put('/api/v1/admin/templates/'+d.id,body):await sprint3Api.post('/api/v1/admin/templates',body);if(disposed)return;templateGuard.saved(submitted);if(!templateGuard.dirty()){draft.value={...saved,expectedVersion:saved.revision};templateGuard.reset()}else{draft.value.id=saved.id;draft.value.expectedVersion=saved.revision;templateGuard.saved(JSON.stringify({...d,id:saved.id,expectedVersion:saved.revision}))}await fetchData();message.value='模板草稿已保存'})
+}
+function publish(item:any){return nav.request(()=>run(async()=>{await sprint3Api.post('/api/v1/admin/templates/'+item.id+'/publish',{expectedVersion:item.revision});await fetchData();message.value='已生成不可变发布版本'}))}
+function download(format:string){if(!exportReady.value){error.value='请先成功查询当前筛选，再下载报表';return}const submitted={...appliedFilter.value};return run(async()=>{const blob=await sprint3Api.blob('/api/v1/sprint3/quality/export',{...submitted,format});if(disposed)return;const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='teaching-quality.'+format;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)})}
+onMounted(()=>run(fetchData));onUnmounted(()=>{disposed=true;suggestionEditors.forEach(e=>e.unregister())})
 </script>
 <style scoped>
-label{display:block;font-size:.875rem}input:not([type=checkbox]),select,textarea{display:block;width:100%;border:1px solid #cbd5e1;border-radius:.5rem;padding:.5rem;margin-top:.35rem}button{border:1px solid #cbd5e1;border-radius:.5rem;padding:.4rem .8rem;font-size:.875rem}button.primary{background:#1e3a5f;color:white}button:disabled{opacity:.5}th,td{padding:.6rem;border-bottom:1px solid #e2e8f0;text-align:left;white-space:nowrap}table{width:100%;font-size:.875rem}summary{cursor:pointer}
+label{display:block}input:not([type=checkbox]),select,textarea{display:block;width:100%;margin-top:6px}button{border:1px solid #cbd5e1;border-radius:8px;padding:8px 12px;font-size:14px}button.primary{background:#4f46e5;color:white;border-color:#4f46e5}th,td{padding:12px;border-bottom:1px solid #e2e8f0;text-align:left;white-space:nowrap}table{width:100%;font-size:14px}summary{cursor:pointer;color:#4338ca}.stage-choice{display:inline-flex;align-items:center;gap:6px;margin:6px 16px 6px 0}.problem-row{display:grid;grid-template-columns:minmax(4rem,6rem) minmax(0,1fr) 6rem;gap:12px;align-items:center}@media(max-width:639px){.problem-row{grid-template-columns:4rem minmax(0,1fr) 5rem;gap:8px}}
 </style>
-

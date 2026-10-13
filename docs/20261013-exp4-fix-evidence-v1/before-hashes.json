@@ -1,0 +1,38 @@
+[
+  {
+    "sha256": "9FFF72BCEC428D473107FC01F04E5204D0FA60C45C301D3DF68E10E201059269",
+    "path": "raw/README.md"
+  },
+  {
+    "sha256": "BB4636B1B499BCD13F36F934BD0356449CF4A01A05E507D47FBD3C5AE27BA11E",
+    "path": "frontend/src/api/index.ts"
+  },
+  {
+    "sha256": "1EE8EA9A2B125DCCAC2E0E03B88E151F56D9B99D9BF4613926DF201034AA88F8",
+    "path": "frontend/src/views/MicroTeachingView.vue"
+  },
+  {
+    "sha256": "265B48FC405F49C623266F701F2FAC24DF9F67597B50927773920741505D97B5",
+    "path": "frontend/src/components/Sprint3Workspace.vue"
+  },
+  {
+    "sha256": "0DBFF3CFE746C5E58ECEE376FF2FC401A00CE0DB36E8D782F48A8E7764A162FB",
+    "path": "frontend/src/views/DirectorDeskView.vue"
+  },
+  {
+    "sha256": "D7CB339638E623CF366BE2881A9D470742C618E8F876FC4F0479958650DE1674",
+    "path": "frontend/dev/camera-plugin.mjs"
+  },
+  {
+    "sha256": "EB50480EA94DEF86594CC1387319FF342105BC060305C345577C34C5BF73D8F2",
+    "path": "frontend/src/views/AttendanceDashboardView.vue"
+  },
+  {
+    "sha256": "9B7434185B85AF1E17E5616C8C987A1B8BC846257F4E017908CF5C523ECD2867",
+    "path": "stop_project.ps1"
+  },
+  {
+    "sha256": "3F92AB57E9E137BAFA5CFB513C5DE826D579950C23754DFB4A530BF805FDA0BC",
+    "path": "memory-bank/project-context.md"
+  }
+]

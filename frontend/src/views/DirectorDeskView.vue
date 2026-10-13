@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6" ref="viewRoot">
     <!-- 顶部指挥中心卡片 (升级为现代高质感白底卡片) -->
     <div class="pro-card p-6 flex flex-wrap items-center justify-between gap-5 relative overflow-hidden">
       <div class="flex items-center gap-4 relative z-10">
@@ -13,7 +13,7 @@
               管理中心 (Director Portal)
             </span>
           </h1>
-          <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证指标点动态维护与年度质量分析报表导出</p>
+          <p class="text-xs text-slate-500 mt-1">负责本专业全量课程档案规范底座、统筹排课冲突防范、工程教育认证指标点动态维护与最新学期质量分析报表导出</p>
         </div>
       </div>
 
@@ -30,9 +30,9 @@
           @click="handleExportReport"
           :disabled="isExporting"
           class="px-3.5 py-2 bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition cursor-pointer disabled:opacity-50"
-          title="导出含督导打分和班额统计的年度质量分析报表"
+          title="导出最新可见学期的全部课程质量汇总"
         >
-          <FileText class="w-3.5 h-3.5 text-emerald-600" /> {{ isExporting ? '正在导出报表...' : '导出年度质量报表 (CSV)' }}
+          <FileText class="w-3.5 h-3.5 text-emerald-600" /> {{ isExporting ? '正在导出报表...' : '导出最新学期质量报表 (CSV)' }}
         </button>
         <button
           @click="openImportModal"
@@ -50,42 +50,28 @@
     </div>
 
     <!-- 子导航标签 (现代悬浮胶囊控制器) -->
-    <div class="flex items-center gap-1.5 p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/80 shadow-inner overflow-x-auto">
-      <button
-        v-for="tab in tabs"
-        :key="tab.key"
-        @click="activeTab = tab.key; if (tab.key === 'reviews') loadPendingEvaluations()"
-        :class="[
-          'px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-2 cursor-pointer select-none whitespace-nowrap',
-          activeTab === tab.key
-            ? 'bg-white text-indigo-900 shadow-sm font-bold scale-[1.01]'
-            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-        ]"
-      >
-        <component :is="tab.iconComp" class="w-4 h-4" :class="activeTab === tab.key ? 'text-indigo-600' : 'text-slate-400'" />
-        {{ tab.label }}
-      </button>
-    </div>
+    <p v-if="courseLoadError" role="alert" class="ui-alert">{{ courseLoadError }} <button @click="loadCourses">重试</button></p>
+    <FeatureSelector v-model="activeTab" :items="tabs" id="director" label="工作功能" />
 
     <!-- Tab 1: 全量课程档案管理 (US-01 / US-02) -->
-    <div v-if="activeTab === 'courses'" class="space-y-4">
+    <div v-if="activeTab === 'courses'" role="tabpanel" id="director-panel-courses" aria-labelledby="director-tab-courses" class="space-y-4">
       <div class="pro-card p-6">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
-          <div class="flex items-center gap-3">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
             <div class="relative">
               <input
-                v-model="courseFilter.keyword"
+                data-filter v-model="courseFilter.keyword"
                 @input="handleFilterChange"
                 placeholder="搜索课程名称 / 代码 / 教师 / 先修..."
-                class="bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 w-72 shadow-inner transition"
+                class="bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 w-full sm:w-72 shadow-inner transition"
               />
               <Search class="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
             </div>
             <select
-              v-model="courseFilter.courseType"
+              data-filter v-model="courseFilter.courseType"
               @change="handleFilterChange"
               class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-700 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner cursor-pointer"
-            >
+             aria-label="课程性质筛选">
               <option value="">全部课程性质</option>
               <option value="专业核心课">专业核心课</option>
               <option value="专业基础课">专业基础课</option>
@@ -93,7 +79,7 @@
               <option value="专业选修课">专业选修课</option>
             </select>
           </div>
-          <span class="text-xs text-slate-500">共检索到 <b class="text-indigo-600 font-bold font-mono">{{ courseList.length }}</b> 门标准化课程档案 (MySQL 实时数据)</span>
+          <span class="text-xs text-slate-500">共检索到 <b class="text-indigo-600 font-bold font-mono">{{ courseList.length }}</b> 门标准化课程档案 </span>
         </div>
 
         <!-- 课程表格 -->
@@ -160,7 +146,7 @@
             <div class="flex items-center gap-1.5 ml-2">
               <span>每页显示</span>
               <select
-                v-model.number="coursePageSize"
+                data-filter v-model.number="coursePageSize"
                 @change="courseCurrentPage = 1"
                 class="bg-white border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer shadow-2xs"
               >
@@ -206,25 +192,25 @@
       </div>
     </div>
 
-    <!-- Tab 2: 集中排课统筹与冲突检测看板 (US-03) -->
-    <OfferingScheduleBoard v-if="activeTab === 'schedules'" />
+    <!-- Tab 2: 集中排课统筹与冲突检测看板 -->
+    <OfferingScheduleBoard v-if="activeTab === 'schedules'" role="tabpanel" id="director-panel-schedules" aria-labelledby="director-tab-schedules" />
 
-    <!-- Tab 3: 按专业与版本管理的毕业要求指标点矩阵 (US-05) -->
-    <div v-if="activeTab === 'indicators'" class="space-y-4">
+    <!-- Tab 3: 按专业与版本管理的毕业要求指标点矩阵 -->
+    <div v-if="activeTab === 'indicators'" role="tabpanel" id="director-panel-indicators" aria-labelledby="director-tab-indicators" class="space-y-4">
       <div class="pro-card p-6">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
           <div>
             <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
               <Target class="w-4 h-4 text-indigo-600" /> 东北大学工程教育专业认证毕业要求指标点矩阵
             </h2>
-            <p class="text-xs text-slate-500 mt-0.5">指标点具体细化与分解已交由对应主讲教师在【任课教师工作台】填报；教研室主任在此统筹审查各门课程大纲并进行基线锁定 (US-05)</p>
+            <p class="text-xs text-slate-500 mt-0.5">指标点具体细化与分解已交由对应主讲教师在【任课教师工作台】填报；教研室主任在此统筹审查各门课程大纲并进行基线锁定</p>
           </div>
           <div class="flex flex-wrap items-center gap-2.5">
             <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-inner">
               <span class="text-xs text-slate-500 font-medium">选择审查课程:</span>
               <select
-                v-model="selectedCourseIdForIndicator"
-                @change="loadIndicatorsForSelectedCourse()"
+                :value="selectedCourseIdForIndicator" data-filter
+                @change="requestIndicatorCourse($event)"
                 class="bg-transparent text-xs text-indigo-700 font-bold focus:outline-none min-w-[200px] cursor-pointer"
               >
                 <option v-if="courseList.length === 0" value="" disabled class="text-slate-400">
@@ -256,7 +242,7 @@
         <div class="border border-indigo-100 bg-indigo-50/30 rounded-2xl p-4 mb-5 space-y-3 text-xs">
           <div v-if="syllabusVersions.length" class="flex flex-wrap items-center gap-3">
             <label for="director-syllabus-version" class="font-semibold">查看大纲版本</label>
-            <select id="director-syllabus-version" v-model="selectedSyllabusId" aria-label="查看大纲版本" :disabled="indicatorLoading" @change="loadIndicatorsForSelectedCourse(selectedSyllabusId ?? undefined)" class="border border-slate-200 rounded-xl px-3 py-2 bg-white">
+            <select id="director-syllabus-version" data-filter v-model="selectedSyllabusId" aria-label="查看大纲版本" :disabled="indicatorLoading" @change="loadIndicatorsForSelectedCourse(selectedSyllabusId ?? undefined)" class="border border-slate-200 rounded-xl px-3 py-2 bg-white">
               <option v-for="version in syllabusVersions" :key="version.id" :value="version.id">{{ version.version }}{{ version.id === latestSyllabusId ? '（当前版）' : '（历史版）' }}</option>
             </select>
             <span v-if="isHistoricalSyllabus" role="status" class="text-amber-700">历史版本只读，可查看当时的指标、支撑权重和课程目标。</span>
@@ -340,8 +326,8 @@
       </div>
     </div>
 
-    <!-- Tab 4: 督导账号建档与专业授权 (US-06) -->
-    <div v-if="activeTab === 'supervisors'" class="space-y-4">
+    <!-- Tab 4: 督导账号建档与专业授权 -->
+    <div v-if="activeTab === 'supervisors'" role="tabpanel" id="director-panel-supervisors" aria-labelledby="director-tab-supervisors" class="space-y-4">
       <div class="pro-card p-6">
         <!-- 头部说明与安全边界政策提示 -->
         <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
@@ -452,10 +438,9 @@
     </div>
 
     <!-- 弹窗：新增/编辑课程 -->
-    <div v-if="showCourseModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-xl p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
+    <UiModal :open="!!(showCourseModal)" title="课程档案" @close="showCourseModal = false">
         <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-          <BookOpen class="w-4 h-4 text-indigo-600" /> {{ currentCourseForm.id ? '编辑课程档案' : '录入新课程档案 (US-01)' }}
+          <BookOpen class="w-4 h-4 text-indigo-600" /> {{ currentCourseForm.id ? '编辑课程档案' : '录入新课程档案' }}
         </h3>
         <div class="grid grid-cols-2 gap-3 text-xs">
           <div>
@@ -513,7 +498,7 @@
             <input v-model="currentCourseForm.prerequisites" placeholder="如 CS1001;CS2001" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner font-mono" />
           </div>
           <div class="col-span-2">
-            <label class="text-slate-600 block mb-1 font-semibold">课程简介与教学目标 (US-02)</label>
+            <label class="text-slate-600 block mb-1 font-semibold">课程简介与教学目标</label>
             <textarea v-model="currentCourseForm.description" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-indigo-500 shadow-inner"></textarea>
           </div>
         </div>
@@ -524,15 +509,13 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showCourseModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleSaveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">保存并入库 (MySQL)</button>
+          <button @click="nav.request(()=>{showCourseModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleSaveCourse" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">保存课程</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
-    <!-- 弹窗：课程 CSV 批量规范导入 (US-01) -->
-    <div v-if="showImportModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl p-6 sm:p-7 shadow-modal space-y-4 max-h-[90vh] flex flex-col animate-fade-in">
+    <!-- 弹窗：课程 CSV 批量规范导入 -->
+    <UiModal :open="!!(showImportModal)" title="课程 CSV 批量规范导入" @close="showImportModal = false">
         <!-- 弹窗头部 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div class="flex items-center gap-2.5">
@@ -540,11 +523,11 @@
               <FileSpreadsheet class="w-5 h-5" />
             </div>
             <div>
-              <h3 class="text-base font-bold text-slate-900">课程 CSV 批量规范导入 (US-01)</h3>
+              <h3 class="text-base font-bold text-slate-900">课程 CSV 批量规范导入</h3>
               <p class="text-xs text-slate-500">遵循两阶段校验与整批事务原子提交，支持批次内先修课程互相引用</p>
             </div>
           </div>
-          <button @click="showImportModal = false" class="text-slate-400 hover:text-slate-600 text-sm cursor-pointer">✕</button>
+          <button @click="nav.request(()=>{showImportModal = false})" class="text-slate-400 hover:text-slate-600 text-sm cursor-pointer">✕</button>
         </div>
 
         <!-- 内容区域 (滚动) -->
@@ -604,7 +587,7 @@
             <AlertCircle class="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
             <div class="space-y-0.5">
               <div><b>新课程录入防重规则</b>：本功能用于批量录入未入库的新课程档案。若使用【导出已有课程】的 CSV，请修改课程编码为新编码（如 DS9001）；若保持已有编码（如 DS2001），系统将按防重保护机制提示错误。</div>
-              <div class="text-slate-600">先修课程支持填写课程代码（如 CS2001）或中文课程名（如 数据结构与算法）。请勿上传包含督导打分和班额的【年度质量分析报表】。</div>
+              <div class="text-slate-600">先修课程支持填写课程代码（如 CS2001）或中文课程名（如 数据结构与算法）。请勿上传包含督导打分和班额的【最新学期质量分析报表】。</div>
             </div>
           </div>
 
@@ -722,28 +705,26 @@
 
         <!-- 弹窗底部操作 -->
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showImportModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">关闭</button>
+          <button @click="nav.request(()=>{showImportModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">关闭</button>
           <button
             @click="handleConfirmImport"
             :disabled="!canConfirmImport || isConfirming"
             class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer flex items-center gap-1.5"
           >
             <span v-if="isConfirming" class="inline-block animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
-            <span>{{ isConfirming ? '正在整批事务入库...' : '确认导入并整批入库 (US-01)' }}</span>
+            <span>{{ isConfirming ? '正在整批事务入库...' : '确认导入并整批入库' }}</span>
           </button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 弹窗：新增 / 编辑认证指标点 (写进 MySQL) -->
-    <div v-if="showIndicatorModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-lg p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
+    <UiModal :open="!!(showIndicatorModal)" title="指标点编辑" @close="showIndicatorModal = false">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <Target class="w-4 h-4 text-indigo-600" /> {{ indicatorForm.id ? '修改毕业要求指标点' : '新增毕业要求指标点' }}
           </h3>
           <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-semibold">
-            直接持久化至 MySQL
+            保存至平台
           </span>
         </div>
 
@@ -805,15 +786,13 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showIndicatorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
-          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">保存并写入 MySQL</button>
+          <button @click="nav.request(()=>{showIndicatorModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">保存指标</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 弹窗：主任新建督导专家账号 -->
-    <div v-if="showCreateSupervisorModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
+    <UiModal :open="!!(showCreateSupervisorModal)" title="新建督导专家账号" @close="showCreateSupervisorModal = false">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <ShieldCheck class="w-4 h-4 text-indigo-600" /> 新建督导专家账号
@@ -890,15 +869,13 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showCreateSupervisorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="nav.request(()=>{showCreateSupervisorModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
           <button @click="handleCreateSupervisor" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">创建并授权</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 弹窗：主任更新已有督导的专业授权 -->
-    <div v-if="showEditMajorsModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-modal space-y-4 animate-fade-in">
+    <UiModal :open="!!(showEditMajorsModal)" title="调整督导专业授权" @close="showEditMajorsModal = false">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <ShieldCheck class="w-4 h-4 text-indigo-600" /> 调整督导专业授权
@@ -939,14 +916,13 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showEditMajorsModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
+          <button @click="nav.request(()=>{showEditMajorsModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition cursor-pointer">取消</button>
           <button @click="handleUpdateSupervisorMajors" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm shadow-indigo-600/20 transition cursor-pointer">更新授权</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
-    <!-- Tab 5: 待审核督导评价 (US-14) -->
-    <div v-if="activeTab === 'reviews'" class="pro-card p-6 space-y-4">
+    <!-- Tab 5: 待审核督导评价 -->
+    <div v-if="activeTab === 'reviews'" role="tabpanel" id="director-panel-reviews" aria-labelledby="director-tab-reviews" class="pro-card p-6 space-y-4">
       <div class="flex items-center justify-between pb-3 border-b border-slate-100">
         <div>
           <h2 class="text-base font-bold text-slate-900">待审核督导评价</h2>
@@ -993,7 +969,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import type { SaveResult } from '../ui/context'
+import FeatureSelector from '../components/FeatureSelector.vue'
+import UiModal from '../components/UiModal.vue'
+import { useNavigation, usePreference, useEditGuard, useFeedback, useDomEdits } from '../ui/context'
+
+import { ref, computed, watch, onMounted } from 'vue'
 import OfferingScheduleBoard from '../components/OfferingScheduleBoard.vue'
 import {
   Briefcase,
@@ -1019,6 +1000,7 @@ import type { Course, CourseSyllabus, GraduationIndicator, Major, UserVO, Import
 
 const props = defineProps<{ department?: string }>()
 
+const courseLoadError=ref('')
 const allMajors = ref<Major[]>([])
 const loadAllMajors = async () => {
   try {
@@ -1035,13 +1017,13 @@ const getMajorNameByCode = (code?: string) => {
   return m ? m.majorName : ''
 }
 
-const activeTab = ref('courses')
+const activeTab = usePreference('director','feature','courses')
 const tabs = [
-  { key: 'courses', label: '专业全量课程档案 (US-01)', iconComp: BookOpen },
-  { key: 'schedules', label: '开课排课统筹看板 (US-03)', iconComp: Calendar },
-  { key: 'indicators', label: '毕业要求指标点矩阵 (US-05)', iconComp: Target },
-  { key: 'supervisors', label: '督导建档与专业授权 (US-06)', iconComp: ShieldCheck },
-  { key: 'reviews', label: '督导评价审核 (US-14)', iconComp: CheckCircle2 }
+  { key: 'courses', label: '课程档案', description: '维护课程基础信息与导入导出', iconComp: BookOpen },
+  { key: 'schedules', label: '开课排课', description: '安排班次、教室与授课时段', iconComp: Calendar },
+  { key: 'indicators', label: '指标矩阵', description: '维护培养方案和大纲支撑', iconComp: Target },
+  { key: 'supervisors', label: '督导授权', description: '维护专家账号与专业范围', iconComp: ShieldCheck },
+  { key: 'reviews', label: '评价审核', description: '审核督导评价与延迟反馈', iconComp: CheckCircle2 }
 ]
 
 const planMajorCode = ref('')
@@ -1060,8 +1042,8 @@ const savePlanCatalog = async () => {
     if (!rows.length) throw new Error('请填写指标目录')
     await syllabusApi.importPlanIndicators(planMajorCode.value, planImportVersion.value, rows)
     await loadIndicatorsForSelectedCourse()
-    alert(`已导入 ${rows.length} 条培养方案指标`)
-  } catch (e: any) { alert(e.response?.data?.message || e.message || '导入失败') }
+    notify(`已导入 ${rows.length} 条培养方案指标`)
+  } catch (e: any) { notify(e.response?.data?.message || e.message || '导入失败') }
 }
 
 const loadPendingEvaluations = async () => {
@@ -1072,13 +1054,13 @@ const reviewEvaluation = async (id: number, approved: boolean) => {
   try {
     await supervisionApi.review(id, approved)
     await loadPendingEvaluations()
-  } catch (e: any) { alert(e.response?.data?.message || '审核失败') }
+  } catch (e: any) { notify(e.response?.data?.message || '审核失败') }
 }
 
 const courseList = ref<Course[]>([])
 const indicatorList = ref<GraduationIndicator[]>([])
 
-const courseFilter = ref({ keyword: '', courseType: '' })
+const courseFilter = usePreference('director','courseFilter',{ keyword: '', courseType: '' })
 const selectedCourseIdForIndicator = ref<number | ''>('')
 
 // 分页状态管理 (P1 级要求)
@@ -1150,7 +1132,7 @@ const handleExportCourses = async () => {
     document.body.removeChild(link)
     window.URL.revokeObjectURL(url)
   } catch (e: any) {
-    alert('导出课程档案失败：' + (e.response?.data?.message || e.message))
+    notify('导出课程档案失败：' + (e.response?.data?.message || e.message))
   } finally {
     isExportingCourses.value = false
   }
@@ -1161,17 +1143,20 @@ const handleExportReport = async () => {
   if (isExporting.value) return
   isExporting.value = true
   try {
-    const blob = await supervisionApi.exportReport()
+    const summary = await supervisionApi.getDashboard()
+    const term = summary.academicTerm
+    if (!term) throw new Error('暂无可导出的学期')
+    const blob = await supervisionApi.exportReport(term)
     const url = window.URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
-    link.setAttribute('download', '2026-Northeastern-University-Teaching-Quality-Report.csv')
+    link.setAttribute('download', 'teaching-quality-' + term.replace(/[\\/:*?"<>|]/g, '_') + '.csv')
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
     window.URL.revokeObjectURL(url)
   } catch (e: any) {
-    alert('导出年度质量报表失败：' + (e.response?.data?.message || e.message))
+    notify('导出最新学期质量报表失败：' + (e.response?.data?.message || e.message))
   } finally {
     isExporting.value = false
   }
@@ -1189,7 +1174,7 @@ const handleDownloadTemplate = async () => {
     document.body.removeChild(link)
     window.URL.revokeObjectURL(url)
   } catch (e: any) {
-    alert('下载模板失败：' + (e.response?.data?.message || e.message))
+    notify('下载模板失败：' + (e.response?.data?.message || e.message))
   }
 }
 
@@ -1228,7 +1213,7 @@ const handleConfirmImport = async () => {
   importErrorMessage.value = ''
   try {
     const res = await courseImportApi.confirm(importPreview.value.batchId)
-    alert(res.message || `成功批量导入 ${res.importedCount} 门课程档案！`)
+    notify(res.message || `成功批量导入 ${res.importedCount} 门课程档案！`)
     showImportModal.value = false
     await loadCourses()
   } catch (err: any) {
@@ -1268,6 +1253,7 @@ const canAddIndicator = computed(() => !indicatorLoading.value && !indicatorLoad
 const standardIndicatorCategories = computed(() => Array.from(new Set(planCatalog.value.map(i => i.requirementCategory))))
 
 const loadCourses = async () => {
+  courseLoadError.value=''
   try {
     const list = await courseApi.getAll(courseFilter.value.keyword, courseFilter.value.courseType)
     courseList.value = Array.isArray(list) ? list : []
@@ -1281,6 +1267,7 @@ const loadCourses = async () => {
       indicatorList.value = []
     }
   } catch (e) {
+    courseLoadError.value='课程加载失败，请重试'
     console.error('加载课程列表失败', e)
   }
 }
@@ -1346,8 +1333,8 @@ const createIndicatorSyllabus = async () => {
       planVersion: newPlanVersion.value, status: 'DRAFT', indicators: [] })
     newSyllabusVersion.value = ''
     await loadIndicatorsForSelectedCourse()
-    alert('大纲已创建并绑定目录，现在可新增课程指标映射')
-  } catch (e: any) { alert(e.response?.data?.message || e.message || '创建大纲失败') }
+    notify('大纲已创建并绑定目录，现在可新增课程指标映射')
+  } catch (e: any) { notify(e.response?.data?.message || e.message || '创建大纲失败') }
   finally { creatingSyllabus.value = false }
 }
 
@@ -1385,33 +1372,28 @@ const editCourse = (c: Course) => {
   showCourseModal.value = true
 }
 
-const handleSaveCourse = async () => {
+const handleSaveCourse = async ():Promise<SaveResult> => {
+  if(formSaveLocks.has('handleSaveCourse'))return {status:'invalid'}
   courseErrorMessage.value = ''
   const form = currentCourseForm.value
   if (!form.courseCode || !form.courseCode.trim()) {
     courseErrorMessage.value = '课程编码不能为空'
-    return
-  }
+    return {status:'invalid'}}
   if (!form.courseName || !form.courseName.trim()) {
     courseErrorMessage.value = '课程名称不能为空'
-    return
-  }
+    return {status:'invalid'}}
   if (!form.majorCode || !form.majorCode.trim()) {
     courseErrorMessage.value = '所属专业不能为空'
-    return
-  }
+    return {status:'invalid'}}
   if (!form.department || !form.department.trim()) {
     courseErrorMessage.value = '教研室不能为空'
-    return
-  }
+    return {status:'invalid'}}
   if (!form.credits || form.credits <= 0) {
     courseErrorMessage.value = '学分必须大于 0'
-    return
-  }
+    return {status:'invalid'}}
   if (!form.hours || form.hours <= 0) {
     courseErrorMessage.value = '总学时必须大于 0'
-    return
-  }
+    return {status:'invalid'}}
   const total = Number(form.hours)
   const missingTheory = form.theoryHours == null || form.theoryHours === ''
   const missingPractice = form.practiceHours == null || form.practiceHours === ''
@@ -1419,20 +1401,26 @@ const handleSaveCourse = async () => {
   const ph = missingPractice ? total - th : Number(form.practiceHours)
   if (!Number.isInteger(th) || !Number.isInteger(ph) || th < 0 || ph < 0 || th + ph !== Number(form.hours)) {
     courseErrorMessage.value = `学时守恒校验失败：理论学时(${th}) + 实验学时(${ph}) 必须等于总学时(${form.hours})`
-    return
-  }
+    return {status:'invalid'}}
 
+  const submitted=courseGuard.capture(),finishSaving=nav.startSaving()
+  formSaveLocks.add('handleSaveCourse')
   try {
     await courseApi.save({ ...form, theoryHours: th, practiceHours: ph })
+    courseGuard.saved(submitted)
+    if(courseGuard.dirty())return {status:'success'}
     showCourseModal.value = false
     loadCourses()
+    return {status:'success'}
+    return {status:'success'}
   } catch (e: any) {
     courseErrorMessage.value = e.response?.data?.message || e.message || '保存课程档案失败'
-  }
+    return {status:e.response?.status===409?'conflict':'failed'}
+  } finally {formSaveLocks.delete('handleSaveCourse');finishSaving()}
 }
 
 const removeCourse = async (id: number) => {
-  if (confirm('确认删除该课程档案？')) {
+  if (await confirm('确认删除该课程档案？')) {
     await courseApi.delete(id)
     loadCourses()
   }
@@ -1442,7 +1430,7 @@ const removeCourse = async (id: number) => {
 const openAddIndicatorModal = () => {
   if (!canAddIndicator.value) return
   if (!selectedCourseIdForIndicator.value) {
-    alert('请先选择一门课程！')
+    notify('请先选择一门课程！')
     return
   }
   indicatorForm.value = {
@@ -1487,42 +1475,28 @@ const openEditIndicatorModal = (ind: GraduationIndicator) => {
   showIndicatorModal.value = true
 }
 
-const handleSaveIndicator = async () => {
-  if (!canAddIndicator.value) return
-  if (!indicatorForm.value.indicatorCode || !indicatorForm.value.indicatorDescription) {
-    alert('请填写指标点编号与分解表述！')
-    return
-  }
-  try {
-    if (indicatorForm.value.id) {
-      await syllabusApi.updateIndicator(indicatorForm.value.id, indicatorForm.value)
-    } else {
-      await syllabusApi.addIndicator(Number(selectedCourseIdForIndicator.value), indicatorForm.value)
-    }
-    showIndicatorModal.value = false
-    await loadIndicatorsForSelectedCourse()
-    alert('指标点已成功保存并实时写入 MySQL！')
-  } catch (e: any) {
-    alert(e.response?.data?.message || '指标点保存失败')
-  }
+const handleSaveIndicator = async ():Promise<SaveResult> => {
+ if(formSaveLocks.has('indicator')||!canAddIndicator.value||!indicatorForm.value.indicatorCode||!indicatorForm.value.indicatorDescription)return {status:'invalid'}
+ const submitted=indicatorGuard.capture(),finish=nav.startSaving();formSaveLocks.add('indicator')
+ try{if(indicatorForm.value.id)await syllabusApi.updateIndicator(indicatorForm.value.id,indicatorForm.value);else await syllabusApi.addIndicator(Number(selectedCourseIdForIndicator.value),indicatorForm.value);indicatorGuard.saved(submitted);if(!indicatorGuard.dirty())showIndicatorModal.value=false;await loadIndicatorsForSelectedCourse();notify('指标点已保存');return {status:'success'}}catch(e:any){notify(e.message||'指标点保存失败');return {status:e.response?.status===409?'conflict':'failed'}}finally{formSaveLocks.delete('indicator');finish()}
 }
 
 const confirmDeleteIndicator = async (ind: GraduationIndicator) => {
   if (!canAddIndicator.value) return
-  if (confirm(`确认删除指标点【${ind.indicatorCode}】？此操作将直接同步删除 MySQL 中的数据。`)) {
+  if (await confirm(`确认删除指标点【${ind.indicatorCode}】？此操作将直接删除该指标记录。`)) {
     try {
       await syllabusApi.deleteIndicator(ind.id)
       await loadIndicatorsForSelectedCourse()
-      alert('指标点已成功从 MySQL 中删除！')
+      notify('指标点已删除！')
     } catch (e: any) {
-      alert(e.response?.data?.message || '删除指标点失败')
+      notify(e.response?.data?.message || '删除指标点失败')
     }
   }
 }
 
 const lockCurrentSyllabus = async () => {
   if (!selectedCourseIdForIndicator.value) {
-    alert('请先选择需要锁定的课程！')
+    notify('请先选择需要锁定的课程！')
     return
   }
   try {
@@ -1531,17 +1505,17 @@ const lockCurrentSyllabus = async () => {
     if (selected) {
       await syllabusApi.lock(selected.id, '')
       await loadIndicatorsForSelectedCourse()
-      alert(`《${selected.course?.courseName || '该课程'}》大纲版本审查完成并成功锁定！`)
+      notify(`《${selected.course?.courseName || '该课程'}》大纲版本审查完成并成功锁定！`)
     } else {
-      alert('该课程暂未发布教学大纲，无法进行审查锁定')
+      notify('该课程暂未发布教学大纲，无法进行审查锁定')
     }
   } catch (e) {
-    alert('审查锁定失败，请重试')
+    notify('审查锁定失败，请重试')
   }
 }
 
 const viewCourseDetail = (c: Course) => {
-  alert(`【${c.courseName} (${c.courseCode})】\n主讲教师：${c.teacherName || '未指定'}\n\n教学目标：\n${c.objectives || '暂无'}\n\n考核方式：\n${c.assessmentMethod || '暂无'}`)
+  notify(`【${c.courseName} (${c.courseCode})】\n主讲教师：${c.teacherName || '未指定'}\n\n教学目标：\n${c.objectives || '暂无'}\n\n考核方式：\n${c.assessmentMethod || '暂无'}`)
 }
 
 // ==================== 督导建档与专业授权 (US-06) ====================
@@ -1598,11 +1572,13 @@ const openCreateSupervisorModal = () => {
   showCreateSupervisorModal.value = true
 }
 
-const handleCreateSupervisor = async () => {
+const handleCreateSupervisor = async ():Promise<SaveResult> => {
+  if(formSaveLocks.has('handleCreateSupervisor'))return {status:'invalid'}
   if (!createSupervisorForm.value.username || !createSupervisorForm.value.password || !createSupervisorForm.value.realName) {
     supervisorErrorMessage.value = '请填写登录账号、初始密码和专家真实姓名'
-    return
-  }
+    return {status:'invalid'}}
+  const submitted=supervisorGuard.capture(),finishSaving=nav.startSaving()
+  formSaveLocks.add('handleCreateSupervisor')
   try {
     supervisorErrorMessage.value = ''
     await directorApi.createSupervisor({
@@ -1612,12 +1588,16 @@ const handleCreateSupervisor = async () => {
       department: createSupervisorForm.value.department.trim(),
       authorizedMajors: createSupervisorForm.value.selectedMajors.join(';')
     })
+    supervisorGuard.saved(submitted)
+    if(supervisorGuard.dirty())return {status:'success'}
     showCreateSupervisorModal.value = false
     await loadSupervisors()
-    alert('督导专家账号建档及专业授权成功！')
+    notify('督导专家账号建档及专业授权成功！')
+    return {status:'success'}
   } catch (err: any) {
     supervisorErrorMessage.value = err.response?.data?.message || err.message || '创建督导专家失败'
-  }
+    return {status:err.response?.status===409?'conflict':'failed'}
+  } finally {formSaveLocks.delete('handleCreateSupervisor');finishSaving()}
 }
 
 const openEditMajorsModal = (sup: UserVO) => {
@@ -1629,19 +1609,38 @@ const openEditMajorsModal = (sup: UserVO) => {
   showEditMajorsModal.value = true
 }
 
-const handleUpdateSupervisorMajors = async () => {
-  if (!editingSupervisor.value || managedMajorsLoading.value || managedMajorsError.value || !managedMajors.value.length) return
+const handleUpdateSupervisorMajors = async ():Promise<SaveResult> => {
+  if(formSaveLocks.has('handleUpdateSupervisorMajors'))return {status:'invalid'}
+  if (!editingSupervisor.value || managedMajorsLoading.value || managedMajorsError.value || !managedMajors.value.length) return {status:'invalid'}
+  const submitted=majorsGuard.capture(),finishSaving=nav.startSaving()
+  formSaveLocks.add('handleUpdateSupervisorMajors')
   try {
     supervisorErrorMessage.value = ''
     await directorApi.updateSupervisorMajors(editingSupervisor.value.id, editSupervisorSelectedMajors.value.join(';'))
+    majorsGuard.saved(submitted)
+    if(majorsGuard.dirty())return {status:'success'}
     showEditMajorsModal.value = false
     await loadSupervisors()
-    alert('督导专业授权已更新并实时生效！')
+    notify('督导专业授权已更新并实时生效！')
+    return {status:'success'}
   } catch (err: any) {
     supervisorErrorMessage.value = err.response?.data?.message || err.message || '更新专业授权失败'
-  }
+    return {status:err.response?.status===409?'conflict':'failed'}
+  } finally {formSaveLocks.delete('handleUpdateSupervisorMajors');finishSaving()}
 }
 
+
+const formSaveLocks=new Set<string>()
+const nav=useNavigation(),{notify,confirm}=useFeedback(),viewRoot=ref<HTMLElement>()
+const fallbackEdits=useDomEdits(viewRoot,'工作台表单')
+const importGuard=useEditGuard('课程批量导入',()=>({file:selectedFile.value?.name||''}),()=>{selectedFile.value=null;importPreview.value=null},()=>showImportModal.value)
+const courseGuard=useEditGuard('课程档案',()=>currentCourseForm.value,v=>{currentCourseForm.value=v},()=>showCourseModal.value,handleSaveCourse)
+const indicatorGuard=useEditGuard('指标点',()=>indicatorForm.value,v=>{indicatorForm.value=v},()=>showIndicatorModal.value,handleSaveIndicator)
+const supervisorGuard=useEditGuard('督导账号',()=>createSupervisorForm.value,v=>{createSupervisorForm.value=v},()=>showCreateSupervisorModal.value,handleCreateSupervisor)
+const majorsGuard=useEditGuard('督导授权',()=>editSupervisorSelectedMajors.value,v=>{editSupervisorSelectedMajors.value=v},()=>showEditMajorsModal.value,handleUpdateSupervisorMajors)
+
+async function requestIndicatorCourse(e:Event){const select=e.target as HTMLSelectElement,next=Number(select.value);select.value=String(selectedCourseIdForIndicator.value||'');await nav.request(async()=>{selectedCourseIdForIndicator.value=next;await loadIndicatorsForSelectedCourse()})}
+watch(activeTab,value=>{if(value==='reviews')loadPendingEvaluations()})
 onMounted(() => {
   loadCourses()
   loadSupervisors()

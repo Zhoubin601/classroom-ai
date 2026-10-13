@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Shanghai",
+  "branch": "exp4",
+  "head": "49ee777",
+  "scope": "current workspace including existing uncommitted changes",
+  "frontendTests": { "passed": 18, "failed": 0 },
+  "frontendBuild": { "success": true, "typecheck": true, "mainJsKB": 1936.06, "mainJsGzipKB": 618.41, "largeChunkWarning": true },
+  "backendTests": { "class": "Sprint3BoundaryTest", "passed": 16, "failed": 0, "errors": 0, "skipped": 0, "offline": true },
+  "browser": { "entry": "http://127.0.0.1:25175", "script": "reproduce.cjs", "finalExitCode": 0, "reproducedIssues": 6, "allBusinessApisMocked": true, "realBusinessWrites": 0, "cameraStarted": false, "viewport375HorizontalOverflow": false },
+  "rawReadmeSHA256": "9FFF72BCEC428D473107FC01F04E5204D0FA60C45C301D3DF68E10E201059269",
+  "cleanup": { "reviewViteStopped": true, "dedicatedPort25175Listening": false },
+  "limitations": ["No full backend regression", "No real MySQL rerun", "No real camera lifecycle", "Synthetic video replies are not decode validation", "Annual export issue confirmed by source call chain", "No capacity benchmark"]
+}

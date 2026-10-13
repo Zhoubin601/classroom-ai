@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6" ref="viewRoot">
     <!-- 顶部督导工作台状态栏 -->
     <div class="pro-card p-6 bg-gradient-to-r from-white via-slate-50/60 to-amber-50/30 border border-slate-200/80 shadow-card-hover rounded-2xl flex flex-wrap items-center justify-between gap-5">
       <div class="flex items-center gap-4">
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <!-- 全院督导覆盖率动态大屏指标卡片 (US-15) -->
+    <!-- 全院督导覆盖率动态大屏指标卡片 -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="pro-card p-5 group hover:border-slate-300 transition-all">
         <div class="flex items-center justify-between">
@@ -49,7 +49,7 @@
 
       <div class="pro-card p-5 group hover:border-indigo-300 transition-all">
         <div class="flex items-center justify-between">
-          <span class="text-xs text-slate-500 font-medium">督导覆盖率动态百分比 (US-15)</span>
+          <span class="text-xs text-slate-500 font-medium">督导覆盖率动态百分比</span>
           <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
             <LayoutGrid class="w-4 h-4" />
           </div>
@@ -89,21 +89,10 @@
     </details>
 
     <!-- 子导航标签 -->
-    <div class="flex items-center gap-2 border-b border-slate-200/80 pb-3">
-      <button
-        v-for="tab in tabs"
-        :key="tab.key"
-        @click="activeTab = tab.key"
-        :class="['px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2 cursor-pointer',
-                 activeTab === tab.key ? 'bg-amber-50 text-amber-900 border border-amber-200/80 shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100']"
-      >
-        <component :is="tab.iconComp" class="w-4 h-4" :class="activeTab === tab.key ? 'text-amber-600' : 'text-slate-400'" />
-        {{ tab.label }}
-      </button>
-    </div>
+    <FeatureSelector v-model="activeTab" :items="tabs" id="supervisor" label="工作功能" />
 
-    <!-- Tab 0: 全院开课总课表 / 听课日程看板 (US-03/06) -->
-    <div v-if="activeTab === 'timetable'" class="space-y-4">
+    <!-- Tab 0: 全院开课总课表 / 听课日程看板 -->
+    <div v-if="activeTab === 'timetable'" role="tabpanel" id="supervisor-panel-timetable" aria-labelledby="supervisor-tab-timetable" class="space-y-4">
       <div class="pro-card p-6">
         <!-- 头部标题与视图切换开关 -->
         <div class="flex flex-wrap items-center justify-between gap-4 mb-5 pb-4 border-b border-slate-100">
@@ -112,7 +101,7 @@
               <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
                 <Calendar class="w-4 h-4" />
               </div>
-              全院督导听课总课表与排课日程看板 (US-03/06)
+              全院督导听课总课表与排课日程看板
             </h2>
             <p class="text-xs text-slate-500 mt-1">
               全院各专业开课周次、教室与主讲教师分布一览，专供教学督导专家遴选听课时间并进班随堂打分
@@ -150,7 +139,7 @@
             </span>
 
             <!-- 星期几筛选 -->
-            <select v-model="scheduleFilter.dayOfWeek" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
+            <select data-filter v-model="scheduleFilter.dayOfWeek" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
               <option value="">全部星期 (周一至周日)</option>
               <option :value="1">星期一 (Mon)</option>
               <option :value="2">星期二 (Tue)</option>
@@ -162,7 +151,7 @@
             </select>
 
             <!-- 节次区间筛选 -->
-            <select v-model="scheduleFilter.period" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
+            <select data-filter v-model="scheduleFilter.period" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
               <option value="">全部节次时段</option>
               <option value="1-2">第1-2节 (08:00 - 09:35)</option>
               <option value="3-4">第3-4节 (10:05 - 11:40)</option>
@@ -172,7 +161,7 @@
             </select>
 
             <!-- 课程性质筛选 -->
-            <select v-model="scheduleFilter.courseType" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
+            <select data-filter v-model="scheduleFilter.courseType" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
               <option value="">全部课程性质</option>
               <option value="专业核心课">专业核心课</option>
               <option value="专业基础课">专业基础课</option>
@@ -183,7 +172,7 @@
             <!-- 授课教师筛选 (突显教师第一视觉) -->
             <div class="relative">
               <input
-                v-model="scheduleFilter.teacher"
+                data-filter v-model="scheduleFilter.teacher"
                 @input="schedCurrentPage = 1"
                 placeholder="按任课教师筛选 (如 郭军)..."
                 class="bg-white border border-amber-200 rounded-xl pl-7 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 w-44 shadow-2xs font-medium"
@@ -192,7 +181,7 @@
             </div>
 
             <!-- 教室筛选 -->
-            <select v-model="scheduleFilter.classroom" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
+            <select data-filter v-model="scheduleFilter.classroom" @change="schedCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs font-medium cursor-pointer">
               <option value="">全部教学教室</option>
               <option v-for="cr in availableClassrooms" :key="cr" :value="cr">{{ cr }}</option>
             </select>
@@ -462,21 +451,21 @@
     </div>
 
     <!-- Tab 1: 待督导课程复合检索与听评课 (US-06 / US-13) -->
-    <div v-if="activeTab === 'search'" class="space-y-4">
+    <div v-if="activeTab === 'search'" role="tabpanel" id="supervisor-panel-search" aria-labelledby="supervisor-tab-search" class="space-y-4">
       <div class="pro-card p-6">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-5 pb-4 border-b border-slate-100">
-          <!-- 复合检索条件 (US-06) - 突显教师检索优先 -->
+          <!-- 复合检索条件 - 突显教师检索优先 -->
           <div class="flex flex-wrap items-center gap-3">
             <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
               授权专业
-              <select aria-label="授权专业" v-model="filterParams.majorId" @change="handleFilterChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs font-normal">
+              <select aria-label="授权专业" data-filter v-model="filterParams.majorId" @change="handleFilterChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs font-normal">
                 <option value="">全部授权专业</option>
                 <option v-for="m in authorizedMajors" :key="m.id" :value="m.id">{{ m.majorName }}</option>
               </select>
             </label>
             <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
               任课教师
-              <select aria-label="任课教师" v-model="filterParams.teacherId" @change="handleFilterChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs font-normal">
+              <select aria-label="任课教师" data-filter v-model="filterParams.teacherId" @change="handleFilterChange" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs font-normal">
                 <option value="">全部教师</option>
                 <option v-for="t in searchTeachers" :key="t.id" :value="t.id">{{ t.teacherName }} · {{ t.teacherCode }}</option>
               </select>
@@ -484,7 +473,7 @@
             <!-- 课程名 / 代码 -->
             <div class="relative">
               <input
-                v-model="filterParams.keyword"
+                data-filter v-model="filterParams.keyword"
                 @input="handleFilterChange"
                 placeholder="按课程名 / 代码检索..."
                 class="bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 w-48 shadow-2xs font-medium"
@@ -493,13 +482,13 @@
             </div>
 
             <!-- 学期选择 -->
-            <select aria-label="检索学期" v-model="filterParams.term" @change="handleFilterChange(); loadAnalytics()" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-2xs cursor-pointer">
+            <select aria-label="检索学期" data-filter v-model="filterParams.term" @change="handleFilterChange(); loadAnalytics()" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-2xs cursor-pointer">
               <option value="">全部学期</option>
               <option v-for="t in availableTerms" :key="t" :value="t">{{ t }}</option>
             </select>
 
             <!-- 班级选择 -->
-            <select v-model="filterParams.className" @change="supCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-2xs cursor-pointer">
+            <select data-filter v-model="filterParams.className" @change="supCurrentPage = 1" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-indigo-500 shadow-2xs cursor-pointer">
               <option value="">全部教学班级</option>
               <option v-for="c in availableClasses" :key="c" :value="c">{{ c }}</option>
             </select>
@@ -582,7 +571,7 @@
                   {{ checkOfferingInSession(off.id).inSession ? '进班实时督导 (授课中)' : '非授课时段' }}
                 </button>
                 <button @click="openEvaluateForm(off)" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-xs flex items-center gap-1 transition cursor-pointer">
-                  <Edit3 class="w-3.5 h-3.5" /> 随堂评价 (US-13)
+                  <Edit3 class="w-3.5 h-3.5" /> 随堂评价
                 </button>
               </div>
             </div>
@@ -645,7 +634,7 @@
     </div>
 
     <!-- Tab 2: 质量预警中心 (US-16: 零覆盖黄标 / 低分红标) -->
-    <div v-if="activeTab === 'alerts'" class="space-y-4">
+    <div v-if="activeTab === 'alerts'" role="tabpanel" id="supervisor-panel-alerts" aria-labelledby="supervisor-tab-alerts" class="space-y-4">
       <div class="pro-card p-6">
         <div class="flex items-center justify-between mb-5 pb-4 border-b border-slate-100">
           <div>
@@ -653,7 +642,7 @@
               <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
                 <AlertTriangle class="w-4 h-4" />
               </div>
-              教学质量预警中心 (US-16)
+              教学质量预警中心
             </h2>
             <p class="text-xs text-slate-500 mt-1">
               系统自动根据督导覆盖率（&lt;30% 标黄）与综合听课均分（&lt;75分 标红）触发预警提示
@@ -694,7 +683,7 @@
               </div>
             </div>
             <button
-              @click="activeTab = 'search'; filterParams.keyword = alert.courseCode; loadOfferings()"
+              @click="nav.request(()=>{activeTab = 'search'; filterParams.keyword = alert.courseCode; loadOfferings()})"
               class="px-3.5 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold shrink-0 shadow-2xs transition cursor-pointer"
             >
               前去督导
@@ -704,15 +693,14 @@
       </div>
     </div>
 
-    <!-- 弹窗：随堂听评课打分 (US-13) -->
+    <!-- 弹窗：随堂听评课打分 -->
     <Teleport to="body">
-    <div v-if="showEvaluateModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[100] flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-xl p-6 shadow-modal space-y-4 max-h-[90vh] overflow-y-auto">
+    <UiModal :open="!!(showEvaluateModal)" title="随堂听评课量化打分表" @close="showEvaluateModal = false">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-            <Edit3 class="w-4 h-4 text-amber-600" /> 随堂听评课量化打分表 (US-13)
+            <Edit3 class="w-4 h-4 text-amber-600" /> 随堂听评课量化打分表
           </h3>
-          <button @click="showEvaluateModal = false" class="text-slate-400 hover:text-slate-600 text-lg cursor-pointer">✕</button>
+          <button @click="nav.request(()=>{showEvaluateModal = false})" class="text-slate-400 hover:text-slate-600 text-lg cursor-pointer">✕</button>
         </div>
 
         <div class="bg-slate-50 p-3.5 rounded-xl text-xs space-y-1 border border-slate-200/80">
@@ -747,33 +735,33 @@
                 <span>1. 教学态度 (0-{{ scoreWeights.attitude }}分)</span>
                 <b class="text-indigo-600 font-mono font-bold">{{ evalForm.scoreAttitude }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreAttitude" type="range" min="0" :max="scoreWeights.attitude" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreAttitude" type="range" min="0" :max="scoreWeights.attitude" step="0.5" class="w-full accent-indigo-600 cursor-pointer" aria-label="教学态度评分">
             </div>
             <div>
               <div class="flex justify-between text-slate-700 font-medium mb-1">
                 <span>2. 教学内容 (0-{{ scoreWeights.content }}分)</span>
                 <b class="text-indigo-600 font-mono font-bold">{{ evalForm.scoreContent }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreContent" type="range" min="0" :max="scoreWeights.content" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreContent" type="range" min="0" :max="scoreWeights.content" step="0.5" class="w-full accent-indigo-600 cursor-pointer" aria-label="教学内容评分">
             </div>
             <div>
               <div class="flex justify-between text-slate-700 font-medium mb-1">
                 <span>3. 教学方法 (0-{{ scoreWeights.method }}分)</span>
                 <b class="text-indigo-600 font-mono font-bold">{{ evalForm.scoreMethod }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreMethod" type="range" min="0" :max="scoreWeights.method" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreMethod" type="range" min="0" :max="scoreWeights.method" step="0.5" class="w-full accent-indigo-600 cursor-pointer" aria-label="教学方法评分">
             </div>
             <div>
               <div class="flex justify-between text-slate-700 font-medium mb-1">
                 <span>4. 教学效果 (0-{{ scoreWeights.effect }}分)</span>
                 <b class="text-indigo-600 font-mono font-bold">{{ evalForm.scoreEffect }} 分</b>
               </div>
-              <input v-model.number="evalForm.scoreEffect" type="range" min="0" :max="scoreWeights.effect" step="0.5" class="w-full accent-indigo-600 cursor-pointer" />
+              <input v-model.number="evalForm.scoreEffect" type="range" min="0" :max="scoreWeights.effect" step="0.5" class="w-full accent-indigo-600 cursor-pointer" aria-label="教学效果评分">
             </div>
           </div>
         </div>
 
-        <!-- 质性评语 (US-14) -->
+        <!-- 质性评语 -->
         <div class="space-y-3 text-xs">
           <div>
             <label class="text-slate-700 font-semibold block mb-1">课堂教学亮点 (至少3条，每条一行，合计限500字)</label>
@@ -790,7 +778,7 @@
           <label class="block text-sm">已发布评价模板<select v-model="selectedTemplate" @change="chooseTemplate" aria-label="已发布评价模板" class="border rounded-lg p-2 ml-3"><option v-for="t in templateVersions" :key="t.id" :value="t.id">{{ t.name }} · 版本{{ t.id }}</option></select></label>
           <fieldset><legend class="text-sm">问题标签（可多选，随评价审核）</legend><label v-for="tag in problemChoices" :key="tag" class="mr-4"><input type="checkbox" v-model="problemTags" :value="tag" />{{ tag }}</label></fieldset>
         </div>
-        <!-- 24 小时脱敏流转规则提醒 (US-14) -->
+        <!-- 24 小时脱敏流转规则提醒 -->
         <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] flex items-center gap-2">
           <ShieldCheck class="w-4 h-4 text-amber-600 flex-shrink-0" />
           <span>正式提交后先由教研室主任审核；审核通过后进入可配置的反馈延迟期，届时教师可查看匿名反馈。</span>
@@ -798,19 +786,17 @@
 
         <!-- 按钮操作组 -->
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showEvaluateModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
-          <button @click="handleSaveEvaluation(true)" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-semibold transition cursor-pointer">暂存草稿 (US-13)</button>
+          <button @click="nav.request(()=>{showEvaluateModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
+          <button @click="handleSaveEvaluation(true)" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-semibold transition cursor-pointer">暂存草稿</button>
           <button @click="handleSaveEvaluation(false)" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer">正式提交（待审核）</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     </Teleport>
 
-    <!-- 弹窗：听课前课件在线免密预览 (US-09) -->
+    <!-- 弹窗：听课前课件在线免密预览 -->
     <Teleport to="body">
-    <div v-if="showPreviewModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[100] flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl max-h-[90vh] overflow-auto w-full max-w-2xl p-6 shadow-modal space-y-4">
+    <UiModal :open="!!(showPreviewModal)" title="听课前课件大纲免密预审" @close="closePreview()">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <FileText class="w-4 h-4 text-indigo-600" /> 听课前课件大纲免密预审
@@ -837,13 +823,17 @@
         <div class="text-right pt-2">
           <button @click="closePreview" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">关闭</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
     </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { SaveResult } from '../ui/context'
+import FeatureSelector from '../components/FeatureSelector.vue'
+import UiModal from '../components/UiModal.vue'
+import { useNavigation, usePreference, useEditGuard, useFeedback, useDomEdits } from '../ui/context'
+
 import ProtectedPdfPreview from '../components/ProtectedPdfPreview.vue'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import {
@@ -873,11 +863,11 @@ const emit = defineEmits<{
 }>()
 
 const loggedUser = ref<UserVO | null>(null)
-const activeTab = ref('timetable')
+const activeTab = usePreference('supervisor','feature','timetable')
 const tabs = [
-  { key: 'timetable', label: '全院开课总课表 / 听课日程看板 (US-03/06)', iconComp: Calendar },
-  { key: 'search', label: '待督导目标课程多维检索 (US-06)', iconComp: Search },
-  { key: 'alerts', label: '教学质量预警中心 (US-16)', iconComp: AlertTriangle }
+  { key: 'timetable', label: '听课日程', description: '查看课表，安排随堂听课', iconComp: Calendar },
+  { key: 'search', label: '课程检索', description: '组合筛选授权课程与班次', iconComp: Search },
+  { key: 'alerts', label: '质量预警', description: '查看需人工复核的教学提醒', iconComp: AlertTriangle }
 ]
 
 // 课表排课列表与视图模式
@@ -885,7 +875,7 @@ const scheduleList = ref<CourseSchedule[]>([])
 const timetableMode = ref<'matrix' | 'cards'>('matrix')
 
 // 排课看板组合快捷筛选 (周几、节次、课程性质、教师、教室)
-const scheduleFilter = ref({
+const scheduleFilter = usePreference('supervisor','scheduleFilter',{
   dayOfWeek: '',
   period: '',
   courseType: '',
@@ -997,10 +987,12 @@ const loadSchedules = async () => {
 }
 
 const offeringList = ref<CourseOffering[]>([])
-const filterParams = ref<{keyword:string; teacher:string; term:string; className:string; majorId:number|''; teacherId:number|''}>({ keyword: '', teacher: '', term: '', className: '', majorId: '', teacherId: '' })
+const filterParams = usePreference<{keyword:string; teacher:string; term:string; className:string; majorId:number|''; teacherId:number|''}>('supervisor','search',{ keyword: '', teacher: '', term: '', className: '', majorId: '', teacherId: '' })
 const authorizedMajors=ref<Major[]>([]), searchTeachers=ref<Teacher[]>([]), searchError=ref('')
 function resetSearch(){filterParams.value={keyword:'',teacher:'',term:'',className:'',majorId:'',teacherId:''};handleFilterChange()}
 let searchRequest=0
+
+
 onMounted(async()=>{try{[authorizedMajors.value,searchTeachers.value,loggedUser.value]=await Promise.all([majorApi.getAll(),teacherApi.getAll(),authApi.getMe()])}catch(e){searchError.value=e instanceof Error?e.message:'字典加载失败'}})
 const availableTerms = ref<string[]>([])
 
@@ -1049,14 +1041,14 @@ const enterLiveSupervision = (offeringId: number, schedule?: CourseSchedule) => 
     const schedCheck = isScheduleInSession(schedule)
     if (!schedCheck.inSession) {
       const reason = schedCheck.reason || '当前非授课时间'
-      alert(`【教学督导时段严格拦截】\n\n您点击的排课时段：${schedCheck.periodRangeText}\n拦截原因：${reason}\n\n根据督导纪律规范：督导专家仅能在当前时间段处于正在授课状态的班级进入随堂实时督导！`)
+      notify(`【教学督导时段严格拦截】\n\n您点击的排课时段：${schedCheck.periodRangeText}\n拦截原因：${reason}\n\n根据督导纪律规范：督导专家仅能在当前时间段处于正在授课状态的班级进入随堂实时督导！`)
       return
     }
   } else {
     const check = checkOfferingInSession(offeringId)
     if (!check.inSession) {
       const reason = check.reason || '当前非授课时间'
-      alert(`【教学督导时段严格拦截】\n\n该班级授课时段：${check.periodText}\n拦截原因：${reason}\n\n根据督导纪律规范：督导专家仅能在当前时间段处于正在授课状态的班级进入随堂实时督导！`)
+      notify(`【教学督导时段严格拦截】\n\n该班级授课时段：${check.periodText}\n拦截原因：${reason}\n\n根据督导纪律规范：督导专家仅能在当前时间段处于正在授课状态的班级进入随堂实时督导！`)
       return
     }
   }
@@ -1138,7 +1130,7 @@ const openPreviewResources = async (courseId: number) => {
     courseResources.value = await resourceApi.search({ courseId })
     showPreviewModal.value = true
   } catch (e) {
-    alert('获取课件资源失败')
+    notify('获取课件资源失败')
   }
 }
 
@@ -1151,7 +1143,7 @@ const previewResource = async (resource: CourseResource) => {
     previewUrl.value = URL.createObjectURL(pdf)
     previewTimer = setInterval(async () => { try { await resourceApi.checkAccess(resource.id) } catch { if(request === previewRequest) closePreview() } }, 5000)
   } catch (e: any) {
-    if (request === previewRequest) alert(e.message || '预览失败')
+    if (request === previewRequest) notify(e.message || '预览失败')
   }
 }
 
@@ -1205,15 +1197,17 @@ const openEvaluateForm = async (off: CourseOffering) => {
     }
     showEvaluateModal.value = true
   } catch (e: any) {
-    if (request === evaluationRequest) alert(e.message || '评价草稿读取失败，请重试')
+    if (request === evaluationRequest) notify(e.message || '评价草稿读取失败，请重试')
   }
 }
 
-const handleSaveEvaluation = async (isDraft: boolean) => {
+const handleSaveEvaluation = async (isDraft: boolean):Promise<SaveResult> => {
+  if(formSaveLocks.has('handleSaveEvaluation'))return {status:'invalid'}
   if (!isDraft && new Set(evalForm.value.highlights.split(/[\r\n；;]+/)
       .map(line => line.replace(/^\s*(?:[0-9０-９]+[.、)）．:]|[-•])\s*/, '').trim()).filter(Boolean)).size < 3) {
-    alert('正式提交须填写至少3条不同的教学亮点，每条单独一行'); return
-  }
+    notify('正式提交须填写至少3条不同的教学亮点，每条单独一行'); return {status:'invalid'}}
+  const submitted=evaluationGuard.capture(),finishSaving=nav.startSaving()
+  formSaveLocks.add('handleSaveEvaluation')
   try {
     const payload = {
       id: evaluationDraftId.value,
@@ -1233,13 +1227,23 @@ const handleSaveEvaluation = async (isDraft: boolean) => {
     }
 
     const res = await supervisionApi.submit(payload)
+    evaluationGuard.saved(submitted)
+    if(evaluationGuard.dirty())return {status:'success'}
     showEvaluateModal.value = false
-    alert(res.message || '评价提交成功！')
+
+    notify(res.message || '评价提交成功！')
     loadAnalytics()
+    return {status:'success'}
   } catch (e: any) {
-    alert(e.response?.data?.message || '提交评价失败')
-  }
+    notify(e.response?.data?.message || '提交评价失败')
+    return {status:e.response?.status===409?'conflict':'failed'}
+  } finally {formSaveLocks.delete('handleSaveEvaluation');finishSaving()}
 }
+
+const formSaveLocks=new Set<string>()
+const nav=useNavigation(),{notify,confirm}=useFeedback(),viewRoot=ref<HTMLElement>()
+const fallbackEdits=useDomEdits(viewRoot,'工作台表单')
+const evaluationGuard=useEditGuard('督导评价草稿',()=>({form:evalForm.value,template:selectedTemplate.value,tags:problemTags.value}),v=>{evalForm.value=v.form;selectedTemplate.value=v.template;problemTags.value=v.tags},()=>showEvaluateModal.value,()=>handleSaveEvaluation(true))
 
 onMounted(() => {
   loadSchedules()

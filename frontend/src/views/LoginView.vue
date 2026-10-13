@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden font-sans select-none">
+  <div class="min-h-screen login-page bg-slate-50 flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden font-sans select-none">
     <!-- 背景流光与微网格装饰 -->
     <div class="absolute inset-0 bg-[radial-gradient(#312e81_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"></div>
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -12,29 +12,29 @@
         <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white shadow-xl shadow-indigo-600/30 border border-indigo-400/30 mb-1 transition-transform hover:scale-105">
           <GraduationCap class="w-8 h-8" />
         </div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center justify-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 flex items-center justify-center gap-2">
           <span>爱教学 · 数字化教学质量管理平台</span>
         </h1>
         <div class="flex items-center justify-center gap-2.5">
-          <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-semibold tracking-wide">
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-700 border border-indigo-500/30 font-semibold tracking-wide">
             东北大学软件学院
           </span>
-          <span class="text-xs text-indigo-200/70 font-medium">
-            JWT + Spring Security 敏捷鉴权体系
+          <span class="text-xs text-slate-600 font-medium">
+            教师 · 主任 · 督导
           </span>
         </div>
       </div>
 
       <!-- 快捷登录通道开关栏 -->
-      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 px-5 py-3 rounded-2xl shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-white backdrop-blur-xl border border-slate-200 px-5 py-3 rounded-2xl shadow-xl">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-xs">
             <Sparkles class="w-4 h-4" />
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-white tracking-wide">全系教师与督导快捷体验通道</span>
-              <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">
+              <span class="text-xs font-bold text-slate-900 tracking-wide">全系教师与督导快捷体验通道</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-700 border border-indigo-500/30 font-mono">
                 8位专任教师 + 7位教研室主任 + 1位督导专家
               </span>
             </div>
@@ -79,7 +79,7 @@
               </p>
             </div>
             <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-semibold">
-              JWT + Security
+              统一登录
             </span>
           </div>
 
@@ -298,9 +298,9 @@
       </div>
 
       <!-- 底部版权与架构提示 -->
-      <div class="text-center text-[11px] text-indigo-200/60 space-y-1 pt-2">
+      <div class="text-center text-[11px] text-slate-600 space-y-1 pt-2">
         <p>东北大学软件学院《软件项目管理》· 第二组 “爱教学” 研发团队</p>
-        <p class="font-mono text-[10px]">Spring Boot 3.3 + Spring Security + JJWT 0.12.5 + MySQL 8.0 (8个班级/80名学生)</p>
+        <details><summary>系统信息</summary><p>Spring Boot · Vue · MySQL · Redis</p></details>
       </div>
     </div>
   </div>
@@ -330,10 +330,10 @@ const emit = defineEmits<{
 const activeMode = ref<'login' | 'register'>('login')
 
 // 快捷登录面板开关，从 localStorage 读取持久化配置，默认展开 (true)
-const showQuickLogin = ref(localStorage.getItem('classroom_show_quick_login') !== 'false')
+const showQuickLogin = ref(false)
 const toggleQuickLogin = () => {
   showQuickLogin.value = !showQuickLogin.value
-  localStorage.setItem('classroom_show_quick_login', String(showQuickLogin.value))
+
 }
 
 const loginForm = ref({

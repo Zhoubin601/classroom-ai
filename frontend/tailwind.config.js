@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {sans:['Segoe UI','Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Arial','sans-serif']},
       colors: {
         brand: {
           50: '#eef2ff',

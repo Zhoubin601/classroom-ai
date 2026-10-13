@@ -88,6 +88,8 @@ export default function cameraLauncherPlugin(projectRoot) {
   let lastMonitorError = ''
   let monitorContext = null
   let launchPending = false
+  let launchGeneration = 0
+  let stopPending = 0
   const monitorPort = Number(process.env.CLASSROOM_MONITOR_PORT || 8088)
   const controlSecret = randomUUID()
   const controlHeaders = { 'X-Monitor-Control': controlSecret }
@@ -130,6 +132,7 @@ export default function cameraLauncherPlugin(projectRoot) {
     server.middlewares.use(async (req, res, next) => {
       const route = (req.url || '').split('?')[0]
       if (!routes.has(route)) return next()
+      const requestGeneration = launchGeneration
       const send = (code, message, data = null) => {
         if (res.writableEnded || res.destroyed) return
         res.statusCode = code
@@ -164,12 +167,16 @@ export default function cameraLauncherPlugin(projectRoot) {
               videoUrl: videoUrl(), error: current.error || lastMonitorError || null })
           }
           if (route === '/api/visual/stop-monitor') {
-            await stop(); lastMonitorError = ''
+            launchGeneration++
+            stopPending++
+            try { await stop(); lastMonitorError = '' } finally { stopPending-- }
             return send(200, '摄像头已停止', { running: false })
           }
           if (route === '/api/visual/start-monitor') {
             const data = await readJson(req)
             const verified = await authorizeMonitorRequest(req, data)
+            if (requestGeneration !== launchGeneration || req.aborted || res.destroyed) return send(409, '摄像头启动已取消，请重新操作')
+            if (stopPending) return send(409, '摄像头正在停止，请稍后重试')
             if (launchPending) return send(409, '摄像头正在初始化，请等待')
             if (monitor) {
               if (monitorContext.offeringId !== data.offeringId || monitorContext.sessionId !== data.sessionId) return send(409, '请先停止当前班次的摄像头')
@@ -204,6 +211,10 @@ export default function cameraLauncherPlugin(projectRoot) {
                 }
               })
               await new Promise((resolve, reject) => { child.once('spawn', resolve); child.once('error', error => { if (monitor === child) { monitor = null; monitorContext = null }; reject(error) }) })
+              if (requestGeneration !== launchGeneration || req.aborted || res.destroyed) {
+                await stop()
+                return send(409, '摄像头启动已取消，请重新操作')
+              }
               return send(200, '正在初始化摄像头并连接考勤数据', { running: false, starting: true, videoUrl: videoUrl() })
             } finally { launchPending = false }
           }

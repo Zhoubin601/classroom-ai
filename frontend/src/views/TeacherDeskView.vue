@@ -1,6 +1,6 @@
 <template>
-  <div class="space-y-6">
-    <OfferingHistoryPanel />
+  <div class="space-y-6" ref="viewRoot">
+
 
     <!-- 顶部任课教师身份卡 -->
     <div class="pro-card p-6 bg-gradient-to-r from-white via-slate-50/60 to-indigo-50/30 border border-slate-200/80 shadow-card-hover rounded-2xl flex flex-wrap items-center justify-between gap-5">
@@ -26,7 +26,7 @@
       <div class="flex flex-wrap items-center gap-3">
         <div v-if="!props.loggedInUser || props.loggedInUser.role !== 'TEACHER'" class="flex items-center gap-2 bg-white/90 px-3.5 py-1.5 rounded-xl border border-slate-200/80 shadow-xs">
           <span class="text-xs text-slate-500 font-medium">切换教师视角：</span>
-          <select v-model="currentTeacher" @change="onTeacherChange" class="bg-transparent border-0 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-0 cursor-pointer pr-4">
+          <select :value="currentTeacher" @change="requestTeacherChange($event)" data-filter class="bg-transparent border-0 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-0 cursor-pointer pr-4">
             <option v-for="t in teacherList" :key="t.name" :value="t.name">
               {{ t.name }} 老师 ({{ t.courseName }})
             </option>
@@ -43,7 +43,7 @@
           <span class="text-indigo-900 font-semibold flex items-center gap-1.5">
             <BookOpen class="w-3.5 h-3.5 text-indigo-600" /> 当前主讲课程：
           </span>
-          <select v-model="selectedOfferingId" @change="onOfferingSelectChange" class="bg-white border border-indigo-200 rounded-lg px-2.5 py-1 text-xs text-indigo-950 font-bold shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 cursor-pointer">
+          <select :value="selectedOfferingId" @change="requestOfferingChange($event)" data-filter aria-label="当前主讲课程" class="bg-white border border-indigo-200 rounded-lg px-2.5 py-1 text-xs text-indigo-950 font-bold shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 cursor-pointer">
             <option v-for="off in myOfferings" :key="off.id" :value="off.id">
               《{{ off.course?.courseName }}》- {{ off.className }}
             </option>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <!-- 顶部授课人次与学期宏观数据 (US-04) -->
+    <!-- 顶部授课人次与学期宏观数据 -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="pro-card p-5 group hover:border-indigo-300 transition-all">
         <div class="flex items-center justify-between">
@@ -67,7 +67,7 @@
 
       <div class="pro-card p-5 group hover:border-emerald-300 transition-all">
         <div class="flex items-center justify-between">
-          <span class="text-xs text-slate-500 font-medium">本学期授课班额 (US-04)</span>
+          <span class="text-xs text-slate-500 font-medium">本学期授课班额</span>
           <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
             <Sparkles class="w-4 h-4" />
           </div>
@@ -78,18 +78,18 @@
 
       <div class="pro-card p-5 group hover:border-indigo-300 transition-all">
         <div class="flex items-center justify-between">
-          <span class="text-xs text-slate-500 font-medium">督导听课综合得分 (US-17)</span>
+          <span class="text-xs text-slate-500 font-medium">督导听课综合得分</span>
           <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
             <Target class="w-4 h-4" />
           </div>
         </div>
-        <div class="text-2xl font-bold text-indigo-600 font-mono mt-2 tracking-tight">{{ radarData?.evaluationCount ? radarData.overallScore + ' 分' : '暂无评价' }}</div>
+        <div class="text-2xl font-bold text-indigo-600 font-mono mt-2 tracking-tight">{{ radarData?.overallScore != null ? radarData.overallScore + ' 分' : '暂无可比总分' }}</div>
         <span class="text-[11px] text-emerald-700 font-semibold mt-1 block">已公开评价 {{ radarData?.evaluationCount ?? 0 }} 次</span>
       </div>
 
       <div class="pro-card p-5 group hover:border-amber-300 transition-all">
         <div class="flex items-center justify-between">
-          <span class="text-xs text-slate-500 font-medium">课件资源总挂载量 (US-07)</span>
+          <span class="text-xs text-slate-500 font-medium">课件资源总挂载量</span>
           <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
             <Folder class="w-4 h-4" />
           </div>
@@ -99,19 +99,22 @@
       </div>
     </div>
 
+    <FeatureSelector v-model="feature" :items="features" id="teacher" label="教师工作功能" />
+    <section v-if="feature==='history'" role="tabpanel" id="teacher-panel-history" aria-labelledby="teacher-tab-history"><OfferingHistoryPanel /></section>
+    <div v-if="latestContentSnapshot" class="ui-alert"><p>最新服务端草稿已取得，本地输入仍保留。</p><button class="ui-button" @click="adoptLatestContent">放弃本地修改并采用最新草稿</button></div>
     <!-- 主体：左右分栏 -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       <!-- 左栏：教学资源多版本上传与大纲在线编辑 (占 7 列) -->
-      <div class="lg:col-span-7 space-y-6">
+      <div v-show="feature==='materials'||feature==='shared'" class="lg:col-span-12 space-y-6" role="tabpanel" :id="`teacher-panel-${feature}`" :aria-labelledby="`teacher-tab-${feature}`">
         <!-- 课件教案上传管理 (US-07 / US-08 / US-11) -->
-        <div class="pro-card p-6">
+        <div v-show="feature==='materials'" class="pro-card p-6">
           <div class="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100">
             <div>
               <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
                   <Folder class="w-4 h-4" />
                 </div>
-                教学资源按章挂载与版本演进 (US-07)
+                教学资源按章挂载与版本演进
               </h2>
               <p class="text-xs text-slate-500 mt-1">单文件上限 100MB，支持 PDF/PPT/Word 批量按章挂载与只读水印</p>
             </div>
@@ -120,7 +123,7 @@
             </button>
           </div>
 
-          <!-- 环节标签过滤 (US-08) -->
+          <!-- 环节标签过滤 -->
           <div class="flex items-center gap-2 mb-4">
             <span class="text-xs text-slate-500 font-medium">环节标签过滤：</span>
             <div class="flex flex-wrap gap-1.5">
@@ -183,7 +186,7 @@
         </div>
 
         <!-- US-10：跨课程、跨教师的教研室共享备课库 -->
-        <div class="pro-card p-6" data-testid="shared-resource-library">
+        <div v-show="feature==='shared'" class="pro-card p-6" data-testid="shared-resource-library">
           <div class="flex flex-wrap items-end justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
             <div>
               <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
@@ -214,13 +217,13 @@
           </div>
         </div>
 
-        <!-- 在线课程简介、考核方式与教学目标发布 (US-02) -->
-        <div class="pro-card p-6 space-y-4 border-l-4 border-l-indigo-600">
+        <!-- 在线课程简介、考核方式与教学目标发布 -->
+        <div v-show="feature==='materials'" class="pro-card p-6 space-y-4 border-l-4 border-l-indigo-600">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
             <div class="space-y-1.5">
               <div class="flex items-center gap-2 flex-wrap">
                 <h2 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                  <BookOpen class="w-4 h-4 text-indigo-600" /> 课程简介、考核方式与教学目标 (US-02)
+                  <BookOpen class="w-4 h-4 text-indigo-600" /> 课程简介、考核方式与教学目标
                 </h2>
                 <!-- 已发布状态徽章 -->
                 <span
@@ -237,7 +240,7 @@
                 </span>
                 <!-- 草稿并发锁版本徽章 -->
                 <span class="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                  并发锁 lock-v{{ contentForm.lockVersion }}
+                  草稿可编辑
                 </span>
               </div>
               <div class="text-[11px] text-slate-500 flex items-center gap-3 flex-wrap">
@@ -252,14 +255,14 @@
             <div class="flex items-center gap-2.5">
               <button
                 @click="handleSaveDraft"
-                :disabled="isSavingDraft || isPublishingContent || !draftRevision || !!contentConflictMsg"
+                :disabled="isSavingDraft || isPublishingContent || !draftRevision || hasVersionConflict"
                 class="px-3.5 py-1.5 bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-semibold shadow-2xs transition cursor-pointer disabled:opacity-50"
               >
                 {{ isSavingDraft ? '正在暂存...' : '暂存草稿' }}
               </button>
               <button
                 @click="handlePublishContent"
-                :disabled="isSavingDraft || isPublishingContent || !draftRevision || !!contentConflictMsg"
+                :disabled="isSavingDraft || isPublishingContent || !draftRevision || hasVersionConflict"
                 class="px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
               >
                 <Sparkles class="w-3.5 h-3.5" /> {{ isPublishingContent ? '正在发布...' : '正式发布' }}
@@ -274,7 +277,7 @@
               <span class="font-medium">{{ contentConflictMsg }}</span>
             </div>
             <button
-              @click="loadCourseContent"
+              @click="refreshCourseContent"
               class="px-3 py-1 bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0"
             >
               拉取最新草稿
@@ -287,8 +290,8 @@
               课程简介 <span class="text-rose-500 font-normal">*正式发布必填</span>
             </label>
             <textarea
-              v-model="contentForm.description"
-              :disabled="!draftRevision || isSavingDraft || isPublishingContent"
+              data-edit-managed v-model="contentForm.description"
+              :disabled="!draftRevision || isPublishingContent"
               rows="3"
               class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs transition"
               placeholder="请输入课程背景、学科定位、主要授课内容概括..."
@@ -301,8 +304,8 @@
               考核与成绩评定方式 <span class="text-rose-500 font-normal">*正式发布必填</span>
             </label>
             <input
-              v-model="contentForm.assessmentMethod"
-              :disabled="!draftRevision || isSavingDraft || isPublishingContent"
+              data-edit-managed v-model="contentForm.assessmentMethod"
+              :disabled="!draftRevision || isPublishingContent"
               class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs transition"
               placeholder="例如：平时作业与实验 30% + 课程答辩与大作业 30% + 期末闭卷考试 40%"
             />
@@ -314,8 +317,8 @@
               教学目标说明 <span class="text-rose-500 font-normal">*正式发布必填 (支撑毕业要求指标点)</span>
             </label>
             <textarea
-              v-model="contentForm.objectives"
-              :disabled="!draftRevision || isSavingDraft || isPublishingContent"
+              data-edit-managed v-model="contentForm.objectives"
+              :disabled="!draftRevision || isPublishingContent"
               rows="3"
               class="w-full bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs transition"
               placeholder="明确说明本门课程培养的知识目标、工程能力目标以及价值素质目标..."
@@ -330,20 +333,20 @@
       </div>
 
       <!-- 右栏：教学质量自我复盘 4 维雷达图与评语词云 (占 5 列) (US-17 / US-21) -->
-      <div class="lg:col-span-5 space-y-6">
+      <div v-if="feature==='feedback'" class="lg:col-span-12 space-y-6" role="tabpanel" id="teacher-panel-feedback" aria-labelledby="teacher-tab-feedback">
         <div class="pro-card p-6">
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
               <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
                 <Target class="w-4 h-4" />
               </div>
-              督导随堂评价 4 维雷达图 (US-17)
+              督导随堂评价 4 维雷达图
             </h2>
             <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-semibold shadow-2xs">BOPPPS 教学模型</span>
           </div>
 
           <!-- 雷达图容器 -->
-          <div ref="radarChartRef" class="w-full h-64"></div>
+          <p class="text-sm text-slate-600">归一化维度均分换算至25分刻度；不等同于总分。</p><p v-if="!radarData || [radarData.attitudeScore,radarData.contentScore,radarData.methodScore,radarData.effectScore].some(v=>v==null)" class="ui-empty">缺少有效维度，请查看可用维度数据；不补零。</p><div ref="radarChartRef" class="w-full h-64"></div>
 
           <!-- 4 维均分指标条 -->
           <div class="grid grid-cols-2 gap-2.5 text-xs mt-3 pt-3 border-t border-slate-100">
@@ -373,7 +376,7 @@
               <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
                 <Award class="w-4 h-4" />
               </div>
-              督导质性反馈与持续改进建议 (US-21)
+              督导质性反馈与持续改进建议
             </h2>
             <p class="text-[11px] text-slate-500 mt-1">已执行 24 小时脱敏归档，保障客观公正交流</p>
           </div>
@@ -411,8 +414,8 @@
       </div>
     </div>
 
-    <!-- 底部整宽卡片：培养方案毕业要求指标点映射 (US-05) -->
-    <div class="pro-card p-6 space-y-4">
+    <!-- 底部整宽卡片：培养方案毕业要求指标点映射 -->
+    <div v-show="feature==='indicators'" role="tabpanel" id="teacher-panel-indicators" aria-labelledby="teacher-tab-indicators" class="pro-card p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
         <div>
           <div class="flex items-center gap-2.5">
@@ -423,7 +426,7 @@
               工程教育专业认证 · 毕业要求指标点矩阵维护
             </h2>
             <span class="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold shadow-2xs">
-              任课教师专责维护 · MySQL 实时持久化
+              任课教师专责维护 · 课程指标维护
             </span>
           </div>
           <p class="text-xs text-slate-500 mt-1.5">
@@ -517,14 +520,13 @@
     </div>
 
     <!-- 弹窗：任课教师新增/编辑认证指标点 (写进 MySQL) -->
-    <div v-if="showIndicatorModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-6 shadow-modal space-y-4">
+    <UiModal :open="!!(showIndicatorModal)" title="指标点编辑" @close="showIndicatorModal = false">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <Target class="w-4 h-4 text-indigo-600" /> {{ indicatorForm.id ? '修改毕业要求指标点 (任课教师)' : '新增毕业要求指标点 (任课教师)' }}
           </h3>
           <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-semibold">
-            直接持久化至 MySQL
+            保存至平台
           </span>
         </div>
 
@@ -586,15 +588,13 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showIndicatorModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
-          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer">保存并更新 MySQL</button>
+          <button @click="nav.request(()=>{showIndicatorModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
+          <button @click="handleSaveIndicator" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer">保存指标</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 编辑资源标签与共享范围弹窗 -->
-    <div v-if="editingResource" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-modal">
+    <UiModal :open="!!(editingResource)" title="编辑资源标签与共享范围" @close="editingResource = null">
         <h3 class="font-bold text-slate-900 text-sm">编辑资源标签与共享范围</h3>
         <p class="text-xs text-slate-600 font-mono bg-slate-50 p-2 rounded-lg border border-slate-100">{{ editingResource.resourceName }}</p>
         <div class="flex flex-wrap gap-3 text-xs">
@@ -606,17 +606,15 @@
           <input v-model="editResourcePublic" type="checkbox" class="rounded text-indigo-600" />教研室共享
         </label>
         <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-          <button @click="editingResource = null" class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-medium text-slate-700 cursor-pointer">取消</button>
+          <button @click="nav.request(()=>{editingResource = null})" class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-medium text-slate-700 cursor-pointer">取消</button>
           <button @click="saveResourceMetadata" :disabled="savingResourceMetadata" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-xs cursor-pointer">保存修改</button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 弹窗：上传教学资源 -->
-    <div v-if="showUploadModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-6 shadow-modal space-y-4">
+    <UiModal :open="!!(showUploadModal)" title="上传教学课件/教案" @close="showUploadModal = false">
         <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-          <Upload class="w-4 h-4 text-indigo-600" /> 上传教学课件/教案 (US-07)
+          <Upload class="w-4 h-4 text-indigo-600" /> 上传教学课件/教案
         </h3>
         <div class="space-y-3.5 text-xs">
           <!-- 真实课件文件选择与拖拽区 -->
@@ -630,7 +628,7 @@
               class="hidden"
             />
             <div
-              @click="triggerResourceFileInput"
+              role="button" tabindex="0" aria-label="选择课件文件" @keydown.enter.prevent="triggerResourceFileInput" @keydown.space.prevent="triggerResourceFileInput" @click="triggerResourceFileInput"
               @dragover.prevent
               @drop.prevent="onResourceFileDrop"
               class="border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition"
@@ -683,7 +681,7 @@
               </select>
             </div>
             <div>
-              <label class="text-slate-700 font-semibold block mb-1">环节标签 (US-08)</label>
+              <label class="text-slate-700 font-semibold block mb-1">环节标签</label>
               <div class="flex flex-wrap gap-2 pt-1">
                 <label v-for="tag in ['理论', '实验', '讨论', '研讨']" :key="tag" class="inline-flex gap-1 items-center font-medium text-slate-700 cursor-pointer">
                   <input v-model="uploadForm.tags" type="checkbox" :value="tag" class="rounded text-indigo-600" />{{ tag }}
@@ -700,7 +698,7 @@
         </div>
 
         <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-          <button @click="showUploadModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
+          <button @click="nav.request(()=>{showUploadModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
           <button
             @click="handleSaveResource"
             :disabled="isUploadingResource"
@@ -710,13 +708,11 @@
             {{ isUploadingResource ? '正在上传真实课件...' : '立即挂载' }}
           </button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 授权后展示后端转换、加水印的真实 PDF -->
     <Teleport to="body">
-    <div v-if="previewModalVisible" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[100] flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-2xl max-h-[90vh] overflow-auto w-full max-w-5xl p-6 space-y-4 shadow-modal">
+    <UiModal :open="!!(previewModalVisible)" title="· 限时水印预览" @close="closePreview()">
         <div class="flex justify-between items-center border-b border-slate-100 pb-3">
           <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
             <Eye class="w-4 h-4 text-indigo-600" />
@@ -727,13 +723,18 @@
         <ProtectedPdfPreview v-if="previewUrl" :src="previewUrl" />
         <p v-else class="text-sm text-slate-500 py-12 text-center">正在准备预览...</p>
 
-      </div>
-    </div>
+      </UiModal>
     </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
+import FeatureSelector from '../components/FeatureSelector.vue'
+import UiModal from '../components/UiModal.vue'
+import { useNavigation, usePreference, useEditGuard, useFeedback, useDomEdits } from '../ui/context'
+import { useRadar } from '../ui/useRadar'
+import type { SaveResult } from '../ui/context'
+
 import ProtectedPdfPreview from '../components/ProtectedPdfPreview.vue'
 import OfferingHistoryPanel from '../components/OfferingHistoryPanel.vue'
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
@@ -771,6 +772,7 @@ const contentForm = ref({
   publishVersion: undefined as number | undefined
 })
 const contentConflictMsg = ref('')
+const hasVersionConflict=ref(false)
 const isSavingDraft = ref(false)
 const isPublishingContent = ref(false)
 
@@ -782,7 +784,7 @@ const formatDateTime = (val?: string) => {
 const teacherList = ref<{ name: string; courseName: string }[]>([])
 const currentTeacher = ref('郭军')
 const myOfferings = ref<CourseOffering[]>([])
-const selectedOfferingId = ref<number | null>(null)
+const selectedOfferingId = usePreference<number | null>('teacher','offering',null)
 const currentOffering = ref<CourseOffering | null>(null)
 const currentCourse = ref<any>(null)
 const currentSchedule = ref<CourseSchedule | null>(null)
@@ -805,6 +807,7 @@ const savingResourceMetadata = ref(false)
 const radarData = ref<TeacherQualityRadarVO | null>(null)
 const radarChartRef = ref<HTMLDivElement | null>(null)
 let radarChart: echarts.ECharts | null = null
+const managedRadar=useRadar(radarChartRef, chart=>{radarChart=chart;renderRadarChart()})
 
 // 毕业要求指标点矩阵 (任课教师专责维护)
 const indicators = ref<GraduationIndicator[]>([])
@@ -890,7 +893,6 @@ const loadTeacherList = async () => {
 }
 
 const onTeacherChange = async () => {
-  selectedOfferingId.value = null
   await loadCourse()
   await Promise.all([loadMyResources(), loadSharedResources(), loadRadar(), loadIndicators(), loadCourseContent()])
 }
@@ -1038,69 +1040,49 @@ const openEditIndicatorModal = (ind: GraduationIndicator) => {
   showIndicatorModal.value = true
 }
 
-const handleSaveIndicator = async () => {
-  if (!canEditIndicators.value) return
-  if (!currentCourse.value?.id) {
-    alert('当前未关联有效课程')
-    return
-  }
-  if (!indicatorForm.value.indicatorCode.trim() || !indicatorForm.value.indicatorDescription.trim()) {
-    alert('请填写指标点编号与分解表述')
-    return
-  }
-
-  try {
-    if (indicatorForm.value.id) {
-      await syllabusApi.updateIndicator(indicatorForm.value.id, indicatorForm.value)
-      alert('指标点修改成功并已更新至 MySQL！')
-    } else {
-      await syllabusApi.addIndicator(currentCourse.value.id, indicatorForm.value)
-      alert('指标点新增成功并已写入 MySQL！')
-    }
-    showIndicatorModal.value = false
-    await loadIndicators()
-  } catch (err: any) {
-    alert(err.response?.data?.message || err.message || '保存指标点失败')
-  }
+const handleSaveIndicator = async ():Promise<SaveResult> => {
+ const courseId=currentCourse.value?.id;if(!canEditIndicators.value||!courseId||!indicatorForm.value.indicatorCode.trim()||!indicatorForm.value.indicatorDescription.trim())return {status:'invalid'}
+ const submitted=indicatorGuard.capture(),finish=nav.startSaving()
+ try{if(indicatorForm.value.id)await syllabusApi.updateIndicator(indicatorForm.value.id,indicatorForm.value);else await syllabusApi.addIndicator(courseId,indicatorForm.value);if(disposed||currentCourse.value?.id!==courseId)return {status:'stale'};indicatorGuard.saved(submitted);if(!indicatorGuard.dirty())showIndicatorModal.value=false;await loadIndicators();notify('指标点已保存');return {status:'success'}}catch(e:any){notify(e.message||'指标点保存失败');return {status:e.response?.status===409?'conflict':'failed'}}finally{finish()}
 }
 
 const confirmDeleteIndicator = async (ind: GraduationIndicator) => {
   if (!canEditIndicators.value) return
-  if (!confirm(`确定要从 MySQL 中移除指标点 [${ind.indicatorCode}] 吗？`)) return
+  if (!await confirm(`确定要从 移除指标点 [${ind.indicatorCode}] 吗？`)) return
   try {
     await syllabusApi.deleteIndicator(ind.id)
     await loadIndicators()
-    alert('指标点已成功从 MySQL 中移除！')
+    notify('指标点已成功从 移除！')
   } catch (err: any) {
-    alert(err.response?.data?.message || err.message || '删除指标点失败')
+    notify(err.response?.data?.message || err.message || '删除指标点失败')
   }
 }
 
 const applyRecommendedTemplate = async () => {
   if (!currentCourse.value?.id || !syllabusVersion.value.trim()) {
-    alert('请选择课程并填写新大纲版本'); return
+    notify('请选择课程并填写新大纲版本'); return
   }
   loadingIndicators.value = true
   try {
     await syllabusApi.createFromPlan(currentCourse.value.id, syllabusVersion.value.trim(), 'RECOMMENDED-12')
     await loadIndicators()
-    alert('已创建12项推荐草案，请按课程实际情况修订并交主任审核')
-  } catch (err: any) { alert(err.response?.data?.message || err.message || '套用模板失败') }
+    notify('已创建12项推荐草案，请按课程实际情况修订并交主任审核')
+  } catch (err: any) { notify(err.response?.data?.message || err.message || '套用模板失败') }
   finally { loadingIndicators.value = false }
 }
 
 const applyDefaultIndicators = async () => {
   if (!currentCourse.value?.id || !currentCourse.value.majorCode || !planVersion.value || !syllabusVersion.value) {
-    alert('请选择课程并填写培养方案版本和新大纲版本')
+    notify('请选择课程并填写培养方案版本和新大纲版本')
     return
   }
   loadingIndicators.value = true
   try {
     await syllabusApi.createFromPlan(currentCourse.value.id, syllabusVersion.value, planVersion.value)
     await loadIndicators()
-    alert('已按培养方案目录创建大纲版本')
+    notify('已按培养方案目录创建大纲版本')
   } catch (err: any) {
-    alert(err.response?.data?.message || err.message || '创建大纲失败')
+    notify(err.response?.data?.message || err.message || '创建大纲失败')
   } finally {
     loadingIndicators.value = false
   }
@@ -1119,7 +1101,7 @@ const loadMyResources = async () => {
 const loadRadar = async () => {
   try {
     radarData.value = await supervisionApi.getRadar(currentTeacher.value)
-    renderRadarChart()
+    managedRadar.render()
   } catch (e) {
     console.error('加载雷达图数据失败', e)
   }
@@ -1127,9 +1109,7 @@ const loadRadar = async () => {
 
 const renderRadarChart = () => {
   if (!radarChartRef.value) return
-  if (!radarChart) {
-    radarChart = echarts.init(radarChartRef.value)
-  }
+  if (!radarChart) return
 
   const d = radarData.value
   if (!d || [d.attitudeScore,d.contentScore,d.methodScore,d.effectScore].some(v=>v==null)) { radarChart.clear(); return }
@@ -1197,7 +1177,7 @@ const renderRadarChart = () => {
     ]
   }
 
-  radarChart.setOption(option)
+  radarChart.setOption({...option,animation:false},true)
 }
 
 const triggerResourceFileInput = () => {
@@ -1219,7 +1199,7 @@ const onResourceFileDrop = (e: DragEvent) => {
 
 const setResourceFile = (file: File) => {
   if (file.size > 100 * 1024 * 1024) {
-    alert('单文件大小不能超过 100MB 限制！')
+    notify('单文件大小不能超过 100MB 限制！')
     return
   }
   selectedResourceFile.value = file
@@ -1248,13 +1228,13 @@ const clearSelectedResourceFile = () => {
 }
 
 const confirmDeleteResource = async (res: CourseResource) => {
-  if (!confirm(`确定要从平台彻底删除课件资源《${res.resourceName}》吗？删除后将无法恢复。`)) return
+  if (!await confirm(`确定要从平台彻底删除课件资源《${res.resourceName}》吗？删除后将无法恢复。`)) return
   try {
     await resourceApi.delete(res.id)
-    alert(`课件《${res.resourceName}》已成功删除！`)
+    notify(`课件《${res.resourceName}》已成功删除！`)
     await loadMyResources()
   } catch (err: any) {
-    alert(err.response?.data?.message || err.message || '删除课件失败')
+    notify(err.response?.data?.message || err.message || '删除课件失败')
   }
 }
 
@@ -1271,7 +1251,7 @@ const previewResource = async (res: CourseResource) => {
   } catch (e: any) {
     if (request !== previewRequest) return
     closePreview()
-    alert(e.message || '预览失败')
+    notify(e.message || '预览失败')
   }
 }
 
@@ -1294,116 +1274,46 @@ const openResourceEdit = (res: CourseResource) => {
   editResourcePublic.value = res.isPublic
 }
 
-const saveResourceMetadata = async () => {
-  const resource = editingResource.value
-  if (!resource) return
-  savingResourceMetadata.value = true
-  try {
-    await resourceApi.save({ id: resource.id, courseId: resource.course.id, chapter: resource.chapter,
-      resourceName: resource.resourceName, tags: editResourceTags.value, isPublic: editResourcePublic.value })
-    editingResource.value = null
-    await Promise.all([loadMyResources(), loadSharedResources()])
-  } catch (e: any) {
-    alert(e.response?.data?.message || e.message || '资源信息保存失败')
-  } finally {
-    savingResourceMetadata.value = false
-  }
+const saveResourceMetadata = async ():Promise<SaveResult> => {
+ const resource=editingResource.value;if(!resource||savingResourceMetadata.value)return {status:'invalid'}
+ const submitted=resourceGuard.capture(),finish=nav.startSaving();savingResourceMetadata.value=true
+ try{await resourceApi.save({id:resource.id,courseId:resource.course.id,chapter:resource.chapter,resourceName:resource.resourceName,tags:editResourceTags.value,isPublic:editResourcePublic.value});if(disposed)return {status:'stale'};resourceGuard.saved(submitted);if(!resourceGuard.dirty())editingResource.value=null;await Promise.all([loadMyResources(),loadSharedResources()]);notify('资源信息已保存');return {status:'success'}}catch(e:any){notify(e.message||'资源信息保存失败');return {status:e.response?.status===409?'conflict':'failed'}}finally{savingResourceMetadata.value=false;finish()}
 }
 
-const handleSaveResource = async () => {
-  try {
-    if (!currentCourse.value) throw new Error('该教师暂无开课记录')
-    if (!uploadForm.value.resourceName.trim()) {
-      alert('请填写课件名称或选择本地课件文件')
-      return
-    }
-
-    isUploadingResource.value = true
-
-    if (!selectedResourceFile.value) throw new Error('请选择真实文件')
-    await resourceApi.uploadFile(selectedResourceFile.value, {
-      courseId: currentCourse.value.id,
-      chapter: uploadForm.value.chapter,
-      resourceName: uploadForm.value.resourceName,
-      tags: uploadForm.value.tags,
-      isPublic: uploadForm.value.isPublic
-    })
-    showUploadModal.value = false
-    clearSelectedResourceFile()
-    await loadMyResources()
-    await loadSharedResources()
-    alert(`课件《${uploadForm.value.resourceName}》上传成功，可通过授权预览查看水印`)
-  } catch (e: any) {
-    alert(e.response?.data?.message || e.message || '上传挂载失败')
-  } finally {
-    isUploadingResource.value = false
-  }
+const handleSaveResource = async ():Promise<SaveResult> => {
+ const courseId=currentCourse.value?.id,file=selectedResourceFile.value;if(!courseId||!file||!uploadForm.value.resourceName.trim()||isUploadingResource.value){notify('请选择文件并填写课件名称');return {status:'invalid'}}
+ const submitted=uploadGuard.capture(),finish=nav.startSaving();isUploadingResource.value=true
+ try{await resourceApi.uploadFile(file,{courseId,chapter:uploadForm.value.chapter,resourceName:uploadForm.value.resourceName,tags:uploadForm.value.tags,isPublic:uploadForm.value.isPublic});if(disposed||currentCourse.value?.id!==courseId)return {status:'stale'};uploadGuard.saved(submitted);if(!uploadGuard.dirty()){showUploadModal.value=false;clearSelectedResourceFile()};await Promise.all([loadMyResources(),loadSharedResources()]);notify('课件上传成功，可通过授权预览查看水印');return {status:'success'}}catch(e:any){notify(e.message||'上传失败');return {status:e.response?.status===409?'conflict':'failed'}}finally{isUploadingResource.value=false;finish()}
 }
 
 let contentLoadSequence = 0
-const loadCourseContent = async () => {
-  const requestSequence = ++contentLoadSequence
-  const courseId = currentCourse.value?.id
-  draftRevision.value = null
-  publishedRevision.value = null
-  contentConflictMsg.value = ''
-  contentForm.value = { description: '', assessmentMethod: '', objectives: '', lockVersion: 0, publishVersion: undefined }
-  if (!courseId) return
+const loadCourseContent = async (adopt = false) => {
+  const requestSequence=++contentLoadSequence,courseId=currentCourse.value?.id
+  if(!courseId)return
   try {
-    const [draft, published] = await Promise.all([
-      courseContentApi.getDraft(courseId), courseContentApi.getPublished(courseId)
-    ])
-    if (requestSequence !== contentLoadSequence || currentCourse.value?.id !== courseId) return
-    draftRevision.value = draft
-    publishedRevision.value = published
-    contentForm.value = {
-      description: draft.description || '', assessmentMethod: draft.assessmentMethod || '',
-      objectives: draft.objectives || '', lockVersion: draft.lockVersion ?? 0,
-      publishVersion: draft.publishVersion ?? 0
-    }
-  } catch (error: any) {
-    if (requestSequence !== contentLoadSequence) return
-    contentConflictMsg.value = error.response?.data?.message || error.message || '草稿加载失败，请重新拉取'
-  }
+    const [draft,published]=await Promise.all([courseContentApi.getDraft(courseId),courseContentApi.getPublished(courseId)])
+    if(disposed || requestSequence!==contentLoadSequence || currentCourse.value?.id!==courseId)return
+    const next={description:draft.description||'',assessmentMethod:draft.assessmentMethod||'',objectives:draft.objectives||'',lockVersion:draft.lockVersion??0,publishVersion:draft.publishVersion??0}
+    if(contentGuard.dirty()&&!adopt){latestContentSnapshot.value={draft,published,form:next};notify('已取得最新草稿，本地编辑完整保留');return}
+    draftRevision.value=draft;publishedRevision.value=published;contentForm.value=next;contentConflictMsg.value='';hasVersionConflict.value=false;latestContentSnapshot.value=null;contentGuard.reset()
+  } catch(error:any){if(!disposed&&requestSequence===contentLoadSequence)contentConflictMsg.value=error.response?.data?.message||error.message||'草稿加载失败'}
 }
 
-const handleSaveDraft = async () => {
-  if (!currentCourse.value?.id) {
-    alert('请先选择有效课程')
-    return
-  }
-  if (!draftRevision.value || draftRevision.value.courseId !== currentCourse.value.id || contentConflictMsg.value) return
-  const courseId = currentCourse.value.id
-  isSavingDraft.value = true
-  contentConflictMsg.value = ''
-  try {
-    const updated = await courseContentApi.saveDraft(courseId, {
-      description: contentForm.value.description,
-      assessmentMethod: contentForm.value.assessmentMethod,
-      objectives: contentForm.value.objectives,
-      lockVersion: contentForm.value.lockVersion,
-      draftId: draftRevision.value!.id,
-      publishVersion: contentForm.value.publishVersion ?? 0
-    })
-    if (currentCourse.value?.id !== courseId) return
-    draftRevision.value = updated
-    contentForm.value.lockVersion = updated.lockVersion ?? updated.version ?? 0
-    alert('草稿暂存成功！并发锁版本已同步为: ' + contentForm.value.lockVersion)
-  } catch (err: any) {
-    if (currentCourse.value?.id !== courseId) return
-    if (err.response?.status === 409 || err.status === 409) {
-      contentConflictMsg.value = err.response?.data?.message || err.message || '检测到并发修改冲突(版本不一致)，请重新拉取最新草稿'
-    } else {
-      alert(err.response?.data?.message || err.message || '草稿暂存失败')
-    }
-  } finally {
-    isSavingDraft.value = false
-  }
+const handleSaveDraft = async ():Promise<SaveResult> => {
+  const courseId=currentCourse.value?.id
+  if(isSavingDraft.value||isPublishingContent.value||!courseId||!draftRevision.value||draftRevision.value.courseId!==courseId||hasVersionConflict.value)return {status:'invalid'}
+  const submitted=contentGuard.capture(),finishSaving=nav.startSaving();isSavingDraft.value=true
+  try{
+    const updated=await courseContentApi.saveDraft(courseId,{...contentForm.value,draftId:draftRevision.value.id})
+    if(disposed||currentCourse.value?.id!==courseId)return {status:'stale'}
+    hasVersionConflict.value=false;contentConflictMsg.value='';draftRevision.value=updated;contentForm.value.lockVersion=updated.lockVersion??updated.version??0;contentGuard.saved(submitted);notify('课程草稿已保存');return {status:'success'}
+  }catch(err:any){const conflict=err.response?.status===409||err.status===409;hasVersionConflict.value=conflict;contentConflictMsg.value=err.response?.data?.message||err.message||'草稿保存失败';notify(contentConflictMsg.value);if(conflict)await loadCourseContent();return {status:conflict?'conflict':'failed'}}
+  finally{isSavingDraft.value=false;finishSaving()}
 }
 
 const handlePublishContent = async () => {
   if (!currentCourse.value?.id) {
-    alert('请先选择有效课程')
+    notify('请先选择有效课程')
     return
   }
 
@@ -1412,12 +1322,13 @@ const handlePublishContent = async () => {
   const objs = contentForm.value.objectives?.trim()
 
   if (!desc || !assess || !objs) {
-    alert('正式发布失败：课程简介、考核方式和教学目标三项必须全部填写齐全！')
+    notify('正式发布失败：课程简介、考核方式和教学目标三项必须全部填写齐全！')
     return
   }
 
-  if (!draftRevision.value || draftRevision.value.courseId !== currentCourse.value.id || contentConflictMsg.value) return
+  if (!draftRevision.value || draftRevision.value.courseId !== currentCourse.value.id || hasVersionConflict.value) return
   const courseId = currentCourse.value.id
+  const submitted=contentGuard.capture(),finishPublishing=nav.startSaving()
   isPublishingContent.value = true
   contentConflictMsg.value = ''
   try {
@@ -1429,27 +1340,46 @@ const handlePublishContent = async () => {
       draftId: draftRevision.value!.id,
       publishVersion: contentForm.value.publishVersion ?? 0
     })
-    if (currentCourse.value?.id !== courseId) return
+    if (disposed || currentCourse.value?.id !== courseId) return
+    contentGuard.saved(submitted)
     publishedRevision.value = published
     draftRevision.value = null
     currentCourse.value.description = published.description
     currentCourse.value.assessmentMethod = published.assessmentMethod
     currentCourse.value.objectives = published.objectives
-    alert(`课程简介、考核方式与教学目标发布成功！正式版本: v${published.publishVersion || 1}`)
+    notify(`课程简介、考核方式与教学目标发布成功！正式版本: v${published.publishVersion || 1}`)
     await loadCourseContent()
   } catch (err: any) {
-    if (currentCourse.value?.id !== courseId) return
+    if (disposed || currentCourse.value?.id !== courseId) return
     if (err.response?.status === 409 || err.status === 409) {
-      contentConflictMsg.value = err.response?.data?.message || err.message || '检测到并发发布冲突(版本不一致)，请重新拉取最新草稿'
+      hasVersionConflict.value=true
+      contentConflictMsg.value = err.response?.data?.message || err.message || '检测到并发发布冲突，请查看最新草稿'
+      await loadCourseContent()
     } else if (err.response?.status === 403 || err.status === 403) {
-      alert(err.response?.data?.message || '越权拦截：只有该课程关联任课教师才能发布')
+      notify(err.response?.data?.message || '越权拦截：只有该课程关联任课教师才能发布')
     } else {
-      alert(err.response?.data?.message || err.message || '发布失败')
+      notify(err.response?.data?.message || err.message || '发布失败')
     }
   } finally {
     isPublishingContent.value = false
+    finishPublishing()
   }
 }
+
+
+const nav=useNavigation(),{notify,confirm}=useFeedback(),feature=usePreference('teacher','feature','materials'),viewRoot=ref<HTMLElement>()
+const fallbackEdits=useDomEdits(viewRoot,'教师工作台表单')
+const features=[{key:'materials',label:'课程资料',description:'编辑简介、考核与目标，维护课件',iconComp:BookOpen},{key:'shared',label:'共享备课',description:'检索教研室可访问的备课资源',iconComp:Folder},{key:'indicators',label:'指标矩阵',description:'查看大纲版本和培养方案支撑',iconComp:Target},{key:'feedback',label:'教学反馈',description:'查看维度评分与匿名教学建议',iconComp:Target},{key:'history',label:'开课历史',description:'追溯历史班次与授课人次',iconComp:BookOpen}]
+let disposed=false
+const latestContentSnapshot=ref<any>(null)
+const contentGuard=useEditGuard('课程资料',()=>({description:contentForm.value.description,assessmentMethod:contentForm.value.assessmentMethod,objectives:contentForm.value.objectives}),value=>{Object.assign(contentForm.value,value)},()=>true,handleSaveDraft)
+const uploadGuard=useEditGuard('课件上传',()=>({form:uploadForm.value,file:selectedResourceFile.value?.name||''}),value=>{uploadForm.value=value.form;clearSelectedResourceFile()},()=>showUploadModal.value,handleSaveResource)
+const indicatorGuard=useEditGuard('指标点编辑',()=>indicatorForm.value,value=>{indicatorForm.value=value},()=>showIndicatorModal.value,handleSaveIndicator)
+const resourceGuard=useEditGuard('资源标签与共享',()=>({tags:editResourceTags.value,shared:editResourcePublic.value}),value=>{editResourceTags.value=value.tags;editResourcePublic.value=value.shared},()=>!!editingResource.value,saveResourceMetadata)
+async function requestOfferingChange(event:Event){const select=event.target as HTMLSelectElement,next=Number(select.value);select.value=String(selectedOfferingId.value||'');await nav.request(async()=>{selectedOfferingId.value=next;await onOfferingSelectChange();fallbackEdits.reset()})}
+async function requestTeacherChange(event:Event){const select=event.target as HTMLSelectElement,next=select.value;select.value=currentTeacher.value;await nav.request(async()=>{currentTeacher.value=next;selectedOfferingId.value=null;await onTeacherChange();fallbackEdits.reset()})}
+async function refreshCourseContent(){await loadCourseContent()}
+async function adoptLatestContent(){await nav.request(async()=>{if(latestContentSnapshot.value){const {draft,published,form}=latestContentSnapshot.value;draftRevision.value=draft;publishedRevision.value=published;contentForm.value=form;latestContentSnapshot.value=null;contentConflictMsg.value='';hasVersionConflict.value=false;contentGuard.reset()}else await loadCourseContent(true)})}
 
 onMounted(async () => {
   try {
@@ -1469,5 +1399,5 @@ watch(() => props.loggedInUser, (newUser) => {
   }
 })
 
-onUnmounted(() => { closePreview(); radarChart?.dispose(); radarChart = null })
+onUnmounted(() => { disposed=true; contentLoadSequence++; closePreview(); radarChart = null })
 </script>

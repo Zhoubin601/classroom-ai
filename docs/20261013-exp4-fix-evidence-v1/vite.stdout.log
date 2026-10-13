@@ -1,0 +1,9 @@
+
+  VITE v5.4.21  ready in 375 ms
+
+  ➜  Local:   http://127.0.0.1:25175/
+  ➜  press h + enter to show help
+10:48:42 [vite] dev/camera-plugin.mjs changed, restarting server...
+10:48:42 [vite] hmr update /src/App.vue, /src/style.css, /src/views/MicroTeachingView.vue, /src/components/Sprint3Workspace.vue, /src/views/LoginView.vue, /src/views/StudentManageView.vue, /src/views/AttendanceDashboardView.vue, /src/views/SupervisorDeskView.vue, /src/views/TeacherDeskView.vue, /src/views/DirectorDeskView.vue, /src/components/EvidencePicker.vue, /src/components/ResourceVersionsPanel.vue, /src/components/OfferingHistoryPanel.vue, /src/components/OfferingScheduleBoard.vue
+10:48:42 [vite] hmr update /src/views/MicroTeachingView.vue, /src/style.css
+10:48:42 [vite] server restarted.

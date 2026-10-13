@@ -1,0 +1,30 @@
+
+> classroom-ai-frontend@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ student id must not escape file directories (0.7563ms)
+✔ upload route prevents traversal and non-image reads (0.2813ms)
+✔ missing executable rejects without crashing the dev server (12.7156ms)
+✔ nonzero extraction exit is failure, zero is success (133.8748ms)
+✔ webcam verification launches vision script and cleans its shared upload (85.0919ms)
+✔ local face adapters verify backend role and reject before spawning or writing (1.0917ms)
+✔ camera adapter forwards auth and validates active offering before starting hardware (0.6295ms)
+✔ camera lifecycle endpoints require authentication and never reuse public local video (0.5589ms)
+✔ lookup stream uses a fraction, including empty classrooms (1.0474ms)
+✔ selected offering recalculates absence and attendance together (0.1278ms)
+✔ navigation is blocked by cancellation, failed save or new edit (0.7366ms)
+✔ partial saves are retained and all dirty editors must resolve (0.1838ms)
+✔ duplicate navigation and auth expiry invalidate pending save (0.1996ms)
+✔ grid keyboard has no wrap and incomplete rows select last item (0.1597ms)
+✔ save lock blocks navigation and old releases cannot unlock a new session (0.1693ms)
+✔ HTTP 200 business failures reject and preserve backend details (1.0999ms)
+✔ successful empty responses remain valid (0.2084ms)
+✔ HTTP errors preserve response metadata and readable business message (0.2183ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 323.2862

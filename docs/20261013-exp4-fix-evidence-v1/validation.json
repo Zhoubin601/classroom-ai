@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-13",
+  "timezone": "Asia/Shanghai",
+  "branch": "exp4",
+  "head": "49ee777",
+  "functionalIssuesFixed": 7,
+  "frontendUnitTests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "frontendTypecheckAndBuild": "passed",
+  "browserTargetedGroups": 8,
+  "browserPageErrors": [],
+  "uiRegressionGroups": 15,
+  "uiRegressionPageErrors": [],
+  "backendBoundary": {
+    "passed": 16,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "isolatedDatabaseRegression": {
+    "status": "not-run",
+    "reason": "Docker Desktop Linux engine named pipe not available",
+    "containersCreated": 0
+  },
+  "realCameraStarted": false,
+  "rawAndProtectedFiles": "unchanged",
+  "testViteStopped": true,
+  "testPortsListening": 0,
+  "gitCommitted": false,
+  "deployed": false
+}

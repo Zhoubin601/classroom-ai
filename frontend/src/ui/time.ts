@@ -1,0 +1,2 @@
+export function formatTime(value:number){if(!Number.isFinite(value))return '';const ms=Math.round(value);return `${Math.floor(ms/60000)}:${String(Math.floor(ms/1000)%60).padStart(2,'0')}.${String(ms%1000).padStart(3,'0')}`}
+export function parseTime(value:string){const m=/^(\d+):([0-5]\d)(?:\.(\d{1,3}))?$/.exec(value);if(!m)return NaN;return Number(m[1])*60000+Number(m[2])*1000+Number((m[3]||'').padEnd(3,'0'))}

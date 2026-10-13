@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6" ref="viewRoot"><p v-if="studentLoadError" role="alert" class="ui-alert">{{ studentLoadError }} <button @click="loadStudents">重试</button></p>
     <!-- 顶部操作栏 -->
     <div class="pro-card p-6 bg-gradient-to-r from-white via-slate-50/60 to-indigo-50/20 border border-slate-200/80 shadow-card-hover rounded-2xl flex flex-wrap items-center justify-between gap-5">
       <div class="flex items-center gap-4">
@@ -132,8 +132,7 @@
     </div>
 
     <!-- 弹窗 1: 注册录入人脸 (双引擎：浏览器实时摄像头直接录入 + 桌面独立窗口) -->
-    <div v-if="showRegisterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl p-6 shadow-modal relative max-h-[92vh] overflow-y-auto space-y-4">
+    <UiModal :open="!!(showRegisterModal)" title="学生人脸特征库录入" @close="closeRegisterModal()">
         <!-- 弹窗标题 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div class="flex items-center gap-2">
@@ -145,7 +144,7 @@
               <p class="text-[11px] text-slate-500">InsightFace (ArcFace 512维) + MySQL持久化 + Redis高速检索缓存</p>
             </div>
           </div>
-          <button @click="closeRegisterModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+          <button @click="nav.request(closeRegisterModal)" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-5 h-5" />
           </button>
         </div>
@@ -369,18 +368,16 @@
 
         <div class="mt-5 flex justify-end gap-3 border-t border-slate-100 pt-3">
           <button
-            @click="closeRegisterModal"
+            @click="nav.request(closeRegisterModal)"
             class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 transition cursor-pointer"
           >
             关闭窗口
           </button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 弹窗 2: 1:N 人脸识别云端检索与现场刷脸认证测试 -->
-    <div v-if="showSearchModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl p-6 shadow-modal relative max-h-[92vh] overflow-y-auto space-y-4">
+    <UiModal :open="!!(showSearchModal)" title="1:N 人脸云端检索与现场刷脸认证" @close="closeSearchModal()">
         <!-- 弹窗头部 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div class="flex items-center gap-2">
@@ -392,7 +389,7 @@
               <p class="text-[11px] text-slate-500">摄像头现场取景 -&gt; InsightFace 提取 512 维特征 -&gt; Redis 高速余弦相似度秒级匹配</p>
             </div>
           </div>
-          <button @click="closeSearchModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+          <button @click="nav.request(closeSearchModal)" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-5 h-5" />
           </button>
         </div>
@@ -634,23 +631,21 @@
 
         <div class="mt-6 flex justify-end gap-3 pt-3 border-t border-slate-100">
           <button
-            @click="closeSearchModal"
+            @click="nav.request(closeSearchModal)"
             class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
           >
             关闭窗口
           </button>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 弹窗 3: 调配学生教学班级 (MySQL 真实联动) -->
-    <div v-if="showAssignModal && targetStudent" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-modal relative">
+    <UiModal :open="!!(showAssignModal && targetStudent)" title="调配学生所属教学班" @close="showAssignModal = false">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
           <div class="flex items-center gap-2">
             <h3 class="text-sm font-bold text-slate-900">调配学生所属教学班</h3>
           </div>
-          <button @click="showAssignModal = false" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+          <button @click="nav.request(()=>{showAssignModal = false})" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-4 h-4" />
           </button>
         </div>
@@ -669,7 +664,7 @@
           </div>
 
           <div>
-            <label class="block text-slate-700 font-bold mb-1.5">选择目标班级 (直接更新 MySQL student 表):</label>
+            <label class="block text-slate-700 font-bold mb-1.5">选择目标班级 (更新学生班级):</label>
             <select
               v-model="targetClassName"
               class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 shadow-2xs cursor-pointer"
@@ -696,7 +691,7 @@
 
         <div class="mt-6 flex justify-end gap-3 pt-3 border-t border-slate-100">
           <button
-            @click="showAssignModal = false"
+            @click="nav.request(()=>{showAssignModal = false})"
             class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 transition cursor-pointer"
           >
             取消
@@ -709,12 +704,16 @@
             {{ isAssigning ? '保存中...' : '确认调配' }}
           </button>
         </div>
-      </div>
-    </div>
+      </UiModal>
   </div>
 </template>
 
 <script setup lang="ts">
+const studentLoadError=ref('')
+import FeatureSelector from '../components/FeatureSelector.vue'
+import UiModal from '../components/UiModal.vue'
+import { useNavigation, usePreference, useEditGuard, useFeedback, useDomEdits } from '../ui/context'
+
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { ScanFace, UserPlus, Search, RefreshCw, Check, Camera, X, AlertCircle } from 'lucide-vue-next'
 import { studentApi, faceApi, courseApi } from '../api'
@@ -763,6 +762,7 @@ const handleAssignClass = async () => {
   isAssigning.value = true
   assignMsg.value = ''
 
+  const submitted=assignGuard.capture(),finishSaving=nav.startSaving()
   try {
     const studentId = targetStudent.value.studentId
     const newClass = targetClassName.value.trim()
@@ -810,15 +810,17 @@ const handleAssignClass = async () => {
       assignMsg.value = `成功将学生调配至班级：${newClass}`
     }
 
+    assignGuard.saved(submitted)
     await loadStudents()
     await loadClassList()
 
     setTimeout(() => {
-      showAssignModal.value = false
+      if(!assignGuard.dirty())showAssignModal.value = false
     }, 1200)
   } catch (err: any) {
     assignMsg.value = '调配失败: ' + (err.message || '未知异常')
   } finally {
+    finishSaving()
     isAssigning.value = false
   }
 }
@@ -882,10 +884,12 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 const loadStudents = async () => {
+  studentLoadError.value=''
   try {
     const list = await studentApi.getStudents()
     students.value = Array.isArray(list) ? list : []
   } catch (e) {
+    studentLoadError.value='学生列表加载失败，请重试'
     console.error('加载学生列表失败:', e)
   }
 }
@@ -1012,6 +1016,7 @@ const captureAndRegister = async () => {
   captureError.value = ''
   captureSuccessMsg.value = ''
 
+  const submitted=registerGuard.capture(),finishSaving=nav.startSaving()
   try {
     const video = webcamVideo.value
     const canvas = document.createElement('canvas')
@@ -1031,18 +1036,20 @@ const captureAndRegister = async () => {
       className: registerForm.value.className.trim()
     })
 
-    captureSuccessMsg.value = `【录入成功】InsightFace 已提取 512 维特征向量！已写入 MySQL student 表及 Redis 检索缓存。`
+    registerGuard.saved(submitted)
+    captureSuccessMsg.value = `【录入成功】InsightFace 已提取 512 维特征向量！学生档案与检索信息已更新。`
     await loadStudents()
     await loadClassList()
 
     setTimeout(() => {
-      closeRegisterModal()
+      if(!registerGuard.dirty())closeRegisterModal()
     }, 1200)
 
   } catch (err: any) {
     console.error('抓拍录入失败:', err)
     captureError.value = '录入未成功: ' + (err.response?.data?.message || err.message || '请正对摄像头重试')
   } finally {
+    finishSaving()
     isCapturing.value = false
   }
 }
@@ -1142,7 +1149,7 @@ const launchDesktopVerify = async () => {
 // 调起桌面本地 face_register.py 摄像头录入
 const launchCameraRegister = async () => {
   if (!registerForm.value.studentId || !registerForm.value.name) {
-    alert('请填写学号和姓名')
+    notify('请填写学号和姓名')
     return
   }
 
@@ -1204,11 +1211,12 @@ const handleFileUpload = async (event: Event) => {
 
 const submitManualRegister = async () => {
   if (!registerForm.value.studentId || !registerForm.value.name) {
-    alert('请填写学号和姓名')
+    notify('请填写学号和姓名')
     return
   }
 
   const vector = generate512Vector()
+  const submitted=registerGuard.capture(),finishSaving=nav.startSaving()
   try {
     await faceApi.registerFace({
       studentId: registerForm.value.studentId,
@@ -1218,12 +1226,13 @@ const submitManualRegister = async () => {
       featureVector: vector,
       imagePath: uploadedImagePath.value || undefined
     })
-    closeRegisterModal()
+    registerGuard.saved(submitted)
+    if(!registerGuard.dirty())closeRegisterModal()
     loadStudents()
   } catch (e) {
     console.error('录入失败:', e)
-    alert('人脸录入失败，请确认后端服务状态')
-  }
+    notify('人脸录入失败，请确认后端服务状态')
+  } finally {finishSaving()}
 }
 
 const openSearchModal = async () => {
@@ -1262,7 +1271,7 @@ const testSearchWithStudent = async (student: Student) => {
     } else {
       searchSourceMode.value = 'random'
       testEmbedding = generate512Vector()
-      alert(`学生 ${student.name} (${student.studentId}) 在人脸特征库中尚未提取特征向量，已为您切换至“模拟陌生人”特征进行防伪测试。`)
+      notify(`学生 ${student.name} (${student.studentId}) 在人脸特征库中尚未提取特征向量，已为您切换至“模拟陌生人”特征进行防伪测试。`)
     }
     showSearchModal.value = true
   } catch (e) {
@@ -1287,7 +1296,7 @@ const executeSearch = async () => {
 }
 
 const handleDelete = async (studentId: string) => {
-  if (!confirm(`确定要删除学生 ${studentId} 及其人脸特征缓存吗？`)) return
+  if (!await confirm(`确定要删除学生 ${studentId} 及其人脸特征缓存吗？`)) return
   try {
     await studentApi.deleteStudent(studentId)
     loadStudents()
@@ -1295,6 +1304,12 @@ const handleDelete = async (studentId: string) => {
     console.error('删除失败:', e)
   }
 }
+
+
+const nav=useNavigation(),{notify,confirm}=useFeedback(),viewRoot=ref<HTMLElement>()
+useDomEdits(viewRoot,'学生档案表单')
+const registerGuard=useEditGuard('学生登记',()=>registerForm.value,v=>{registerForm.value=v},()=>showRegisterModal.value)
+const assignGuard=useEditGuard('学生班级',()=>targetClassName.value,v=>{targetClassName.value=v},()=>showAssignModal.value)
 
 onMounted(() => {
   loadStudents()

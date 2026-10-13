@@ -1,0 +1,18 @@
+[
+  {
+    "path": "raw/README.md",
+    "unchanged": true
+  },
+  {
+    "path": "frontend/src/views/AttendanceDashboardView.vue",
+    "unchanged": true
+  },
+  {
+    "path": "stop_project.ps1",
+    "unchanged": true
+  },
+  {
+    "path": "memory-bank/project-context.md",
+    "unchanged": true
+  }
+]

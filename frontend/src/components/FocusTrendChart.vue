@@ -205,13 +205,15 @@ const handleResize = () => {
   myChart?.resize()
 }
 
+let containerObserver:ResizeObserver | undefined
 onMounted(() => {
   initChart()
-  window.addEventListener('resize', handleResize)
+  containerObserver=new ResizeObserver(handleResize)
+  if(chartRef.value)containerObserver.observe(chartRef.value)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize)
+  containerObserver?.disconnect()
   myChart?.dispose()
 })
 </script>

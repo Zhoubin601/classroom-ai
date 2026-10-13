@@ -43,6 +43,7 @@ public class Sprint3Controller {
  public static ResponseEntity<byte[]> exportResponse(byte[] bytes,String format){
   return ResponseEntity.ok().cacheControl(CacheControl.noStore()).header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=teaching-quality."+format).contentType(MediaType.parseMediaType(format.equals("csv")?"text/csv;charset=UTF-8":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")).body(bytes);
  }
+ @GetMapping("/api/v1/supervisions/{id}/evidence-candidates") public Object candidates(@PathVariable Long id,@RequestParam String type,@RequestParam(required=false) String keyword){return ApiResponse.success(advice.candidates(id,type,keyword));}
  @GetMapping("/api/v1/supervisions/{id}/suggestions") public Object list(@PathVariable Long id){return ApiResponse.success(advice.list(id));}
  @PostMapping("/api/v1/supervisions/{id}/suggestions") public Object receive(@PathVariable Long id,@RequestBody AdviceService.AdviceInput in){return ApiResponse.success(advice.receive(id,in));}
  @GetMapping("/api/v1/sprint3/suggestions/mine") public Object mine(){return ApiResponse.success(advice.mine());}

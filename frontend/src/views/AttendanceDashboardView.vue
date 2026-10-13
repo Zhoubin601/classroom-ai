@@ -30,25 +30,25 @@
       <div class="flex flex-wrap items-center gap-2.5">
         <div class="flex items-center gap-2 bg-white/90 px-3.5 py-1.5 rounded-xl border border-slate-200/80 text-xs text-slate-600 shadow-2xs">
           <span class="font-bold text-slate-700 whitespace-nowrap">当前授课班级：</span>
-          <select 
+          <select
             v-if="activeOfferingList.length > 0"
-            v-model.number="selectedOfferingId" 
-            @change="onOfferingChange" 
+            :value="selectedOfferingId" data-filter
+            @change="requestOfferingChange($event)"
             :disabled="isMonitorStarting || isSimulationStarting"
             class="bg-white border border-slate-300 text-slate-800 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 cursor-pointer rounded-lg px-2.5 py-1 text-xs shadow-2xs min-w-[280px] max-w-md"
           >
-            <option 
-              v-for="off in activeOfferingList" 
-              :key="off.id" 
+            <option
+              v-for="off in activeOfferingList"
+              :key="off.id"
               :value="Number(off.id)"
               class="bg-white text-slate-800 py-1.5 font-medium"
             >
               【{{ off.className }}】{{ off.course?.courseName || '课程' }} - {{ off.teacherName }} ({{ off.studentCount }}人){{ off.isSnapshotFrozen ? " · 已冻结，只读" : "" }}
             </option>
           </select>
-          <select 
-            v-else 
-            disabled 
+          <select
+            v-else
+            disabled
             class="bg-slate-100 border border-slate-200 text-slate-400 font-semibold rounded-lg px-2.5 py-1 text-xs shadow-xs min-w-[80px] cursor-not-allowed text-center"
           >
             <option selected value="">无</option>
@@ -144,7 +144,7 @@
               ? 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 cursor-pointer'
               : 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
           ]"
-          title="查看本课程在 MySQL 中持久化的历次考勤归档记录"
+          title="查看本课程已保存的历次考勤归档记录"
         >
           <Clock class="w-3.5 h-3.5 text-indigo-600" />
           考勤归档记录 ({{ archivedSessions.filter(s => s.status === 'FINISHED').length }}次)
@@ -281,8 +281,7 @@
     <StudentStatusGrid :students="studentsStatus" />
 
     <!-- 弹窗：开课班级学生管理与从总库选人入班 -->
-    <div v-if="showStudentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-3xl p-6 shadow-modal space-y-4 max-h-[85vh] flex flex-col">
+    <UiModal :open="!!(showStudentModal)" title="操作详情" @close="showStudentModal = false">
         <!-- 弹窗头部 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div>
@@ -297,7 +296,7 @@
               {{ canManageRoster ? "选择学生加入本班，或将学生移出本班。" : "查看本班已选学生；名单由教研室主任维护。" }}
             </p>
           </div>
-          <button @click="showStudentModal = false" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+          <button @click="nav.request(()=>{showStudentModal = false})" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-5 h-5" />
           </button>
         </div>
@@ -404,17 +403,15 @@
               <Check class="w-3.5 h-3.5" />
               确认选入选中的 {{ selectedStudentsToAdd.length }} 人
             </button>
-            <button @click="showStudentModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition cursor-pointer">
+            <button @click="nav.request(()=>{showStudentModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition cursor-pointer">
               完成 / 关闭
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </UiModal>
 
     <!-- 弹窗：历史考勤归档记录 (MySQL 持久化档案库) -->
-    <div v-if="showArchiveModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
-      <div class="bg-white border border-slate-200 rounded-2xl w-full max-w-6xl p-6 shadow-modal space-y-4 max-h-[88vh] flex flex-col">
+    <UiModal :open="!!(showArchiveModal)" title="课程考勤历史归档记录 已归档 次" @close="showArchiveModal = false">
         <!-- 弹窗头部 -->
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div class="flex items-center gap-3">
@@ -423,7 +420,7 @@
             </div>
             <div>
               <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                课程考勤历史归档记录 (MySQL 档案库)
+                课程考勤历史归档记录
                 <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-bold">
                   已归档 {{ archivedSessions.filter(s => s.status === 'FINISHED').length }} 次
                 </span>
@@ -433,7 +430,7 @@
               </p>
             </div>
           </div>
-          <button @click="showArchiveModal = false" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+          <button @click="nav.request(()=>{showArchiveModal = false})" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer">
             <X class="w-5 h-5" />
           </button>
         </div>
@@ -477,12 +474,12 @@
                 <td class="py-3.5 px-3.5 text-center font-mono text-slate-600 whitespace-nowrap">{{ s.expectedCount }} 人</td>
                 <td class="py-3.5 px-3.5 text-center font-mono font-bold text-slate-900 whitespace-nowrap">{{ s.actualCount }} 人</td>
                 <td class="py-3.5 px-3.5 text-center whitespace-nowrap">
-                  <span 
+                  <span
                     :class="[
                       'inline-flex items-center justify-center min-w-[54px] px-2 py-0.5 rounded-full text-[11px] font-bold font-mono shadow-2xs',
-                      s.attendanceRate >= 80 
-                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
-                        : s.attendanceRate > 0 
+                      s.attendanceRate >= 80
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : s.attendanceRate > 0
                         ? 'bg-amber-50 text-amber-700 border border-amber-200'
                         : 'bg-rose-50 text-rose-700 border border-rose-200'
                     ]"
@@ -492,7 +489,7 @@
                 </td>
                 <td class="py-3.5 px-3.5 text-center font-mono text-indigo-700 font-bold text-xs whitespace-nowrap">{{ s.avgLookupRate }}%</td>
                 <td class="py-3.5 px-3.5 text-left whitespace-nowrap">
-                  <span 
+                  <span
                     :class="[
                       'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold border shadow-2xs whitespace-nowrap',
                       s.operatorRole === 'DIRECTOR'
@@ -509,11 +506,11 @@
                   </span>
                 </td>
                 <td class="py-3.5 px-3.5 text-center whitespace-nowrap">
-                  <span 
+                  <span
                     :class="[
                       'inline-flex items-center justify-center min-w-[64px] px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap shadow-2xs',
-                      s.status === 'FINISHED' 
-                        ? 'bg-slate-100 text-slate-700 border border-slate-200' 
+                      s.status === 'FINISHED'
+                        ? 'bg-slate-100 text-slate-700 border border-slate-200'
                         : 'bg-emerald-50 text-emerald-700 border border-emerald-200 animate-pulse'
                     ]"
                   >
@@ -530,16 +527,19 @@
           <span class="text-[11px] text-slate-400">
             * 无论通过现场摄像头 AI 识别还是演示模拟流，每次下课归档均原子性写入 MySQL `attendance_session` 数据库，数据真实可信。
           </span>
-          <button @click="showArchiveModal = false" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition cursor-pointer">
+          <button @click="nav.request(()=>{showArchiveModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition cursor-pointer">
             关闭
           </button>
         </div>
-      </div>
-    </div>
+      </UiModal>
   </div>
 </template>
 
 <script setup lang="ts">
+import FeatureSelector from '../components/FeatureSelector.vue'
+import UiModal from '../components/UiModal.vue'
+import { useNavigation, usePreference, useEditGuard, useFeedback, useDomEdits } from '../ui/context'
+
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { Video, Users, Camera, Archive, Square, TrendingUp, X, UserPlus, Check, Clock, ShieldCheck, Briefcase, UserCheck } from 'lucide-vue-next'
 import MetricCard from '../components/MetricCard.vue'
@@ -877,20 +877,20 @@ const handleAddStudentsToClass = async () => {
     await loadOfferings()
     await fetchDashboardData()
   } catch (e: any) {
-    alert(e.message || '添加学生失败')
+    notify(e.message || '添加学生失败')
   }
 }
 
 const handleRemoveStudentFromClass = async (studentId: string, studentName: string) => {
   if (!canManageRoster.value || !selectedOfferingId.value) return
-  if (!confirm(`确定将学生 ${studentName} (${studentId}) 移出当前课程班级吗？`)) return
+  if (!await confirm(`确定将学生 ${studentName} (${studentId}) 移出当前课程班级吗？`)) return
   try {
     await courseApi.removeStudentFromOffering(selectedOfferingId.value, studentId)
     await openClassStudentModal()
     await loadOfferings()
     await fetchDashboardData()
   } catch (e: any) {
-    alert(e.message || '移出学生失败')
+    notify(e.message || '移出学生失败')
   }
 }
 
@@ -903,9 +903,9 @@ const finishAndArchiveAttendance = async () => {
   let finalLookup = overview.value.realtimeLookupRate > 0 ? overview.value.realtimeLookupRate : lastActiveMetrics.value.lookupRate
   const finalExpected = overview.value.totalRegistered
 
-  const msg = `【确认下课并归档入库】\n\n您即将对当前班级《${offeringList.value.find(o => o.id === selectedOfferingId.value)?.className}》执行下课归档操作：\n\n• 应到人数：${finalExpected} 人\n• 实到人数：${finalPresent} 人\n• 最终出勤率：${finalRate}%\n• 平均抬头率：${finalLookup}%\n\n确认后，系统将正式关闭本堂推流并原子性持久化至 MySQL 考勤档案表。确定下课吗？`
+  const msg = `【确认下课并归档入库】\n\n您即将对当前班级《${offeringList.value.find(o => o.id === selectedOfferingId.value)?.className}》执行下课归档操作：\n\n• 应到人数：${finalExpected} 人\n• 实到人数：${finalPresent} 人\n• 最终出勤率：${finalRate}%\n• 平均抬头率：${finalLookup}%\n\n确认后，系统将正式关闭本堂推流并原子性保存至考勤档案。确定下课吗？`
 
-  if (!confirm(msg)) return
+  if (!await confirm(msg)) return
 
   try {
     // 1. 如果摄像头正在推断，先关闭摄像头
@@ -955,9 +955,9 @@ const finishAndArchiveAttendance = async () => {
     // 5. 重新拉取历史归档列表
     await loadArchivedSessions()
 
-    alert(`【课堂考勤归档成功】\n\n本次课堂已正式下课并永久归档至教务系统历史数据库：\n• 实到人数：${finalPresent} 人\n• 最终出勤率：${finalRate}%\n• 平均抬头率：${finalLookup}%\n\n大屏已自动复位待机；您可点击【考勤归档记录】随时查验历次入库明细！`)
+    notify(`【课堂考勤归档成功】\n\n本次课堂已正式下课并永久归档至教务系统历史数据库：\n• 实到人数：${finalPresent} 人\n• 最终出勤率：${finalRate}%\n• 平均抬头率：${finalLookup}%\n\n大屏已自动复位待机；您可点击【考勤归档记录】随时查验历次入库明细！`)
   } catch (e: any) {
-    alert('归档失败: ' + (e.message || '未知错误'))
+    notify('归档失败: ' + (e.message || '未知错误'))
   }
 }
 
@@ -1007,7 +1007,7 @@ const toggleSimulation = async () => {
         if (stillSelected()) {
           stopSimulation()
           await loadOfferings()
-          alert('模拟推流已停止: ' + (error.message || '请检查班级权限和冻结状态'))
+          notify('模拟推流已停止: ' + (error.message || '请检查班级权限和冻结状态'))
         }
       } finally { reporting = false }
     }, 1500)
@@ -1015,7 +1015,7 @@ const toggleSimulation = async () => {
     if (stillSelected()) {
       stopSimulation()
       await loadOfferings()
-      alert('启动模拟失败: ' + (error.message || '未知错误'))
+      notify('启动模拟失败: ' + (error.message || '未知错误'))
     }
   } finally {
     if (generation === simulationGeneration) isSimulationStarting.value = false
@@ -1036,6 +1036,11 @@ const restoreSelectedAttendance = async () => {
     }
   } catch (error) { console.error('恢复所选班次考勤会话失败', error) }
 }
+
+
+const nav=useNavigation(),{notify,confirm}=useFeedback()
+const rosterGuard=useEditGuard('班级名单调整',()=>selectedStudentsToAdd.value,v=>{selectedStudentsToAdd.value=v},()=>showStudentModal.value)
+async function requestOfferingChange(e:Event){const select=e.target as HTMLSelectElement,next=Number(select.value);select.value=String(selectedOfferingId.value||'');await nav.request(async()=>{selectedOfferingId.value=next;await onOfferingChange()})}
 
 onMounted(async () => {
   if (!props.loggedInUser) {
@@ -1058,7 +1063,7 @@ onMounted(async () => {
       monitorReporting.value = isMonitoring.value
       if (isMonitoring.value) videoFeedUrl.value = status.videoUrl || ''
     } catch (error) { console.error('恢复考勤会话失败', error) }
-    
+
     // 若未开流，主动复位一次 Redis 幽灵残留
     if (!isMonitoring.value && canWriteAttendance.value) {
       try {

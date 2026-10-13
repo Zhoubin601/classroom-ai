@@ -86,6 +86,29 @@ public class AdviceService {
   try{rev.setSnapshotJson(json.writeValueAsString(f));}catch(Exception ex){throw new IllegalStateException(ex);}em.persist(rev);return f;
  }
  private String stages(List<String> list){if(list==null)return "[]";if(list.size()>6)throw new IllegalArgumentException("教学环节过多");list.forEach(Sprint3Policy::stage);try{return json.writeValueAsString(list.stream().distinct().toList());}catch(Exception ex){throw new IllegalArgumentException(ex);}}
+ @Transactional(readOnly=true)
+ public List<Map<String,Object>> candidates(Long evaluationId,String type,String keyword){
+  var e=parent(evaluationId,false);Long course=e.getOffering().getCourse().getId();
+  if(!Set.of("EVALUATION","RESOURCE_VERSION","MICRO_SLICE").contains(type))throw new IllegalArgumentException("非法证据类型");
+  String search=Objects.toString(keyword,"").trim().toLowerCase(Locale.ROOT);
+  List<Map<String,Object>> result=new ArrayList<>();
+  List<?> rows=switch(type){
+   case "EVALUATION" -> em.createQuery("from SupervisionEvaluation where offering.course.id=:course order by id",SupervisionEvaluation.class).setParameter("course",course).getResultList();
+   case "RESOURCE_VERSION" -> em.createQuery("from CourseResource where course.id=:course order by id",CourseResource.class).setParameter("course",course).getResultList();
+   default -> em.createQuery("from MicroTeachingSlice where course.id=:course order by id",MicroTeachingSlice.class).setParameter("course",course).getResultList();
+  };
+  for(Object row:rows){
+   Long id;String label;Map<String,Object> item=new LinkedHashMap<>();
+   if(row instanceof SupervisionEvaluation r){id=r.getId();label="评价"+id+" · "+Objects.toString(r.getListenTopic(),"未填写主题");}
+   else if(row instanceof CourseResource r){id=r.getId();label=r.getResourceName()+" · "+r.getVersion();}
+   else {var r=(MicroTeachingSlice)row;id=r.getId();label=r.getVideoTitle();item.put("startMs",r.getStartMs());item.put("endMs",r.getEndMs());}
+   var probe=json.createArrayNode();probe.addObject().put("type",type).put("id",id);
+   try{evidence(probe,e,false);}catch(RuntimeException denied){continue;}
+   if(!label.toLowerCase(Locale.ROOT).contains(search))continue;
+   item.put("type",type);item.put("id",id);item.put("label",label);result.add(item);
+  }
+  return result;
+ }
  private JsonNode evidence(JsonNode refs,SupervisionEvaluation e,boolean redact){
   var out=json.createArrayNode();if(refs==null)return out;if(!refs.isArray()||refs.size()>10||refs.toString().length()>10000)throw new IllegalArgumentException("证据最多10项");
   for(var r:refs){try{

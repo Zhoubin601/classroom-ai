@@ -1,0 +1,25 @@
+ M docs/analysis-notes.md
+ M docs/questions.md
+ M docs/source-notes.md
+ M docs/us0406-query-performance.json
+ M memory-bank/project-context.md
+ M stop_project.ps1
+?? docs/20261011-sprint2-local-evidence-v1/
+?? docs/20261012-data-completeness-evidence-v1/
+?? docs/20261012-data-completeness-plan-v1.md
+?? docs/20261012-exp4-startup-v1.md
+?? docs/20261012-ui-redesign-evidence-v1/
+?? output/20261011-sprint2-local-acceptance-v1.md
+?? output/20261012-database-audit-v1.docx
+?? output/20261012-database-completeness-v1.xlsx
+?? output/20261012-demo-data-operation-v1.md
+?? output/20261012-demo-data-package-v1.zip
+?? scripts/create-data-completeness-report.py
+?? scripts/create-demo-office-assets.py
+?? scripts/data-completeness-backup.py
+?? scripts/data-completeness.py
+?? scripts/rollback-complete-demo.py
+?? scripts/seed-complete-demo.py
+?? scripts/sync-demo-face-cache.py
+?? scripts/tests/data-completeness-api-browser.cjs
+?? scripts/tests/verify-data-completeness.py
