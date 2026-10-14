@@ -511,3 +511,19 @@ UI重构验收来源：docs/20261012-ui-redesign-evidence-v1/interaction/results
 执行来源：runtime/local-cleanup-20261013-v1/plan.json、result.json、link-updates.json。已删除53个目标、1231个文件、312417292字节；旧的已跟踪附件可从5f8c682提交查阅，历史裸路径保留当时来源含义。最新登录缺陷、硬件资料、合成视频、业务回滚清单及正式成品保留，未将本次文件检查写成业务测试通过。
 
 后续来源：用户当前提交远端授权及“以上12项全部提交、只要不涉及隐私”的范围确认；引用日期2026-10-13。发布检查见本地runtime/local-cleanup-20261013-v1/publish-scan.json、privacy-redactions.json及68份不同内容的图片核验。已对审计JSON中的私密表及个人记录行摘要进行明确标记的省略，原件留本地备份；操作指南/操作包README说明该发布副本的校验限制。当前发布精简清单docs/20261013-local-cleanup-manifest-v1.json。没有修改raw、应用源码或数据库，没有重跑业务验收。
+
+## 2026-10-13 exp4 Sprint 2 当前检查来源
+来源名称：用户当前检查请求、当前exp4代码；链接或文件名：本聊天、Git HEAD 1ea1f03、frontend/、backend/、scripts/tests/；引用日期：2026-10-13（Asia/Shanghai）。
+来源名称：实验一正式项目规划；链接或文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx，表6/11/16；引用日期：2026-10-13。将用officecli只读摘录重新核对。项目raw仅有README.md，其他业务原始资料未提供。
+来源名称：历史本地及云端复验和已确认范围；链接或文件名：docs/20261013-exp4-pull-review-v1.md、docs/20261013-exp4-final-recheck-v1.md、output/20261011-sprint2-local-acceptance-v1.md、memory-bank/project-context.md；引用日期：2026-10-13。历史通过数字不冒称本轮直接执行；不引入外部业务资料。
+
+## 2026-10-14 exp4 Sprint2检查补充来源
+来源名称：本轮本机直接执行与缺陷复现；链接或文件名：docs/20261013-exp4-sprint2-audit-v1/audit-summary.json、backend-full-xml/、login-early/results.json、history-startup-race/results.json、sprint2-office/fix-acceptance-results.json、sprint2-history/history-scores-results.json；引用日期：2026-10-14。开始时目录日期与日志主机日期保留20261013，不改写时间戳。最后core-final-runner.log记录Docker断开，不能将未完成补验计为通过。
+
+## 2026-10-14 exp4修复来源与授权
+来源名称：用户修复、完善及远端推送授权；链接或文件名：本聊天；引用日期：2026-10-14。
+来源名称：当前验收检查及真实复现；链接或文件名：docs/20261014-exp4-sprint2-acceptance-check-v1.md、docs/20261013-exp4-sprint2-audit-v1/login-early/results.json、history-startup-race/results.json；引用日期：2026-10-14。
+来源名称：原始规划与已确认范围；链接或文件名：实验一第二组_项目规划方案.docx表6/11/16（上一轮只读摘录）、raw/README.md、memory-bank/project-context.md；引用日期：2026-10-14。业务原始资料未提供，不补造真实培养方案、会议或硬件验收。使用ui-ux-pro-max Skill检查交互，不新增视觉方向。
+
+## 2026-10-14 exp4修复实测来源
+来源名称：本轮直接构建与执行；链接或文件名：docs/20261014-exp4-sprint2-fix-v1/verification-summary.json、backend-full-xml/、browser/、sprint3-browser/、ui-browser/、fixes-browser/、resource-browser/；引用日期：2026-10-14。临时数据库使用initialize.sql的既有初始化样例、合成模板/评价/小PDF及scripts/tests/fixtures的DOCX/PPTX；视频沿用已有纯合成视频。raw只有说明文件，业务原始资料未提供。没有外部业务资料、真人采集或日常数据库写入。正常24小时分支推进隔离库中本次特定记录；零小时配置自然即时发布，均非真实会议或现场认证事实。

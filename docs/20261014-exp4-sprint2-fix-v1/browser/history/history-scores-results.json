@@ -1,0 +1,36 @@
+[
+  {
+    "check": "scores",
+    "result": "PASS",
+    "missingRejected": 6,
+    "explicitZerosAccepted": true,
+    "incompleteDraftAllowed": true,
+    "failedSubmissionKeepsDraft": true
+  },
+  {
+    "check": "history-api",
+    "result": "PASS",
+    "roles": 3,
+    "snapshotWeights": [
+      "H",
+      "L"
+    ],
+    "unauthorizedRejected": true,
+    "mismatchedCourseRejected": true,
+    "historicalWriteRejected": true
+  },
+  {
+    "check": "teacher-history-ui",
+    "result": "PASS",
+    "defaultLatest": true,
+    "historicalReadonly": true,
+    "currentEditable": true
+  },
+  {
+    "check": "director-history-ui",
+    "result": "PASS",
+    "defaultLatest": true,
+    "historicalReadonly": true,
+    "currentEditable": true
+  }
+]

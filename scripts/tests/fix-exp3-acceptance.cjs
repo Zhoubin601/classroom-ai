@@ -45,11 +45,13 @@ async function protectedViewer(page) {
       await page.getByPlaceholder('如 guojun, director, supervisor 等').fill(username);
       await page.getByPlaceholder('请输入登录密码 (默认 123456)').fill('123456');
       await page.getByRole('button',{name:'立即验证并登录',exact:true}).click();
-      await page.getByRole('button',{name:'退出登录',exact:true}).waitFor();
+      await page.locator('.account-button').waitFor();
       return page;
     }
     async function api(page,route,method='GET',options={}) {
       const jwt=await page.evaluate(()=>localStorage.getItem('jwtToken'));
+      if(route==='/api/v1/supervisions'&&method==='POST'&&options.data){const list=(await(await api(page,'/api/v1/sprint3/templates')).json()).data;options={...options,data:{...options.data,templateVersionId:list[0].id}};if(options.data.id){const old=(await(await api(page,'/api/v1/supervisions/'+options.data.id)).json()).data;options.data.expectedVersion=old.recordVersion;}}
+
       return page.request.fetch(backend+route,{method,headers:{Authorization:`Bearer ${jwt}`},...options});
     }
     const teacher=await login('guojun');const director=await login('director');const supervisor=await login('supervisor');
@@ -96,7 +98,7 @@ async function protectedViewer(page) {
     }
     const deniedDownload=await api(supervisor,`/api/v1/resources/${docxResource.id}/download`);
     assert.equal(deniedDownload.status(),403);
-    await supervisor.getByRole('button',{name:/待督导目标课程多维检索/}).click();
+    await supervisor.getByRole('tab',{name:"课程检索"}).click();
     await supervisor.getByPlaceholder('按课程名 / 代码检索...').fill(common.course.courseCode);
     await supervisor.getByRole('combobox',{name:'检索学期'}).selectOption(common.academicTerm);
     await supervisor.locator('select:has(option[value="'+common.className+'"])').selectOption(common.className);
@@ -119,6 +121,7 @@ async function protectedViewer(page) {
     assert.equal(oversize.code,400);assert.match(oversize.message,/100MB/);
     console.log('PASS US07: corrupt DOCX rejected with working LibreOffice, real >100MB upload rejected');
     const version='FIX-TEMPLATE-'+Date.now();
+    await teacher.getByRole('tab',{name:"指标矩阵"}).click();
     await teacher.getByRole('textbox',{name:'新大纲版本'}).fill(version);
     const [templated]=await Promise.all([
       teacher.waitForResponse(r=>r.url().includes('/from-plan') && r.request().method()==='POST'),
@@ -151,7 +154,7 @@ async function protectedViewer(page) {
     }
     const draft=await (await api(supervisor,'/api/v1/supervisions','POST',{data:{...evaluationData,highlights:'一条尚未写完',isDraft:true}})).json();
     assert.equal(draft.data.status,'DRAFT');
-    await supervisor.getByTestId(`offering-${common.id}`).getByRole('button',{name:'随堂评价 (US-13)',exact:true}).click();
+    await supervisor.getByTestId(`offering-${common.id}`).getByRole('button',{name:'随堂评价',exact:true}).click();
     await supervisor.getByText('已恢复暂存评价，可继续编辑后提交。').waitFor();
     const highlightInput=supervisor.getByPlaceholder('例如：教学组织严密，能够结合实际敏捷项目案例启发学生...');
     assert.equal(await highlightInput.inputValue(),'一条尚未写完');

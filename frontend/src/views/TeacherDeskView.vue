@@ -794,6 +794,8 @@ const selectedSyllabusId = ref<number | null>(null)
 const latestSyllabusId = ref<number | null>(null)
 const isHistoricalSyllabus = computed(() => !!selectedSyllabusId.value && selectedSyllabusId.value !== latestSyllabusId.value)
 let indicatorRequest = 0
+let courseLoadGeneration = 0
+const isCurrentCourseLoad = (generation: number) => !disposed && generation === courseLoadGeneration
 const selectedTag = ref('')
 const myResources = ref<CourseResource[]>([])
 const sharedResources = ref<CourseResource[]>([])
@@ -893,39 +895,62 @@ const loadTeacherList = async () => {
 }
 
 const onTeacherChange = async () => {
-  await loadCourse()
+  const generation = ++courseLoadGeneration
+  ++indicatorRequest
+  await loadCourse(generation)
+  if (!isCurrentCourseLoad(generation)) return
   await Promise.all([loadMyResources(), loadSharedResources(), loadRadar(), loadIndicators(), loadCourseContent()])
 }
 
 const onOfferingSelectChange = async () => {
+  const generation = ++courseLoadGeneration
+  ++indicatorRequest
   const off = myOfferings.value.find(o => o.id === selectedOfferingId.value)
   if (off) {
     currentOffering.value = off
     currentCourse.value = off.course ?? null
+    currentSchedule.value = null
+    currentSyllabus.value = null
+    indicators.value = []
+    syllabusVersions.value = []
+    selectedSyllabusId.value = null
+    latestSyllabusId.value = null
+    showIndicatorModal.value = false
+    loadingIndicators.value = true
     draftRevision.value = null
     contentConflictMsg.value = ''
     uploadForm.value.chapter = currentCourse.value ? `第一章 ${currentCourse.value.courseName}概论` : '第一章 概论'
     try {
       const schedules = await scheduleApi.getAll(off.id)
+      if (!isCurrentCourseLoad(generation)) return
       currentSchedule.value = schedules && schedules.length > 0 ? schedules[0] : null
     } catch (err) {
+      if (!isCurrentCourseLoad(generation)) return
       console.warn('获取排课信息失败', err)
     }
+    if (!isCurrentCourseLoad(generation)) return
     await Promise.all([loadMyResources(), loadSharedResources(), loadRadar(), loadIndicators(), loadCourseContent()])
   }
 }
 
-const loadCourse = async () => {
+const loadCourse = async (generation: number) => {
   draftRevision.value = null
   contentConflictMsg.value = ''
   currentCourse.value = null
   currentOffering.value = null
   currentSchedule.value = null
   currentSyllabus.value = null
+  indicators.value = []
+  syllabusVersions.value = []
+  selectedSyllabusId.value = null
+  latestSyllabusId.value = null
+  showIndicatorModal.value = false
+  loadingIndicators.value = true
   syllabusForm.value = { objectives: '', assessmentMethod: '' }
 
   try {
     const offerings = await courseApi.getOfferings()
+    if (!isCurrentCourseLoad(generation)) return
     myOfferings.value = offerings
     if (offerings.length > 0) {
       let off = offerings.find(o => o.id === selectedOfferingId.value)
@@ -940,14 +965,17 @@ const loadCourse = async () => {
       // 加载真实排课教室与时段
       try {
         const schedules = await scheduleApi.getAll(off.id)
+        if (!isCurrentCourseLoad(generation)) return
         if (schedules && schedules.length > 0) {
           currentSchedule.value = schedules[0]
         }
       } catch (err) {
+        if (!isCurrentCourseLoad(generation)) return
         console.warn('获取排课信息失败', err)
       }
     }
   } catch (e) {
+    if (!isCurrentCourseLoad(generation)) return
     console.error('获取教师开课记录失败', e)
   }
 }
@@ -955,6 +983,8 @@ const loadCourse = async () => {
 const loadIndicators = async (versionId?: number) => {
   const request = ++indicatorRequest
   const course = currentCourse.value
+  const generation = courseLoadGeneration
+  const isCurrent = () => request === indicatorRequest && isCurrentCourseLoad(generation) && course?.id === currentCourse.value?.id
   planIndicators.value = []
   indicators.value = []
   indicatorError.value = ''
@@ -971,6 +1001,7 @@ const loadIndicators = async (versionId?: number) => {
     const [versions, latest] = await Promise.all([
       syllabusApi.getVersions(course.id), syllabusApi.getLatest(course.id)
     ])
+    if (!isCurrent()) return
     const selected = versionId ? versions.find(v => v.id === versionId) : latest
     if (versionId && !selected) throw new Error('所选大纲版本不存在，请重新加载')
     const selectedPlan = selected?.planVersion || selected?.version || ''
@@ -978,7 +1009,7 @@ const loadIndicators = async (versionId?: number) => {
       syllabusApi.getIndicators(course.id, selected?.id),
       selectedPlan && course.majorCode ? syllabusApi.getPlanIndicators(course.majorCode, selectedPlan) : Promise.resolve([])
     ])
-    if (request !== indicatorRequest) return
+    if (!isCurrent()) return
     syllabusVersions.value = versions
     latestSyllabusId.value = latest?.id ?? null
     selectedSyllabusId.value = selected?.id ?? null
@@ -988,11 +1019,11 @@ const loadIndicators = async (versionId?: number) => {
     planVersion.value = selectedPlan
     if (versionId === undefined) syllabusVersion.value = ''
   } catch (e: any) {
-    if (request !== indicatorRequest) return
+    if (!isCurrent()) return
     indicatorError.value = e.response?.data?.message || e.message || '加载指标目录失败'
     console.error('加载指标点失败', e)
   } finally {
-    if (request === indicatorRequest) loadingIndicators.value = false
+    if (isCurrent()) loadingIndicators.value = false
   }
 }
 
@@ -1382,8 +1413,10 @@ async function refreshCourseContent(){await loadCourseContent()}
 async function adoptLatestContent(){await nav.request(async()=>{if(latestContentSnapshot.value){const {draft,published,form}=latestContentSnapshot.value;draftRevision.value=draft;publishedRevision.value=published;contentForm.value=form;latestContentSnapshot.value=null;contentConflictMsg.value='';hasVersionConflict.value=false;contentGuard.reset()}else await loadCourseContent(true)})}
 
 onMounted(async () => {
+  const generation = courseLoadGeneration
   try {
     await loadTeacherList()
+    if (!isCurrentCourseLoad(generation)) return
     await onTeacherChange()
   } catch (error) {
     console.error('教师工作台加载失败', error)
@@ -1399,5 +1432,5 @@ watch(() => props.loggedInUser, (newUser) => {
   }
 })
 
-onUnmounted(() => { disposed=true; contentLoadSequence++; closePreview(); radarChart = null })
+onUnmounted(() => { disposed=true; courseLoadGeneration++; indicatorRequest++; contentLoadSequence++; closePreview(); radarChart = null })
 </script>

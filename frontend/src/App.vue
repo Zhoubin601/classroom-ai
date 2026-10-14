@@ -1,5 +1,5 @@
 <template>
- <LoginView v-if="!currentUser" @login-success="login" />
+ <LoginView v-if="!currentUser" @auth-start="cancelStartupProbe" @login-success="login" />
  <div v-else :class="['app-shell',{collapsed:sidebarCollapsed}]">
   <button v-if="drawer" class="drawer-scrim" aria-label="关闭导航" @click="drawer=false"></button>
   <aside :class="['app-sidebar',{open:drawer}]" aria-label="平台导航" :role="drawer?'dialog':undefined" :aria-modal="drawer?'true':undefined" @keydown="drawerKey">
@@ -57,8 +57,10 @@ const navGroups=computed(()=>[{label:'工作管理',items:visibleTabs.value.filt
 const pageTitle=computed(()=>visibleTabs.value.find(t=>t.key===activeTab.value)?.label||'爱教学'),roleName=computed(()=>({DIRECTOR:'教研室主任',TEACHER:'任课教师',SUPERVISOR:'教学督导',ADMIN:'管理员'}[currentUser.value?.role]||''))
 async function navigate(key:string){if(!visibleTabs.value.some(t=>t.key===key)||key===activeTab.value)return;await nav.request(()=>{activeTab.value=key as TabKey;drawer.value=false;accountOpen.value=false;window.scrollTo(0,0)})}
 async function jumpToAttendance(id:number){if(!visibleTabs.value.some(t=>t.key==='attendance'))return;await nav.request(()=>{targetOfferingId.value=id;activeTab.value='attendance';drawer.value=false})}
-function login(user:any){nav.setIdentity(user);currentUser.value=user;sessionEpoch.value++;activeTab.value=(allowed[user.role]?.[0]||'sprint3') as TabKey;sidebarCollapsed.value=false;notice.value=''}
-function invalidate(){nav.clear();resolveLeave('cancel');resolveConfirm(false);currentUser.value=null;sessionEpoch.value++;accountOpen.value=false;drawer.value=false;targetOfferingId.value=null;window.dispatchEvent(new Event('ui:cancel-requests'));notice.value='登录会话已失效，请重新登录'}
+let startupProbe:AbortController|null=null
+function cancelStartupProbe(){startupProbe?.abort();startupProbe=null}
+function login(user:any){cancelStartupProbe();nav.setIdentity(user);currentUser.value=user;sessionEpoch.value++;activeTab.value=(allowed[user.role]?.[0]||'sprint3') as TabKey;sidebarCollapsed.value=false;notice.value=''}
+function invalidate(){cancelStartupProbe();nav.clear();resolveLeave('cancel');resolveConfirm(false);currentUser.value=null;sessionEpoch.value++;accountOpen.value=false;drawer.value=false;targetOfferingId.value=null;window.dispatchEvent(new Event('ui:cancel-requests'));notice.value='登录会话已失效，请重新登录'}
 async function logout(){await nav.request(async()=>{await visualApi.stopMonitor().catch(()=>{});await authApi.logout().catch(()=>{});invalidate();notice.value=''})}
 function beforeUnload(event:BeforeUnloadEvent){if(nav.dirty){event.preventDefault();event.returnValue=''}}
 async function health(){try{await authApi.getCsrf();serviceOnline.value=true}catch{serviceOnline.value=false};currentTime.value=new Date().toLocaleTimeString('zh-CN',{hour12:false})}
@@ -66,6 +68,16 @@ let healthTimer:ReturnType<typeof setInterval>
 let drawerPrevious:HTMLElement|null=null
 watch(drawer,async open=>{await nextTick();const stage=document.querySelector<HTMLElement>('.app-stage');if(stage)stage.inert=open;if(open){drawerPrevious=document.activeElement as HTMLElement;document.querySelector<HTMLElement>('.app-sidebar .sidebar-link')?.focus()}else if(drawerPrevious?.isConnected)drawerPrevious.focus()})
 function drawerKey(e:KeyboardEvent){if(!drawer.value)return;if(e.key==='Escape'){e.preventDefault();drawer.value=false}if(e.key==='Tab'){const buttons=[...document.querySelectorAll<HTMLButtonElement>('.app-sidebar button')].filter(b=>b.getClientRects().length>0);const index=buttons.indexOf(document.activeElement as HTMLButtonElement);if(e.shiftKey&&index<=0){e.preventDefault();buttons[buttons.length-1]?.focus()}else if(!e.shiftKey&&index===buttons.length-1){e.preventDefault();buttons[0]?.focus()}}}
-onMounted(async()=>{window.addEventListener('beforeunload',beforeUnload);window.addEventListener('ui:auth-expired',invalidate);health();healthTimer=setInterval(health,15000);const epoch=sessionEpoch.value;try{await authApi.getCsrf();if(epoch!==sessionEpoch.value)return;const user=await authApi.getMe(true);if(epoch===sessionEpoch.value)login(user)}catch{}})
-onUnmounted(()=>{nav.clear();clearInterval(healthTimer);window.removeEventListener('beforeunload',beforeUnload);window.removeEventListener('ui:auth-expired',invalidate)})
+onMounted(async()=>{
+ window.addEventListener('beforeunload',beforeUnload);window.addEventListener('ui:auth-expired',invalidate)
+ health();healthTimer=setInterval(health,15000)
+ const epoch=sessionEpoch.value,probe=new AbortController();startupProbe=probe
+ try{
+  await authApi.getCsrf()
+  if(probe.signal.aborted||epoch!==sessionEpoch.value)return
+  const user=await authApi.getMe(true,probe.signal)
+  if(!probe.signal.aborted&&epoch===sessionEpoch.value)login(user)
+ }catch{}finally{if(startupProbe===probe)startupProbe=null}
+})
+onUnmounted(()=>{cancelStartupProbe();nav.clear();clearInterval(healthTimer);window.removeEventListener('beforeunload',beforeUnload);window.removeEventListener('ui:auth-expired',invalidate)})
 </script>

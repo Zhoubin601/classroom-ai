@@ -1,0 +1,8 @@
+{
+  "dedicatedListeners": [],
+  "runningContainers": [
+    "classroom-backend 56eec95d5f6b",
+    "classroom-redis 1f2f57b3d859",
+    "classroom-mysql 0c4f692e1aa6"
+  ]
+}

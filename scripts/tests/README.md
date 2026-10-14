@@ -1,5 +1,17 @@
 # 跨模块联调测试（scripts/tests/）
 
+## 当前 exp4 的 Sprint 2 完整验收
+
+先构建当前前后端，再运行 `scripts/run-exp3-browser-tests.ps1`（兼容入口）或 `scripts/run-sprint2-acceptance.ps1`。新增 `-EvidenceDir`、`-BackendMode Auto|Native|Docker`、`-BackendImage` 参数；证据目录必须新建或为空。仅使用脚本创建的 MySQL/Redis；各后端按顺序启动，统一 Asia/Shanghai，结束后清理测试进程/容器和恢复环境。
+
+- `exp3-real-browser.cjs`、`fix-exp3-acceptance.cjs`、`exp3-history-scores.cjs` 已适配当前页签、确认提示、已发布模板和 expectedVersion 契约，保留原业务断言。
+- `login-start-browser.cjs`：有效旧身份探测先/后返回、HTTP/业务401及登录失败；检查页面身份、角色入口与存储Token一致。
+- `exp3-startup-history-browser.cjs`：真实后端仅延迟启动排课响应，切到另一班次并选择历史后，迟到启动链路不得改回当前版。
+- `exp3-configurable-browser.cjs`：PDF-only/1024字节规则、未标注筛选、小数模板权重、驳回/修改/审核日志和自然零延迟匿名反馈。
+- `sanitize-test-evidence.py`：脱敏测试日志中的临时JWT及CSRF值，不改变业务数据。
+
+上传配置与零小时反馈使用独立18083实例；24小时默认反馈使用18081实例，并只推进该次临时库中特定记录的发布时间验证到期分支。它不表示等待了24小时，也不代替真实摄像头、多人识别或GPU现场验收。
+
 - `test_http_smoke.py`：需要已启动的 Java 后端；创建独立合成记录并清理。
 - `browser_smoke.cjs`：需要前后端、Playwright 和浏览器；检查页面与摄像头接口参数校验。
 - `test_backend_api.py`：保留的旧手动调试脚本，会读取已有特征库并写入固定测试学号，**不纳入自动回归**。

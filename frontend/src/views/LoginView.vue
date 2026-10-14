@@ -324,6 +324,7 @@ import {
 import { authApi } from '../api'
 
 const emit = defineEmits<{
+  (e: 'auth-start'): void
   (e: 'login-success', user: any): void
 }>()
 
@@ -621,6 +622,8 @@ const quickLogin = async (u: string, p: string) => {
 }
 
 const handleLogin = async () => {
+  if (loading.value) return
+  emit('auth-start')
   loading.value = true
   errorMessage.value = ''
   try {
@@ -639,6 +642,7 @@ const handleLogin = async () => {
 }
 
 const handleSupervisorRegister = async () => {
+  if (loading.value) return
   if (registerForm.value.password !== registerForm.value.confirmPassword) {
     errorMessage.value = '两次输入的密码不一致，请核对'
     return
@@ -648,6 +652,7 @@ const handleSupervisorRegister = async () => {
     return
   }
 
+  emit('auth-start')
   loading.value = true
   errorMessage.value = ''
   try {

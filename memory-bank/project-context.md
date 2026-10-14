@@ -186,3 +186,8 @@ exp4基于fix-exp3实现八故事（US-11、12、16～21），自动功能验收
 
 ### 后续发布范围更正
 用户随后授权将清理改动及此前12项本地交付/证据提交到远端exp4，要求只纳入不涉及隐私的资料。专用ignore规则解除；真人摄像头截图、凭据、运行数据/环境仍不发布。审计JSON中账号、人脸、学生/个人课堂记录的行摘要从发布版省略，完整原件仅留本地备份，发布版不能代替完整个人记录校验基线。提交号及实际推送状态以Git为准，前文未提交/本地忽略描述为对应历史阶段。
+
+## 2026-10-14 exp4两处时序修复及Sprint2验收入口
+用户授权修复、完善并推送远端exp4。旧身份探测在交互登录/注册开始时取消；教师完整课程加载链路校验代次及课程/卸载上下文，迟到启动请求不能覆盖历史选择。两处定向回归通过，旧“未修复”条目属于历史检查状态。
+正式run-exp3-browser-tests.ps1已转发run-sprint2-acceptance.ps1，支持新证据目录、Auto/Native/Docker、当前模板/expectedVersion和Asia/Shanghai；缺原生LibreOffice时使用已有运行镜像挂载当前JAR。Sprint2七套软件验收、后端284/0失败错误跳过、前端23、Python9、实验二及Sprint3/已有界面回归通过。原24h匿名反馈缺口和非默认配置已补验；Native和现场摄像头/多人/GPU、正式会议与自然人批准仍另行复核。
+必要记录docs/20261014-exp4-sprint2-fix-verification-v1.md，证据docs/20261014-exp4-sprint2-fix-v1/verification-summary.json。只发布到exp4，不合并main或替换日常部署；实际提交/推送以Git与本地publication.json核验为准。

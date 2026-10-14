@@ -91,6 +91,10 @@ Sprint 2 浏览器 runner 使用独立 MySQL/Redis、两个后端进程及 15173
 
 runner 还执行 `scripts/tests/exp3-history-scores.cjs`：验证教师/主任切换历史矩阵及只读状态、历史查询权限隔离、正式评价缺失评分拒绝、明确四个 0 分提交成功，以及不完整草稿仍可保存。
 
+2026-10-14 起，原 `run-exp3-browser-tests.ps1` 入口转发到 `run-sprint2-acceptance.ps1`。完整验收还包括登录启动竞态、真实后端的慢启动历史切换、PDF-only/1024 字节上传限制、小数模板权重、审核修改日志和零延迟匿名反馈。默认使用新时间戳证据目录；可以通过 `-EvidenceDir` 指定新目录，非空目录会被拒绝以保护旧证据。服务与测试库统一采用 Asia/Shanghai。
+
+本机缺少 LibreOffice 时自动使用已有 Docker 运行镜像，并挂载当前构建的 JAR；运行前仍需构建当前前后端。可显式选择 `-BackendMode Native` 或 `-BackendMode Docker`，通过 `-BackendImage` 指定本机含 LibreOffice/ffprobe 的运行镜像，脚本不会自动拉取或替换日常服务。专用端口为 13318、16318、18081～18083、15173。结束后恢复进程环境、清理测试服务并脱敏日志。
+
 2026-10-11 云端验收：后端去重实际通过 204 项，另 33 项专用测试未补跑；前端 13 项与构建通过，八故事、Office 预览及上述修复专项浏览器通过。完整范围、证据和运行边界见 [两处缺口修复记录](docs/20261011-exp3-two-bugs-fix-v1.md)。
 
 全功能页面验收可运行 `scripts/run-all-features-playwright.ps1`。若使用独立后端，启动前端时设定 `CLASSROOM_API_PROXY`，同时设置测试的 `BASE_URL`、`BACKEND_URL`、`FORWARD_BACKEND=false`，即可直接走真实 Vite 代理。设置 `OFFICE_PREVIEW_FIXTURE` 为测试 DOCX/PPTX 路径时，会额外验证 Office 上传与水印预览；使用测试数据库，不向正式数据导入测试内容。

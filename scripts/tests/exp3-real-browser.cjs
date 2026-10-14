@@ -1,3 +1,4 @@
+const { selectFeature } = require('./browser-helpers.cjs');
 const assert = require('node:assert/strict');
 
 async function assertRenderedPdf(page) {
@@ -68,7 +69,7 @@ async function main() {
       await page.getByPlaceholder('如 guojun, director, supervisor 等').fill(username);
       await page.getByPlaceholder('请输入登录密码 (默认 123456)').fill('123456');
       await page.getByRole('button', { name: '立即验证并登录', exact: true }).click();
-      await page.getByRole('heading', { name: title }).waitFor();
+      await page.locator('.account-button').waitFor();
       pages.push(page);
       return page;
     }
@@ -84,7 +85,7 @@ async function main() {
     const otherTeacher = await login('liubo', /老师工作台/);
     const foreignTeacher = await login('jiangly', /老师工作台/);
     const planVersion = 'EXP3-E2E-' + Date.now();
-    await director.getByRole('button', { name: '毕业要求指标点矩阵 (US-05)' }).click();
+    await selectFeature(director,"指标矩阵");
     await director.getByRole('combobox', { name: '培养方案专业' }).selectOption('SE');
     await director.getByRole('textbox', { name: '培养方案版本' }).fill(planVersion);
     await director.getByRole('textbox', { name: '培养方案指标目录' }).fill(
@@ -106,6 +107,7 @@ async function main() {
       { indicatorCode: 'E2E-1', requirementCategory: '工程知识', indicatorDescription: '重复二' }
     ]});
     assert.equal((await duplicatePlan.json()).code, 400);
+    await selectFeature(teacher,"指标矩阵");
     await teacher.getByRole('textbox', { name: '培养方案版本' }).fill(planVersion);
     await teacher.getByRole('textbox', { name: '新大纲版本' }).fill(planVersion);
     const [syllabusCreated] = await Promise.all([
@@ -122,10 +124,11 @@ async function main() {
     const supervisorOfferings = (await (await api(supervisor, '/api/v1/courses/offerings')).json()).data;
     const shared = teacherOfferings.find(off => supervisorOfferings.some(other => other.id === off.id));
     assert.ok(shared, 'teacher/supervisor must share one authorized offering');
-    if (await teacher.locator('select:has(option[value="' + shared.id + '"])').count()) {
+    if (await teacher.locator('select:has(option[value="' + shared.id + '"])').count() && await teacher.locator('select:has(option[value="' + shared.id + '"])').first().inputValue() !== String(shared.id)) {
       await teacher.locator('select:has(option[value="' + shared.id + '"])').first().selectOption(String(shared.id));
     }
     const name = 'EXP3-browser-' + Date.now() + '.pdf';
+    await selectFeature(teacher,"课程资料");
     await teacher.getByRole('button', { name: /上传新课件\/教案/ }).click();
     await teacher.locator('input[type="file"]').last().setInputFiles({ name, mimeType: 'application/pdf', buffer: pdfBuffer() });
     await teacher.getByPlaceholder('如 第一章 软件项目管理概论').fill('实验三测试章节');
@@ -143,6 +146,7 @@ async function main() {
     const resource = resources.find(item => item.resourceName === name);
     assert.deepEqual(resource.tags, ['理论', '实验', '讨论']);
     assert.equal(resource.isPublic, true);
+    await selectFeature(otherTeacher,"共享备课");
     const sharedLibrary = otherTeacher.getByTestId('shared-resource-library');
     await sharedLibrary.getByRole('textbox', { name: '共享资源关键词' }).fill(name);
     await sharedLibrary.getByRole('button', { name: '检索共享资源' }).click();
@@ -162,6 +166,7 @@ async function main() {
     const sharedTicketUrl = (await sharedTicketResponse.json()).data.url;
     assert.equal((await otherTeacher.request.get(backend + sharedTicketUrl)).status(), 401);
     assert.equal((await api(teacher, sharedTicketUrl)).status(), 403);
+    await selectFeature(foreignTeacher,"共享备课");
     const foreignLibrary = foreignTeacher.getByTestId('shared-resource-library');
     await foreignLibrary.getByRole('textbox', { name: '共享资源关键词' }).fill(name);
     await foreignLibrary.getByRole('button', { name: '检索共享资源' }).click();
@@ -189,7 +194,7 @@ async function main() {
     await assertRenderedPdf(teacher);
     await teacher.getByRole('button', { name: '关闭', exact: true }).click();
     await resourceCard.getByRole('button', { name: '编辑标签与共享' }).click();
-    const editModal = teacher.locator('div.fixed.inset-0').filter({ has: teacher.getByRole('heading', { name: '编辑资源标签与共享范围' }) });
+    const editModal = teacher.getByRole('dialog').filter({ has: teacher.getByRole('heading', { name: '编辑资源标签与共享范围' }) });
     await editModal.getByRole('checkbox', { name: '理论' }).uncheck();
     await editModal.getByRole('checkbox', { name: '讨论' }).uncheck();
     await editModal.getByRole('checkbox', { name: '教研室共享' }).uncheck();
@@ -252,7 +257,7 @@ async function main() {
     assert.equal(expiredPreview.status(), 400);
     console.log('PASS teacher browser: upload, multiple tags, shared visibility, secure preview, invalid format, conversion failure, expired link');
 
-    await supervisor.getByRole('button', { name: /待督导目标课程多维检索/ }).click();
+    await selectFeature(supervisor,"课程检索");
     await supervisor.getByPlaceholder('按课程名 / 代码检索...').fill(shared.course.courseCode);
     await supervisor.getByRole('combobox', { name: '检索学期' }).selectOption(shared.academicTerm);
     await supervisor.locator('select:has(option[value="' + shared.className + '"])').selectOption(shared.className);
@@ -284,7 +289,7 @@ async function main() {
     assert.ok(evaluationData.supervisorUserId);
     const teacherBefore = (await (await api(teacher, `/api/v1/supervisions?offeringId=${shared.id}`)).json()).data;
     assert.ok(!teacherBefore.some(item => item.id === evaluationData.id));
-    await director.getByRole('button', { name: /督导评价审核/ }).click();
+    await selectFeature(director,"评价审核");
     await director.getByText('浏览器测试', { exact: false }).first().waitFor();
     const reviewCard = director.getByTestId(`evaluation-review-${evaluationData.id}`);
     const [reviewResponse] = await Promise.all([
@@ -308,7 +313,8 @@ async function main() {
       const containerName = execFileSync('docker', ['inspect', '--format', '{{.Name}}', container], { encoding: 'utf8' }).trim();
       assert.match(containerName, /^\/classroom-exp3-browser-[a-f0-9]{10}$/);
       assert.ok(Number.isSafeInteger(evaluationData.id) && evaluationData.id > 0);
-      assert.ok(new Date(reviewed.publishTime).getTime() > Date.now() + 23 * 60 * 60 * 1000);
+      const delay = new Date(reviewed.publishTime).getTime() - new Date(reviewed.reviewedAt).getTime();
+      assert.ok(Math.abs(delay - 24 * 60 * 60 * 1000) < 1000); // Compare backend timestamps in the same zone; tolerate successive clock reads.
       execFileSync('docker', ['exec', '-e', 'MYSQL_PWD=root', container, 'mysql', '-uroot', 'classroom_ai', '-e',
         `UPDATE t_supervision_evaluation SET publish_time=DATE_SUB(NOW(), INTERVAL 1 SECOND) WHERE id=${evaluationData.id}`]);
       const published = (await (await api(teacher, `/api/v1/supervisions?offeringId=${shared.id}`)).json()).data;
@@ -317,6 +323,7 @@ async function main() {
       assert.equal(anonymous.supervisorName, '匿名督导');
       assert.equal(anonymous.supervisorUserId, null);
       await teacher.reload();
+      await selectFeature(teacher,"教学反馈");
       await teacher.getByText(/教学组织清晰/).first().waitFor();
       await teacher.getByText('增加练习', { exact: true }).first().waitFor();
       await teacher.screenshot({ path: path.join(evidenceDir, '03-teacher-published-feedback.png'), fullPage: true });

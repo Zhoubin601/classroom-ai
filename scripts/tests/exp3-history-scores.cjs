@@ -11,7 +11,7 @@ fs.mkdirSync(evidence, { recursive: true });
 (async () => {
   const browser = await chromium.launch({ headless: true,
     ...(process.env.EXP3_CHROMIUM_PATH ? { executablePath: process.env.EXP3_CHROMIUM_PATH } : {}) });
-  const results = [];
+  const results = [];const debugPages=[];const requests=[];let finished=false;
   try {
     async function login(username) {
       const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
@@ -21,11 +21,13 @@ fs.mkdirSync(evidence, { recursive: true });
       await page.getByPlaceholder('如 guojun, director, supervisor 等').fill(username);
       await page.getByPlaceholder('请输入登录密码 (默认 123456)').fill('123456');
       await page.getByRole('button', { name: '立即验证并登录', exact: true }).click();
-      await page.getByRole('button', { name: '退出登录', exact: true }).waitFor();
-      return page;
+      await page.locator('.account-button').waitFor();
+      debugPages.push({username,page});page.on('request',r=>{if(r.url().includes('/syllabus/'))requests.push({username,url:r.url(),time:Date.now()})});return page;
     }
     async function api(page, route, method = 'GET', data) {
       const token = await page.evaluate(() => localStorage.getItem('jwtToken'));
+      if(route==='/api/v1/supervisions'&&method==='POST'&&data){const list=(await api(page,'/api/v1/sprint3/templates')).body.data;data={...data,templateVersionId:list[0].id};if(data.id){const old=(await api(page,'/api/v1/supervisions/'+data.id)).body.data;data.expectedVersion=old.recordVersion;}}
+
       const response = await page.request.fetch(backend + route, {
         method, headers: { Authorization: `Bearer ${token}` }, ...(data !== undefined ? { data } : {})
       });
@@ -47,7 +49,7 @@ fs.mkdirSync(evidence, { recursive: true });
       for (const key of Object.keys(scores)) if (missing === 'all' || missing === key) delete payload[key];
       const response = await api(supervisor, '/api/v1/supervisions', 'POST', payload);
       assert.equal(response.body.code, 400);
-      assert.match(response.body.message, /全部四维评分/);
+      assert.match(response.body.message, /全部(四维评分|正权重维度)/);
     }
     const nullScores = await api(supervisor, '/api/v1/supervisions', 'POST', {
       ...base, ...Object.fromEntries(Object.keys(scores).map(key => [key, null]))
@@ -93,7 +95,7 @@ fs.mkdirSync(evidence, { recursive: true });
         assert.equal(mapping.supportWeight, snapshot.weight);
       }
     }
-    const old = snapshots[0], latest = snapshots[1];
+    const old = snapshots[0], latest = snapshots[1];fs.writeFileSync(path.join(evidence,'expected-snapshots.json'),JSON.stringify(snapshots,null,2));
     const unauthorized = await api(foreign, `/api/v1/syllabus/course/${courseId}/indicators?syllabusId=${old.id}`);
     assert.equal(unauthorized.status, 403);
     const anonymous = await teacher.request.get(`${backend}/api/v1/syllabus/course/${courseId}/indicators?syllabusId=${old.id}`);
@@ -112,8 +114,9 @@ fs.mkdirSync(evidence, { recursive: true });
       await page.reload();
       if (name === 'teacher') {
         await page.locator(`select:has(option[value="${common.id}"])`).first().selectOption(String(common.id));
+        await page.getByRole('tab',{name:"指标矩阵"}).click();
       } else {
-        await page.getByRole('button', { name: '毕业要求指标点矩阵 (US-05)' }).click();
+        await page.getByRole('tab',{name:"指标矩阵"}).click();
         await page.locator(`select:has(option[value="${courseId}"])`).first().selectOption(String(courseId));
       }
       const selector = page.getByRole('combobox', { name: '查看大纲版本', exact: true });
@@ -133,11 +136,12 @@ fs.mkdirSync(evidence, { recursive: true });
       await page.screenshot({ path: path.join(evidence, `${name}-history-readonly.png`), fullPage: true });
       await selector.selectOption(String(latest.id));
       await page.getByRole('row').filter({ hasText: latest.goal }).waitFor();
+      await page.waitForFunction(()=>Array.from(document.querySelectorAll('button')).some(b=>b.textContent.trim()==='新增认证指标点'&&!b.disabled));
       assert.equal(await page.getByRole('button', { name: '新增认证指标点', exact: true }).isDisabled(), false);
       if (name === 'director') assert.equal(await page.getByRole('button', { name: '审查锁定本版大纲', exact: true }).isDisabled(), false);
       results.push({ check: `${name}-history-ui`, result: 'PASS', defaultLatest: true, historicalReadonly: true, currentEditable: true });
       console.log(`PASS ${name} UI: default latest, historical snapshot switch/read-only, return to editable current version`);
     }
-    fs.writeFileSync(path.join(evidence, 'history-scores-results.json'), JSON.stringify(results, null, 2));
-  } finally { await browser.close(); }
+    finished=true;fs.writeFileSync(path.join(evidence, 'history-scores-results.json'), JSON.stringify(results, null, 2));
+  } finally {fs.writeFileSync(path.join(evidence,'requests.json'),JSON.stringify(requests,null,2));if(!finished){fs.writeFileSync(path.join(evidence,'partial-results.json'),JSON.stringify(results,null,2));for(const {username,page} of debugPages){await page.screenshot({path:path.join(evidence,username+'-failure.png'),fullPage:true}).catch(()=>{});fs.writeFileSync(path.join(evidence,username+'-failure.html'),await page.content().catch(()=>''));}} await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

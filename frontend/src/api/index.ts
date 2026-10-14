@@ -624,8 +624,8 @@ export const authApi = {
     localStorage.removeItem('jwtToken')
     sessionStorage.removeItem('csrfToken')
   },
-  getMe: async (sessionProbe = false): Promise<UserVO> => {
-    const res = await client.get<ApiResponse<UserVO>>('/api/v1/auth/me', { __sessionProbe: sessionProbe } as any)
+  getMe: async (sessionProbe = false, signal?: AbortSignal): Promise<UserVO> => {
+    const res = await client.get<ApiResponse<UserVO>>('/api/v1/auth/me', { __sessionProbe: sessionProbe, signal } as any)
     return res.data.data
   },
   getCsrf: async (): Promise<{ csrfToken: string }> => {

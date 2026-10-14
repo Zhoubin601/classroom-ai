@@ -1,0 +1,10 @@
+[
+  {
+    "errors": [],
+    "file": "scripts/run-exp3-browser-tests.ps1"
+  },
+  {
+    "errors": [],
+    "file": "scripts/run-sprint2-acceptance.ps1"
+  }
+]

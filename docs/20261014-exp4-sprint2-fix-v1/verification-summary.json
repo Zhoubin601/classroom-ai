@@ -1,0 +1,214 @@
+{
+  "date": "2026-10-14",
+  "baselineHead": "1ea1f0323367fc12ef6830c7a7522e8e4b27746b",
+  "backend-ordinary-xml": {
+    "tests": 284,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 78,
+    "passed": 206
+  },
+  "backend-full-xml": {
+    "tests": 284,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 284
+  },
+  "frontend-exits.json": {
+    "tests": 0,
+    "build": 0
+  },
+  "backend-package-exit.json": {
+    "exit": 0
+  },
+  "vision-exit.json": {
+    "exit": 0
+  },
+  "sprint2-exit.json": {
+    "exit": 0
+  },
+  "full-exit.json": {
+    "exit": 0
+  },
+  "ui-exit.json": {
+    "exit": 0
+  },
+  "login-start-final-exit.json": {
+    "exit": 0
+  },
+  "browser/results.json": {
+    "login-probe-browser.cjs": "PASS",
+    "login-start-browser.cjs": "PASS",
+    "exp3-real-browser.cjs": "PASS",
+    "fix-exp3-acceptance.cjs": "PASS",
+    "exp3-history-scores.cjs": "PASS",
+    "exp3-startup-history-browser.cjs": "PASS",
+    "exp3-configurable-browser.cjs": "PASS"
+  },
+  "browser/history-race/results.json": {
+    "expectedHistoricalId": 9,
+    "actualSelectedId": "9",
+    "before": {
+      "id": "9",
+      "oldVisible": 1
+    },
+    "oldVisibleAfter": 1,
+    "currentVisibleAfter": 0,
+    "realBackend": true,
+    "timingOnly": true,
+    "pageErrors": []
+  },
+  "browser/configurable/results.json": {
+    "proof": [
+      "PDF-only and 1024-byte upload policy enforced",
+      "Untagged resource filter and display",
+      "Published decimal weights determine server score",
+      "Rejection/modification/approval audit and natural immediate anonymous feedback UI"
+    ],
+    "pageErrors": []
+  },
+  "login-start-final/results.json": {
+    "proof": [
+      {
+        "kind": "success-before",
+        "result": "PASS",
+        "probeUsedOldToken": true
+      },
+      {
+        "kind": "success-after",
+        "result": "PASS",
+        "probeUsedOldToken": true
+      },
+      {
+        "kind": "http401-before",
+        "result": "PASS",
+        "probeUsedOldToken": true
+      },
+      {
+        "kind": "business401-before",
+        "result": "PASS",
+        "probeUsedOldToken": true
+      },
+      {
+        "kind": "failed-login",
+        "result": "PASS",
+        "probeUsedOldToken": true
+      }
+    ],
+    "pageErrors": [],
+    "syntheticOnly": true
+  },
+  "sprint3-browser/browser-results.json": {
+    "passed": 8,
+    "proof": [
+      "ADMIN UI creates and publishes immutable template",
+      "US-19 browser groups core/elective/uncategorized and filters one category",
+      "Approved pending feedback is counted by management and hidden from teacher",
+      "Teacher UI renders normalized radar and saves action/history after release",
+      "Director UI downloads full CSV/XLSX filter and shows per-version alerts",
+      "US-12 real ffprobe duration, bounded seeking and automatic stop at segment end",
+      "Same-name peer can read shared resource but cannot own course or upload/download; direct links blocked",
+      "Resource version UI upload/switch, fixed old ID, 409 conflict, old ticket and open preview revoked"
+    ],
+    "pageErrors": [],
+    "syntheticOnly": true,
+    "browserVersion": "155.0.8059.40",
+    "startedAt": "2026-10-14T04:32:28.999Z",
+    "finishedAt": "2026-10-14T04:32:48.498Z",
+    "backend": "http://127.0.0.1:18089",
+    "frontend": "http://127.0.0.1:15179"
+  },
+  "resource-browser/results.json": {
+    "proof": [
+      "恢复记忆选择的慢请求不覆盖新资源；加载期间没有旧写操作",
+      "版本切换固定到新资源系列，写入期间禁止切换与重复提交",
+      "待上传文件触发离开保护，取消版本切换保留文件且不写入",
+      "新版上传使用当前资源课程与系列，不沿用旧历史",
+      "过时请求的失败不污染新资源历史与错误提示",
+      "当前历史加载失败撤销操作区，刷新可恢复",
+      "卸载撤销历史请求，重新进入正常恢复"
+    ],
+    "pageErrors": [],
+    "writes": [
+      {
+        "path": "/api/v1/resources/series/20/current",
+        "body": {
+          "versionId": 202,
+          "expectedVersion": 0
+        }
+      },
+      {
+        "path": "/api/v1/resources/upload",
+        "body": "synthetic upload"
+      }
+    ],
+    "syntheticOnly": true
+  },
+  "ui-browser/results.json": {
+    "proof": [
+      "功能切换取消保留输入",
+      "课程切换取消恢复选择",
+      "内部捕获失败仍阻止离开",
+      "409独立快照不覆盖本地",
+      "保存成功后执行切换",
+      "弹窗初始焦点、Esc及焦点恢复",
+      "保存期间拒绝切换，旧请求成功不会清除新编辑",
+      "内容区两列键盘及尾行规则",
+      "教师25分图容器重挂载与侧栏尺寸变化",
+      "两个雷达图分别验证25/100刻度、零分、缺失和未知权重",
+      "200%缩放无整页溢出",
+      "不可访问占位阻止保存、明确移除、候选失败保留选择",
+      "工作台内存偏好恢复",
+      "四角色入口、主任弹窗与各断点无整页横向溢出",
+      "认证失效立即撤销受控界面"
+    ],
+    "writes": 5,
+    "pageErrors": [],
+    "fixtureOnly": true
+  },
+  "fixes-browser/browser-results.json": {
+    "fixtureOnly": true,
+    "realBusinessWrites": 0,
+    "proof": [
+      "R01 合法小数权重保存、无浮点尾数；非法合计提示并拒绝请求",
+      "R02 预先取消不发送启动请求，在途组件取消到达实际传输",
+      "R03 加载失败无旧课程片段/删除动作，编辑与资产上下文清空",
+      "R06 同步时间文本与完整编辑基线，未编辑切换无需保存提示",
+      "R06 真正编辑仍受保护，取消切换保留输入，放弃后可新建",
+      "R04 最新播放选择生效、真实合成视频可解码且区间有效，替换/离开释放Blob",
+      "R07 最新学期文案、显式学期参数和实际学期文件名，不含固定年份",
+      "R05 未应用/失败/请求中修改筛选禁止导出，成功查询后的显式学期与页面一致"
+    ],
+    "pageErrors": [],
+    "writeRequests": 1
+  },
+  "baselineFiles": {
+    "checked": 309,
+    "changed": [
+      "frontend/src/App.vue",
+      "frontend/src/api/index.ts",
+      "frontend/src/views/LoginView.vue",
+      "frontend/src/views/TeacherDeskView.vue",
+      "scripts/tests/exp3-history-scores.cjs",
+      "scripts/tests/exp3-real-browser.cjs",
+      "scripts/tests/fix-exp3-acceptance.cjs",
+      "scripts/tests/README.md",
+      "scripts/tests/ui-interaction-browser.cjs"
+    ]
+  },
+  "originals": [
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\raw\\README.md",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\软管\\实验三\\raw\\实验一最终提交物\\第二组_项目规划方案.docx",
+      "unchanged": true
+    }
+  ],
+  "builtArtifacts": {
+    "backend/target/classroom-backend-0.0.1-SNAPSHOT.jar": "c4873e7774bf4d61ef16573072ee0617f142684ae8e3bbacabee132ccfe52d1b",
+    "frontend/dist/index.html": "d973a1393700bc05e3c975109c446bec09684944dc80f6c27267e933b42d2666"
+  }
+}
