@@ -1,0 +1,14 @@
+{
+  "ids": {
+    "SYN-CORE": 1,
+    "SYN-OPTION": 2,
+    "SYN-EMPTY": 3
+  },
+  "courseId": 1,
+  "evaluations": [
+    1,
+    2
+  ],
+  "templateId": 2,
+  "resourceId": 1
+}

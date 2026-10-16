@@ -1,0 +1,2306 @@
+[
+  {
+    "n": 1,
+    "id": "US-01",
+    "title": "课程建档与模板导入",
+    "role": "主任",
+    "group": "课程底座",
+    "steps": [
+      "教研室主任工作台 → 课程档案",
+      "单条建档：新增课程，填写唯一编码、专业、学分学时并保存",
+      "批量建档：批量导入课程 → 下载模板 → 选择CSV",
+      "查看预检成功数和逐行错误；修正后重新预检",
+      "确认导入并整批入库 → 检查课程列表"
+    ],
+    "apis": [
+      "POST /api/v1/courses",
+      "GET /api/v1/courses/import/template",
+      "POST /api/v1/courses/import/preview",
+      "POST /api/v1/courses/import/confirm",
+      "GET /api/v1/courses",
+      "DELETE /api/v1/courses/{id}（已有入口，非原件导入验收新增要求）"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/DirectorDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\DirectorDeskView.vue",
+        "line": 1210,
+        "symbol": "handleConfirmImport",
+        "why": "确认前校验批次可提交，成功后刷新课程",
+        "excerpt": "const handleConfirmImport = async () => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 661,
+        "symbol": "courseImportApi",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const courseImportApi = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseImportController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseImportController.java",
+        "line": 56,
+        "symbol": "confirmImport",
+        "why": "限制主任并将批次交给业务层",
+        "excerpt": "public ApiResponse<Map<String, Object>> confirmImport(@RequestBody ImportConfirmDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseImportServiceImpl.java",
+        "line": 420,
+        "symbol": "confirmImport",
+        "why": "整批校验、操作者绑定和一次消费，事务写入",
+        "excerpt": "public Map<String, Object> confirmImport(ImportConfirmDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseImportServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseImportServiceImpl.java",
+        "line": 194,
+        "symbol": "previewImport",
+        "why": "预检分支：逐行错误、引用冲突与批次生成",
+        "excerpt": "public ImportPreviewVO previewImport(MultipartFile file) throws IOException {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseServiceImpl.java",
+        "line": 46,
+        "symbol": "saveCourse",
+        "why": "单条录入路径：编码和专业/教研室边界",
+        "excerpt": "public Course saveCourse(CourseDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/Course.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\Course.java",
+        "line": 18,
+        "symbol": "t_course",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course\", indexes = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseImportLog.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseImportLog.java",
+        "line": 17,
+        "symbol": "t_course_import_log",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_import_log\")"
+      }
+    ],
+    "storage": "CourseRepository / CourseImportLogRepository → t_course、t_course_import_log",
+    "change": "预检生成临时batchId，不立即建课；确认后课程及导入日志入库。",
+    "points": [
+      "预检成功不等于已入库",
+      "编码唯一，错误批次不能确认；不能重复消费批次",
+      "允许手工录入与CSV两条入口，不把质量报表当课程导入模板"
+    ],
+    "normal": "有效CSV预览后确认，列表出现新课程并有操作者记录",
+    "edges": [
+      "缺项、负学分、批内重复与引用冲突 → 错误清单且不入库",
+      "其他操作者或过期批次确认 → 拒绝"
+    ],
+    "testSelectors": [
+      [
+        "CourseImportTest",
+        "testConfirmImport_Success"
+      ],
+      [
+        "CourseImportServiceTest",
+        "testPreviewImport_VariousValidationFailures"
+      ],
+      [
+        "CourseImportServiceTest",
+        "testConfirmImport_ForbiddenOperator"
+      ],
+      [
+        "CourseImportServiceTest",
+        "testConfirmImport_DuplicateConsumption"
+      ]
+    ],
+    "shot": "supplement/us01-import-error.png",
+    "story": "活动1.1:课程档案简介作为教研室主任，我希望录入或按模板批量导入课程档案，以便建立可追溯的课程底座。",
+    "acceptance": "编码唯一；导入前预览；缺项、重复与引用冲突返回错误清单；确认后写入并记录操作者。",
+    "table": 5,
+    "row": 2
+  },
+  {
+    "n": 2,
+    "id": "US-02",
+    "title": "课程内容草稿与发布",
+    "role": "教师",
+    "group": "课程底座",
+    "steps": [
+      "任课教师工作台 → 当前主讲课程 → 课程资料",
+      "填写课程简介、考核方式和教学目标",
+      "暂存草稿，核对草稿版本",
+      "正式发布 → 查看已发布版本和时间",
+      "再次编辑草稿，用另一读者验证仍显示旧正式版"
+    ],
+    "apis": [
+      "GET/POST /api/v1/courses/{courseId}/content/draft",
+      "POST /api/v1/courses/{courseId}/content/publish",
+      "GET /api/v1/courses/{courseId}/content/published"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/TeacherDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\TeacherDeskView.vue",
+        "line": 1333,
+        "symbol": "handleSaveDraft",
+        "why": "前端保存携带草稿身份及版本",
+        "excerpt": "const handleSaveDraft = async ():Promise<SaveResult> => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 641,
+        "symbol": "courseContentApi",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const courseContentApi = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseContentController.java",
+        "line": 60,
+        "symbol": "publishContent",
+        "why": "当前实现直接在控制器内进行事务发布与版本检查",
+        "excerpt": "public ApiResponse<CourseContentRevision> publishContent(@PathVariable Long courseId, @RequestBody ContentRevisionDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseContentController.java",
+        "line": 103,
+        "symbol": "checkedDraft",
+        "why": "比较draftId、lockVersion和发布基线，避免旧页面覆盖",
+        "excerpt": "private CourseContentRevision checkedDraft(Long courseId, ContentRevisionDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseContentController.java",
+        "line": 46,
+        "symbol": "saveDraft",
+        "why": "不完整草稿允许保存",
+        "excerpt": "public ApiResponse<CourseContentRevision> saveDraft(@PathVariable Long courseId, @RequestBody ContentRevisionDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseContentController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseContentController.java",
+        "line": 92,
+        "symbol": "getPublishedContent",
+        "why": "读者只取正式版",
+        "excerpt": "public ApiResponse<CourseContentRevision> getPublishedContent(@PathVariable Long courseId) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseContentRevision.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseContentRevision.java",
+        "line": 18,
+        "symbol": "t_course_content_revision",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_content_revision\", indexes = {"
+      }
+    ],
+    "storage": "CourseContentRevisionRepository → t_course_content_revision；CourseRepository锁定课程",
+    "change": "DRAFT → 保存；正式发布生成PUBLISHED历史版并创建后续草稿；发布人和时间可追溯。",
+    "points": [
+      "不完整内容可以暂存，但不能正式发布",
+      "这里没有独立ContentService，不能补画不存在的服务层",
+      "并发冲突返回409，读者只读已发布版本"
+    ],
+    "normal": "填齐三项并正式发布v1；修改草稿不污染v1，重发得到v2",
+    "edges": [
+      "必填缺失 → 发布400",
+      "另一个旧窗口暂存 → 409，未关联教师发布 → 403"
+    ],
+    "testSelectors": [
+      [
+        "CourseContentRevisionTest",
+        "testPublish_Success_IncrementsPublishVersion"
+      ],
+      [
+        "CourseContentRevisionTest",
+        "testPublish_MissingFields_Returns400"
+      ],
+      [
+        "CourseContentRevisionTest",
+        "testGetPublished_DraftEditingDoesNotPollutePublished"
+      ],
+      [
+        "CourseContentRevisionTest",
+        "testPublish_ForbiddenForNonRelatedTeacher"
+      ]
+    ],
+    "shot": "supplement/us02-publication.png",
+    "story": "活动1.1:课程档案简介作为任课教师，我希望编辑并发布课程简介、考核方式和教学目标，以便让师生理解课程要求。",
+    "acceptance": "草稿与发布状态分开；必填项完整；发布人和更新时间可追溯。",
+    "table": 5,
+    "row": 3
+  },
+  {
+    "n": 3,
+    "id": "US-03",
+    "title": "多教师开课与排课统筹",
+    "role": "主任",
+    "group": "课程底座",
+    "steps": [
+      "教研室主任工作台 → 开课排课",
+      "新建或编辑班次，选择主讲、协同教师及选课名单",
+      "为班次新增周次、星期、节次和教室",
+      "按学期、教师、周次、教室组合筛选",
+      "检查文管A447、95人样例和冲突提示"
+    ],
+    "apis": [
+      "GET/POST /api/v1/courses/offerings",
+      "PUT /api/v1/courses/offerings/{id}",
+      "GET/POST /api/v1/schedules",
+      "GET /api/v1/schedules/check-conflict",
+      "GET /api/v1/courses/offerings/{id}",
+      "DELETE /api/v1/schedules/{id}"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/OfferingScheduleBoard.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\OfferingScheduleBoard.vue",
+        "line": 647,
+        "symbol": "async function save",
+        "why": "按班次/排课表单分别调用API并显示冲突",
+        "excerpt": "async function save():Promise<SaveResult> {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 331,
+        "symbol": "scheduleApi",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const scheduleApi = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseScheduleController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseScheduleController.java",
+        "line": 42,
+        "symbol": "saveSchedule",
+        "why": "接收排课DTO",
+        "excerpt": "public ApiResponse<CourseSchedule> saveSchedule(@RequestBody CourseScheduleDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/CourseScheduleServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\CourseScheduleServiceImpl.java",
+        "line": 58,
+        "symbol": "saveSchedule",
+        "why": "校验可写班次、学期锁及教师/教室冲突",
+        "excerpt": "public CourseSchedule saveSchedule(CourseScheduleDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseOfferingManagementService.java",
+        "line": 41,
+        "symbol": "save",
+        "why": "多教师与名单维护，不等同单条排课",
+        "excerpt": "public CourseOffering save(Long id, CourseOfferingDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/ScheduleConflictService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\ScheduleConflictService.java",
+        "line": 39,
+        "symbol": "find(",
+        "why": "枚举教师及教室冲突；周次节次相交判断",
+        "excerpt": "public List<CourseSchedule> find(CourseOffering candidate, Set<String> codes, String room, int day,"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseOffering.java",
+        "line": 18,
+        "symbol": "t_course_offering",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_offering\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOfferingTeacher.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseOfferingTeacher.java",
+        "line": 17,
+        "symbol": "t_course_offering_teacher",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_offering_teacher\", indexes = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSchedule.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseSchedule.java",
+        "line": 18,
+        "symbol": "t_course_schedule",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_schedule\", indexes = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/OfferingStudentEnrollment.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\OfferingStudentEnrollment.java",
+        "line": 18,
+        "symbol": "t_offering_student_enrollment",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_offering_student_enrollment\", indexes = {"
+      }
+    ],
+    "storage": "CourseOfferingManagementService、CourseScheduleRepository → t_course_offering、t_course_offering_teacher、t_course_schedule、t_offering_student_enrollment",
+    "change": "开课班次关联多个教师和名单；排课记录单独保存，冲突时拒绝提交。",
+    "points": [
+      "课程档案、开课班次、排课记录是不同对象",
+      "协同教师也参加冲突校验；跨学期分开判断",
+      "95人为隔离合成名单，不是核实真实在读学生"
+    ],
+    "normal": "主任维护多教师班次和文管A447课表，展开周次与节次后显示95人",
+    "edges": [
+      "相交时段教师或教室冲突 → 409与原因",
+      "冻结班次修改或越权排课 → 拒绝"
+    ],
+    "testSelectors": [
+      [
+        "CourseBrowserMysqlTest",
+        "realBrowserWorkflow"
+      ],
+      [
+        "CourseScheduleMultiTeacherConflictTest",
+        "collaboratorAcrossClassroomsBlocksAndIdentifiesTeacher"
+      ],
+      [
+        "CourseScheduleConflictTest",
+        "sameOfferingDifferentClassroomStillConflicts"
+      ]
+    ],
+    "shot": "legacy-browser/us0203-schedule-sample.png",
+    "story": "活动1.2:开课统筹排课作为教研室主任，我希望按教师、周次、教室查看开课概览，以便统筹排课并发现冲突。",
+    "acceptance": "支持多教师开课；周次与节次展开正确；以资料中的文管A447、95人课程为样例核对展示。",
+    "table": 5,
+    "row": 4
+  },
+  {
+    "n": 4,
+    "id": "US-04",
+    "title": "历史开课与累计人次",
+    "role": "教师",
+    "group": "课程底座",
+    "steps": [
+      "任课教师工作台 → 开课历史",
+      "选择历史学期并查询",
+      "查看各班次教师、教室、人数和累计人次",
+      "查询不存在学期，确认空表及累计归零",
+      "归档支线由主任在开课排课操作结课归档"
+    ],
+    "apis": [
+      "GET /api/v1/courses/offerings/history?term={term}",
+      "POST /api/v1/courses/offerings/{id}/archive"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/OfferingHistoryPanel.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\OfferingHistoryPanel.vue",
+        "line": 263,
+        "symbol": "async function load",
+        "why": "查询后替换历史列表和统计，避免保留旧数据",
+        "excerpt": "async function load() {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 698,
+        "symbol": "offeringHistoryApi",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const offeringHistoryApi = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingHistoryController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseOfferingHistoryController.java",
+        "line": 44,
+        "symbol": "getOfferingHistory",
+        "why": "按角色过滤班次并计算累计人次",
+        "excerpt": "public ApiResponse<OfferingHistoryVO> getOfferingHistory(@RequestParam(required = false) String term) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingManagementService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseOfferingManagementService.java",
+        "line": 106,
+        "symbol": "archive",
+        "why": "归档冻结班次、人数和教学历史",
+        "excerpt": "public CourseOffering archive(Long id) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingHistoryController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseOfferingHistoryController.java",
+        "line": 72,
+        "symbol": "cumulativePersonTimes += count",
+        "why": "人次累计只按班次计数；冻结读快照",
+        "excerpt": "cumulativePersonTimes += count;"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseOffering.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseOffering.java",
+        "line": 18,
+        "symbol": "t_course_offering",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_offering\")"
+      }
+    ],
+    "storage": "CourseOfferingRepository / OfferingStudentEnrollmentRepository / OfferingHistorySnapshot → t_course_offering及history_snapshot",
+    "change": "在读人数来自名单；结课后使用冻结快照；同一班次多教师不重复累计。",
+    "points": [
+      "人数与累计人次不能混写",
+      "空结果必须清空旧统计",
+      "归档后不能通过排课或名单接口改写历史"
+    ],
+    "normal": "按学期看到历史班次，累计为班次人数之和；归档前后历史一致",
+    "edges": [
+      "不存在学期 → 空表且0人次",
+      "教师只见本人关联班次，冻结班次写入拒绝"
+    ],
+    "testSelectors": [
+      [
+        "CourseBrowserMysqlTest",
+        "realBrowserWorkflow"
+      ],
+      [
+        "CourseOfferingHistoryTest",
+        "testHistoryStatistics_EnrollmentAndFrozenSnapshot"
+      ],
+      [
+        "CourseOfferingHistoryTest",
+        "testTeacherRoleDataIsolation"
+      ]
+    ],
+    "shot": "legacy-browser/us0406-history.png",
+    "story": "活动1.2:开课统筹排课作为任课教师，我希望查询历史开课学期、教室与学生人次，以便为备课提供参考。",
+    "acceptance": "按学期过滤；人数与累计人次分开标注；查询结果与样例数据一致。",
+    "table": 5,
+    "row": 5
+  },
+  {
+    "n": 5,
+    "id": "US-05",
+    "title": "大纲与毕业要求指标关联",
+    "role": "主任、教师",
+    "group": "课程底座",
+    "steps": [
+      "主任工作台 → 指标矩阵 → 选择培养方案专业和版本",
+      "导入明确标注的合成指标目录",
+      "选择课程，从培养方案创建新大纲",
+      "教师工作台 → 指标矩阵 → 编辑支撑关系与权重",
+      "主任审查锁定；切换历史版本核对只读映射"
+    ],
+    "apis": [
+      "PUT /api/v1/syllabus/plans/{majorCode}/{version}/indicators",
+      "POST /api/v1/syllabus/course/{courseId}/from-plan",
+      "GET /api/v1/syllabus/course/{courseId}/indicators",
+      "POST /api/v1/syllabus/{id}/lock",
+      "GET /api/v1/syllabus/course/{courseId}",
+      "GET /api/v1/syllabus/course/{courseId}/latest",
+      "GET /api/v1/syllabus/course/{courseId}/indicators?syllabusId={id}",
+      "POST /api/v1/syllabus/course/{courseId}/indicators",
+      "PUT/DELETE /api/v1/syllabus/indicators/{id}"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/DirectorDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\DirectorDeskView.vue",
+        "line": 1034,
+        "symbol": "savePlanCatalog",
+        "why": "解析目录后调用培养方案导入接口",
+        "excerpt": "const savePlanCatalog = async () => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 365,
+        "symbol": "syllabusApi",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const syllabusApi = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\SyllabusController.java",
+        "line": 115,
+        "symbol": "importPlanIndicators",
+        "why": "限制牵头专业导入、校验引用版本不可随意替换",
+        "excerpt": "public ApiResponse<List<com.classroom.ai.modules.course.entity.TrainingIndicator>> importPlanIndicators("
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\SyllabusServiceImpl.java",
+        "line": 146,
+        "symbol": "lockSyllabus",
+        "why": "校验主任范围并锁定当前大纲版本",
+        "excerpt": "public CourseSyllabus lockSyllabus(Long syllabusId, String lockedBy) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\SyllabusController.java",
+        "line": 161,
+        "symbol": "createFromPlan",
+        "why": "新大纲绑定培养方案版本",
+        "excerpt": "public ApiResponse<CourseSyllabus> createFromPlan(@PathVariable Long courseId, @RequestBody CreateFromPlanRequest request) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/SyllabusController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\SyllabusController.java",
+        "line": 42,
+        "symbol": "getIndicators",
+        "why": "历史读取校验大纲确属该课程",
+        "excerpt": "public ApiResponse<List<GraduationIndicator>> getIndicators(@PathVariable Long courseId,"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/impl/SyllabusServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\impl\\SyllabusServiceImpl.java",
+        "line": 184,
+        "symbol": "updateIndicator",
+        "why": "编辑映射时校验大纲状态和指标目录",
+        "excerpt": "public GraduationIndicator updateIndicator(Long id, com.classroom.ai.modules.course.dto.IndicatorDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/TrainingIndicator.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\TrainingIndicator.java",
+        "line": 8,
+        "symbol": "t_training_indicator",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_training_indicator\", uniqueConstraints ="
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/CourseSyllabus.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\CourseSyllabus.java",
+        "line": 18,
+        "symbol": "t_course_syllabus",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_syllabus\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/entity/GraduationIndicator.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\entity\\GraduationIndicator.java",
+        "line": 18,
+        "symbol": "t_graduation_indicator",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_graduation_indicator\", indexes = {"
+      }
+    ],
+    "storage": "TrainingIndicatorRepository / CourseSyllabusRepository / GraduationIndicatorRepository → t_training_indicator、t_course_syllabus、t_graduation_indicator",
+    "change": "目录 → 绑定planVersion的大纲DRAFT → 指标映射 → LOCKED；不同大纲保留独立映射快照。",
+    "points": [
+      "指标数量随导入方案变化，不固定12条",
+      "合成目录仅验证机制，不是正式培养方案",
+      "历史版本只读，锁定后需新版本修改"
+    ],
+    "normal": "导入2条合成指标并创建大纲，编辑保存映射，锁定后历史可追溯",
+    "edges": [
+      "重复指标或引用版本替换 → 拒绝",
+      "跨课程历史ID读取、锁定后写入 → 拒绝"
+    ],
+    "testSelectors": [
+      [
+        "Sprint2MysqlTest",
+        "syllabusVersionsKeepTheirOwnMappings"
+      ],
+      [
+        "SyllabusHistoryHttpTest",
+        "versionOfAnotherCourseCannotBeReadThroughAnAuthorizedCourse"
+      ],
+      [
+        "SyllabusHistoryHttpTest",
+        "unauthorizedCourseDoesNotExposeItsHistory"
+      ]
+    ],
+    "shot": "sprint2-browser/core/00-teacher-syllabus-mapping.png",
+    "story": "活动1.3:大纲认证关联作为教研室主任，我希望维护课程大纲与毕业要求指标的对应关系，以便支持专业认证材料整理。",
+    "acceptance": "指标数量由导入的培养方案确定；映射可编辑、保存版本并追溯，不硬编码12条。",
+    "table": 6,
+    "row": 2
+  },
+  {
+    "n": 6,
+    "id": "US-06",
+    "title": "督导授权范围内组合检索",
+    "role": "督导",
+    "group": "课程底座",
+    "steps": [
+      "教学督导工作台 → 课程检索",
+      "选择授权专业、学期、教师，输入课程关键词",
+      "逐个单条件查询，再组合查询",
+      "清空筛选与不存在条件分别核对",
+      "记录样本规模、请求次数及响应时间"
+    ],
+    "apis": [
+      "GET /api/v1/courses/offerings?term=&majorId=&teacherId=&keyword="
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/SupervisorDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\SupervisorDeskView.vue",
+        "line": 1003,
+        "symbol": "handleFilterChange",
+        "why": "筛选变化触发请求，迟到结果受请求代次约束",
+        "excerpt": "const handleFilterChange = () => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 281,
+        "symbol": "getOfferings:",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "getOfferings: async (term?: string, teacher?: string, keyword?: string, query: OfferingQuery = {}): Promise<CourseOffering[]> => {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/controller/CourseOfferingQueryController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\controller\\CourseOfferingQueryController.java",
+        "line": 15,
+        "symbol": "search",
+        "why": "传递多个可选筛选参数",
+        "excerpt": "public ApiResponse<List<CourseOffering>> search(@RequestParam(required=false) String term,"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseOfferingQueryService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseOfferingQueryService.java",
+        "line": 23,
+        "symbol": "search",
+        "why": "先授权过滤，再按学期、教师和关键词AND筛选",
+        "excerpt": "public List<CourseOffering> search(String term,String teacher,String keyword,String majorCode,Long majorId,Long teacherId) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/course/service/CourseAuthorizationService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\course\\service\\CourseAuthorizationService.java",
+        "line": 178,
+        "symbol": "filterOfferings",
+        "why": "按主任/教师/督导分别限定班次读取范围",
+        "excerpt": "public List<CourseOffering> filterOfferings(List<CourseOffering> list) {"
+      }
+    ],
+    "storage": "CourseOfferingRepository、CourseAuthorizationService → 开课、课程、主讲/协同关系及授权专业",
+    "change": "只读查询，不写业务数据；未授权专业不能因组合条件而泄露。",
+    "points": [
+      "组合条件是AND",
+      "教师编码/ID比姓名更可靠，同名不代表同一身份",
+      "实测延迟仅适用于记录的数据量，不承诺无条件300ms"
+    ],
+    "normal": "授权专业＋学期＋协同教师＋关键词组合得到预期班次",
+    "edges": [
+      "不存在条件 → 空列表",
+      "显式未授权专业或课程详情 → 403"
+    ],
+    "testSelectors": [
+      [
+        "CourseBrowserMysqlTest",
+        "realBrowserWorkflow"
+      ]
+    ],
+    "shot": "legacy-browser/us0406-supervisor.png",
+    "story": "活动1.3:大纲认证关联作为教学督导，我希望按专业、学期和教师组合检索课程，以便定位待听课对象。",
+    "acceptance": "单条件与组合条件均有测试；越权不可查询；记录测试数据量和响应时间，不承诺无条件300ms。",
+    "table": 5,
+    "row": 6
+  },
+  {
+    "n": 7,
+    "id": "US-07",
+    "title": "按章节上传教学材料",
+    "role": "教师",
+    "group": "教学资源",
+    "steps": [
+      "任课教师工作台 → 课程资料 → 上传新课件/教案",
+      "选择课程对应章节，填写名称",
+      "选择PDF或允许的Office文件，选择标签与共享范围",
+      "立即挂载 → 查看资源列表和失败提示"
+    ],
+    "apis": [
+      "POST /api/v1/resources/upload"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/TeacherDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\TeacherDeskView.vue",
+        "line": 1314,
+        "symbol": "handleSaveResource",
+        "why": "组织章节、标签、共享和实际文件",
+        "excerpt": "const handleSaveResource = async ():Promise<SaveResult> => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 447,
+        "symbol": "uploadFile:",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "uploadFile: async (file: File, data: { courseId: number; chapter: string; resourceName: string; tags: string[]; isPublic: boolean }): Promise<any> => {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+        "line": 47,
+        "symbol": "uploadResourceFile",
+        "why": "校验课程、允许类型及大小，保存文件后调用元数据服务",
+        "excerpt": "public ApiResponse<CourseResource> uploadResourceFile(@RequestParam(\"file\") MultipartFile file,"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/CourseResourceServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\impl\\CourseResourceServiceImpl.java",
+        "line": 45,
+        "symbol": "saveResource",
+        "why": "再次检查大小及课程写权，保存元数据并接入版本系列",
+        "excerpt": "public CourseResource saveResource(CourseResourceDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+        "line": 61,
+        "symbol": "file.getSize() > maxFileBytes",
+        "why": "上传大小阈值配置实际执行位置",
+        "excerpt": "if (file.getSize() > maxFileBytes) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceFileService.java",
+        "line": 65,
+        "symbol": "public byte[] preview",
+        "why": "内容有效性在预览转换阶段判定，不冒称上传时已检测",
+        "excerpt": "public byte[] preview(String token) throws IOException {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\CourseResource.java",
+        "line": 19,
+        "symbol": "t_course_resource",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_resource\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ResourceSeries.java",
+        "line": 5,
+        "symbol": "s3_resource_series",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_resource_series\")"
+      }
+    ],
+    "storage": "CourseResourceRepository / ResourceVersionService → t_course_resource、s3_resource_series及隔离上传目录",
+    "change": "实际文件与课程、章节绑定；新资源建立系列及首版；类型或大小校验失败不创建资源；损坏Office可能上传成功，但转换预览会失败。",
+    "points": [
+      "上限和允许类型以配置为准，默认100MB",
+      "Office预览依赖LibreOffice；上传按后缀校验类型，损坏Office在转换预览阶段失败",
+      "共享只影响读取，不授予修改权"
+    ],
+    "normal": "有效PDF/DOCX/PPTX上传后列表可见并可渲染",
+    "edges": [
+      "超100MB或禁用类型 → 上传拒绝；损坏Office → 转换预览失败并提示",
+      "PDF-only/1024字节配置必须生效"
+    ],
+    "testSelectors": [
+      [
+        "CourseResourceServiceTest",
+        "testUploadValidResource_ShouldGenerateWatermark"
+      ],
+      [
+        "CourseResourceServiceTest",
+        "testUploadSizeLimit_Over100MB_ShouldThrowException"
+      ]
+    ],
+    "shot": "supplement/us07-upload.png",
+    "story": "活动2.1:课件教案上传作为任课教师，我希望按章节上传课件、教案和实验指导书，以便集中维护教学材料。",
+    "acceptance": "允许类型与大小限制可配置；上传失败有提示；资源绑定课程并校验访问权限。",
+    "table": 6,
+    "row": 3
+  },
+  {
+    "n": 8,
+    "id": "US-08",
+    "title": "教学环节多选标签",
+    "role": "教师",
+    "group": "教学资源",
+    "steps": [
+      "教师工作台 → 课程资料",
+      "上传时多选理论、实验、讨论等实际选项",
+      "资源卡片 → 编辑标签与共享 → 保存修改",
+      "分别点击单个标签、未标注和全部，核对结果"
+    ],
+    "apis": [
+      "POST /api/v1/resources",
+      "GET /api/v1/resources?tag={tag}"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/TeacherDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\TeacherDeskView.vue",
+        "line": 1308,
+        "symbol": "saveResourceMetadata",
+        "why": "只发送可编辑元数据并刷新列表",
+        "excerpt": "const saveResourceMetadata = async ():Promise<SaveResult> => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 433,
+        "symbol": "export const resourceApi =",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const resourceApi = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+        "line": 144,
+        "symbol": "saveResource",
+        "why": "元数据编辑入口；此处执行标签白名单校验",
+        "excerpt": "public ApiResponse<CourseResource> saveResource(@RequestBody CourseResourceDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/CourseResourceServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\impl\\CourseResourceServiceImpl.java",
+        "line": 45,
+        "symbol": "saveResource",
+        "why": "校验资源归属、可写权限并保存元数据；白名单在控制器执行",
+        "excerpt": "public CourseResource saveResource(CourseResourceDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+        "line": 152,
+        "symbol": "dto.getTags().stream()",
+        "why": "非法元数据标签在此拒绝，防绕过UI",
+        "excerpt": "if (dto.getTags() != null && dto.getTags().stream()"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\CourseResource.java",
+        "line": 19,
+        "symbol": "t_course_resource",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_resource\")"
+      }
+    ],
+    "storage": "CourseResourceRepository → t_course_resource.tags；ResourceVersionService同步系列共享",
+    "change": "文件及课程归属不变，仅标签和共享属性更新；空标签按未标注展示。",
+    "points": [
+      "原文举例“研讨”，当前界面选项为“讨论”，按实际白名单说明",
+      "不能借元数据更新重挂文件或改课程",
+      "多选与无标签均需要筛选验证"
+    ],
+    "normal": "勾选多标签保存后，各标签筛选均能找到资源",
+    "edges": [
+      "非法标签 → 拒绝",
+      "清空标签 → 未标注可见且筛选正确"
+    ],
+    "testSelectors": [
+      [
+        "Sprint2MysqlTest",
+        "resourceVisibilityTagsAndExpiringPreview"
+      ]
+    ],
+    "shot": "sprint2-browser/core/02-edit-tags-and-sharing.png",
+    "story": "活动2.1:课件教案上传作为任课教师，我希望为资源标注理论、实验或研讨等环节，以便方便分类查找。",
+    "acceptance": "多选标签可维护；标签筛选结果正确；无标签资源有明确显示。",
+    "table": 6,
+    "row": 4
+  },
+  {
+    "n": 9,
+    "id": "US-09",
+    "title": "限时授权水印预览",
+    "role": "督导",
+    "group": "教学资源",
+    "steps": [
+      "教学督导工作台 → 课程检索 → 选择班次",
+      "课件免密预审 → 选择资料",
+      "打开限时水印预览 → 翻页查看真实内容",
+      "到期、权限撤销或换账号后重试旧链接"
+    ],
+    "apis": [
+      "POST /api/v1/resources/{id}/preview-ticket",
+      "GET /api/v1/resources/preview/{ticket}",
+      "GET /api/v1/resources/{id}（前端周期复核）",
+      "GET /api/v1/resources/{id}/download（督导拒绝）"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/SupervisorDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\SupervisorDeskView.vue",
+        "line": 1137,
+        "symbol": "previewResource",
+        "why": "申请受控PDF并周期复核访问权",
+        "excerpt": "const previewResource = async (resource: CourseResource) => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 460,
+        "symbol": "getPreviewPdf:",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "getPreviewPdf: async (id: number): Promise<Blob> => {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+        "line": 185,
+        "symbol": "preview",
+        "why": "消费短期票据并返回PDF字节",
+        "excerpt": "public ResponseEntity<ByteArrayResource> preview(@PathVariable String ticket) throws IOException {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceFileService.java",
+        "line": 65,
+        "symbol": "preview",
+        "why": "再次校验申请人、到期、权限和授权纪元，生成水印与日志",
+        "excerpt": "public byte[] preview(String token) throws IOException {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceFileService.java",
+        "line": 56,
+        "symbol": "createTicket",
+        "why": "申请票据时绑定当前申请人和授权纪元",
+        "excerpt": "public String createTicket(Long id, UserVO viewer) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceFileService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceFileService.java",
+        "line": 156,
+        "symbol": "watermarkImage",
+        "why": "预览水印生成",
+        "excerpt": "private BufferedImage watermarkImage(UserVO viewer) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceAccessService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceAccessService.java",
+        "line": 36,
+        "symbol": "requireRead",
+        "why": "票据有效也必须仍有当前读取权限",
+        "excerpt": "public void requireRead(CourseResource resource) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/entity/ResourceAccessLog.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\ResourceAccessLog.java",
+        "line": 8,
+        "symbol": "t_resource_access_log",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_resource_access_log\")"
+      }
+    ],
+    "storage": "ResourceAccessService / ResourceAccessLogRepository → t_resource_access_log；票据及文件转换缓存",
+    "change": "登录 → 课程授权 → 票据 → 再鉴权 → 水印PDF → 访问日志。",
+    "points": [
+      "免密表示无需额外文件密码，仍要求登录与授权",
+      "默认5分钟，按配置变化；旧票据撤销后也失效",
+      "受控预览不等于原件下载，不承诺防截屏"
+    ],
+    "normal": "授权督导打开真实PDF/Office转换内容，水印及访问日志存在",
+    "edges": [
+      "到期或跨申请人使用票据 → 拒绝",
+      "原件直链或授权撤销后的旧票据 → 拒绝"
+    ],
+    "testSelectors": [
+      [
+        "Sprint2MysqlTest",
+        "resourceVisibilityTagsAndExpiringPreview"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "cachedPreviewAndOldTicketsAreRejectedAfterRevocation"
+      ]
+    ],
+    "shot": "sprint2-browser/office/protected-supervisor.png",
+    "story": "活动2.2:检索在线预览作为教学督导，我希望在授权范围内在线预览课程资料，以便提前了解教学设计。",
+    "acceptance": "已登录用户经权限校验后预览；临时链接到期失效；基础水印和访问日志随预览上线。",
+    "table": 6,
+    "row": 5
+  },
+  {
+    "n": 10,
+    "id": "US-10",
+    "title": "教研室共享资源检索",
+    "role": "教师",
+    "group": "教学资源",
+    "steps": [
+      "资源所属教师 → 课程资料 → 编辑标签与共享 → 勾选教研室共享",
+      "同室其他教师 → 共享备课 → 输入资源关键词 → 检索共享资源",
+      "授权预览，核对只有读取权限",
+      "资源所属教师撤销共享，原读者刷新及重试旧票据"
+    ],
+    "apis": [
+      "GET /api/v1/resources?isPublic=true&keyword=",
+      "POST /api/v1/resources"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/TeacherDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\TeacherDeskView.vue",
+        "line": 1289,
+        "symbol": "loadSharedResources",
+        "why": "共享备课库按关键词请求授权资源",
+        "excerpt": "const loadSharedResources = async () => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 436,
+        "symbol": "search: async (params:",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "search: async (params: { courseId?: number; tag?: string; isPublic?: boolean; keyword?: string }): Promise<any[]> => {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\controller\\CourseResourceController.java",
+        "line": 121,
+        "symbol": "searchResources",
+        "why": "接收共享和标签筛选",
+        "excerpt": "public ApiResponse<List<CourseResource>> searchResources(@RequestParam(required = false) Long courseId,"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceAccessService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\service\\ResourceAccessService.java",
+        "line": 21,
+        "symbol": "canRead",
+        "why": "角色、课程授权及同教研室共享共同判断",
+        "excerpt": "public boolean canRead(CourseResource resource) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceVersionService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ResourceVersionService.java",
+        "line": 56,
+        "symbol": "public void sharing",
+        "why": "撤销共享提升授权纪元，旧票据收回",
+        "excerpt": "public void sharing(CourseResource r,Boolean shared) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\CourseResource.java",
+        "line": 19,
+        "symbol": "t_course_resource",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_resource\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ResourceSeries.java",
+        "line": 5,
+        "symbol": "s3_resource_series",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_resource_series\")"
+      }
+    ],
+    "storage": "CourseResourceRepository / ResourceAccessService → t_course_resource、s3_resource_series",
+    "change": "共享true → 同室教师可发现和预览；撤销时授权epoch变化，旧访问同时收回。",
+    "points": [
+      "isPublic在本项目表示受控教研室共享，不是互联网公开",
+      "可读不意味着可改、可下载",
+      "课程授权与共享读取权限不能混同"
+    ],
+    "normal": "同室跨教师、跨课程搜索到共享资料并预览",
+    "edges": [
+      "未共享、外教研室资源不出现在结果",
+      "撤销后旧票据、旧预览与详情不可继续访问"
+    ],
+    "testSelectors": [
+      [
+        "Sprint2MysqlTest",
+        "resourceVisibilityTagsAndExpiringPreview"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "revocationClosesOldIdAndReadsFreshEpoch"
+      ]
+    ],
+    "shot": "sprint2-browser/core/01-cross-teacher-shared-search.png",
+    "story": "活动2.2:检索在线预览作为任课教师，我希望检索教研室内允许共享的优秀教学资源，以便支持集体备课。",
+    "acceptance": "公开范围与角色权限共同生效；搜索结果不得暴露未授权文件。",
+    "table": 6,
+    "row": 6
+  },
+  {
+    "n": 11,
+    "id": "US-11",
+    "title": "资源版本与当前版控制",
+    "role": "主任、教师",
+    "group": "教学资源",
+    "steps": [
+      "统计与反馈 → 资源版本 → 刷新资源",
+      "选择当前资源，查看系列、版本号及历史ID",
+      "教师选择新文件 → 上传新版并设为当前",
+      "主任选择历史版 → 设为当前版",
+      "按固定历史ID预览，验证旧文件仍保留"
+    ],
+    "apis": [
+      "GET /api/v1/resources/{id}/history",
+      "POST /api/v1/resources/upload",
+      "PUT /api/v1/resources/series/{id}/current",
+      "GET /api/v1/resources/series/{id}/current"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/ResourceVersionsPanel.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\ResourceVersionsPanel.vue",
+        "line": 57,
+        "symbol": "async function selectVersion",
+        "why": "携带series.revision防止并发切换",
+        "excerpt": "async function selectVersion(v:any){"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 25,
+        "symbol": "public Object current(",
+        "why": "当前版本切换API",
+        "excerpt": "@PutMapping(\"/api/v1/resources/series/{id}/current\") public Object current(@PathVariable Long id,@RequestBody Current r){return ApiResponse.success(versions.select(id,r.versionId,r.expectedVersion));}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceVersionService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ResourceVersionService.java",
+        "line": 48,
+        "symbol": "public ResourceSeries select",
+        "why": "校验系列归属、权限和expectedVersion",
+        "excerpt": "public ResourceSeries select(Long id,Long versionId,Long expected) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceVersionService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ResourceVersionService.java",
+        "line": 18,
+        "symbol": "public CourseResource attach",
+        "why": "上传新版锁系列并验证expectedVersion",
+        "excerpt": "public CourseResource attach(CourseResource r,Long seriesId,Long expected) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceVersionService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ResourceVersionService.java",
+        "line": 42,
+        "symbol": "public Map<String,Object> history",
+        "why": "历史读取依然经过授权",
+        "excerpt": "public Map<String,Object> history(Long id) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ResourceSeries.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ResourceSeries.java",
+        "line": 5,
+        "symbol": "s3_resource_series",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_resource_series\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/entity/CourseResource.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\CourseResource.java",
+        "line": 19,
+        "symbol": "t_course_resource",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_course_resource\")"
+      }
+    ],
+    "storage": "EntityManager / CourseResourceRepository → s3_resource_series、t_course_resource",
+    "change": "同一系列增加versionNumber与固定资源ID；currentVersionId切换，旧文件和历史ID不重写。",
+    "points": [
+      "版本号、资源ID、系列ID是不同标识",
+      "并发旧revision应返回409",
+      "共享只读者不能上传新版本或切换当前版"
+    ],
+    "normal": "新增第二版后旧版可追溯；主任切回首版且指针正确",
+    "edges": [
+      "旧revision切换 → 409",
+      "同名共享教师不能借名称取得所有权"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "resourceConcurrentUploadsAndFixedHistoricalIds"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "databaseRejectsCrossSeriesPointerAndDuplicateVersion"
+      ]
+    ],
+    "shot": "sprint3-browser/us11-versions.png",
+    "story": "活动2.3:版本版权控制作为教研室主任，我希望查看资源历史版本并控制可用版本，以便追溯资源修订。",
+    "acceptance": "上传新版本保留旧版记录；当前版本可识别；基础鉴权与水印沿用US-09，不延后补安全控制。",
+    "table": 7,
+    "row": 2
+  },
+  {
+    "n": 12,
+    "id": "US-12",
+    "title": "授权微格片段与元数据回看",
+    "role": "管理员；主任、教师按授权课程操作",
+    "group": "教学资源",
+    "steps": [
+      "微格教学视频 → 选择微格课程",
+      "上传授权合成MP4，填写来源、授权声明和教学环节",
+      "按服务端识别时长填写起止毫秒并挂载片段",
+      "可选填写课堂分析元数据，由管理员复核",
+      "回看片段，验证拖动边界及终点自动停止"
+    ],
+    "apis": [
+      "POST /api/v1/admin/micro-assets",
+      "POST /api/v1/admin/micro-slices",
+      "GET /api/v1/admin/micro-slices/{id}/video",
+      "POST /api/v1/admin/micro-slices/{id}/review",
+      "GET /api/v1/admin/courses",
+      "GET /api/v1/admin/micro-assets?courseId=",
+      "GET /api/v1/admin/micro-slices?courseId=",
+      "PUT/DELETE /api/v1/admin/micro-slices/{id}",
+      "POST/GET /api/v1/resources/micro-assets（非管理员授权课程入口）"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/MicroTeachingView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\MicroTeachingView.vue",
+        "line": 91,
+        "symbol": "const mount=",
+        "why": "提交来源与起止区间，播放器按毫秒限定范围",
+        "excerpt": "const mount=()=>run(async()=>{"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 29,
+        "symbol": "public Object mount(",
+        "why": "微格挂载与管理员元数据复核入口",
+        "excerpt": "@PostMapping(\"/api/v1/admin/micro-slices\") public Object mount(@RequestBody MicroTeachingSliceDTO in){return ApiResponse.success(video.mount(in));}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAssetService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\VideoAssetService.java",
+        "line": 74,
+        "symbol": "public MicroTeachingSlice mount",
+        "why": "课程、资产、来源、区间、标签和分析元数据验证",
+        "excerpt": "public MicroTeachingSlice mount(MicroTeachingSliceDTO d){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAssetService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\VideoAssetService.java",
+        "line": 62,
+        "symbol": "public long probe",
+        "why": "服务端探测视频时长",
+        "excerpt": "public long probe(Path file)throws java.io.IOException{"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAssetService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\VideoAssetService.java",
+        "line": 89,
+        "symbol": "validateAnalysis",
+        "why": "分析元数据字段、区间与数量限制",
+        "excerpt": "public static void validateAnalysis(JsonNode n,long duration){"
+      },
+      {
+        "file": "frontend/src/views/MicroTeachingView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\MicroTeachingView.vue",
+        "line": 117,
+        "symbol": "function seek",
+        "why": "播放器阻止拖出片段",
+        "excerpt": "function seek(){const p=player.value,i=interval;if(!p||!i)return;const low=i.startMs/1000,high=(i.endMs-1)/1000;if(p.currentTime<low)p.currentTime=low;else if(p.currentTime>high){p.pause();p.currentTime=high}}"
+      },
+      {
+        "file": "frontend/src/views/MicroTeachingView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\MicroTeachingView.vue",
+        "line": 118,
+        "symbol": "function bound",
+        "why": "达到片段终点自动暂停",
+        "excerpt": "function bound(){const p=player.value,i=interval;if(p&&i&&p.currentTime>=i.endMs/1000){p.pause();p.currentTime=(i.endMs-1)/1000}}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/VideoAsset.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\VideoAsset.java",
+        "line": 5,
+        "symbol": "s3_video_asset",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_video_asset\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/resource/entity/MicroTeachingSlice.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\resource\\entity\\MicroTeachingSlice.java",
+        "line": 18,
+        "symbol": "t_micro_teaching_slice",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_micro_teaching_slice\")"
+      }
+    ],
+    "storage": "EntityManager → s3_video_asset、t_micro_teaching_slice及微格文件目录",
+    "change": "上传资产由ffprobe确认时长；片段引用资产和起止区间；元数据复核另有记录。",
+    "points": [
+      "2秒视频、500–1500毫秒区间是纯合成样例",
+      "不声称自动切片、自动课堂分析或真实设备识别",
+      "非管理员只有课程授权内操作；未复核分析数据不直接公开"
+    ],
+    "normal": "上传2秒合成视频，挂载500–1500ms，播放器限制拖动并在终点停止",
+    "edges": [
+      "负起点、反向区间、超时长或缺来源 → 拒绝",
+      "文件哈希改变、越权资产或不可用探测工具 → 拒绝/503"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "realVideoDurationAndAllSixStagesAreVerifiedOnServer"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "changedVideoHashBlocksPlaybackAndReplacementDoesNotMoveOldInterval"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "invalidProbeDoesNotSaveAssetAndUnavailableToolReturns503"
+      ]
+    ],
+    "shot": "sprint3-browser/admin-video-segment.png",
+    "story": "活动2.3:版本版权控制作为系统管理员，我希望挂载经授权的微格切片及课堂分析元数据，以便为课堂回看和后续分析接入提供接口。",
+    "acceptance": "校验课程、片段起止时间、标签和来源；能按片段回看；接口测试使用授权样例，不声称已实现自动切片。",
+    "table": 7,
+    "row": 3
+  },
+  {
+    "n": 13,
+    "id": "US-13",
+    "title": "结构化听课评价",
+    "role": "督导",
+    "group": "评价与改进",
+    "steps": [
+      "督导工作台 → 课程检索 → 目标班次 → 随堂评价",
+      "选择已发布模板，填写主题与四维评分",
+      "填写至少3条不同亮点、建议及问题标签",
+      "暂存草稿；重新打开检查",
+      "正式提交（待审核） → 主任审核队列"
+    ],
+    "apis": [
+      "GET /api/v1/sprint3/templates",
+      "POST /api/v1/supervisions",
+      "GET /api/v1/supervisions/{id}"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/SupervisorDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\SupervisorDeskView.vue",
+        "line": 1204,
+        "symbol": "handleSaveEvaluation",
+        "why": "暂存和正式提交使用同一事件的isDraft分支",
+        "excerpt": "const handleSaveEvaluation = async (isDraft: boolean):Promise<SaveResult> => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 511,
+        "symbol": "supervisionApi",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const supervisionApi = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\controller\\SupervisionController.java",
+        "line": 50,
+        "symbol": "submitEvaluation",
+        "why": "接收评价DTO并返回状态",
+        "excerpt": "public ApiResponse<SupervisionEvaluation> submitEvaluation(@RequestBody EvaluationSubmitDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionServiceImpl.java",
+        "line": 87,
+        "symbol": "submitEvaluation",
+        "why": "绑定实际督导身份，验证模板、评分、亮点及版本",
+        "excerpt": "public SupervisionEvaluation submitEvaluation(EvaluationSubmitDTO dto) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/EvaluationTemplateService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\EvaluationTemplateService.java",
+        "line": 55,
+        "symbol": "public static Double total",
+        "why": "正权重评分必填，明确0分合法，使用服务端模板计算",
+        "excerpt": "public static Double total(Double[] scores,TemplateVersion v,boolean draft) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\entity\\SupervisionEvaluation.java",
+        "line": 19,
+        "symbol": "t_supervision_evaluation",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_supervision_evaluation\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Advice.java",
+        "line": 5,
+        "symbol": "s3_advice",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_advice\")"
+      }
+    ],
+    "storage": "SupervisionEvaluationRepository / EvaluationTemplateService → t_supervision_evaluation、s3_advice",
+    "change": "DRAFT/REJECTED → 编辑暂存 → PENDING_REVIEW；写入模板ID与权重快照。",
+    "points": [
+      "示例四维是态度、内容、方法、效果",
+      "零分合法；缺失评分与零分不同",
+      "暂存允许不完整，提交按正权重维度校验"
+    ],
+    "normal": "不完整评价先暂存，补齐主题、评分与亮点后提交待审核",
+    "edges": [
+      "缺失/空正权重评分或不足3条不同亮点 → 拒绝",
+      "过时expectedVersion → 并发冲突"
+    ],
+    "testSelectors": [
+      [
+        "SupervisionServiceTest",
+        "incompleteDraftCanStillBeSaved"
+      ],
+      [
+        "SupervisionServiceTest",
+        "explicitZeroScoresCanBeSubmitted"
+      ],
+      [
+        "SupervisionServiceTest",
+        "formalSubmissionRejectsMissingScores(String)[1]"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "evaluationConcurrentDraftEditHasOneWinner"
+      ]
+    ],
+    "shot": "supplement/us13-evaluation-form.png",
+    "story": "活动3.1:督导随堂评价作为教学督导，我希望提交结构化听课评价，以便形成可检索的督导记录。",
+    "acceptance": "教学态度、内容、方法、效果作为本版示例维度；可配置权重；支持暂存、必填校验和审核状态。",
+    "table": 6,
+    "row": 7
+  },
+  {
+    "n": 14,
+    "id": "US-14",
+    "title": "审核、延迟与匿名反馈",
+    "role": "主任、督导、教师",
+    "group": "评价与改进",
+    "steps": [
+      "督导正式提交评价",
+      "主任工作台 → 评价审核 → 查看评价 → 通过或驳回",
+      "驳回后督导修改并重新提交",
+      "通过后核对反馈发布时间，教师到期前不可见",
+      "到期后教师工作台 → 教学反馈，核对身份脱敏与审核日志"
+    ],
+    "apis": [
+      "POST /api/v1/supervisions/{id}/review",
+      "GET /api/v1/supervisions/{id}/audit",
+      "GET /api/v1/supervisions?offeringId={id}"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/DirectorDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\DirectorDeskView.vue",
+        "line": 1053,
+        "symbol": "reviewEvaluation",
+        "why": "发送通过/驳回决定并刷新审核队列",
+        "excerpt": "const reviewEvaluation = async (id: number, approved: boolean) => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 527,
+        "symbol": "review:",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "review: async (id: number, approved: boolean, note = ''): Promise<any> => {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\controller\\SupervisionController.java",
+        "line": 69,
+        "symbol": "public ApiResponse<SupervisionEvaluation> review",
+        "why": "主任审核接口",
+        "excerpt": "public ApiResponse<SupervisionEvaluation> review(@PathVariable Long id, @RequestBody ReviewRequest request) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionServiceImpl.java",
+        "line": 201,
+        "symbol": "reviewEvaluation",
+        "why": "记录审核人与时间并计算可配置publishTime",
+        "excerpt": "public SupervisionEvaluation reviewEvaluation(Long id, boolean approved, String note) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionServiceImpl.java",
+        "line": 254,
+        "symbol": "private SupervisionEvaluation anonymize",
+        "why": "教师响应去除督导和审核身份",
+        "excerpt": "private SupervisionEvaluation anonymize(SupervisionEvaluation e) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionServiceImpl.java",
+        "line": 265,
+        "symbol": "private void audit",
+        "why": "修改与审核留存审计",
+        "excerpt": "private void audit(SupervisionEvaluation e, UserVO actor, String oldStatus, String action) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionServiceImpl.java",
+        "line": 220,
+        "symbol": "refreshDesensitizeStatus",
+        "why": "到期状态刷新与可见判断配合",
+        "excerpt": "public void refreshDesensitizeStatus() {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\entity\\SupervisionEvaluation.java",
+        "line": 19,
+        "symbol": "t_supervision_evaluation",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_supervision_evaluation\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/EvaluationAuditLog.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\entity\\EvaluationAuditLog.java",
+        "line": 8,
+        "symbol": "t_evaluation_audit_log",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_evaluation_audit_log\")"
+      }
+    ],
+    "storage": "SupervisionEvaluationRepository / EvaluationAuditLogRepository → t_supervision_evaluation、t_evaluation_audit_log",
+    "change": "PENDING_REVIEW → REJECTED或APPROVED_PENDING → 到期反馈可见/PUBLISHED；教师响应移除督导及审核身份。",
+    "points": [
+      "默认24h来自审核时间，配置为0时可即时发布",
+      "测试推进隔离记录时间，不假装真实等候24h",
+      "脱敏降低直接身份暴露，不承诺小样本情境的无条件匿名"
+    ],
+    "normal": "主任通过后默认延迟86400秒，到期前教师403，到期后匿名反馈可见",
+    "edges": [
+      "驳回可修改重提并留审计",
+      "非主任审核、到期前教师访问或未审核直接公开 → 拒绝"
+    ],
+    "testSelectors": [
+      [
+        "Sprint2MysqlTest",
+        "reviewDelayAndSemesterCoverage"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "managementCountsApprovedBeforeFeedbackButTeacherCannotSee"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "publishedWithoutAuditIsNeverIncluded"
+      ]
+    ],
+    "shot": "supplement/us14-published-feedback.png",
+    "story": "活动3.1:督导随堂评价作为教学督导，我希望提交亮点与改进意见并经审核反馈教师，以便支持有依据的教学改进。",
+    "acceptance": "审核后按角色反馈并脱敏；延迟时长可配置，演示默认24小时；保留修改与审核日志。",
+    "table": 6,
+    "row": 8
+  },
+  {
+    "n": 15,
+    "id": "US-15",
+    "title": "学期课程覆盖统计",
+    "role": "督导",
+    "group": "统计与分析",
+    "steps": [
+      "督导工作台 → 课程检索",
+      "选择学期，查看开课数、覆盖数及覆盖率",
+      "查看覆盖明细与评价记录",
+      "用明细重算分母和去重分子",
+      "排除无效班次，比较相同课程多个班次"
+    ],
+    "apis": [
+      "GET /api/v1/supervisions/analytics/dashboard?term=",
+      "GET /api/v1/supervisions/analytics/coverage?term="
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/views/SupervisorDeskView.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\views\\SupervisorDeskView.vue",
+        "line": 1117,
+        "symbol": "loadAnalytics",
+        "why": "使用选定学期加载指标及可追溯明细",
+        "excerpt": "const loadAnalytics = async () => {"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 531,
+        "symbol": "getCoverage:",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "getCoverage: async (term?: string): Promise<any[]> => {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/controller/SupervisionAnalyticsController.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\controller\\SupervisionAnalyticsController.java",
+        "line": 35,
+        "symbol": "getCoverage",
+        "why": "覆盖统计接口",
+        "excerpt": "public ApiResponse<List<com.classroom.ai.modules.supervision.vo.CoverageDetailVO>> getCoverage("
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionAnalyticsServiceImpl.java",
+        "line": 57,
+        "symbol": "getCoverageDetails",
+        "why": "筛选有效开课并按课程归并审核评价ID",
+        "excerpt": "public List<CoverageDetailVO> getCoverageDetails(String requestedTerm) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/service/impl/SupervisionAnalyticsServiceImpl.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\service\\impl\\SupervisionAnalyticsServiceImpl.java",
+        "line": 93,
+        "symbol": "chosenTerm",
+        "why": "明确学期选择，不混计跨学期课程",
+        "excerpt": "private String chosenTerm(List<com.classroom.ai.modules.course.entity.CourseOffering> offerings, String requested) {"
+      }
+    ],
+    "storage": "CourseOfferingRepository / SupervisionEvaluationRepository → 有效开课课程、已审核评价",
+    "change": "只读聚合：分母为选定学期有效开课课程去重数；分子为已有合格审核评价的课程数。",
+    "points": [
+      "课程覆盖数不是评价条数，也不是班次数",
+      "管理统计可计入已审核但尚未对教师公开的评价",
+      "所有统计都受课程可见范围约束"
+    ],
+    "normal": "选择学期后由明细评价ID追溯已覆盖课程，手算与页面一致",
+    "edges": [
+      "重复评价不重复计数",
+      "无效开课、其他学期和未授权专业不进入分母"
+    ],
+    "testSelectors": [
+      [
+        "Sprint2MysqlTest",
+        "reviewDelayAndSemesterCoverage"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "managementCountsApprovedBeforeFeedbackButTeacherCannotSee"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+      ]
+    ],
+    "shot": "supplement/us15-coverage.png",
+    "story": "活动3.2:覆盖统计巡检作为教学督导，我希望查看课程开设数量和督导覆盖情况，以便安排未覆盖课程的听课。",
+    "acceptance": "明确分母为选定学期有效开课课程；分子去重；能由明细追溯覆盖率。",
+    "table": 6,
+    "row": 9
+  },
+  {
+    "n": 16,
+    "id": "US-16",
+    "title": "低覆盖与低评价预警",
+    "role": "主任",
+    "group": "统计与分析",
+    "steps": [
+      "统计与反馈 → 选择学期 → 查询",
+      "切换质量预警",
+      "查看零覆盖、低覆盖或低分预警",
+      "核对显示阈值与来源",
+      "回查相关课程与评价明细，人工复核"
+    ],
+    "apis": [
+      "GET /api/v1/sprint3/alerts?term="
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/Sprint3Workspace.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\Sprint3Workspace.vue",
+        "line": 63,
+        "symbol": "async function fetchData",
+        "why": "按角色和已生效筛选拉取统计结果",
+        "excerpt": "async function fetchData(directorFilter?:ReturnType<typeof params>){"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 37,
+        "symbol": "public Object alerts(",
+        "why": "接收筛选并调用统计服务",
+        "excerpt": "@GetMapping(\"/api/v1/sprint3/alerts\") public Object alerts(@RequestParam(required=false) String term,@RequestParam(required=false) String courseType,@RequestParam(required=false) String keyword,@RequestParam(required=false) String teacher,@RequestParam(defaultValue=\"false\") boolean uncategorized){return ApiResponse.success(quality.alerts(filter(term,courseType,keyword,teacher,uncategorized)));}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityStatisticsService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\QualityStatisticsService.java",
+        "line": 79,
+        "symbol": "public List<Map<String,Object>> alerts",
+        "why": "按配置阈值及原始均分判断，缺失/未知权重不伪装低分",
+        "excerpt": "public List<Map<String,Object>> alerts(Filter f){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityStatisticsService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\QualityStatisticsService.java",
+        "line": 111,
+        "symbol": "completeKnown",
+        "why": "缺失/未知权重不能作为零分参与低分判断",
+        "excerpt": "public boolean completeKnown(SupervisionEvaluation e){"
+      }
+    ],
+    "storage": "EntityManager / CourseOfferingRepository → 聚合审核评价与课程；配置low-score-threshold、low-coverage-threshold",
+    "change": "只读生成预警；阈值、来源及样本随结果返回，不直接写考核结论。",
+    "points": [
+      "零覆盖单独识别",
+      "按模板计算，缺失分和未知权重不能补零",
+      "74.99的比较应在四舍五入前进行"
+    ],
+    "normal": "零覆盖课程被识别，低分阈值及配置来源可见",
+    "edges": [
+      "无样本或未知历史权重 → 不错误判为低分",
+      "边界均分74.99 → 低于75仍应预警"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "unknownWeightsAndMissingDimensionStayOutOfLowScores"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "lowScoreThresholdUsesUnroundedMean"
+      ]
+    ],
+    "shot": "sprint3-browser/us16-alerts.png",
+    "story": "活动3.2:覆盖统计巡检作为教研室主任，我希望查看低覆盖或低评价课程预警，以便安排核查与教学帮扶。",
+    "acceptance": "阈值可配置并注明来源；零覆盖可识别；预警需人工复核，不能直接作为考核结论。",
+    "table": 7,
+    "row": 4
+  },
+  {
+    "n": 17,
+    "id": "US-17",
+    "title": "本人评价汇总与雷达图",
+    "role": "教师",
+    "group": "统计与分析",
+    "steps": [
+      "统计与反馈 → 学期及课程筛选 → 查询",
+      "评价分析 → 查看四维雷达和数据表",
+      "核对样本量、维度有效值和归一化尺度",
+      "比较缺失维度、明确0分与旧版未知权重",
+      "仅查询本人授权课程且已到期反馈"
+    ],
+    "apis": [
+      "GET /api/v1/sprint3/radar?term=&courseType=&keyword="
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/Sprint3Workspace.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\Sprint3Workspace.vue",
+        "line": 57,
+        "symbol": "const managedRadar=",
+        "why": "四维完整才绘图；否则提示查看数据表",
+        "excerpt": "const managedRadar=useRadar(radarElement,chart=>{const a=axes.map(x=>radar.value?.axes?.find((v:any)=>v.name===x.key));const valid=a.every(v=>v?.value!=null&&Number.isFinite(v.value));chart.setOption({animation:false,radar:{indicator:axes.map(x=>({name:x.label,max:100})),axisName:{color:'#475569',fontSize:12}},series:[{type:'radar',data:valid?[{value:a.map(v=>v.value),name:'归一化维度均分',areaStyle:{color:'#4f46e530'},lineStyle:{color:'#4f46e5'},itemStyle:{color:'#4f46e5'}}]:[]}],title:{text:valid?'':'缺少有效维度，请查看数据表',textStyle:{fontSize:12,color:'#475569'}}},true)})"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 36,
+        "symbol": "public Object radar(",
+        "why": "教师统计入口",
+        "excerpt": "@GetMapping(\"/api/v1/sprint3/radar\") public Object radar(@RequestParam(required=false) String term,@RequestParam(required=false) String courseType,@RequestParam(required=false) String keyword){return ApiResponse.success(quality.radar(filter(term,courseType,keyword,null,false)));}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityStatisticsService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\QualityStatisticsService.java",
+        "line": 115,
+        "symbol": "public Map<String,Object> radar",
+        "why": "授权、到期过滤、逐维有效样本和100分尺度归一化",
+        "excerpt": "public Map<String,Object> radar(Filter f){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityStatisticsService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\QualityStatisticsService.java",
+        "line": 24,
+        "symbol": "public Snapshot snapshot",
+        "why": "教师反馈须在本人授权范围且到期",
+        "excerpt": "public Snapshot snapshot(Filter f,boolean feedback){"
+      },
+      {
+        "file": "frontend/src/components/Sprint3Workspace.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\Sprint3Workspace.vue",
+        "line": 57,
+        "symbol": "const managedRadar=",
+        "why": "维度不完整时只提供表格，不补造雷达分值",
+        "excerpt": "const managedRadar=useRadar(radarElement,chart=>{const a=axes.map(x=>radar.value?.axes?.find((v:any)=>v.name===x.key));const valid=a.every(v=>v?.value!=null&&Number.isFinite(v.value));chart.setOption({animation:false,radar:{indicator:axes.map(x=>({name:x.label,max:100})),axisName:{color:'#475569',fontSize:12}},series:[{type:'radar',data:valid?[{value:a.map(v=>v.value),name:'归一化维度均分',areaStyle:{color:'#4f46e530'},lineStyle:{color:'#4f46e5'},itemStyle:{color:'#4f46e5'}}]:[]}],title:{text:valid?'':'缺少有效维度，请查看数据表',textStyle:{fontSize:12,color:'#475569'}}},true)})"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\entity\\SupervisionEvaluation.java",
+        "line": 19,
+        "symbol": "t_supervision_evaluation",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_supervision_evaluation\")"
+      }
+    ],
+    "storage": "EntityManager → t_supervision_evaluation权重快照与课程授权",
+    "change": "只读：按已公开有效评价聚合；缺失为null而非0，未知权重样本单独说明。",
+    "points": [
+      "雷达图100分尺度与模板原始维度权重不同",
+      "明确0分纳入，缺失不补零",
+      "教师工作台旧BOPPPS徽标有歧义，四维不等同BOPPPS"
+    ],
+    "normal": "已公开本人样本显示样本数及归一化四维数据",
+    "edges": [
+      "审核未到期 → 无教师样本",
+      "缺失/未知权重 → 不生成伪零分或错误完整雷达"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "unknownWeightsAndMissingDimensionStayOutOfLowScores"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "explicitZeroIsCountedAndVersionsAreSeparate"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "managementCountsApprovedBeforeFeedbackButTeacherCannotSee"
+      ]
+    ],
+    "shot": "sprint3-browser/us17-radar.png",
+    "story": "活动3.3:综合分析报表作为任课教师，我希望查看本人课程评价汇总和雷达图，以便分析教学改进方向。",
+    "acceptance": "只展示授权范围；样本量与维度口径明确；缺失项不当作零分；不得把匿名性写成无条件保证。",
+    "table": 7,
+    "row": 5
+  },
+  {
+    "n": 18,
+    "id": "US-18",
+    "title": "教学质量报表导出",
+    "role": "主任",
+    "group": "统计与分析",
+    "steps": [
+      "统计与反馈 → 质量汇总",
+      "输入学期、课程类别、关键词及教师筛选 → 查询",
+      "核对页面已生效筛选与来源评价ID",
+      "下载Excel或下载CSV",
+      "核对导出包含全部筛选结果，而非仅当前分页"
+    ],
+    "apis": [
+      "GET /api/v1/sprint3/quality",
+      "GET /api/v1/sprint3/quality/export?format=xlsx或csv"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/Sprint3Workspace.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\Sprint3Workspace.vue",
+        "line": 87,
+        "symbol": "function download",
+        "why": "只使用已成功生效的筛选，未应用变更时禁用导出",
+        "excerpt": "function download(format:string){if(!exportReady.value){error.value='请先成功查询当前筛选，再下载报表';return}const submitted={...appliedFilter.value};return run(async()=>{const blob=await sprint3Api.blob('/api/v1/sprint3/quality/export',{...submitted,format});if(disposed)return;const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='teaching-quality.'+format;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)})}"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 39,
+        "symbol": "public ResponseEntity<byte[]> export",
+        "why": "限制主任和格式，返回no-store下载响应",
+        "excerpt": "@GetMapping(\"/api/v1/sprint3/quality/export\") public ResponseEntity<byte[]> export(@RequestParam(defaultValue=\"xlsx\") String format,@RequestParam(required=false) String term,@RequestParam(required=false) String courseType,@RequestParam(required=false) String keyword,@RequestParam(required=false) String teacher,@RequestParam(defaultValue=\"false\") boolean uncategorized)throws IOException{"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityStatisticsService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\QualityStatisticsService.java",
+        "line": 121,
+        "symbol": "public byte[] export",
+        "why": "一致性快照内取得全量结果，调用QualityReportWriter",
+        "excerpt": "public byte[] export(Filter f,String format)throws java.io.IOException {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityReportWriter.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\QualityReportWriter.java",
+        "line": 30,
+        "symbol": "public static byte[] xlsx",
+        "why": "导出汇总与明细，字段和内容可追溯",
+        "excerpt": "public static byte[] xlsx(List<Map<String,Object>> summary,List<Map<String,Object>> details,String asOf)throws IOException{"
+      }
+    ],
+    "storage": "EntityManager / QualityReportWriter → 课程、班次、模板及评价；CSV/XLSX为只读导出",
+    "change": "页面分页，导出全量已生效筛选；保留来源评价ID和模板分组。",
+    "points": [
+      "原件未要求PDF，当前真实出口是CSV/XLSX",
+      "学期报表不自行包装成年度聚合",
+      "修改筛选但未查询时不能导出旧条件冒充新条件"
+    ],
+    "normal": "相同筛选页面与Excel/CSV统计一致，记录可回查评价ID",
+    "edges": [
+      "分页为1条时导出仍包含全量筛选结果",
+      "未授权角色导出或非法格式 → 拒绝"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "exportIncludesEntireFilterWhilePageIsBounded"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "exportUsesRepeatableReadAcrossConcurrentEvaluationChange"
+      ]
+    ],
+    "shot": "sprint3-browser/director-quality.png",
+    "story": "活动3.3:综合分析报表作为教研室主任，我希望导出教学质量汇总报表，以便支持教研分析。",
+    "acceptance": "导出字段与页面筛选一致；统计值可回查明细；教师评价用途与可见范围受权限控制。",
+    "table": 7,
+    "row": 6
+  },
+  {
+    "n": 19,
+    "id": "US-19",
+    "title": "按课程类别分析问题分布",
+    "role": "督导",
+    "group": "统计与分析",
+    "steps": [
+      "统计与反馈 → 问题分布",
+      "选择学期和课程类别 → 查询",
+      "比较专业核心、公共选修与未分类分组",
+      "展开查看数据表与来源明细",
+      "核对标签、样本数和分类版本"
+    ],
+    "apis": [
+      "GET /api/v1/sprint3/problems?term=&courseType=&uncategorized="
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/Sprint3Workspace.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\Sprint3Workspace.vue",
+        "line": 58,
+        "symbol": "function params",
+        "why": "未分类使用独立uncategorized参数，避免混入全部类别",
+        "excerpt": "function params(){return {...filter.value,courseType:role==='SUPERVISOR'&&category.value!=='未分类'?category.value:filter.value.courseType,uncategorized:role==='SUPERVISOR'&&category.value==='未分类'}}"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 38,
+        "symbol": "public Object problems(",
+        "why": "问题分类统计API",
+        "excerpt": "@GetMapping(\"/api/v1/sprint3/problems\") public Object problems(@RequestParam(required=false) String term,@RequestParam(required=false) String courseType,@RequestParam(defaultValue=\"false\") boolean uncategorized){return ApiResponse.success(quality.problems(filter(term,courseType,null,null,uncategorized)));}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/QualityStatisticsService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\QualityStatisticsService.java",
+        "line": 90,
+        "symbol": "public Map<String,Object> problems",
+        "why": "只取审核后标签，按类别分组且保留样本和分类版本",
+        "excerpt": "public Map<String,Object> problems(Filter f){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Policy.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Policy.java",
+        "line": 9,
+        "symbol": "PROBLEMS=",
+        "why": "问题标签白名单；不是自由捏造调研结论",
+        "excerpt": "public static final List<String> PROBLEMS=List.of(\"目标说明\",\"内容组织\",\"教学互动\",\"教学方法\",\"学习效果\",\"其他\");"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/supervision/entity/SupervisionEvaluation.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\supervision\\entity\\SupervisionEvaluation.java",
+        "line": 19,
+        "symbol": "t_supervision_evaluation",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name = \"t_supervision_evaluation\")"
+      }
+    ],
+    "storage": "EntityManager → t_supervision_evaluation.problem_tags_json及课程course_type",
+    "change": "只读聚合标签出现率；包含未标注样本与未分类课程，返回来源评价。",
+    "points": [
+      "类别来自课程，问题标签来自已审核评价",
+      "一个样本多标签不等于多个评价样本",
+      "小样本只描述分布，不输出排名或教学优劣结论"
+    ],
+    "normal": "核心、选修、未分类分组正确；选择一类后仅剩该类",
+    "edges": [
+      "未审核、其他学期或越权评价 → 不计入",
+      "未标注评价仍进入适当样本口径"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "courseCategoriesDeduplicateAndUseAllSamplesAsDenominator"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+      ]
+    ],
+    "shot": "sprint3-browser/supervisor-categories.png",
+    "story": "活动3.3:综合分析报表作为教学督导，我希望按课程类别查看常见问题分布，以便形成学期教研总结。",
+    "acceptance": "使用审核后的评价标签；可追溯分类规则与样本数；小样本不输出排名结论。",
+    "table": 7,
+    "row": 7
+  },
+  {
+    "n": 20,
+    "id": "US-20",
+    "title": "评教模板与权重版本",
+    "role": "管理员",
+    "group": "评价与改进",
+    "steps": [
+      "模板管理 → 模板草稿",
+      "填写名称、场景、四维说明及权重，例如25/25/25/25",
+      "新建草稿 → 发布不可变版本",
+      "已发布版本 → 基于此版本新建草稿",
+      "新模板供后续评价选择，核对历史评价未变化"
+    ],
+    "apis": [
+      "GET/POST /api/v1/admin/templates",
+      "PUT /api/v1/admin/templates/{id}",
+      "POST /api/v1/admin/templates/{id}/publish",
+      "GET /api/v1/sprint3/templates"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/Sprint3Workspace.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\Sprint3Workspace.vue",
+        "line": 86,
+        "symbol": "function publish",
+        "why": "传递草稿revision并刷新模板",
+        "excerpt": "function publish(item:any){return nav.request(()=>run(async()=>{await sprint3Api.post('/api/v1/admin/templates/'+item.id+'/publish',{expectedVersion:item.revision});await fetchData();message.value='已生成不可变发布版本'}))}"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 20,
+        "symbol": "public Object publish(",
+        "why": "模板发布与版本参数入口",
+        "excerpt": "@PostMapping(\"/api/v1/admin/templates/{id}/publish\") public Object publish(@PathVariable Long id,@RequestBody Revision r){return ApiResponse.success(templates.publish(id,r.expectedVersion));}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/EvaluationTemplateService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\EvaluationTemplateService.java",
+        "line": 30,
+        "symbol": "public TemplateVersion publish",
+        "why": "管理员、权重100%、不可变发布与并发控制",
+        "excerpt": "public TemplateVersion publish(Long id,Long expected) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/EvaluationTemplateService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\EvaluationTemplateService.java",
+        "line": 50,
+        "symbol": "public static void validate",
+        "why": "精确校验权重和为100%",
+        "excerpt": "public static void validate(BigDecimal... w) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/EvaluationTemplateService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\EvaluationTemplateService.java",
+        "line": 20,
+        "symbol": "public TemplateDraft save",
+        "why": "可编辑草稿与不可变发布版本分离",
+        "excerpt": "public TemplateDraft save(Long id,Input in) {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateDraft.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\TemplateDraft.java",
+        "line": 5,
+        "symbol": "s3_template_draft",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_template_draft\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/TemplateVersion.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\TemplateVersion.java",
+        "line": 5,
+        "symbol": "s3_template_version",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_template_version\", uniqueConstraints=@UniqueConstraint(columnNames={\"family_id\",\"number\"}))"
+      }
+    ],
+    "storage": "EntityManager → s3_template_draft、s3_template_version；评价保存template_version_id、weight_snapshot",
+    "change": "可编辑草稿 → 不可变发布版本；后续版本不回写历史评价权重。",
+    "points": [
+      "四维权重总和必须100%，允许小数",
+      "模板草稿不可直接用来正式评价",
+      "管理员不自动获得主任、教师或督导的业务权限"
+    ],
+    "normal": "保存并发布25/25/25/25模板，督导可选择已发布版本",
+    "edges": [
+      "权重总和错误或负值 → 拒绝",
+      "同revision并发发布只有一方成功，已发布版不可编辑"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "templateConcurrentPublishHasOneWinnerAndPublishedIsImmutable"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "templateStaleEditRollsBack"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "unpublishedAndForgedWeightsCannotBeSubmitted"
+      ]
+    ],
+    "shot": "sprint3-browser/us20-template.png",
+    "story": "活动3.3:综合分析报表作为系统管理员，我希望维护评教指标与权重模板，以便适配不同评价场景。",
+    "acceptance": "权重和校验为100%；模板版本可追溯；新模板不改写历史评价记录。",
+    "table": 7,
+    "row": 8
+  },
+  {
+    "n": 21,
+    "id": "US-21",
+    "title": "建议到教学行动闭环",
+    "role": "督导、教师",
+    "group": "评价与改进",
+    "steps": [
+      "督导先暂存评价草稿",
+      "统计与反馈 → 督导建议 → 本人可编辑评价 → 新增独立建议",
+      "填写建议文本、同课程证据和可选教学环节标签",
+      "父评价提交并经主任审核，到期后教师 → 统计与反馈 → 改进行动",
+      "选择接受或调整，填写行动内容和实践反馈 → 保存行动反馈 → 查看修改历史"
+    ],
+    "apis": [
+      "POST /api/v1/supervisions/{id}/suggestions",
+      "GET /api/v1/sprint3/suggestions/mine",
+      "PUT /api/v1/suggestions/{id}/my-feedback",
+      "GET /api/v1/supervisions/{id}/evidence-candidates",
+      "GET /api/v1/supervisions/{id}/suggestions"
+    ],
+    "anchors": [
+      {
+        "file": "frontend/src/components/Sprint3Workspace.vue",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\components\\Sprint3Workspace.vue",
+        "line": 78,
+        "symbol": "saveFeedback",
+        "why": "只提交当前建议编辑器，保留其他未保存输入",
+        "excerpt": "async function saveFeedback(s:any):Promise<SaveResult>{if(!s.edit.actionText.trim()||invalidEvidence(s.edit.evidence))return {status:'invalid'};const submitted=JSON.stringify(s.edit),edit=JSON.parse(submitted);return run(async()=>{const result=await sprint3Api.put('/api/v1/suggestions/'+s.id+'/my-feedback',{expectedVersion:s.feedback?.revision||s.feedback?.recordVersion||0,decision:edit.decision,actionText:edit.actionText,feedbackText:edit.feedbackText,evidenceRefs:edit.evidence,stageTags:edit.stageTags});if(disposed)return;s.feedback=result;const state=suggestionEditors.get(s.id);if(state)state.baseline=submitted;message.value='行动反馈已保存，其他编辑保留'})}"
+      },
+      {
+        "file": "frontend/src/api/index.ts",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\src\\api\\index.ts",
+        "line": 756,
+        "symbol": "sprint3Api",
+        "why": "前端请求封装；身份令牌由统一client附加",
+        "excerpt": "export const sprint3Api = {"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Sprint3Controller.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Sprint3Controller.java",
+        "line": 50,
+        "symbol": "public Object feedback(",
+        "why": "教师行动反馈接口",
+        "excerpt": "@PutMapping(\"/api/v1/suggestions/{id}/my-feedback\") public Object feedback(@PathVariable Long id,@RequestBody AdviceService.FeedbackInput in){return ApiResponse.success(advice.feedback(id,in));}"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/AdviceService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\AdviceService.java",
+        "line": 75,
+        "symbol": "public ActionFeedback feedback",
+        "why": "校验父评价可见性、教师稳定身份、revision及证据范围",
+        "excerpt": "public ActionFeedback feedback(Long id,FeedbackInput in){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/AdviceService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\AdviceService.java",
+        "line": 34,
+        "symbol": "public Advice receive",
+        "why": "建议附属于同一评价，保留多条独立建议",
+        "excerpt": "public Advice receive(Long evaluationId,AdviceInput in){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/AdviceService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\AdviceService.java",
+        "line": 112,
+        "symbol": "private JsonNode evidence",
+        "why": "证据限定同课程与可访问范围",
+        "excerpt": "private JsonNode evidence(JsonNode refs,SupervisionEvaluation e,boolean redact){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/AdviceService.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\AdviceService.java",
+        "line": 71,
+        "symbol": "private Map<String,Object> historyView",
+        "why": "修订历史也需按角色脱敏",
+        "excerpt": "private Map<String,Object> historyView(FeedbackRevision r,SupervisionEvaluation e){"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/Advice.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\Advice.java",
+        "line": 5,
+        "symbol": "s3_advice",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_advice\")"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/ActionFeedback.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\ActionFeedback.java",
+        "line": 5,
+        "symbol": "s3_action_feedback",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_action_feedback\", uniqueConstraints=@UniqueConstraint(columnNames={\"suggestionId\",\"teacherUserId\"}))"
+      },
+      {
+        "file": "backend/src/main/java/com/classroom/ai/modules/sprint3/FeedbackRevision.java",
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\src\\main\\java\\com\\classroom\\ai\\modules\\sprint3\\FeedbackRevision.java",
+        "line": 5,
+        "symbol": "s3_feedback_revision",
+        "why": "持久化实体对应的实际表名",
+        "excerpt": "@Table(name=\"s3_feedback_revision\")"
+      }
+    ],
+    "storage": "EntityManager → s3_advice、s3_action_feedback、s3_feedback_revision",
+    "change": "评价下多条建议 → 教师个人ACCEPTED/ADJUSTED行动 → 每次保存形成历史修订；协同教师各自独立反馈。",
+    "points": [
+      "BOPPPS只作为可选环节标签，不能替代四维评分",
+      "证据必须同课程且可访问，不能任意引用ID",
+      "并发版本防覆盖，历史反馈保留"
+    ],
+    "normal": "到期后教师接受建议、填写行动和实践反馈，保存后可查修改历史",
+    "edges": [
+      "到期前或其他教师反馈 → 拒绝",
+      "跨课程证据、过时revision → 拒绝；协同教师反馈互不覆盖"
+    ],
+    "testSelectors": [
+      [
+        "Sprint3MysqlTest",
+        "multipleAdviceAndFeedbackHistoryCannotBeOverwritten"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "evidenceMustBeSameCourseAndAccessible"
+      ],
+      [
+        "Sprint3MysqlTest",
+        "coTeachersMaintainIndependentFeedbackRows"
+      ]
+    ],
+    "shot": "sprint3-browser/teacher-feedback.png",
+    "story": "活动3.3:综合分析报表作为任课教师，我希望接收改进建议并登记后续实践反馈，以便形成建议到行动的跟踪记录。",
+    "acceptance": "接口接收建议、证据引用与教学环节标签；教师可接受、调整并填写行动反馈；BOPPPS作为可选标签，不等同四维评分。",
+    "table": 7,
+    "row": 9
+  }
+]

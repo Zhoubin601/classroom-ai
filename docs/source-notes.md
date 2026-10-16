@@ -527,3 +527,36 @@ UI重构验收来源：docs/20261012-ui-redesign-evidence-v1/interaction/results
 
 ## 2026-10-14 exp4修复实测来源
 来源名称：本轮直接构建与执行；链接或文件名：docs/20261014-exp4-sprint2-fix-v1/verification-summary.json、backend-full-xml/、browser/、sprint3-browser/、ui-browser/、fixes-browser/、resource-browser/；引用日期：2026-10-14。临时数据库使用initialize.sql的既有初始化样例、合成模板/评价/小PDF及scripts/tests/fixtures的DOCX/PPTX；视频沿用已有纯合成视频。raw只有说明文件，业务原始资料未提供。没有外部业务资料、真人采集或日常数据库写入。正常24小时分支推进隔离库中本次特定记录；零小时配置自然即时发布，均非真实会议或现场认证事实。
+
+
+## 2026-10-14 exp4 修复后独立复验 v2
+来源名称：用户当前检查请求；链接或文件名：本聊天、当前 exp4 HEAD ad53913；引用日期：2026-10-14。
+来源名称：实验一正式规划；链接或文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx，表6/11/16；引用日期：2026-10-14。officecli 只读摘录。raw/仅 README.md，其他业务原始资料未提供。
+辅助来源：docs/20261014-exp4-sprint2-fix-verification-v1.md、同名证据目录、memory-bank/project-context.md。历史证据与本轮直接执行分开；无外部联网业务资料。
+
+本轮直接执行来源：docs/20261014-exp4-sprint2-recheck-v2/verification-summary.json、backend-full-xml/、browser/、legacy-browser/、sprint3-browser/、resource-browser/、cleanup.json；引用日期2026-10-14。P3依据当前frontend/src/views/TeacherDeskView.vue:381及browser/configurable/natural-feedback.png。完整后端39份XML均为本轮生成；没有将上轮或普通跳过记录算作本轮完整通过。
+
+
+## 2026-10-14 exp4 当前验收复核 v3
+来源名称：用户当前检查请求、当前 exp4 HEAD f5a8bcc；引用日期：2026-10-14。
+来源名称：实验一正式项目规划；文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx；表5/6/7/11/16只读核对。raw/仅README.md，额外业务原始资料未提供。
+辅助来源：docs/20261014-exp4-sprint2-acceptance-check-v2.md、docs/20261014-exp4-feedback-copy-fix-v1.md、v2复验证据和memory-bank/project-context.md。当前源码与历史证据逐文件比对，不使用外部联网资料。
+
+本轮实测来源：docs/20261014-exp4-sprint2-recheck-v3/verification-summary.json、browser/、backend-ordinary-xml/及cleanup.json；引用日期2026-10-14。BOPPPS展示歧义来源：实验一原件表7 US-21、TeacherDeskView.vue:345/397和本轮browser/configurable/natural-feedback.png。本轮普通后端跳过不算通过，完整284/跨Sprint浏览器明确继承同日v2且源码比对已核验。
+
+
+## 2026-10-16 实验一到exp4功能路径图文汇总
+来源名称：实验一正式项目规划；文件名：D:\2026Autumn Semester File\软管\实验一\output\实验一最终提交物\第二组_项目规划方案.docx；引用日期：2026-10-16。使用officecli只读核对表5/6/7及完成定义，SHA256=299cd2d510e7a8da609ec2fe513e3810e616d3562673bce09ee16e81688437bb。项目raw仅README。当前exp4源码、现有测试和历史记录作实现参考；本轮重新构建及隔离实测，不使用外部业务资料。
+
+本轮实测来源：docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml、legacy-browser、sprint2-browser、browser-final、report-qa.json、protection-cleanup.json及export-structure-check.json；引用日期2026-10-16。所有正式截图取自本轮实际页面，图源见diagram-sources。源代码、接口与表名逐项核对，见verified-catalog.json。检索重算依据query-performance-recalculated.json，不改写原测量记录。
+
+## 2026-10-16 软件验收就绪核对
+
+后续功能汇总审查来源（引用日期2026-10-16）：用户指定output/功能汇总/中的HTML/Markdown；同日证据original-table5/6/7.txt、verified-catalog.json、backend-full-xml/、render_report.py和report-qa.json，以及当前源码。原文比对一致，155处定位一致，39份XML共284通过。发现移动后的Markdown50处相对图片引用均失效；HTML50处正文图内嵌。生成脚本按验收标准拆分后统一标通过，作为粗粒度映射披露。详情见docs/20261016-feature-summary-review-v1.md。未重新读取原DOCX、未联网、未修改交付物或raw。
+来源名称：用户当前“现在能否验收这个软件”请求、当前本地 Git、同日测试证据；文件名：docs/20261016-exp1-exp4-trace-evidence-v1/baseline.json、backend-full-xml/、frontend-tests.log、frontend-build.log、legacy-browser/us0203-real-browser.log、sprint2-browser/results.json、browser-final/sprint3-browser/browser-results.json；引用日期：2026-10-16。本次重新核验298个文件指纹一致、重汇总39份XML为284项全通过，未重新运行完整测试。Docker本次管道不可连接、5173/8080/8088无监听。原规划引用同日既有摘录，未重新读取DOCX；raw仅README。未使用外部资料，未改业务数据。
+
+## 2026-10-16 README 完善来源
+来源名称：用户当前修改请求及当前仓库实现；文件名：README.md、scripts/start_project.ps1、scripts/start_services.ps1、scripts/start_frontend.ps1、stop_project.ps1、scripts/compose.ps1、scripts/deploy/docker-compose.yml、backend/pom.xml、backend/Dockerfile、backend/src/main/resources/application.yml、frontend/package.json、frontend/vite.config.ts、frontend/dev/camera-plugin.mjs、vision/README.md、scripts/run-tests.ps1、scripts/run-sprint2-acceptance.ps1、scripts/run-exp3-mysql-tests.ps1、scripts/run-us0102-mysql-tests.ps1；引用日期：2026-10-16。功能/既有测试结果取同日图文汇总、JUnit XML与验收就绪核对。raw仅README，业务原始资料未提供；本次不用外部资料，不改raw，不将历史测试表述为本轮重跑。
+
+## 2026-10-16 当前发布授权
+来源名称：用户当前“搞好了就push到exp4”及本地/远端Git；引用日期：2026-10-16。准备在exp4追加README与其功能总览/证据依赖。发布前本地和实时origin/exp4均为f5a8bcc；待提交内容凭据模式扫描无命中，不包含原始业务数据或真人摄像头目录。实际提交与推送结果按Git核验。

@@ -1,0 +1,673 @@
+[
+  {
+    "us": "US-01",
+    "criterion": "编码唯一",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseImportTest#testConfirmImport_Success",
+      "CourseImportServiceTest#testPreviewImport_VariousValidationFailures",
+      "CourseImportServiceTest#testConfirmImport_ForbiddenOperator",
+      "CourseImportServiceTest#testConfirmImport_DuplicateConsumption"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us01-import-error.png"
+  },
+  {
+    "us": "US-01",
+    "criterion": "导入前预览",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseImportTest#testConfirmImport_Success",
+      "CourseImportServiceTest#testPreviewImport_VariousValidationFailures",
+      "CourseImportServiceTest#testConfirmImport_ForbiddenOperator",
+      "CourseImportServiceTest#testConfirmImport_DuplicateConsumption"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us01-import-error.png"
+  },
+  {
+    "us": "US-01",
+    "criterion": "缺项、重复与引用冲突返回错误清单",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseImportTest#testConfirmImport_Success",
+      "CourseImportServiceTest#testPreviewImport_VariousValidationFailures",
+      "CourseImportServiceTest#testConfirmImport_ForbiddenOperator",
+      "CourseImportServiceTest#testConfirmImport_DuplicateConsumption"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us01-import-error.png"
+  },
+  {
+    "us": "US-01",
+    "criterion": "确认后写入并记录操作者",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseImportTest#testConfirmImport_Success",
+      "CourseImportServiceTest#testPreviewImport_VariousValidationFailures",
+      "CourseImportServiceTest#testConfirmImport_ForbiddenOperator",
+      "CourseImportServiceTest#testConfirmImport_DuplicateConsumption"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us01-import-error.png"
+  },
+  {
+    "us": "US-02",
+    "criterion": "草稿与发布状态分开",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseContentRevisionTest#testPublish_Success_IncrementsPublishVersion",
+      "CourseContentRevisionTest#testPublish_MissingFields_Returns400",
+      "CourseContentRevisionTest#testGetPublished_DraftEditingDoesNotPollutePublished",
+      "CourseContentRevisionTest#testPublish_ForbiddenForNonRelatedTeacher"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us02-publication.png"
+  },
+  {
+    "us": "US-02",
+    "criterion": "必填项完整",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseContentRevisionTest#testPublish_Success_IncrementsPublishVersion",
+      "CourseContentRevisionTest#testPublish_MissingFields_Returns400",
+      "CourseContentRevisionTest#testGetPublished_DraftEditingDoesNotPollutePublished",
+      "CourseContentRevisionTest#testPublish_ForbiddenForNonRelatedTeacher"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us02-publication.png"
+  },
+  {
+    "us": "US-02",
+    "criterion": "发布人和更新时间可追溯",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseContentRevisionTest#testPublish_Success_IncrementsPublishVersion",
+      "CourseContentRevisionTest#testPublish_MissingFields_Returns400",
+      "CourseContentRevisionTest#testGetPublished_DraftEditingDoesNotPollutePublished",
+      "CourseContentRevisionTest#testPublish_ForbiddenForNonRelatedTeacher"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us02-publication.png"
+  },
+  {
+    "us": "US-03",
+    "criterion": "支持多教师开课",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow",
+      "CourseScheduleMultiTeacherConflictTest#collaboratorAcrossClassroomsBlocksAndIdentifiesTeacher",
+      "CourseScheduleConflictTest#sameOfferingDifferentClassroomStillConflicts"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0203-schedule-sample.png"
+  },
+  {
+    "us": "US-03",
+    "criterion": "周次与节次展开正确",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow",
+      "CourseScheduleMultiTeacherConflictTest#collaboratorAcrossClassroomsBlocksAndIdentifiesTeacher",
+      "CourseScheduleConflictTest#sameOfferingDifferentClassroomStillConflicts"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0203-schedule-sample.png"
+  },
+  {
+    "us": "US-03",
+    "criterion": "以资料中的文管A447、95人课程为样例核对展示",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow",
+      "CourseScheduleMultiTeacherConflictTest#collaboratorAcrossClassroomsBlocksAndIdentifiesTeacher",
+      "CourseScheduleConflictTest#sameOfferingDifferentClassroomStillConflicts"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0203-schedule-sample.png"
+  },
+  {
+    "us": "US-04",
+    "criterion": "按学期过滤",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow",
+      "CourseOfferingHistoryTest#testHistoryStatistics_EnrollmentAndFrozenSnapshot",
+      "CourseOfferingHistoryTest#testTeacherRoleDataIsolation"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0406-history.png"
+  },
+  {
+    "us": "US-04",
+    "criterion": "人数与累计人次分开标注",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow",
+      "CourseOfferingHistoryTest#testHistoryStatistics_EnrollmentAndFrozenSnapshot",
+      "CourseOfferingHistoryTest#testTeacherRoleDataIsolation"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0406-history.png"
+  },
+  {
+    "us": "US-04",
+    "criterion": "查询结果与样例数据一致",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow",
+      "CourseOfferingHistoryTest#testHistoryStatistics_EnrollmentAndFrozenSnapshot",
+      "CourseOfferingHistoryTest#testTeacherRoleDataIsolation"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0406-history.png"
+  },
+  {
+    "us": "US-05",
+    "criterion": "指标数量由导入的培养方案确定",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#syllabusVersionsKeepTheirOwnMappings",
+      "SyllabusHistoryHttpTest#versionOfAnotherCourseCannotBeReadThroughAnAuthorizedCourse",
+      "SyllabusHistoryHttpTest#unauthorizedCourseDoesNotExposeItsHistory"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/core/00-teacher-syllabus-mapping.png"
+  },
+  {
+    "us": "US-05",
+    "criterion": "映射可编辑、保存版本并追溯，不硬编码12条",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#syllabusVersionsKeepTheirOwnMappings",
+      "SyllabusHistoryHttpTest#versionOfAnotherCourseCannotBeReadThroughAnAuthorizedCourse",
+      "SyllabusHistoryHttpTest#unauthorizedCourseDoesNotExposeItsHistory"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/core/00-teacher-syllabus-mapping.png"
+  },
+  {
+    "us": "US-06",
+    "criterion": "单条件与组合条件均有测试",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0406-supervisor.png"
+  },
+  {
+    "us": "US-06",
+    "criterion": "越权不可查询",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0406-supervisor.png"
+  },
+  {
+    "us": "US-06",
+    "criterion": "记录测试数据量和响应时间，不承诺无条件300ms",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseBrowserMysqlTest#realBrowserWorkflow"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/legacy-browser/us0406-supervisor.png"
+  },
+  {
+    "us": "US-07",
+    "criterion": "允许类型与大小限制可配置",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseResourceServiceTest#testUploadValidResource_ShouldGenerateWatermark",
+      "CourseResourceServiceTest#testUploadSizeLimit_Over100MB_ShouldThrowException"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us07-upload.png"
+  },
+  {
+    "us": "US-07",
+    "criterion": "上传失败有提示",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseResourceServiceTest#testUploadValidResource_ShouldGenerateWatermark",
+      "CourseResourceServiceTest#testUploadSizeLimit_Over100MB_ShouldThrowException"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us07-upload.png"
+  },
+  {
+    "us": "US-07",
+    "criterion": "资源绑定课程并校验访问权限",
+    "result": "本次软件检查通过",
+    "checks": [
+      "CourseResourceServiceTest#testUploadValidResource_ShouldGenerateWatermark",
+      "CourseResourceServiceTest#testUploadSizeLimit_Over100MB_ShouldThrowException"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us07-upload.png"
+  },
+  {
+    "us": "US-08",
+    "criterion": "多选标签可维护",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/core/02-edit-tags-and-sharing.png"
+  },
+  {
+    "us": "US-08",
+    "criterion": "标签筛选结果正确",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/core/02-edit-tags-and-sharing.png"
+  },
+  {
+    "us": "US-08",
+    "criterion": "无标签资源有明确显示",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/core/02-edit-tags-and-sharing.png"
+  },
+  {
+    "us": "US-09",
+    "criterion": "已登录用户经权限校验后预览",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview",
+      "Sprint3MysqlTest#cachedPreviewAndOldTicketsAreRejectedAfterRevocation"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/office/protected-supervisor.png"
+  },
+  {
+    "us": "US-09",
+    "criterion": "临时链接到期失效",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview",
+      "Sprint3MysqlTest#cachedPreviewAndOldTicketsAreRejectedAfterRevocation"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/office/protected-supervisor.png"
+  },
+  {
+    "us": "US-09",
+    "criterion": "基础水印和访问日志随预览上线",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview",
+      "Sprint3MysqlTest#cachedPreviewAndOldTicketsAreRejectedAfterRevocation"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/office/protected-supervisor.png"
+  },
+  {
+    "us": "US-10",
+    "criterion": "公开范围与角色权限共同生效",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview",
+      "Sprint3MysqlTest#revocationClosesOldIdAndReadsFreshEpoch"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/core/01-cross-teacher-shared-search.png"
+  },
+  {
+    "us": "US-10",
+    "criterion": "搜索结果不得暴露未授权文件",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#resourceVisibilityTagsAndExpiringPreview",
+      "Sprint3MysqlTest#revocationClosesOldIdAndReadsFreshEpoch"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/sprint2-browser/core/01-cross-teacher-shared-search.png"
+  },
+  {
+    "us": "US-11",
+    "criterion": "上传新版本保留旧版记录",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#resourceConcurrentUploadsAndFixedHistoricalIds",
+      "Sprint3MysqlTest#databaseRejectsCrossSeriesPointerAndDuplicateVersion"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us11-versions.png"
+  },
+  {
+    "us": "US-11",
+    "criterion": "当前版本可识别",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#resourceConcurrentUploadsAndFixedHistoricalIds",
+      "Sprint3MysqlTest#databaseRejectsCrossSeriesPointerAndDuplicateVersion"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us11-versions.png"
+  },
+  {
+    "us": "US-11",
+    "criterion": "基础鉴权与水印沿用US-09，不延后补安全控制",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#resourceConcurrentUploadsAndFixedHistoricalIds",
+      "Sprint3MysqlTest#databaseRejectsCrossSeriesPointerAndDuplicateVersion"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us11-versions.png"
+  },
+  {
+    "us": "US-12",
+    "criterion": "校验课程、片段起止时间、标签和来源",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#realVideoDurationAndAllSixStagesAreVerifiedOnServer",
+      "Sprint3MysqlTest#changedVideoHashBlocksPlaybackAndReplacementDoesNotMoveOldInterval",
+      "Sprint3MysqlTest#invalidProbeDoesNotSaveAssetAndUnavailableToolReturns503"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/admin-video-segment.png"
+  },
+  {
+    "us": "US-12",
+    "criterion": "能按片段回看",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#realVideoDurationAndAllSixStagesAreVerifiedOnServer",
+      "Sprint3MysqlTest#changedVideoHashBlocksPlaybackAndReplacementDoesNotMoveOldInterval",
+      "Sprint3MysqlTest#invalidProbeDoesNotSaveAssetAndUnavailableToolReturns503"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/admin-video-segment.png"
+  },
+  {
+    "us": "US-12",
+    "criterion": "接口测试使用授权样例，不声称已实现自动切片",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#realVideoDurationAndAllSixStagesAreVerifiedOnServer",
+      "Sprint3MysqlTest#changedVideoHashBlocksPlaybackAndReplacementDoesNotMoveOldInterval",
+      "Sprint3MysqlTest#invalidProbeDoesNotSaveAssetAndUnavailableToolReturns503"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/admin-video-segment.png"
+  },
+  {
+    "us": "US-13",
+    "criterion": "教学态度、内容、方法、效果作为本版示例维度",
+    "result": "本次软件检查通过",
+    "checks": [
+      "SupervisionServiceTest#incompleteDraftCanStillBeSaved",
+      "SupervisionServiceTest#explicitZeroScoresCanBeSubmitted",
+      "SupervisionServiceTest#formalSubmissionRejectsMissingScores(String)[1]",
+      "Sprint3MysqlTest#evaluationConcurrentDraftEditHasOneWinner"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us13-evaluation-form.png"
+  },
+  {
+    "us": "US-13",
+    "criterion": "可配置权重",
+    "result": "本次软件检查通过",
+    "checks": [
+      "SupervisionServiceTest#incompleteDraftCanStillBeSaved",
+      "SupervisionServiceTest#explicitZeroScoresCanBeSubmitted",
+      "SupervisionServiceTest#formalSubmissionRejectsMissingScores(String)[1]",
+      "Sprint3MysqlTest#evaluationConcurrentDraftEditHasOneWinner"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us13-evaluation-form.png"
+  },
+  {
+    "us": "US-13",
+    "criterion": "支持暂存、必填校验和审核状态",
+    "result": "本次软件检查通过",
+    "checks": [
+      "SupervisionServiceTest#incompleteDraftCanStillBeSaved",
+      "SupervisionServiceTest#explicitZeroScoresCanBeSubmitted",
+      "SupervisionServiceTest#formalSubmissionRejectsMissingScores(String)[1]",
+      "Sprint3MysqlTest#evaluationConcurrentDraftEditHasOneWinner"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us13-evaluation-form.png"
+  },
+  {
+    "us": "US-14",
+    "criterion": "审核后按角色反馈并脱敏",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#reviewDelayAndSemesterCoverage",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee",
+      "Sprint3MysqlTest#publishedWithoutAuditIsNeverIncluded"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us14-published-feedback.png"
+  },
+  {
+    "us": "US-14",
+    "criterion": "延迟时长可配置，演示默认24小时",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#reviewDelayAndSemesterCoverage",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee",
+      "Sprint3MysqlTest#publishedWithoutAuditIsNeverIncluded"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us14-published-feedback.png"
+  },
+  {
+    "us": "US-14",
+    "criterion": "保留修改与审核日志",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#reviewDelayAndSemesterCoverage",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee",
+      "Sprint3MysqlTest#publishedWithoutAuditIsNeverIncluded"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us14-published-feedback.png"
+  },
+  {
+    "us": "US-15",
+    "criterion": "明确分母为选定学期有效开课课程",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#reviewDelayAndSemesterCoverage",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee",
+      "Sprint3MysqlTest#categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us15-coverage.png"
+  },
+  {
+    "us": "US-15",
+    "criterion": "分子去重",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#reviewDelayAndSemesterCoverage",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee",
+      "Sprint3MysqlTest#categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us15-coverage.png"
+  },
+  {
+    "us": "US-15",
+    "criterion": "能由明细追溯覆盖率",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint2MysqlTest#reviewDelayAndSemesterCoverage",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee",
+      "Sprint3MysqlTest#categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/supplement/us15-coverage.png"
+  },
+  {
+    "us": "US-16",
+    "criterion": "阈值可配置并注明来源",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#unknownWeightsAndMissingDimensionStayOutOfLowScores",
+      "Sprint3MysqlTest#lowScoreThresholdUsesUnroundedMean"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us16-alerts.png"
+  },
+  {
+    "us": "US-16",
+    "criterion": "零覆盖可识别",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#unknownWeightsAndMissingDimensionStayOutOfLowScores",
+      "Sprint3MysqlTest#lowScoreThresholdUsesUnroundedMean"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us16-alerts.png"
+  },
+  {
+    "us": "US-16",
+    "criterion": "预警需人工复核，不能直接作为考核结论",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#unknownWeightsAndMissingDimensionStayOutOfLowScores",
+      "Sprint3MysqlTest#lowScoreThresholdUsesUnroundedMean"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us16-alerts.png"
+  },
+  {
+    "us": "US-17",
+    "criterion": "只展示授权范围",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#unknownWeightsAndMissingDimensionStayOutOfLowScores",
+      "Sprint3MysqlTest#explicitZeroIsCountedAndVersionsAreSeparate",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us17-radar.png"
+  },
+  {
+    "us": "US-17",
+    "criterion": "样本量与维度口径明确",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#unknownWeightsAndMissingDimensionStayOutOfLowScores",
+      "Sprint3MysqlTest#explicitZeroIsCountedAndVersionsAreSeparate",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us17-radar.png"
+  },
+  {
+    "us": "US-17",
+    "criterion": "缺失项不当作零分",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#unknownWeightsAndMissingDimensionStayOutOfLowScores",
+      "Sprint3MysqlTest#explicitZeroIsCountedAndVersionsAreSeparate",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us17-radar.png"
+  },
+  {
+    "us": "US-17",
+    "criterion": "不得把匿名性写成无条件保证",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#unknownWeightsAndMissingDimensionStayOutOfLowScores",
+      "Sprint3MysqlTest#explicitZeroIsCountedAndVersionsAreSeparate",
+      "Sprint3MysqlTest#managementCountsApprovedBeforeFeedbackButTeacherCannotSee"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us17-radar.png"
+  },
+  {
+    "us": "US-18",
+    "criterion": "导出字段与页面筛选一致",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#exportIncludesEntireFilterWhilePageIsBounded",
+      "Sprint3MysqlTest#exportUsesRepeatableReadAcrossConcurrentEvaluationChange"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/director-quality.png"
+  },
+  {
+    "us": "US-18",
+    "criterion": "统计值可回查明细",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#exportIncludesEntireFilterWhilePageIsBounded",
+      "Sprint3MysqlTest#exportUsesRepeatableReadAcrossConcurrentEvaluationChange"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/director-quality.png"
+  },
+  {
+    "us": "US-18",
+    "criterion": "教师评价用途与可见范围受权限控制",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#exportIncludesEntireFilterWhilePageIsBounded",
+      "Sprint3MysqlTest#exportUsesRepeatableReadAcrossConcurrentEvaluationChange"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/director-quality.png"
+  },
+  {
+    "us": "US-19",
+    "criterion": "使用审核后的评价标签",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#courseCategoriesDeduplicateAndUseAllSamplesAsDenominator",
+      "Sprint3MysqlTest#categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/supervisor-categories.png"
+  },
+  {
+    "us": "US-19",
+    "criterion": "可追溯分类规则与样本数",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#courseCategoriesDeduplicateAndUseAllSamplesAsDenominator",
+      "Sprint3MysqlTest#categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/supervisor-categories.png"
+  },
+  {
+    "us": "US-19",
+    "criterion": "小样本不输出排名结论",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#courseCategoriesDeduplicateAndUseAllSamplesAsDenominator",
+      "Sprint3MysqlTest#categoriesExcludeOtherTermsUnauthorizedMajorsAndPending"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/supervisor-categories.png"
+  },
+  {
+    "us": "US-20",
+    "criterion": "权重和校验为100%",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#templateConcurrentPublishHasOneWinnerAndPublishedIsImmutable",
+      "Sprint3MysqlTest#templateStaleEditRollsBack",
+      "Sprint3MysqlTest#unpublishedAndForgedWeightsCannotBeSubmitted"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us20-template.png"
+  },
+  {
+    "us": "US-20",
+    "criterion": "模板版本可追溯",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#templateConcurrentPublishHasOneWinnerAndPublishedIsImmutable",
+      "Sprint3MysqlTest#templateStaleEditRollsBack",
+      "Sprint3MysqlTest#unpublishedAndForgedWeightsCannotBeSubmitted"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us20-template.png"
+  },
+  {
+    "us": "US-20",
+    "criterion": "新模板不改写历史评价记录",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#templateConcurrentPublishHasOneWinnerAndPublishedIsImmutable",
+      "Sprint3MysqlTest#templateStaleEditRollsBack",
+      "Sprint3MysqlTest#unpublishedAndForgedWeightsCannotBeSubmitted"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/us20-template.png"
+  },
+  {
+    "us": "US-21",
+    "criterion": "接口接收建议、证据引用与教学环节标签",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#multipleAdviceAndFeedbackHistoryCannotBeOverwritten",
+      "Sprint3MysqlTest#evidenceMustBeSameCourseAndAccessible",
+      "Sprint3MysqlTest#coTeachersMaintainIndependentFeedbackRows"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/teacher-feedback.png"
+  },
+  {
+    "us": "US-21",
+    "criterion": "教师可接受、调整并填写行动反馈",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#multipleAdviceAndFeedbackHistoryCannotBeOverwritten",
+      "Sprint3MysqlTest#evidenceMustBeSameCourseAndAccessible",
+      "Sprint3MysqlTest#coTeachersMaintainIndependentFeedbackRows"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/teacher-feedback.png"
+  },
+  {
+    "us": "US-21",
+    "criterion": "BOPPPS作为可选标签，不等同四维评分",
+    "result": "本次软件检查通过",
+    "checks": [
+      "Sprint3MysqlTest#multipleAdviceAndFeedbackHistoryCannotBeOverwritten",
+      "Sprint3MysqlTest#evidenceMustBeSameCourseAndAccessible",
+      "Sprint3MysqlTest#coTeachersMaintainIndependentFeedbackRows"
+    ],
+    "screenshot": "docs/20261016-exp1-exp4-trace-evidence-v1/browser-final/sprint3-browser/teacher-feedback.png"
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3",
+    "time": 1792118705897
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/latest",
+    "time": 1792118705897
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/indicators?syllabusId=6",
+    "time": 1792118705951
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118705951
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/1/indicators?syllabusId=1",
+    "time": 1792118706976
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/v2026.1/indicators",
+    "time": 1792118707027
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/versions",
+    "time": 1792118707027
+  },
+  {
+    "username": "jiangly",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/5",
+    "time": 1792118707714
+  },
+  {
+    "username": "jiangly",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/5/latest",
+    "time": 1792118707714
+  },
+  {
+    "username": "jiangly",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/5/indicators",
+    "time": 1792118707759
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3",
+    "time": 1792118709446
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/latest",
+    "time": 1792118709446
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/indicators?syllabusId=8",
+    "time": 1792118709498
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118709498
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3",
+    "time": 1792118710189
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/latest",
+    "time": 1792118710189
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/indicators?syllabusId=7",
+    "time": 1792118710248
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118710248
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3",
+    "time": 1792118710591
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/latest",
+    "time": 1792118710591
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/indicators?syllabusId=8",
+    "time": 1792118710641
+  },
+  {
+    "username": "guojun",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118710641
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/1",
+    "time": 1792118710963
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/1/latest",
+    "time": 1792118710963
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/1/indicators?syllabusId=1",
+    "time": 1792118710998
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3",
+    "time": 1792118711040
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/latest",
+    "time": 1792118711040
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/indicators?syllabusId=8",
+    "time": 1792118711081
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118711140
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/versions",
+    "time": 1792118711140
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3",
+    "time": 1792118711252
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/latest",
+    "time": 1792118711252
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/indicators?syllabusId=7",
+    "time": 1792118711294
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118711341
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/versions",
+    "time": 1792118711342
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3",
+    "time": 1792118711635
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/latest",
+    "time": 1792118711635
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/3/indicators?syllabusId=8",
+    "time": 1792118711675
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118711733
+  },
+  {
+    "username": "director",
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/versions",
+    "time": 1792118711733
+  }
+]

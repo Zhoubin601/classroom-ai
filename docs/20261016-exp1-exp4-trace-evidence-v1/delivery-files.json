@@ -1,0 +1,356 @@
+{
+  "date": "2026-10-16",
+  "timezone": "Asia/Shanghai",
+  "files": [
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1.html",
+      "bytes": 6522925,
+      "sha256": "a4c789a76c98d66e04031540ce8ee34c75150f2b7ed1b9dfeb4cace69988dafc"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1.md",
+      "bytes": 162832,
+      "sha256": "855aa7c090922f532034a76e859bf93f73aa8edd614954bdc5d1ae5bd0b86bcc"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-01.svg",
+      "bytes": 3726,
+      "sha256": "4161be184cbb63d03d5a1e0de60a9fad30aa3c58e73db9b198a2ed6d901ef6a7"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-02.svg",
+      "bytes": 3948,
+      "sha256": "6d774c404fad7e536de6858db4a4c6a0e29ecc1af6da490f717554a81915f232"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-03.svg",
+      "bytes": 3993,
+      "sha256": "8a9721afa8c8a0fb33def8ee962cc8fb59142fc2b9c470a67726db65ed7e8148"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-04.svg",
+      "bytes": 4158,
+      "sha256": "2d95df45cec45af89de9d3517707aed511bcdc4a2f4f09aa43bcfc7fa786487d"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-05.svg",
+      "bytes": 4185,
+      "sha256": "fad9c1eb299b08fce2074d625a012658f959ea7b7e2215948275bf5a473d394f"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-06.svg",
+      "bytes": 3972,
+      "sha256": "35b11632c8d8b673465d636a30760e7e1be10c3b491fe6fa3e981775fa0e5d7a"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-07.svg",
+      "bytes": 4100,
+      "sha256": "a9134da213df36771497f28274e81a7cdef49e774e1840b42a5d376c67b9f16d"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-08.svg",
+      "bytes": 3761,
+      "sha256": "fb74236e854a186c6385be8459befe6e79fd0c25be1b227c8d41be7c5c6402c2"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-09.svg",
+      "bytes": 3833,
+      "sha256": "8e203480dd2a1868e33743b03e21ab06cee08d8444d792eac209f1d4c039d8b9"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-10.svg",
+      "bytes": 3943,
+      "sha256": "48e11c356551ac52afe82f407b2786a5dab1662f29203cc37c5659aae09588f7"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-11.svg",
+      "bytes": 3858,
+      "sha256": "5c2c7423a2145cea54dc3e654f57d781f4f588946be9af7aeb9a1b928ccc084f"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-12.svg",
+      "bytes": 3747,
+      "sha256": "2764962d5f45e361d8dbba1d7ad31d2f9965bd6d9f82f566a6cd3d8f466fb8d1"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-13.svg",
+      "bytes": 3755,
+      "sha256": "9b151de913dff21c0feb234bae79cb53041d3b9a392004d1228271356c512501"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-14.svg",
+      "bytes": 4044,
+      "sha256": "e6f3fa2633969e80b9c5eb40b7400a9e0e231e0d20fc07476c54294c1be8aeba"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-15.svg",
+      "bytes": 4132,
+      "sha256": "32711b81f9f05df02aa345c1280f0f4d91b4d55c8e158956b7d6c8f7bef4a9f0"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-16.svg",
+      "bytes": 3972,
+      "sha256": "fafb10a5949c4b2b2a281c094a62fbf781b31f6b2c514663d699f53caa97eaa8"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-17.svg",
+      "bytes": 3777,
+      "sha256": "4e26340ec04d7698397fe0790c29a426680b10eeee818a39c76c178eb4495a68"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-18.svg",
+      "bytes": 3735,
+      "sha256": "7f85afe20044ad95f178cd0020bb0b6beee9c5e8d8cd513be47c09db5899a83e"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-19.svg",
+      "bytes": 3876,
+      "sha256": "5a9b8f2c641f12e1672ad015ef74bd454e339f44a0eff2fe018327c0b7af7e44"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-20.svg",
+      "bytes": 3766,
+      "sha256": "38b39e160f3a9009b74fc496b6c1b11a12bed9ef06bd33686950e15d098fed6a"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\chain-21.svg",
+      "bytes": 3848,
+      "sha256": "755fab957bb7d4664c96ee49f7e1e4383ce66dc5bf73a63bbb4ea11fe157cc27"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\overview.svg",
+      "bytes": 6196,
+      "sha256": "a2391b043dfe82fb0c79c3ceeff18935ad614d5abf20e2f8804643d4ea072f66"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\route-1.svg",
+      "bytes": 4352,
+      "sha256": "ca3b139eefe44d11c044673f65c3395a864ff122f5b8f68d54d4b0e16dc228d3"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\route-2.svg",
+      "bytes": 4561,
+      "sha256": "09aa9d40bb2521b43de77ea4a1eca273dae245fefedf2333caa72e3801cbc003"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\route-3.svg",
+      "bytes": 3312,
+      "sha256": "fb628351cd94ab2d6d1e164b6811c1413939b2774c803079cbf9270004811871"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\route-4.svg",
+      "bytes": 3550,
+      "sha256": "a0279ca0f7d3d08f1516d19b6c6ec78047eb1383b658b46a1a62fc3f97b7c3f9"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-01-annotated.svg",
+      "bytes": 248521,
+      "sha256": "4aa9442cce38f233d534ca3f199a78319253d41a98193a4047bd48c41b579daf"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-01.png",
+      "bytes": 185722,
+      "sha256": "3c81e22b8501ad54457fd2df2126e8586e003f7800381f10b6e5870c600462a7"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-02-annotated.svg",
+      "bytes": 226325,
+      "sha256": "45eacfaacfcd33cddaa8d7ddcf0911fb62e7c626287a53d992d12e85d94599b2"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-02.png",
+      "bytes": 169042,
+      "sha256": "b53450bbc5763ca13d190e01f07f0d3b915bb857efc2f7a287ec9e1135d80567"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-03-annotated.svg",
+      "bytes": 174364,
+      "sha256": "f2731f3a04eca0a43f64ebad79d54a49fe9df927316445926104b882df0afc8e"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-03.png",
+      "bytes": 130077,
+      "sha256": "d353d1b82157d4becd6cbe19250518caf3944c25977578ef5c42c687e3966b9f"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-04-annotated.svg",
+      "bytes": 154110,
+      "sha256": "69d7e07513c531cc9112b4d088f509616878305646c8ca633a530f2066a2fa10"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-04.png",
+      "bytes": 114890,
+      "sha256": "8aadc7455465a4c9649a0a3ed472e08b59bce136db9319d725f35ac1da2b492a"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-05-annotated.svg",
+      "bytes": 183905,
+      "sha256": "ee2a4648ac045b7f8020e5a5ab03eb97789252ebb252cdd1f21dfa0fd1c41e8f"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-05.png",
+      "bytes": 137207,
+      "sha256": "0fa8fcada794aaecd541602b32867be8436602cdd107979cd6197c3d127792e3"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-06-annotated.svg",
+      "bytes": 164180,
+      "sha256": "8ce8e6f1c38a7bbf030de9dd941ab61950c2c6f388ca486499d1f55319154f24"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-06.png",
+      "bytes": 122448,
+      "sha256": "8da4d50e703362dc0302003690b0062d79f65c7de3da22835326539dad15d7f8"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-07-annotated.svg",
+      "bytes": 266661,
+      "sha256": "74b276cb89dcb4d75f1e6ff30e29861a0a36e6b90d20fa2313721d86ddf71048"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-07.png",
+      "bytes": 199300,
+      "sha256": "168a8e1fe761de13e1bedac9834ec39fa3df6e93133582732ceca759d04632b5"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-08-annotated.svg",
+      "bytes": 252463,
+      "sha256": "3091041aa1e6529f01b3b825c2c291b50bf088f76da1639f5607edaabefda3af"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-08.png",
+      "bytes": 188684,
+      "sha256": "38ebb5045e3b20f681907e37e6e79f46d7007be5948ea6d4e04284117a201d01"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-09-annotated.svg",
+      "bytes": 167405,
+      "sha256": "5bfb502676486fa5a02edeccf949ed34a83e66b3e17e53a3a16ce0b2d88902e6"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-09.png",
+      "bytes": 124870,
+      "sha256": "0442213ee669debdbd2ba22cddc8a39dee3491fbca0e6f9e33d12b29085c425b"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-10-annotated.svg",
+      "bytes": 145984,
+      "sha256": "17aeacda88f01422e69574467892fb893e25944164b149f55ed5786d00f996a6"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-10.png",
+      "bytes": 108780,
+      "sha256": "e23936dd713e388ef56b3f138b753e306d99ec3bf922ffc533c7a622090722be"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-11-annotated.svg",
+      "bytes": 117473,
+      "sha256": "8fb5d07e4db0a759912cdf7833a8c8b60ab6a684bf308907f9f3815592c9db3c"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-11.png",
+      "bytes": 87414,
+      "sha256": "ab5657e90d46a1b2c2981dd131bafe99f7ec3ad1a50b0892e9f4a62f29139f98"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-12-annotated.svg",
+      "bytes": 129599,
+      "sha256": "89d916a19569e4bbb14b81d9f7ff38b8a22750776fc108900eed5e75fc99223c"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-12.png",
+      "bytes": 96496,
+      "sha256": "ffe32986a1332f016e9edb4a418486b02cbbc39baccb7b41ada0e0cc2b097646"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-13-annotated.svg",
+      "bytes": 272979,
+      "sha256": "ae0c2156cbbc8ce8af78cdfb44e8e2d7a2695473f8214462f570f983a486cb6a"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-13.png",
+      "bytes": 204031,
+      "sha256": "8b906d252e6da2a6b2d6efa07aad8a14671df98d90214c987a2b429ccac48771"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-14-annotated.svg",
+      "bytes": 220049,
+      "sha256": "dc756857e35723bfd0d523410324d3f9628f22235147cad53018d801816b3467"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-14.png",
+      "bytes": 164350,
+      "sha256": "ff01650dec32525cf37886ebfc0e4745c06b2080b2e0a2bd3fd045892807a105"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-15-annotated.svg",
+      "bytes": 197407,
+      "sha256": "2520b59c2c5bf2b7a1112ca28f4ce5f696ed70f8ab8865128bb3677482a5b7ee"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-15.png",
+      "bytes": 147375,
+      "sha256": "364caf7229d2e009228ec6100042ebd3cc72c69a0b742c7e573fa3c269e6288a"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-16-annotated.svg",
+      "bytes": 126739,
+      "sha256": "3164fbea88e0e987d0ea92390d5be16004bc9840e7edf29fbaac9445c6c00ece"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-16.png",
+      "bytes": 94376,
+      "sha256": "fe0d1908475527170edbaa13c2dead8d4ca62f6ff4bdc5b72caf9d9caa0afeb4"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-17-annotated.svg",
+      "bytes": 113471,
+      "sha256": "68be5597c0c1146605c105f3eb628775cee6701bbdf1191da127ae5ebf226fc9"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-17.png",
+      "bytes": 84416,
+      "sha256": "4b5fa3623bcd21e33fee0462625abfa94c900e775cce73e0a3142a7c7587bf27"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-18-annotated.svg",
+      "bytes": 121541,
+      "sha256": "d4d5a586cfb72c9e6c43d408587477f4975d179724cd79902a664a405a4ec3ed"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-18.png",
+      "bytes": 90483,
+      "sha256": "0aa0af31f9063eb347cc3261d240ace619cec997736970c65d480bb4715eb9e9"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-19-annotated.svg",
+      "bytes": 140363,
+      "sha256": "199f4b7d6fa269b149abfe79f5cc022f9b5f8d0c3dedad2a1c174316f0d7cab3"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-19.png",
+      "bytes": 104590,
+      "sha256": "17b72f6dd2e0004c3b0fb3d249c52f418e47f42151b10721c8ac5d7efd196a9a"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-20-annotated.svg",
+      "bytes": 78994,
+      "sha256": "f55bbc2113a97aecefd07e2762599685dc67672c1ae7519e194555fb6d8b04d2"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-20.png",
+      "bytes": 58575,
+      "sha256": "ea2b096b4b92ae6d3b79de72c7397707a3a404a41fa2843cb1e43cb471978f67"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-21-annotated.svg",
+      "bytes": 304146,
+      "sha256": "9baff6ad2be04331fe4c5790701f8de92a51c236c5d5c6416b8a18f6f7ae77f5"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\output\\20261016-exp1-exp4-feature-trace-v1-images\\shot-21.png",
+      "bytes": 227422,
+      "sha256": "c5a241a627bfe3ce852a8b14d3aea8ec0b03801116e6529ef84c5aaca52bb210"
+    }
+  ]
+}

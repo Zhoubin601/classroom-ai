@@ -1,0 +1,7 @@
+{
+  "source": "legacy-browser/us0406-query-performance.json",
+  "n": 20,
+  "medianMs": 20.48885000000064,
+  "p95NearestRankMs": 26.17829999999958,
+  "note": "Original runner median field uses sorted[10]; exact even-sample median is average of sorted[9] and sorted[10]."
+}

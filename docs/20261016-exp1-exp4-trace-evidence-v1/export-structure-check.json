@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "xlsxWorksheets": 2,
+  "csvRowCount": 5,
+  "coursesMatched": [
+    "SYN-CORE",
+    "SYN-OPTION",
+    "SYN-EMPTY"
+  ],
+  "source": "browser-final/sprint3-browser/snapshot-export.xlsx and snapshot-export.csv",
+  "note": "CSV/XLSX actual downloaded course coverage checked; page/whole-filter and snapshot assertions are in executed Sprint3MysqlTest."
+}

@@ -1,0 +1,37 @@
+/body/tbl[6] (table) cols=3 rows=9 _gridCols=3 border.top=single border.top.sz=8 border.top.color=#000000 border.top.space=0 border.bottom=single border.bottom.sz=8 border.bottom.color=#000000 border.bottom.space=0 border.insideH=single border.insideH.sz=4 border.insideH.color=#000000 border.insideH.space=0 border.insideV=nil border.left=nil border.right=nil width=auto align=center layout=fixed tblLook=04A0 padding.top=45 padding.bottom=45 padding.left=95 padding.right=95 firstRow=true firstCol=true bandedRows=true colWidths=1531dxa,3572dxa,4195dxa
+/body/tbl[6]/tr[1] (row) header=true cantSplit=true rowAlign=center
+/body/tbl[6]/tr[1]/tc[1] (cell) "编号 / 估算 / 主责" children=1 width=1531dxa valign=center align=center size=10pt bold=true
+/body/tbl[6]/tr[1]/tc[2] (cell) "用户故事与骨干活动" children=1 width=3572dxa valign=center align=center size=10pt bold=true
+/body/tbl[6]/tr[1]/tc[3] (cell) "验收标准" children=1 width=4195dxa valign=center align=center size=10pt bold=true
+/body/tbl[6]/tr[2] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[2]/tc[1] (cell) "US-05Should · 5点王嘉伦" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[2]/tc[2] (cell) "活动1.3:大纲认证关联作为教研室主任，我希望维护课程大纲与毕业要求指标的对应关系，以便支持专业认证材料整理。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[2]/tc[3] (cell) "指标数量由导入的培养方案确定；映射可编辑、保存版本并追溯，不硬编码12条。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[6]/tr[3] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[3]/tc[1] (cell) "US-07Must · 5点周宇斌" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[3]/tc[2] (cell) "活动2.1:课件教案上传作为任课教师，我希望按章节上传课件、教案和实验指导书，以便集中维护教学材料。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[3]/tc[3] (cell) "允许类型与大小限制可配置；上传失败有提示；资源绑定课程并校验访问权限。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[6]/tr[4] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[4]/tc[1] (cell) "US-08Must · 2点郭振顺" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[4]/tc[2] (cell) "活动2.1:课件教案上传作为任课教师，我希望为资源标注理论、实验或研讨等环节，以便方便分类查找。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[4]/tc[3] (cell) "多选标签可维护；标签筛选结果正确；无标签资源有明确显示。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[6]/tr[5] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[5]/tc[1] (cell) "US-09Must · 5点王嘉伦" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[5]/tc[2] (cell) "活动2.2:检索在线预览作为教学督导，我希望在授权范围内在线预览课程资料，以便提前了解教学设计。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[5]/tc[3] (cell) "已登录用户经权限校验后预览；临时链接到期失效；基础水印和访问日志随预览上线。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[6]/tr[6] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[6]/tc[1] (cell) "US-10Should · 3点郭振顺" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[6]/tc[2] (cell) "活动2.2:检索在线预览作为任课教师，我希望检索教研室内允许共享的优秀教学资源，以便支持集体备课。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[6]/tc[3] (cell) "公开范围与角色权限共同生效；搜索结果不得暴露未授权文件。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[6]/tr[7] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[7]/tc[1] (cell) "US-13Must · 5点王嘉伦" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[7]/tc[2] (cell) "活动3.1:督导随堂评价作为教学督导，我希望提交结构化听课评价，以便形成可检索的督导记录。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[7]/tc[3] (cell) "教学态度、内容、方法、效果作为本版示例维度；可配置权重；支持暂存、必填校验和审核状态。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[6]/tr[8] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[8]/tc[1] (cell) "US-14Must · 3点周宇斌" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[8]/tc[2] (cell) "活动3.1:督导随堂评价作为教学督导，我希望提交亮点与改进意见并经审核反馈教师，以便支持有依据的教学改进。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[8]/tc[3] (cell) "审核后按角色反馈并脱敏；延迟时长可配置，演示默认24小时；保留修改与审核日志。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[6]/tr[9] (row) cantSplit=true rowAlign=center
+/body/tbl[6]/tr[9]/tc[1] (cell) "US-15Must · 5点郭振顺" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[6]/tr[9]/tc[2] (cell) "活动3.2:覆盖统计巡检作为教学督导，我希望查看课程开设数量和督导覆盖情况，以便安排未覆盖课程的听课。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[6]/tr[9]/tc[3] (cell) "明确分母为选定学期有效开课课程；分子去重；能由明细追溯覆盖率。" children=1 width=4195dxa valign=center size=10pt

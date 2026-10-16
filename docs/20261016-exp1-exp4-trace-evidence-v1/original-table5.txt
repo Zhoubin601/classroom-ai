@@ -1,0 +1,25 @@
+/body/tbl[5] (table) cols=3 rows=6 _gridCols=3 border.top=single border.top.sz=8 border.top.color=#000000 border.top.space=0 border.bottom=single border.bottom.sz=8 border.bottom.color=#000000 border.bottom.space=0 border.insideH=single border.insideH.sz=4 border.insideH.color=#000000 border.insideH.space=0 border.insideV=nil border.left=nil border.right=nil width=auto align=center layout=fixed tblLook=04A0 padding.top=45 padding.bottom=45 padding.left=95 padding.right=95 firstRow=true firstCol=true bandedRows=true colWidths=1531dxa,3572dxa,4195dxa
+/body/tbl[5]/tr[1] (row) header=true cantSplit=true rowAlign=center
+/body/tbl[5]/tr[1]/tc[1] (cell) "编号 / 估算 / 主责" children=1 width=1531dxa valign=center align=center size=10pt bold=true
+/body/tbl[5]/tr[1]/tc[2] (cell) "用户故事与骨干活动" children=1 width=3572dxa valign=center align=center size=10pt bold=true
+/body/tbl[5]/tr[1]/tc[3] (cell) "验收标准" children=1 width=4195dxa valign=center align=center size=10pt bold=true
+/body/tbl[5]/tr[2] (row) cantSplit=true rowAlign=center
+/body/tbl[5]/tr[2]/tc[1] (cell) "US-01Must · 3点周宇斌" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[5]/tr[2]/tc[2] (cell) "活动1.1:课程档案简介作为教研室主任，我希望录入或按模板批量导入课程档案，以便建立可追溯的课程底座。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[5]/tr[2]/tc[3] (cell) "编码唯一；导入前预览；缺项、重复与引用冲突返回错误清单；确认后写入并记录操作者。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[5]/tr[3] (row) cantSplit=true rowAlign=center
+/body/tbl[5]/tr[3]/tc[1] (cell) "US-02Must · 2点周宇斌" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[5]/tr[3]/tc[2] (cell) "活动1.1:课程档案简介作为任课教师，我希望编辑并发布课程简介、考核方式和教学目标，以便让师生理解课程要求。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[5]/tr[3]/tc[3] (cell) "草稿与发布状态分开；必填项完整；发布人和更新时间可追溯。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[5]/tr[4] (row) cantSplit=true rowAlign=center
+/body/tbl[5]/tr[4]/tc[1] (cell) "US-03Must · 5点郭振顺" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[5]/tr[4]/tc[2] (cell) "活动1.2:开课统筹排课作为教研室主任，我希望按教师、周次、教室查看开课概览，以便统筹排课并发现冲突。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[5]/tr[4]/tc[3] (cell) "支持多教师开课；周次与节次展开正确；以资料中的文管A447、95人课程为样例核对展示。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[5]/tr[5] (row) cantSplit=true rowAlign=center
+/body/tbl[5]/tr[5]/tc[1] (cell) "US-04Should · 3点郭振顺" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[5]/tr[5]/tc[2] (cell) "活动1.2:开课统筹排课作为任课教师，我希望查询历史开课学期、教室与学生人次，以便为备课提供参考。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[5]/tr[5]/tc[3] (cell) "按学期过滤；人数与累计人次分开标注；查询结果与样例数据一致。" children=1 width=4195dxa valign=center size=10pt
+/body/tbl[5]/tr[6] (row) cantSplit=true rowAlign=center
+/body/tbl[5]/tr[6]/tc[1] (cell) "US-06Must · 3点郭振顺" children=1 width=1531dxa valign=center size=10pt
+/body/tbl[5]/tr[6]/tc[2] (cell) "活动1.3:大纲认证关联作为教学督导，我希望按专业、学期和教师组合检索课程，以便定位待听课对象。" children=1 width=3572dxa valign=center size=10pt
+/body/tbl[5]/tr[6]/tc[3] (cell) "单条件与组合条件均有测试；越权不可查询；记录测试数据量和响应时间，不承诺无条件300ms。" children=1 width=4195dxa valign=center size=10pt

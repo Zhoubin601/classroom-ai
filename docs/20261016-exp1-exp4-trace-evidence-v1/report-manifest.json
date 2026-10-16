@@ -1,0 +1,15 @@
+{
+  "stories": 21,
+  "criteria": 63,
+  "backendTests": 284,
+  "casesDesigned": 63,
+  "figures": 47,
+  "screenshots": 21,
+  "sourceAnchors": 155,
+  "outputs": [
+    "20261016-exp1-exp4-feature-trace-v1.html",
+    "20261016-exp1-exp4-feature-trace-v1.md",
+    "20261016-exp1-exp4-feature-trace-v1-images"
+  ],
+  "head": "f5a8bccf6fe19155263bef87599419a1f5658020"
+}

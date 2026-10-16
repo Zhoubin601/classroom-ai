@@ -1,0 +1,12 @@
+1792118645 kill classroom-backend
+1792118645 stop classroom-backend
+1792118645 die classroom-backend
+1792118646 kill classroom-redis
+1792118646 kill classroom-mysql
+1792118646 create classroom-exp3-browser-7132ec1ccc-configurable
+1792118646 stop classroom-redis
+1792118646 die classroom-redis
+1792118646 start classroom-exp3-browser-7132ec1ccc-configurable
+1792118647 kill classroom-mysql
+1792118647 stop classroom-mysql
+1792118647 die classroom-mysql

@@ -1,0 +1,1990 @@
+[
+  {
+    "class": "com.classroom.ai.ApiExceptionHandlerTest",
+    "name": "malformedJsonUsesResponseEnvelope",
+    "seconds": "2.158",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.ApiExceptionHandlerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.ApiExceptionHandlerTest",
+    "name": "databaseConstraintErrorsDoNotExposeSqlOrReturnServerError",
+    "seconds": "0.048",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.ApiExceptionHandlerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.ApiExceptionHandlerTest",
+    "name": "invalidInputUsesJsonAndClientStatus",
+    "seconds": "0.018",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.ApiExceptionHandlerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.CameraMonitorHttpTest",
+    "name": "mismatchedFinishedOrFrozenSessionCannotReadFaces",
+    "seconds": "0.897",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.CameraMonitorHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.CameraMonitorHttpTest",
+    "name": "allRolesGetOnlyCurrentRosterFacesAndRealCourseIdentity",
+    "seconds": "0.157",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.CameraMonitorHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.CameraMonitorHttpTest",
+    "name": "anonymousAndForeignRequestsNeverReadFaceVectors",
+    "seconds": "0.096",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.CameraMonitorHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.CameraStreamSessionTest",
+    "name": "finishedOrMismatchedSessionsHaveNoStreamSideEffects",
+    "seconds": "0.057",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.CameraStreamSessionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.CameraStreamSessionTest",
+    "name": "cacheAndDatabaseFailuresNeverReturnFalseSuccess",
+    "seconds": "0.219",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.CameraStreamSessionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.CameraStreamSessionTest",
+    "name": "nativeFrameSynchronizesAuthoritativeRosterMetricsToSession",
+    "seconds": "0.015",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.CameraStreamSessionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+    "name": "foreignOfferingEndpointsAre403BeforeAnyWrite",
+    "seconds": "0.08",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+    "name": "deletedAccountOldTokenReceives401",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+    "name": "explicitCurrentDoesNotReturnAnotherOfferingSession",
+    "seconds": "0.089",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+    "name": "spoofedBodyAndOldTokenRolesCannotOverrideCurrentAccount",
+    "seconds": "0.015",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+    "name": "profileUsesCurrentDatabaseIdentityRatherThanTokenClaims",
+    "seconds": "0.023",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+    "name": "anonymousAttendanceIs401",
+    "seconds": "0.016",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "foreignOfferingCannotStartOrReadEvenWhenStudentCountExists",
+    "seconds": "0.112",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "revokedSupervisorCannotUpdateOrFinishExistingSession",
+    "seconds": "0.009",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "testStartAttendanceSessionBySupervisor",
+    "seconds": "0.015",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "testFinishAttendanceSession",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "currentReturnsOlderVisibleSessionAndNeverOutsideOrFrozen",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "frozenOfferingRejectsUpdateAndFinishBeforeSessionMutation",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "frozenOfferingRejectsStartWithoutCreatingSession",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "testStartAttendanceSession",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "forgedFinishIdentityIsIgnored",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+    "name": "forgedStartIdentityIsIgnored",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest",
+    "name": "anonymousHasNoFaceLibraryAccess",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest",
+    "name": "teacherAndSupervisorCannotReadRegisterSearchOrDeleteFaces",
+    "seconds": "0.016",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest",
+    "name": "directorCanReadFaceLibrary",
+    "seconds": "0.01",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.AuthControllerTest",
+    "name": "testRegisterSupervisor_PublicEndpointDisabled_Returns404",
+    "seconds": "0.098",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.AuthControllerTest",
+    "name": "testGetMe_Unauthorized",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.AuthControllerTest",
+    "name": "testLogin_Success",
+    "seconds": "0.025",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.AuthControllerTest",
+    "name": "testLogin_WrongPassword_Returns401",
+    "seconds": "0.007",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.AuthControllerTest",
+    "name": "testGetMe_WithValidBearerToken_ReturnsUser",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+    "name": "testCreateSupervisor_SuccessWithManagedMajor",
+    "seconds": "0.065",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.DirectorSupervisorManagementTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+    "name": "testUpdateSupervisorMajors_Success",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.DirectorSupervisorManagementTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+    "name": "testCreateSupervisor_UnauthorizedMajor_Throws403",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.DirectorSupervisorManagementTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+    "name": "testAssignMajors_UnauthorizedMajor_Throws403",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.DirectorSupervisorManagementTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+    "name": "deletedIdCannotInheritRecreatedSameNameAccount",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+    "name": "currentAccountRoleAndDepartmentOverrideOldClaims",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+    "name": "deletedAccountDoesNotAuthenticate",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+    "name": "legacyTokenWithoutIdStillReloadsExistingAccount",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+    "name": "mismatchedUsernameIsRejected",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "selfAndMutualPrerequisitesAreRejected",
+    "seconds": "0.165",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "referencedCatalogIsImmutableButAnIdenticalReimportIsIdempotent",
+    "seconds": "0.015",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "associatedCourseCannotChangeMajorButUnusedCourseCan",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "actualCrossDepartmentAssignmentGrantsCatalogReadOnly",
+    "seconds": "0.017",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "deletingAPrerequisiteCannotLeaveDanglingReferences",
+    "seconds": "0.005",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "noPrerequisiteMarkerIsEmptyAndNamesAreStoredAsStableCodes",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "duplicateTargetSetsAreRejectedButDifferentGoalsRemainAllowed",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "everyIndicatorWriteRejectsMismatchedCategoryBeforeSaving",
+    "seconds": "0.017",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "unchangedUnknownPrerequisitesDoNotBlockMetadataEditing",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "editingIntoAnExistingMappingIsRejected",
+    "seconds": "0.009",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "existingOfferingCannotChangeCourse",
+    "seconds": "0.108",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "ambiguousPrerequisiteNamesRequireStableCodes",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "omittedPlanIsPreservedAndRebindingNeedsCompleteMappings",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "renamingAReferencedCourseNeedsStableCodeReferences",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "currentAttendanceSkipsForeignSessionsAndSupportsExplicitOffering",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "historyCannotBeEditedThroughWholeSyllabusSave",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "attendanceRejectsForeignOfferingForAllReadAndWritePaths",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "attendanceUsesServerIdentityAndRetainsAuthorizedSupervisorFlow",
+    "seconds": "0.009",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "bulkSaveRejectsDuplicateMappingsWithoutDeletingExistingRows",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+    "name": "frozenOfferingAttendanceCannotBeMutated",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "name": "offeringCannotReassignExistingAttendanceToAnotherCourse",
+    "seconds": "0.314",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "name": "referencesProtectCatalogAndHistoryWhileNewVersionsStillWork",
+    "seconds": "0.211",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "name": "crossRoomTeacherReadsCatalogUsingActualAssignment",
+    "seconds": "0.054",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "name": "associationCountsProtectMajorEvenWhenOnlyAResourceExists",
+    "seconds": "0.085",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "name": "attendanceHasScopeServerIdentityAndFrozenHistoryProtection",
+    "seconds": "0.103",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "name": "prerequisiteCycleIsRejectedAndUnknownLegacyTextRemainsEditable",
+    "seconds": "0.082",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.AssociationMysqlTest",
+    "name": "concurrentIdenticalMappingOnlySavesOneRow",
+    "seconds": "0.155",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.053",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.005",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.053",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+    "name": "acceptanceRegressions",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest",
+    "name": "primaryTeacherCanSeeOfferingWithoutTeamRelationRow",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+    "name": "testDirector_DepartmentIsolation",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAuthorizationServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+    "name": "testSupervisor_MajorAuthorizationAndReadOnly",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAuthorizationServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+    "name": "testUnauthenticated_Throws401",
+    "seconds": "0.004",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAuthorizationServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+    "name": "testTeacher_CourseBinding",
+    "seconds": "0.004",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseAuthorizationServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseBrowserMysqlTest",
+    "name": "realBrowserWorkflow",
+    "seconds": "17.289",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseBrowserMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "name": "testPublish_MissingFields_Returns400",
+    "seconds": "0.011",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "name": "testSaveDraft_VersionConflict_Returns409",
+    "seconds": "0.011",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "name": "testSaveDraft_IncompleteAllowed",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "name": "testGetPublished_DraftEditingDoesNotPollutePublished",
+    "seconds": "0.01",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "name": "testGetPublished_UnpublishedReturnsNull",
+    "seconds": "0.01",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "name": "testPublish_Success_IncrementsPublishVersion",
+    "seconds": "0.005",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+    "name": "testPublish_ForbiddenForNonRelatedTeacher",
+    "seconds": "0.01",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "name": "teacherCannotChangeOfferingsRosterOrSchedules",
+    "seconds": "0.009",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "name": "unauthorizedPublishedContentReturns403",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "name": "supervisorCannotPreviewConfirmOrCreateCourse",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "name": "supervisorCannotReadOrCreateUnpublishedDraft",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "name": "teacherWithSameNameButNoAssociationCannotPublish",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "name": "anonymousImportAndContentReadReturn401",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+    "name": "authorizedPublishedContentRemainsReadable",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseImportTest",
+    "name": "testPreviewImport_Success",
+    "seconds": "0.014",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseImportTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseImportTest",
+    "name": "testConfirmImport_Success",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseImportTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseImportTest",
+    "name": "testPreviewImport_ValidationErrors",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseImportTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseImportTest",
+    "name": "testDownloadTemplate",
+    "seconds": "0.016",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseImportTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseOfferingHistoryTest",
+    "name": "testTeacherRoleDataIsolation",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseOfferingHistoryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseOfferingHistoryTest",
+    "name": "testHistoryStatistics_EnrollmentAndFrozenSnapshot",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseOfferingHistoryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+    "name": "weeksAndPeriodsOverlapInclusively",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseScheduleConflictTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+    "name": "sameOfferingDifferentClassroomStillConflicts",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseScheduleConflictTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+    "name": "classroomConflictReturnsAllRowsAndReasons",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseScheduleConflictTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+    "name": "semesterSeparationAndNamesAreNotTeacherIdentity",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseScheduleConflictTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest",
+    "name": "collaboratorAcrossClassroomsBlocksAndIdentifiesTeacher",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest",
+    "name": "semesterMoveAlsoChecksInternalOfferingOverlap",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "differentSemesterAndDisjointWeeksSucceed",
+    "seconds": "0.201",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "everyNormalMutationRejectsArchivedOffering",
+    "seconds": "0.233",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "changingSemesterRevalidatesAllSchedules",
+    "seconds": "0.244",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "maintainsTeamAndNinetyFiveStudentsAndFiltersSample",
+    "seconds": "1.44",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "semesterLockRemainsHeldUntilOuterTransactionCommits",
+    "seconds": "0.708",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "concurrentRoomRequestsHaveExactlyOneWinner",
+    "seconds": "0.219",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "failedArchiveRollsBackSnapshotAndStatus",
+    "seconds": "0.161",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "concurrentTeacherRequestsAcrossRoomsHaveExactlyOneWinner",
+    "seconds": "0.19",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "stableIdListsCountSameStudentAcrossOfferingsButNotTeachers",
+    "seconds": "0.212",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "archiveIsIdempotentAndPreservesDisplayAndCountAfterOtherChanges",
+    "seconds": "0.274",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "changingTeacherRevalidatesAndRollsBackWholeOffering",
+    "seconds": "0.253",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "primaryTeacherCodeAuthorizesLegacyOfferingButNotUnrelatedTeacher",
+    "seconds": "0.186",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "combinedSearchUsesIdsAndAndPermissionsWithCollaboratorDeduplication",
+    "seconds": "0.265",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "concurrentArchiveAndRosterEditShareOfferingLock",
+    "seconds": "0.19",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "sameOfferingAcrossRoomsBlockedAndEditingExcludesItself",
+    "seconds": "0.195",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "concurrentOfferingChangeAndScheduleCannotIntroduceConflict",
+    "seconds": "0.204",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "teacherCannotMaintainOfferingOrScheduleAndForgedEditRejected",
+    "seconds": "0.222",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "archiveMigrationIsRepeatableAndPreservesUnknownLegacyData",
+    "seconds": "0.365",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "emptyRosterDoesNotFallBackToStaleCountAndEmptyHistoryIsZero",
+    "seconds": "0.153",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "allConflictsReturnHttp409WithReasonsAndCourseDetails",
+    "seconds": "0.23",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+    "name": "legacyTeacherDisplayFieldDoesNotGrantAccess",
+    "seconds": "0.178",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+    "name": "testSupervisorQueryUnauthorizedMajor_ShouldThrowForbidden",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSupervisorRbacTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+    "name": "testSupervisorQueryOfferings_AutoFilterByAuthorizedMajors",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSupervisorRbacTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+    "name": "testSupervisorGetCourseById_UnauthorizedMajor_ShouldThrowForbidden",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSupervisorRbacTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+    "name": "testSupervisorGetCourseById_AuthorizedMajor_Success",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseSupervisorRbacTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "concurrentDraftSavesDoNotLoseUpdates",
+    "seconds": "0.119",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "validBatchImportsAllRowsAndRecordsOperator",
+    "seconds": "0.168",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "archiveEditPreservesPublishedContentAndRejectsCodeOrScopeChange",
+    "seconds": "0.169",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "deletedPrerequisiteRejectsConfirmation",
+    "seconds": "0.209",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "completeDraftPublishAndReeditWorkflowRejectsStaleRequests",
+    "seconds": "0.268",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "concurrentPublishHasOneWinnerAndOneConflict",
+    "seconds": "0.214",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "legacyMigrationIsRepeatableAndPreservesAuditHistory",
+    "seconds": "0.561",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "concurrentFirstReadsCreateOneDraft",
+    "seconds": "0.143",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "deletedMajorRejectsConfirmation",
+    "seconds": "0.198",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "concurrentBatchConfirmationWritesExactlyOnce",
+    "seconds": "0.143",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+    "name": "auditFailureRollsBackWholeBatchAndAllowsRetry",
+    "seconds": "0.202",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+    "name": "onlyLeadWritesSharedCatalogWhileParticipantsAndAuthorizedSupervisorsReadIt",
+    "seconds": "0.043",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.MajorDepartmentMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+    "name": "participatingDepartmentCanBindCatalogAndKeepHistoricalMappings",
+    "seconds": "0.077",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.MajorDepartmentMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+    "name": "sharedProfessionalScopeDoesNotGrantOtherDepartmentsCourses",
+    "seconds": "0.028",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.MajorDepartmentMysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testConfirmImport_RejectBatchWithErrors",
+    "seconds": "0.068",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testConfirmImport_DuplicateConsumption",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testExportCourses",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testPreviewImport_VariousValidationFailures",
+    "seconds": "0.012",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testPreviewImport_RejectTeachingQualityReport",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testPreviewImport_FlexibleHeadersAndReorderedColumns",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testPreviewImport_Success_WithBatchInternalPrerequisite",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testConfirmImport_Success",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testFileLimits",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testDownloadTemplate",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testConfirmImport_ForbiddenOperator",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+    "name": "testConfirmImport_ExpiredBatch",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+    "name": "versionOfAnotherCourseCannotBeReadThroughAnAuthorizedCourse",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+    "name": "missingVersionIsRejected",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+    "name": "unauthorizedCourseDoesNotExposeItsHistory",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+    "name": "anonymousHistoryReadIsRejected",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+    "name": "authorizedUsersReadTheRequestedSnapshot(RoleEnum)[1]",
+    "seconds": "0.016",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+    "name": "authorizedUsersReadTheRequestedSnapshot(RoleEnum)[2]",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+    "name": "omittingVersionPreservesLatestQuery",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+    "name": "testStandardCsv",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+    "name": "testUtf8BomStripping",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+    "name": "testQuotedCommas",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+    "name": "testEscapedQuotes",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+    "name": "testCrlfAndBlankLines",
+    "seconds": "0.011",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+    "name": "testUploadSizeLimit_Over100MB_ShouldThrowException",
+    "seconds": "0.066",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.CourseResourceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+    "name": "testUploadValidResource_ShouldGenerateWatermark",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.CourseResourceServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "directorAndTeacherCanMountAndDeleteInScope",
+    "seconds": "0.026",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "anonymousRequestsCannotReadMountOrDelete",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "stageQueriesUseOnlyReadableCourseIdsForEveryRole",
+    "seconds": "0.009",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "directForeignCourseAndSliceIdsCannotBypassScope",
+    "seconds": "0.019",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "threeRolesReadTheirAuthorizedCourse",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "supervisorCannotMountOrDeleteEvenAnAuthorizedCourse",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "crossDepartmentCollaboratorCanMaintainCourseButDirectorCannot",
+    "seconds": "0.004",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+    "name": "revokedAuthorizationAndMissingInputsNeverWrite",
+    "seconds": "0.012",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroVideoHttpTest",
+    "name": "supervisorCannotUploadAndForeignCourseCannotBeRead",
+    "seconds": "0.037",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroVideoHttpTest",
+    "name": "managedFilePathCannotBypassLoginAndCourseAuthorization",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.resource.MicroVideoHttpTest",
+    "name": "validUploadUsesPrivateGeneratedPathAndDisguisedFilesAreRejected",
+    "seconds": "0.02",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.Sprint2MysqlTest",
+    "name": "reviewDelayAndSemesterCoverage",
+    "seconds": "0.075",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.Sprint2MysqlTest",
+    "name": "syllabusVersionsKeepTheirOwnMappings",
+    "seconds": "0.068",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.Sprint2MysqlTest",
+    "name": "recommendedTemplateKeepsRealPlansSeparateAndSupportsMaintenance",
+    "seconds": "0.107",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.Sprint2MysqlTest",
+    "name": "resourceVisibilityTagsAndExpiringPreview",
+    "seconds": "4.397",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "invalidScoresRejected",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "exactDecimalWeights",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "missingAndZeroAreDifferent",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "auditAndFeedbackAreSeparate",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "analysisStructureAndLimits",
+    "seconds": "0.015",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "sixStagesOnly",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "csvEscapingAndFormulaDefense",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "zeroWeightDoesNotRequireScore",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "decimalScoresUseAnExactDecimalSum",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "millisecondRangeBoundaries",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "forgedPublishedStateNeverOpensFeedback",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "staleVersionRejected",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "problemTagsDeduplicateAndRejectUnknown",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "xlsxHasTwoSafeWorksheets",
+    "seconds": "0.024",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "assetSourcesAreMandatory",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+    "name": "clientCannotWriteHistoryOrTeacherIdentity",
+    "seconds": "0.016",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "resourceCandidatesIncludeHistoryAndExcludeRevokedSeries",
+    "seconds": "0.365",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "evaluationConcurrentDraftEditHasOneWinner",
+    "seconds": "0.201",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "templateConcurrentPublishHasOneWinnerAndPublishedIsImmutable",
+    "seconds": "0.205",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "exportIncludesEntireFilterWhilePageIsBounded",
+    "seconds": "0.235",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "exportUsesRepeatableReadAcrossConcurrentEvaluationChange",
+    "seconds": "0.244",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "templateStaleEditRollsBack",
+    "seconds": "0.206",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "managementCountsApprovedBeforeFeedbackButTeacherCannotSee",
+    "seconds": "0.352",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "evidenceCandidatesRespectParentReleaseAndSameCourse",
+    "seconds": "0.287",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "publishedWithoutAuditIsNeverIncluded",
+    "seconds": "0.215",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "migrationIsRepeatableAndDoesNotInferLegacyWeights",
+    "seconds": "0.307",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "firstFeedbackRaceHasOneWinner",
+    "seconds": "0.218",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "unknownWeightsAndMissingDimensionStayOutOfLowScores",
+    "seconds": "0.363",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "coTeachersMaintainIndependentFeedbackRows",
+    "seconds": "0.315",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "revocationDuringPreviewGenerationIsRecheckedBeforeReturningBytes",
+    "seconds": "0.443",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "invalidProbeDoesNotSaveAssetAndUnavailableToolReturns503",
+    "seconds": "0.372",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "revocationClosesOldIdAndReadsFreshEpoch",
+    "seconds": "0.376",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "adminInitializationIsRepeatableAndNeverPromotesExistingUser",
+    "seconds": "0.233",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "courseCategoriesDeduplicateAndUseAllSamplesAsDenominator",
+    "seconds": "0.451",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "multipleAdviceAndFeedbackHistoryCannotBeOverwritten",
+    "seconds": "0.348",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "explicitZeroIsCountedAndVersionsAreSeparate",
+    "seconds": "0.352",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "resourceConcurrentUploadsAndFixedHistoricalIds",
+    "seconds": "0.296",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "cachedPreviewAndOldTicketsAreRejectedAfterRevocation",
+    "seconds": "0.528",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "administratorCannotReachAnyGenericOrFaceEntry",
+    "seconds": "0.28",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "stableIdentityAndCoTeacherPermissions",
+    "seconds": "0.172",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "unpublishedAndForgedWeightsCannotBeSubmitted",
+    "seconds": "0.155",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "lowScoreThresholdUsesUnroundedMean",
+    "seconds": "0.245",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "changedVideoHashBlocksPlaybackAndReplacementDoesNotMoveOldInterval",
+    "seconds": "0.309",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "evidenceMustBeSameCourseAndAccessible",
+    "seconds": "0.22",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "databaseRejectsCrossSeriesPointerAndDuplicateVersion",
+    "seconds": "0.226",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "categoriesExcludeOtherTermsUnauthorizedMajorsAndPending",
+    "seconds": "0.312",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+    "name": "realVideoDurationAndAllSixStagesAreVerifiedOnServer",
+    "seconds": "0.361",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+    "name": "testDashboardMetrics",
+    "seconds": "0.061",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionAnalyticsTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+    "name": "testAlertRules_YellowAndRed",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionAnalyticsTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+    "name": "testAnnualReportExportCsv",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionAnalyticsTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "incompleteDraftCanStillBeSaved",
+    "seconds": "0.007",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "testEvaluationScoreOutOfRange_ShouldThrowException",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRejectsMissingScores(String)[1]",
+    "seconds": "0.003",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRejectsMissingScores(String)[2]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRejectsMissingScores(String)[3]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRejectsMissingScores(String)[4]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRejectsMissingScores(String)[5]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "explicitZeroScoresCanBeSubmitted",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "testEvaluationSubmit_ShouldEnterDesensitizationPeriod",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[1]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[2]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[3]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[4]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "formalSubmissionRequiresThreeDistinctNonemptyHighlights(String)[5]",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+    "name": "testEvaluationDraft_ShouldBeDraftStatus",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "reversedScheduleRangesAreRejected",
+    "seconds": "0.007",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "commentsOver500CharactersAndNanScoresAreRejected",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "negativeFileSizeIsRejected",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "partialCacheFallsBackToCompleteDatabaseWithoutDuplicates",
+    "seconds": "0.225",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "rejectsInvalidSimilarityThreshold",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "lockedSyllabusCannotBeEdited",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "unpublishedEvaluationDoesNotLeakIntoRadar",
+    "seconds": "0.009",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "rejectsWrongDimensionBeforeWriting",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "teacherSeesPublishedAnonymousCopiesOnly",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "emptyPoseFrameClearsOldPoseAndDeduplicatesAttendance",
+    "seconds": "0.009",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "rejectsPercentageWhereStreamRequiresFraction",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "zeroExpectedAttendanceDoesNotDivideByOneOrFailOnNull",
+    "seconds": "0.007",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "defaultWeeksHaveValidHumanReadableLabel",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "csvEscapesCommasQuotesAndKeepsDecimalDotInOtherLocales",
+    "seconds": "0.0",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "rejectsZeroNanAndNullVectors",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "finishedAttendanceCannotBeOverwritten",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "emptyRadarDoesNotInventScoresOrFeedback",
+    "seconds": "0.001",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.RegressionTest",
+    "name": "negativeAttendanceIsRejected",
+    "seconds": "0.002",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.RegressionTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.UploadPathsTest",
+    "name": "rootAndBackendLaunchesUseTheSameSharedPictures",
+    "seconds": "0.004",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.UploadPathsTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.UploadPathsTest",
+    "name": "explicitAbsoluteAndRelativeUploadLocationsAreRespected",
+    "seconds": "0.005",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.UploadPathsTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.VisualHttpAuthorizationTest",
+    "name": "anonymousRequestsAreRejectedBeforeReadingOrWritingCaches",
+    "seconds": "0.008",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.VisualHttpAuthorizationTest",
+    "name": "frozenOfferingRejectsStreamAndResetForEveryRoleBeforeAnySideEffect",
+    "seconds": "0.016",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.VisualHttpAuthorizationTest",
+    "name": "emptyAuthorizedRosterDoesNotUseStudentsFromOtherClasses",
+    "seconds": "0.01",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.VisualHttpAuthorizationTest",
+    "name": "allThreeRolesCannotBypassOfferingScopeThroughAnyRealtimeEndpoint",
+    "seconds": "0.035",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml"
+  },
+  {
+    "class": "com.classroom.ai.VisualHttpAuthorizationTest",
+    "name": "missingOfferingNeverFallsBackToGlobalRosterOrActiveClass",
+    "seconds": "0.006",
+    "result": "本次通过",
+    "evidence": "docs/20261016-exp1-exp4-trace-evidence-v1/backend-full-xml/TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml"
+  }
+]

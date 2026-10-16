@@ -1,0 +1,34 @@
+[
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/2",
+    "time": 1792118715323
+  },
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/2/latest",
+    "time": 1792118715323
+  },
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/2/indicators?syllabusId=10",
+    "time": 1792118715374
+  },
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118715374
+  },
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/2",
+    "time": 1792118716029
+  },
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/2/latest",
+    "time": 1792118716030
+  },
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/course/2/indicators?syllabusId=9",
+    "time": 1792118716086
+  },
+  {
+    "url": "http://127.0.0.1:15173/api/v1/syllabus/plans/SE/RECOMMENDED-12/indicators",
+    "time": 1792118716086
+  }
+]

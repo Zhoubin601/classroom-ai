@@ -1,0 +1,22 @@
+{
+  "passed": 9,
+  "proof": [
+    "21 unique story sections and every embedded image loads offline",
+    "US-14 search returns exactly the intended requirement",
+    "Role filters and no-match/reset state work",
+    "Sidebar anchor reaches US-12 without hidden or overlapping heading",
+    "Image zoom opens and Escape closes accessibly",
+    "390px viewport has no page-level horizontal overflow",
+    "Markdown contains all 21 stories and every local image reference exists",
+    "All internal navigation anchors resolve",
+    "All SVG text bounds fit their canvas"
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "viewport": {
+    "document": 390,
+    "viewport": 390
+  },
+  "markdownImages": 50,
+  "browserVersion": "155.0.8059.80"
+}

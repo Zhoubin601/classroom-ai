@@ -1,0 +1,6 @@
+{
+  "backend": "NOT_RERUN_IN_BROWSER_ONLY_PHASE",
+  "resources": "PASS",
+  "sprint3": "PASS",
+  "backendEvidence": "../backend-full-xml"
+}

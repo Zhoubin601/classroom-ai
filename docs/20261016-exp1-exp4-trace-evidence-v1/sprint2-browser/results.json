@@ -1,0 +1,9 @@
+{
+  "login-probe-browser.cjs": "PASS",
+  "login-start-browser.cjs": "PASS",
+  "exp3-real-browser.cjs": "PASS",
+  "fix-exp3-acceptance.cjs": "PASS",
+  "exp3-history-scores.cjs": "PASS",
+  "exp3-startup-history-browser.cjs": "PASS",
+  "exp3-configurable-browser.cjs": "PASS"
+}

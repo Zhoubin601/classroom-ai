@@ -1,0 +1,61 @@
+/body/tbl[16] (table) cols=7 rows=12 _gridCols=7 border.top=single border.top.sz=8 border.top.color=#000000 border.top.space=0 border.bottom=single border.bottom.sz=8 border.bottom.color=#000000 border.bottom.space=0 border.insideH=single border.insideH.sz=4 border.insideH.color=#000000 border.insideH.space=0 border.insideV=nil border.left=nil border.right=nil width=auto align=center layout=fixed tblLook=04A0 padding.top=45 padding.bottom=45 padding.left=95 padding.right=95 firstRow=true firstCol=true bandedRows=true colWidths=1191dxa,566dxa,1248dxa,3742dxa,1133dxa,511dxa,907dxa
+/body/tbl[16]/tr[1] (row) header=true cantSplit=true rowAlign=center
+/body/tbl[16]/tr[1]/tc[1] (cell) "检查项" children=1 width=1757dxa valign=center colspan=2 align=center size=10pt bold=true
+/body/tbl[16]/tr[1]/tc[2] (cell) "共同完成条件" children=1 width=6123dxa valign=center colspan=3 align=center size=10pt bold=true
+/body/tbl[16]/tr[1]/tc[3] (cell) "核验人" children=1 width=1417dxa valign=center colspan=2 align=center size=10pt bold=true
+/body/tbl[16]/tr[2] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[2]/tc[1] (cell) "D1 范围与追踪" children=1 width=1757dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[2]/tc[2] (cell) "故事、WBS、AC和负责人可对应；变更记录说明理由与影响。" children=1 width=6123dxa valign=center colspan=3 size=10pt
+/body/tbl[16]/tr[2]/tc[3] (cell) "郭振顺" children=1 width=1417dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[3] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[3]/tc[1] (cell) "D2 功能与数据" children=1 width=1757dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[3]/tc[2] (cell) "核心流程用样例跑通；统计结果可追溯；失败和边界输入有记录。" children=1 width=6123dxa valign=center colspan=3 size=10pt
+/body/tbl[16]/tr[3]/tc[3] (cell) "王嘉伦" children=1 width=1417dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[4] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[4]/tc[1] (cell) "D3 权限与隐私" children=1 width=1757dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[4]/tc[2] (cell) "未授权访问被拒绝；资源链接受控；评价审核、角色可见与脱敏规则经核对。" children=1 width=6123dxa valign=center colspan=3 size=10pt
+/body/tbl[16]/tr[4]/tc[3] (cell) "沈越" children=1 width=1417dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[5] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[5]/tc[1] (cell) "D4 质量证据" children=1 width=1757dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[5]/tc[2] (cell) "提交测试结果和缺陷清单；阻断性缺陷关闭或有DRI批准的处置。" children=1 width=6123dxa valign=center colspan=3 size=10pt
+/body/tbl[16]/tr[5]/tc[3] (cell) "沈越" children=1 width=1417dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[6] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[6]/tc[1] (cell) "D5 文档与批准" children=1 width=1757dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[6]/tc[2] (cell) "图表与文字一致；用户说明可用；一名自然人批准本轮交付。" children=1 width=6123dxa valign=center colspan=3 size=10pt
+/body/tbl[16]/tr[6]/tc[3] (cell) "轮值DRI" children=1 width=1417dxa valign=center colspan=2 size=10pt
+/body/tbl[16]/tr[7] (row) header=true cantSplit=true rowAlign=center
+/body/tbl[16]/tr[7]/tc[1] (cell) "风险" children=1 width=1191dxa valign=center align=center size=9.5pt bold=true
+/body/tbl[16]/tr[7]/tc[2] (cell) "触发条件" children=1 width=1814dxa valign=center colspan=2 align=center size=9.5pt bold=true
+/body/tbl[16]/tr[7]/tc[3] (cell) "处置与验证" children=1 width=3742dxa valign=center align=center size=9.5pt bold=true
+/body/tbl[16]/tr[7]/tc[4] (cell) "故事 / WBS" children=1 width=1644dxa valign=center colspan=2 align=center size=9.5pt bold=true
+/body/tbl[16]/tr[7]/tc[5] (cell) "主责" children=1 width=907dxa valign=center align=center size=9.5pt bold=true
+/body/tbl[16]/tr[8] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[8]/tc[1] (cell) "范围与AI幻觉" children=1 width=1191dxa valign=center size=9.5pt
+/body/tbl[16]/tr[8]/tc[2] (cell) "故事/实现边界混淆或擅增能力" children=1 width=1814dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[8]/tc[3] (cell) "对照三阶段路线与21条基线；新增功能先估算和审批。" children=1 width=3742dxa valign=center size=9.5pt
+/body/tbl[16]/tr[8]/tc[4] (cell) "US-12、21；E-01—04" children=1 width=1644dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[8]/tc[5] (cell) "郭振顺" children=1 width=907dxa valign=center align=center size=9.5pt
+/body/tbl[16]/tr[9] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[9]/tc[1] (cell) "估算与容量" children=1 width=1191dxa valign=center size=9.5pt
+/body/tbl[16]/tr[9]/tc[2] (cell) "任务进入缓冲或可用时间下降" children=1 width=1814dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[9]/tc[3] (cell) "每周核对实际时段与阻塞；使用6日缓冲；不足则评估变更。" children=1 width=3742dxa valign=center size=9.5pt
+/body/tbl[16]/tr[9]/tc[4] (cell) "2.7、3.7、4.8" children=1 width=1644dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[9]/tc[5] (cell) "王嘉伦" children=1 width=907dxa valign=center align=center size=9.5pt
+/body/tbl[16]/tr[10] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[10]/tc[1] (cell) "资源访问" children=1 width=1191dxa valign=center size=9.5pt
+/body/tbl[16]/tr[10]/tc[2] (cell) "预览越权、分享链接泄露" children=1 width=1814dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[10]/tc[3] (cell) "预览上线即执行鉴权、水印、日志与失效链接测试。" children=1 width=3742dxa valign=center size=9.5pt
+/body/tbl[16]/tr[10]/tc[4] (cell) "US-07、09—11；3.2" children=1 width=1644dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[10]/tc[5] (cell) "沈越" children=1 width=907dxa valign=center align=center size=9.5pt
+/body/tbl[16]/tr[11] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[11]/tc[1] (cell) "评价公开" children=1 width=1191dxa valign=center size=9.5pt
+/body/tbl[16]/tr[11]/tc[2] (cell) "未经审核即对外展示评语" children=1 width=1814dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[11]/tc[3] (cell) "审核后分角色反馈；延迟配置可调整；单次评价不用作考核定论。" children=1 width=3742dxa valign=center size=9.5pt
+/body/tbl[16]/tr[11]/tc[4] (cell) "US-13、14；3.3" children=1 width=1644dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[11]/tc[5] (cell) "沈越" children=1 width=907dxa valign=center align=center size=9.5pt
+/body/tbl[16]/tr[12] (row) cantSplit=true rowAlign=center
+/body/tbl[16]/tr[12]/tc[1] (cell) "数据质量" children=1 width=1191dxa valign=center size=9.5pt
+/body/tbl[16]/tr[12]/tc[2] (cell) "批量导入错误或统计口径不一" children=1 width=1814dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[12]/tc[3] (cell) "预览/校验/错误清单；覆盖率从明细追溯；保留导入日志。" children=1 width=3742dxa valign=center size=9.5pt
+/body/tbl[16]/tr[12]/tc[4] (cell) "US-01、15；2.2、3.4" children=1 width=1644dxa valign=center colspan=2 size=9.5pt
+/body/tbl[16]/tr[12]/tc[5] (cell) "郭振顺" children=1 width=907dxa valign=center align=center size=9.5pt
