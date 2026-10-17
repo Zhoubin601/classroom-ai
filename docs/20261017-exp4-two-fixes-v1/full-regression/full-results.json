@@ -1,0 +1,14 @@
+﻿{
+    "startedAt":  "2026-10-17T13:46:59.6117785+08:00",
+    "head":  "3dddcbdcdc4e86f2aaf06c38d0bb9b25cab38026",
+    "backend":  "PASS",
+    "sprint1Browser":  "PASS",
+    "sprint3":  "PASS",
+    "resources":  "PASS",
+    "supplement":  "PASS",
+    "failures":  [
+
+                 ],
+    "sourceState":  "Current uncommitted US07 upload policy and BOPPPS copy fixes; see runtime-artifacts.json.",
+    "finishedAt":  "2026-10-17T13:50:17.3770336+08:00"
+}

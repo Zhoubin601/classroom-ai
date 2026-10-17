@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-17T13:50:35.0944539+08:00",
+  "dedicatedPorts": [
+    13316,
+    13317,
+    13319,
+    16319,
+    15179,
+    18089
+  ],
+  "remainingListeners": [],
+  "remainingContainers": [],
+  "clean": true
+}

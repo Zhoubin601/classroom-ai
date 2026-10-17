@@ -1,0 +1,31 @@
+{
+  "proof": [
+    {
+      "kind": "success-before",
+      "result": "PASS",
+      "probeUsedOldToken": true
+    },
+    {
+      "kind": "success-after",
+      "result": "PASS",
+      "probeUsedOldToken": true
+    },
+    {
+      "kind": "http401-before",
+      "result": "PASS",
+      "probeUsedOldToken": true
+    },
+    {
+      "kind": "business401-before",
+      "result": "PASS",
+      "probeUsedOldToken": true
+    },
+    {
+      "kind": "failed-login",
+      "result": "PASS",
+      "probeUsedOldToken": true
+    }
+  ],
+  "pageErrors": [],
+  "syntheticOnly": true
+}

@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-17T13:47:11.1923021+08:00",
+  "ports": [
+    13320,
+    16320,
+    18090,
+    18091,
+    15180,
+    15181
+  ],
+  "seedDemo": false,
+  "databaseInitialization": [
+    "initialize.sql",
+    "scripts/deploy/mysql/init/06_exp3_sprint2.sql"
+  ],
+  "backendCommands": {
+    "high": "[\"-Duser.timezone=Asia/Shanghai\",\"-jar\",\"/audit.jar\",\"--classroom.supervision.feedback-delay-hours=0\",\"--classroom.resource.max-file-bytes=157286400\"]",
+    "low": "[\"-Duser.timezone=Asia/Shanghai\",\"-jar\",\"/audit.jar\",\"--classroom.supervision.feedback-delay-hours=0\",\"--classroom.resource.max-file-bytes=1024\",\"--classroom.resource.allowed-extensions=pdf\"]"
+  },
+  "jarSha256": "D446B2CA8CD8B822C901A8706FDC67223BDDA4FAB6F3C7B368B8FF73FA75F6E8",
+  "frontendIndexSha256": "8ADBA15FEFF6D3819A7517CB2E3492A070B66F4EC8FA10C16DDDA6379C62B557",
+  "gitHead": "3dddcbdcdc4e86f2aaf06c38d0bb9b25cab38026",
+  "backendRuntimeImage": "sha256:56ea52db3ae6ea49adcfb7ac029a734fbffc7dd1a32f88e1818f8d60debb8c4d"
+}

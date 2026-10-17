@@ -1,0 +1,16 @@
+PASS 150MiB policy: main form really uploads and renders 101MiB PDF
+PASS 150MiB policy: same-series new version uploads and renders 101MiB PDF
+PASS PDF-only 1024B policy: main form uploads small PDF
+PASS PDF-only 1024B policy: main form uploads exact PDF
+PASS PDF-only 1024B policy: main form rejects size without upload
+PASS PDF-only 1024B policy: main form rejects type without upload
+PASS PDF-only 1024B policy: version form uploads small PDF
+PASS PDF-only 1024B policy: version form uploads exact PDF
+PASS PDF-only 1024B policy: version form rejects size without upload
+PASS PDF-only 1024B policy: version form rejects type without upload
+PASS Teacher guojun: four teaching dimensions and improvement labels are accurate
+PASS Teacher liubo: four teaching dimensions and improvement labels are accurate
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: /随堂评价/ }).first()
+

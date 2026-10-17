@@ -1,0 +1,9 @@
+﻿{
+  "proof": [
+    "PDF-only and 1024-byte upload policy enforced",
+    "Untagged resource filter and display",
+    "Published decimal weights determine server score",
+    "Rejection/modification/approval audit and natural immediate anonymous feedback UI"
+  ],
+  "pageErrors": []
+}

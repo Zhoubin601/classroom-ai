@@ -1,0 +1,50 @@
+﻿PASS 150MiB policy: main form really uploads and renders 101MiB PDF
+PASS 150MiB policy: same-series new version uploads and renders 101MiB PDF
+PASS PDF-only 1024B policy: main form uploads small PDF
+PASS PDF-only 1024B policy: main form uploads exact PDF
+PASS PDF-only 1024B policy: main form rejects size without upload
+PASS PDF-only 1024B policy: main form rejects type without upload
+PASS PDF-only 1024B policy: version form uploads small PDF
+PASS PDF-only 1024B policy: version form uploads exact PDF
+PASS PDF-only 1024B policy: version form rejects size without upload
+PASS PDF-only 1024B policy: version form rejects type without upload
+PASS Teacher guojun: four teaching dimensions and improvement labels are accurate
+PASS Teacher liubo: four teaching dimensions and improvement labels are accurate
+PASS Supervisor terminology correction preserves real four-dimension score submission
+PASS Six optional BOPPPS stage tags remain independent of four score dimensions
+PASS Fault injection only: failed policy blocks upload and explicit retry loads real policy
+PASS Fault injection only: version policy failure blocks upload and retry recovers
+node.exe : locator.click: Timeout 30000ms exceeded.
+At D:\2026Autumn Semester File\classroom-ai-demo\docs\20261017-exp4-two-fixes-v1\run-upload-policy.ps1:75 char:23
++ ... estOutput = & node (Join-Path $projectRoot 'scripts/tests/resource-up ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (locator.click: Timeout 30000ms exceeded.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Call log:
+[2m  - waiting for getByRole('button', { name: '统计与反馈', exact: true })[22m
+[2m    - locator resolved to <button type="button" title="统计与反馈" aria-label="统计与反馈" class="sidebar-link">…</button>[2
+2m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <div class="ui-modal-backdrop">…</div> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <div class="ui-modal-backdrop">…</div> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is visible, enabled and stable[22m
+[2m       - scrolling into view if needed[22m
+[2m       - done scrolling[22m
+[2m       - <div class="ui-modal-backdrop">…</div> intercepts pointer events[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+

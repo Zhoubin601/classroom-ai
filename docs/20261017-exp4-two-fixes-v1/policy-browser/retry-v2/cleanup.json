@@ -1,0 +1,8 @@
+{
+  "stoppedDedicatedContainers": true,
+  "removedGeneratedRuntime": true,
+  "completedAt": "2026-10-17T13:51:47.5258629+08:00",
+  "containerCount": 4,
+  "stoppedFrontends": true,
+  "dedicatedListeningPortCount": 0
+}

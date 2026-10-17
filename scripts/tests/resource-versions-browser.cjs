@@ -22,6 +22,7 @@ async function waitFor(test){for(let i=0;i<100;i++){if(await test())return;await
   else if(p.endsWith('/auth/csrf'))data={csrfToken:'synthetic-test-only'};
   else if(p.endsWith('/analytics/dashboard'))data={academicTerm:'2026-2027秋季',totalCourses:2,supervisedCourses:0,totalEvaluations:0,coverageRate:0};
   else if(p==='/api/v1/courses')data=[course(901),course(902)];
+  else if(p==='/api/v1/resources/upload-policy')data={maxFileBytes:104857600,allowedExtensions:['ppt','pptx','doc','docx','pdf']};
   else if(p==='/api/v1/resources')data=[a,b].map(r=>({...r,id:currents.get(r.seriesId)}));
   else if(p.endsWith('/sprint3/quality'))data={term:'2026-2027秋季',total:0,rows:[]};
   else if(p.endsWith('/resources/101/history')){if(delayA)await new Promise(r=>releaseHistory=r);data=history(a);if(failA)status=503;}

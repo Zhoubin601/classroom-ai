@@ -1,0 +1,9 @@
+{
+  "mocked": true,
+  "classification": "Fault injection interaction cases; no substitute for real-backend business acceptance",
+  "status": "NOT_RUN",
+  "passed": 0,
+  "failed": 0,
+  "proof": [],
+  "pageErrors": []
+}

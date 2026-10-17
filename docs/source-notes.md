@@ -560,3 +560,24 @@ UI重构验收来源：docs/20261012-ui-redesign-evidence-v1/interaction/results
 
 ## 2026-10-16 当前发布授权
 来源名称：用户当前“搞好了就push到exp4”及本地/远端Git；引用日期：2026-10-16。准备在exp4追加README与其功能总览/证据依赖。发布前本地和实时origin/exp4均为f5a8bcc；待提交内容凭据模式扫描无命中，不包含原始业务数据或真人摄像头目录。实际提交与推送结果按Git核验。
+
+
+## 2026-10-17 exp4 当前源码与真实浏览器复验来源
+来源名称：用户本轮验收复核要求；链接或文件名：本聊天；引用日期：2026-10-17。
+来源名称：实验一正式规划原件；链接或文件名：D:/2026Autumn Semester File/软管/实验三/raw/实验一最终提交物/第二组_项目规划方案.docx；引用日期：2026-10-17。由只读专项重新核对与校验 SHA256，摘录见本轮 requirements-audit.md 与 original-plan-extract.txt。
+来源名称：当前本地 exp4 源码、配置与本轮实测；链接或文件名：docs/20261017-exp4-acceptance-recheck-v1/baseline.json、scripts/run-sprint2-acceptance.ps1、scripts/tests/、backend/src/、frontend/src/；引用日期：2026-10-17。
+来源名称：历史范围与历史验收对照；链接或文件名：docs/questions.md、docs/20261014-exp4-sprint2-acceptance-check-v3.md、docs/20261016-acceptance-readiness-v1.md；引用日期：2026-10-17。旧测试通过数仅作对照，本次结论以本轮执行证据为准。
+项目 raw/ 只有 README.md，其他业务原始资料未提供；测试沿用已确认的合成样例范围，不引入外部联网业务资料。
+
+来源名称：2026-10-17本机真实执行和最终保护核对；链接或文件名：docs/20261017-exp4-acceptance-recheck-v1/verification-summary.json、executed-story-evidence.json、sprint2-browser/results.json、full-regression/verification-summary.json、upload-policy-probe/render-confirmation/results.json及runtime-metadata.json；引用日期：2026-10-17。上传上限缺陷按真实UI/API/同文件渲染定案；旧补充脚本首轮失败与修订后复跑分别留证，不覆盖原失败记录。
+
+
+## 2026-10-17 exp4 两项缺陷修复与Playwright验证
+
+来源名称：用户本轮修复和Playwright验证授权；链接或文件名：本聊天；引用日期：2026-10-17。
+来源名称：本机已复现缺陷及实验一原规划摘录；链接或文件名：docs/20261017-exp4-acceptance-check-v1.md、docs/20261017-exp4-acceptance-recheck-v1/original-plan-extract.txt、upload-policy-probe/render-confirmation/results.json；引用日期：2026-10-17。不重写原件，不引入外部业务资料。
+
+
+## 2026-10-17 两项缺陷修复结果
+
+本轮直接来源：docs/20261017-exp4-two-fixes-v1/verification-summary.json、full-regression/verification-summary.json、policy-browser/retry-v5/results.json与fixture-results.json；引用日期：2026-10-17。业务边界14组与故障注入3组分开；前几次脚本中断留证，不冒称首轮全部成功。

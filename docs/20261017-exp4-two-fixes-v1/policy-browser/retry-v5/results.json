@@ -1,0 +1,240 @@
+{
+  "startedAt": "2026-10-17T06:12:43.014Z",
+  "mockedBusinessResponses": false,
+  "passed": 14,
+  "failed": 0,
+  "proof": [
+    {
+      "name": "150MiB policy: main form really uploads and renders 101MiB PDF",
+      "policy": {
+        "maxFileBytes": 157286400,
+        "allowedExtensions": [
+          "ppt",
+          "pptx",
+          "doc",
+          "docx",
+          "pdf"
+        ],
+        "accept": ".doc,.docx,.pdf,.ppt,.pptx"
+      },
+      "resourceId": 10,
+      "seriesId": 6,
+      "fileSizeBytes": 105906176,
+      "courseId": 3,
+      "version": "v1",
+      "httpStatus": 200,
+      "code": 200,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页",
+      "status": "PASS"
+    },
+    {
+      "name": "150MiB policy: same-series new version uploads and renders 101MiB PDF",
+      "policy": {
+        "maxFileBytes": 157286400,
+        "allowedExtensions": [
+          "ppt",
+          "pptx",
+          "doc",
+          "docx",
+          "pdf"
+        ],
+        "accept": ".doc,.docx,.pdf,.ppt,.pptx"
+      },
+      "resourceId": 11,
+      "seriesId": 6,
+      "fileSizeBytes": 105906176,
+      "courseId": 3,
+      "version": "v2",
+      "httpStatus": 200,
+      "code": 200,
+      "previousResourceId": 10,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页",
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: main form uploads small PDF",
+      "policy": {
+        "maxFileBytes": 1024,
+        "allowedExtensions": [
+          "pdf"
+        ],
+        "accept": ".pdf"
+      },
+      "resourceId": 12,
+      "seriesId": 7,
+      "fileSizeBytes": 900,
+      "courseId": 3,
+      "version": "v1",
+      "httpStatus": 200,
+      "code": 200,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页",
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: main form uploads exact PDF",
+      "policy": {
+        "maxFileBytes": 1024,
+        "allowedExtensions": [
+          "pdf"
+        ],
+        "accept": ".pdf"
+      },
+      "resourceId": 13,
+      "seriesId": 8,
+      "fileSizeBytes": 1024,
+      "courseId": 3,
+      "version": "v1",
+      "httpStatus": 200,
+      "code": 200,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页",
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: main form rejects size without upload",
+      "filename": "blocked-1025B.pdf",
+      "fileSizeBytes": 1025,
+      "notification": "单文件大小不能超过 1 KiB（1024 字节）\n×",
+      "uploadRequestsAdded": 0,
+      "uploadDisabled": true,
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: main form rejects type without upload",
+      "filename": "blocked-type.docx",
+      "fileSizeBytes": 789,
+      "notification": "不支持的文件格式，允许：PDF\n×",
+      "uploadRequestsAdded": 0,
+      "uploadDisabled": true,
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: version form uploads small PDF",
+      "resourceId": 14,
+      "seriesId": 8,
+      "fileSizeBytes": 900,
+      "courseId": 3,
+      "version": "v2",
+      "httpStatus": 200,
+      "code": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: version form uploads exact PDF",
+      "resourceId": 15,
+      "seriesId": 8,
+      "fileSizeBytes": 1024,
+      "courseId": 3,
+      "version": "v3",
+      "httpStatus": 200,
+      "code": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: version form rejects size without upload",
+      "filename": "blocked-1025B.pdf",
+      "fileSizeBytes": 1025,
+      "notification": "单文件大小不能超过 1 KiB（1024 字节）",
+      "uploadRequestsAdded": 0,
+      "uploadDisabled": true,
+      "status": "PASS"
+    },
+    {
+      "name": "PDF-only 1024B policy: version form rejects type without upload",
+      "filename": "blocked-type.docx",
+      "fileSizeBytes": 789,
+      "notification": "不支持的文件格式，允许：PDF",
+      "uploadRequestsAdded": 0,
+      "uploadDisabled": true,
+      "status": "PASS"
+    },
+    {
+      "name": "Teacher guojun: four teaching dimensions and improvement labels are accurate",
+      "oldMisleadingLabels": 0,
+      "dimensions": [
+        "教学态度",
+        "教学内容",
+        "教学方法",
+        "教学效果"
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "Teacher liubo: four teaching dimensions and improvement labels are accurate",
+      "oldMisleadingLabels": 0,
+      "dimensions": [
+        "教学态度",
+        "教学内容",
+        "教学方法",
+        "教学效果"
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "Supervisor terminology correction preserves real four-dimension score submission",
+      "evaluationId": 5,
+      "scores": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "totalScore": 90,
+      "evaluationStatus": "DRAFT",
+      "status": "PASS"
+    },
+    {
+      "name": "Six optional BOPPPS stage tags remain independent of four score dimensions",
+      "evaluationId": 5,
+      "savedTags": [
+        "B",
+        "P2",
+        "S"
+      ],
+      "emptyTagsAccepted": true,
+      "scoresUnchanged": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "fixtures": {
+    "large": {
+      "filename": "allowed-101MiB.pdf",
+      "bytes": 105906176
+    },
+    "small": {
+      "filename": "allowed-900B.pdf",
+      "bytes": 900
+    },
+    "exact": {
+      "filename": "allowed-1024B.pdf",
+      "bytes": 1024
+    },
+    "over": {
+      "filename": "blocked-1025B.pdf",
+      "bytes": 1025
+    },
+    "docx": {
+      "filename": "blocked-type.docx",
+      "bytes": 789
+    }
+  },
+  "browser": {
+    "name": "Google Chrome",
+    "version": "155.0.8059.80",
+    "executablePath": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "headless": true
+  },
+  "businessAcceptanceStatus": "PASS",
+  "realBackendCompletedAt": "2026-10-17T06:13:08.736Z",
+  "probeExecutionStatus": "PASS",
+  "completedAt": "2026-10-17T06:13:12.800Z"
+}

@@ -116,7 +116,8 @@
                 </div>
                 教学资源按章挂载与版本演进
               </h2>
-              <p class="text-xs text-slate-500 mt-1">单文件上限 100MB，支持 PDF/PPT/Word 批量按章挂载与只读水印</p>
+              <p class="text-xs text-slate-500 mt-1" data-testid="resource-upload-policy">{{ uploadPolicyDescription }}，按章挂载与只读水印</p>
+              <p v-if="uploadPolicyError && !showUploadModal" role="alert" class="text-xs text-rose-700 mt-1">{{ uploadPolicyError }} <button type="button" @click="reloadUploadPolicy" class="underline">重新加载上传规则</button></p>
             </div>
             <button @click="showUploadModal = true" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-xl text-xs font-semibold shadow-xs hover:shadow-subtle transition flex items-center gap-1.5 cursor-pointer">
               <Plus class="w-3.5 h-3.5" /> 上传新课件/教案
@@ -342,7 +343,7 @@
               </div>
               督导随堂评价 4 维雷达图
             </h2>
-            <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-semibold shadow-2xs">BOPPPS 教学模型</span>
+            <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-semibold shadow-2xs">教学评价四维</span>
           </div>
 
           <!-- 雷达图容器 -->
@@ -369,7 +370,7 @@
           </div>
         </div>
 
-        <!-- 督导脱敏评价与 BOPPPS 改进建议推送 (US-14 / US-21) -->
+        <!-- 督导脱敏评价与教学改进建议 (US-14 / US-21) -->
         <div class="pro-card p-6 space-y-4">
           <div>
             <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
@@ -394,7 +395,7 @@
           <!-- 改进建议 -->
           <div class="p-4 bg-indigo-50/70 border border-indigo-200/80 rounded-xl">
             <span class="text-xs font-bold text-indigo-900 block mb-1.5 flex items-center gap-1.5">
-              <Target class="w-3.5 h-3.5 text-indigo-600" /> BOPPPS 进阶教改建议
+              <Target class="w-3.5 h-3.5 text-indigo-600" /> 教学改进建议
             </span>
             <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
               <li v-for="(sg, i) in (radarData?.suggestionList || [])" :key="i">{{ sg }}</li>
@@ -619,16 +620,20 @@
         <div class="space-y-3.5 text-xs">
           <!-- 真实课件文件选择与拖拽区 -->
           <div>
-            <label class="text-slate-700 font-bold block mb-1">选择真实课件文件 (.pptx / .docx / .pdf)</label>
+            <label class="text-slate-700 font-bold block mb-1">选择课件文件（{{ uploadAllowedLabel }}）</label>
+            <p data-testid="teacher-upload-policy" role="status" class="text-slate-500 mb-2">{{ uploadPolicyDescription }}</p>
+            <p v-if="uploadPolicyError" role="alert" class="text-rose-700 mb-2">{{ uploadPolicyError }} <button type="button" @click="reloadUploadPolicy" class="underline">重新加载上传规则</button></p>
             <input
               type="file"
               ref="resourceFileInputRef"
               @change="onResourceFileSelected"
-              accept=".pptx,.ppt,.docx,.doc,.pdf"
+              :accept="uploadAccept"
+              :disabled="!uploadPolicyReady || isUploadingResource"
+              data-testid="teacher-resource-file"
               class="hidden"
             />
             <div
-              role="button" tabindex="0" aria-label="选择课件文件" @keydown.enter.prevent="triggerResourceFileInput" @keydown.space.prevent="triggerResourceFileInput" @click="triggerResourceFileInput"
+              role="button" tabindex="0" aria-label="选择课件文件" :aria-disabled="!uploadPolicyReady || isUploadingResource" @keydown.enter.prevent="triggerResourceFileInput" @keydown.space.prevent="triggerResourceFileInput" @click="triggerResourceFileInput"
               @dragover.prevent
               @drop.prevent="onResourceFileDrop"
               class="border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition"
@@ -636,8 +641,8 @@
             >
               <div v-if="!selectedResourceFile" class="flex flex-col items-center justify-center gap-1.5 text-slate-500">
                 <Upload class="w-6 h-6 text-indigo-600" />
-                <span class="font-semibold text-slate-700 text-xs">点击选择本地真实 PPTX / DOCX / PDF 文件</span>
-                <span class="text-[10px] text-slate-400">支持拖拽文件至此处，单文件上限 100MB</span>
+                <span class="font-semibold text-slate-700 text-xs">点击选择 {{ uploadAllowedLabel }} 文件</span>
+                <span class="text-[10px] text-slate-400">支持拖拽文件至此处；{{ uploadPolicyDescription }}</span>
               </div>
               <div v-else class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5 text-left">
@@ -675,9 +680,7 @@
             <div>
               <label class="text-slate-700 font-semibold block mb-1">文件格式</label>
               <select v-model="uploadForm.fileType" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs">
-                <option value="PPTX">PPTX 演示文稿</option>
-                <option value="DOCX">DOCX 教案大纲</option>
-                <option value="PDF">PDF 电子文档</option>
+                <option v-for="format in uploadFormats" :key="format.value" :value="format.value">{{ format.label }}</option>
               </select>
             </div>
             <div>
@@ -693,7 +696,7 @@
           <label class="flex items-center gap-2 text-xs font-semibold text-slate-800 cursor-pointer"><input v-model="uploadForm.isPublic" type="checkbox" class="rounded text-indigo-600" />教研室共享</label>
           <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] flex items-center gap-2">
             <AlertCircle class="w-4 h-4 text-amber-600 flex-shrink-0" />
-            <span>单文件上限 100MB · 挂载后自动注入东北大学动态只读防盗水印</span>
+            <span>{{ uploadPolicyDescription }} · 挂载后提供授权水印预览</span>
           </div>
         </div>
 
@@ -701,7 +704,7 @@
           <button @click="nav.request(()=>{showUploadModal = false})" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer">取消</button>
           <button
             @click="handleSaveResource"
-            :disabled="isUploadingResource"
+            :disabled="isUploadingResource || !uploadPolicyReady || !selectedResourceFile"
             class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-xs transition cursor-pointer flex items-center gap-1.5"
           >
             <span v-if="isUploadingResource" class="inline-block w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
@@ -733,6 +736,7 @@ import FeatureSelector from '../components/FeatureSelector.vue'
 import UiModal from '../components/UiModal.vue'
 import { useNavigation, usePreference, useEditGuard, useFeedback, useDomEdits } from '../ui/context'
 import { useRadar } from '../ui/useRadar'
+import { useResourceUploadPolicy } from '../ui/useResourceUploadPolicy'
 import type { SaveResult } from '../ui/context'
 
 import ProtectedPdfPreview from '../components/ProtectedPdfPreview.vue'
@@ -847,6 +851,12 @@ const showUploadModal = ref(false)
 const selectedResourceFile = ref<File | null>(null)
 const resourceFileInputRef = ref<HTMLInputElement | null>(null)
 const isUploadingResource = ref(false)
+const { policy: uploadPolicy, error: uploadPolicyError, ready: uploadPolicyReady, accept: uploadAccept,
+  allowedLabel: uploadAllowedLabel, description: uploadPolicyDescription, reload: reloadUploadPolicy,
+  validate: validateUploadFile } = useResourceUploadPolicy()
+const uploadFormats = computed(() => Array.from(new Set((uploadPolicy.value?.allowedExtensions || []).map(extension =>
+  ['ppt', 'pptx'].includes(extension) ? 'PPTX' : ['doc', 'docx'].includes(extension) ? 'DOCX' : extension.toUpperCase()
+))).map(value => ({ value, label: value === 'PPTX' ? 'PPTX 演示文稿' : value === 'DOCX' ? 'DOCX 教案大纲' : value === 'PDF' ? 'PDF 电子文档' : value + ' 文件' })))
 
 const uploadForm = ref({
   courseId: 1,
@@ -1212,6 +1222,7 @@ const renderRadarChart = () => {
 }
 
 const triggerResourceFileInput = () => {
+  if (!uploadPolicyReady.value || isUploadingResource.value) return
   resourceFileInputRef.value?.click()
 }
 
@@ -1229,8 +1240,11 @@ const onResourceFileDrop = (e: DragEvent) => {
 }
 
 const setResourceFile = (file: File) => {
-  if (file.size > 100 * 1024 * 1024) {
-    notify('单文件大小不能超过 100MB 限制！')
+  if (isUploadingResource.value) return
+  const issue = validateUploadFile(file)
+  if (issue) {
+    clearSelectedResourceFile()
+    notify(issue)
     return
   }
   selectedResourceFile.value = file
@@ -1241,18 +1255,23 @@ const setResourceFile = (file: File) => {
   } else {
     uploadForm.value.fileSize = `${Math.max(1, Math.round(file.size / 1024))} KB`
   }
-  const ext = file.name.split('.').pop()?.toUpperCase() || ''
+  const ext = file.name.trim().split('.').pop()?.trim().toUpperCase() || ''
   if (ext === 'PPT' || ext === 'PPTX') {
     uploadForm.value.fileType = 'PPTX'
   } else if (ext === 'DOC' || ext === 'DOCX') {
     uploadForm.value.fileType = 'DOCX'
   } else if (ext === 'PDF') {
     uploadForm.value.fileType = 'PDF'
+  } else {
+    uploadForm.value.fileType = ext
   }
 }
 
 const clearSelectedResourceFile = () => {
   selectedResourceFile.value = null
+  uploadForm.value.resourceName = ''
+  uploadForm.value.fileSizeBytes = 0
+  uploadForm.value.fileSize = ''
   if (resourceFileInputRef.value) {
     resourceFileInputRef.value.value = ''
   }
@@ -1313,6 +1332,7 @@ const saveResourceMetadata = async ():Promise<SaveResult> => {
 
 const handleSaveResource = async ():Promise<SaveResult> => {
  const courseId=currentCourse.value?.id,file=selectedResourceFile.value;if(!courseId||!file||!uploadForm.value.resourceName.trim()||isUploadingResource.value){notify('请选择文件并填写课件名称');return {status:'invalid'}}
+ const issue=validateUploadFile(file);if(issue){notify(issue);return {status:'invalid'}}
  const submitted=uploadGuard.capture(),finish=nav.startSaving();isUploadingResource.value=true
  try{await resourceApi.uploadFile(file,{courseId,chapter:uploadForm.value.chapter,resourceName:uploadForm.value.resourceName,tags:uploadForm.value.tags,isPublic:uploadForm.value.isPublic});if(disposed||currentCourse.value?.id!==courseId)return {status:'stale'};uploadGuard.saved(submitted);if(!uploadGuard.dirty()){showUploadModal.value=false;clearSelectedResourceFile()};await Promise.all([loadMyResources(),loadSharedResources()]);notify('课件上传成功，可通过授权预览查看水印');return {status:'success'}}catch(e:any){notify(e.message||'上传失败');return {status:e.response?.status===409?'conflict':'failed'}}finally{isUploadingResource.value=false;finish()}
 }
@@ -1430,6 +1450,14 @@ watch(() => props.loggedInUser, (newUser) => {
     currentTeacher.value = newUser.realName
     onTeacherChange()
   }
+})
+
+watch(uploadPolicy, policy => {
+  if (policy && selectedResourceFile.value) {
+    const issue = validateUploadFile(selectedResourceFile.value)
+    if (issue) { clearSelectedResourceFile(); notify(issue) }
+  }
+  if (policy && !selectedResourceFile.value && uploadFormats.value.length) uploadForm.value.fileType = uploadFormats.value[0].value
 })
 
 onUnmounted(() => { disposed=true; courseLoadGeneration++; indicatorRequest++; contentLoadSequence++; closePreview(); radarChart = null })

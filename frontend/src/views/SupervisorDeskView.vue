@@ -14,7 +14,7 @@
               校/院两级督导专家专属
             </span>
           </div>
-          <p class="text-xs text-slate-500 mt-1.5">负责待督导课程复合检索、课件教案授权预审、BOPPPS随堂打分、全院覆盖率巡检与红黄质量预警</p>
+          <p class="text-xs text-slate-500 mt-1.5">负责待督导课程复合检索、课件教案授权预审、教学评价四维打分、全院覆盖率巡检与红黄质量预警</p>
         </div>
       </div>
       <div class="flex items-center gap-2 text-xs bg-white/90 border border-slate-200/80 px-3.5 py-2 rounded-xl shadow-xs">
@@ -722,10 +722,10 @@
           </div>
         </div>
 
-        <!-- BOPPPS 四维 100 分打分项 (每项 0-25 分) -->
+        <!-- 教学评价四维打分项（按所选模板配置权重） -->
         <div class="space-y-3.5 bg-slate-50 p-4 rounded-xl border border-slate-200/80">
           <h4 class="text-xs font-bold text-indigo-700 flex items-center justify-between">
-            <span>BOPPPS 四维打分项（配置权重合计 100 分）</span>
+            <span>教学评价四维打分项（配置权重合计 100 分）</span>
             <span class="text-sm font-bold text-slate-900 font-mono">当前总计：{{ calcTotalScore }} / 100 分</span>
           </h4>
 
@@ -768,7 +768,7 @@
             <textarea v-model="evalForm.highlights" rows="2" maxlength="500" placeholder="例如：教学组织严密，能够结合实际敏捷项目案例启发学生..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs"></textarea>
           </div>
           <div>
-            <label class="text-slate-700 font-semibold block mb-1">BOPPPS 针对性改进建议 (限 500 字)</label>
+            <label class="text-slate-700 font-semibold block mb-1">教学改进建议 (限 500 字)</label>
             <p class="text-[11px] text-slate-500 mb-1">可针对导入、目标、前测、参与式学习、后测、总结中的具体环节提出建议。</p>
             <textarea v-model="evalForm.suggestions" rows="2" maxlength="500" placeholder="例如：建议在课后作业中进一步增加甘特图与工期缓冲池实训演练..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 shadow-2xs"></textarea>
           </div>

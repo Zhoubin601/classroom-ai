@@ -1,0 +1,8 @@
+PASS 150MiB policy: main form really uploads and renders 101MiB PDF
+PASS 150MiB policy: same-series new version uploads and renders 101MiB PDF
+PASS PDF-only 1024B policy: main form uploads small PDF
+PASS PDF-only 1024B policy: main form uploads exact PDF
+The input did not match the regular expression /(?:不能超过|超过|超出).*(?:1024|1\s*(?:KB|KiB))|(?:1024|1\s*(?:KB|KiB)).*(?:超过|超出)/i. Input:
+
+'单文件上限 1 KiB（1024 字节）；支持 PDF'
+

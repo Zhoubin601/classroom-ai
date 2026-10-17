@@ -7,6 +7,7 @@ import com.classroom.ai.modules.resource.service.CourseResourceService;
 import com.classroom.ai.config.UploadPaths;
 import com.classroom.ai.modules.resource.service.ResourceAccessService;
 import com.classroom.ai.modules.resource.service.ResourceFileService;
+import com.classroom.ai.modules.resource.service.ResourceUploadPolicy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -32,16 +33,21 @@ public class CourseResourceController {
     @Value("${classroom.upload-dir:}")
     private String uploadDir;
 
-    @Value("${classroom.resource.max-file-bytes:104857600}")
-    private long maxFileBytes;
-    @Value("${classroom.resource.allowed-extensions:ppt,pptx,doc,docx,pdf}")
-    private String allowedExtensions;
+    // Keep the existing constructor usable by isolated controller tests.
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private ResourceUploadPolicy uploadPolicy = new ResourceUploadPolicy();
 
     private final CourseResourceService resourceService;
     private final com.classroom.ai.modules.course.service.CourseAuthorizationService authorizationService;
     private final ResourceAccessService accessService;
     private final ResourceFileService fileService;
     private final com.classroom.ai.modules.sprint3.ResourceVersionService versions;
+
+    @GetMapping("/upload-policy")
+    public ApiResponse<ResourceUploadPolicy.Policy> uploadPolicy() {
+        authorizationService.requireCurrentUser();
+        return ApiResponse.success(uploadPolicy.current());
+    }
 
     @PostMapping("/upload")
     public ApiResponse<CourseResource> uploadResourceFile(@RequestParam("file") MultipartFile file,
@@ -58,22 +64,17 @@ public class CourseResourceController {
         if (file == null || file.isEmpty()) {
             return ApiResponse.error(400, "上传文件不能为空");
         }
-        if (file.getSize() > maxFileBytes) {
-            return ApiResponse.error(400, "单文件大小不能超过 " + (maxFileBytes / 1024 / 1024) + "MB 限制");
-        }
-
         String originalFilename = file.getOriginalFilename();
         if (originalFilename == null || originalFilename.isBlank()) {
             originalFilename = "courseware.pptx";
         }
 
-        String ext = "";
-        if (originalFilename.contains(".")) {
-            ext = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
-        }
-
-        if (!java.util.Arrays.asList(allowedExtensions.toLowerCase().split(",")).contains(ext.replace(".", ""))) {
-            return ApiResponse.error(400, "不支持的文件格式，允许: " + allowedExtensions);
+        String ext;
+        try {
+            uploadPolicy.validateSize(file.getSize());
+            ext = "." + uploadPolicy.validateExtension(uploadPolicy.extensionOf(originalFilename));
+        } catch (IllegalArgumentException error) {
+            return ApiResponse.error(400, error.getMessage());
         }
 
         try {
@@ -94,7 +95,7 @@ public class CourseResourceController {
                 formattedSize = String.format(java.util.Locale.ROOT, "%.0f KB", Math.max(1.0, (double) bytes / 1024));
             }
 
-            String fileType = ext.replace(".", "").toUpperCase();
+            String fileType = ext.replace(".", "").toUpperCase(java.util.Locale.ROOT);
             if ("DOC".equals(fileType)) fileType = "DOCX";
             if ("PPT".equals(fileType)) fileType = "PPTX";
 

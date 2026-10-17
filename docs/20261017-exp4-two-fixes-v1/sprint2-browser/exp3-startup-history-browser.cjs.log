@@ -1,0 +1,13 @@
+﻿{
+  "expectedHistoricalId": 9,
+  "actualSelectedId": "9",
+  "before": {
+    "id": "9",
+    "oldVisible": 1
+  },
+  "oldVisibleAfter": 1,
+  "currentVisibleAfter": 0,
+  "realBackend": true,
+  "timingOnly": true,
+  "pageErrors": []
+}

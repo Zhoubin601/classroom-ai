@@ -1,0 +1,39 @@
+{
+  "testedAt": "2026-10-17T13:45:30.9394211+08:00",
+  "command": "backend/.tools/apache-maven-3.9.6/bin/mvn.cmd -f backend/pom.xml -o -Dtest=ResourceUploadPolicyTest,ResourceUploadPolicyHttpTest,CourseResourceServiceTest,RegressionTest test",
+  "totalTests": 30,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "suites": [
+    {
+      "name": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "com.classroom.ai.modules.resource.ResourceUploadPolicyHttpTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "com.classroom.ai.modules.resource.ResourceUploadPolicyTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "com.classroom.ai.RegressionTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "packagedJar": false
+}

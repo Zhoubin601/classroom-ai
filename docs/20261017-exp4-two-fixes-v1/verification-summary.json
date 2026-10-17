@@ -1,0 +1,55 @@
+{
+  "completedAt": "2026-10-17T14:14:07.799359+08:00",
+  "basedOnCommit": "3dddcbdcdc4e86f2aaf06c38d0bb9b25cab38026",
+  "workingTreeFixNotCommitted": true,
+  "protectedFilesAfterFix": 505,
+  "changedAfterTestingStarted": [],
+  "authorizedModifiedTrackedFiles": [
+    "backend/src/main/java/com/classroom/ai/modules/resource/controller/CourseResourceController.java",
+    "backend/src/main/java/com/classroom/ai/modules/resource/service/impl/CourseResourceServiceImpl.java",
+    "frontend/src/api/index.ts",
+    "frontend/src/api/types.ts",
+    "frontend/src/components/ResourceVersionsPanel.vue",
+    "frontend/src/views/SupervisorDeskView.vue",
+    "frontend/src/views/TeacherDeskView.vue",
+    "scripts/tests/resource-versions-browser.cjs"
+  ],
+  "newSourceFiles": [
+    "backend/src/main/java/com/classroom/ai/modules/resource/service/ResourceUploadPolicy.java",
+    "backend/src/test/java/com/classroom/ai/modules/resource/ResourceUploadPolicyHttpTest.java",
+    "backend/src/test/java/com/classroom/ai/modules/resource/ResourceUploadPolicyTest.java",
+    "frontend/src/ui/resourceUploadPolicy.mjs",
+    "frontend/src/ui/useResourceUploadPolicy.ts",
+    "frontend/tests/resource-upload-policy.test.mjs"
+  ],
+  "originalPlanSha256": "299cd2d510e7a8da609ec2fe513e3810e616d3562673bce09ee16e81688437bb",
+  "frontendTests": 27,
+  "backend": {
+    "suiteCount": 41,
+    "tests": 294,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "sprint2FormalSuites": 7,
+  "realPolicyCases": 14,
+  "mockFaultInjectionCases": 3,
+  "policyFinalEvidence": "policy-browser/retry-v5/results.json",
+  "policyInitialAttemptsPreserved": [
+    "policy-browser/results.json",
+    "policy-browser/retry-v2/results.json",
+    "policy-browser/retry-v3/results.json",
+    "policy-browser/retry-v4/results.json"
+  ],
+  "browserRegressionScriptSha256": "f3ded60660f5f65863b4e5677da52ffa1f5234aa05090220098f7b613ee3d930",
+  "browser": "155.0.8059.80",
+  "resolvedDefects": [
+    "US-07 primary upload ignores configured upper limit",
+    "BOPPPS labels confuse the four rating dimensions"
+  ],
+  "removedOnlyThisRunGeneratedRuntime": true,
+  "additionalEvidenceRedactions": 36,
+  "remainingTestContainers": [],
+  "listeningTestPorts": [],
+  "dailyContainers": []
+}

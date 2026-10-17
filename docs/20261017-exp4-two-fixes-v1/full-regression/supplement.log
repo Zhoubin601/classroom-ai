@@ -1,0 +1,62 @@
+﻿{
+  "proof": [
+    {
+      "id": "TRACE-01",
+      "us": "US-01",
+      "result": "PASS",
+      "check": "真实主任课程页面与非法CSV预检错误显示，未写入课程"
+    },
+    {
+      "id": "TRACE-02",
+      "us": "US-02",
+      "result": "PASS",
+      "check": "教师真实页面填入简介、考核、目标并发布v1"
+    },
+    {
+      "id": "TRACE-13-14",
+      "us": "US-13,US-14",
+      "result": "PASS",
+      "evaluationId": 30,
+      "delaySeconds": 86400,
+      "check": "真实页面正式提交、主任审核、到期前403、默认86400秒、隔离推进后匿名反馈页面；没有真实等待24小时"
+    },
+    {
+      "id": "TRACE-15",
+      "us": "US-15",
+      "result": "PASS",
+      "check": "覆盖率明细可追溯本轮新评价ID",
+      "data": [
+        {
+          "courseId": 96,
+          "courseCode": "SYN-CORE",
+          "courseName": "SYN-CORE",
+          "academicTerm": "S3-BROWSER",
+          "covered": true,
+          "evaluationIds": [
+            28,
+            30
+          ]
+        },
+        {
+          "courseId": 97,
+          "courseCode": "SYN-OPTION",
+          "courseName": "SYN-OPTION",
+          "academicTerm": "S3-BROWSER",
+          "covered": true,
+          "evaluationIds": [
+            29
+          ]
+        },
+        {
+          "courseId": 98,
+          "courseCode": "SYN-EMPTY",
+          "courseName": "SYN-EMPTY",
+          "academicTerm": "S3-BROWSER",
+          "covered": false,
+          "evaluationIds": []
+        }
+      ]
+    }
+  ],
+  "pageErrors": []
+}

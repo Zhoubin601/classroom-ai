@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-10-17T05:47:19.179Z",
+  "browserVersion": "155.0.8059.80",
+  "browserExecutable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "playwrightVersion": "1.57.0",
+  "headless": true,
+  "browserMode": "Installed local Google Chrome, controlled by Playwright",
+  "os": "win32",
+  "nodeVersion": "v24.14.1",
+  "runtimeImageId": "sha256:56ea52db3ae6ea49adcfb7ac029a734fbffc7dd1a32f88e1818f8d60debb8c4d",
+  "artifactsSha256": {
+    "backend/target/classroom-backend-0.0.1-SNAPSHOT.jar": "d446b2ca8cd8b822c901a8706fdc67223bdda4fab6f3c7b368b8ff73fa75f6e8",
+    "frontend/dist/index.html": "8adba15feff6d3819a7517cb2e3492a070b66f4ec8fa10c16ddda6379c62b557",
+    "frontend/dist/assets/index-B-j0bRnV.js": "67e9f6cc6195f54efec347aaaebe7740810ad5ec034b3c55e448677e9b8aebc6",
+    "frontend/dist/assets/index-wIvBWFDp.css": "0489b15d5490ca41f2e89afa19cfbd11ceb1a8fb95458020b6ad0bab2bd09d93",
+    "frontend/dist/assets/pdf.worker.min-yatZIOMy.mjs": "1baa1844c89c80a5b2797c916e75ab29254be46d8e9cb53cb6364d7aad84be36"
+  }
+}

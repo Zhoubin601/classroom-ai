@@ -1,0 +1,131 @@
+{
+  "startedAt": "2026-10-17T05:48:11.391Z",
+  "realBackendCases": [
+    {
+      "name": "150MiB policy: main form really uploads and renders 101MiB PDF",
+      "status": "PASS",
+      "policy": {
+        "maxFileBytes": 157286400,
+        "allowedExtensions": [
+          "ppt",
+          "pptx",
+          "doc",
+          "docx",
+          "pdf"
+        ],
+        "accept": ".doc,.docx,.pdf,.ppt,.pptx"
+      },
+      "resourceId": 10,
+      "seriesId": 6,
+      "fileSizeBytes": 105906176,
+      "courseId": 3,
+      "version": "v1",
+      "httpStatus": 200,
+      "code": 200,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页"
+    },
+    {
+      "name": "150MiB policy: same-series new version uploads and renders 101MiB PDF",
+      "status": "PASS",
+      "policy": {
+        "maxFileBytes": 157286400,
+        "allowedExtensions": [
+          "ppt",
+          "pptx",
+          "doc",
+          "docx",
+          "pdf"
+        ],
+        "accept": ".doc,.docx,.pdf,.ppt,.pptx"
+      },
+      "resourceId": 11,
+      "seriesId": 6,
+      "fileSizeBytes": 105906176,
+      "courseId": 3,
+      "version": "v2",
+      "httpStatus": 200,
+      "code": 200,
+      "previousResourceId": 10,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页"
+    },
+    {
+      "name": "PDF-only 1024B policy: main form uploads small PDF",
+      "status": "PASS",
+      "policy": {
+        "maxFileBytes": 1024,
+        "allowedExtensions": [
+          "pdf"
+        ],
+        "accept": ".pdf"
+      },
+      "resourceId": 12,
+      "seriesId": 7,
+      "fileSizeBytes": 900,
+      "courseId": 3,
+      "version": "v1",
+      "httpStatus": 200,
+      "code": 200,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页"
+    },
+    {
+      "name": "PDF-only 1024B policy: main form uploads exact PDF",
+      "status": "PASS",
+      "policy": {
+        "maxFileBytes": 1024,
+        "allowedExtensions": [
+          "pdf"
+        ],
+        "accept": ".pdf"
+      },
+      "resourceId": 13,
+      "seriesId": 8,
+      "fileSizeBytes": 1024,
+      "courseId": 3,
+      "version": "v1",
+      "httpStatus": 200,
+      "code": 200,
+      "browserCanvasRendered": true,
+      "counter": "第 1 / 1 页"
+    }
+  ],
+  "faultInjectionCases": [],
+  "pageErrors": [],
+  "fixtures": {
+    "large": {
+      "filename": "allowed-101MiB.pdf",
+      "bytes": 105906176
+    },
+    "small": {
+      "filename": "allowed-900B.pdf",
+      "bytes": 900
+    },
+    "exact": {
+      "filename": "allowed-1024B.pdf",
+      "bytes": 1024
+    },
+    "over": {
+      "filename": "blocked-1025B.pdf",
+      "bytes": 1025
+    },
+    "docx": {
+      "filename": "blocked-type.docx",
+      "bytes": 789
+    }
+  },
+  "browser": {
+    "name": "Google Chrome",
+    "version": "155.0.8059.80",
+    "executablePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "headless": true
+  },
+  "probeExecutionStatus": "FAIL",
+  "businessAcceptanceStatus": "NOT_ALL_PASSED",
+  "failure": {
+    "name": "AssertionError",
+    "message": "The input did not match the regular expression /(?:不能超过|超过|超出).*(?:1024|1\\s*(?:KB|KiB))|(?:1024|1\\s*(?:KB|KiB)).*(?:超过|超出)/i. Input:\n\n'单文件上限 1 KiB（1024 字节）；支持 PDF'\n"
+  },
+  "completedAt": "2026-10-17T05:49:07.621Z"
+}

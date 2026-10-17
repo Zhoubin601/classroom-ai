@@ -1,0 +1,18 @@
+﻿PASS 150MiB policy: main form really uploads and renders 101MiB PDF
+PASS 150MiB policy: same-series new version uploads and renders 101MiB PDF
+PASS PDF-only 1024B policy: main form uploads small PDF
+PASS PDF-only 1024B policy: main form uploads exact PDF
+PASS PDF-only 1024B policy: main form rejects size without upload
+PASS PDF-only 1024B policy: main form rejects type without upload
+PASS PDF-only 1024B policy: version form uploads small PDF
+PASS PDF-only 1024B policy: version form uploads exact PDF
+PASS PDF-only 1024B policy: version form rejects size without upload
+PASS PDF-only 1024B policy: version form rejects type without upload
+PASS Teacher guojun: four teaching dimensions and improvement labels are accurate
+PASS Teacher liubo: four teaching dimensions and improvement labels are accurate
+PASS Supervisor terminology correction preserves real four-dimension score submission
+PASS Six optional BOPPPS stage tags remain independent of four score dimensions
+PASS Fault injection only: failed policy blocks upload and explicit retry loads real policy
+PASS Fault injection only: version policy failure blocks upload and retry recovers
+PASS Fault injection only: late policy response after unmount does not restore abandoned UI
+{"businessAcceptanceStatus":"PASS","passed":14,"failed":0,"faultInjectionCases":3,"browser":{"name":"Google Chrome","version":"155.0.8059.80","executablePath":"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe","headless":true}}

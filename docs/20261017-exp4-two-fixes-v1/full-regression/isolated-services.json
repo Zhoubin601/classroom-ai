@@ -1,0 +1,7 @@
+﻿{
+    "mysqlName":  "exp4-20261017-fixed-0095a907",
+    "frontendPort":  15179,
+    "backendPort":  18089,
+    "mysqlId":  "edc090df0dd7df1728eeae506f5c0f1f5c68e34881a6895da5314526d85edd65",
+    "redisName":  "exp4-20261017-fixed-0095a907-redis"
+}

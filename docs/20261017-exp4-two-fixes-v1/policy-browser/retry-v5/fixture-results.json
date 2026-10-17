@@ -1,0 +1,53 @@
+{
+  "mocked": true,
+  "classification": "Fault injection interaction cases; no substitute for real-backend business acceptance",
+  "status": "PASS",
+  "passed": 3,
+  "failed": 0,
+  "proof": [
+    {
+      "name": "Fault injection only: failed policy blocks upload and explicit retry loads real policy",
+      "policy": {
+        "maxFileBytes": 157286400,
+        "allowedExtensions": [
+          "ppt",
+          "pptx",
+          "doc",
+          "docx",
+          "pdf"
+        ],
+        "accept": ".doc,.docx,.pdf,.ppt,.pptx"
+      },
+      "syntheticFault": "first upload-policy response HTTP 503; retry response from real backend",
+      "silent100MiBFallback": false,
+      "status": "PASS"
+    },
+    {
+      "name": "Fault injection only: version policy failure blocks upload and retry recovers",
+      "policy": {
+        "maxFileBytes": 157286400,
+        "allowedExtensions": [
+          "ppt",
+          "pptx",
+          "doc",
+          "docx",
+          "pdf"
+        ],
+        "accept": ".doc,.docx,.pdf,.ppt,.pptx"
+      },
+      "syntheticFault": "second upload-policy response HTTP 503 while mounting versions panel; retry uses real backend",
+      "silent100MiBFallback": false,
+      "status": "PASS"
+    },
+    {
+      "name": "Fault injection only: late policy response after unmount does not restore abandoned UI",
+      "syntheticFault": "real policy response held until TeacherDesk unmounted",
+      "remountedPolicyReady": true,
+      "abandonedModalRestored": false,
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "startedAt": "2026-10-17T06:13:08.738Z",
+  "completedAt": "2026-10-17T06:13:12.800Z"
+}

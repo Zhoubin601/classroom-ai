@@ -1,0 +1,26 @@
+{
+  "head": "3dddcbdcdc4e86f2aaf06c38d0bb9b25cab38026",
+  "sourceState": "Current uncommitted US07 upload policy and BOPPPS copy fixes",
+  "artifacts": [
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\target\\classroom-backend-0.0.1-SNAPSHOT.jar",
+      "sizeBytes": 67671616,
+      "sha256": "D446B2CA8CD8B822C901A8706FDC67223BDDA4FAB6F3C7B368B8FF73FA75F6E8",
+      "modifiedAt": "2026-10-17T13:45:48.6134279+08:00"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\dist\\index.html",
+      "sizeBytes": 948,
+      "sha256": "8ADBA15FEFF6D3819A7517CB2E3492A070B66F4EC8FA10C16DDDA6379C62B557",
+      "modifiedAt": "2026-10-17T13:46:15.7480824+08:00"
+    },
+    {
+      "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\dist\\assets\\index-B-j0bRnV.js",
+      "sizeBytes": 1976919,
+      "sha256": "67E9F6CC6195F54EFEC347AAAEBE7740810AD5EC034B3C55E448677E9B8AEBC6",
+      "modifiedAt": "2026-10-17T13:46:15.7521055+08:00"
+    }
+  ],
+  "chromePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "playwrightModule": "C:/Users/a3185/.vscode/extensions/vscjava.migrate-java-to-azure-1.24.0-win32-x64/node_modules/playwright"
+}

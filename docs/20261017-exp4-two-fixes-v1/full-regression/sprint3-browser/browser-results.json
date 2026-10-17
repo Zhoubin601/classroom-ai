@@ -1,0 +1,20 @@
+{
+  "passed": 8,
+  "proof": [
+    "ADMIN UI creates and publishes immutable template",
+    "US-19 browser groups core/elective/uncategorized and filters one category",
+    "Approved pending feedback is counted by management and hidden from teacher",
+    "Teacher UI renders normalized radar and saves action/history after release",
+    "Director UI downloads full CSV/XLSX filter and shows per-version alerts",
+    "US-12 real ffprobe duration, bounded seeking and automatic stop at segment end",
+    "Same-name peer can read shared resource but cannot own course or upload/download; direct links blocked",
+    "Resource version UI upload/switch, fixed old ID, 409 conflict, old ticket and open preview revoked"
+  ],
+  "pageErrors": [],
+  "syntheticOnly": true,
+  "browserVersion": "155.0.8059.80",
+  "startedAt": "2026-10-17T05:49:38.265Z",
+  "finishedAt": "2026-10-17T05:49:58.391Z",
+  "backend": "http://127.0.0.1:18089",
+  "frontend": "http://127.0.0.1:15179"
+}

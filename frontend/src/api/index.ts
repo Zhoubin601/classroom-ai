@@ -14,7 +14,8 @@ import type {
   ClassroomStreamDTO,
   CourseSchedule,
   CourseContentRevision,
-  CourseSyllabus
+  CourseSyllabus,
+  ResourceUploadPolicy
 } from './types'
 
 // 在开发环境下通过 Vite 代理连接后端，也可直连 localhost:8080
@@ -431,6 +432,10 @@ export const syllabusApi = {
 
 // ==================== 5. 教学资源与微格切片 API ====================
 export const resourceApi = {
+  getUploadPolicy: async (signal?: AbortSignal): Promise<ResourceUploadPolicy> => {
+    const res = await client.get<ApiResponse<ResourceUploadPolicy>>('/api/v1/resources/upload-policy', { signal })
+    return res.data.data
+  },
   checkAccess: async (id: number): Promise<void> => { await client.get(`/api/v1/resources/${id}`) },
   // 检索课件与教案资源
   search: async (params: { courseId?: number; tag?: string; isPublic?: boolean; keyword?: string }): Promise<any[]> => {
@@ -453,7 +458,7 @@ export const resourceApi = {
     formData.append('tags', data.tags.join(','))
     formData.append('isPublic', String(data.isPublic))
     const res = await client.post<ApiResponse<any>>('/api/v1/resources/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { 'Content-Type': 'multipart/form-data' }, timeout: 120000
     })
     return res.data.data
   },

@@ -1,0 +1,581 @@
+{
+  "run": {
+    "startedAt": "2026-10-17T13:46:59.6117785+08:00",
+    "head": "3dddcbdcdc4e86f2aaf06c38d0bb9b25cab38026",
+    "backend": "PASS",
+    "sprint1Browser": "PASS",
+    "sprint3": "PASS",
+    "resources": "PASS",
+    "supplement": "PASS",
+    "failures": [],
+    "sourceState": "Current uncommitted US07 upload policy and BOPPPS copy fixes; see runtime-artifacts.json.",
+    "finishedAt": "2026-10-17T13:50:17.3770336+08:00"
+  },
+  "artifacts": {
+    "head": "3dddcbdcdc4e86f2aaf06c38d0bb9b25cab38026",
+    "sourceState": "Current uncommitted US07 upload policy and BOPPPS copy fixes",
+    "artifacts": [
+      {
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\backend\\target\\classroom-backend-0.0.1-SNAPSHOT.jar",
+        "sizeBytes": 67671616,
+        "sha256": "D446B2CA8CD8B822C901A8706FDC67223BDDA4FAB6F3C7B368B8FF73FA75F6E8",
+        "modifiedAt": "2026-10-17T13:45:48.6134279+08:00"
+      },
+      {
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\dist\\index.html",
+        "sizeBytes": 948,
+        "sha256": "8ADBA15FEFF6D3819A7517CB2E3492A070B66F4EC8FA10C16DDDA6379C62B557",
+        "modifiedAt": "2026-10-17T13:46:15.7480824+08:00"
+      },
+      {
+        "path": "D:\\2026Autumn Semester File\\classroom-ai-demo\\frontend\\dist\\assets\\index-B-j0bRnV.js",
+        "sizeBytes": 1976919,
+        "sha256": "67E9F6CC6195F54EFEC347AAAEBE7740810AD5EC034B3C55E448677E9B8AEBC6",
+        "modifiedAt": "2026-10-17T13:46:15.7521055+08:00"
+      }
+    ],
+    "chromePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "playwrightModule": "C:/Users/a3185/.vscode/extensions/vscjava.migrate-java-to-azure-1.24.0-win32-x64/node_modules/playwright"
+  },
+  "backend": {
+    "suiteCount": 41,
+    "tests": 294,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "name": "com.classroom.ai.ApiExceptionHandlerTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.822,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.ApiExceptionHandlerTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.CameraMonitorHttpTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 7.161,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.CameraMonitorHttpTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.CameraStreamSessionTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.056,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.CameraStreamSessionTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.844,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.attendance.AttendanceHttpAuthorizationTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.attendance.AttendanceServiceTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.213,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.attendance.AttendanceServiceTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.307,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.attendance.FaceHttpAuthorizationTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.auth.AuthControllerTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.232,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.auth.AuthControllerTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.auth.DirectorSupervisorManagementTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.106,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.auth.DirectorSupervisorManagementTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.auth.JwtAccountIntegrityTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.01,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.auth.JwtAccountIntegrityTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.AssociationIntegrityTest",
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.728,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.AssociationIntegrityTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.AssociationMysqlTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 12.34,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.AssociationMysqlTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseAcceptanceRegressionTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.231,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseAcceptanceRegressionTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.002,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseAuthorizationPrimaryTeacherTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseAuthorizationServiceTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.015,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseAuthorizationServiceTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseBrowserMysqlTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 24.673,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseBrowserMysqlTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseContentRevisionTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.122,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseContentRevisionTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseHttpAuthorizationTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.809,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseHttpAuthorizationTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseImportTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.079,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseImportTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseOfferingHistoryTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.01,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseOfferingHistoryTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseScheduleConflictTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.012,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseScheduleConflictTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.005,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseScheduleMultiTeacherConflictTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseSchedulingMysqlTest",
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 14.743,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseSchedulingMysqlTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseSupervisorRbacTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.009,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseSupervisorRbacTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.CourseWorkflowMysqlTest",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 9.002,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.CourseWorkflowMysqlTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.MajorDepartmentMysqlTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 2.542,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.MajorDepartmentMysqlTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.service.CourseImportServiceTest",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.137,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.service.CourseImportServiceTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.SyllabusHistoryHttpTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.882,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.SyllabusHistoryHttpTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.course.util.CsvParserUtilTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.005,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.course.util.CsvParserUtilTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.resource.CourseResourceServiceTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.148,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.resource.CourseResourceServiceTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.3,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.resource.MicroTeachingHttpAuthorizationTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.resource.MicroVideoHttpTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.854,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.resource.MicroVideoHttpTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.resource.ResourceUploadPolicyHttpTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.236,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.resource.ResourceUploadPolicyHttpTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.resource.ResourceUploadPolicyTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.076,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.resource.ResourceUploadPolicyTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.Sprint2MysqlTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 4.384,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.Sprint2MysqlTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.sprint3.Sprint3BoundaryTest",
+        "tests": 16,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.122,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.sprint3.Sprint3BoundaryTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.sprint3.Sprint3MysqlTest",
+        "tests": 31,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 17.345,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.sprint3.Sprint3MysqlTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.supervision.SupervisionAnalyticsTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.135,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.supervision.SupervisionAnalyticsTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.modules.supervision.SupervisionServiceTest",
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.031,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.modules.supervision.SupervisionServiceTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.RegressionTest",
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.499,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.RegressionTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.UploadPathsTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 0.019,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.UploadPathsTest.xml"
+      },
+      {
+        "name": "com.classroom.ai.VisualHttpAuthorizationTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timeSeconds": 1.737,
+        "evidence": "backend-full-xml\\TEST-com.classroom.ai.VisualHttpAuthorizationTest.xml"
+      }
+    ]
+  },
+  "browserStages": {
+    "sprint3RealBackend": {
+      "passedGroups": 8,
+      "pageErrors": [],
+      "proof": [
+        "ADMIN UI creates and publishes immutable template",
+        "US-19 browser groups core/elective/uncategorized and filters one category",
+        "Approved pending feedback is counted by management and hidden from teacher",
+        "Teacher UI renders normalized radar and saves action/history after release",
+        "Director UI downloads full CSV/XLSX filter and shows per-version alerts",
+        "US-12 real ffprobe duration, bounded seeking and automatic stop at segment end",
+        "Same-name peer can read shared resource but cannot own course or upload/download; direct links blocked",
+        "Resource version UI upload/switch, fixed old ID, 409 conflict, old ticket and open preview revoked"
+      ],
+      "evidence": "sprint3-browser/browser-results.json",
+      "browserVersion": "155.0.8059.80"
+    },
+    "resourceRacesWithMockedNetwork": {
+      "passedGroups": 7,
+      "pageErrors": [],
+      "proof": [
+        "恢复记忆选择的慢请求不覆盖新资源；加载期间没有旧写操作",
+        "版本切换固定到新资源系列，写入期间禁止切换与重复提交",
+        "待上传文件触发离开保护，取消版本切换保留文件且不写入",
+        "新版上传使用当前资源课程与系列，不沿用旧历史",
+        "过时请求的失败不污染新资源历史与错误提示",
+        "当前历史加载失败撤销操作区，刷新可恢复",
+        "卸载撤销历史请求，重新进入正常恢复"
+      ],
+      "evidence": "resource-browser/results.json",
+      "browserVersion": null
+    },
+    "supplementRealBackend": {
+      "passedGroups": 4,
+      "pageErrors": [],
+      "proof": [
+        {
+          "id": "TRACE-01",
+          "us": "US-01",
+          "result": "PASS",
+          "check": "真实主任课程页面与非法CSV预检错误显示，未写入课程"
+        },
+        {
+          "id": "TRACE-02",
+          "us": "US-02",
+          "result": "PASS",
+          "check": "教师真实页面填入简介、考核、目标并发布v1"
+        },
+        {
+          "id": "TRACE-13-14",
+          "us": "US-13,US-14",
+          "result": "PASS",
+          "evaluationId": 30,
+          "delaySeconds": 86400,
+          "check": "真实页面正式提交、主任审核、到期前403、默认86400秒、隔离推进后匿名反馈页面；没有真实等待24小时"
+        },
+        {
+          "id": "TRACE-15",
+          "us": "US-15",
+          "result": "PASS",
+          "check": "覆盖率明细可追溯本轮新评价ID",
+          "data": [
+            {
+              "courseId": 96,
+              "courseCode": "SYN-CORE",
+              "courseName": "SYN-CORE",
+              "academicTerm": "S3-BROWSER",
+              "covered": true,
+              "evaluationIds": [
+                28,
+                30
+              ]
+            },
+            {
+              "courseId": 97,
+              "courseCode": "SYN-OPTION",
+              "courseName": "SYN-OPTION",
+              "academicTerm": "S3-BROWSER",
+              "covered": true,
+              "evaluationIds": [
+                29
+              ]
+            },
+            {
+              "courseId": 98,
+              "courseCode": "SYN-EMPTY",
+              "courseName": "SYN-EMPTY",
+              "academicTerm": "S3-BROWSER",
+              "covered": false,
+              "evaluationIds": []
+            }
+          ]
+        }
+      ],
+      "evidence": "supplement/results.json",
+      "browserVersion": null
+    }
+  },
+  "notes": [
+    "This run tests the current uncommitted US07 upload-policy and BOPPPS copy fixes. The base Git commit alone does not identify this fixed artifact.",
+    "Sprint1 uses real Chrome and real HTTP/JWT/Spring/isolated MySQL. Requests are relayed to the ephemeral Spring test server; responses are not simulated.",
+    "Sprint3 and supplement use real Chrome against the newly packaged JAR, isolated MySQL and Redis.",
+    "Resource race regression uses Playwright route mocks. Real resource upload/versioning/revocation is separately checked in the Sprint3 stage.",
+    "The default 24-hour release delay is checked in the isolated database, then time is advanced for downstream UI checks; it is not a wall-clock 24-hour wait.",
+    "All accounts, PDF and H264 media in this run are synthetic fixtures."
+  ],
+  "sprint1Performance": {
+    "measuredAt": "2026-10-17T05:48:11.928Z",
+    "scope": "local HTTP + JWT + Spring + isolated MySQL; 20 sequential requests; no concurrency/load claim",
+    "environment": {
+      "os": "win32",
+      "node": "v24.14.1",
+      "mysql": "8.0.36",
+      "browser": "155.0.8059.80"
+    },
+    "data": {
+      "courses": 3,
+      "offerings": 3,
+      "teachers": 2,
+      "students": 95,
+      "majors": 2
+    },
+    "milliseconds": [
+      27.686499999999796,
+      29.67870000000039,
+      30.18159999999989,
+      25.14979999999923,
+      24.124700000000303,
+      35.05029999999897,
+      31.72060000000056,
+      23.196100000001024,
+      37.649100000000544,
+      46.10230000000047,
+      32.40099999999984,
+      27.0012999999999,
+      34.466599999999744,
+      32.933899999999994,
+      30.598799999999756,
+      33.76850000000013,
+      41.467099999999846,
+      40.3075000000008,
+      41.973799999999756,
+      35.76340000000164
+    ],
+    "median": 32.933899999999994,
+    "p95": 41.973799999999756,
+    "min": 23.196100000001024,
+    "max": 46.10230000000047
+  },
+  "cleanup": {
+    "checkedAt": "2026-10-17T13:50:35.0944539+08:00",
+    "dedicatedPorts": [
+      13316,
+      13317,
+      13319,
+      16319,
+      15179,
+      18089
+    ],
+    "remainingListeners": [],
+    "remainingContainers": [],
+    "clean": true
+  }
+}

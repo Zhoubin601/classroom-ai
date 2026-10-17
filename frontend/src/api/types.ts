@@ -5,6 +5,11 @@ export interface ApiResponse<T> {
   timestamp: number
 }
 
+export interface ResourceUploadPolicy {
+  maxFileBytes: number
+  allowedExtensions: string[]
+}
+
 export interface DashboardOverviewVO {
   totalRegistered: number
   currentPresent: number

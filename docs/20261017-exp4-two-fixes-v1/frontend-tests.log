@@ -1,0 +1,39 @@
+
+> classroom-ai-frontend@1.0.0 test
+> node --test tests/*.test.mjs
+
+✔ student id must not escape file directories (1.2527ms)
+✔ upload route prevents traversal and non-image reads (0.3471ms)
+✔ missing executable rejects without crashing the dev server (13.2895ms)
+✔ nonzero extraction exit is failure, zero is success (121.2309ms)
+✔ webcam verification launches vision script and cleans its shared upload (67.2659ms)
+✔ local face adapters verify backend role and reject before spawning or writing (0.6193ms)
+✔ camera adapter forwards auth and validates active offering before starting hardware (0.453ms)
+✔ camera lifecycle endpoints require authentication and never reuse public local video (0.3624ms)
+✔ stop fences an authenticated start still waiting for offering validation (0.8874ms)
+✔ valid decimal templates sum exactly in thousandths (1.1237ms)
+✔ caller and session cancellation both reach the transport (0.2499ms)
+✔ settled requests detach their cancellation listeners (0.7508ms)
+✔ camera polling delay cancels immediately and also completes normally (2.5583ms)
+✔ lookup stream uses a fraction, including empty classrooms (0.5105ms)
+✔ selected offering recalculates absence and attendance together (0.1228ms)
+✔ navigation is blocked by cancellation, failed save or new edit (0.7586ms)
+✔ partial saves are retained and all dirty editors must resolve (0.1657ms)
+✔ duplicate navigation and auth expiry invalidate pending save (0.1457ms)
+✔ grid keyboard has no wrap and incomplete rows select last item (0.1615ms)
+✔ save lock blocks navigation and old releases cannot unlock a new session (0.1551ms)
+✔ increased policy permits a 101 MiB file and includes its exact upper boundary (1.3027ms)
+✔ lowered PDF-only policy rejects wrong formats and one-byte overflow (0.1494ms)
+✔ missing or malformed policy cannot silently fall back to a fixed limit (0.3041ms)
+✔ limit label preserves exact byte values for small configured limits (0.0715ms)
+✔ HTTP 200 business failures reject and preserve backend details (0.7127ms)
+✔ successful empty responses remain valid (0.1019ms)
+✔ HTTP errors preserve response metadata and readable business message (0.1857ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 281.4064
